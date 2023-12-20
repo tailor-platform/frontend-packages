@@ -1,5 +1,5 @@
 {
-  "name": "frontend-packages",
+  "name": "@tailor-platform/frontend-packages",
   "private": true,
   "scripts": {
     "build": "find packages -type d -name dist -exec rm -rf {} +; turbo run build",

@@ -24,5 +24,6 @@ jobs:
       - check-existing-release
       - make-release-if-needed
     uses: ./.github/workflows/publish_npm_package.yml
+    secrets: inherit
     with:
       package_name: datagrid
