@@ -433,8 +433,8 @@ importers:
         specifier: ^5.5.0
         version: 5.5.0
       '@datadog/browser-rum-core':
-        specifier: ^5.4.0
-        version: 5.4.0
+        specifier: ^5.5.1
+        version: 5.5.1
     devDependencies:
       '@swc/core':
         specifier: ^1.3.100
@@ -2304,16 +2304,20 @@ packages:
     resolution: {integrity: sha512-orkbetqiXBrF3r9/WImwJG32tEtNjx2hfP7cyBvPw5qhdjOHkl87IdrKqELaadIAc7Tjgmn38TWccSmcRa1rVw==}
     dev: false
 
-  /@datadog/browser-rum-core@5.4.0:
-    resolution: {integrity: sha512-K5+VDmumSeRe5/gkyb8QDVAv65SLyyVQUTyHwwOJBMwC8k3wOr4oEOVgnez1rtFQp4xKatqod1eIf93GJacSuQ==}
-    dependencies:
-      '@datadog/browser-core': 5.4.0
+  /@datadog/browser-core@5.5.1:
+    resolution: {integrity: sha512-dOzCmh8JDDadSHlzErTt0pQuLZ0HKSRq3lWvL3ilTluc/DZ5akbea0RBpwbxZtog+xYVxHR7hS/EfQ9lt2N09w==}
     dev: false
 
   /@datadog/browser-rum-core@5.5.0:
     resolution: {integrity: sha512-VWI91gwKYTGMycpN5a8kgJ/YCdcnvYAhU2uk6HbTLNg2xj4368FyOdSFOQgQzBvmM323AFS+G0v5u+eQgtNgfQ==}
     dependencies:
       '@datadog/browser-core': 5.5.0
+    dev: false
+
+  /@datadog/browser-rum-core@5.5.1:
+    resolution: {integrity: sha512-8B5sRDvu/mcpiTNLVhFJ/+RxYY2fB/dzsFkDXgw/cze6wskhC3XmqcsOrCDPv0+6ORL7DgLHSp+KpJqqdLfVBw==}
+    dependencies:
+      '@datadog/browser-core': 5.5.1
     dev: false
 
   /@datadog/browser-rum@5.5.0:
