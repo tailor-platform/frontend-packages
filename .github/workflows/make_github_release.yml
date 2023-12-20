@@ -1,0 +1,56 @@
+name: make github release
+
+on:
+  workflow_call:
+    inputs:
+      package_name:
+        type: string
+        required: true
+        description: The name of the package.
+      cc_name:
+        type: string
+        description: |-
+          The Conventional Commit name used for this package.
+          Fallbacks to the package name if not provided.
+      tag:
+        type: string
+        required: true
+        description: The tag that should be created.
+
+permissions:
+  contents: write
+
+jobs:
+  make-github-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Get previous tag
+        id: get-previous-tag
+        run: |
+          echo "tag<<EOF" >> $GITHUB_OUTPUT
+          curl -sS -X GET \
+           -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+           https://api.github.com/repos/${{ github.repository }}/releases | \
+          jq '.[].tag_name | select(startswith("${{ inputs.package_name }}"))' | sort | tail -n 1 >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+      - name: Generate release notes
+        id: generate-release-notes
+        run: |
+          curl -sS -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -d "{ \"previous_tag_name\": \"${{ steps.get-previous-tag.outputs.tag }}\", \"tag_name\": \"${{ inputs.tag }}\" }" \
+           https://api.github.com/repos/${{ github.repository }}/releases/generate-notes  | jq .body > $HOME/release_notes.md
+      - name: Filter release notes
+        id: filter-release-notes
+        run: |
+          echo "notes<<EOF" >> $GITHUB_OUTPUT
+          cat $HOME/release_notes.md | jq -r . | awk '!/\([^()]*\):/ || /\(${{ inputs.cc_name || inputs.package_name }}\)/ || /\(deps(-dev)?\)/' | jq -sR | sed 's/"//g' >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+      - name: Create Release
+        run: |
+          curl -sS -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -d "{ \"tag_name\": \"${{ inputs.tag }}\", \"name\": \"${{ inputs.tag }}\", \"body\": \"${{ steps.filter-release-notes.outputs.notes }}\" }" \
+            https://api.github.com/repos/${{ github.repository }}/releases

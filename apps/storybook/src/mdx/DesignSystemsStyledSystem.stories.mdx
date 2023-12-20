@@ -1,0 +1,98 @@
+import { Meta, Story, ArgsTable, Canvas } from '@storybook/addon-docs';
+
+<Meta
+  title="Getting Started/design-systems | styled-system"
+  parameters={{
+    docs: {
+      source: {
+        code: null,
+      },
+    },
+  }}
+/>
+
+# design-systems & styled-system
+
+`@tailor-platform/design-systems` is built on top of [@pandacss/dev](https://panda-css.com), providing a set of default import paths frequently used during application development.
+
+## Introduction
+
+While developing applications, these four importing paths are frequently used:
+
+- @tailor-platform/design-systems
+- @tailor-platform/styled-system/jsx
+- @tailor-platform/styled-system/css
+- @tailor-platform/styled-system/recipes
+
+## @tailor-platform/design-systems
+
+Custom components built by us using `@pandacss/dev` and `@ark-ui/react`. Ark UI is an open-source UI component library designed to make building high-quality, accessible web applications easier.
+[Learn more](https://ark-ui.com/docs/overview/introduction).
+
+```jsx
+import { Avatar } from "@tailor-platform/design-systems";
+```
+
+## @tailor-platform/styled-system/jsx
+
+Layout primitives can be used to create robust and responsive layouts with ease. Panda comes with predefined patterns like stack, hstack, vstack, wrap, etc. [Learn more](https://panda-css.com/docs/concepts/patterns).
+
+```jsx
+import { Box, Container, Circle, VStack } from "@tailor-platform/styled-system/jsx";
+```
+
+
+## @tailor-platform/styled-system/css
+
+Using the object syntax is a fundamental approach to writing styles in Panda. It provides a type-safe style authoring experience, improves readability, and ensures a consistent experience with style overrides.
+[Learn more](https://panda-css.com/docs/concepts/writing-styles).
+
+```jsx
+import { css } from "@tailor-platform/styled-system/css";
+
+const styles = css({
+  fontSize: '13px',
+  padding: '10px 15px'
+})
+
+<div className={styles}>
+  <p>Hello World</p>
+</div>
+```
+
+## @tailor-platform/styled-system/recipes
+
+Panda provides a way to write CSS-in-JS with better performance, developer experience, and composability. One of its key features is the ability to create multi-variant styles with a type-safe runtime API.
+[Learn more](https://panda-css.com/docs/concepts/recipes).
+
+```jsx
+import { defineRecipe } from "@pandacss/dev";
+
+const button = defineRecipe({
+  base: {
+    display: 'flex'
+  },
+  variants: {
+    visual: {
+      solid: { bg: 'red.200', color: 'white' },
+      outline: { borderWidth: '1px', borderColor: 'red.200' }
+    },
+    size: {
+      sm: { padding: '4', fontSize: '12px' },
+      lg: { padding: '8', fontSize: '24px' }
+    }
+  }
+});
+```
+
+```jsx
+import { button } from '@tailor-platform/styled-system/recipes'
+
+const Button = () => {
+  return (
+    <button className={button({ visual: 'solid', size: 'lg' })}>
+      Click Me
+    </button>
+  )
+}
+```

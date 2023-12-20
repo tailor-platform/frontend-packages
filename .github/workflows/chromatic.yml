@@ -1,0 +1,32 @@
+name: Chromatic Deployment
+
+on:
+  push:
+    paths:
+      - apps/storybook/**
+      - packages/design-systems/**
+      - packages/datagrid/**
+      - .github/workflows/chromatic.yml
+      - .github/actions/ci/action.yml
+
+jobs:
+  publish-to-chromatic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+
+      - uses: ./.github/actions/install_and_build
+        with:
+          scope: storybook
+
+      - name: Publish storybook to chromatic
+        run: pnpm run chromatic
+        working-directory: ./apps/storybook
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}

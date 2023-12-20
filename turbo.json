@@ -1,0 +1,44 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [
+    "**/.env.*local"
+  ],
+  "pipeline": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "dist/**",
+        "storybook-static/**"
+      ]
+    },
+    "lint": {
+      "env": [
+        "NEXT_PUBLIC_DOMAIN",
+        "TZ"
+      ],
+      "passThroughEnv": [
+        "NEXT_PUBLIC_VERCEL_ENV",
+        "NEXT_PUBLIC_DATADOG_RUM_APPLICATION_ID",
+        "NEXT_PUBLIC_DATADOG_RUM_CLIENT_TOKEN",
+        "NEXT_PUBLIC_DATADOG_RUM_SERVICE",
+        "NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA"
+      ]
+    },
+    "type-check": {},
+    "publish:dev": {
+      "outputs": []
+    },
+    "publish:dev:watch": {
+      "outputs": [
+        "./dist"
+      ]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "test": {}
+  }
+}

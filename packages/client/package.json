@@ -1,0 +1,57 @@
+{
+  "name": "@tailor-platform/client",
+  "version": "0.4.0",
+  "private": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist/**"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": "https://github.com/tailor-platform/frontend-packages",
+  "scripts": {
+    "build": "tsup index.tsx --format cjs,esm --dts --external react",
+    "dev": "pnpm run build -- --watch",
+    "lint": "eslint '**/*.{ts,tsx}' --ignore-pattern 'dist/*' --max-warnings=0",
+    "test": "vitest run --reporter verbose",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "type-check": "tsc --noEmit --incremental --pretty",
+    "publish:dev": "pnpm run build && yalc push --sig",
+    "publish:dev:watch": "nodemon -e ts,tsx -w ./lib -x 'rm -rf ./dist && pnpm run publish:dev'"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.8.8",
+    "graphql": "^16.8.1"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.3.100",
+    "@tailor-platform/dev-config": "workspace:*",
+    "@testing-library/react": "^14.1.2",
+    "@testing-library/user-event": "^14.5.1",
+    "@types/node": "^18.16.16",
+    "@types/react": "^18.2.42",
+    "@types/react-dom": "^18.2.17",
+    "@typescript-eslint/eslint-plugin": "^6.13.2",
+    "@typescript-eslint/parser": "^6.13.2",
+    "@vitejs/plugin-react": "^4.2.1",
+    "cross-fetch": "^4.0.0",
+    "eslint": "^8.55.0",
+    "jsdom": "^23.0.1",
+    "msw": "^2.0.10",
+    "react": "^18.2.0",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3",
+    "vitest": "^1.0.2"
+  },
+  "prettier": "@tailor-platform/dev-config/prettier"
+}

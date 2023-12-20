@@ -1,0 +1,26 @@
+name: Code check
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  lint_type_format_check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          clean: true
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - uses: ./.github/actions/install_and_build
+        with:
+          scope: "*"
+
+      - name: Code check apps
+        run: pnpm run code-check:all:ci

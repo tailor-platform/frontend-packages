@@ -1,0 +1,21 @@
+name: run tests
+
+inputs:
+  package:
+    required: true
+    description: target package to build and test
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v3
+      with:
+        node-version: "18.x"
+
+    - uses: ./.github/actions/install_and_build
+      with:
+        scope: ${{ inputs.package }}
+
+    - run: pnpm run test --filter ${{ inputs.package }}
+      shell: bash
+

@@ -1,0 +1,17 @@
+name: oidc-client package CI
+
+on:
+  push:
+    paths:
+      - packages/oidc-client/**
+      - .github/workflows/test_package_client.yml
+      - .github/actions/ci/action.yml
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/ci
+        with:
+          package: "@tailor-platform/oidc-client"

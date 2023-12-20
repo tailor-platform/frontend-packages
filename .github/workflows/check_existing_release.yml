@@ -1,0 +1,43 @@
+name: check existing package
+
+on:
+  workflow_call:
+    inputs:
+      package_name:
+        type: string
+        required: true
+        description: "the name of the package"
+    outputs:
+      tag_exists:
+        description: "whether a release needs to be created"
+        value: ${{ jobs.run-check.outputs.tag_exists }}
+      tag:
+        description: "the tag that should be created"
+        value: ${{ jobs.run-check.outputs.tag }}
+
+permissions:
+  contents: read
+
+jobs:
+  run-check:
+    runs-on: ubuntu-latest
+    outputs:
+      tag_exists: ${{ steps.check-tag.outputs.exists }}
+      tag: "${{ inputs.package_name }}/${{ steps.extract-version.outputs.version }}"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Read JSON file
+        id: read-json
+        run: | # read JSON file without having to handle escaping newlines etc.
+          echo "package<<EOF" >> $GITHUB_OUTPUT
+          cat ./packages/${{ inputs.package_name }}/package.json >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+      - name: Extract version
+        id: extract-version
+        run: echo "version=${{fromJson(steps.read-json.outputs.package).version}}" >> $GITHUB_OUTPUT
+      - name: Check tag presence
+        uses: mukunku/tag-exists-action@78009d2b13e10ba051fe68d8d2f6778a9b2adab3 # v1.4.0
+        id: check-tag
+        with:
+          tag: "${{ inputs.package_name }}/${{ steps.extract-version.outputs.version }}"

@@ -1,0 +1,33 @@
+{
+  "name": "@tailor-platform/dev-config",
+  "description": "Common package that hosts the rules for ESLint, Prettier and TypeScript.",
+  "version": "0.3.0",
+  "private": false,
+  "scripts": {
+    "build": "exit 0",
+    "publish:dev": "pnpm run build && yalc push --sig",
+    "publish:dev:watch": "nodemon -e ts,tsx -w ./src -x 'rm -rf ./dist && pnpm run publish:dev'"
+  },
+  "exports": {
+    "./typescript/base": "./typescript/base.json",
+    "./typescript/nextjs": "./typescript/nextjs.json",
+    "./typescript/react-library": "./typescript/react-library.json",
+    "./eslint": "./eslint/eslintrc.js",
+    "./prettier": "./prettier/index.js"
+  },
+  "repository": "https://github.com/tailor-platform/frontend-packages",
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.7.5",
+    "@typescript-eslint/parser": "^6.2.1",
+    "eslint": "^8.42.0",
+    "eslint-config-next": "^13.4.8",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-turbo": "^1.11.1",
+    "eslint-plugin-prefer-arrow-functions": "^3.2.4",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-testing-library": "^6.2.0",
+    "eslint-plugin-todo-comment": "^1.1.0",
+    "eslint-plugin-vitest": "^0.3.16",
+    "eslint-plugin-vitest-globals": "^1.4.0"
+  }
+}

@@ -1,0 +1,35 @@
+name: publish npm package
+
+on:
+  workflow_call:
+    inputs:
+      package_name:
+        type: string
+        required: true
+        description: the name of the package
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish-npm-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+
+      - uses: ./.github/actions/install_and_build
+        with:
+          scope: "@tailor-platform/${{ inputs.package_name }}"
+
+      - name: Config pnpm
+        run: pnpm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - run: pnpm publish --access public --no-git-checks
+        working-directory: ./packages/${{ inputs.package_name }}

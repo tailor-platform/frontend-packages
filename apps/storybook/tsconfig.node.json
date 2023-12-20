@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "baseUrl": [
+        "."
+      ],
+      "@*": [
+        "./src/*"
+      ],
+      "@tailor-platform/styled-system/*": [
+        "./node_modules/@tailor-platform/styled-system/*"
+      ]
+    }
+  },
+  "include": [
+    "vite.config.ts",
+    "vite-env.d.ts"
+  ]
+}

@@ -1,0 +1,60 @@
+import { Meta, Story, ArgsTable, Canvas } from '@storybook/addon-docs';
+
+<Meta
+  title="Getting Started/ark-ui"
+  parameters={{
+    docs: {
+      source: {
+        code: null,
+      },
+    },
+  }}
+/>
+
+# ark-ui
+
+Ark UI is a headless library for reusable, scalable Design Systems. See examples on the [Ark UI website](https://ark-ui.com).
+
+## General Usage
+
+Follow these steps to use Ark UI:
+
+### Step 1: Import Components
+
+Ark UI's components are modular. Import components directly from the top level for efficient tree-shaking:
+
+```jsx
+import {
+  Slider,
+  SliderLabel,
+  SliderControl,
+  SliderThumb,
+  SliderTrack,
+  SliderRange,
+} from '@ark-ui/react'
+```
+
+Then, use them in the application:
+
+```jsx
+export const MySlider = () => (
+  <Slider>
+    <SliderLabel>Label</SliderLabel>
+    <SliderControl>
+      <SliderTrack>
+        <SliderRange />
+      </SliderTrack>
+      <SliderThumb />
+    </SliderControl>
+  </Slider>
+)
+```
+
+### Step 2: Style Your Component
+
+Ark UI is headless, and styling is easily customized. To style components, consider these recommendations:
+
+- Use [@tailor-platform/styled-system/recipes](/docs/getting-started-design-systems-styled-system--docs#tailor-platformstyled-systemrecipes) for custom shared UI components.
+- Use [style props](https://panda-css.com/docs/concepts/style-props) for JSX Elements from `@tailor-platform/styled-system/jsx`.
+- Use [@tailor-platform/styled-system/css](/docs/getting-started-design-systems-styled-system--docs#tailor-platformstyled-systemcss) for native HTML elements.
+

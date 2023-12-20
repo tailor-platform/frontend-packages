@@ -1,0 +1,12 @@
+{
+  "extends": "@tailor-platform/dev-config/typescript/base",
+  "compilerOptions": {
+    "lib": ["es2017", "dom"],
+    "target": "es5",
+    "types": ["vitest/globals"],
+    "moduleResolution": "nodenext",
+    "module": "NodeNext",
+  },
+  "include": ["."],
+  "exclude": ["dist", "build", "node_modules"]
+}
