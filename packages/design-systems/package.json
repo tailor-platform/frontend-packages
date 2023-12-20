@@ -20,9 +20,6 @@
   "files": [
     "dist/**"
   ],
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "repository": "https://github.com/tailor-platform/frontend-packages",
   "scripts": {
     "build": "tsup --entry src/index.tsx --entry src/client.tsx --entry src/theme.tsx --format cjs,esm --dts --external react",

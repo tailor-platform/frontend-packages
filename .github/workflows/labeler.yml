@@ -12,13 +12,6 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      - name: Get GitHub access token
-        id: get_access_token
-        uses: tailor-inc/github-actions/get-ghe-access-token@main
-        with:
-          app-id: ${{ secrets.TAILOR_GITHUB_APP_ID }}
-          app-installation-id: ${{ secrets.TAILOR_GITHUB_APP_INSTALLATION_ID }}
-          app-private-key: ${{ secrets.TAILOR_GITHUB_APP_PRIVATE_KEY }}
       - name: Add labels
         uses: release-drafter/release-drafter@65c5fb495d1e69aa8c08a3317bc44ff8aabe9772 # v5.24.0
         with:
@@ -26,4 +19,4 @@ jobs:
           # See https://github.com/release-drafter/release-drafter/issues/1216#issuecomment-1235291851
           disable-releaser: true
         env:
-          GITHUB_TOKEN: ${{ steps.get_access_token.outputs.access_token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
