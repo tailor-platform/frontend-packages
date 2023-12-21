@@ -1,8 +1,6 @@
 {
   "extends": "@tailor-platform/dev-config/typescript/react-library",
   "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "Node",
     "target": "es6",
     "lib": [
       "es2017",

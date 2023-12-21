@@ -14,8 +14,8 @@
     "preserveWatchOutput": true,
     "skipLibCheck": true,
     "strict": true,
-    "moduleResolution": "NodeNext",
-    "module": "NodeNext"
+    "module": "ESNext",
+    "moduleResolution": "Node"
   },
   "exclude": ["node_modules"]
 }
