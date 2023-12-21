@@ -4,7 +4,7 @@ export const tailorTime = (arg1: Date | string | number, arg2?: number) => {
   return new TailorTime(arg1, arg2);
 };
 
-class TailorTime {
+export class TailorTime {
   public time: TailorGqlTime | undefined;
 
   constructor(arg1: Date | string | number, arg2?: number) {

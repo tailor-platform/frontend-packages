@@ -12,7 +12,7 @@ const ISOPattern =
   /^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2}))$/;
 const yyyymmddPattern = /^(?<year>\d{4})(?<month>\d{2})(?<day>\d{2})$/;
 
-class TailorDate {
+export class TailorDate {
   public date: TailorGqlDate | undefined;
 
   constructor(arg1: Date | number | string, arg2?: number, arg3?: number) {
