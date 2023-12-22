@@ -116,3 +116,6 @@ export const lastDayOfMonth = (date: TailorGqlDate): TailorGqlDate => {
     .toString()
     .padStart(2, "0")}` as TailorGqlDate;
 };
+
+export type TailorDate = ReturnType<typeof toTailorDate>;
+export type TailorTime = ReturnType<typeof toTailorTime>;
