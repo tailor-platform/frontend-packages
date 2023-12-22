@@ -1,6 +1,6 @@
 {
   "name": "@tailor-platform/utils",
-  "version": "0.3.0-preview.1",
+  "version": "0.3.0-preview.2",
   "private": false,
   "exports": {
     "./date": {
