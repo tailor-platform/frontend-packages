@@ -15,7 +15,7 @@ module.exports = {
     ".eslintrc.js",
     "package.json",
     "tsconfig.json",
-    "*.generated.ts",
+    "tsconfig.tsbuildinfo",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
