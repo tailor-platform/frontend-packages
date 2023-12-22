@@ -24,8 +24,7 @@
         "name": "next"
       }
     ],
-    "moduleResolution": "NodeNext",
-    "module": "NodeNext"
+    "moduleResolution": "Bundler"
   },
   "include": ["src", "next-env.d.ts"],
   "exclude": ["node_modules"]
