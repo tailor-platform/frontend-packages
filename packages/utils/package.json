@@ -6,14 +6,17 @@
     "./date": {
       "types": "./dist/date.d.ts",
       "import": "./dist/date.mjs",
-      "require": "./dist/date.d.js",
-      "module": "./dist/date.js"
+      "default": "./dist/date.js"
     },
     "./time": {
       "types": "./dist/time.d.ts",
       "import": "./dist/time.mjs",
-      "require": "./dist/time.d.js",
-      "module": "./dist/time.js"
+      "default": "./dist/time.js"
+    },
+    "./legacy": {
+      "types": "./dist/legacy.d.ts",
+      "import": "./dist/legacy.mjs",
+      "default": "./dist/legacy.js"
     }
   },
   "files": [
