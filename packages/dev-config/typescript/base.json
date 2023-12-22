@@ -15,7 +15,7 @@
     "skipLibCheck": true,
     "strict": true,
     "module": "ESNext",
-    "moduleResolution": "Node"
+    "moduleResolution": "Bundler"
   },
   "exclude": ["node_modules"]
 }
