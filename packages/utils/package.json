@@ -1,19 +1,22 @@
 {
   "name": "@tailor-platform/utils",
-  "version": "0.2.0",
+  "version": "0.3.0-preview.2",
   "private": false,
   "exports": {
     "./date": {
       "types": "./dist/date.d.ts",
       "import": "./dist/date.mjs",
-      "require": "./dist/date.d.js",
-      "module": "./dist/date.js"
+      "default": "./dist/date.js"
     },
     "./time": {
       "types": "./dist/time.d.ts",
       "import": "./dist/time.mjs",
-      "require": "./dist/time.d.js",
-      "module": "./dist/time.js"
+      "default": "./dist/time.js"
+    },
+    "./legacy": {
+      "types": "./dist/legacy.d.ts",
+      "import": "./dist/legacy.mjs",
+      "default": "./dist/legacy.js"
     }
   },
   "files": [
@@ -21,7 +24,7 @@
   ],
   "repository": "https://github.com/tailor-platform/frontend-packages",
   "scripts": {
-    "build": "tsup --entry.date src/date/index.ts --entry.time src/time/index.ts --format cjs,esm --dts",
+    "build": "tsup --entry.date src/date/index.ts --entry.time src/time/index.ts --entry.legacy src/legacy/index.ts --format cjs,esm --dts",
     "dev": "pnpm run build -- --watch",
     "lint": "eslint '**/*.{ts,tsx}' --ignore-pattern 'dist/*' --max-warnings=0",
     "test": "vitest run",
