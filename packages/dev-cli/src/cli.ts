@@ -40,7 +40,7 @@ export const runCLI = async (argv?: readonly string[]) => {
     .option(
       "--tailorctl-version <version>",
       "tailorctl version to download",
-      "v0.7.7"
+      "v0.7.8"
     )
     .option(
       "--cuelang-version <version>",
