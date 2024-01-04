@@ -11,14 +11,16 @@ export const cuelangBinary: PathResolver = () => path.join(cuelangDir, "cue");
 export const tailorctlBinary: PathResolver = () =>
   path.join(tailorctlDir, "tailorctl");
 
+export type SpawnCallback = {
+  onStdoutReceived?: (value: string) => void;
+  onExited?: (value: number | null) => void;
+};
+
 // Promisified version of spawn
 export const spawnExecutable = (
   pathResolver: PathResolver,
   args: string[] = [],
-  cb?: {
-    onStdoutReceived?: (value: string) => void;
-    onExited?: (value: number | null) => void;
-  },
+  cb?: SpawnCallback,
   options?: {
     workindDirectory?: string;
   }
