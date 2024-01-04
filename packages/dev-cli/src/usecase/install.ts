@@ -17,7 +17,7 @@ export const installCmd = buildUsecase<InstallOpts>(
       const downloadTailorctl = async () => {
         const { packageName, promise } = deptools.downloadTailorctl(
           args.tailorctlVersion,
-          args.ghToken
+          args.ghToken,
         );
         downloadTailorctlSpinner.start(`Downloading ${packageName}`);
         return promise
@@ -28,7 +28,7 @@ export const installCmd = buildUsecase<InstallOpts>(
       const downloadCuelang = async () => {
         const { packageName, promise } = deptools.downloadCuelang(
           args.cuelangVersion,
-          args.ghToken
+          args.ghToken,
         );
         downloadCuelangSpinner.start(`Downloading ${packageName}`);
         return promise
@@ -40,5 +40,5 @@ export const installCmd = buildUsecase<InstallOpts>(
     } catch (e) {
       printError(e);
     }
-  }
+  },
 );
