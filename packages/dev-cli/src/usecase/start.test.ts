@@ -23,7 +23,7 @@ describe("start usecase", () => {
         env: "local",
         apply: true,
       },
-      mockConfig
+      mockConfig,
     );
 
     expect(mockDeps.resource.createComposeConfig).toHaveBeenCalledOnce();
@@ -40,7 +40,7 @@ describe("start usecase", () => {
         env: "local",
         apply: false,
       },
-      mockConfig
+      mockConfig,
     );
 
     expect(mockDeps.resource.createComposeConfig).toHaveBeenCalledOnce();
