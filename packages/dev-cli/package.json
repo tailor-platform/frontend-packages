@@ -11,14 +11,16 @@
   },
   "scripts": {
     "build": "tsup src/index.ts --format esm --loader \".eta=file\" --minify",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest --reporter verbose",
     "clean": "rm -rf dist"
   },
   "devDependencies": {
     "@types/node": "^20.10.5",
+    "memfs": "^4.6.0",
     "prettier": "^3.1.1",
     "tsup": "^8.0.1",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "vitest": "^1.0.2"
   },
   "dependencies": {
     "@commander-js/extra-typings": "^11.1.0",

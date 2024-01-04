@@ -1,30 +1,15 @@
-import { v2 as compose } from "docker-compose";
-import { rm, stat } from "fs/promises";
 import ora from "ora";
-import path from "path";
-import { getConfig } from "../support/config.js";
 import { printError } from "../support/error.js";
+import { buildUsecase } from "../support/usecase.js";
 
-export const resetCmd = async () => {
-  const resource = getConfig();
+export const resetCmd = buildUsecase(async ({ resource, dockerCompose }) => {
   const composeSpinner = ora("stopping local environment");
-  const resourcePath = path.join(".", ".tailordev");
-  const composePath = path.join(resourcePath, "compose.yaml");
 
   try {
-    const composeFileExists = await stat(composePath)
-      .then(() => true)
-      .catch(() => false);
-
-    if (composeFileExists) {
+    const composePath = await resource.existsComposeConfig();
+    if (composePath) {
       composeSpinner.start();
-      await compose.down({
-        config: composePath,
-        commandOptions: ["--volumes", "--remove-orphans"],
-        composeOptions: resource?.config.name
-          ? ["-p", resource.config.name]
-          : [],
-      });
+      await dockerCompose.down();
     }
     composeSpinner.succeed();
   } catch (e) {
@@ -36,14 +21,11 @@ export const resetCmd = async () => {
   const fileDeletingSpinner = ora("deleting generated files");
   try {
     fileDeletingSpinner.start();
-    await rm(resourcePath, {
-      recursive: true,
-      force: true,
-    });
+    await resource.deleteAll();
     fileDeletingSpinner.succeed();
   } catch (e) {
     fileDeletingSpinner.fail();
     printError(e);
     return;
   }
-};
+});
