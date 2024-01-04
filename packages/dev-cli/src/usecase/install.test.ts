@@ -16,15 +16,15 @@ test("install usecase", async () => {
       tailorctlVersion: "v9.9.1",
       cuelangVersion: "v9.9.2",
     },
-    mockConfig
+    mockConfig,
   );
 
   expect(mockDeps.deptools.downloadTailorctl).toHaveBeenCalledWith(
     "v9.9.1",
-    undefined
+    undefined,
   );
   expect(mockDeps.deptools.downloadCuelang).toHaveBeenCalledWith(
     "v9.9.2",
-    undefined
+    undefined,
   );
 });

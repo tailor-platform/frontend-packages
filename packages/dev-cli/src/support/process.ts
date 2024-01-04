@@ -23,7 +23,7 @@ export const spawnExecutable = (
   cb?: SpawnCallback,
   options?: {
     workindDirectory?: string;
-  }
+  },
 ): Promise<number> => {
   return new Promise((resolve, reject) => {
     const path = pathResolver();

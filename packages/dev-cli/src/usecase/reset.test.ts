@@ -17,7 +17,7 @@ describe("reset usecase", () => {
 
   test("run with docker-compose.yaml", async () => {
     vi.spyOn(mockDeps.resource, "existsComposeConfig").mockImplementationOnce(
-      () => Promise.resolve("compose.yml")
+      () => Promise.resolve("compose.yml"),
     );
 
     await runResetCmd(null, mockConfig);
@@ -28,7 +28,7 @@ describe("reset usecase", () => {
 
   test("run without docker-compose.yaml", async () => {
     vi.spyOn(mockDeps.resource, "existsComposeConfig").mockImplementationOnce(
-      () => Promise.resolve(undefined)
+      () => Promise.resolve(undefined),
     );
 
     await runResetCmd(null, mockConfig);

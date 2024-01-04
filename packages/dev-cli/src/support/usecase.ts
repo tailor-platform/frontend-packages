@@ -13,7 +13,7 @@ export type UsecaseDeps = {
   tailorctl: Tailorctl;
 };
 type Usecase<A> = (
-  deps: UsecaseDeps
+  deps: UsecaseDeps,
 ) => (args: A, config: Config | undefined) => Promise<void>;
 
 // Curried usecase builder to support pluggable adapters
@@ -23,8 +23,8 @@ export const buildUsecase =
       input: UsecaseDeps & {
         args: A;
         config: Config | undefined;
-      }
-    ) => Promise<void>
+      },
+    ) => Promise<void>,
   ): Usecase<A> =>
   (deps: UsecaseDeps) =>
   (args: A, config: Config | undefined) =>

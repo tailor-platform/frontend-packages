@@ -8,7 +8,7 @@ import { UsecaseDeps } from "../support/usecase.js";
 import { Config, ConfigContent } from "../support/config.js";
 
 export const buildMockConfig = (
-  overrides?: Partial<ConfigContent>
+  overrides?: Partial<ConfigContent>,
 ): Config => ({
   filePath: ".tailordevrc.json",
   config: {
