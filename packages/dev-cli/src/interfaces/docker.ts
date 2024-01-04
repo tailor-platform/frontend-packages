@@ -34,6 +34,6 @@ export const cliDockerComposeAdapter: DockerCompose = {
         callback: (chunk) => {
           callbacks?.onRunning && callbacks.onRunning(chunk.toString().trim());
         },
-      }
+      },
     ),
 };

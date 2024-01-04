@@ -31,7 +31,7 @@ export const startCmd = buildUsecase<StartOpts>(
         composeYaml({
           port: config?.config.port,
         }),
-        {}
+        {},
       );
       await resource.createComposeConfig(composeYamlFile);
 
@@ -71,8 +71,8 @@ export const startCmd = buildUsecase<StartOpts>(
     } else {
       console.log(chalk.bold.white("\nYour backend is now up and running!"));
       console.log(
-        `Hint: you can hit this with "--apply" to apply manifests at once on starting environment.`
+        `Hint: you can hit this with "--apply" to apply manifests at once on starting environment.`,
       );
     }
-  }
+  },
 );

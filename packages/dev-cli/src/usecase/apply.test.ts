@@ -28,7 +28,7 @@ describe("apply usecase", () => {
       {
         env: "local",
       },
-      emptyTargetMockConfig
+      emptyTargetMockConfig,
     );
 
     expect(mockDeps.tailorctl.sync).not.toHaveBeenCalled();
@@ -37,7 +37,7 @@ describe("apply usecase", () => {
     expect(mockDeps.resource.copyCueMod).not.toHaveBeenCalled();
     expect(mockDeps.dockerCompose.apply).not.toHaveBeenCalled();
     expect(errorLog).toHaveBeenCalledWith(
-      `Failed: ${NoTargetFileError.message}`
+      `Failed: ${NoTargetFileError.message}`,
     );
   });
 
@@ -48,7 +48,7 @@ describe("apply usecase", () => {
       {
         env: "local",
       },
-      mockConfig
+      mockConfig,
     );
 
     expect(mockDeps.tailorctl.sync).toHaveBeenCalledOnce();
@@ -69,7 +69,7 @@ describe("apply usecase", () => {
       {
         env: "local",
       },
-      multipleTargetMockConfig
+      multipleTargetMockConfig,
     );
 
     expect(mockDeps.tailorctl.sync).toHaveBeenCalledOnce();
@@ -78,17 +78,17 @@ describe("apply usecase", () => {
     expect(mockDeps.cuelang.eval).toHaveBeenNthCalledWith(
       1,
       "local",
-      "tailordb.cue"
+      "tailordb.cue",
     );
     expect(mockDeps.cuelang.eval).toHaveBeenNthCalledWith(
       2,
       "local",
-      "pipeline.cue"
+      "pipeline.cue",
     );
     expect(mockDeps.cuelang.eval).toHaveBeenNthCalledWith(
       3,
       "local",
-      "stateflow.cue"
+      "stateflow.cue",
     );
     expect(mockDeps.resource.copyCueMod).toHaveBeenCalledOnce();
     expect(mockDeps.dockerCompose.apply).toHaveBeenCalledOnce();
