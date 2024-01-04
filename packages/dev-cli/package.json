@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "tsup src/index.ts --format esm --loader \".eta=file\" --minify",
-    "test": "vitest --reporter verbose",
+    "test": "vitest run --reporter verbose",
     "clean": "rm -rf dist"
   },
   "devDependencies": {
