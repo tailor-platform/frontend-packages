@@ -1,3 +1,9 @@
+import { cliCuelangAdapter } from "./interfaces/cuelang.js";
+import { cliDeptoolsAdapter } from "./interfaces/deptools.js";
+import { cliDockerComposeAdapter } from "./interfaces/docker.js";
+import { cliResourceAdapter } from "./interfaces/resource.js";
+import { cliTailorctlAdapter } from "./interfaces/tailorctl.js";
+import { getConfig } from "./support/config.js";
 import { applyCmd } from "./usecase/apply.js";
 import { installCmd } from "./usecase/install.js";
 import { resetCmd } from "./usecase/reset.js";
@@ -7,32 +13,43 @@ import { uninstallCmd } from "./usecase/uninstall.js";
 export const runCLI = async (argv?: readonly string[]) => {
   const { Command } = await import("@commander-js/extra-typings");
   const program = new Command();
+  const deps = {
+    resource: cliResourceAdapter,
+    deptools: cliDeptoolsAdapter,
+    dockerCompose: cliDockerComposeAdapter,
+    cuelang: cliCuelangAdapter,
+    tailorctl: cliTailorctlAdapter,
+  };
 
   program
     .name("tailordev")
     .description("CLI for Tailor Platform application devs")
     .version("0.0.1");
 
+  const runResetCmd = resetCmd(deps);
   program
     .command("reset")
     .description("reset current state")
-    .action(async () => await resetCmd());
+    .action(() => runResetCmd(null, getConfig()));
 
+  const runStartCmd = startCmd(deps);
   program
     .command("start")
     .description("start local development environment")
     .option("--apply", "apply after starting up environment", false)
     .option("--env <value>", "enviroment to apply", "local")
-    .action(async (_, options) => await startCmd(options.opts()));
+    .action((_, options) => runStartCmd(options.opts(), getConfig()));
 
+  const runApplyCmd = applyCmd(deps);
   program
     .command("apply")
     .description("apply manifest onto local environment")
     .option("--env <value>", "environment to apply", "local")
-    .action(async (_, options) => {
-      await applyCmd(options.opts());
+    .action((_, options) => {
+      runApplyCmd(options.opts(), getConfig());
     });
 
+  const runInstallCmd = installCmd(deps);
   program
     .command("install:deps")
     .description("install required dependencies (tailorctl, cuelang)")
@@ -47,14 +64,15 @@ export const runCLI = async (argv?: readonly string[]) => {
       "cuelang version to download",
       "v0.7.0"
     )
-    .action(async (_, options) => {
-      await installCmd(options.opts());
+    .action((_, options) => {
+      runInstallCmd(options.opts(), getConfig());
     });
 
+  const runUninstallCmd = uninstallCmd(deps);
   program
     .command("uninstall:deps")
     .description("uninstall dependencies")
-    .action(async () => await uninstallCmd());
+    .action(() => runUninstallCmd(null, getConfig()));
 
   program.parse(argv);
 };
