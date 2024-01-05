@@ -3,12 +3,6 @@ import { cliResourceAdapter } from "./resource.js";
 import { Volume } from "memfs/lib/volume.js";
 
 const vol = new Volume();
-const initialDirectory = {
-  // "/home/test/cue.mod": null,
-  "/home/test/cue.mod/module.cue": "this is module.cue",
-};
-
-vol.fromJSON(initialDirectory);
 
 vi.mock("fs/promises", () => {
   return {
@@ -74,6 +68,8 @@ describe("resource", () => {
   test("deleteAll", async () => {
     await cliResourceAdapter.deleteAll();
 
-    expect(vol.toJSON()).toStrictEqual(initialDirectory);
+    expect(vol.toJSON()).toStrictEqual({
+      "/home/test": null,
+    });
   });
 });
