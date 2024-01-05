@@ -27,7 +27,7 @@ describe("resource", () => {
     expect(vol.toJSON()).toStrictEqual(
       expect.objectContaining({
         "/home/test/.tailordev/generated": null,
-      })
+      }),
     );
   });
 
@@ -37,7 +37,7 @@ describe("resource", () => {
     expect(vol.toJSON()).toStrictEqual(
       expect.objectContaining({
         "/home/test/.tailordev/compose.yaml": "this is compose content",
-      })
+      }),
     );
   });
 
@@ -48,7 +48,7 @@ describe("resource", () => {
       expect.objectContaining({
         "/home/test/.tailordev/db/init/0-minitailor-database.sql":
           "this is init SQL content",
-      })
+      }),
     );
   });
 
