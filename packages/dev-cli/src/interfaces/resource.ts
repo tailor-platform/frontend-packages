@@ -39,7 +39,7 @@ export const cliResourceAdapter: Resource = {
     await mkdirIfNothing(dbinitDir);
     await writeFile(
       path.join(dbinitDir, "0-minitailor-database.sql"),
-      content.trim()
+      content.trim(),
     );
   },
 };
