@@ -7,11 +7,11 @@ export type Deptools = {
   deleteAll: () => Promise<void>;
   downloadTailorctl: (
     version: string,
-    ghToken?: string
+    ghToken?: string,
   ) => { packageName: string; promise: Promise<void> };
   downloadCuelang: (
     version: string,
-    ghToken?: string
+    ghToken?: string,
   ) => { packageName: string; promise: Promise<void> };
 };
 
@@ -63,7 +63,7 @@ export const cliDeptoolsAdapter: Deptools = {
       },
       {
         headers: buildHeaders(ghToken),
-      }
+      },
     ),
   }),
   downloadCuelang: (version: string, ghToken?: string) => ({
@@ -76,7 +76,7 @@ export const cliDeptoolsAdapter: Deptools = {
         version,
         extract: true,
       },
-      { headers: buildHeaders(ghToken) }
+      { headers: buildHeaders(ghToken) },
     ),
   }),
 };
