@@ -1,4 +1,5 @@
 import { stat, rm, mkdir, cp, writeFile } from "fs/promises";
+import { cwd } from "node:process";
 import path from "path";
 
 export type Resource = {
@@ -10,7 +11,7 @@ export type Resource = {
   createInitSQL: (content: string) => Promise<void>;
 };
 
-const resourcePath = path.join(".", ".tailordev");
+const resourcePath = path.join(cwd(), ".tailordev");
 export const generatedPath = path.join(resourcePath, "generated");
 export const composePath = path.join(resourcePath, "compose.yaml");
 export const cliResourceAdapter: Resource = {
@@ -24,7 +25,7 @@ export const cliResourceAdapter: Resource = {
       .then(() => composePath)
       .catch(() => undefined),
   copyCueMod: () =>
-    cp(path.join(".", "cue.mod"), path.join(resourcePath, "cue.mod"), {
+    cp(path.join(cwd(), "cue.mod"), path.join(resourcePath, "cue.mod"), {
       recursive: true,
     }),
   createGeneratedDist: async () => await mkdirIfNothing(generatedPath),
@@ -38,7 +39,7 @@ export const cliResourceAdapter: Resource = {
     await mkdirIfNothing(dbinitDir);
     await writeFile(
       path.join(dbinitDir, "0-minitailor-database.sql"),
-      content.trim(),
+      content.trim()
     );
   },
 };
