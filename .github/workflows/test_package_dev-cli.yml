@@ -1,0 +1,17 @@
+name: dev-cli package CI
+
+on:
+  push:
+    paths:
+      - packages/dev-cli/**
+      - .github/workflows/test_package_dev-cli.yml
+      - .github/actions/ci/action.yml
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/ci
+        with:
+          package: "@tailor-platform/dev-cli"
