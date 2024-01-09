@@ -26,16 +26,18 @@ services:
     ports:
       - 8000:${options.port || defaultMinitailorPort}
     volumes:
-      - .:/root/backend
+      - ./.tailordev/cue.mod:/root/backend/cue.mod
+      - ./.tailordev/generated:/root/backend/generated
+      - ./manifest:/root/backend/manifest
     working_dir: /root/backend
     entrypoint: /root/app start
 
   db:
     image: postgres:13.5
     volumes:
-      - ./db/postgres:/var/lib/postgresql
-      - ./db/logs:/var/log
-      - ./db/init:/docker-entrypoint-initdb.d
+      - ./.tailordev/db/postgres:/var/lib/postgresql
+      - ./.tailordev/db/logs:/var/log
+      - ./.tailordev/db/init:/docker-entrypoint-initdb.d
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
