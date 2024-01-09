@@ -6,6 +6,7 @@ import { cliTailorctlAdapter } from "./interfaces/tailorctl.js";
 import { getConfig } from "./support/config.js";
 import { applyCmd } from "./usecase/apply.js";
 import { installCmd } from "./usecase/install.js";
+import { importCmd } from "./usecase/minitailor.js";
 import { resetCmd } from "./usecase/reset.js";
 import { startCmd } from "./usecase/start.js";
 import { uninstallCmd } from "./usecase/uninstall.js";
@@ -30,7 +31,8 @@ export const runCLI = async (argv?: readonly string[]) => {
   program
     .command("reset")
     .description("reset current state")
-    .action(() => runResetCmd(null, getConfig()));
+    .option("--only-stop", "only shutdown environment but keep files", false)
+    .action((_, options) => runResetCmd(options.opts(), getConfig()));
 
   const runStartCmd = startCmd(deps);
   program
@@ -49,6 +51,18 @@ export const runCLI = async (argv?: readonly string[]) => {
       runApplyCmd(options.opts(), getConfig());
     });
 
+  const runImportCmd = importCmd(deps);
+  program
+    .command("import")
+    .requiredOption("--host <value>", "target host")
+    .argument("<paths...>")
+    .description(
+      "import seed manifest (this needs minitailor running by `start` command)"
+    )
+    .action((paths, options) => {
+      runImportCmd({ paths, host: options.host }, getConfig());
+    });
+
   const runInstallCmd = installCmd(deps);
   program
     .command("install:deps")
@@ -57,12 +71,12 @@ export const runCLI = async (argv?: readonly string[]) => {
     .option(
       "--tailorctl-version <version>",
       "tailorctl version to download",
-      "v0.7.8",
+      "v0.7.8"
     )
     .option(
       "--cuelang-version <version>",
       "cuelang version to download",
-      "v0.7.0",
+      "v0.7.0"
     )
     .action((_, options) => {
       runInstallCmd(options.opts(), getConfig());
