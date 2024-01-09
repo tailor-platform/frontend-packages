@@ -17,10 +17,10 @@ describe("reset usecase", () => {
 
   test("run with docker-compose.yaml", async () => {
     vi.spyOn(mockDeps.resource, "existsComposeConfig").mockImplementationOnce(
-      () => Promise.resolve("compose.yml"),
+      () => Promise.resolve("compose.yml")
     );
 
-    await runResetCmd(null, mockConfig);
+    await runResetCmd({ onlyStop: false }, mockConfig);
 
     expect(mockDeps.dockerCompose.down).toHaveBeenCalledOnce();
     expect(mockDeps.resource.deleteAll).toHaveBeenCalledOnce();
@@ -28,10 +28,10 @@ describe("reset usecase", () => {
 
   test("run without docker-compose.yaml", async () => {
     vi.spyOn(mockDeps.resource, "existsComposeConfig").mockImplementationOnce(
-      () => Promise.resolve(undefined),
+      () => Promise.resolve(undefined)
     );
 
-    await runResetCmd(null, mockConfig);
+    await runResetCmd({ onlyStop: false }, mockConfig);
 
     expect(mockDeps.dockerCompose.down).not.toHaveBeenCalledOnce();
     expect(mockDeps.resource.deleteAll).toHaveBeenCalledOnce();
