@@ -30,7 +30,7 @@ export const runCLI = async (argv?: readonly string[]) => {
   const runResetCmd = resetCmd(deps);
   program
     .command("reset")
-    .description("reset current state")
+    .description("reset local environment")
     .option("--only-stop", "only shutdown environment but keep files", false)
     .action((_, options) => runResetCmd(options.opts(), getConfig()));
 
