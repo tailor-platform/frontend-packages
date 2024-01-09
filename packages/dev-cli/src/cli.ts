@@ -39,6 +39,7 @@ export const runCLI = async (argv?: readonly string[]) => {
     .command("start")
     .description("start local development environment")
     .option("--apply", "apply after starting up environment", false)
+    .option("--only-eval", "only evalute manifests", false)
     .option("--env <value>", "enviroment to apply", "local")
     .action((_, options) => runStartCmd(options.opts(), getConfig()));
 
@@ -46,6 +47,7 @@ export const runCLI = async (argv?: readonly string[]) => {
   program
     .command("apply")
     .description("apply manifest onto local environment")
+    .option("--only-eval", "only evaluate manifests", false)
     .option("--env <value>", "environment to apply", "local")
     .action((_, options) => {
       runApplyCmd(options.opts(), getConfig());
@@ -57,7 +59,7 @@ export const runCLI = async (argv?: readonly string[]) => {
     .requiredOption("--host <value>", "target host")
     .argument("<paths...>")
     .description(
-      "import seed manifest (this needs minitailor running by `start` command)",
+      "import seed manifest (this needs minitailor running by `start` command)"
     )
     .action((paths, options) => {
       runImportCmd({ paths, host: options.host }, getConfig());
@@ -71,12 +73,12 @@ export const runCLI = async (argv?: readonly string[]) => {
     .option(
       "--tailorctl-version <version>",
       "tailorctl version to download",
-      "v0.7.8",
+      "v0.7.8"
     )
     .option(
       "--cuelang-version <version>",
       "cuelang version to download",
-      "v0.7.0",
+      "v0.7.0"
     )
     .action((_, options) => {
       runInstallCmd(options.opts(), getConfig());

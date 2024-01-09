@@ -6,7 +6,10 @@ import { defaultMinitailorPort } from "../templates/compose.yaml.js";
 
 export const NoTargetFileError = new Error("no target file specified");
 
-export type ApplyOpts = { env: string };
+export type ApplyOpts = {
+  env: string;
+  onlyEval: boolean;
+};
 
 export const applyCmd = buildUsecase<ApplyOpts>(
   async ({ resource, dockerCompose, cuelang, tailorctl, args, config }) => {
@@ -43,7 +46,7 @@ export const applyCmd = buildUsecase<ApplyOpts>(
             compilingSpinner.fail();
             throw e;
           }
-        }),
+        })
       );
     } catch (e) {
       printError(e);
@@ -57,28 +60,30 @@ export const applyCmd = buildUsecase<ApplyOpts>(
       return;
     }
 
-    const applySpinner = ora("applying manifests");
-    try {
-      await dockerCompose.apply({
-        onRunning: (msg) => {
-          console.log(`${chalk.bold.yellow("[apply]")} ${msg}`);
-        },
-      });
+    if (!args.onlyEval) {
+      const applySpinner = ora("applying manifests");
+      try {
+        await dockerCompose.apply({
+          onRunning: (msg) => {
+            console.log(`${chalk.bold.yellow("[apply]")} ${msg}`);
+          },
+        });
 
-      applySpinner.succeed();
-    } catch (e) {
-      applySpinner.fail();
-      printError(e);
-      return;
+        applySpinner.succeed();
+      } catch (e) {
+        applySpinner.fail();
+        printError(e);
+        return;
+      }
+
+      console.log(
+        chalk.bold.white("\nHooray! Your backend is now up and running.")
+      );
+      console.log(
+        `Playground at: http://localhost:${
+          config?.config.port || defaultMinitailorPort
+        }/playground`
+      );
     }
-
-    console.log(
-      chalk.bold.white("\nHooray! Your backend is now up and running."),
-    );
-    console.log(
-      `Playground at: http://localhost:${
-        config?.config.port || defaultMinitailorPort
-      }/playground`,
-    );
-  },
+  }
 );
