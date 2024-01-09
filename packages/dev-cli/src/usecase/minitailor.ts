@@ -24,5 +24,5 @@ export const importCmd = buildUsecase<MinitailorRunOpts>(
         printError(e);
       }
     }
-  }
+  },
 );
