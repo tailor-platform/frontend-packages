@@ -39,7 +39,9 @@ const buildTailorctlPackageName = (version: string) => {
 };
 const buildCuelangPackageName = (version: string) => {
   const { type, arch } = normalizeOSInfo();
-  return `cue_${version}_${type}_${arch}.tar.gz`;
+  // Cuelang release uses amd64 as a name prefix so replace here with it...
+  const _arch = arch === "x86_64" ? "amd64" : arch;
+  return `cue_${version}_${type}_${_arch}.tar.gz`;
 };
 const buildHeaders = (token?: string) => ({
   authorization: token ? `bearer ${token}` : "",
