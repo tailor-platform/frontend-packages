@@ -57,7 +57,7 @@ export const runCLI = async (argv?: readonly string[]) => {
     .requiredOption("--host <value>", "target host")
     .argument("<paths...>")
     .description(
-      "import seed manifest (this needs minitailor running by `start` command)"
+      "import seed manifest (this needs minitailor running by `start` command)",
     )
     .action((paths, options) => {
       runImportCmd({ paths, host: options.host }, getConfig());
@@ -71,12 +71,12 @@ export const runCLI = async (argv?: readonly string[]) => {
     .option(
       "--tailorctl-version <version>",
       "tailorctl version to download",
-      "v0.7.8"
+      "v0.7.8",
     )
     .option(
       "--cuelang-version <version>",
       "cuelang version to download",
-      "v0.7.0"
+      "v0.7.0",
     )
     .action((_, options) => {
       runInstallCmd(options.opts(), getConfig());

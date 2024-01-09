@@ -13,10 +13,10 @@ export type DockerCompose = {
   import: (
     path: string,
     host: string,
-    callbacks: RunningCallbacks
+    callbacks: RunningCallbacks,
   ) => Promise<compose.IDockerComposeResult>;
   apply: (
-    callbacks?: RunningCallbacks
+    callbacks?: RunningCallbacks,
   ) => Promise<compose.IDockerComposeResult>;
 };
 
@@ -52,7 +52,7 @@ export const cliDockerComposeAdapter: DockerCompose = {
         callback: (chunk) => {
           callbacks?.onRunning && callbacks.onRunning(chunk.toString().trim());
         },
-      }
+      },
     );
   },
   apply: (callbacks) =>
@@ -65,6 +65,6 @@ export const cliDockerComposeAdapter: DockerCompose = {
         callback: (chunk) => {
           callbacks?.onRunning && callbacks.onRunning(chunk.toString().trim());
         },
-      }
+      },
     ),
 };
