@@ -6,6 +6,7 @@ With Tailor Platform dev CLI, you can:
 - start local devlopment stack, apply your manifest on it
 
 ## Table of Contents <!-- omit in toc -->
+
 - [Installation](#installation)
 - [Usage](#usage)
   - [1. Install dependencies](#1-install-dependencies)
