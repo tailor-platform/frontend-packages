@@ -5,14 +5,14 @@ import * as GithubRelease from "gh-release-fetch";
 
 export type Deptools = {
   deleteAll: () => Promise<void>;
-  downloadTailorctl: (
-    version: string,
-    ghToken?: string,
-  ) => { packageName: string; promise: Promise<void> };
-  downloadCuelang: (
-    version: string,
-    ghToken?: string,
-  ) => { packageName: string; promise: Promise<void> };
+  downloadTailorctl: (version: string) => {
+    packageName: string;
+    promise: Promise<void>;
+  };
+  downloadCuelang: (version: string) => {
+    packageName: string;
+    promise: Promise<void>;
+  };
 };
 
 const normalizeOSInfo = () => {
@@ -43,9 +43,6 @@ const buildCuelangPackageName = (version: string) => {
   const _arch = arch === "x86_64" ? "amd64" : arch;
   return `cue_${version}_${type}_${_arch}.tar.gz`;
 };
-const buildHeaders = (token?: string) => ({
-  authorization: token ? `bearer ${token}` : "",
-});
 
 export const cliDeptoolsAdapter: Deptools = {
   deleteAll: () =>
@@ -53,32 +50,24 @@ export const cliDeptoolsAdapter: Deptools = {
       recursive: true,
       force: true,
     }),
-  downloadTailorctl: (version: string, ghToken?: string) => ({
+  downloadTailorctl: (version: string) => ({
     packageName: buildTailorctlPackageName(version),
-    promise: GithubRelease.fetchLatest(
-      {
-        repository: "tailor-platform/tailorctl",
-        package: buildTailorctlPackageName(version),
-        destination: tailorctlDir,
-        version,
-        extract: true,
-      },
-      {
-        headers: buildHeaders(ghToken),
-      },
-    ),
+    promise: GithubRelease.fetchVersion({
+      repository: "tailor-platform/tailorctl",
+      package: buildTailorctlPackageName(version),
+      destination: tailorctlDir,
+      version,
+      extract: true,
+    }),
   }),
-  downloadCuelang: (version: string, ghToken?: string) => ({
+  downloadCuelang: (version: string) => ({
     packageName: buildCuelangPackageName(version),
-    promise: GithubRelease.fetchLatest(
-      {
-        repository: "cue-lang/cue",
-        package: buildCuelangPackageName(version),
-        destination: cuelangDir,
-        version,
-        extract: true,
-      },
-      { headers: buildHeaders(ghToken) },
-    ),
+    promise: GithubRelease.fetchVersion({
+      repository: "cue-lang/cue",
+      package: buildCuelangPackageName(version),
+      destination: cuelangDir,
+      version,
+      extract: true,
+    }),
   }),
 };
