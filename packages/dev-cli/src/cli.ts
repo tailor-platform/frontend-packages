@@ -69,7 +69,6 @@ export const runCLI = async (argv?: readonly string[]) => {
   program
     .command("install:deps")
     .description("install required dependencies (tailorctl, cuelang)")
-    .option("--gh-token <value>", "github token to download assets")
     .option(
       "--tailorctl-version <version>",
       "tailorctl version to download",
