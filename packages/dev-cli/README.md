@@ -11,6 +11,7 @@ With Tailor Platform dev CLI, you can:
     - [1. Install dependencies](#1-install-dependencies)
     - [2. Spin up local environment](#2-spin-up-local-environment)
     - [3. Apply your manifest](#3-apply-your-manifest)
+  - [Use as npm scripts](#use-as-npm-scripts)
 
 ## Installation
 ```
@@ -87,3 +88,20 @@ Run `npx tailordev apply` to apply your application manifest onto your local dev
 This also runs Cuelang evaluation (same as `cue eval`), and the evaluated files will be generated in `.tailordev/generated` with the same directory structure as the one you specified in `manifest` field in `.tailordevrc.json`.
 
 `apply` command supports `--env <value>` option to switch your manifest in evaluation. This internally works as [attributes in Cuelang](https://cuetorials.com/deep-dives/attributes/#cues-attributes), so you will be able to switch values in manifest files with `@if(<value>)`.
+
+## Use as npm scripts
+
+As tailordev CLI is built with Node.js, it will be good fit to have it in your package.json scripts.
+
+```json
+{
+  "scripts": {
+    // ...
+
+    "start:backend": "tailordev start",
+    "apply": "tailordev apply",
+    "reset": "tailordev reset",
+    "postinstall": "tailordev install:deps"
+  }
+}
+```
