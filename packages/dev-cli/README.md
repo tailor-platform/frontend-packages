@@ -2,10 +2,10 @@
 
 With Tailor Platform dev CLI, you can:
 
-* install required dependencies for building your own Tailor Platform apps
-* start local devlopment stack, apply your manifest on it
+- install required dependencies for building your own Tailor Platform apps
+- start local devlopment stack, apply your manifest on it
 
-- [@tailor-platform/dev-cli](#tailor-platformdev-cli)
+* [@tailor-platform/dev-cli](#tailor-platformdev-cli)
   - [Installation](#installation)
   - [Usage](#usage)
     - [1. Install dependencies](#1-install-dependencies)
@@ -14,6 +14,7 @@ With Tailor Platform dev CLI, you can:
   - [Use as npm scripts](#use-as-npm-scripts)
 
 ## Installation
+
 ```
 npm install -D @tailor-platform/dev-cli
 ```

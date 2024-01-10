@@ -30,14 +30,14 @@ export const runCLI = async (argv?: readonly string[]) => {
   const runResetCmd = resetCmd(deps);
   program
     .command("reset")
-    .description("reset local environment")
+    .description("reset local dev environment")
     .option("--only-stop", "only shutdown environment but keep files", false)
     .action((_, options) => runResetCmd(options.opts(), getConfig()));
 
   const runStartCmd = startCmd(deps);
   program
     .command("start")
-    .description("start local development environment")
+    .description("start local dev environment")
     .option("--apply", "apply after starting up environment", false)
     .option("--only-eval", "only evalute manifests", false)
     .option("--env <value>", "enviroment to apply", "local")
