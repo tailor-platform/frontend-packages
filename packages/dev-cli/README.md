@@ -5,7 +5,7 @@ With Tailor Platform dev CLI, you can:
 - install required dependencies for building your own Tailor Platform apps
 - start local devlopment stack, apply your manifest on it
 
-# Table of Contents <!-- omit in toc -->
+## Table of Contents <!-- omit in toc -->
 - [Installation](#installation)
 - [Usage](#usage)
   - [1. Install dependencies](#1-install-dependencies)
