@@ -1,5 +1,6 @@
 {
   "name": "@tailor-platform/dev-cli",
+  "description": "Tailor Platform CLI for frontend devs",
   "version": "0.1.0-preview.3",
   "private": false,
   "type": "module",
