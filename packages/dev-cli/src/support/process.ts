@@ -13,8 +13,19 @@ export const tailorctlBinary: PathResolver = () =>
 
 export type SpawnCallback = {
   onStdoutReceived?: (value: string) => void;
+  onStderrReceived?: (value: string) => void;
   onExited?: (value: number | null) => void;
 };
+
+export class SpawnProcessError extends Error {
+  constructor(
+    readonly code: number | null,
+    readonly errors: string[],
+  ) {
+    super(`process exited abnormally (code: ${code})`);
+    this.errors = errors;
+  }
+}
 
 // Promisified version of spawn
 export const spawnExecutable = (
@@ -30,9 +41,15 @@ export const spawnExecutable = (
     const process = spawn(path, args, {
       cwd: options?.workindDirectory,
     });
+    let errors: string[] = [];
 
     process.stdout.on("data", (value) => {
       cb?.onStdoutReceived && cb.onStdoutReceived(value.toString());
+    });
+
+    process.stderr.on("data", (value) => {
+      cb?.onStderrReceived && cb.onStderrReceived(value.toString());
+      errors.push(value.toString());
     });
 
     process.on("error", (err) => {
@@ -44,7 +61,7 @@ export const spawnExecutable = (
       if (code === 0) {
         resolve(code);
       } else {
-        reject(new Error(`command exited abnormally (code: ${code})`));
+        reject(new SpawnProcessError(code, errors));
       }
     });
   });
