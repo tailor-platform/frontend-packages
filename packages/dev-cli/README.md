@@ -17,7 +17,7 @@ With Tailor Platform dev CLI, you can:
 ## Installation
 
 ```
-npm install -D @tailor-platform/dev-cli
+npm install -D @tailor-platform/dev-cli@preview
 ```
 
 Once after your installation, `tailordev` command will be available.
