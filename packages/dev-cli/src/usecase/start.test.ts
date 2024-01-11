@@ -24,7 +24,7 @@ describe("start usecase", () => {
         apply: true,
         onlyEval: false,
       },
-      mockConfig
+      mockConfig,
     );
 
     expect(mockDeps.resource.createEmptyLogFile).toHaveBeenCalledOnce();
@@ -43,7 +43,7 @@ describe("start usecase", () => {
         apply: false,
         onlyEval: false,
       },
-      mockConfig
+      mockConfig,
     );
 
     expect(mockDeps.resource.createEmptyLogFile).toHaveBeenCalledOnce();
