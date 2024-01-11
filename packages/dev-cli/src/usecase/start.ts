@@ -7,7 +7,7 @@ import { createMinitailorDBSQL } from "../templates/0-minitailor-database.sql.js
 import { composeYaml } from "../templates/compose.yaml.js";
 import { ApplyOpts, applyCmd } from "./apply.js";
 
-type StartOpts = ApplyOpts & {
+type StartOpts = Omit<ApplyOpts, "onlyEval"> & {
   apply: boolean;
 };
 
@@ -66,7 +66,14 @@ export const startCmd = buildUsecase<StartOpts>(
           dockerCompose,
           cuelang,
           tailorctl,
-        })(args, config);
+        })(
+          {
+            // start command does not have to support --only-eval option
+            onlyEval: false,
+            env: args.env,
+          },
+          config,
+        );
       } catch (e) {
         printError(e);
         return;
