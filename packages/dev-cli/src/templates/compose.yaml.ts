@@ -7,11 +7,7 @@ services:
     image: asia-northeast1-docker.pkg.dev/tailor-professional-service/cmd/minitailor:latest
     command: /root/app db.migration
     depends_on:
-      migration:
-        condition: service_completed_successfully
       db:
-        condition: service_healthy
-      mongodb:
         condition: service_healthy
     environment:
       DB_HOST: db
@@ -20,8 +16,12 @@ services:
   minitailor:
     image: asia-northeast1-docker.pkg.dev/tailor-professional-service/cmd/minitailor:latest
     depends_on:
-      - migration
-      - mongodb
+      migration:
+        condition: service_completed_successfully
+      db:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
     environment:
       DB_HOST: db
       DB_PORT: 5432
