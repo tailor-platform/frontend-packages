@@ -33,6 +33,7 @@ services:
       - ./.tailordev/cue.mod:/root/backend/cue.mod
       - ./.tailordev/generated:/root/backend/generated
       - ./manifest:/root/backend/manifest
+      - ./minitailor.log:/root/backend/minitailor.log
     working_dir: /root/backend
     entrypoint: /root/app start
 
