@@ -2,6 +2,7 @@ import chalk from "chalk";
 import ora from "ora";
 import { printError } from "../support/error.js";
 import { buildUsecase } from "../support/usecase.js";
+import { SpawnProcessError } from "../support/process.js";
 
 export const NoTargetFileError = new Error("no target file specified");
 
@@ -41,9 +42,13 @@ export const applyCmd = buildUsecase<ApplyOpts>(
 
             await cuelang.eval(args.env, file);
             compilingSpinner.succeed(`linted and evaluated (${file})`);
-          } catch (e) {
+          } catch (e: unknown) {
             compilingSpinner.fail();
-            throw e;
+            if (e instanceof SpawnProcessError) {
+              console.log(`${chalk.bold.yellow("[apply]")} ${e.errors.join()}`);
+            } else {
+              throw e;
+            }
           }
         }),
       );

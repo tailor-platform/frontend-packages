@@ -10,7 +10,7 @@ export type Cuelang = {
 
 const config = getConfig();
 export const cliCuelangAdapter: Cuelang = {
-  vet: (env: string, file: string) =>
+  vet: (env, file) =>
     spawnExecutable(cuelangBinary, [
       "vet",
       "-t",
@@ -18,7 +18,7 @@ export const cliCuelangAdapter: Cuelang = {
       "-c",
       path.join(config?.config.manifest || "", file),
     ]),
-  eval: (env: string, file: string) =>
+  eval: (env, file) =>
     spawnExecutable(cuelangBinary, [
       "eval",
       "-f",
