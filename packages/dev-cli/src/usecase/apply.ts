@@ -2,7 +2,6 @@ import chalk from "chalk";
 import ora from "ora";
 import { printError } from "../support/error.js";
 import { buildUsecase } from "../support/usecase.js";
-import { defaultMinitailorPort } from "../templates/compose.yaml.js";
 
 export const NoTargetFileError = new Error("no target file specified");
 
@@ -46,7 +45,7 @@ export const applyCmd = buildUsecase<ApplyOpts>(
             compilingSpinner.fail();
             throw e;
           }
-        }),
+        })
       );
     } catch (e) {
       printError(e);
@@ -77,8 +76,8 @@ export const applyCmd = buildUsecase<ApplyOpts>(
       }
 
       console.log(
-        chalk.bold.white("\nHooray! Your backend is now up and running."),
+        chalk.bold.white("\nHooray! Your backend is now up and running.")
       );
     }
-  },
+  }
 );

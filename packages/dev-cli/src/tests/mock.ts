@@ -8,7 +8,7 @@ import { UsecaseDeps } from "../support/usecase.js";
 import { Config, ConfigContent } from "../support/config.js";
 
 export const buildMockConfig = (
-  overrides?: Partial<ConfigContent>,
+  overrides?: Partial<ConfigContent>
 ): Config => ({
   filePath: ".tailordevrc.json",
   config: {
@@ -42,6 +42,7 @@ export const buildMockResource = (overrides?: Partial<Resource>) => ({
   createGeneratedDist: vi.fn(),
   createComposeConfig: vi.fn(),
   createInitSQL: vi.fn(),
+  createEmptyLogFile: vi.fn(),
   ...overrides,
 });
 
@@ -61,6 +62,7 @@ export const buildMockDeptools = (overrides?: Partial<Deptools>) => ({
 export const buildMockDockerCompose = (overrides?: Partial<DockerCompose>) => ({
   down: vi.fn(),
   upAll: vi.fn(),
+  import: vi.fn(),
   apply: vi.fn(),
   ...overrides,
 });
