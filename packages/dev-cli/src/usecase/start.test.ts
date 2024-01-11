@@ -22,10 +22,12 @@ describe("start usecase", () => {
       {
         env: "local",
         apply: true,
+        onlyEval: false,
       },
-      mockConfig,
+      mockConfig
     );
 
+    expect(mockDeps.resource.createEmptyLogFile).toHaveBeenCalledOnce();
     expect(mockDeps.resource.createComposeConfig).toHaveBeenCalledOnce();
     expect(mockDeps.resource.createInitSQL).toHaveBeenCalledOnce();
     expect(mockDeps.dockerCompose.upAll).toHaveBeenCalledOnce();
@@ -39,10 +41,12 @@ describe("start usecase", () => {
       {
         env: "local",
         apply: false,
+        onlyEval: false,
       },
-      mockConfig,
+      mockConfig
     );
 
+    expect(mockDeps.resource.createEmptyLogFile).toHaveBeenCalledOnce();
     expect(mockDeps.resource.createComposeConfig).toHaveBeenCalledOnce();
     expect(mockDeps.resource.createInitSQL).toHaveBeenCalledOnce();
     expect(mockDeps.dockerCompose.upAll).toHaveBeenCalledOnce();

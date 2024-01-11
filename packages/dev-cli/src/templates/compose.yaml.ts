@@ -30,10 +30,8 @@ services:
     ports:
       - 8000:${options.port || defaultMinitailorPort}
     volumes:
-      - ./.tailordev/cue.mod:/root/backend/cue.mod
-      - ./.tailordev/generated:/root/backend/generated
+      - ./.tailordev:/root/backend
       - ./manifest:/root/backend/manifest
-      - ./minitailor.log:/root/backend/minitailor.log
     working_dir: /root/backend
     entrypoint: /root/app start
 

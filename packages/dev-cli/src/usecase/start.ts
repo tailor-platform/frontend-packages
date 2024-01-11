@@ -26,12 +26,15 @@ export const startCmd = buildUsecase<StartOpts>(
     try {
       const eta = new Eta();
 
+      // mintailor.log
+      await resource.createEmptyLogFile();
+
       // compose.yaml
       const composeYamlFile = eta.renderString(
         composeYaml({
           port: config?.config.port,
         }),
-        {},
+        {}
       );
       await resource.createComposeConfig(composeYamlFile);
 
@@ -71,8 +74,8 @@ export const startCmd = buildUsecase<StartOpts>(
     } else {
       console.log(chalk.bold.white("\nYour backend is now up and running!"));
       console.log(
-        `Hint: you can hit this with "--apply" to apply manifests at once on starting environment.`,
+        `Hint: you can hit this with "--apply" to apply manifests at once on starting environment.`
       );
     }
-  },
+  }
 );
