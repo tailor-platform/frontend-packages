@@ -13,6 +13,7 @@ export const defaultConfig: RumInitConfiguration = {
   version: `${process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA}`,
   sessionSampleRate: 100,
   sessionReplaySampleRate: 100,
+  defaultPrivacyLevel: "mask-user-input",
   trackResources: true,
   trackLongTasks: true,
   trackUserInteractions: true,

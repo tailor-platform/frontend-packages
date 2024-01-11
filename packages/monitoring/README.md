@@ -23,33 +23,34 @@ const configOverrides = {
 initializeMonitoring(configOverrides);
 ```
 
-### Default Configurations
+### Default Configuration
 
-The package provides default configurations for Datadog RUM integration. Below are the defaults:
+The package provides a default configuration for the Datadog RUM package:
 
-- **`applicationId`**: Pulled from the environment variable `NEXT_PUBLIC_DATADOG_RUM_APPLICATION_ID`.
-- **`clientToken`**: Pulled from the environment variable `NEXT_PUBLIC_DATADOG_RUM_CLIENT_TOKEN`.
-- **`site`**: By default, it is set to "us3.datadoghq.com".
-- **`service`**: Pulled from the environment variable `NEXT_PUBLIC_DATADOG_RUM_SERVICE`.
-- **`env`**: Based on the value of `NEXT_PUBLIC_VERCEL_ENV`, it is determined as either "prod" or "dev".
-- **`version`**: Pulled from the environment variable `NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA`.
-- **`sessionSampleRate`**: Defaults to 100.
-- **`sessionReplaySampleRate`**: Defaults to 100.
-- **`trackResources`**: Defaults to `true`.
-- **`trackLongTasks`**: Defaults to `true`.
-- **`trackUserInteractions`**: Defaults to `true`.
+| Configuration Key       | Default Value                                                                                  |
+| ----------------------- | ---------------------------------------------------------------------------------------------- |
+| applicationId           | value of the `NEXT_PUBLIC_DATADOG_RUM_APPLICATION_ID` environment variable                     |
+| clientToken             | value of the `NEXT_PUBLIC_DATADOG_RUM_CLIENT_TOKEN` environment variable                       |
+| site                    | `"us3.datadoghq.com"`                                                                          |
+| service                 | value of the `NEXT_PUBLIC_DATADOG_RUM_SERVICE` environment variable                            |
+| env                     | computed from the value of the `NEXT_PUBLIC_VERCEL_ENV` environment variable, see next section |
+| version                 | value of the `NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA` environment variable                          |
+| sessionSampleRate       | `100`                                                                                          |
+| sessionReplaySampleRate | `100`                                                                                          |
+| defaultPrivacyLevel     | `"mask-user-input"`                                                                            |
+| trackResources          | `true`                                                                                         |
+| trackLongTasks          | `true`                                                                                         |
+| trackUserInteractions   | `true`                                                                                         |
 
-As the example above shows, these default configurations can be overridden by passing custom values when initializing the monitoring tool. More configuration details and available options can be found [here](https://docs.datadoghq.com/real_user_monitoring/browser/#configuration).
+As the example in the previous section shows, the default configuration values can be overridden by passing custom values when calling `initializeMonitoring()`.
+
+For a reference of the configuration keys and their possible values, please refer to the [Datadog RUM documentation](https://docs.datadoghq.com/real_user_monitoring/browser/#configuration).
 
 ### Environment Variables
 
-The package relies on certain environment variables for its configuration. These are detailed below:
+Most of the environment variables used for the default configuration are used "as is", i.e. their values are passed along verbatim.
 
-- **`NEXT_PUBLIC_VERCEL_ENV`**: Determines the environment in which the application is running. For example, if it's set to "production", the `datadogEnvironment` will be "prod". Otherwise, it defaults to "dev".
-- **`NEXT_PUBLIC_DATADOG_RUM_APPLICATION_ID`**: The application ID used for Datadog RUM.
-- **`NEXT_PUBLIC_DATADOG_RUM_CLIENT_TOKEN`**: The client token used for Datadog RUM.
-- **`NEXT_PUBLIC_DATADOG_RUM_SERVICE`**: The service name used for Datadog RUM.
-- **`NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA`**: Tracking versions used for Datadog RUM.
+The exception is the `env` key whose value is computed from the `NEXT_PUBLIC_VERCEL_ENV` environment variable: if the value is `production` then `env` is set to `"prod"`, else it is set to `"dev"`.
 
 ### Setting the User
 
