@@ -21,6 +21,7 @@ module.exports = {
     { name: "oidc-client" },
     { name: "storybook" },
     { name: "utils" },
+    { name: "dev-cli" },
   ],
 
   usePreparedCommit: false,
