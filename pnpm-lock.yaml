@@ -413,6 +413,9 @@ importers:
         specifier: ^4.1.3
         version: 4.1.3
     devDependencies:
+      '@tailor-platform/dev-config':
+        specifier: workspace:*
+        version: link:../dev-config
       '@types/node':
         specifier: ^20.10.5
         version: 20.10.5
