@@ -8,6 +8,7 @@ import { composeYaml } from "../templates/compose.yaml.js";
 import { ApplyOpts, applyCmd } from "./apply.js";
 
 type StartOpts = Omit<ApplyOpts, "onlyEval"> & {
+  onlyFile: boolean;
   apply: boolean;
 };
 
@@ -45,6 +46,10 @@ export const startCmd = buildUsecase<StartOpts>(
     } catch (e) {
       createSpinner.fail();
       printError(e);
+      return;
+    }
+
+    if (args.onlyFile) {
       return;
     }
 

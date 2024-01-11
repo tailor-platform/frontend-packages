@@ -39,6 +39,7 @@ export const runCLI = async (argv?: readonly string[]) => {
     .command("start")
     .description("start local dev environment")
     .option("--apply", "apply after starting up environment", false)
+    .option("--only-file", "only generate files", false)
     .option("--env <value>", "enviroment to apply", "local")
     .action((_, options) => runStartCmd(options.opts(), getConfig()));
 
