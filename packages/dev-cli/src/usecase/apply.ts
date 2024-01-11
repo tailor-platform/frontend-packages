@@ -46,7 +46,7 @@ export const applyCmd = buildUsecase<ApplyOpts>(
             compilingSpinner.fail();
             throw e;
           }
-        }),
+        })
       );
     } catch (e) {
       printError(e);
@@ -77,13 +77,8 @@ export const applyCmd = buildUsecase<ApplyOpts>(
       }
 
       console.log(
-        chalk.bold.white("\nHooray! Your backend is now up and running."),
-      );
-      console.log(
-        `Playground at: http://localhost:${
-          config?.config.port || defaultMinitailorPort
-        }/playground`,
+        chalk.bold.white("\nHooray! Your backend is now up and running.")
       );
     }
-  },
+  }
 );
