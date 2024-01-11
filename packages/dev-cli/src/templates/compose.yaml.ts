@@ -7,7 +7,11 @@ services:
     image: asia-northeast1-docker.pkg.dev/tailor-professional-service/cmd/minitailor:latest
     command: /root/app db.migration
     depends_on:
+      migration:
+        condition: service_completed_successfully
       db:
+        condition: service_healthy
+      mongodb:
         condition: service_healthy
     environment:
       DB_HOST: db
@@ -52,6 +56,11 @@ services:
     image: mongo:6.0
     volumes:
       - mongodb:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 1s
+      timeout: 5s
+      retries: 3
 
 volumes:
   mongodb:
