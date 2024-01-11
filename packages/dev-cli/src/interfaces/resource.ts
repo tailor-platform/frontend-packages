@@ -4,11 +4,12 @@ import path from "path";
 
 export type Resource = {
   deleteAll: () => Promise<void>;
-  existsComposeConfig: () => Promise<string | undefined>;
+  existsComposeConfig: () => Promise<string | null>;
   copyCueMod: () => Promise<void>;
   createGeneratedDist: () => Promise<void>;
   createComposeConfig: (content: string) => Promise<string>;
   createInitSQL: (content: string) => Promise<void>;
+  createEmptyLogFile: () => Promise<void>;
 };
 
 const resourcePath = path.join(cwd(), ".tailordev");
@@ -23,7 +24,7 @@ export const cliResourceAdapter: Resource = {
   existsComposeConfig: () =>
     stat(composePath)
       .then(() => composePath)
-      .catch(() => undefined),
+      .catch(() => null),
   copyCueMod: () =>
     cp(path.join(cwd(), "cue.mod"), path.join(resourcePath, "cue.mod"), {
       recursive: true,
@@ -39,8 +40,12 @@ export const cliResourceAdapter: Resource = {
     await mkdirIfNothing(dbinitDir);
     await writeFile(
       path.join(dbinitDir, "0-minitailor-database.sql"),
-      content.trim(),
+      content.trim()
     );
+  },
+  createEmptyLogFile: async () => {
+    await mkdirIfNothing(resourcePath);
+    await writeFile(path.join(resourcePath, "minitailor.log"), "");
   },
 };
 
