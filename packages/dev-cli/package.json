@@ -12,6 +12,7 @@
   },
   "scripts": {
     "build": "tsup src/index.ts --format esm --loader \".eta=file\" --minify",
+    "release:preview": "pnpm run build && pnpm publish --tag preview",
     "test": "vitest run --reporter verbose",
     "clean": "rm -rf dist",
     "type-check": "tsc --noEmit --incremental --pretty"
