@@ -23,6 +23,7 @@ export type DockerCompose = {
 const config = getConfig();
 const buildComposeOptions = () => {
   return [
+    ["--profile", "all"],
     ["--project-directory", cwd()],
     ["-f", composePath],
     config?.config.name ? ["-p", config.config.name] : [],
