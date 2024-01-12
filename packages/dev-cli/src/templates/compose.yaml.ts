@@ -12,6 +12,8 @@ services:
     environment:
       DB_HOST: db
       DB_PORT: 5432
+    profiles:
+      - app
 
   minitailor:
     image: asia-northeast1-docker.pkg.dev/tailor-professional-service/cmd/minitailor:latest
@@ -29,6 +31,8 @@ services:
       MINITAILOR_PORT: 8000
     ports:
       - 8000:${options.port || defaultMinitailorPort}
+    profiles:
+      - app
     volumes:
       - ./.tailordev:/root/backend
       - ./manifest:/root/backend/manifest
@@ -45,6 +49,11 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     command: postgres -c listen_addresses='*'
+    ports:
+      - "35432:5432"
+    profiles:
+      - middleware
+      - app
     healthcheck:
       test: "pg_isready -U postgres"
       interval: 2s
@@ -55,6 +64,11 @@ services:
     image: mongo:6.0
     volumes:
       - mongodb:/data/db
+    ports:
+      - "27017:27017"
+    profiles:
+      - middleware
+      - app
     healthcheck:
       test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
       interval: 1s
