@@ -2,6 +2,7 @@ import { v2 as compose } from "docker-compose";
 import { getConfig } from "../support/config.js";
 import { composePath } from "./resource.js";
 import { cwd } from "node:process";
+import { defaultProfileName } from "../templates/compose.yaml.js";
 
 type RunningCallbacks = {
   onRunning?: (msg: string) => void;
@@ -23,7 +24,7 @@ export type DockerCompose = {
 const config = getConfig();
 const buildComposeOptions = () => {
   return [
-    ["--profile", "all"],
+    ["--profile", defaultProfileName],
     ["--project-directory", cwd()],
     ["-f", composePath],
     config?.config.name ? ["-p", config.config.name] : [],
