@@ -1,4 +1,5 @@
 export const defaultMinitailorPort = 8000;
+export const defaultProfileName = "app";
 
 export const composeYaml = (options: { port?: number }) => `
 version: "3.7"
@@ -13,7 +14,7 @@ services:
       DB_HOST: db
       DB_PORT: 5432
     profiles:
-      - app
+      - ${defaultProfileName}
 
   minitailor:
     image: asia-northeast1-docker.pkg.dev/tailor-professional-service/cmd/minitailor:latest
@@ -32,7 +33,7 @@ services:
     ports:
       - 8000:${options.port || defaultMinitailorPort}
     profiles:
-      - app
+      - ${defaultProfileName}
     volumes:
       - ./.tailordev:/root/backend
       - ./manifest:/root/backend/manifest
@@ -52,8 +53,8 @@ services:
     ports:
       - "35432:5432"
     profiles:
+      - ${defaultProfileName}
       - middleware
-      - app
     healthcheck:
       test: "pg_isready -U postgres"
       interval: 2s
@@ -67,8 +68,8 @@ services:
     ports:
       - "27017:27017"
     profiles:
+      - ${defaultProfileName}
       - middleware
-      - app
     healthcheck:
       test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
       interval: 1s
