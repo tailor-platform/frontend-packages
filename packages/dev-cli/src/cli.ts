@@ -3,13 +3,14 @@ import { cliDeptoolsAdapter } from "./interfaces/deptools.js";
 import { cliDockerComposeAdapter } from "./interfaces/docker.js";
 import { cliResourceAdapter } from "./interfaces/resource.js";
 import { cliTailorctlAdapter } from "./interfaces/tailorctl.js";
-import { getConfig } from "./support/config.js";
-import { applyCmd } from "./usecase/v1/apply.js";
+import { getConfig, isV2 } from "./support/config.js";
+import { applyCmd as applyV1Cmd } from "./usecase/v1/apply.js";
 import { installCmd } from "./usecase/install.js";
 import { importCmd } from "./usecase/minitailor.js";
 import { resetCmd } from "./usecase/v1/reset.js";
 import { startCmd } from "./usecase/start.js";
 import { uninstallCmd } from "./usecase/uninstall.js";
+import { applyCmd } from "./usecase/v2/apply.js";
 
 export const runCLI = async (argv?: readonly string[]) => {
   const { Command } = await import("@commander-js/extra-typings");
@@ -43,14 +44,16 @@ export const runCLI = async (argv?: readonly string[]) => {
     .option("--env <value>", "enviroment to apply", "local")
     .action((_, options) => runStartCmd(options.opts(), getConfig()));
 
-  const runApplyCmd = applyCmd(deps);
+  const runV1ApplyCmd = applyV1Cmd(deps);
+  const runV2ApplyCmd = applyCmd(deps);
   program
     .command("apply")
     .description("apply manifest onto local environment")
     .option("--only-eval", "only evaluate manifests", false)
     .option("--env <value>", "environment to apply", "local")
     .action((_, options) => {
-      runApplyCmd(options.opts(), getConfig());
+      const config = getConfig();
+      (isV2(config) ? runV2ApplyCmd : runV1ApplyCmd)(options.opts(), config);
     });
 
   const runImportCmd = importCmd(deps);
