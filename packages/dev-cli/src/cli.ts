@@ -8,7 +8,7 @@ import { applyCmd } from "./usecase/v1/apply.js";
 import { installCmd } from "./usecase/install.js";
 import { importCmd } from "./usecase/minitailor.js";
 import { resetCmd } from "./usecase/v1/reset.js";
-import { startCmd } from "./usecase/v1/start.js";
+import { startCmd } from "./usecase/start.js";
 import { uninstallCmd } from "./usecase/uninstall.js";
 
 export const runCLI = async (argv?: readonly string[]) => {
