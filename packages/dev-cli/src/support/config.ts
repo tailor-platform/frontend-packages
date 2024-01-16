@@ -31,3 +31,5 @@ export const getConfig = () => {
     return null;
   }
 };
+
+export const isV2 = (config: ConfigContent) => config.version === "v2";
