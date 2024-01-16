@@ -2,14 +2,29 @@ import { rcFile } from "rc-config-loader";
 import { rcConfigResult } from "rc-config-loader/lib/types.js";
 
 export type ConfigContent = {
+  // The name for docker-compose project
   name: string;
+
+  // Port number to bind with minitailor app on docker-compose
   port: number;
+
+  // The directory path where contains the files specified by the following `target` array
   manifest: string;
+
+  // File names to run cuelang on and apply
   target: string[];
 };
 
 export type Config = rcConfigResult<ConfigContent>;
 
 export const getConfig = () => {
-  return rcFile<ConfigContent>("tailordev");
+  try {
+    const results = rcFile<ConfigContent>("tailordev");
+    if (!results) {
+      return null;
+    }
+    return results.config;
+  } catch (e: unknown) {
+    return null;
+  }
 };
