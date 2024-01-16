@@ -20,6 +20,7 @@ export type ConfigContent = {
 
 export type Config = rcConfigResult<ConfigContent>;
 
+// TODO: use Zod to validate and brand the configuration value
 export const getConfig = () => {
   try {
     const results = rcFile<ConfigContent>("tailordev");
@@ -32,4 +33,4 @@ export const getConfig = () => {
   }
 };
 
-export const isV2 = (config: ConfigContent) => config.version === "v2";
+export const isV2 = (config: ConfigContent | null) => config?.version === "v2";

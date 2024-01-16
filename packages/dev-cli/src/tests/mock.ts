@@ -10,6 +10,7 @@ import { ConfigContent } from "../support/config.js";
 export const buildMockConfig = (
   overrides?: Partial<ConfigContent>,
 ): ConfigContent => ({
+  version: "v1",
   name: "mockapp",
   port: 8000,
   manifest: "manifest/config/template",
@@ -72,6 +73,11 @@ export const buildMockCuelang = (overrides?: Partial<Cuelang>) => ({
 
 export const buildMockTailorctl = (overrides?: Partial<Tailorctl>) => ({
   sync: vi.fn(),
+  tidy: vi.fn(),
+  apply: vi.fn(),
+  destroy: vi.fn(),
+  createWorkspace: vi.fn(),
+  createVault: vi.fn(),
   ...overrides,
 });
 

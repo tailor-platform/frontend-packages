@@ -3,6 +3,9 @@ import ora from "ora";
 import { printError } from "../../support/error.js";
 import { buildUsecase } from "../../support/usecase.js";
 import { SpawnProcessError } from "../../support/process.js";
+import { Tailorctl } from "../../interfaces/tailorctl.js";
+import { Resource } from "../../interfaces/resource.js";
+import { Cuelang } from "../../interfaces/cuelang.js";
 
 export const NoTargetFileError = new Error("no target file specified");
 
@@ -19,45 +22,9 @@ export const applyCmd = buildUsecase<ApplyOpts>(
       return;
     }
 
-    const syncSpinner = ora("synchronizing cue.mod");
     try {
-      syncSpinner.start();
-      await tailorctl.sync();
-      syncSpinner.succeed("cue.mod synchronized");
-    } catch (e) {
-      syncSpinner.fail();
-      printError(e);
-      return;
-    }
-
-    try {
-      await resource.createGeneratedDist();
-      await Promise.all(
-        targetFiles?.map(async (file) => {
-          const compilingSpinner = ora(`linting manifest (${file})`).start();
-
-          try {
-            await cuelang.vet(args.env, file);
-            compilingSpinner.start(`evaluating manifest (${file})`);
-
-            await cuelang.eval(args.env, file);
-            compilingSpinner.succeed(`linted and evaluated (${file})`);
-          } catch (e: unknown) {
-            compilingSpinner.fail();
-            if (e instanceof SpawnProcessError) {
-              console.log(`${chalk.bold.yellow("[apply]")} ${e.errors.join()}`);
-            } else {
-              throw e;
-            }
-          }
-        }),
-      );
-    } catch (e) {
-      printError(e);
-      return;
-    }
-
-    try {
+      await synchoronizeCueMod(tailorctl);
+      await createGenerateDist(resource, cuelang, args, targetFiles);
       await resource.copyCueMod();
     } catch (e) {
       printError(e);
@@ -86,3 +53,44 @@ export const applyCmd = buildUsecase<ApplyOpts>(
     }
   },
 );
+
+const synchoronizeCueMod = async (tailorctl: Tailorctl) => {
+  const syncSpinner = ora("synchronizing cue.mod");
+  try {
+    syncSpinner.start();
+    await tailorctl.sync();
+    syncSpinner.succeed("cue.mod synchronized");
+  } catch (e) {
+    syncSpinner.fail();
+    throw e;
+  }
+};
+
+export const createGenerateDist = async (
+  resource: Resource,
+  cuelang: Cuelang,
+  args: ApplyOpts,
+  targetFiles: string[],
+) => {
+  await resource.createGeneratedDist();
+  await Promise.all(
+    targetFiles.map(async (file) => {
+      const compilingSpinner = ora(`linting manifest (${file})`).start();
+
+      try {
+        await cuelang.vet(args.env, file);
+        compilingSpinner.start(`evaluating manifest (${file})`);
+
+        await cuelang.eval(args.env, file);
+        compilingSpinner.succeed(`linted and evaluated (${file})`);
+      } catch (e: unknown) {
+        compilingSpinner.fail();
+        if (e instanceof SpawnProcessError) {
+          console.log(`${chalk.bold.yellow("[apply]")} ${e.errors.join()}`);
+        } else {
+          throw e;
+        }
+      }
+    }),
+  );
+};

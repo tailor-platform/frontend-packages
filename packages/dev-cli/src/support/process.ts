@@ -34,12 +34,14 @@ export const spawnExecutable = (
   cb?: SpawnCallback,
   options?: {
     workindDirectory?: string;
+    env?: NodeJS.ProcessEnv;
   },
 ): Promise<number> => {
   return new Promise((resolve, reject) => {
     const path = pathResolver();
     const process = spawn(path, args, {
       cwd: options?.workindDirectory,
+      env: options?.env,
     });
     let errors: string[] = [];
 
