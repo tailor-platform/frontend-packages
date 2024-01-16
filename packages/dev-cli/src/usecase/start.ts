@@ -33,7 +33,7 @@ export const startCmd = buildUsecase<StartOpts>(
       // compose.yaml
       const composeYamlFile = eta.renderString(
         composeYaml({
-          port: config?.config.port,
+          port: config?.port,
         }),
         {},
       );

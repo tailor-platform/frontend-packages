@@ -13,7 +13,7 @@ export type ApplyOpts = {
 
 export const applyCmd = buildUsecase<ApplyOpts>(
   async ({ resource, dockerCompose, cuelang, tailorctl, args, config }) => {
-    const targetFiles = config?.config.target || [];
+    const targetFiles = config?.target || [];
     if (targetFiles.length === 0) {
       printError(NoTargetFileError);
       return;
