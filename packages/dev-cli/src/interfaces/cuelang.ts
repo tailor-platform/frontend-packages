@@ -16,7 +16,7 @@ export const cliCuelangAdapter: Cuelang = {
       "-t",
       env,
       "-c",
-      path.join(config?.config.manifest || "", file),
+      path.join(config?.manifest || "", file),
     ]),
   eval: (env, file) =>
     spawnExecutable(cuelangBinary, [
@@ -24,7 +24,7 @@ export const cliCuelangAdapter: Cuelang = {
       "-f",
       "-t",
       env,
-      path.join(config?.config.manifest || "", file),
+      path.join(config?.manifest || "", file),
       "-o",
       path.join(generatedPath, file),
     ]),
