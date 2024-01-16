@@ -5,19 +5,16 @@ import { DockerCompose } from "../interfaces/docker.js";
 import { Cuelang } from "../interfaces/cuelang.js";
 import { Tailorctl } from "../interfaces/tailorctl.js";
 import { UsecaseDeps } from "../support/usecase.js";
-import { Config, ConfigContent } from "../support/config.js";
+import { ConfigContent } from "../support/config.js";
 
 export const buildMockConfig = (
   overrides?: Partial<ConfigContent>,
-): Config => ({
-  filePath: ".tailordevrc.json",
-  config: {
-    name: "mockapp",
-    port: 8000,
-    manifest: "manifest/config/template",
-    target: ["tailordb.cue"],
-    ...overrides,
-  },
+): ConfigContent => ({
+  name: "mockapp",
+  port: 8000,
+  manifest: "manifest/config/template",
+  target: ["tailordb.cue"],
+  ...overrides,
 });
 
 export const buildMockDeps = (): UsecaseDeps => {
