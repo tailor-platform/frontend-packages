@@ -2,6 +2,9 @@ import { rcFile } from "rc-config-loader";
 import { rcConfigResult } from "rc-config-loader/lib/types.js";
 
 export type ConfigContent = {
+  // Version to use (v1, v2 are supported)
+  version: string;
+
   // The name for docker-compose project
   name: string;
 

@@ -1,6 +1,6 @@
 import ora from "ora";
-import { printError } from "../support/error.js";
-import { buildUsecase } from "../support/usecase.js";
+import { printError } from "../../support/error.js";
+import { buildUsecase } from "../../support/usecase.js";
 
 type ResetOpts = {
   onlyStop: boolean;

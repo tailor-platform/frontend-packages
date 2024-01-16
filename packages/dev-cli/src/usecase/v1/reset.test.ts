@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, test, vi } from "vitest";
-import { buildMockConfig, buildMockDeps, oraMock } from "../tests/mock.js";
+import { buildMockConfig, buildMockDeps, oraMock } from "../../tests/mock.js";
 import { resetCmd } from "./reset.js";
 
 vi.mock("ora", () => ({

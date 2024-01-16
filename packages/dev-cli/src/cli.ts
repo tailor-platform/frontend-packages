@@ -4,11 +4,11 @@ import { cliDockerComposeAdapter } from "./interfaces/docker.js";
 import { cliResourceAdapter } from "./interfaces/resource.js";
 import { cliTailorctlAdapter } from "./interfaces/tailorctl.js";
 import { getConfig } from "./support/config.js";
-import { applyCmd } from "./usecase/apply.js";
+import { applyCmd } from "./usecase/v1/apply.js";
 import { installCmd } from "./usecase/install.js";
 import { importCmd } from "./usecase/minitailor.js";
-import { resetCmd } from "./usecase/reset.js";
-import { startCmd } from "./usecase/start.js";
+import { resetCmd } from "./usecase/v1/reset.js";
+import { startCmd } from "./usecase/v1/start.js";
 import { uninstallCmd } from "./usecase/uninstall.js";
 
 export const runCLI = async (argv?: readonly string[]) => {

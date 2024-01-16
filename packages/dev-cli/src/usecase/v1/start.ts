@@ -1,10 +1,10 @@
 import chalk from "chalk";
 import { Eta } from "eta";
 import ora from "ora";
-import { printError } from "../support/error.js";
-import { buildUsecase } from "../support/usecase.js";
-import { createMinitailorDBSQL } from "../templates/0-minitailor-database.sql.js";
-import { composeYaml } from "../templates/compose.yaml.js";
+import { printError } from "../../support/error.js";
+import { buildUsecase } from "../../support/usecase.js";
+import { createMinitailorDBSQL } from "../../templates/0-minitailor-database.sql.js";
+import { composeYaml } from "../../templates/compose.yaml.js";
 import { ApplyOpts, applyCmd } from "./apply.js";
 
 type StartOpts = Omit<ApplyOpts, "onlyEval"> & {
