@@ -1,8 +1,8 @@
 import chalk from "chalk";
 import ora from "ora";
-import { printError } from "../support/error.js";
-import { buildUsecase } from "../support/usecase.js";
-import { SpawnProcessError } from "../support/process.js";
+import { printError } from "../../support/error.js";
+import { buildUsecase } from "../../support/usecase.js";
+import { SpawnProcessError } from "../../support/process.js";
 
 export const NoTargetFileError = new Error("no target file specified");
 
