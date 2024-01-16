@@ -3,7 +3,9 @@ import { Deptools } from "../interfaces/deptools.js";
 import { DockerCompose } from "../interfaces/docker.js";
 import { Resource } from "../interfaces/resource.js";
 import { Tailorctl } from "../interfaces/tailorctl.js";
-import { Config } from "./config.js";
+import { getConfig } from "./config.js";
+
+type Config = ReturnType<typeof getConfig>;
 
 export type UsecaseDeps = {
   resource: Resource;
@@ -14,7 +16,7 @@ export type UsecaseDeps = {
 };
 type Usecase<A> = (
   deps: UsecaseDeps,
-) => (args: A, config: Config | undefined) => Promise<void>;
+) => (args: A, config: Config) => Promise<void>;
 
 // Curried usecase builder to support pluggable adapters
 export const buildUsecase =
@@ -22,10 +24,10 @@ export const buildUsecase =
     impl: (
       input: UsecaseDeps & {
         args: A;
-        config: Config | undefined;
+        config: Config;
       },
     ) => Promise<void>,
   ): Usecase<A> =>
   (deps: UsecaseDeps) =>
-  (args: A, config: Config | undefined) =>
+  (args: A, config: Config) =>
     impl({ args, config, ...deps });

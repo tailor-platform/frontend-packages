@@ -27,7 +27,7 @@ const buildComposeOptions = () => {
     ["--profile", defaultProfileName],
     ["--project-directory", cwd()],
     ["-f", composePath],
-    config?.config.name ? ["-p", config.config.name] : [],
+    config?.name ? ["-p", config.name] : [],
   ].flatMap((p) => p);
 };
 
