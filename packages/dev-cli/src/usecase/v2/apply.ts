@@ -8,6 +8,7 @@ import {
   createGenerateDist,
 } from "../v1/apply.js";
 import { Tailorctl } from "../../interfaces/tailorctl.js";
+import { SpawnProcessError } from "../../support/process.js";
 
 export const applyCmd = buildUsecase<ApplyOpts>(
   async ({ resource, cuelang, tailorctl, args, config }) => {
@@ -30,13 +31,25 @@ export const applyCmd = buildUsecase<ApplyOpts>(
       const applySpinner = ora("applying manifests");
       try {
         // TODO: here needs validation beforehand to make `name` non-optional
-        await tailorctl.createWorkspace(config?.name || "");
+        await tailorctl.createWorkspace(config?.name || "", {
+          onRunning: (msg) => {
+            console.log(`${chalk.bold.yellow("[workspace]")} ${msg}`);
+          },
+        });
         await tailorctl.createVault();
-        await tailorctl.apply(config?.target[0] || "");
+        await tailorctl.apply({
+          onRunning: (msg) => {
+            console.log(`${chalk.bold.yellow("[apply]")} ${msg}`);
+          },
+        });
         applySpinner.succeed();
       } catch (e) {
         applySpinner.fail();
-        printError(e);
+        if (e instanceof SpawnProcessError) {
+          console.log(`${chalk.bold.yellow("[apply]")} ${e.errors.join()}`);
+        } else {
+          printError(e);
+        }
         return;
       }
 

@@ -87,9 +87,8 @@ export const createGenerateDist = async (
         compilingSpinner.fail();
         if (e instanceof SpawnProcessError) {
           console.log(`${chalk.bold.yellow("[apply]")} ${e.errors.join()}`);
-        } else {
-          throw e;
         }
+        throw e;
       }
     }),
   );
