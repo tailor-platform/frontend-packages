@@ -55,14 +55,30 @@ export const spawnExecutable = (
     });
     let errors: string[] = [];
 
+    const handleUnknownError = (e: unknown) => {
+      if (e instanceof Error) {
+        reject(new SpawnProcessError(-1, [e.message]));
+      } else {
+        throw e;
+      }
+    };
+
     process.stdout.on("data", (value) => {
-      cb?.onStdoutReceived && cb.onStdoutReceived(value.toString().trim());
+      try {
+        cb?.onStdoutReceived && cb.onStdoutReceived(value.toString().trim());
+      } catch (e: unknown) {
+        handleUnknownError(e);
+      }
     });
 
     process.stderr.on("data", (value) => {
-      const msg = value.toString().trim();
-      cb?.onStderrReceived && cb.onStderrReceived(msg);
-      errors.push(msg);
+      try {
+        const msg = value.toString().trim();
+        cb?.onStderrReceived && cb.onStderrReceived(msg);
+        errors.push(msg);
+      } catch (e: unknown) {
+        handleUnknownError(e);
+      }
     });
 
     process.on("error", (err) => {

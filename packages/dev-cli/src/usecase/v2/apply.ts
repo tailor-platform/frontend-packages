@@ -9,6 +9,7 @@ import {
 } from "../v1/apply.js";
 import { Tailorctl } from "../../interfaces/tailorctl.js";
 import { SpawnProcessError } from "../../support/process.js";
+import { defaultMinitailorPort } from "../../templates/compose.yaml.js";
 
 export const applyCmd = buildUsecase<ApplyOpts>(
   async ({ resource, cuelang, tailorctl, args, config }) => {
@@ -28,7 +29,7 @@ export const applyCmd = buildUsecase<ApplyOpts>(
     }
 
     if (!args.onlyEval) {
-      const applySpinner = ora("applying manifests");
+      const applySpinner = ora("applying manifests").start();
       try {
         // TODO: here needs validation beforehand to make `name` non-optional
         await tailorctl.createWorkspace(config?.name || "", {
@@ -53,9 +54,25 @@ export const applyCmd = buildUsecase<ApplyOpts>(
         return;
       }
 
-      console.log(
-        chalk.bold.white("\nHooray! Your backend is now up and running."),
-      );
+      const waitSpinner = ora("waiting app").start();
+      try {
+        await new Promise((resolve) => setTimeout(resolve, 5000));
+        const apps = await tailorctl.apps();
+        waitSpinner.succeed();
+
+        if (apps.length > 0) {
+          console.log(
+            chalk.bold.white("\nHooray! Your backend is now up and running."),
+            chalk.white(
+              `\nPlayground: http://${apps[0].domain}:${defaultMinitailorPort}/playground`,
+            ),
+          );
+        }
+      } catch (e) {
+        waitSpinner.fail();
+        printError(e);
+        return;
+      }
     }
   },
 );
