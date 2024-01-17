@@ -39,16 +39,17 @@ export const spawnExecutable = (
   },
 ): Promise<number> => {
   return new Promise((resolve, reject) => {
-    const path = pathResolver();
+    const executable = pathResolver();
     logger.debug(
-      "process",
+      path.basename(executable),
       JSON.stringify({
         cmd: args.join(" "),
         envs: options?.env ?? {},
+        path: executable,
       }),
     );
 
-    const process = spawn(path, args, {
+    const process = spawn(executable, args, {
       cwd: options?.workindDirectory,
       env: options?.env,
     });
