@@ -30,8 +30,12 @@ services:
       DB_PORT: 5432
       MONGO_URI: mongodb://mongodb:27017
       MINITAILOR_PORT: 8000
+      APP_HTTP_SCHEMA: http
+      PLATFORM_URL: http://mini.tailor.tech:18090
     ports:
       - 8000:${options.port || defaultMinitailorPort}
+      - 18009:18009
+      - 18090:18090
     profiles:
       - ${defaultProfileName}
     volumes:
