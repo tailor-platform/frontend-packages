@@ -5,7 +5,9 @@ import { printError } from "../support/error.js";
 import { buildUsecase } from "../support/usecase.js";
 import { createMinitailorDBSQL } from "../templates/0-minitailor-database.sql.js";
 import { composeYaml } from "../templates/compose.yaml.js";
-import { ApplyOpts, applyCmd } from "./v1/apply.js";
+import { ApplyOpts, applyCmd as runV1ApplyCmd } from "./v1/apply.js";
+import { applyCmd as runV2ApplyCmd } from "./v2/apply.js";
+import { isV2 } from "../support/config.js";
 
 type StartOpts = Omit<ApplyOpts, "onlyEval"> & {
   onlyFile: boolean;
@@ -65,7 +67,7 @@ export const startCmd = buildUsecase<StartOpts>(
 
     if (args.apply) {
       try {
-        await applyCmd({
+        await (isV2(config) ? runV2ApplyCmd : runV1ApplyCmd)({
           resource,
           deptools,
           dockerCompose,
