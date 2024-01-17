@@ -11,6 +11,7 @@ import { resetCmd } from "./usecase/v1/reset.js";
 import { startCmd } from "./usecase/start.js";
 import { uninstallCmd } from "./usecase/uninstall.js";
 import { applyCmd } from "./usecase/v2/apply.js";
+import { logger } from "./support/logger.js";
 
 export const runCLI = async (argv?: readonly string[]) => {
   const { Command } = await import("@commander-js/extra-typings");
@@ -23,20 +24,27 @@ export const runCLI = async (argv?: readonly string[]) => {
     tailorctl: cliTailorctlAdapter,
   };
 
-  program
+  const app = program
     .name("tailordev")
     .description("CLI for Tailor Platform application devs")
-    .version("0.0.1");
+    .option("--verbose", "enable verbosity", false)
+    .version("0.0.1")
+    .hook("preAction", (options) => {
+      const opts = options.opts();
+      if (opts.verbose) {
+        logger.setLevel("debug");
+      }
+    });
 
   const runResetCmd = resetCmd(deps);
-  program
+  app
     .command("reset")
     .description("reset local dev environment")
     .option("--only-stop", "only shutdown environment but keep files", false)
     .action((_, options) => runResetCmd(options.opts(), getConfig()));
 
   const runStartCmd = startCmd(deps);
-  program
+  app
     .command("start")
     .description("start local dev environment")
     .option("--apply", "apply after starting up environment", false)
@@ -46,7 +54,7 @@ export const runCLI = async (argv?: readonly string[]) => {
 
   const runV1ApplyCmd = applyV1Cmd(deps);
   const runV2ApplyCmd = applyCmd(deps);
-  program
+  app
     .command("apply")
     .description("apply manifest onto local environment")
     .option("--only-eval", "only evaluate manifests", false)
@@ -57,7 +65,7 @@ export const runCLI = async (argv?: readonly string[]) => {
     });
 
   const runImportCmd = importCmd(deps);
-  program
+  app
     .command("import")
     .requiredOption("--host <value>", "target host")
     .argument("<paths...>")
@@ -69,7 +77,7 @@ export const runCLI = async (argv?: readonly string[]) => {
     });
 
   const runInstallCmd = installCmd(deps);
-  program
+  app
     .command("install:deps")
     .description("install required dependencies (tailorctl, cuelang)")
     .option(
@@ -87,10 +95,10 @@ export const runCLI = async (argv?: readonly string[]) => {
     });
 
   const runUninstallCmd = uninstallCmd(deps);
-  program
+  app
     .command("uninstall:deps")
     .description("uninstall dependencies")
     .action(() => runUninstallCmd(null, getConfig()));
 
-  program.parse(argv);
+  app.parse(argv);
 };
