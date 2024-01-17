@@ -15,7 +15,7 @@ describe("start usecase", () => {
     vi.resetAllMocks();
   });
 
-  test("with --apply option", async () => {
+  test("with --apply option (v1)", async () => {
     vi.spyOn(console, "log").mockImplementation(() => void 0);
 
     await runStartCmd(
@@ -32,6 +32,34 @@ describe("start usecase", () => {
     expect(mockDeps.resource.createInitSQL).toHaveBeenCalledOnce();
     expect(mockDeps.dockerCompose.upAll).toHaveBeenCalledOnce();
     expect(mockDeps.dockerCompose.apply).toHaveBeenCalledOnce();
+    expect(mockDeps.tailorctl.createWorkspace).not.toHaveBeenCalled();
+    expect(mockDeps.tailorctl.createVault).not.toHaveBeenCalled();
+    expect(mockDeps.tailorctl.apply).not.toHaveBeenCalled();
+  });
+
+  test("with --apply option (v2)", async () => {
+    vi.spyOn(console, "log").mockImplementation(() => void 0);
+
+    await runStartCmd(
+      {
+        env: "local",
+        apply: true,
+        onlyFile: false,
+      },
+      {
+        ...mockConfig,
+        version: "v2",
+      },
+    );
+
+    expect(mockDeps.resource.createEmptyLogFile).toHaveBeenCalledOnce();
+    expect(mockDeps.resource.createComposeConfig).toHaveBeenCalledOnce();
+    expect(mockDeps.resource.createInitSQL).toHaveBeenCalledOnce();
+    expect(mockDeps.dockerCompose.upAll).toHaveBeenCalledOnce();
+    expect(mockDeps.dockerCompose.apply).not.toHaveBeenCalledOnce();
+    expect(mockDeps.tailorctl.createWorkspace).toHaveBeenCalled();
+    expect(mockDeps.tailorctl.createVault).toHaveBeenCalled();
+    expect(mockDeps.tailorctl.apply).toHaveBeenCalled();
   });
 
   test("without --apply option", async () => {
