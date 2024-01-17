@@ -57,7 +57,7 @@ export const startCmd = buildUsecase<StartOpts>(
 
     const composeSpinner = ora("running local environment").start();
     try {
-      await dockerCompose.upAll();
+      await dockerCompose.up();
       composeSpinner.succeed();
     } catch (e) {
       composeSpinner.fail();

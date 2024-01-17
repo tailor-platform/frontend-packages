@@ -3,6 +3,7 @@ import { getConfig } from "../support/config.js";
 import { composePath } from "./resource.js";
 import { cwd } from "node:process";
 import { defaultProfileName } from "../templates/compose.yaml.js";
+import { logger } from "../support/logger.js";
 
 type RunningCallbacks = {
   onRunning?: (msg: string) => void;
@@ -10,7 +11,7 @@ type RunningCallbacks = {
 
 export type DockerCompose = {
   down: () => Promise<compose.IDockerComposeResult>;
-  upAll: () => Promise<compose.IDockerComposeResult>;
+  up: () => Promise<compose.IDockerComposeResult>;
   import: (
     path: string,
     host: string,
@@ -26,24 +27,29 @@ const buildComposeOptions = () => {
   return [
     ["--profile", defaultProfileName],
     ["--project-directory", cwd()],
-    ["-f", composePath],
     config?.name ? ["-p", config.name] : [],
   ].flatMap((p) => p);
 };
 
 export const cliDockerComposeAdapter: DockerCompose = {
-  down: () =>
-    compose.down({
+  down: async () => {
+    const opts = {
       config: composePath,
       commandOptions: ["--volumes", "--remove-orphans"],
       composeOptions: buildComposeOptions(),
-    }),
-  upAll: () =>
-    compose.upAll({
+    };
+    debugLog("down", opts);
+    return compose.down(opts);
+  },
+  up: () => {
+    const cmds = {
       config: composePath,
       commandOptions: ["--detach"],
       composeOptions: buildComposeOptions(),
-    }),
+    };
+    debugLog("up", cmds);
+    return compose.upAll(cmds);
+  },
   import: (path, host, callbacks) => {
     return compose.exec(
       "minitailor",
@@ -57,6 +63,8 @@ export const cliDockerComposeAdapter: DockerCompose = {
       },
     );
   },
+
+  // NOTE: planning to deprecate this after V2 migration
   apply: (callbacks) =>
     compose.exec(
       "minitailor",
@@ -69,4 +77,16 @@ export const cliDockerComposeAdapter: DockerCompose = {
         },
       },
     ),
+} as const;
+
+const debugLog = (cmd: string, options: compose.IDockerComposeOptions) => {
+  logger.debug(
+    "docker-compose",
+    JSON.stringify({
+      cmd,
+      config: options.config,
+      composeOptions: options.composeOptions?.join(" "),
+      commandOptions: options.commandOptions?.join(" "),
+    }),
+  );
 };
