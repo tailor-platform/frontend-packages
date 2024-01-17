@@ -30,7 +30,7 @@ describe("start usecase", () => {
     expect(mockDeps.resource.createEmptyLogFile).toHaveBeenCalledOnce();
     expect(mockDeps.resource.createComposeConfig).toHaveBeenCalledOnce();
     expect(mockDeps.resource.createInitSQL).toHaveBeenCalledOnce();
-    expect(mockDeps.dockerCompose.upAll).toHaveBeenCalledOnce();
+    expect(mockDeps.dockerCompose.up).toHaveBeenCalledOnce();
     expect(mockDeps.dockerCompose.apply).toHaveBeenCalledOnce();
     expect(mockDeps.tailorctl.createWorkspace).not.toHaveBeenCalled();
     expect(mockDeps.tailorctl.createVault).not.toHaveBeenCalled();
@@ -55,7 +55,7 @@ describe("start usecase", () => {
     expect(mockDeps.resource.createEmptyLogFile).toHaveBeenCalledOnce();
     expect(mockDeps.resource.createComposeConfig).toHaveBeenCalledOnce();
     expect(mockDeps.resource.createInitSQL).toHaveBeenCalledOnce();
-    expect(mockDeps.dockerCompose.upAll).toHaveBeenCalledOnce();
+    expect(mockDeps.dockerCompose.up).toHaveBeenCalledOnce();
     expect(mockDeps.dockerCompose.apply).not.toHaveBeenCalledOnce();
     expect(mockDeps.tailorctl.createWorkspace).toHaveBeenCalled();
     expect(mockDeps.tailorctl.createVault).toHaveBeenCalled();
@@ -77,7 +77,7 @@ describe("start usecase", () => {
     expect(mockDeps.resource.createEmptyLogFile).toHaveBeenCalledOnce();
     expect(mockDeps.resource.createComposeConfig).toHaveBeenCalledOnce();
     expect(mockDeps.resource.createInitSQL).toHaveBeenCalledOnce();
-    expect(mockDeps.dockerCompose.upAll).toHaveBeenCalledOnce();
+    expect(mockDeps.dockerCompose.up).toHaveBeenCalledOnce();
     expect(mockDeps.dockerCompose.apply).not.toHaveBeenCalledOnce();
   });
 
@@ -96,7 +96,7 @@ describe("start usecase", () => {
     expect(mockDeps.resource.createEmptyLogFile).toHaveBeenCalledOnce();
     expect(mockDeps.resource.createComposeConfig).toHaveBeenCalledOnce();
     expect(mockDeps.resource.createInitSQL).toHaveBeenCalledOnce();
-    expect(mockDeps.dockerCompose.upAll).not.toHaveBeenCalledOnce();
+    expect(mockDeps.dockerCompose.up).not.toHaveBeenCalledOnce();
     expect(mockDeps.dockerCompose.apply).not.toHaveBeenCalledOnce();
   });
 
@@ -115,7 +115,7 @@ describe("start usecase", () => {
     expect(mockDeps.resource.createEmptyLogFile).toHaveBeenCalledOnce();
     expect(mockDeps.resource.createComposeConfig).toHaveBeenCalledOnce();
     expect(mockDeps.resource.createInitSQL).toHaveBeenCalledOnce();
-    expect(mockDeps.dockerCompose.upAll).not.toHaveBeenCalledOnce();
+    expect(mockDeps.dockerCompose.up).not.toHaveBeenCalledOnce();
     expect(mockDeps.dockerCompose.apply).not.toHaveBeenCalledOnce();
   });
 });

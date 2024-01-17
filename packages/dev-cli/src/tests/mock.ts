@@ -59,7 +59,7 @@ export const buildMockDeptools = (overrides?: Partial<Deptools>) => ({
 
 export const buildMockDockerCompose = (overrides?: Partial<DockerCompose>) => ({
   down: vi.fn(),
-  upAll: vi.fn(),
+  up: vi.fn(),
   import: vi.fn(),
   apply: vi.fn(),
   ...overrides,
