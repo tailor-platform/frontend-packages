@@ -46,12 +46,13 @@ export const spawnExecutable = (
     let errors: string[] = [];
 
     process.stdout.on("data", (value) => {
-      cb?.onStdoutReceived && cb.onStdoutReceived(value.toString());
+      cb?.onStdoutReceived && cb.onStdoutReceived(value.toString().trim());
     });
 
     process.stderr.on("data", (value) => {
-      cb?.onStderrReceived && cb.onStderrReceived(value.toString());
-      errors.push(value.toString());
+      const msg = value.toString().trim();
+      cb?.onStderrReceived && cb.onStderrReceived(msg);
+      errors.push(msg);
     });
 
     process.on("error", (err) => {
