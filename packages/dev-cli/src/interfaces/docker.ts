@@ -3,7 +3,7 @@ import { getConfig } from "../support/config.js";
 import { composePath } from "./resource.js";
 import { cwd } from "node:process";
 import { defaultProfileName } from "../templates/compose.yaml.js";
-import { logger } from "../support/logger.js";
+import { terminal } from "../support/logger.js";
 
 type RunningCallbacks = {
   onRunning?: (msg: string) => void;
@@ -80,7 +80,7 @@ export const cliDockerComposeAdapter: DockerCompose = {
 } as const;
 
 const debugLog = (cmd: string, options: compose.IDockerComposeOptions) => {
-  logger.debug(
+  terminal.debug(
     "docker-compose",
     JSON.stringify({
       cmd,

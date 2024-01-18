@@ -1,6 +1,5 @@
 import chalk from "chalk";
 import { Eta } from "eta";
-import ora from "ora";
 import { printError } from "../support/error.js";
 import { buildUsecase } from "../support/usecase.js";
 import { createMinitailorDBSQL } from "../templates/0-minitailor-database.sql.js";
@@ -8,6 +7,7 @@ import { composeYaml } from "../templates/compose.yaml.js";
 import { ApplyOpts, applyCmd as runV1ApplyCmd } from "./v1/apply.js";
 import { applyCmd as runV2ApplyCmd } from "./v2/apply.js";
 import { isV2 } from "../support/config.js";
+import { terminal } from "../support/logger.js";
 
 type StartOpts = Omit<ApplyOpts, "onlyEval"> & {
   onlyFile: boolean;
@@ -24,7 +24,7 @@ export const startCmd = buildUsecase<StartOpts>(
     config,
     args,
   }) => {
-    const createSpinner = ora("generating configuration").start();
+    const createSpinner = terminal.spinner("generating configuration").start();
 
     try {
       const eta = new Eta();
@@ -55,7 +55,9 @@ export const startCmd = buildUsecase<StartOpts>(
       return;
     }
 
-    const composeSpinner = ora("running local environment").start();
+    const composeSpinner = terminal
+      .spinner("running local environment")
+      .start();
     try {
       await dockerCompose.up();
       composeSpinner.succeed();

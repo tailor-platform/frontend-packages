@@ -1,9 +1,9 @@
-import ora from "ora";
 import { printError } from "../support/error.js";
+import { terminal } from "../support/logger.js";
 import { buildUsecase } from "../support/usecase.js";
 
 export const uninstallCmd = buildUsecase(async ({ deptools }) => {
-  const deletingSpinner = ora("deleting deps").start();
+  const deletingSpinner = terminal.spinner("deleting deps").start();
 
   try {
     await deptools.deleteAll();

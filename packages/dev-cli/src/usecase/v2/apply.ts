@@ -1,5 +1,4 @@
 import chalk from "chalk";
-import ora from "ora";
 import { printError } from "../../support/error.js";
 import { buildUsecase } from "../../support/usecase.js";
 import {
@@ -10,7 +9,7 @@ import {
 import { Tailorctl } from "../../interfaces/tailorctl.js";
 import { SpawnProcessError } from "../../support/process.js";
 import { defaultMinitailorPort } from "../../templates/compose.yaml.js";
-import { logger } from "../../support/logger.js";
+import { terminal } from "../../support/logger.js";
 
 export const applyCmd = buildUsecase<ApplyOpts>(
   async ({ resource, cuelang, tailorctl, args, config }) => {
@@ -30,32 +29,32 @@ export const applyCmd = buildUsecase<ApplyOpts>(
     }
 
     if (!args.onlyEval) {
-      const applySpinner = ora("applying manifests").start();
+      const applySpinner = terminal.spinner("applying manifests").start();
       try {
         // TODO: here needs validation beforehand to make `name` non-optional
         await tailorctl.createWorkspace(config?.name || "", {
           onRunning: (msg) => {
-            logger.info("workspace", msg);
+            terminal.info("workspace", msg);
           },
         });
         await tailorctl.createVault();
         await tailorctl.apply({
           onRunning: (msg) => {
-            logger.info("apply", msg);
+            terminal.info("apply", msg);
           },
         });
         applySpinner.succeed();
       } catch (e) {
         applySpinner.fail();
         if (e instanceof SpawnProcessError) {
-          logger.error("apply", e.errors.join());
+          terminal.error("apply", e.errors.join());
         } else {
           printError(e);
         }
         return;
       }
 
-      const waitSpinner = ora("waiting app").start();
+      const waitSpinner = terminal.spinner("waiting app").start();
       try {
         await new Promise((resolve) => setTimeout(resolve, 5000));
         const apps = await tailorctl.apps();
@@ -72,7 +71,7 @@ export const applyCmd = buildUsecase<ApplyOpts>(
       } catch (e) {
         waitSpinner.fail();
         if (e instanceof SpawnProcessError) {
-          logger.error("app", e.errors.join());
+          terminal.error("app", e.errors.join());
         } else {
           printError(e);
         }
@@ -83,7 +82,7 @@ export const applyCmd = buildUsecase<ApplyOpts>(
 );
 
 export const manifestTidy = async (tailorctl: Tailorctl) => {
-  const syncSpinner = ora("synchronizing cue.mod");
+  const syncSpinner = terminal.spinner("synchronizing cue.mod");
   try {
     syncSpinner.start();
     await tailorctl.tidy();

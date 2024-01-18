@@ -1,7 +1,7 @@
 import { spawn } from "child_process";
 import { homedir } from "os";
 import path from "path";
-import { logger } from "./logger.js";
+import { terminal } from "./logger.js";
 
 export const destDir = path.join(homedir(), ".local", "share", "tailordev");
 export const cuelangDir = path.join(destDir, "cuelang");
@@ -40,7 +40,7 @@ export const spawnExecutable = (
 ): Promise<number> => {
   return new Promise((resolve, reject) => {
     const executable = pathResolver();
-    logger.debug(
+    terminal.debug(
       path.basename(executable),
       JSON.stringify({
         cmd: args.join(" "),
