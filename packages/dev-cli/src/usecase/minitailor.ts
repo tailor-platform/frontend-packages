@@ -1,6 +1,6 @@
-import chalk from "chalk";
 import { printError } from "../support/error.js";
 import { buildUsecase } from "../support/usecase.js";
+import { logger } from "../support/logger.js";
 
 export type MinitailorRunOpts = {
   paths: string[];
@@ -13,7 +13,7 @@ export const importCmd = buildUsecase<MinitailorRunOpts>(
       for (const path of args.paths) {
         await dockerCompose.import(path, args.host, {
           onRunning: (msg) => {
-            console.log(`${chalk.bold.yellow("[minitailor]")} ${msg}`);
+            logger.info("minitailor", msg);
           },
         });
       }

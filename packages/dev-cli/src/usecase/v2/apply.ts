@@ -10,6 +10,7 @@ import {
 import { Tailorctl } from "../../interfaces/tailorctl.js";
 import { SpawnProcessError } from "../../support/process.js";
 import { defaultMinitailorPort } from "../../templates/compose.yaml.js";
+import { logger } from "../../support/logger.js";
 
 export const applyCmd = buildUsecase<ApplyOpts>(
   async ({ resource, cuelang, tailorctl, args, config }) => {
@@ -34,20 +35,20 @@ export const applyCmd = buildUsecase<ApplyOpts>(
         // TODO: here needs validation beforehand to make `name` non-optional
         await tailorctl.createWorkspace(config?.name || "", {
           onRunning: (msg) => {
-            console.log(`${chalk.bold.yellow("[workspace]")} ${msg}`);
+            logger.info("workspace", msg);
           },
         });
         await tailorctl.createVault();
         await tailorctl.apply({
           onRunning: (msg) => {
-            console.log(`${chalk.bold.yellow("[apply]")} ${msg}`);
+            logger.info("apply", msg);
           },
         });
         applySpinner.succeed();
       } catch (e) {
         applySpinner.fail();
         if (e instanceof SpawnProcessError) {
-          console.log(`${chalk.bold.yellow("[apply]")} ${e.errors.join()}`);
+          logger.error("apply", e.errors.join());
         } else {
           printError(e);
         }
@@ -70,7 +71,11 @@ export const applyCmd = buildUsecase<ApplyOpts>(
         }
       } catch (e) {
         waitSpinner.fail();
-        printError(e);
+        if (e instanceof SpawnProcessError) {
+          logger.error("app", e.errors.join());
+        } else {
+          printError(e);
+        }
         return;
       }
     }
