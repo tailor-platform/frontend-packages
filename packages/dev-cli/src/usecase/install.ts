@@ -1,4 +1,4 @@
-import { printError } from "../support/error.js";
+import { handleError } from "../support/error.js";
 import { terminal } from "../support/logger.js";
 import { buildUsecase } from "../support/usecase.js";
 
@@ -42,7 +42,7 @@ export const installCmd = buildUsecase<InstallOpts>(
 
       await Promise.all([downloadTailorctl(), downloadCuelang()]);
     } catch (e) {
-      printError(e);
+      handleError("install", e);
     }
   },
 );
