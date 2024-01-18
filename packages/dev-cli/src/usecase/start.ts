@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import { Eta } from "eta";
-import { printError } from "../support/error.js";
+import { handleError } from "../support/error.js";
 import { buildUsecase } from "../support/usecase.js";
 import { createMinitailorDBSQL } from "../templates/0-minitailor-database.sql.js";
 import { composeYaml } from "../templates/compose.yaml.js";
@@ -47,7 +47,7 @@ export const startCmd = buildUsecase<StartOpts>(
       createSpinner.succeed();
     } catch (e) {
       createSpinner.fail();
-      printError(e);
+      handleError("start", e);
       return;
     }
 
@@ -63,7 +63,7 @@ export const startCmd = buildUsecase<StartOpts>(
       composeSpinner.succeed();
     } catch (e) {
       composeSpinner.fail();
-      printError(e);
+      handleError("start", e);
       return;
     }
 
@@ -84,7 +84,7 @@ export const startCmd = buildUsecase<StartOpts>(
           config,
         );
       } catch (e) {
-        printError(e);
+        handleError("apply", e);
         return;
       }
     } else {

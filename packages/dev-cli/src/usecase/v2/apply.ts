@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { printError } from "../../support/error.js";
+import { handleError } from "../../support/error.js";
 import { buildUsecase } from "../../support/usecase.js";
 import {
   ApplyOpts,
@@ -7,7 +7,6 @@ import {
   createGenerateDist,
 } from "../v1/apply.js";
 import { Tailorctl } from "../../interfaces/tailorctl.js";
-import { SpawnProcessError } from "../../support/process.js";
 import { defaultMinitailorPort } from "../../templates/compose.yaml.js";
 import { terminal } from "../../support/logger.js";
 
@@ -15,7 +14,7 @@ export const applyCmd = buildUsecase<ApplyOpts>(
   async ({ resource, cuelang, tailorctl, args, config }) => {
     const targetFiles = config?.target || [];
     if (targetFiles.length === 0) {
-      printError(NoTargetFileError);
+      handleError("apply", NoTargetFileError);
       return;
     }
 
@@ -24,7 +23,7 @@ export const applyCmd = buildUsecase<ApplyOpts>(
       await createGenerateDist(resource, cuelang, args, targetFiles);
       await resource.copyCueMod();
     } catch (e) {
-      printError(e);
+      handleError("apply", e);
       return;
     }
 
@@ -46,35 +45,30 @@ export const applyCmd = buildUsecase<ApplyOpts>(
         applySpinner.succeed();
       } catch (e) {
         applySpinner.fail();
-        if (e instanceof SpawnProcessError) {
-          terminal.error("apply", e.errors.join());
-        } else {
-          printError(e);
-        }
+        handleError("apply", e);
         return;
       }
 
+      // tailorctl.apps() needs some waits to get manifests applied in minitailor.
+      const waitForAppTimeout = 5000;
       const waitSpinner = terminal.spinner("waiting app").start();
       try {
-        await new Promise((resolve) => setTimeout(resolve, 5000));
-        const apps = await tailorctl.apps();
-        waitSpinner.succeed();
+        setTimeout(async () => {
+          const apps = await tailorctl.apps();
+          waitSpinner.succeed();
 
-        if (apps.length > 0) {
-          console.log(
-            chalk.bold.white("\nHooray! Your backend is now up and running."),
-            chalk.white(
-              `\nPlayground: http://${apps[0].domain}:${defaultMinitailorPort}/playground`,
-            ),
-          );
-        }
+          if (apps.length > 0) {
+            console.log(
+              chalk.bold.white("\nHooray! Your backend is now up and running."),
+              chalk.white(
+                `\nPlayground: http://${apps[0].domain}:${defaultMinitailorPort}/playground`,
+              ),
+            );
+          }
+        }, waitForAppTimeout);
       } catch (e) {
         waitSpinner.fail();
-        if (e instanceof SpawnProcessError) {
-          terminal.error("app", e.errors.join());
-        } else {
-          printError(e);
-        }
+        handleError("app", e);
         return;
       }
     }

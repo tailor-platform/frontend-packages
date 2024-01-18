@@ -1,7 +1,6 @@
 import chalk from "chalk";
-import { printError } from "../../support/error.js";
+import { handleError } from "../../support/error.js";
 import { buildUsecase } from "../../support/usecase.js";
-import { SpawnProcessError } from "../../support/process.js";
 import { Tailorctl } from "../../interfaces/tailorctl.js";
 import { Resource } from "../../interfaces/resource.js";
 import { Cuelang } from "../../interfaces/cuelang.js";
@@ -18,7 +17,7 @@ export const applyCmd = buildUsecase<ApplyOpts>(
   async ({ resource, dockerCompose, cuelang, tailorctl, args, config }) => {
     const targetFiles = config?.target || [];
     if (targetFiles.length === 0) {
-      printError(NoTargetFileError);
+      handleError("apply", NoTargetFileError);
       return;
     }
 
@@ -27,7 +26,7 @@ export const applyCmd = buildUsecase<ApplyOpts>(
       await createGenerateDist(resource, cuelang, args, targetFiles);
       await resource.copyCueMod();
     } catch (e) {
-      printError(e);
+      handleError("apply", e);
       return;
     }
 
@@ -43,7 +42,7 @@ export const applyCmd = buildUsecase<ApplyOpts>(
         applySpinner.succeed();
       } catch (e) {
         applySpinner.fail();
-        printError(e);
+        handleError("apply", e);
         return;
       }
 
@@ -79,18 +78,10 @@ export const createGenerateDist = async (
         .spinner(`linting manifest (${file})`)
         .start();
 
-      try {
-        await cuelang.vet(args.env, file);
-        compilingSpinner.start(`evaluating manifest (${file})`);
-        await cuelang.eval(args.env, file);
-        compilingSpinner.succeed(`linted and evaluated (${file})`);
-      } catch (e: unknown) {
-        compilingSpinner.fail();
-        if (e instanceof SpawnProcessError) {
-          terminal.error("apply", e.errors.join());
-        }
-        throw e;
-      }
+      await cuelang.vet(args.env, file);
+      compilingSpinner.start(`evaluating manifest (${file})`);
+      await cuelang.eval(args.env, file);
+      compilingSpinner.succeed(`linted and evaluated (${file})`);
     }),
   );
 };

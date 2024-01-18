@@ -74,6 +74,16 @@ export const buildMockCuelang = (overrides?: Partial<Cuelang>) => ({
 export const buildMockTailorctl = (overrides?: Partial<Tailorctl>) => ({
   sync: vi.fn(),
   tidy: vi.fn(),
+  apps: vi.fn(() =>
+    Promise.resolve([
+      {
+        created: "2023-04-01 05:00:30.001000",
+        updated: "2023-03-01 05:00:30.001000",
+        domain: "dummy.mini.tailor.tech",
+        name: "dummy",
+      },
+    ]),
+  ),
   apply: vi.fn(),
   destroy: vi.fn(),
   createWorkspace: vi.fn(),

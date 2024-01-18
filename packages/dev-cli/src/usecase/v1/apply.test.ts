@@ -38,7 +38,8 @@ describe("apply usecase", () => {
     expect(mockDeps.resource.copyCueMod).not.toHaveBeenCalled();
     expect(mockDeps.dockerCompose.apply).not.toHaveBeenCalled();
     expect(errorLog).toHaveBeenCalledWith(
-      `Failed: ${NoTargetFileError.message}`,
+      expect.stringContaining(NoTargetFileError.message),
+      undefined,
     );
   });
 
