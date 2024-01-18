@@ -1,5 +1,10 @@
-import { spawnExecutable, tailorctlBinary } from "../support/process.js";
+import {
+  SpawnProcessError,
+  spawnExecutable,
+  tailorctlBinary,
+} from "../support/process.js";
 import { z } from "zod";
+import { fromZodError } from "zod-validation-error";
 
 type RunningCallbacks = {
   onRunning?: (msg: string) => void;
@@ -34,13 +39,23 @@ export const cliTailorctlAdapter: Tailorctl = {
   sync: () => spawnExecutable(tailorctlBinary, ["cue", "sync"]),
   tidy: () => spawnExecutable(tailorctlBinary, ["alpha", "manifest", "tidy"]),
   apps: () =>
-    new Promise(async (resolve) => {
+    new Promise(async (resolve, reject) => {
       await spawnExecutable(
         tailorctlBinary,
         ["alpha", "workspace", "app", "list", "--format", "json"],
         {
           onStdoutReceived: (msg) => {
-            resolve(appsSchema.parse(JSON.parse(msg)));
+            const result = appsSchema.safeParse(JSON.parse(msg));
+            if (result.success) {
+              resolve(result.data);
+            } else {
+              reject(
+                new SpawnProcessError(null, [
+                  "invalid apps",
+                  fromZodError(result.error).toString(),
+                ]),
+              );
+            }
           },
         },
         { env: v2minitailorEnv },
