@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, test, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { buildMockConfig, buildMockDeps, oraMock } from "../../tests/mock.js";
 import { applyCmd } from "./apply.js";
 import { NoTargetFileError } from "../v1/apply.js";
@@ -12,8 +12,13 @@ describe("apply usecase", () => {
   const mockDeps = buildMockDeps();
   const runApplyCmd = applyCmd(mockDeps);
 
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+
   afterEach(() => {
-    vi.resetAllMocks();
+    // vi.resetAllMocks();
+    vi.restoreAllMocks();
   });
 
   test("no target file", async () => {
@@ -41,12 +46,14 @@ describe("apply usecase", () => {
     expect(mockDeps.dockerCompose.apply).not.toHaveBeenCalledOnce();
     expect(mockDeps.tailorctl.apply).not.toHaveBeenCalled();
     expect(errorLog).toHaveBeenCalledWith(
-      `Failed: ${NoTargetFileError.message}`,
+      expect.stringContaining(NoTargetFileError.message),
+      undefined,
     );
   });
 
   test("one target file", async () => {
     vi.spyOn(console, "log").mockImplementation(() => void 0);
+    vi.runAllTimers();
 
     await runApplyCmd(
       {
@@ -69,6 +76,7 @@ describe("apply usecase", () => {
 
   test("multiple target files", async () => {
     vi.spyOn(console, "log").mockImplementation(() => void 0);
+    vi.runAllTimers();
 
     const multipleTargetMockConfig = buildMockConfig({
       target: ["tailordb.cue", "pipeline.cue", "stateflow.cue"],

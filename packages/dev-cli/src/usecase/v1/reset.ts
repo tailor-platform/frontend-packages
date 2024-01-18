@@ -1,4 +1,4 @@
-import { printError } from "../../support/error.js";
+import { handleError } from "../../support/error.js";
 import { terminal } from "../../support/logger.js";
 import { buildUsecase } from "../../support/usecase.js";
 
@@ -19,7 +19,7 @@ export const resetCmd = buildUsecase<ResetOpts>(
       composeSpinner.succeed();
     } catch (e) {
       composeSpinner.fail();
-      printError(e);
+      handleError("reset", e);
       return;
     }
 
@@ -31,7 +31,7 @@ export const resetCmd = buildUsecase<ResetOpts>(
         fileDeletingSpinner.succeed();
       } catch (e) {
         fileDeletingSpinner.fail();
-        printError(e);
+        handleError("reset", e);
         return;
       }
     }

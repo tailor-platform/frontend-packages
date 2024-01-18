@@ -1,4 +1,4 @@
-import { printError } from "../support/error.js";
+import { handleError } from "../support/error.js";
 import { terminal } from "../support/logger.js";
 import { buildUsecase } from "../support/usecase.js";
 
@@ -10,7 +10,7 @@ export const uninstallCmd = buildUsecase(async ({ deptools }) => {
     deletingSpinner.succeed();
   } catch (e) {
     deletingSpinner.fail();
-    printError(e);
+    handleError("uninstall", e);
     return;
   }
 });

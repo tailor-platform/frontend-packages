@@ -1,4 +1,4 @@
-import { printError } from "../support/error.js";
+import { handleError } from "../support/error.js";
 import { buildUsecase } from "../support/usecase.js";
 import { terminal } from "../support/logger.js";
 
@@ -18,11 +18,7 @@ export const importCmd = buildUsecase<MinitailorRunOpts>(
         });
       }
     } catch (e: unknown) {
-      if (e instanceof Object && "out" in e) {
-        printError(e.out);
-      } else {
-        printError(e);
-      }
+      handleError("minitailor", e);
     }
   },
 );
