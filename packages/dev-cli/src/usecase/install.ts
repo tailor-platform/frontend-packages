@@ -1,5 +1,5 @@
-import ora from "ora";
 import { printError } from "../support/error.js";
+import { terminal } from "../support/logger.js";
 import { buildUsecase } from "../support/usecase.js";
 
 type InstallOpts = {
@@ -10,8 +10,8 @@ type InstallOpts = {
 
 export const installCmd = buildUsecase<InstallOpts>(
   async ({ deptools, args }) => {
-    const downloadTailorctlSpinner = ora();
-    const downloadCuelangSpinner = ora();
+    const downloadTailorctlSpinner = terminal.spinner();
+    const downloadCuelangSpinner = terminal.spinner();
 
     try {
       const downloadTailorctl = async () => {

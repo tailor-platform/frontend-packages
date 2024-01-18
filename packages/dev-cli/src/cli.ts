@@ -11,7 +11,7 @@ import { resetCmd } from "./usecase/v1/reset.js";
 import { startCmd } from "./usecase/start.js";
 import { uninstallCmd } from "./usecase/uninstall.js";
 import { applyCmd } from "./usecase/v2/apply.js";
-import { logger } from "./support/logger.js";
+import { terminal } from "./support/logger.js";
 
 export const runCLI = async (argv?: readonly string[]) => {
   const { Command } = await import("@commander-js/extra-typings");
@@ -32,7 +32,7 @@ export const runCLI = async (argv?: readonly string[]) => {
     .hook("preAction", (options) => {
       const opts = options.opts();
       if (opts.verbose) {
-        logger.setLevel("debug");
+        terminal.setLevel("debug");
       }
     });
 
