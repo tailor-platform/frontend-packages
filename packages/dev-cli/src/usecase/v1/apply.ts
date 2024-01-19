@@ -46,7 +46,7 @@ export const applyCmd = buildUsecase<ApplyOpts>(
         return;
       }
 
-      console.log(
+      terminal.infoWithoutPrefix(
         chalk.bold.white("\nHooray! Your backend is now up and running."),
       );
     }

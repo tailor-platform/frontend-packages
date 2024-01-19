@@ -88,8 +88,8 @@ export const startCmd = buildUsecase<StartOpts>(
         return;
       }
     } else {
-      console.log(chalk.bold.white("\nYour backend is now up and running!"));
-      console.log(
+      terminal.infoWithoutPrefix(
+        chalk.bold.white("\nYour backend is now up and running!"),
         `Hint: you can hit this with "--apply" to apply manifests at once on starting environment.`,
       );
     }
