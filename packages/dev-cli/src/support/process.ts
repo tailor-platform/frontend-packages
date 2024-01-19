@@ -39,7 +39,7 @@ export const spawnExecutable = (
     env?: NodeJS.ProcessEnv;
   },
 ): Promise<number> => {
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     const executable = pathResolver();
     const spawnOptions = {
       cwd: options?.workindDirectory || cwd(),

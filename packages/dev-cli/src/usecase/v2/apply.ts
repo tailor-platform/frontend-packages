@@ -37,7 +37,7 @@ export const applyCmd = buildUsecase<ApplyOpts>(
           },
         });
         await tailorctl.createVault();
-        await tailorctl.apply({
+        await tailorctl.apply(args.env, {
           onRunning: (msg) => {
             terminal.info("apply", msg);
           },
@@ -57,12 +57,17 @@ export const applyCmd = buildUsecase<ApplyOpts>(
           const apps = await tailorctl.apps();
           waitSpinner.succeed();
 
+          terminal.debug(
+            "app",
+            JSON.stringify({
+              apps,
+            }),
+          );
+
           if (apps.length > 0) {
-            console.log(
+            terminal.infoWithoutPrefix(
               chalk.bold.white("\nHooray! Your backend is now up and running."),
-              chalk.white(
-                `\nPlayground: http://${apps[0].domain}:${defaultMinitailorPort}/playground`,
-              ),
+              `Playground: http://${apps[0].domain}:${defaultMinitailorPort}/playground`,
             );
           }
         }, waitForAppTimeout);

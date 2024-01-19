@@ -1,3 +1,4 @@
+import path from "path";
 import {
   SpawnProcessError,
   spawnExecutable,
@@ -5,6 +6,7 @@ import {
 } from "../support/process.js";
 import { z } from "zod";
 import { fromZodError } from "zod-validation-error";
+import { getConfig } from "../support/config.js";
 
 type RunningCallbacks = {
   onRunning?: (msg: string) => void;
@@ -23,7 +25,7 @@ export type Tailorctl = {
   sync: () => Promise<number>;
   tidy: () => Promise<number>;
   apps: () => Promise<z.infer<typeof appsSchema>>;
-  apply: (cb?: RunningCallbacks) => Promise<number>;
+  apply: (env: string, cb?: RunningCallbacks) => Promise<number>;
   destroy: () => Promise<number>;
   createWorkspace: (name: string, cb?: RunningCallbacks) => Promise<number>;
   createVault: () => Promise<number>;
@@ -35,6 +37,7 @@ const v2minitailorEnv = {
   TAILOR_TOKEN: "tpp_11111111111111111111111111111111",
 };
 
+const config = getConfig();
 export const cliTailorctlAdapter: Tailorctl = {
   sync: () => spawnExecutable(tailorctlBinary, ["cue", "sync"]),
   tidy: () => spawnExecutable(tailorctlBinary, ["alpha", "manifest", "tidy"]),
@@ -61,7 +64,7 @@ export const cliTailorctlAdapter: Tailorctl = {
         { env: v2minitailorEnv },
       );
     }),
-  apply: (cb) =>
+  apply: (env, cb) =>
     spawnExecutable(
       tailorctlBinary,
       [
@@ -69,8 +72,10 @@ export const cliTailorctlAdapter: Tailorctl = {
         "workspace",
         "apply",
         "--auto-approve",
+        "--envs",
+        env,
         "-m",
-        ".tailordev/generated",
+        path.join(config?.manifest || "", config?.target[0] || ""),
       ],
       {
         onStdoutReceived: (msg) => cb?.onRunning && cb.onRunning(msg),
