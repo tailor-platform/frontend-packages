@@ -32,7 +32,7 @@ const buildComposeOptions = () => {
 };
 
 export const cliDockerComposeAdapter: DockerCompose = {
-  down: async () => {
+  down: () => {
     const opts = {
       config: composePath,
       commandOptions: ["--volumes", "--remove-orphans"],
