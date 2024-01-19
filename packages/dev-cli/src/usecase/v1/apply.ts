@@ -78,10 +78,15 @@ export const createGenerateDist = async (
         .spinner(`linting manifest (${file})`)
         .start();
 
-      await cuelang.vet(args.env, file);
-      compilingSpinner.start(`evaluating manifest (${file})`);
-      await cuelang.eval(args.env, file);
-      compilingSpinner.succeed(`linted and evaluated (${file})`);
+      try {
+        await cuelang.vet(args.env, file);
+        compilingSpinner.start(`evaluating manifest (${file})`);
+        await cuelang.eval(args.env, file);
+        compilingSpinner.succeed(`linted and evaluated (${file})`);
+      } catch (e) {
+        compilingSpinner.fail();
+        throw e;
+      }
     }),
   );
 };
