@@ -2,6 +2,7 @@ import { spawn } from "child_process";
 import { homedir } from "os";
 import path from "path";
 import { terminal } from "./logger.js";
+import { cwd } from "process";
 
 export const destDir = path.join(homedir(), ".local", "share", "tailordev");
 export const cuelangDir = path.join(destDir, "cuelang");
@@ -40,37 +41,43 @@ export const spawnExecutable = (
 ): Promise<number> => {
   return new Promise((resolve, reject) => {
     const executable = pathResolver();
+    const spawnOptions = {
+      cwd: options?.workindDirectory || cwd(),
+      env: {
+        ...options?.env,
+        // tailorctl creates a .tailorctl directory at $HOME directory
+        // so spawning process should explicitly set $HOME to process.env.HOME here.
+        HOME: process.env.HOME,
+      },
+    };
+    const spawnedProcess = spawn(executable, args, spawnOptions);
+
     terminal.debug(
       path.basename(executable),
       JSON.stringify({
         cmd: args.join(" "),
-        envs: options?.env ?? {},
+        envs: spawnOptions?.env,
+        cwd: spawnOptions.cwd,
         path: executable,
       }),
     );
 
-    const process = spawn(executable, args, {
-      cwd: options?.workindDirectory,
-      env: options?.env,
-    });
-
-    let errors: string[] = [];
-
-    process.stdout.on("data", (value) => {
+    spawnedProcess.stdout.on("data", (value) => {
       cb?.onStdoutReceived && cb.onStdoutReceived(value.toString().trim());
     });
 
-    process.stderr.on("data", (value) => {
+    let errors: string[] = [];
+    spawnedProcess.stderr.on("data", (value) => {
       const msg = value.toString().trim();
       cb?.onStderrReceived && cb.onStderrReceived(msg);
       errors.push(msg);
     });
 
-    process.on("error", (err) => {
+    spawnedProcess.on("error", (err) => {
       reject(err);
     });
 
-    process.on("exit", (code) => {
+    spawnedProcess.on("exit", (code) => {
       cb?.onExited && cb.onExited(code);
       if (code === 0) {
         resolve(code);
