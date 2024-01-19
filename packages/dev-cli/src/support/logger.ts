@@ -2,13 +2,6 @@ import chalk from "chalk";
 import { randomUUID } from "crypto";
 import ora, { Ora } from "ora";
 
-type Logger = {
-  debug: (prefix: string, msg?: unknown, ...params: unknown[]) => void;
-  info: (prefix: string, msg?: unknown, ...params: unknown[]) => void;
-  error: (prefix: string, msg?: unknown, ...params: unknown[]) => void;
-  setLevel: (level: LogLevel) => void;
-};
-
 const logLevels = {
   debug: 0,
   info: 1,
@@ -16,7 +9,7 @@ const logLevels = {
 } as const;
 type LogLevel = keyof typeof logLevels;
 
-class TerminalLogger implements Logger {
+class TerminalLogger {
   private readonly logger: Console;
   private level: LogLevel;
   private spinners: Map<string, Ora>;
@@ -36,10 +29,7 @@ class TerminalLogger implements Logger {
       return;
     }
     this.withRerenderSpinners(() => {
-      this.logger.error(
-        `${chalk.bold.red(`[${prefix}]`)} ${msg}`,
-        params.length > 0 ? params : undefined,
-      );
+      this.logger.error(`${chalk.bold.red(`[${prefix}]`)} ${msg}`, ...params);
     });
   }
 
@@ -48,10 +38,7 @@ class TerminalLogger implements Logger {
       return;
     }
     this.withRerenderSpinners(() => {
-      this.logger.info(
-        `${chalk.bold.yellow(`[${prefix}]`)} ${msg}`,
-        params.length > 0 ? params : undefined,
-      );
+      this.logger.info(`${chalk.bold.yellow(`[${prefix}]`)} ${msg}`, ...params);
     });
   }
 
@@ -62,8 +49,14 @@ class TerminalLogger implements Logger {
     this.withRerenderSpinners(() => {
       this.logger.debug(
         `${chalk.bold.white(`[${prefix}]`)} ${chalk.white(msg)}`,
-        params.length > 0 ? params : undefined,
+        ...params,
       );
+    });
+  }
+
+  infoWithoutPrefix(...msgs: string[]) {
+    this.withRerenderSpinners(() => {
+      this.logger.info(msgs.join("\n"));
     });
   }
 
