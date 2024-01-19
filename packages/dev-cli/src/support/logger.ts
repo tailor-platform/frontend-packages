@@ -63,11 +63,10 @@ class TerminalLogger {
   spinner(msg?: string) {
     const spinner = ora(msg);
     const id = randomUUID();
-    this.spinners.set(id, spinner);
-
-    return {
+    const controller = {
       start: (text?: string) => {
-        return spinner.start(text);
+        spinner.start(text);
+        return controller;
       },
       succeed: (text?: string) => {
         this.spinners.delete(id);
@@ -78,6 +77,9 @@ class TerminalLogger {
         return spinner.fail(text);
       },
     };
+
+    this.spinners.set(id, spinner);
+    return controller;
   }
 
   // Ora needs clear() and render() around another STDOUT output
