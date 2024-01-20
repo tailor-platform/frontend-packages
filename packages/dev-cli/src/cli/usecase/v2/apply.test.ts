@@ -47,12 +47,11 @@ describe("apply usecase", () => {
     expect(mockDeps.tailorctl.apply).not.toHaveBeenCalled();
     expect(errorLog).toHaveBeenCalledWith(
       expect.stringContaining(NoTargetFileError.message),
-      undefined,
     );
   });
 
   test("one target file", async () => {
-    vi.spyOn(console, "log").mockImplementation(() => void 0);
+    vi.spyOn(console, "info").mockImplementation(() => void 0);
     vi.runAllTimers();
 
     await runApplyCmd(
@@ -75,7 +74,7 @@ describe("apply usecase", () => {
   });
 
   test("multiple target files", async () => {
-    vi.spyOn(console, "log").mockImplementation(() => void 0);
+    vi.spyOn(console, "info").mockImplementation(() => void 0);
     vi.runAllTimers();
 
     const multipleTargetMockConfig = buildMockConfig({

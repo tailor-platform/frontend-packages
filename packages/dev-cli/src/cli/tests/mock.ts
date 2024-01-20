@@ -95,4 +95,6 @@ export const oraMock = (): unknown => ({
   start: vi.fn(() => oraMock()),
   fail: vi.fn(),
   succeed: vi.fn(),
+  clear: vi.fn(),
+  render: vi.fn(),
 });
