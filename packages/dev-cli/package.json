@@ -8,10 +8,10 @@
     "dist"
   ],
   "bin": {
-    "tailordev": "dist/index.js"
+    "tailordev": "dist/cli.js"
   },
   "scripts": {
-    "build": "tsup src/index.ts --format esm --loader \".eta=file\" --minify",
+    "build": "pnpm run clean && tsup",
     "release:preview": "pnpm run build && pnpm publish --tag preview",
     "test": "vitest run --reporter verbose",
     "clean": "rm -rf dist",

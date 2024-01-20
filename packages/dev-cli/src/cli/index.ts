@@ -102,3 +102,7 @@ export const runCLI = async (argv?: readonly string[]) => {
 
   app.parse(argv);
 };
+
+runCLI(process.argv).catch((e) => {
+  terminal.error("app", e instanceof Error ? e.message : e);
+});
