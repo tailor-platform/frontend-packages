@@ -1,13 +1,16 @@
-import { terminal } from "../script/logger.js";
 import { execaNode } from "execa";
 import path from "path";
 import { Option } from "@commander-js/extra-typings";
 import * as changeCase from "change-case";
 import { commands } from "./commands.js";
+import { LevelledLogger, LogLevel } from "./logger.js";
 
 export const runCLI = async (argv?: readonly string[]) => {
   const { Command } = await import("@commander-js/extra-typings");
   const program = new Command();
+  const logger = new LevelledLogger();
+
+  let scriptLogLevel: LogLevel = "info";
   const app = program
     .name("tailordev")
     .description("CLI for Tailor Platform application devs")
@@ -16,7 +19,9 @@ export const runCLI = async (argv?: readonly string[]) => {
     .hook("preAction", (options) => {
       const opts = options.opts();
       if (opts.verbose) {
-        terminal.setLevel("debug");
+        scriptLogLevel = "debug";
+        logger.setLevel(scriptLogLevel);
+        logger.debug("CLI", "enabled verbose mode");
       }
     });
 
@@ -56,6 +61,7 @@ export const runCLI = async (argv?: readonly string[]) => {
       await execaNode(resolveScript(commands[key].path), [], {
         stdio: "inherit",
         env: {
+          __TAILORDEV_LOGLEVEL: scriptLogLevel,
           ...minitailorEnv,
           ...optsEnvVars,
         },
@@ -67,5 +73,5 @@ export const runCLI = async (argv?: readonly string[]) => {
 };
 
 runCLI(process.argv).catch((e) => {
-  terminal.error("app", e instanceof Error ? e.message : e);
+  console.error("app", e instanceof Error ? e.message : e);
 });

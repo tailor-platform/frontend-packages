@@ -1,57 +1,25 @@
-import chalk from "chalk";
-import { randomUUID } from "crypto";
-import ora, { Ora } from "ora";
-
-const logLevels = {
-  debug: 0,
-  info: 1,
-  error: 2,
-} as const;
-type LogLevel = keyof typeof logLevels;
+import { LevelledLogger, LogLevel } from "@cli/logger.js";
 
 export class TerminalLogger {
-  private readonly logger: Console;
-  private level: LogLevel;
-  private spinners: Map<string, Ora>;
+  private readonly logger: LevelledLogger;
 
-  constructor() {
-    this.logger = console;
-    this.level = "info";
-    this.spinners = new Map();
-  }
-
-  setLevel(level: LogLevel) {
-    this.level = level;
+  constructor(logger: LevelledLogger) {
+    this.logger = logger;
+    this.logger.setLevel(
+      (process.env.__TAILORDEV_LOGLEVEL as LogLevel) || "info",
+    );
   }
 
   error(prefix: string, msg?: unknown, ...params: unknown[]) {
-    if (logLevels[this.level] > logLevels.error) {
-      return;
-    }
-    this.withRerenderSpinners(() => {
-      this.logger.error(`${chalk.bold.red(`[${prefix}]`)} ${msg}`, ...params);
-    });
+    this.logger.error(prefix, msg, ...params);
   }
 
   info(prefix: string, msg?: unknown, ...params: unknown[]) {
-    if (logLevels[this.level] > logLevels.info) {
-      return;
-    }
-    this.withRerenderSpinners(() => {
-      this.logger.info(`${chalk.bold.yellow(`[${prefix}]`)} ${msg}`, ...params);
-    });
+    this.logger.info(prefix, msg, ...params);
   }
 
   debug(prefix: string, msg?: unknown, ...params: unknown[]) {
-    if (logLevels[this.level] > logLevels.debug) {
-      return;
-    }
-    this.withRerenderSpinners(() => {
-      this.logger.debug(
-        `${chalk.bold.white(`[${prefix}]`)} ${chalk.white(msg)}`,
-        ...params,
-      );
-    });
+    this.logger.debug(prefix, msg, ...params);
   }
 
   async group(prefix: string, description: string, cb: () => Promise<void>) {
@@ -61,44 +29,6 @@ export class TerminalLogger {
   }
 
   infoWithoutPrefix(...msgs: string[]) {
-    this.withRerenderSpinners(() => {
-      this.logger.info(msgs.join("\n"));
-    });
-  }
-
-  spinner(msg?: string) {
-    const spinner = ora(msg);
-    const id = randomUUID();
-    const controller = {
-      start: (text?: string) => {
-        spinner.start(text);
-        return controller;
-      },
-      succeed: (text?: string) => {
-        this.spinners.delete(id);
-        return spinner.succeed(text);
-      },
-      fail: (text?: string) => {
-        this.spinners.delete(id);
-        return spinner.fail(text);
-      },
-    };
-
-    this.spinners.set(id, spinner);
-    return controller;
-  }
-
-  // Ora needs clear() and render() around another STDOUT output
-  // (Ref: https://github.com/sindresorhus/ora/issues/120#issuecomment-830563448)
-  private withRerenderSpinners(cb: () => void) {
-    this.spinners.forEach((s) => {
-      s.clear();
-    });
-    cb();
-    this.spinners.forEach((s) => {
-      s.render();
-    });
+    this.logger.info(msgs.join("\n"));
   }
 }
-
-export const terminal = new TerminalLogger();
