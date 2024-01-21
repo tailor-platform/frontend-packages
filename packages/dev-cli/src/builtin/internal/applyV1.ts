@@ -6,7 +6,7 @@ import {
   getConfig,
   log,
   tailorctl,
-} from "../../script/index.js";
+} from "@script/index.js";
 
 const config = getConfig();
 
