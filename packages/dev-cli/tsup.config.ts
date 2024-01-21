@@ -1,4 +1,5 @@
 import { defineConfig } from "tsup";
+import { commands } from "./src/cli/commands";
 
 const devOpts =
   process.env.NODE_ENV === "development"
@@ -10,17 +11,19 @@ const devOpts =
       }
     : {};
 
+// build entries for builtin scripts (equals to mapping `builtin/*` compiled from `src/builtin/*.ts`)
+const builtinScriptEntries = Object.keys(commands).reduce((acc, current) => {
+  const path = commands[current].path;
+  return Object.assign(acc, {
+    [path]: `src/${path}.ts`,
+  });
+}, {});
+
 export default defineConfig({
   entry: {
     cli: "src/cli/index.ts",
     script: "src/script/index.ts",
-
-    // builtin scripts
-    "builtin/start": "src/builtin/start.ts",
-    "builtin/reset": "src/builtin/reset.ts",
-    "builtin/apply": "src/builtin/apply.ts",
-    "builtin/install-deps": "src/builtin/install-deps.ts",
-    "builtin/uninstall-deps": "src/builtin/uninstall-deps.ts",
+    ...builtinScriptEntries,
   },
   minify: true,
   format: "esm",

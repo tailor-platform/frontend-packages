@@ -3,6 +3,7 @@ import { execaNode } from "execa";
 import path from "path";
 import { Option } from "@commander-js/extra-typings";
 import * as changeCase from "change-case";
+import { commands } from "./commands.js";
 
 export const runCLI = async (argv?: readonly string[]) => {
   const { Command } = await import("@commander-js/extra-typings");
@@ -19,89 +20,19 @@ export const runCLI = async (argv?: readonly string[]) => {
       }
     });
 
-  type Commands = Record<
-    string,
-    {
-      description: string;
-      file: string;
-      options?: {
-        usage: string;
-        description: string;
-        default: unknown;
-      }[];
-    }
-  >;
-
-  const commands: Commands = {
-    start: {
-      description: "start local dev environment",
-      file: "start.js",
-      options: [
-        {
-          usage: "--only-file",
-          description: "only geneate files",
-          default: false,
-        },
-        {
-          usage: "--env <value>",
-          description: "environment to apply",
-          default: "local",
-        },
-        {
-          usage: "--apply",
-          description: "apply after starting up environment",
-          default: false,
-        },
-      ],
-    },
-    reset: {
-      description: "reset local dev environment",
-      file: "reset.js",
-    },
-    apply: {
-      description: "apply manifest onto local environment",
-      file: "apply.js",
-      options: [
-        {
-          usage: "--env <value>",
-          description: "environment to apply",
-          default: "local",
-        },
-        {
-          usage: "--only-eval",
-          description: "only evaluate manifests",
-          default: false,
-        },
-      ],
-    },
-    "install:deps": {
-      description: "install required dependencies (tailorctl, cuelang)",
-      file: "install-deps.js",
-      options: [
-        {
-          usage: "--tailorctl-version <version>",
-          description: "tailorctl version to download",
-          default: "v0.7.12",
-        },
-        {
-          usage: "--cuelang-version <version>",
-          description: "cuelang version to download",
-          default: "v0.7.0",
-        },
-      ],
-    },
-    "uninstall:deps": {
-      description: "uninstall dependencies",
-      file: "uninstall-deps.js",
-      options: [],
-    },
-  } as const;
-
-  const resolveScript = (name: string) => {
+  const resolveScript = (filename: string) => {
     const pathWithProtocol = new URL(import.meta.url);
-    return path.join(pathWithProtocol.pathname, `../builtin/${name}`);
+    return path.join(pathWithProtocol.pathname, `../${filename}.js`);
   };
 
+  // Environment variables needed to bypass platform authorization on minitailor
+  const minitailorEnv = {
+    APP_HTTP_SCHEMA: "http",
+    PLATFORM_URL: "http://mini.tailor.tech:18090",
+    TAILOR_TOKEN: "tpp_11111111111111111111111111111111",
+  };
+
+  // see `src/cli/commands.ts` for commands to be registered
   Object.keys(commands).forEach((key) => {
     const cmd = app.command(key).description(commands[key].description);
     const options = commands[key].options || [];
@@ -113,7 +44,7 @@ export const runCLI = async (argv?: readonly string[]) => {
     });
 
     cmd.action(async (_, options) => {
-      // Pass command options as environment variables prefixed with `__CMDOPTS_${name}`.
+      // Pass command options to scripts as environment variables prefixed with `__CMDOPTS_${name}`.
       const opts = options.opts() as Record<string, unknown>;
       const optsEnvVars = Object.keys(opts).reduce((acc, current) => {
         const constantOptName = changeCase.constantCase(current);
@@ -122,12 +53,10 @@ export const runCLI = async (argv?: readonly string[]) => {
         });
       }, {});
 
-      await execaNode(resolveScript(commands[key].file), [], {
+      await execaNode(resolveScript(commands[key].path), [], {
         stdio: "inherit",
         env: {
-          APP_HTTP_SCHEMA: "http",
-          PLATFORM_URL: "http://mini.tailor.tech:18090",
-          TAILOR_TOKEN: "tpp_11111111111111111111111111111111",
+          ...minitailorEnv,
           ...optsEnvVars,
         },
       });
