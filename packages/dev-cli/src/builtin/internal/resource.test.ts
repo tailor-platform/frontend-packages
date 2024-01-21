@@ -24,6 +24,14 @@ vi.mock("node:process", () => {
   };
 });
 
+vi.mock("@script/index.js", () => {
+  return {
+    log: {
+      debug: vi.fn(),
+    },
+  };
+});
+
 describe("resource", () => {
   afterEach(() => {
     vol.reset();
