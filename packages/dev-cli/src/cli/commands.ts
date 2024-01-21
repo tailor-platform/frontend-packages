@@ -1,15 +1,13 @@
-type Commands = Record<
-  string,
-  {
+export type Command = {
+  description: string;
+  path: string;
+  options?: {
+    usage: string;
     description: string;
-    path: string;
-    options?: {
-      usage: string;
-      description: string;
-      default: unknown;
-    }[];
-  }
->;
+    default: unknown;
+  }[];
+};
+type Commands = Record<string, Command>;
 
 export const commands: Commands = {
   start: {
