@@ -26,7 +26,7 @@ export default defineConfig({
     ...builtinScriptEntries,
   },
   minify: true,
-  format: "esm",
+  format: ["esm"],
   dts: true,
   ...devOpts,
 });
