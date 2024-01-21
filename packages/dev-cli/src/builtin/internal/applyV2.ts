@@ -1,8 +1,8 @@
 import chalk from "chalk";
 import path from "path";
 import { z } from "zod";
-import { cliResourceAdapter } from "../../cli/interfaces/resource.js";
-import { defaultMinitailorPort } from "../../cli/templates/compose.yaml.js";
+import { fileIO } from "./resource.js";
+import { defaultMinitailorPort } from "../templates/compose.yaml.js";
 import { $, getConfig, log, tailorctl } from "../../script/index.js";
 import { createGenerateDist } from "./applyV1.js";
 
@@ -12,8 +12,12 @@ export const applyV2 = async () => {
   await log.group("apply", "evaluating manifest", async () => {
     await tailorctl(["alpha", "manifest", "tidy"]);
     await createGenerateDist();
-    await cliResourceAdapter.copyCueMod();
+    await fileIO.copyCueMod();
   });
+
+  if (process.env.__CMDOPTS_ONLY_EVAL === "true") {
+    return;
+  }
 
   await log.group("apply", "creating workspace", async () => {
     await tailorctl([
@@ -28,13 +32,15 @@ export const applyV2 = async () => {
   });
 
   await log.group("apply", "applying manifest", async () => {
+    const appEnv = process.env.__CMDOPTS_ENV || "";
+
     await tailorctl([
       "alpha",
       "workspace",
       "apply",
       "--auto-approve",
       "--envs",
-      process.env.APP_ENV || "",
+      appEnv,
       "-m",
       path.join(config?.manifest || "", config?.target[0] || ""),
     ]);

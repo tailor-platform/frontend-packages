@@ -5,7 +5,12 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@cli/*": ["./src/cli/*"],
+      "@script/*": ["./src/script/*"],
+      "@builtin/*": ["./src/builtin/*"]
+    }
   },
   "include": ["src/**/*"]
 }

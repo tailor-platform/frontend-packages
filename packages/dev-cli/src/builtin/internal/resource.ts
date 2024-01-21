@@ -15,7 +15,7 @@ export type Resource = {
 const resourcePath = path.join(cwd(), ".tailordev");
 export const generatedPath = path.join(resourcePath, "generated");
 export const composePath = path.join(resourcePath, "compose.yaml");
-export const cliResourceAdapter: Resource = {
+export const fileIO: Resource = {
   deleteAll: () =>
     rm(resourcePath, {
       recursive: true,

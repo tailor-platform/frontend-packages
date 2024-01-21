@@ -1,4 +1,4 @@
-import { getConfig } from "../script/index.js";
+import { getConfig } from "@script/index.js";
 import { applyV1 } from "./internal/applyV1.js";
 import { applyV2 } from "./internal/applyV2.js";
 

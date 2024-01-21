@@ -1,12 +1,12 @@
 import { cwd } from "process";
-import { cliResourceAdapter } from "../cli/interfaces/resource.js";
-import { defaultProfileName } from "../cli/templates/compose.yaml.js";
-import { dockerCompose, getConfig, log } from "../script/index.js";
+import { fileIO } from "@builtin/internal/resource.js";
+import { defaultProfileName } from "@builtin/templates/compose.yaml.js";
+import { dockerCompose, getConfig, log } from "@script/index.js";
 
 const config = getConfig();
 
 await log.group("dev environment", "shutdown", async () => {
-  const composePath = await cliResourceAdapter.existsComposeConfig();
+  const composePath = await fileIO.existsComposeConfig();
   if (composePath) {
     const appName = config?.name || "";
     await dockerCompose([
@@ -26,5 +26,5 @@ await log.group("dev environment", "shutdown", async () => {
 });
 
 await log.group("config", "cleanup", async () => {
-  await cliResourceAdapter.deleteAll();
+  await fileIO.deleteAll();
 });

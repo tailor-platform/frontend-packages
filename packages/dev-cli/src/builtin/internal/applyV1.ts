@@ -1,9 +1,12 @@
 import path from "path";
+import { fileIO, generatedPath } from "./resource.js";
 import {
-  cliResourceAdapter,
-  generatedPath,
-} from "../../cli/interfaces/resource.js";
-import { cue, getConfig, log, tailorctl } from "../../script/index.js";
+  cue,
+  dockerCompose,
+  getConfig,
+  log,
+  tailorctl,
+} from "../../script/index.js";
 
 const config = getConfig();
 
@@ -11,29 +14,36 @@ export const applyV1 = async () => {
   await log.group("apply", "linting", async () => {
     await tailorctl(["cue", "sync"]);
     await createGenerateDist();
-    await cliResourceAdapter.copyCueMod();
+    await fileIO.copyCueMod();
+  });
 
-    // TODO: impement here
+  if (process.env.__CMDOPTS_ONLY_EVAL === "true") {
+    return;
+  }
+
+  await log.group("apply", "applying manifest", async () => {
+    await dockerCompose([
+      "exec",
+      "minitailor",
+      "/root/app",
+      "apply",
+      "-m",
+      "/root/backend/generated",
+    ]);
   });
 };
 
 export const createGenerateDist = async () => {
-  await cliResourceAdapter.createGeneratedDist();
+  const appEnv = process.env.__CMDOPTS_ENV || "";
+
+  await fileIO.createGeneratedDist();
   await Promise.all(
     config?.target.map(async (f) => {
       const file = path.join(config?.manifest, f);
       const outPath = path.join(generatedPath, f);
       log.info("apply", `evaluating... (${file})`);
-      await cue(["vet", "-t", process.env.APP_ENV || "", "-c", file]);
-      await cue([
-        "eval",
-        "-f",
-        "-t",
-        process.env.APP_ENV || "",
-        file,
-        "-o",
-        outPath,
-      ]);
+      await cue(["vet", "-t", appEnv, "-c", file]);
+      await cue(["eval", "-f", "-t", appEnv, file, "-o", outPath]);
     }) || [],
   );
 };

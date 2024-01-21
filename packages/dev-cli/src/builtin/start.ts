@@ -1,12 +1,10 @@
-import { cliResourceAdapter, composePath } from "../cli/interfaces/resource.js";
-import {
-  composeYaml,
-  defaultProfileName,
-} from "../cli/templates/compose.yaml.js";
+import { fileIO } from "./internal/resource.js";
+import { composeYaml } from "@builtin/templates/compose.yaml.js";
 import { Eta } from "eta";
-import { dockerCompose, getConfig, log } from "../script/index.js";
-import { createMinitailorDBSQL } from "../cli/templates/0-minitailor-database.sql.js";
-import { cwd } from "node:process";
+import { dockerCompose, getConfig, log } from "@script/index.js";
+import { createMinitailorDBSQL } from "@builtin/templates/0-minitailor-database.sql.js";
+import { applyV1 } from "./internal/applyV1.js";
+import { applyV2 } from "./internal/applyV2.js";
 
 const config = getConfig();
 
@@ -14,29 +12,25 @@ await log.group("config", "generation", async () => {
   const eta = new Eta();
 
   // mintailor.log
-  await cliResourceAdapter.createEmptyLogFile();
+  await fileIO.createEmptyLogFile();
 
   // compose.yaml
   const composeYamlFile = eta.renderString(composeYaml({}), {});
-  await cliResourceAdapter.createComposeConfig(composeYamlFile);
+  await fileIO.createComposeConfig(composeYamlFile);
 
   // sql
   const sqlFile = eta.renderString(createMinitailorDBSQL, {});
-  await cliResourceAdapter.createInitSQL(sqlFile);
+  await fileIO.createInitSQL(sqlFile);
 });
 
+if (process.env.__CMDOPTS_ONLY_FILE === "true") {
+  process.exit(0);
+}
+
 await log.group("dev environment", "launch", async () => {
-  const appName = config?.name || "";
-  await dockerCompose([
-    "-f",
-    composePath,
-    "--profile",
-    defaultProfileName,
-    "--project-directory",
-    cwd(),
-    "-p",
-    appName,
-    "up",
-    "-d",
-  ]);
+  await dockerCompose(["up", "-d"]);
 });
+
+if (process.env.__CMDOPTS_APPLY === "true") {
+  await (config?.version === "v2" ? applyV2 : applyV1)();
+}

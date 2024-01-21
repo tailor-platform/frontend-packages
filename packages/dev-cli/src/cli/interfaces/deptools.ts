@@ -1,7 +1,7 @@
-import os from "node:os";
+import os, { homedir } from "node:os";
 import { rm } from "fs/promises";
-import { tailorctlDir, cuelangDir, destDir } from "../support/process.js";
 import * as GithubRelease from "gh-release-fetch";
+import path from "node:path";
 
 export type Deptools = {
   deleteAll: () => Promise<void>;
@@ -14,6 +14,10 @@ export type Deptools = {
     promise: Promise<void>;
   };
 };
+
+export const destDir = path.join(homedir(), ".local", "share", "tailordev");
+export const cuelangDir = path.join(destDir, "cuelang");
+export const tailorctlDir = path.join(destDir, "tailorctl");
 
 const normalizeOSInfo = () => {
   const osType = os.type();
