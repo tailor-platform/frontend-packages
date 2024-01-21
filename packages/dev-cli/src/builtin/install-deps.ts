@@ -1,11 +1,11 @@
-import { cliDeptoolsAdapter } from "@cli/interfaces/deptools.js";
+import { deptools } from "@builtin/internal/deptools.js";
 import { log } from "@script/index.js";
 
 await log.group("dependency", "installation", async () => {
-  const downloadTailorctl = cliDeptoolsAdapter.downloadTailorctl(
+  const downloadTailorctl = deptools.downloadTailorctl(
     process.env.__CMDOPTS_TAILORCTL_VERSION || "",
   );
-  const downloadCuelang = cliDeptoolsAdapter.downloadCuelang(
+  const downloadCuelang = deptools.downloadCuelang(
     process.env.__CMDOPTS_CUELANG_VERSION || "",
   );
 

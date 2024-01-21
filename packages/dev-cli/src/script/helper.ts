@@ -2,9 +2,9 @@ import { cwd } from "process";
 import * as execa from "execa";
 import { composePath } from "@builtin/internal/resource.js";
 import { defaultProfileName } from "@builtin/templates/compose.yaml.js";
-import { getConfig } from "@cli/support/config.js";
+import { getConfig } from "@cli/config.js";
 import path from "path";
-import { cuelangDir, tailorctlDir } from "@cli/interfaces/deptools.js";
+import { cuelangDir, tailorctlDir } from "@builtin/internal/deptools.js";
 
 const config = getConfig();
 const defaultStdio: execa.Options = {

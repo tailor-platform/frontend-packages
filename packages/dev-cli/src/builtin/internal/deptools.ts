@@ -3,18 +3,6 @@ import { rm } from "fs/promises";
 import * as GithubRelease from "gh-release-fetch";
 import path from "node:path";
 
-export type Deptools = {
-  deleteAll: () => Promise<void>;
-  downloadTailorctl: (version: string) => {
-    packageName: string;
-    promise: Promise<void>;
-  };
-  downloadCuelang: (version: string) => {
-    packageName: string;
-    promise: Promise<void>;
-  };
-};
-
 export const destDir = path.join(homedir(), ".local", "share", "tailordev");
 export const cuelangDir = path.join(destDir, "cuelang");
 export const tailorctlDir = path.join(destDir, "tailorctl");
@@ -48,7 +36,7 @@ const buildCuelangPackageName = (version: string) => {
   return `cue_${version}_${type}_${_arch}.tar.gz`;
 };
 
-export const cliDeptoolsAdapter: Deptools = {
+export const deptools = {
   deleteAll: () =>
     rm(destDir, {
       recursive: true,

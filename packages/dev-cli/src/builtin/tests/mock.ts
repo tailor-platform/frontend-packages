@@ -1,5 +1,5 @@
 import { vi } from "vitest";
-import { ConfigContent } from "../../cli/support/config.js";
+import { ConfigContent } from "../../cli/config.js";
 
 export const buildMockConfig = (
   overrides?: Partial<ConfigContent>,

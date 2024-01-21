@@ -1,4 +1,4 @@
-import { terminal } from "./support/logger.js";
+import { terminal } from "../script/logger.js";
 import { execaNode } from "execa";
 import path from "path";
 import { Option } from "@commander-js/extra-typings";
