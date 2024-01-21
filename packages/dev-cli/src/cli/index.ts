@@ -1,29 +1,16 @@
-import { cliCuelangAdapter } from "./interfaces/cuelang.js";
-import { cliDeptoolsAdapter } from "./interfaces/deptools.js";
-import { cliDockerComposeAdapter } from "./interfaces/docker.js";
-import { cliResourceAdapter } from "./interfaces/resource.js";
-import { cliTailorctlAdapter } from "./interfaces/tailorctl.js";
-import { getConfig, isV2 } from "./support/config.js";
-import { applyCmd as applyV1Cmd } from "./usecase/v1/apply.js";
-import { installCmd } from "./usecase/install.js";
-import { importCmd } from "./usecase/minitailor.js";
-import { resetCmd } from "./usecase/v1/reset.js";
-import { startCmd } from "./usecase/start.js";
-import { uninstallCmd } from "./usecase/uninstall.js";
-import { applyCmd } from "./usecase/v2/apply.js";
-import { terminal } from "./support/logger.js";
+import { execaNode } from "execa";
+import path from "path";
+import { Option } from "@commander-js/extra-typings";
+import * as changeCase from "change-case";
+import { commands } from "./commands.js";
+import { LevelledLogger, LogLevel } from "./logger.js";
 
 export const runCLI = async (argv?: readonly string[]) => {
   const { Command } = await import("@commander-js/extra-typings");
   const program = new Command();
-  const deps = {
-    resource: cliResourceAdapter,
-    deptools: cliDeptoolsAdapter,
-    dockerCompose: cliDockerComposeAdapter,
-    cuelang: cliCuelangAdapter,
-    tailorctl: cliTailorctlAdapter,
-  };
+  const logger = new LevelledLogger();
 
+  let scriptLogLevel: LogLevel = "info";
   const app = program
     .name("tailordev")
     .description("CLI for Tailor Platform application devs")
@@ -32,77 +19,59 @@ export const runCLI = async (argv?: readonly string[]) => {
     .hook("preAction", (options) => {
       const opts = options.opts();
       if (opts.verbose) {
-        terminal.setLevel("debug");
+        scriptLogLevel = "debug";
+        logger.setLevel(scriptLogLevel);
+        logger.debug("CLI", "enabled verbose mode");
       }
     });
 
-  const runResetCmd = resetCmd(deps);
-  app
-    .command("reset")
-    .description("reset local dev environment")
-    .option("--only-stop", "only shutdown environment but keep files", false)
-    .action((_, options) => runResetCmd(options.opts(), getConfig()));
+  const resolveScript = (filename: string) => {
+    const pathWithProtocol = new URL(import.meta.url);
+    return path.join(pathWithProtocol.pathname, `../${filename}.js`);
+  };
 
-  const runStartCmd = startCmd(deps);
-  app
-    .command("start")
-    .description("start local dev environment")
-    .option("--apply", "apply after starting up environment", false)
-    .option("--only-file", "only generate files", false)
-    .option("--env <value>", "enviroment to apply", "local")
-    .action((_, options) => runStartCmd(options.opts(), getConfig()));
+  // Environment variables needed to bypass platform authorization on minitailor
+  const minitailorEnv = {
+    APP_HTTP_SCHEMA: "http",
+    PLATFORM_URL: "http://mini.tailor.tech:18090",
+    TAILOR_TOKEN: "tpp_11111111111111111111111111111111",
+  };
 
-  const runV1ApplyCmd = applyV1Cmd(deps);
-  const runV2ApplyCmd = applyCmd(deps);
-  app
-    .command("apply")
-    .description("apply manifest onto local environment")
-    .option("--only-eval", "only evaluate manifests", false)
-    .option("--env <value>", "environment to apply", "local")
-    .action((_, options) => {
-      const config = getConfig();
-      (isV2(config) ? runV2ApplyCmd : runV1ApplyCmd)(options.opts(), config);
+  // see `src/cli/commands.ts` for commands to be registered
+  Object.keys(commands).forEach((key) => {
+    const cmd = app.command(key).description(commands[key].description);
+    const options = commands[key].options || [];
+
+    options.forEach((option) => {
+      cmd.addOption(
+        new Option(option.usage, option.description).default(option.default),
+      );
     });
 
-  const runImportCmd = importCmd(deps);
-  app
-    .command("import")
-    .requiredOption("--host <value>", "target host")
-    .argument("<paths...>")
-    .description(
-      "import seed manifest (this needs minitailor running by `start` command)",
-    )
-    .action((paths, options) => {
-      runImportCmd({ paths, host: options.host }, getConfig());
-    });
+    cmd.action(async (_, options) => {
+      // Pass command options to scripts as environment variables prefixed with `__CMDOPTS_${name}`.
+      const opts = options.opts() as Record<string, unknown>;
+      const optsEnvVars = Object.keys(opts).reduce((acc, current) => {
+        const constantOptName = changeCase.constantCase(current);
+        return Object.assign(acc, {
+          [`__CMDOPTS_${constantOptName}`]: opts[current],
+        });
+      }, {});
 
-  const runInstallCmd = installCmd(deps);
-  app
-    .command("install:deps")
-    .description("install required dependencies (tailorctl, cuelang)")
-    .option(
-      "--tailorctl-version <version>",
-      "tailorctl version to download",
-      "v0.7.12",
-    )
-    .option(
-      "--cuelang-version <version>",
-      "cuelang version to download",
-      "v0.7.0",
-    )
-    .action((_, options) => {
-      runInstallCmd(options.opts(), getConfig());
+      await execaNode(resolveScript(commands[key].path), [], {
+        stdio: "inherit",
+        env: {
+          __TAILORDEV_LOGLEVEL: scriptLogLevel,
+          ...minitailorEnv,
+          ...optsEnvVars,
+        },
+      });
     });
-
-  const runUninstallCmd = uninstallCmd(deps);
-  app
-    .command("uninstall:deps")
-    .description("uninstall dependencies")
-    .action(() => runUninstallCmd(null, getConfig()));
+  });
 
   app.parse(argv);
 };
 
 runCLI(process.argv).catch((e) => {
-  terminal.error("app", e instanceof Error ? e.message : e);
+  console.error("app", e instanceof Error ? e.message : e);
 });

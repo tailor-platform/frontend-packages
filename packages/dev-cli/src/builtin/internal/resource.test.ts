@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, test, vi } from "vitest";
-import { cliResourceAdapter, composePath } from "./resource.js";
+import { fileIO, composePath } from "./resource.js";
 import { Volume } from "memfs/lib/volume.js";
 
 const initialDirectory = {
@@ -24,6 +24,14 @@ vi.mock("node:process", () => {
   };
 });
 
+vi.mock("@script/index.js", () => {
+  return {
+    log: {
+      debug: vi.fn(),
+    },
+  };
+});
+
 describe("resource", () => {
   afterEach(() => {
     vol.reset();
@@ -31,7 +39,7 @@ describe("resource", () => {
   });
 
   test("createGeneratedDist", async () => {
-    await cliResourceAdapter.createGeneratedDist();
+    await fileIO.createGeneratedDist();
 
     expect(vol.toJSON()).toStrictEqual(
       expect.objectContaining({
@@ -41,7 +49,7 @@ describe("resource", () => {
   });
 
   test("createComposeConfig", async () => {
-    await cliResourceAdapter.createComposeConfig("this is compose content");
+    await fileIO.createComposeConfig("this is compose content");
 
     expect(vol.toJSON()).toStrictEqual(
       expect.objectContaining({
@@ -51,7 +59,7 @@ describe("resource", () => {
   });
 
   test("createInitSQL", async () => {
-    await cliResourceAdapter.createInitSQL("this is init SQL content");
+    await fileIO.createInitSQL("this is init SQL content");
 
     expect(vol.toJSON()).toStrictEqual(
       expect.objectContaining({
@@ -62,7 +70,7 @@ describe("resource", () => {
   });
 
   test("createEmptyLogFile", async () => {
-    await cliResourceAdapter.createEmptyLogFile();
+    await fileIO.createEmptyLogFile();
 
     expect(vol.toJSON()).toStrictEqual(
       expect.objectContaining({
@@ -72,12 +80,12 @@ describe("resource", () => {
   });
 
   test("existsComposeConfig", async () => {
-    await cliResourceAdapter.createComposeConfig("this is compose content");
-    const result1 = await cliResourceAdapter.existsComposeConfig();
+    await fileIO.createComposeConfig("this is compose content");
+    const result1 = await fileIO.existsComposeConfig();
     expect(result1).toBe(composePath);
 
     await vol.promises.rm("/home/test/.tailordev/compose.yaml");
-    const result2 = await cliResourceAdapter.existsComposeConfig();
+    const result2 = await fileIO.existsComposeConfig();
     expect(result2).toBeFalsy();
   });
 
@@ -86,7 +94,7 @@ describe("resource", () => {
   });
 
   test("deleteAll", async () => {
-    await cliResourceAdapter.deleteAll();
+    await fileIO.deleteAll();
 
     expect(vol.toJSON()).toStrictEqual({
       "/home/test": null,
