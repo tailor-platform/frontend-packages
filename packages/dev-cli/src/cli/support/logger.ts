@@ -9,7 +9,7 @@ const logLevels = {
 } as const;
 type LogLevel = keyof typeof logLevels;
 
-class TerminalLogger {
+export class TerminalLogger {
   private readonly logger: Console;
   private level: LogLevel;
   private spinners: Map<string, Ora>;
@@ -52,6 +52,12 @@ class TerminalLogger {
         ...params,
       );
     });
+  }
+
+  async group(prefix: string, description: string, cb: () => Promise<void>) {
+    this.info(prefix, `${description} running...`);
+    await cb();
+    this.info(prefix, `${description} finished`);
   }
 
   infoWithoutPrefix(...msgs: string[]) {

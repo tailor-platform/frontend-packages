@@ -7,11 +7,12 @@ import { getConfig, isV2 } from "./support/config.js";
 import { applyCmd as applyV1Cmd } from "./usecase/v1/apply.js";
 import { installCmd } from "./usecase/install.js";
 import { importCmd } from "./usecase/minitailor.js";
-import { resetCmd } from "./usecase/v1/reset.js";
 import { startCmd } from "./usecase/start.js";
 import { uninstallCmd } from "./usecase/uninstall.js";
 import { applyCmd } from "./usecase/v2/apply.js";
 import { terminal } from "./support/logger.js";
+import { execaNode } from "execa";
+import path from "path";
 
 export const runCLI = async (argv?: readonly string[]) => {
   const { Command } = await import("@commander-js/extra-typings");
@@ -36,13 +37,6 @@ export const runCLI = async (argv?: readonly string[]) => {
       }
     });
 
-  const runResetCmd = resetCmd(deps);
-  app
-    .command("reset")
-    .description("reset local dev environment")
-    .option("--only-stop", "only shutdown environment but keep files", false)
-    .action((_, options) => runResetCmd(options.opts(), getConfig()));
-
   const runStartCmd = startCmd(deps);
   app
     .command("start")
@@ -51,6 +45,51 @@ export const runCLI = async (argv?: readonly string[]) => {
     .option("--only-file", "only generate files", false)
     .option("--env <value>", "enviroment to apply", "local")
     .action((_, options) => runStartCmd(options.opts(), getConfig()));
+
+  const resolveScript = (name: string) => {
+    const pathWithProtocol = new URL(import.meta.url);
+    return path.join(pathWithProtocol.pathname, `../builtin/${name}`);
+  };
+
+  type Commands = Record<
+    string,
+    {
+      description: string;
+      file: string;
+    }
+  >;
+
+  const commands: Commands = {
+    start2: {
+      description: "expermental start",
+      file: "start.js",
+    },
+    reset: {
+      description: "reset local dev environment",
+      file: "reset.js",
+    },
+    apply2: {
+      description: "experimental apply",
+      file: "apply.js",
+    },
+  } as const;
+
+  Object.keys(commands).forEach((key) => {
+    app
+      .command(key)
+      .description(commands[key].description)
+      .action(async () => {
+        await execaNode(resolveScript(commands[key].file), [], {
+          stdio: "inherit",
+          env: {
+            APP_ENV: "local", // TODO
+            APP_HTTP_SCHEMA: "http",
+            PLATFORM_URL: "http://mini.tailor.tech:18090",
+            TAILOR_TOKEN: "tpp_11111111111111111111111111111111",
+          },
+        });
+      });
+  });
 
   const runV1ApplyCmd = applyV1Cmd(deps);
   const runV2ApplyCmd = applyCmd(deps);
