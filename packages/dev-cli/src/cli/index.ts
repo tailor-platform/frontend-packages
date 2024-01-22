@@ -3,7 +3,7 @@ import path from "path";
 import { Option, Command } from "@commander-js/extra-typings";
 import * as changeCase from "change-case";
 import { commands } from "./commands.js";
-import { LevelledLogger, LogLevel } from "./logger.js";
+import { LevelledLogger } from "./logger.js";
 import { getConfig } from "./config.js";
 
 const baseEnv = {
@@ -13,7 +13,14 @@ const baseEnv = {
   TAILOR_TOKEN: "tpp_11111111111111111111111111111111",
 };
 
-const registerBuiltinCommands = (app: Command, logLevel: LogLevel) => {
+const buildLogLevelEnv = (opts: Command) => {
+  const globalOpts = opts.optsWithGlobals();
+  return {
+    __TAILORDEV_LOGLEVEL: globalOpts.verbose === true ? "debug" : "info",
+  };
+};
+
+const registerBuiltinCommands = (app: Command) => {
   const resolveScript = (filename: string) => {
     const pathWithProtocol = new URL(import.meta.url);
     return path.join(pathWithProtocol.pathname, `../${filename}.js`);
@@ -43,7 +50,7 @@ const registerBuiltinCommands = (app: Command, logLevel: LogLevel) => {
       await execaNode(resolveScript(commands[key].path), [], {
         stdio: "inherit",
         env: {
-          __TAILORDEV_LOGLEVEL: logLevel,
+          ...buildLogLevelEnv(options),
           ...baseEnv,
           ...optsEnvVars,
         },
@@ -53,11 +60,7 @@ const registerBuiltinCommands = (app: Command, logLevel: LogLevel) => {
 };
 
 // register custom commands
-const registerCustomCommands = (
-  app: Command,
-  logger: LevelledLogger,
-  logLevel: LogLevel,
-) => {
+const registerCustomCommands = (app: Command, logger: LevelledLogger) => {
   const config = getConfig();
   const commandKeys = Object.keys(config?.custom || {});
   const custom = app
@@ -78,15 +81,17 @@ const registerCustomCommands = (
     }
 
     custom.addCommand(
-      new Command(name).description(cmd.description).action(async () => {
-        await execaNode(cmd.path, [], {
-          stdio: "inherit",
-          env: {
-            __TAILORDEV_LOGLEVEL: logLevel,
-            ...baseEnv,
-          },
-        });
-      }),
+      new Command(name)
+        .description(cmd.description)
+        .action(async (_, options) => {
+          await execaNode(cmd.path, [], {
+            stdio: "inherit",
+            env: {
+              ...buildLogLevelEnv(options),
+              ...baseEnv,
+            },
+          });
+        }),
     );
   });
 };
@@ -101,7 +106,6 @@ const runCLI = async (argv?: readonly string[]) => {
     sortOptions: true,
   });
 
-  let scriptLogLevel: LogLevel = "info";
   const app = program
     .name("tailordev")
     .description("CLI for Tailor Platform application devs")
@@ -110,14 +114,12 @@ const runCLI = async (argv?: readonly string[]) => {
     .hook("preAction", (options) => {
       const opts = options.opts();
       if (opts.verbose) {
-        scriptLogLevel = "debug";
-        logger.setLevel(scriptLogLevel);
         logger.debug("CLI", "enabled verbose mode");
       }
     });
 
-  registerBuiltinCommands(app, scriptLogLevel);
-  registerCustomCommands(app, logger, scriptLogLevel);
+  registerBuiltinCommands(app);
+  registerCustomCommands(app, logger);
   app.parse(argv);
 };
 
