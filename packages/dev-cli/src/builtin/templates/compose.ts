@@ -26,7 +26,7 @@ services:
   migration:
     image: asia-northeast1-docker.pkg.dev/tailor-professional-service/cmd/minitailor:latest
     pull_policy: ${options.pullPolicy}
-    command: /root/app db.migration
+    command: minitailor db.migration
     depends_on:
       db:
         condition: service_healthy
@@ -63,7 +63,7 @@ services:
       - ./.tailordev:/root/backend
       - ./manifest:/root/backend/manifest
     working_dir: /root/backend
-    entrypoint: /root/app start
+    entrypoint: minitailor start
 
   db:
     image: postgres:13.5
