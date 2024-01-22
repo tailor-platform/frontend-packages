@@ -3,6 +3,8 @@ import { rcConfigResult } from "rc-config-loader/lib/types.js";
 import { Command } from "./commands.js";
 
 export type DockerComposeOptions = {
+  minitailorTag: string;
+
   // https://docs.docker.com/compose/compose-file/05-services/#pull_policy
   pullPolicy: string;
 };
