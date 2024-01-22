@@ -26,7 +26,7 @@ export const applyV2 = async () => {
   await log.group("apply", "applying manifest", async () => {
     const appEnv = process.env.__CMDOPTS_ENV || "";
     const manifest = path.join(config?.manifest || "", config?.target[0] || "");
-    await $$`${tailorctl} "alpha workspace apply --auto-approve --envs ${appEnv} -m ${manifest}`;
+    await $$`${tailorctl} alpha workspace apply --auto-approve --envs ${appEnv} -m ${manifest}`;
   });
 
   // tailorctl.apps() needs some waits to get manifests applied in minitailor.
