@@ -8,7 +8,6 @@ const devOpts =
         minify: false,
         splitting: false,
         sourcemap: true,
-        clean: true,
       }
     : {};
 
@@ -26,6 +25,7 @@ export default defineConfig({
     script: "src/script/index.ts",
     ...builtinScriptEntries,
   },
+  clean: true,
   minify: true,
   format: ["esm"],
   dts: true,
