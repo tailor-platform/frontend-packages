@@ -7,7 +7,7 @@ type InternalOptions = {
 };
 
 type Options = DockerComposeOptions & InternalOptions;
-export const defaultOptions: Options = {
+export const defaultDockerComposeOptions: Options = {
   minitailorTag: "latest",
   pullPolicy: "missing",
   profile: "app",
@@ -15,7 +15,7 @@ export const defaultOptions: Options = {
 
 export const composeYaml = (opts?: DockerComposeOptions) => {
   const options: Options = {
-    ...defaultOptions,
+    ...defaultDockerComposeOptions,
     ...opts,
   };
 
