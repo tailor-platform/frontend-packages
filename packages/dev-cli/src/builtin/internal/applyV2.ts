@@ -2,7 +2,6 @@ import chalk from "chalk";
 import path from "path";
 import { z } from "zod";
 import { fileIO } from "./resource.js";
-import { defaultMinitailorPort } from "@builtin/templates/compose.yaml.js";
 import { $, getConfig, log, tailorctl } from "@script/index.js";
 import { createGenerateDist } from "./applyV1.js";
 
