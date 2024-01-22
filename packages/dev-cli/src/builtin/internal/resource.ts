@@ -1,10 +1,11 @@
-import { minitailorInitSQL } from "../templates/0-minitailor-database.js";
-import { composeYaml } from "../templates/compose.js";
-import { log } from "@script/index.js";
+import { minitailorInitSQL } from "@builtin/templates/0-minitailor-database.js";
+import { composeYaml } from "@builtin/templates/compose.js";
+import { getConfig, log } from "@script/index.js";
 import { stat, rm, mkdir, cp, writeFile } from "fs/promises";
 import { cwd } from "node:process";
 import path from "path";
 
+const config = getConfig();
 const resourcePath = path.join(cwd(), ".tailordev");
 export const generatedPath = path.join(resourcePath, "generated");
 export const composePath = path.join(resourcePath, "compose.yaml");
@@ -31,7 +32,7 @@ export const fileIO = {
   createGeneratedDist: async () => await mkdirIfNothing(generatedPath),
   createComposeConfig: async () => {
     await mkdirIfNothing(resourcePath);
-    await writeFile(composePath, composeYaml().trim());
+    await writeFile(composePath, composeYaml(config?.dockerCompose).trim());
     log.debug("resource", `created file: ${composePath}`);
     return composePath;
   },
