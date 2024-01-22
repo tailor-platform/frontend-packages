@@ -55,8 +55,8 @@ export const applyV2 = async () => {
   const appsResult = appsSchema.safeParse(JSON.parse(workspaceApps.stdout));
   if (appsResult.success && appsResult.data.length > 0) {
     log.infoWithoutPrefix(
-      chalk.bold.white("\nHooray! Your backend is now up and running."),
-      `Playground: http://${appsResult.data[0].domain}:8000/playground`,
+      chalk.bold.white("\nHooray! Your backend is now up and running.") +
+        `\nPlayground: http://${appsResult.data[0].domain}:8000/playground`,
     );
   } else {
     log.error("apps", "failed reading apps");

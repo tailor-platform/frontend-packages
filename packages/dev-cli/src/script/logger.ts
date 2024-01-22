@@ -28,7 +28,7 @@ export class TerminalLogger {
     this.info(prefix, `${description} finished`);
   }
 
-  infoWithoutPrefix(...msgs: string[]) {
-    this.logger.info(msgs.join("\n"));
+  infoWithoutPrefix(msg: string) {
+    this.logger.infoWithoutPrefix(msg);
   }
 }

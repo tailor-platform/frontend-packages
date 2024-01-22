@@ -43,4 +43,11 @@ export class LevelledLogger {
       ...params,
     );
   }
+
+  infoWithoutPrefix(msg: unknown, ...params: unknown[]) {
+    if (logLevels[this.level] > logLevels.info) {
+      return;
+    }
+    this.logger.info(msg, ...params);
+  }
 }
