@@ -9,6 +9,7 @@ export const buildMockConfig = (
   port: 8000,
   manifest: "manifest/config/template",
   target: ["tailordb.cue"],
+  custom: {},
   ...overrides,
 });
 
