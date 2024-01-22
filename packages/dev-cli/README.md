@@ -73,12 +73,7 @@ In this case you will need to have `.tailordevenv.json` with the following conte
   "manifest": "manifest/config/template",
 
   // File names to run cuelang on and apply
-  "target": [
-    "gateway.cue",
-    "pipelines.cue",
-    "tailordb.cue",
-    "stateflow.cue"
-  ]
+  "target": ["gateway.cue", "pipelines.cue", "tailordb.cue", "stateflow.cue"]
 }
 ```
 
