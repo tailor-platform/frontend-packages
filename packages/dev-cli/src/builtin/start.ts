@@ -1,9 +1,7 @@
-import { fileIO } from "./internal/resource.js";
-import { composeYaml } from "@builtin/templates/compose.yaml.js";
 import { dockerCompose, getConfig, log } from "@script/index.js";
-import { createMinitailorDBSQL } from "@builtin/templates/0-minitailor-database.sql.js";
 import { applyV1 } from "./internal/applyV1.js";
 import { applyV2 } from "./internal/applyV2.js";
+import { fileIO } from "./internal/resource.js";
 
 const config = getConfig();
 
@@ -12,10 +10,10 @@ await log.group("config", "generation", async () => {
   await fileIO.createEmptyLogFile();
 
   // compose.yaml
-  await fileIO.createComposeConfig(composeYaml());
+  await fileIO.createComposeConfig();
 
   // sql
-  await fileIO.createInitSQL(createMinitailorDBSQL);
+  await fileIO.createInitSQL();
 });
 
 if (process.env.__CMDOPTS_ONLY_FILE === "true") {

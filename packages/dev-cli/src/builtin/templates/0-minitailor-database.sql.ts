@@ -1,4 +1,4 @@
-export const createMinitailorDBSQL = `
+export const minitailorInitSQL = `
 CREATE DATABASE minitailor;
 
 CREATE USER minitailor_user WITH encrypted password 'password';

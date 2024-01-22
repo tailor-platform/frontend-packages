@@ -1,22 +1,14 @@
+import { minitailorInitSQL } from "@builtin/templates/0-minitailor-database.sql.js";
+import { composeYaml } from "@builtin/templates/compose.yaml.js";
 import { log } from "@script/index.js";
 import { stat, rm, mkdir, cp, writeFile } from "fs/promises";
 import { cwd } from "node:process";
 import path from "path";
 
-export type Resource = {
-  deleteAll: () => Promise<void>;
-  existsComposeConfig: () => Promise<string | null>;
-  copyCueMod: () => Promise<void>;
-  createGeneratedDist: () => Promise<void>;
-  createComposeConfig: (content: string) => Promise<string>;
-  createInitSQL: (content: string) => Promise<void>;
-  createEmptyLogFile: () => Promise<void>;
-};
-
 const resourcePath = path.join(cwd(), ".tailordev");
 export const generatedPath = path.join(resourcePath, "generated");
 export const composePath = path.join(resourcePath, "compose.yaml");
-export const fileIO: Resource = {
+export const fileIO = {
   deleteAll: async () => {
     await rm(resourcePath, {
       recursive: true,
@@ -37,17 +29,17 @@ export const fileIO: Resource = {
     });
   },
   createGeneratedDist: async () => await mkdirIfNothing(generatedPath),
-  createComposeConfig: async (content) => {
+  createComposeConfig: async () => {
     await mkdirIfNothing(resourcePath);
-    await writeFile(composePath, content.trim());
+    await writeFile(composePath, composeYaml().trim());
     log.debug("resource", `created file: ${composePath}`);
     return composePath;
   },
-  createInitSQL: async (content) => {
+  createInitSQL: async () => {
     const dbinitDir = path.join(resourcePath, "db", "init");
     const file = path.join(dbinitDir, "0-minitailor-database.sql");
     await mkdirIfNothing(dbinitDir);
-    await writeFile(file, content.trim());
+    await writeFile(file, minitailorInitSQL.trim());
     log.debug("resource", `created file: ${file}`);
   },
   createEmptyLogFile: async () => {
