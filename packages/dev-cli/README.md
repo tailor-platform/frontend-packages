@@ -9,9 +9,10 @@ With Tailor Platform dev CLI, you can:
 
 - [Installation](#installation)
 - [Usage](#usage)
-  - [1. Install dependencies](#1-install-dependencies)
-  - [2. Spin up local environment](#2-spin-up-local-environment)
-  - [3. Apply your manifest](#3-apply-your-manifest)
+  - [1. Configuration](#1-configuration)
+  - [2. Install dependencies](#2-install-dependencies)
+  - [3. Spin up local environment](#3-spin-up-local-environment)
+  - [4. Apply your manifest](#4-apply-your-manifest)
 - [Use as npm scripts](#use-as-npm-scripts)
 
 ## Installation
@@ -59,25 +60,37 @@ yourapp
             └── tailordb.cue
 ```
 
+### 1. Configuration
+
 In this case you will need to have `.tailordevenv.json` with the following content:
 
 ```json
 {
+  // The project name
   "name": "stock-api",
+
+  // The directory path where contains the files specified by the following `target` array
   "manifest": "manifest/config/template",
-  "target": ["gateway.cue", "pipelines.cue", "tailordb.cue", "stateflow.cue"]
+
+  // File names to run cuelang on and apply
+  "target": [
+    "gateway.cue",
+    "pipelines.cue",
+    "tailordb.cue",
+    "stateflow.cue"
+  ]
 }
 ```
 
 This is the initial point to start out.
 
-### 1. Install dependencies
+### 2. Install dependencies
 
 Run `npx tailordev install:deps` will install required binaries on your local. Those will be placed under `~/.local/share/tailordev`.
 
 It is recommended to run this command as `postinstall` in your package.json. You can remove those downloaded files by `npx tailordev uninstall:deps`.
 
-### 2. Spin up local environment
+### 3. Spin up local environment
 
 Run `npx tailordev start` to start your local development envrionment. This needs docker-compose currently under the hood, so make sure it is installed and up on your machine.
 
@@ -85,7 +98,7 @@ Run `npx tailordev start` to start your local development envrionment. This need
 
 You can also use `--only-file` option to generate compose.yml in `.tailordev` directory. This options is useful if you would like to run docker-compose manually.
 
-### 3. Apply your manifest
+### 4. Apply your manifest
 
 Run `npx tailordev apply` to apply your application manifest onto your local dev environment next.
 
