@@ -114,6 +114,7 @@ const runCLI = async (argv?: readonly string[]) => {
     .hook("preAction", (options) => {
       const opts = options.opts();
       if (opts.verbose) {
+        logger.setLevel("debug");
         logger.debug("CLI", "enabled verbose mode");
       }
     });
