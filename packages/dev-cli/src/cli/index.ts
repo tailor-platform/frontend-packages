@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { execaNode } from "execa";
 import path from "path";
 import { Option, Command } from "@commander-js/extra-typings";
