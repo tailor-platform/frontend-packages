@@ -6,7 +6,6 @@ export const buildMockConfig = (
 ): ConfigContent => ({
   version: "v1",
   name: "mockapp",
-  port: 8000,
   manifest: "manifest/config/template",
   target: ["tailordb.cue"],
   custom: {},

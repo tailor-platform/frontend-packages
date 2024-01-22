@@ -1,6 +1,5 @@
 import { fileIO } from "./internal/resource.js";
 import { composeYaml } from "@builtin/templates/compose.yaml.js";
-import { Eta } from "eta";
 import { dockerCompose, getConfig, log } from "@script/index.js";
 import { createMinitailorDBSQL } from "@builtin/templates/0-minitailor-database.sql.js";
 import { applyV1 } from "./internal/applyV1.js";
@@ -9,18 +8,14 @@ import { applyV2 } from "./internal/applyV2.js";
 const config = getConfig();
 
 await log.group("config", "generation", async () => {
-  const eta = new Eta();
-
   // mintailor.log
   await fileIO.createEmptyLogFile();
 
   // compose.yaml
-  const composeYamlFile = eta.renderString(composeYaml({}), {});
-  await fileIO.createComposeConfig(composeYamlFile);
+  await fileIO.createComposeConfig(composeYaml());
 
   // sql
-  const sqlFile = eta.renderString(createMinitailorDBSQL, {});
-  await fileIO.createInitSQL(sqlFile);
+  await fileIO.createInitSQL(createMinitailorDBSQL);
 });
 
 if (process.env.__CMDOPTS_ONLY_FILE === "true") {
