@@ -9,31 +9,13 @@ import { cuelangDir, tailorctlDir } from "@builtin/internal/deptools.js";
 const config = getConfig();
 const defaultStdio: execa.Options = {
   stdio: "inherit",
+  shell: true,
 };
-const cuelangPath = path.join(cuelangDir, "cue");
-const tailorctlPath = path.join(tailorctlDir, "tailorctl");
-
-export const tailorctl = (args: string[], opts: execa.Options = {}) =>
-  execa.$({
-    ...defaultStdio,
-    ...opts,
-  })`${tailorctlPath} ${args}`;
-export const cue = (args: string[], opts: execa.Options = {}) =>
-  execa.$({
-    ...defaultStdio,
-    ...opts,
-  })`${cuelangPath} ${args}`;
-export const dockerCompose = (args: string[], opts: execa.Options = {}) =>
-  execa.$({
-    ...defaultStdio,
-    ...opts,
-  })`docker compose ${[
-    "-f",
-    composePath,
-    "--profile",
-    defaultDockerComposeOptions.profile,
-    "--project-directory",
-    cwd(),
-    "-p",
-    config?.name || "",
-  ]} ${args}`;
+export const cue = path.join(cuelangDir, "cue");
+export const tailorctl = path.join(tailorctlDir, "tailorctl");
+export const dockerCompose = `docker compose -f ${composePath} --profile ${
+  defaultDockerComposeOptions.profile
+} --project-directory ${cwd()} -p ${config?.name || ""}`;
+export const $$ = execa.$({
+  ...defaultStdio,
+});

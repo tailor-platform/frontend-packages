@@ -2,14 +2,14 @@ import chalk from "chalk";
 import path from "path";
 import { z } from "zod";
 import { fileIO } from "./resource.js";
-import { $, getConfig, log, tailorctl } from "@script/index.js";
+import { $$, getConfig, log, tailorctl } from "@script/index.js";
 import { createGenerateDist } from "./applyV1.js";
 
 const config = getConfig();
 
 export const applyV2 = async () => {
   await log.group("apply", "evaluating manifest", async () => {
-    await tailorctl(["alpha", "manifest", "tidy"]);
+    await $$`${tailorctl} alpha manifest tidy`;
     await createGenerateDist();
     await fileIO.copyCueMod();
   });
@@ -19,38 +19,21 @@ export const applyV2 = async () => {
   }
 
   await log.group("apply", "creating workspace", async () => {
-    await tailorctl([
-      "alpha",
-      "workspace",
-      "create",
-      "--name",
-      config?.name || "",
-    ]);
-
-    await tailorctl(["alpha", "vault", "create", "--name", "default"]);
+    await $$`${tailorctl} alpha workspace create --name ${config?.name || ""}`;
+    await $$`${tailorctl} alpha vault create --name default`;
   });
 
   await log.group("apply", "applying manifest", async () => {
     const appEnv = process.env.__CMDOPTS_ENV || "";
-
-    await tailorctl([
-      "alpha",
-      "workspace",
-      "apply",
-      "--auto-approve",
-      "--envs",
-      appEnv,
-      "-m",
-      path.join(config?.manifest || "", config?.target[0] || ""),
-    ]);
+    const manifest = path.join(config?.manifest || "", config?.target[0] || "");
+    await $$`${tailorctl} "alpha workspace apply --auto-approve --envs ${appEnv} -m ${manifest}`;
   });
 
   // tailorctl.apps() needs some waits to get manifests applied in minitailor.
-  await $`sleep 3`;
-  const workspaceApps = await tailorctl(
-    ["alpha", "workspace", "app", "list", "--format", "json"],
-    { stdio: "pipe" },
-  );
+  await $$`sleep 3`;
+  const workspaceApps = await $$({
+    stdio: "pipe",
+  })`${tailorctl} alpha workspace app list --format json`;
 
   const appsResult = appsSchema.safeParse(JSON.parse(workspaceApps.stdout));
   if (appsResult.success && appsResult.data.length > 0) {

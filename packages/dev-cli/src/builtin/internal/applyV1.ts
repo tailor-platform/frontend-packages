@@ -1,6 +1,7 @@
 import path from "path";
 import { fileIO, generatedPath } from "./resource.js";
 import {
+  $$,
   cue,
   dockerCompose,
   getConfig,
@@ -12,7 +13,7 @@ const config = getConfig();
 
 export const applyV1 = async () => {
   await log.group("apply", "linting", async () => {
-    await tailorctl(["cue", "sync"]);
+    await $$`${tailorctl} cue sync`;
     await createGenerateDist();
     await fileIO.copyCueMod();
   });
@@ -22,14 +23,7 @@ export const applyV1 = async () => {
   }
 
   await log.group("apply", "applying manifest", async () => {
-    await dockerCompose([
-      "exec",
-      "minitailor",
-      "/root/app",
-      "apply",
-      "-m",
-      "/root/backend/generated",
-    ]);
+    await $$`${dockerCompose} exec minitailor /root/app apply -m /root/backend/generated`;
   });
 };
 
@@ -42,8 +36,8 @@ export const createGenerateDist = async () => {
       const file = path.join(config?.manifest, f);
       const outPath = path.join(generatedPath, f);
       log.info("apply", `evaluating... (${file})`);
-      await cue(["vet", "-t", appEnv, "-c", file]);
-      await cue(["eval", "-f", "-t", appEnv, file, "-o", outPath]);
+      await $$`${cue} vet -t ${appEnv} -c ${file}`;
+      await $$`${cue} eval -f -t ${appEnv} ${file} -o ${outPath}`;
     }) || [],
   );
 };
