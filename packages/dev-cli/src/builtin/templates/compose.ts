@@ -1,10 +1,28 @@
-export const defaultProfileName = "app";
+import { DockerComposeOptions } from "@cli/config.js";
 
-export const composeYaml = () => `
+// Options not exposed on .tailordevrc.json
+type InternalOptions = {
+  profile: string;
+};
+
+type Options = DockerComposeOptions & InternalOptions;
+export const defaultOptions: Options = {
+  pullPolicy: "missing",
+  profile: "app",
+};
+
+export const composeYaml = (opts?: Options) => {
+  const options = {
+    ...defaultOptions,
+    ...opts,
+  };
+
+  return `
 version: "3.7"
 services:
   migration:
     image: asia-northeast1-docker.pkg.dev/tailor-professional-service/cmd/minitailor:latest
+    pull_policy: ${options.pullPolicy}
     command: /root/app db.migration
     depends_on:
       db:
@@ -13,10 +31,11 @@ services:
       DB_HOST: db
       DB_PORT: 5432
     profiles:
-      - ${defaultProfileName}
+      - ${options.profile}
 
   minitailor:
     image: asia-northeast1-docker.pkg.dev/tailor-professional-service/cmd/minitailor:latest
+    pull_policy: ${options.pullPolicy}
     depends_on:
       migration:
         condition: service_completed_successfully
@@ -36,7 +55,7 @@ services:
       - 18009:18009
       - 18090:18090
     profiles:
-      - ${defaultProfileName}
+      - ${options.profile}
     volumes:
       - ./.tailordev:/root/backend
       - ./manifest:/root/backend/manifest
@@ -56,7 +75,7 @@ services:
     ports:
       - "35432:5432"
     profiles:
-      - ${defaultProfileName}
+      - ${options.profile}
       - middleware
     healthcheck:
       test: "pg_isready -U postgres"
@@ -71,7 +90,7 @@ services:
     ports:
       - "27017:27017"
     profiles:
-      - ${defaultProfileName}
+      - ${options.profile}
       - middleware
     healthcheck:
       test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
@@ -83,3 +102,4 @@ volumes:
   mongodb:
     driver: local
 `;
+};

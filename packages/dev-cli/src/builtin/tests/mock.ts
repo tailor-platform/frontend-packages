@@ -8,6 +8,9 @@ export const buildMockConfig = (
   name: "mockapp",
   manifest: "manifest/config/template",
   target: ["tailordb.cue"],
+  dockerCompose: {
+    pullPolicy: "missing",
+  },
   custom: {},
   ...overrides,
 });

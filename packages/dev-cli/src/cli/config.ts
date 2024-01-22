@@ -2,6 +2,11 @@ import { rcFile } from "rc-config-loader";
 import { rcConfigResult } from "rc-config-loader/lib/types.js";
 import { Command } from "./commands.js";
 
+export type DockerComposeOptions = {
+  // https://docs.docker.com/compose/compose-file/05-services/#pull_policy
+  pullPolicy: string;
+};
+
 export type ConfigContent = {
   // Version to use (v1, v2 are supported)
   version: string;
@@ -14,6 +19,9 @@ export type ConfigContent = {
 
   // File names to run cuelang on and apply
   target: string[];
+
+  // Options for docker-compose used internally
+  dockerCompose: DockerComposeOptions;
 
   // User-defined commands
   custom: Record<string, Omit<Command, "options">>;
