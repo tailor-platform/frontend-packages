@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { defineConfig } from "tsup";
 import { commands } from "./src/cli/commands";
 

@@ -1,5 +1,5 @@
-import { minitailorInitSQL } from "@builtin/templates/0-minitailor-database.sql.js";
-import { composeYaml } from "@builtin/templates/compose.yaml.js";
+import { minitailorInitSQL } from "../templates/0-minitailor-database.js";
+import { composeYaml } from "../templates/compose.js";
 import { log } from "@script/index.js";
 import { stat, rm, mkdir, cp, writeFile } from "fs/promises";
 import { cwd } from "node:process";
