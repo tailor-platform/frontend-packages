@@ -18,7 +18,7 @@ export const composeYaml = (opts?: DockerComposeOptions) => {
     ...opts,
   };
 
-  log.debug("compose", `options: ${options}`);
+  log.debug("compose", `options: ${JSON.stringify(options)}`);
 
   return `
 version: "3.7"
