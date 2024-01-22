@@ -1,7 +1,6 @@
-export const defaultMinitailorPort = 8000;
 export const defaultProfileName = "app";
 
-export const composeYaml = (options: { port?: number }) => `
+export const composeYaml = () => `
 version: "3.7"
 services:
   migration:
@@ -33,7 +32,7 @@ services:
       APP_HTTP_SCHEMA: http
       PLATFORM_URL: http://mini.tailor.tech:18090
     ports:
-      - 8000:${options.port || defaultMinitailorPort}
+      - 8000:8000
       - 18009:18009
       - 18090:18090
     profiles:

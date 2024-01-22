@@ -9,9 +9,6 @@ export type ConfigContent = {
   // The name for docker-compose project
   name: string;
 
-  // Port number to bind with minitailor app on docker-compose
-  port: number;
-
   // The directory path where contains the files specified by the following `target` array
   manifest: string;
 
