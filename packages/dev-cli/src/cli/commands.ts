@@ -58,7 +58,7 @@ export const commands: Commands = {
       {
         usage: "--tailorctl-version <version>",
         description: "tailorctl version to download",
-        default: "v0.7.12",
+        default: "v0.7.15",
       },
       {
         usage: "--cuelang-version <version>",
