@@ -1,8 +1,8 @@
 import { afterEach, describe, expect, test, vi } from "vitest";
 import { fileIO, composePath } from "./resource.js";
 import { Volume } from "memfs/lib/volume.js";
-import { composeYaml } from "../templates/compose.js";
-import { minitailorInitSQL } from "../templates/0-minitailor-database.js";
+import { composeYaml } from "@builtin/templates/compose.js";
+import { minitailorInitSQL } from "@builtin/templates/0-minitailor-database.js";
 
 const initialDirectory = {
   "/home/test": null,
@@ -28,6 +28,7 @@ vi.mock("node:process", () => {
 
 vi.mock("@script/index.js", () => {
   return {
+    getConfig: vi.fn(),
     log: {
       debug: vi.fn(),
     },

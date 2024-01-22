@@ -1,4 +1,5 @@
 import { DockerComposeOptions } from "@cli/config.js";
+import { log } from "@script/index.js";
 
 // Options not exposed on .tailordevrc.json
 type InternalOptions = {
@@ -11,11 +12,13 @@ export const defaultOptions: Options = {
   profile: "app",
 };
 
-export const composeYaml = (opts?: Options) => {
-  const options = {
+export const composeYaml = (opts?: DockerComposeOptions) => {
+  const options: Options = {
     ...defaultOptions,
     ...opts,
   };
+
+  log.debug("compose", `options: ${options}`);
 
   return `
 version: "3.7"
