@@ -1,7 +1,7 @@
 import { cwd } from "process";
 import * as execa from "execa";
 import { composePath } from "@builtin/internal/resource.js";
-import { defaultOptions } from "@builtin/templates/compose.js";
+import { defaultDockerComposeOptions } from "@builtin/templates/compose.js";
 import { getConfig } from "@cli/config.js";
 import path from "path";
 import { cuelangDir, tailorctlDir } from "@builtin/internal/deptools.js";
@@ -31,7 +31,7 @@ export const dockerCompose = (args: string[], opts: execa.Options = {}) =>
     "-f",
     composePath,
     "--profile",
-    defaultOptions.profile,
+    defaultDockerComposeOptions.profile,
     "--project-directory",
     cwd(),
     "-p",

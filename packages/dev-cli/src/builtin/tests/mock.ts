@@ -1,5 +1,6 @@
 import { vi } from "vitest";
 import { ConfigContent } from "@cli/config.js";
+import { defaultDockerComposeOptions } from "@builtin/templates/compose.js";
 
 export const buildMockConfig = (
   overrides?: Partial<ConfigContent>,
@@ -8,9 +9,7 @@ export const buildMockConfig = (
   name: "mockapp",
   manifest: "manifest/config/template",
   target: ["tailordb.cue"],
-  dockerCompose: {
-    pullPolicy: "missing",
-  },
+  dockerCompose: defaultDockerComposeOptions,
   custom: {},
   ...overrides,
 });
