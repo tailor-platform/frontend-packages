@@ -1,6 +1,8 @@
 import { afterEach, describe, expect, test, vi } from "vitest";
 import { fileIO, composePath } from "./resource.js";
 import { Volume } from "memfs/lib/volume.js";
+import { composeYaml } from "@builtin/templates/compose.yaml.js";
+import { minitailorInitSQL } from "@builtin/templates/0-minitailor-database.sql.js";
 
 const initialDirectory = {
   "/home/test": null,
@@ -49,22 +51,22 @@ describe("resource", () => {
   });
 
   test("createComposeConfig", async () => {
-    await fileIO.createComposeConfig("this is compose content");
+    await fileIO.createComposeConfig();
 
     expect(vol.toJSON()).toStrictEqual(
       expect.objectContaining({
-        "/home/test/.tailordev/compose.yaml": "this is compose content",
+        "/home/test/.tailordev/compose.yaml": composeYaml().trim(),
       }),
     );
   });
 
   test("createInitSQL", async () => {
-    await fileIO.createInitSQL("this is init SQL content");
+    await fileIO.createInitSQL();
 
     expect(vol.toJSON()).toStrictEqual(
       expect.objectContaining({
         "/home/test/.tailordev/db/init/0-minitailor-database.sql":
-          "this is init SQL content",
+          minitailorInitSQL.trim(),
       }),
     );
   });
@@ -80,7 +82,7 @@ describe("resource", () => {
   });
 
   test("existsComposeConfig", async () => {
-    await fileIO.createComposeConfig("this is compose content");
+    await fileIO.createComposeConfig();
     const result1 = await fileIO.existsComposeConfig();
     expect(result1).toBe(composePath);
 
