@@ -1,7 +1,8 @@
-import { $$, dockerCompose, getConfig, log } from "@script/index.js";
+import { $$, getConfig, log } from "@script/index.js";
 import { applyV1 } from "./internal/applyV1.js";
 import { applyV2 } from "./internal/applyV2.js";
 import { fileIO } from "./internal/resource.js";
+import { dockerCompose } from "@script/helper.js";
 
 const config = getConfig();
 
