@@ -4,7 +4,7 @@ import { Command } from "./commands.js";
 
 export type DockerComposeOptions = {
   // Docker image tag for minitailor
-  minitailorTag: string;
+  minitailorVersion: string;
 
   // https://docs.docker.com/compose/compose-file/05-services/#pull_policy
   pullPolicy: string;
