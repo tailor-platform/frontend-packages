@@ -16,6 +16,7 @@ export const tailorctl = path.join(tailorctlDir, "tailorctl");
 export const dockerCompose = `docker compose -f ${composePath} --profile ${
   defaultDockerComposeOptions.profile
 } --project-directory ${cwd()} -p ${config?.name || ""}`;
+export const minitailor = `${dockerCompose} exec minitailor minitailor`;
 export const $$ = execa.$({
   ...defaultStdio,
 });

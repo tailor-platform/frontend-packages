@@ -3,9 +3,9 @@ import { fileIO, generatedPath } from "./resource.js";
 import {
   $$,
   cue,
-  dockerCompose,
   getConfig,
   log,
+  minitailor,
   tailorctl,
 } from "@script/index.js";
 
@@ -23,7 +23,7 @@ export const applyV1 = async () => {
   }
 
   await log.group("apply", "applying manifest", async () => {
-    await $$`${dockerCompose} exec minitailor /root/app apply -m /root/backend/generated`;
+    await $$`${minitailor} apply -m /root/backend/generated`;
   });
 };
 
