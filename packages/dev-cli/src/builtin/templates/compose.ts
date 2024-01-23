@@ -8,7 +8,8 @@ type InternalOptions = {
 
 type Options = DockerComposeOptions & InternalOptions;
 export const defaultDockerComposeOptions: Options = {
-  minitailorVersion: "latest",
+  // Specify "latest" here to use the latest minitailor image
+  minitailorImage: "2024.01.22-4",
   pullPolicy: "missing",
   profile: "app",
 };
@@ -25,7 +26,7 @@ export const composeYaml = (opts?: DockerComposeOptions) => {
 version: "3.7"
 services:
   migration:
-    image: asia-northeast1-docker.pkg.dev/tailor-professional-service/cmd/minitailor:${options.minitailorVersion}
+    image: asia-northeast1-docker.pkg.dev/tailor-professional-service/cmd/minitailor:${options.minitailorImage}
     pull_policy: ${options.pullPolicy}
     command: minitailor db.migration
     depends_on:
@@ -38,7 +39,7 @@ services:
       - ${options.profile}
 
   minitailor:
-    image: asia-northeast1-docker.pkg.dev/tailor-professional-service/cmd/minitailor:${options.minitailorVersion}
+    image: asia-northeast1-docker.pkg.dev/tailor-professional-service/cmd/minitailor:${options.minitailorImage}
     pull_policy: ${options.pullPolicy}
     depends_on:
       migration:
