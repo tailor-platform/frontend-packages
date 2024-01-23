@@ -20,7 +20,7 @@ export const applyV2 = async () => {
 
   await log.group("apply", "creating workspace", async () => {
     await $$`${tailorctl} alpha workspace create --name ${config?.name || ""}`;
-    await $$`${tailorctl} alpha vault create --name default`;
+    await $$`${tailorctl} alpha workspace vault create --name default`;
   });
 
   await log.group("apply", "applying manifest", async () => {
