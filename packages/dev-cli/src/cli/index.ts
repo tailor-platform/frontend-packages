@@ -6,6 +6,7 @@ import * as changeCase from "change-case";
 import { commands } from "./commands.js";
 import { LevelledLogger } from "./logger.js";
 import { getConfig } from "./config.js";
+import { createRequire } from "module";
 
 const baseEnv = {
   // Environment variables needed to bypass platform authorization on minitailor
@@ -100,18 +101,20 @@ const registerCustomCommands = (app: Command, logger: LevelledLogger) => {
 const runCLI = async (argv?: readonly string[]) => {
   const { Command } = await import("@commander-js/extra-typings");
   const program = new Command();
-  const logger = new LevelledLogger();
 
   program.configureHelp({
     sortSubcommands: true,
     sortOptions: true,
   });
 
+  const logger = new LevelledLogger();
+  const require = createRequire(import.meta.url);
+  const { version } = require("../package.json");
   const app = program
     .name("tailordev")
     .description("CLI for Tailor Platform application devs")
     .option("--verbose", "enable verbosity", false)
-    .version("0.0.1")
+    .version(version)
     .hook("preAction", (options) => {
       const opts = options.opts();
       if (opts.verbose) {
