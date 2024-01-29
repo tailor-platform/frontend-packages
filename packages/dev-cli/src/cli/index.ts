@@ -6,7 +6,7 @@ import * as changeCase from "change-case";
 import { commands } from "./commands.js";
 import { LevelledLogger } from "./logger.js";
 import { getConfig } from "./config.js";
-import { createRequire } from "module";
+import { createRequire } from "node:module";
 
 const baseEnv = {
   // Environment variables needed to bypass platform authorization on minitailor
