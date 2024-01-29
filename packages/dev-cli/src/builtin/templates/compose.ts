@@ -9,7 +9,7 @@ type InternalOptions = {
 type Options = DockerComposeOptions & InternalOptions;
 export const defaultDockerComposeOptions: Options = {
   // Specify "latest" here to use the latest minitailor image
-  minitailorImage: "2024.01.25-1",
+  minitailorImage: "2024.01.29-0",
   pullPolicy: "missing",
   profile: "app",
 };
