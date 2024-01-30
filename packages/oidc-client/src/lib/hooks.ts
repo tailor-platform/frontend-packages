@@ -59,7 +59,6 @@ export const useTailorAuthUtils = () => {
   ): Promise<UserInfo | ErrorResponse> => {
     const userInfoPath = config.userInfoPath;
     const res = await fetch(makeApiUrl(userInfoPath), {
-      method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
       },
