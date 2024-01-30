@@ -1,12 +1,13 @@
-import { NextResponse, type NextRequest } from "next/server";
+import { NextMiddleware } from "next/server";
+import { NextResponse } from "next/server";
 import { Config } from "./config";
 import { internalExchangeTokenForSession } from "./hooks";
 
 export const withAuth = (
   config: Config,
-  middlware: (req: NextRequest) => void,
-) => {
-  return async (request: NextRequest) => {
+  middlware: NextMiddleware,
+): NextMiddleware => {
+  return async (request, event) => {
     const nextURL = request.nextUrl;
     if (nextURL.pathname.startsWith(config.loginCallbackPath())) {
       const code = nextURL.searchParams.get("code");
@@ -31,6 +32,6 @@ export const withAuth = (
       return nextResp;
     }
 
-    middlware(request);
+    await middlware(request, event);
   };
 };
