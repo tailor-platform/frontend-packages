@@ -1,8 +1,8 @@
 import { ErrorResponse, Session, UserInfo } from "@lib/types";
-import { useTailorOidc } from "@lib/provider";
+import { useTailorAuth } from "@lib/provider";
 
-export const useTailorOidcUtils = () => {
-  const config = useTailorOidc();
+export const useTailorAuthUtils = () => {
+  const config = useTailorAuth();
 
   const makeApiUrl = (path: string): string => `${config.apiUrl}${path}`;
 
