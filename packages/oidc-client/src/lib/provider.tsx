@@ -1,7 +1,6 @@
 import { createContext, type ReactNode, useContext } from "react";
 import { Config } from "./config";
 
-
 const TailorAuthContext = createContext<Config | undefined>(undefined);
 
 export const useTailorAuth = () => {
@@ -18,7 +17,6 @@ type ConfigProviderProps = {
 };
 
 export const TailorAuthProvider = (props: ConfigProviderProps) => {
-
   return (
     <TailorAuthContext.Provider value={props.config}>
       {props.children}

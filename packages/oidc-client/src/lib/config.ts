@@ -1,4 +1,11 @@
-import { ContextConfig } from "./provider";
+type ContextConfig = {
+  apiUrl: string;
+  loginPath: string;
+  loginCallbackPath: string;
+  tokenPath: string;
+  refreshTokenPath: string;
+  userInfoPath: string;
+};
 
 export class Config {
   // Only "apiUrl" should be required
@@ -7,8 +14,8 @@ export class Config {
       Partial<ContextConfig>,
   ) {}
 
-  apiUrl() {
-    return this.params.apiUrl;
+  apiUrl(path: string) {
+    return this.params.apiUrl + path;
   }
 
   loginPath() {
