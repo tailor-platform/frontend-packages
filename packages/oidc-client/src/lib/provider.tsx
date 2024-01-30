@@ -1,6 +1,7 @@
 import { createContext, type ReactNode, useContext } from "react";
+import { Config } from "./config";
 
-type ContextConfig = {
+export type ContextConfig = {
   apiUrl: string;
   loginPath: string;
   loginCallbackPath: string;
@@ -19,29 +20,19 @@ export const useTailorAuth = () => {
   return context;
 };
 
-// Only "apiUrl" should be required
-type Config = Pick<ContextConfig, "apiUrl"> & Partial<ContextConfig>;
 type ConfigProviderProps = {
   config: Config;
   children: ReactNode;
 };
 
 export const TailorAuthProvider = (props: ConfigProviderProps) => {
-  const {
-    apiUrl,
-    loginPath,
-    loginCallbackPath,
-    tokenPath,
-    refreshTokenPath,
-    userInfoPath,
-  } = props.config;
   const config: ContextConfig = {
-    apiUrl,
-    loginPath: loginPath || "/auth/login",
-    loginCallbackPath: loginCallbackPath || "/login/callback",
-    tokenPath: tokenPath || "/auth/token",
-    refreshTokenPath: refreshTokenPath || "/auth/token/refresh",
-    userInfoPath: userInfoPath || "/auth/userinfo",
+    apiUrl: props.config.apiUrl(),
+    loginPath: props.config.loginPath(),
+    loginCallbackPath: props.config.loginCallbackPath(),
+    tokenPath: props.config.tokenPath(),
+    refreshTokenPath: props.config.refreshTokenPath(),
+    userInfoPath: props.config.userInfoPath(),
   };
 
   return (

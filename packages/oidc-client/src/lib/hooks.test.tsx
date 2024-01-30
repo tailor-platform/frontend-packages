@@ -5,15 +5,16 @@ import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 import { renderHook, waitFor } from "@testing-library/react";
 import { useTailorAuthUtils } from "./hooks";
 import { TailorAuthProvider } from "./provider";
+import { Config } from "./config";
 
-const mockAuthConfig = {
+const mockAuthConfig = new Config({
   apiUrl: "https://mock-api-url.com",
   loginPath: "/mock-login",
   loginCallbackPath: "/mock-callback",
   tokenPath: "/mock-token",
   refreshTokenPath: "/mock-refresh-token",
   userInfoPath: "/mock-userinfo",
-};
+});
 
 const server = setupServer(
   http.post("https://mock-api-url.com/mock-token", () => {
