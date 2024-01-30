@@ -1,20 +1,21 @@
 import { createContext, type ReactNode, useContext } from "react";
+import { Config } from "./config";
 
-type Config = {
+export type ContextConfig = {
   apiUrl: string;
-  oidcLoginPath: string;
-  oidcLoginCallbackPath: string;
-  oidcTokenPath: string;
-  oidcRefreshTokenPath: string;
-  oidcUserInfoPath: string;
+  loginPath: string;
+  loginCallbackPath: string;
+  tokenPath: string;
+  refreshTokenPath: string;
+  userInfoPath: string;
 };
 
-const TailorOidcContext = createContext<Config | undefined>(undefined);
+const TailorAuthContext = createContext<ContextConfig | undefined>(undefined);
 
-export const useTailorOidc = () => {
-  const context = useContext(TailorOidcContext);
+export const useTailorAuth = () => {
+  const context = useContext(TailorAuthContext);
   if (context === undefined) {
-    throw new Error("useTailorOidc must be used within a TailorOidcProvider");
+    throw new Error("useTailorAuth must be used within a TailorAuthProvider");
   }
   return context;
 };
@@ -24,13 +25,19 @@ type ConfigProviderProps = {
   children: ReactNode;
 };
 
-export const TailorOidcProvider = ({
-  config,
-  children,
-}: ConfigProviderProps) => {
+export const TailorAuthProvider = (props: ConfigProviderProps) => {
+  const config: ContextConfig = {
+    apiUrl: props.config.apiUrl(),
+    loginPath: props.config.loginPath(),
+    loginCallbackPath: props.config.loginCallbackPath(),
+    tokenPath: props.config.tokenPath(),
+    refreshTokenPath: props.config.refreshTokenPath(),
+    userInfoPath: props.config.userInfoPath(),
+  };
+
   return (
-    <TailorOidcContext.Provider value={config}>
-      {children}
-    </TailorOidcContext.Provider>
+    <TailorAuthContext.Provider value={config}>
+      {props.children}
+    </TailorAuthContext.Provider>
   );
 };

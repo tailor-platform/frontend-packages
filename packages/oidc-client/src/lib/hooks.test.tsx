@@ -3,17 +3,18 @@ import { http, HttpResponse } from "msw";
 import { ReactNode } from "react";
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 import { renderHook, waitFor } from "@testing-library/react";
-import { useTailorOidcUtils } from "./hooks";
-import { TailorOidcProvider } from "./provider";
+import { useTailorAuthUtils } from "./hooks";
+import { TailorAuthProvider } from "./provider";
+import { Config } from "./config";
 
-const mockOidcConfig = {
+const mockAuthConfig = new Config({
   apiUrl: "https://mock-api-url.com",
-  oidcLoginPath: "/mock-login",
-  oidcLoginCallbackPath: "/mock-callback",
-  oidcTokenPath: "/mock-token",
-  oidcRefreshTokenPath: "/mock-refresh-token",
-  oidcUserInfoPath: "/mock-userinfo",
-};
+  loginPath: "/mock-login",
+  loginCallbackPath: "/mock-callback",
+  tokenPath: "/mock-token",
+  refreshTokenPath: "/mock-refresh-token",
+  userInfoPath: "/mock-userinfo",
+});
 
 const server = setupServer(
   http.post("https://mock-api-url.com/mock-token", () => {
@@ -34,16 +35,16 @@ const server = setupServer(
 );
 
 const mockProvider = ({ children }: { children: ReactNode }) => (
-  <TailorOidcProvider config={mockOidcConfig}>{children}</TailorOidcProvider>
+  <TailorAuthProvider config={mockAuthConfig}>{children}</TailorAuthProvider>
 );
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
-describe("useTailorOidcUtils", () => {
+describe("useTailorAuthUtils", () => {
   it("correctly constructs the login URL", () => {
-    const { result } = renderHook(() => useTailorOidcUtils(), {
+    const { result } = renderHook(() => useTailorAuthUtils(), {
       wrapper: mockProvider,
     });
     const loginUrl = result.current.makeLoginUrl("/redirect-path");
@@ -54,7 +55,7 @@ describe("useTailorOidcUtils", () => {
   });
 
   it("exchanges token for session", async () => {
-    const { result } = renderHook(() => useTailorOidcUtils(), {
+    const { result } = renderHook(() => useTailorAuthUtils(), {
       wrapper: mockProvider,
     });
 
@@ -73,7 +74,7 @@ describe("useTailorOidcUtils", () => {
   });
 
   it("gets logged-in platform user", async () => {
-    const { result } = renderHook(() => useTailorOidcUtils(), {
+    const { result } = renderHook(() => useTailorAuthUtils(), {
       wrapper: mockProvider,
     });
 
@@ -86,7 +87,7 @@ describe("useTailorOidcUtils", () => {
   });
 
   it("refresh token for session", async () => {
-    const { result } = renderHook(() => useTailorOidcUtils(), {
+    const { result } = renderHook(() => useTailorAuthUtils(), {
       wrapper: mockProvider,
     });
 
