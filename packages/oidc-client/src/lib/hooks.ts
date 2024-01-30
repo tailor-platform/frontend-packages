@@ -11,8 +11,8 @@ export const useTailorOidcUtils = () => {
   };
 
   const makeLoginUrl = (path: string): string => {
-    const apiLoginUrl = makeApiUrl(config.oidcLoginPath);
-    const callbackPath = config.oidcLoginCallbackPath;
+    const apiLoginUrl = makeApiUrl(config.loginPath);
+    const callbackPath = config.loginCallbackPath;
     const redirectUrl = encodeURI(
       `${localRedirectUrl(callbackPath)}?redirect_uri=${path}`,
     );
@@ -22,10 +22,8 @@ export const useTailorOidcUtils = () => {
   const exchangeTokenForSession = async (
     code: string,
   ): Promise<Session | ErrorResponse> => {
-    const tokenPath = config.oidcTokenPath;
-    const redirectUri = encodeURI(
-      localRedirectUrl(config.oidcLoginCallbackPath),
-    );
+    const tokenPath = config.tokenPath;
+    const redirectUri = encodeURI(localRedirectUrl(config.loginCallbackPath));
     const formData = new FormData();
     formData.append("code", code);
     formData.append("redirect_uri", redirectUri);
@@ -41,7 +39,7 @@ export const useTailorOidcUtils = () => {
   const refreshToken = async (
     refreshToken: string,
   ): Promise<Session | ErrorResponse> => {
-    const refreshTokenPath = config.oidcRefreshTokenPath;
+    const refreshTokenPath = config.refreshTokenPath;
     const formData = new FormData();
     formData.append("refresh_token", refreshToken);
     const res = await fetch(makeApiUrl(refreshTokenPath), {
@@ -59,7 +57,7 @@ export const useTailorOidcUtils = () => {
   const getLoggedInPlatformUser = async (
     token: string,
   ): Promise<UserInfo | ErrorResponse> => {
-    const userInfoPath = config.oidcUserInfoPath;
+    const userInfoPath = config.userInfoPath;
     const res = await fetch(makeApiUrl(userInfoPath), {
       method: "GET",
       headers: {

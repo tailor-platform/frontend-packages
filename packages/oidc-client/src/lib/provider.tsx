@@ -2,11 +2,11 @@ import { createContext, type ReactNode, useContext } from "react";
 
 type ContextConfig = {
   apiUrl: string;
-  oidcLoginPath: string;
-  oidcLoginCallbackPath: string;
-  oidcTokenPath: string;
-  oidcRefreshTokenPath: string;
-  oidcUserInfoPath: string;
+  loginPath: string;
+  loginCallbackPath: string;
+  tokenPath: string;
+  refreshTokenPath: string;
+  userInfoPath: string;
 };
 
 const TailorOidcContext = createContext<ContextConfig | undefined>(undefined);
@@ -29,19 +29,19 @@ type ConfigProviderProps = {
 export const TailorOidcProvider = (props: ConfigProviderProps) => {
   const {
     apiUrl,
-    oidcLoginPath,
-    oidcLoginCallbackPath,
-    oidcTokenPath,
-    oidcRefreshTokenPath,
-    oidcUserInfoPath,
+    loginPath: oidcLoginPath,
+    loginCallbackPath: oidcLoginCallbackPath,
+    tokenPath: oidcTokenPath,
+    refreshTokenPath: oidcRefreshTokenPath,
+    userInfoPath: oidcUserInfoPath,
   } = props.config;
   const config: ContextConfig = {
     apiUrl,
-    oidcLoginPath: oidcLoginPath || `/auth/login`,
-    oidcLoginCallbackPath: oidcLoginCallbackPath || "/login/callback",
-    oidcTokenPath: oidcTokenPath || "/auth/token",
-    oidcRefreshTokenPath: oidcRefreshTokenPath || "/auth/token/refresh",
-    oidcUserInfoPath: oidcUserInfoPath || "/auth/userinfo",
+    loginPath: oidcLoginPath || `/auth/login`,
+    loginCallbackPath: oidcLoginCallbackPath || "/login/callback",
+    tokenPath: oidcTokenPath || "/auth/token",
+    refreshTokenPath: oidcRefreshTokenPath || "/auth/token/refresh",
+    userInfoPath: oidcUserInfoPath || "/auth/userinfo",
   };
 
   return (
