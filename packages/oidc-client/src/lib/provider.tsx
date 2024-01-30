@@ -37,7 +37,7 @@ export const TailorAuthProvider = (props: ConfigProviderProps) => {
   } = props.config;
   const config: ContextConfig = {
     apiUrl,
-    loginPath: loginPath || `/auth/login`,
+    loginPath: loginPath || "/auth/login",
     loginCallbackPath: loginCallbackPath || "/login/callback",
     tokenPath: tokenPath || "/auth/token",
     refreshTokenPath: refreshTokenPath || "/auth/token/refresh",
