@@ -1,6 +1,6 @@
 import { createContext, type ReactNode, useContext } from "react";
 
-type Config = {
+type ContextConfig = {
   apiUrl: string;
   oidcLoginPath: string;
   oidcLoginCallbackPath: string;
@@ -9,7 +9,7 @@ type Config = {
   oidcUserInfoPath: string;
 };
 
-const TailorOidcContext = createContext<Config | undefined>(undefined);
+const TailorOidcContext = createContext<ContextConfig | undefined>(undefined);
 
 export const useTailorOidc = () => {
   const context = useContext(TailorOidcContext);
@@ -19,18 +19,34 @@ export const useTailorOidc = () => {
   return context;
 };
 
+// Only "apiUrl" should be required
+type Config = Pick<ContextConfig, "apiUrl"> & Partial<ContextConfig>;
 type ConfigProviderProps = {
   config: Config;
   children: ReactNode;
 };
 
-export const TailorOidcProvider = ({
-  config,
-  children,
-}: ConfigProviderProps) => {
+export const TailorOidcProvider = (props: ConfigProviderProps) => {
+  const {
+    apiUrl,
+    oidcLoginPath,
+    oidcLoginCallbackPath,
+    oidcTokenPath,
+    oidcRefreshTokenPath,
+    oidcUserInfoPath,
+  } = props.config;
+  const config: ContextConfig = {
+    apiUrl,
+    oidcLoginPath: oidcLoginPath || `/auth/login`,
+    oidcLoginCallbackPath: oidcLoginCallbackPath || "/login/callback",
+    oidcTokenPath: oidcTokenPath || "/auth/token",
+    oidcRefreshTokenPath: oidcRefreshTokenPath || "/auth/token/refresh",
+    oidcUserInfoPath: oidcUserInfoPath || "/auth/userinfo",
+  };
+
   return (
     <TailorOidcContext.Provider value={config}>
-      {children}
+      {props.children}
     </TailorOidcContext.Provider>
   );
 };
