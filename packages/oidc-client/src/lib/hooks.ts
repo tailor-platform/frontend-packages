@@ -29,17 +29,13 @@ export const useTailorOidcUtils = () => {
     const formData = new FormData();
     formData.append("code", code);
     formData.append("redirect_uri", redirectUri);
-    try {
-      const res = await fetch(makeApiUrl(tokenPath), {
-        method: "POST",
-        body: formData,
-      });
+    const res = await fetch(makeApiUrl(tokenPath), {
+      method: "POST",
+      body: formData,
+    });
 
-      const text = await res.text();
-      return JSON.parse(text) as Session;
-    } catch (err: unknown) {
-      return { error: err instanceof Error ? err.message : "" };
-    }
+    const text = await res.text();
+    return JSON.parse(text) as Session;
   };
 
   const refreshToken = async (
@@ -48,38 +44,30 @@ export const useTailorOidcUtils = () => {
     const refreshTokenPath = config.oidcRefreshTokenPath;
     const formData = new FormData();
     formData.append("refresh_token", refreshToken);
-    try {
-      const res = await fetch(makeApiUrl(refreshTokenPath), {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: `refresh_token=${encodeURIComponent(refreshToken)}`,
-      });
+    const res = await fetch(makeApiUrl(refreshTokenPath), {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: `refresh_token=${encodeURIComponent(refreshToken)}`,
+    });
 
-      const text = await res.text();
-      return JSON.parse(text) as Session;
-    } catch (err: unknown) {
-      return { error: err instanceof Error ? err.message : "" };
-    }
+    const text = await res.text();
+    return JSON.parse(text) as Session;
   };
 
   const getLoggedInPlatformUser = async (
     token: string,
   ): Promise<UserInfo | ErrorResponse> => {
     const userInfoPath = config.oidcUserInfoPath;
-    try {
-      const res = await fetch(makeApiUrl(userInfoPath), {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const text = await res.text();
-      return JSON.parse(text) as UserInfo;
-    } catch (err: unknown) {
-      return { error: err instanceof Error ? err.message : "" };
-    }
+    const res = await fetch(makeApiUrl(userInfoPath), {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const text = await res.text();
+    return JSON.parse(text) as UserInfo;
   };
 
   return {
