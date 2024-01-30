@@ -20,6 +20,8 @@ export const useTailorAuth = () => {
   return context;
 };
 
+// Only "apiUrl" should be required
+type Config = Pick<ContextConfig, "apiUrl"> & Partial<ContextConfig>;
 type ConfigProviderProps = {
   config: Config;
   children: ReactNode;
