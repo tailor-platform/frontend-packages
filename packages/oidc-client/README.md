@@ -28,14 +28,14 @@ export const Providers = ({ children }: { children: ReactNode }) => {
 
 Each of these properties in `config` to specific environment variables or constants you need to define in your application's environment. Collectively, they form the configuration necessary for the client to handle user authentication in a standardized manner.
 
-| Name               | Required | Description                                                       |
-| ------------------ | -------- | ----------------------------------------------------------------- |
-| apiUrl             | Yes      | Tailor Platform URL                                               |
-| loginPath          |          | Path the auth provider will redirect the user to after signing in |
-| loginCallbackPath  |          | Auth service login endpoint                                       |
-| tokenPath          |          | Auth service token endpoint                                       |
-| refreshTokenPath   |          | Auth service refresh token endpoint                               |
-| userInfoPath       |          | Auth service endpoint to fetch basic user information             |
+| Name              | Required | Description                                                       |
+| ----------------- | -------- | ----------------------------------------------------------------- |
+| apiUrl            | Yes      | Tailor Platform URL                                               |
+| loginPath         |          | Path the auth provider will redirect the user to after signing in |
+| loginCallbackPath |          | Auth service login endpoint                                       |
+| tokenPath         |          | Auth service token endpoint                                       |
+| refreshTokenPath  |          | Auth service refresh token endpoint                               |
+| userInfoPath      |          | Auth service endpoint to fetch basic user information             |
 
 ### Hooks
 
