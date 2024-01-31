@@ -4,10 +4,10 @@ import { label } from "@tailor-platform/styled-system/recipes";
 import { Badge } from "./Badge";
 
 type LabelVariantProps = {
-  labelValue: string;
+  labelValue?: string;
   withBg?: boolean;
   hasBadge?: boolean;
-  badgeValue: string;
+  badgeValue?: string;
 };
 
 export type LabelProps = HTMLStyledProps<"div"> & LabelVariantProps;
