@@ -30,3 +30,4 @@ export {
 } from "@/components/Table";
 export { Text } from "@/components/Text";
 export { Textarea, type TextareaProps } from "@/components/Textarea";
+export { LabelField, type LabelFieldProps } from "@/components/LabelField";
