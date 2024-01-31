@@ -1,6 +1,7 @@
-import { clientSessionPath } from "../lib/config";
+import { redirect } from "next/navigation";
+import { clientSessionPath, internalUnauthorizedPath } from "../lib/config";
 import { internalExchangeTokenForSession } from "../lib/core";
-import { ErrorResponse, SessionResult } from "@lib/types";
+import { ErrorResponse, SessionOption, SessionResult } from "@lib/types";
 import { useTailorAuth } from "@client/provider";
 
 export type UserInfo = {
@@ -66,7 +67,7 @@ export const useTailorAuthUtils = () => {
 };
 
 let useSessionResult: SessionResult | null = null;
-export const useSession = () => {
+export const useSession = (options?: SessionOption) => {
   const config = useTailorAuth();
 
   const getSession = async () => {
@@ -78,5 +79,10 @@ export const useSession = () => {
   if (!useSessionResult) {
     throw getSession();
   }
+
+  if (options?.required && useSessionResult.token === undefined) {
+    redirect(internalUnauthorizedPath);
+  }
+
   return useSessionResult;
 };

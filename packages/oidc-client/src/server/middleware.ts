@@ -1,15 +1,19 @@
 import { NextMiddleware } from "next/server";
 import { NextResponse } from "next/server";
-import { Config, clientSessionPath } from "@/lib/config";
+import {
+  Config,
+  clientSessionPath,
+  internalUnauthorizedPath,
+} from "@/lib/config";
 import { internalExchangeTokenForSession } from "@lib/core";
 
-type Callbacks = {
+type Options = {
   prepend: (args: { token: string; userID: string }) => Promise<void> | void;
 };
 
 export const withAuth = (
   config: Config,
-  callbacks?: Callbacks,
+  options?: Options,
   middlware?: NextMiddleware,
 ): NextMiddleware => {
   return async (request, event) => {
@@ -29,7 +33,7 @@ export const withAuth = (
       }
       const token = session.access_token;
       const userID = session.user_id;
-      callbacks?.prepend && (await callbacks.prepend({ token, userID }));
+      options?.prepend && (await options.prepend({ token, userID }));
 
       const redirection = NextResponse.redirect(config.appUrl(redirectURI));
       redirection.cookies.set({
@@ -37,17 +41,21 @@ export const withAuth = (
         value: token,
         sameSite: "strict",
         httpOnly: true,
+        secure: true,
       });
       redirection.cookies.set({
         name: "tailor.userid",
         value: userID,
         sameSite: "strict",
         httpOnly: true,
+        secure: true,
       });
       return redirection;
     } else if (nextURL.pathname.startsWith(clientSessionPath)) {
       const tailorToken = request.cookies.get("tailor.token");
       return NextResponse.json({ token: tailorToken?.value });
+    } else if (nextURL.pathname.startsWith(internalUnauthorizedPath)) {
+      return NextResponse.redirect(config.appUrl(config.unauthorizedPath()));
     }
 
     await middlware?.(request, event);

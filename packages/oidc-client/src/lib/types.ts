@@ -12,3 +12,7 @@ export type Session = {
 export type SessionResult = {
   token: string;
 };
+
+export type SessionOption = {
+  required: boolean;
+};

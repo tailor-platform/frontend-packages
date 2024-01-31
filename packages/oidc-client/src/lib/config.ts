@@ -50,3 +50,4 @@ export class Config {
 }
 
 export const clientSessionPath = "/__auth/session" as const;
+export const internalUnauthorizedPath = "/__auth/unauthorized" as const;
