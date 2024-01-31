@@ -40,7 +40,7 @@ export const withAuth = (
 
       const redirection = NextResponse.redirect(config.appUrl(redirectURI));
       redirection.cookies.set(
-        buildTokenEntry(session, "tailor.token", "access_token"),
+        buildCookieEntry(session, "tailor.token", "access_token"),
       );
       return redirection;
     } else if (nextURL.pathname.startsWith(clientSessionPath)) {
@@ -54,7 +54,7 @@ export const withAuth = (
   };
 };
 
-const buildTokenEntry = <const T extends keyof Session>(
+const buildCookieEntry = <const T extends keyof Session>(
   session: Session,
   name: string,
   value: T,
