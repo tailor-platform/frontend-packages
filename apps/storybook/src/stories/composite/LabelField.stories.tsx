@@ -27,7 +27,7 @@ const meta: Meta<LabelFieldProps> = {
     },
     badgeValue: {
       control: "text",
-    }
+    },
   },
 } satisfies Meta<LabelFieldProps>;
 
@@ -42,5 +42,5 @@ export const Default: Story = {
     value: "Value",
     href: "",
   },
-  render: (args) => <LabelField {...args}></LabelField>
+  render: (args) => <LabelField {...args}></LabelField>,
 };

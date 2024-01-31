@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { cx } from "@tailor-platform/styled-system/css";
 import { labelField } from "@tailor-platform/styled-system/recipes";
 import { Box, Stack } from "@tailor-platform/styled-system/jsx";
@@ -13,10 +13,11 @@ type LabelFieldDsProps = {
   labelValue: string;
 };
 
-export type LabelFieldProps = LabelFieldDsProps & LabelProps ;
+export type LabelFieldProps = LabelFieldDsProps & LabelProps;
 
 export const LabelField = (props: LabelFieldProps & LabelProps) => {
-  const { value, color, href, labelValue, withBg, hasBadge, badgeValue} = props;
+  const { value, color, href, labelValue, withBg, hasBadge, badgeValue } =
+    props;
 
   return (
     <Stack gap={2}>
@@ -44,6 +45,6 @@ export const LabelField = (props: LabelFieldProps & LabelProps) => {
       </Box>
     </Stack>
   );
-}
+};
 
 LabelField.displayName = "LabelField";

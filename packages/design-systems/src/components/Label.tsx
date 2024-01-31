@@ -1,4 +1,8 @@
-import { HStack, type HTMLStyledProps, styled } from "@tailor-platform/styled-system/jsx";
+import {
+  HStack,
+  type HTMLStyledProps,
+  styled,
+} from "@tailor-platform/styled-system/jsx";
 import { cx, css } from "@tailor-platform/styled-system/css";
 import { label } from "@tailor-platform/styled-system/recipes";
 import { Badge } from "./Badge";
@@ -18,14 +22,14 @@ export const Label = (props: LabelProps) => {
   return (
     <HStack
       aria-label={labelValue}
-      className={withBg ? cx(label()) : css({ textStyle: "xs", fontWeight: "bold" })}
+      className={
+        withBg ? cx(label()) : css({ textStyle: "xs", fontWeight: "bold" })
+      }
     >
-      <styled.p>
-        {labelValue}
-      </styled.p >
+      <styled.p>{labelValue}</styled.p>
       {hasBadge && <Badge>{badgeValue || "Label"}</Badge>}
     </HStack>
-  )
+  );
 };
 
 Label.displayName = "Label";
