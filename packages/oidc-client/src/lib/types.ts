@@ -9,10 +9,6 @@ export type Session = {
   expires_in: number;
 };
 
-export type UserInfo = {
-  sub: string;
-  name: string;
-  given_name: string;
-  family_name: string;
-  email: string;
+export type SessionResult = {
+  token: string;
 };

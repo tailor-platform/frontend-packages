@@ -1,6 +1,15 @@
-import { Config } from "./config";
-import { ErrorResponse, Session, UserInfo } from "@lib/types";
-import { useTailorAuth } from "@lib/provider";
+import { clientSessionPath } from "../lib/config";
+import { internalExchangeTokenForSession } from "../lib/core";
+import { ErrorResponse, SessionResult } from "@lib/types";
+import { useTailorAuth } from "@client/provider";
+
+export type UserInfo = {
+  sub: string;
+  name: string;
+  given_name: string;
+  family_name: string;
+  email: string;
+};
 
 export const useTailorAuthUtils = () => {
   const config = useTailorAuth();
@@ -9,7 +18,7 @@ export const useTailorAuthUtils = () => {
     const apiLoginUrl = config.apiUrl(config.loginPath());
     const callbackPath = config.loginCallbackPath();
     const redirectUrl = encodeURI(
-      `${localRedirectUrl(callbackPath)}?redirect_uri=${path}`,
+      `${config.appUrl(callbackPath)}?redirect_uri=${path}`,
     );
     return `${apiLoginUrl}?redirect_uri=${redirectUrl}`;
   };
@@ -19,7 +28,7 @@ export const useTailorAuthUtils = () => {
 
   const refreshToken = async (
     refreshToken: string,
-  ): Promise<Session | ErrorResponse> => {
+  ): Promise<SessionResult | ErrorResponse> => {
     const refreshTokenPath = config.refreshTokenPath();
     const formData = new FormData();
     formData.append("refresh_token", refreshToken);
@@ -32,7 +41,7 @@ export const useTailorAuthUtils = () => {
     });
 
     const text = await res.text();
-    return JSON.parse(text) as Session;
+    return JSON.parse(text) as SessionResult;
   };
 
   const getLoggedInPlatformUser = async (
@@ -56,23 +65,18 @@ export const useTailorAuthUtils = () => {
   };
 };
 
-const localRedirectUrl = (path: string): string => {
-  return window?.location?.origin ? `${window.location.origin}${path}` : path;
-};
+let useSessionResult: SessionResult | null = null;
+export const useSession = () => {
+  const config = useTailorAuth();
 
-export const internalExchangeTokenForSession = async (
-  config: Config,
-  code: string,
-): Promise<Session | ErrorResponse> => {
-  const redirectUri = encodeURI(localRedirectUrl(config.loginCallbackPath()));
-  const formData = new FormData();
-  formData.append("code", code);
-  formData.append("redirect_uri", redirectUri);
-  const res = await fetch(config.apiUrl(config.tokenPath()), {
-    method: "POST",
-    body: formData,
-  });
+  const getSession = async () => {
+    const rawResp = await fetch(config.appUrl(clientSessionPath));
+    const r = (await rawResp.json()) as SessionResult;
+    useSessionResult = r;
+  };
 
-  const text = await res.text();
-  return JSON.parse(text) as Session;
+  if (!useSessionResult) {
+    throw getSession();
+  }
+  return useSessionResult;
 };

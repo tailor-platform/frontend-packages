@@ -1,5 +1,6 @@
 type ContextConfig = {
-  apiUrl: string;
+  apiHost: string;
+  appHost: string;
   loginPath: string;
   loginCallbackPath: string;
   tokenPath: string;
@@ -10,12 +11,16 @@ type ContextConfig = {
 export class Config {
   // Only "apiUrl" should be required
   constructor(
-    private readonly params: Pick<ContextConfig, "apiUrl"> &
+    private readonly params: Pick<ContextConfig, "apiHost" | "appHost"> &
       Partial<ContextConfig>,
   ) {}
 
   apiUrl(path: string) {
-    return this.params.apiUrl + path;
+    return this.params.apiHost + path;
+  }
+
+  appUrl(path: string) {
+    return this.params.appHost + path;
   }
 
   loginPath() {
@@ -38,3 +43,5 @@ export class Config {
     return this.params.userInfoPath || "/auth/userinfo";
   }
 }
+
+export const clientSessionPath = "/__auth/session" as const;

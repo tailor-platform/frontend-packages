@@ -7,9 +7,14 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "types": "./dist/client/index.d.ts",
+      "import": "./dist/client/index.mjs",
+      "require": "./dist/client/index.js"
+    },
+    "./server": {
+      "types": "./dist/server/index.d.ts",
+      "import": "./dist/server/index.mjs",
+      "require": "./dist/server/index.js"
     }
   },
   "files": [
@@ -17,7 +22,7 @@
   ],
   "repository": "https://github.com/tailor-platform/frontend-packages",
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts --external react",
+    "build": "tsup --entry src/client/index.ts --entry src/server/index.ts --format cjs,esm --dts --external react",
     "dev": "pnpm run build -- --watch",
     "lint": "eslint '**/*.{ts,tsx}' --ignore-pattern 'dist/*' --max-warnings=0",
     "test": "vitest run --reporter verbose",
@@ -39,7 +44,6 @@
     "eslint": "^8.55.0",
     "jsdom": "^23.0.1",
     "msw": "^2.0.10",
-    "react": "^18.2.0",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3",
     "vitest": "^1.0.2"
