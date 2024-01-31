@@ -3,8 +3,13 @@ import { NextResponse } from "next/server";
 import { Config, clientSessionPath } from "@/lib/config";
 import { internalExchangeTokenForSession } from "@lib/core";
 
+type Callbacks = {
+  prepend: (args: { token: string; userID: string }) => Promise<void> | void;
+};
+
 export const withAuth = (
   config: Config,
+  callbacks?: Callbacks,
   middlware?: NextMiddleware,
 ): NextMiddleware => {
   return async (request, event) => {
@@ -13,31 +18,33 @@ export const withAuth = (
       const code = nextURL.searchParams.get("code");
       const redirectURI = nextURL.searchParams.get("redirect_uri");
       if (!code || !redirectURI) {
-        // handling error here
-        return;
+        // TODO: passing error reason with error code
+        return NextResponse.redirect(config.appUrl(config.unauthorizedPath()));
       }
 
       const session = await internalExchangeTokenForSession(config, code);
       if ("error" in session) {
-        // redirect to unauthenticated route
-        return;
+        // TODO: passing error reason with error code
+        return NextResponse.redirect(config.appUrl(config.unauthorizedPath()));
       }
+      const token = session.access_token;
+      const userID = session.user_id;
+      callbacks?.prepend && (await callbacks.prepend({ token, userID }));
 
-      const nextResp = NextResponse.next({ request });
-      nextResp.cookies.set({
+      const redirection = NextResponse.redirect(config.appUrl(redirectURI));
+      redirection.cookies.set({
         name: "tailor.token",
-        value: session.access_token,
+        value: token,
         sameSite: "strict",
         httpOnly: true,
       });
-      nextResp.cookies.set({
+      redirection.cookies.set({
         name: "tailor.userid",
-        value: session.user_id,
+        value: userID,
         sameSite: "strict",
         httpOnly: true,
       });
-
-      return NextResponse.rewrite(config.appUrl(redirectURI), nextResp);
+      return redirection;
     } else if (nextURL.pathname.startsWith(clientSessionPath)) {
       const tailorToken = request.cookies.get("tailor.token");
       return NextResponse.json({ token: tailorToken?.value });

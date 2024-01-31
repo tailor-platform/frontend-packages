@@ -2,6 +2,7 @@ type ContextConfig = {
   apiHost: string;
   appHost: string;
   loginPath: string;
+  unauthrizedPath: string;
   loginCallbackPath: string;
   tokenPath: string;
   refreshTokenPath: string;
@@ -25,6 +26,10 @@ export class Config {
 
   loginPath() {
     return this.params.loginPath || "/auth/login";
+  }
+
+  unauthorizedPath() {
+    return this.params.unauthrizedPath || "/unauthorized";
   }
 
   loginCallbackPath() {
