@@ -1,6 +1,5 @@
 import { redirect } from "next/navigation";
 import { clientSessionPath, internalUnauthorizedPath } from "../lib/config";
-import { internalExchangeTokenForSession } from "../lib/core";
 import { ErrorResponse, SessionOption, SessionResult } from "@lib/types";
 import { useTailorAuth } from "@client/provider";
 
@@ -23,9 +22,6 @@ export const useTailorAuthUtils = () => {
     );
     return `${apiLoginUrl}?redirect_uri=${redirectUrl}`;
   };
-
-  const exchangeTokenForSession = (code: string) =>
-    internalExchangeTokenForSession(config, code);
 
   const refreshToken = async (
     refreshToken: string,
@@ -60,7 +56,6 @@ export const useTailorAuthUtils = () => {
 
   return {
     makeLoginUrl,
-    exchangeTokenForSession,
     refreshToken,
     getLoggedInPlatformUser,
   };
