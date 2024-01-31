@@ -46,6 +46,7 @@
     "msw": "^2.0.10",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3",
+    "vite-tsconfig-paths": "^4.3.1",
     "vitest": "^1.0.2"
   },
   "prettier": "@tailor-platform/dev-config/prettier"

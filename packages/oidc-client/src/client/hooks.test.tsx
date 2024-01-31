@@ -3,9 +3,9 @@ import { http, HttpResponse } from "msw";
 import { ReactNode } from "react";
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 import { renderHook, waitFor } from "@testing-library/react";
+import { Config } from "@/lib/config";
 import { useTailorAuthUtils } from "./hooks";
 import { TailorAuthProvider } from "./provider";
-import { Config } from "@/lib/config";
 
 const mockAuthConfig = new Config({
   apiHost: "https://mock-api-url.com",
