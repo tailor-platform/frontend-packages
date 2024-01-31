@@ -5,6 +5,7 @@ import {
   clientSessionPath,
   internalUnauthorizedPath,
 } from "@/lib/config";
+import { Session } from "@/lib/types";
 import { internalExchangeTokenForSession } from "@lib/core";
 
 type Options = {
@@ -31,25 +32,16 @@ export const withAuth = (
         // TODO: passing error reason with error code
         return NextResponse.redirect(config.appUrl(config.unauthorizedPath()));
       }
-      const token = session.access_token;
-      const userID = session.user_id;
-      options?.prepend && (await options.prepend({ token, userID }));
+      options?.prepend &&
+        (await options.prepend({
+          token: session.access_token,
+          userID: session.user_id,
+        }));
 
       const redirection = NextResponse.redirect(config.appUrl(redirectURI));
-      redirection.cookies.set({
-        name: "tailor.token",
-        value: token,
-        sameSite: "strict",
-        httpOnly: true,
-        secure: true,
-      });
-      redirection.cookies.set({
-        name: "tailor.userid",
-        value: userID,
-        sameSite: "strict",
-        httpOnly: true,
-        secure: true,
-      });
+      redirection.cookies.set(
+        buildTokenEntry(session, "tailor.token", "access_token"),
+      );
       return redirection;
     } else if (nextURL.pathname.startsWith(clientSessionPath)) {
       const tailorToken = request.cookies.get("tailor.token");
@@ -59,5 +51,23 @@ export const withAuth = (
     }
 
     await middlware?.(request, event);
+  };
+};
+
+const buildTokenEntry = <const T extends keyof Session>(
+  session: Session,
+  name: string,
+  value: T,
+) => {
+  // `expires_in` comes as seconds
+  const expires = session.expires_in * 1000;
+
+  return {
+    name,
+    value: session[value],
+    sameSite: "strict" as const,
+    httpOnly: true,
+    secure: true,
+    expires,
   };
 };
