@@ -88,7 +88,7 @@ The hook that provides utility functions for operations. It includes:
 
 Here is an example of how to use these functions:
 
-```ts
+```tsx
 "use client";
 import { useTailorAuthUtils } from "@tailor-platform/oidc-client";
 
