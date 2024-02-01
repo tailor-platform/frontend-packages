@@ -9,7 +9,7 @@ import { conditions } from "./src/theme/conditions";
 
 export default defineConfig({
   preflight: true,
-  include: ["./src/**/*.{js,jsx,ts,tsx}"],
+  include: ["./src/**/*.{js,jsx,ts,tsx}", "./dist/panda.buildinfo.json"],
   exclude: [],
   jsxFramework: "react",
   theme: {
@@ -24,6 +24,7 @@ export default defineConfig({
   conditions,
   globalCss,
   emitPackage: true,
+  importMap: "@tailor-platform/styled-system",
   outdir: "@tailor-platform/styled-system",
   logLevel: "info",
 });
