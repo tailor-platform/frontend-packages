@@ -67,7 +67,7 @@ const middleware: unknown = withAuth(
     },
   },
   (request, event) => {
-    // Add another middleware here if you want to chain more
+    // Add middlewares here if you want to chain more of them
   },
 );
 
