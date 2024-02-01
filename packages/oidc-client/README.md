@@ -102,6 +102,8 @@ A hook that provides authorization functionality. It includes:
 - `login`: A function to redirect to login URL.
 - `refreshToken`: A function to refresh your token.
 
+Here is an example of how to use these functions:
+
 ```tsx
 "use client";
 import { useAuth } from "@tailor-platform/oidc-client";
