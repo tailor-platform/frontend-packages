@@ -50,11 +50,25 @@ A middleware that mainly intercepts requests to login callback.
 
 This middlware is required to be used in your app to use the hooks introduced later.
 
-```ts
+```tsx
 import { withAuth } from "@tailor-platform/oidc-client/server";
 import { config as authConfig } from "@/libs/authConfig";
 
-const middleware: unknown = withAuth(authConfig);
+const middleware: unknown = withAuth(
+  authConfig,
+  {
+    prepend: ({ token }) => {
+      // Do something you want with token here
+    },
+    onError: (e: Error) => {
+      // Handle an error in authorization callback here
+      // Use `NextResponse.redirect` to redirect your own error page or somewhere.
+    },
+  },
+  (request, event) => {
+    // Add another middleware here if you want to chain more
+  },
+);
 
 export default middleware;
 ```
