@@ -24,6 +24,7 @@ Each of these properties in `config` to specific environment variables or consta
 | apiHost           | Yes      | Tailor Platform host                                              |                       |
 | appHost           | Yes      | Frontend app host                                                 |                       |
 | loginPath         |          | Path the auth provider will redirect the user to after signing in | `/auth/login`         |
+| unauthorizedPath  |          | Path to be redirected if not authorized                           | `/unauthorized`       |
 | loginCallbackPath |          | Auth service login endpoint                                       | `/login/callback`     |
 | tokenPath         |          | Auth service token endpoint                                       | `/auth/token`         |
 | refreshTokenPath  |          | Auth service refresh token endpoint                               | `/auth/token/refresh` |
@@ -86,7 +87,7 @@ import { useSession } from "@tailor-platform/oidc-client";
 
 const Page = () => {
   const session = useSession({
-    // Enable session guard by flag
+    // Enabling login guard will redirect you to the path specified in `authorizedPath` in config if not authorized
     required: true,
   });
 
