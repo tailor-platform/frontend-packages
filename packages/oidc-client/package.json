@@ -29,7 +29,8 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "type-check": "tsc --noEmit --incremental --pretty",
     "publish:dev": "pnpm run build && yalc push --sig",
-    "publish:dev:watch": "nodemon -e ts,tsx -w ./src -x 'rm -rf ./dist && pnpm run publish:dev'"
+    "publish:dev:watch": "nodemon -e ts,tsx -w ./src -x 'rm -rf ./dist && pnpm run publish:dev'",
+    "release:preview": "NODE_ENV=production pnpm run build && pnpm publish --tag preview"
   },
   "devDependencies": {
     "@swc/core": "^1.3.100",
