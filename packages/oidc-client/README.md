@@ -59,6 +59,7 @@ const middleware: unknown = withAuth(
   {
     prepend: ({ token }) => {
       // Do something you want with token here
+      // (eg. fetch user profile and store it in LocalStorage, ...)
     },
     onError: (e: Error) => {
       // Handle an error in authorization callback here
