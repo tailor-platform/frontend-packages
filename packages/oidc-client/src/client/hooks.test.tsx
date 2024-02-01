@@ -5,7 +5,7 @@ import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 import { renderHook, waitFor } from "@testing-library/react";
 import { useTailorAuthUtils } from "./hooks";
 import { TailorAuthProvider } from "./provider";
-import { mockAuthConfig } from "@tests/config";
+import { mockAuthConfig } from "@tests/mocks";
 
 const server = setupServer(
   http.post("https://mock-api-url.com/mock-token", () => {

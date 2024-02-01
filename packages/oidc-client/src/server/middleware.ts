@@ -13,15 +13,6 @@ type Options = {
   onError?: (err: Error) => Promise<void> | void;
 };
 
-class CallbackError extends Error {
-  constructor(
-    readonly name: string,
-    readonly message: string,
-  ) {
-    super(message);
-  }
-}
-
 export const withAuth = (
   config: Config,
   options?: Options,
@@ -30,36 +21,13 @@ export const withAuth = (
   return async (request, event) => {
     const nextURL = request.nextUrl;
     if (nextURL.pathname.startsWith(config.loginCallbackPath())) {
-      try {
-        const code = nextURL.searchParams.get("code");
-        const redirectURI = nextURL.searchParams.get("redirect_uri");
-        if (!code || !redirectURI) {
-          throw new CallbackError(
-            "invalid-params",
-            "code and redirectURI should be filled",
-          );
-        }
-
-        const session = await internalExchangeTokenForSession(config, code);
-        if ("error" in session) {
-          throw new CallbackError("failed-exchange", session.error);
-        }
-        options?.prepend &&
-          (await options.prepend({
-            token: session.access_token,
-            userID: session.user_id,
-          }));
-
-        const redirection = NextResponse.redirect(config.appUrl(redirectURI));
-        redirection.cookies.set(
-          buildCookieEntry(session, "tailor.token", "access_token"),
-        );
-        return redirection;
-      } catch (e: unknown) {
-        if (e instanceof Error && options?.onError) {
-          return await options.onError(e);
-        }
-        // Here lets it fallback into running the next middleware in the end...
+      const result = await handleCallback(
+        request.nextUrl.searchParams,
+        config,
+        options,
+      );
+      if (result instanceof NextResponse) {
+        return result;
       }
     } else if (nextURL.pathname.startsWith(clientSessionPath)) {
       const tailorToken = request.cookies.get("tailor.token");
@@ -70,6 +38,54 @@ export const withAuth = (
 
     await middlware?.(request, event);
   };
+};
+
+export class CallbackError extends Error {
+  constructor(
+    readonly name: string,
+    readonly message: string,
+  ) {
+    super(message);
+  }
+}
+
+export const paramsError = () =>
+  new CallbackError("invalid-params", "code and redirectURI should be filled");
+export const exchangeError = (reason: string) =>
+  new CallbackError("failed-exchange", reason);
+
+export const handleCallback = async (
+  params: URLSearchParams,
+  config: Config,
+  options?: Options,
+) => {
+  try {
+    const code = params.get("code");
+    const redirectURI = params.get("redirect_uri");
+    if (!code || !redirectURI) {
+      throw paramsError();
+    }
+
+    const session = await internalExchangeTokenForSession(config, code);
+    if ("error" in session) {
+      throw exchangeError(session.error);
+    }
+    options?.prepend &&
+      (await options.prepend({
+        token: session.access_token,
+        userID: session.user_id,
+      }));
+
+    const redirection = NextResponse.redirect(config.appUrl(redirectURI));
+    redirection.cookies.set(
+      buildCookieEntry(session, "tailor.token", "access_token"),
+    );
+    return redirection;
+  } catch (e: unknown) {
+    if (e instanceof Error && options?.onError) {
+      await options.onError(e);
+    }
+  }
 };
 
 const buildCookieEntry = <const T extends keyof Session>(
