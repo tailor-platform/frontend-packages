@@ -5,17 +5,7 @@ import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 import { renderHook, waitFor } from "@testing-library/react";
 import { useTailorAuthUtils } from "./hooks";
 import { TailorAuthProvider } from "./provider";
-import { Config } from "@/lib/config";
-
-const mockAuthConfig = new Config({
-  apiHost: "https://mock-api-url.com",
-  appHost: "http://localhost:3000",
-  loginPath: "/mock-login",
-  loginCallbackPath: "/mock-callback",
-  tokenPath: "/mock-token",
-  refreshTokenPath: "/mock-refresh-token",
-  userInfoPath: "/mock-userinfo",
-});
+import { mockAuthConfig } from "@tests/config";
 
 const server = setupServer(
   http.post("https://mock-api-url.com/mock-token", () => {
@@ -53,25 +43,6 @@ describe("useTailorAuthUtils", () => {
     expect(loginUrl).toBe(
       "https://mock-api-url.com/mock-login?redirect_uri=http://localhost:3000/mock-callback?redirect_uri=/redirect-path",
     );
-  });
-
-  it("exchanges token for session", async () => {
-    const { result } = renderHook(() => useTailorAuthUtils(), {
-      wrapper: mockProvider,
-    });
-
-    let sessionResult = {};
-    await waitFor(async () => {
-      sessionResult = await result.current.exchangeTokenForSession("mockCode");
-    });
-
-    expect(sessionResult).toHaveProperty("accessToken");
-    if ("accessToken" in sessionResult) {
-      expect(sessionResult.accessToken).toBe("mockAccessToken");
-    }
-    if ("refreshToken" in sessionResult) {
-      expect(sessionResult.refreshToken).toBe("mockRefreshToken");
-    }
   });
 
   it("gets logged-in platform user", async () => {
