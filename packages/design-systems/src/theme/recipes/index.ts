@@ -20,6 +20,8 @@ import { skeletonLoader } from "./skeleton-loader";
 import { switchRecipe } from "./switch";
 import { tabs } from "./tabs";
 import { tooltip } from "./tooltip";
+import { label } from "./label";
+import { labelField } from "./label-field";
 
 export const recipes = {
   accordion,
@@ -44,4 +46,6 @@ export const recipes = {
   switchRecipe,
   tabs,
   tooltip,
+  label,
+  labelField,
 };
