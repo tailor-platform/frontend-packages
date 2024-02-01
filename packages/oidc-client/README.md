@@ -95,24 +95,54 @@ const Page = () => {
 };
 ```
 
-#### `useTailorAuthUtils` hook
+### `useAuth` hook
 
-The hook that provides utility functions for operations. It includes:
+A hook that provides authorization functionality. It includes:
 
-- `getLoggedInPlatformUser`: A function to retrieve the logged-in user's information using a valid session token.
-- `makeLoginUrl`: A function to create login URL
+- `login`: A function to redirect to login URL.
+- `refreshToken`: A function to refresh your token.
+
+```tsx
+"use client";
+import { useAuth } from "@tailor-platform/oidc-client";
+
+// Redirect to `/dashboard` after logging in
+const Component = async () => {
+  const { login } = useAuth();
+
+  return (
+    <div>
+      <button
+        onClick={() => {
+          login({
+            redirectPath: "/dashboard",
+          });
+        }}
+      >
+        Login
+      </button>
+    </div>
+  );
+};
+```
+
+#### `usePlatform` hook
+
+The hook that provides utility functions for Tailor Platform specific operation. It includes:
+
+- `getCurrentUser`: A function to retrieve the logged-in user's information using a valid session token.
 
 Here is an example of how to use these functions:
 
 ```tsx
 "use client";
-import { useTailorAuthUtils } from "@tailor-platform/oidc-client";
+import { usePlatform } from "@tailor-platform/oidc-client";
 
 const Component = async () => {
   const { token } = useSession();
-  const { getLoggedInPlatformUser } = useTailorAuthUtils();
+  const { getCurrentUser } = usePlatform();
 
-  const user = await getLoggedInPlatformUser(token);
+  const user = await getUser(token);
 
   // utilize session and user data...
 };

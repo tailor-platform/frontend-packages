@@ -11,16 +11,16 @@ export type UserInfo = {
   email: string;
 };
 
-export const useTailorAuthUtils = () => {
+export const useAuth = () => {
   const config = useTailorAuth();
 
-  const makeLoginUrl = (path: string): string => {
+  const login = (args: { redirectPath: string }): string => {
     const apiLoginUrl = config.apiUrl(config.loginPath());
     const callbackPath = config.loginCallbackPath();
     const redirectUrl = encodeURI(
-      `${config.appUrl(callbackPath)}?redirect_uri=${path}`,
+      `${config.appUrl(callbackPath)}?redirect_uri=${args.redirectPath}`,
     );
-    return `${apiLoginUrl}?redirect_uri=${redirectUrl}`;
+    return redirect(`${apiLoginUrl}?redirect_uri=${redirectUrl}`);
   };
 
   const refreshToken = async (
@@ -41,7 +41,16 @@ export const useTailorAuthUtils = () => {
     return JSON.parse(text) as SessionResult;
   };
 
-  const getLoggedInPlatformUser = async (
+  return {
+    login,
+    refreshToken,
+  };
+};
+
+export const usePlatform = () => {
+  const config = useTailorAuth();
+
+  const getCurrentUser = async (
     token: string,
   ): Promise<UserInfo | ErrorResponse> => {
     const userInfoPath = config.userInfoPath();
@@ -55,9 +64,7 @@ export const useTailorAuthUtils = () => {
   };
 
   return {
-    makeLoginUrl,
-    refreshToken,
-    getLoggedInPlatformUser,
+    getCurrentUser,
   };
 };
 

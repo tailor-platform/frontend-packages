@@ -3,7 +3,7 @@ import { http, HttpResponse } from "msw";
 import { ReactNode } from "react";
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 import { renderHook, waitFor } from "@testing-library/react";
-import { useTailorAuthUtils } from "./hooks";
+import { usePlatform } from "./hooks";
 import { TailorAuthProvider } from "./provider";
 import { mockAuthConfig } from "@tests/mocks";
 
@@ -35,7 +35,7 @@ afterAll(() => server.close());
 
 describe("useTailorAuthUtils", () => {
   it("correctly constructs the login URL", () => {
-    const { result } = renderHook(() => useTailorAuthUtils(), {
+    const { result } = renderHook(() => usePlatform(), {
       wrapper: mockProvider,
     });
     const loginUrl = result.current.makeLoginUrl("/redirect-path");
@@ -46,7 +46,7 @@ describe("useTailorAuthUtils", () => {
   });
 
   it("gets logged-in platform user", async () => {
-    const { result } = renderHook(() => useTailorAuthUtils(), {
+    const { result } = renderHook(() => usePlatform(), {
       wrapper: mockProvider,
     });
 
@@ -59,7 +59,7 @@ describe("useTailorAuthUtils", () => {
   });
 
   it("refresh token for session", async () => {
-    const { result } = renderHook(() => useTailorAuthUtils(), {
+    const { result } = renderHook(() => usePlatform(), {
       wrapper: mockProvider,
     });
 
