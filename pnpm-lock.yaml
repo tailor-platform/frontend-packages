@@ -500,6 +500,9 @@ importers:
       msw:
         specifier: ^2.0.10
         version: 2.0.10(typescript@5.3.3)
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
       tsup:
         specifier: ^8.0.1
         version: 8.0.1(@swc/core@1.3.100)(postcss@8.4.33)(typescript@5.3.3)
