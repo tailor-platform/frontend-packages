@@ -5,7 +5,7 @@ import { avatar } from "./avatar";
 import { badge } from "./badge";
 import { button } from "./button";
 import { checkbox } from "./checkbox";
-import { divider } from "./divider";
+import { dividerStyle } from "./divider";
 import { drawer } from "./drawer";
 import { hoverCard } from "./hover-card";
 import { input } from "./input";
@@ -29,7 +29,7 @@ export const recipes = {
   badge,
   button,
   checkbox,
-  divider,
+  dividerStyle,
   drawer,
   hoverCard,
   input,

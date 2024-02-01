@@ -5,64 +5,64 @@ export const semanticTokens = defineSemanticTokens({
     bg: {
       canvas: {
         value: {
-          base: "{colors.gray-palette.25}",
-          _dark: "{colors.gray-palette.950}",
+          base: "{colors.gray.25}",
+          _dark: "{colors.gray.950}",
         },
       },
       default: {
-        value: { base: "{colors.white}", _dark: "{colors.gray-palette.950}" },
+        value: { base: "{colors.white}", _dark: "{colors.gray.950}" },
       },
       subtle: {
         value: {
-          base: "{colors.gray-palette.100}",
-          _dark: "{colors.gray-palette.900}",
+          base: "{colors.gray.100}",
+          _dark: "{colors.gray.900}",
         },
       },
       muted: {
         value: {
-          base: "{colors.gray-palette.200}",
-          _dark: "{colors.gray-palette.800}",
+          base: "{colors.gray.200}",
+          _dark: "{colors.gray.800}",
         },
       },
       emphasized: {
         value: {
-          base: "{colors.gray-palette.300}",
-          _dark: "{colors.gray-palette.600}",
+          base: "{colors.gray.300}",
+          _dark: "{colors.gray.600}",
         },
       },
       disabled: {
         value: {
-          base: "{colors.gray-palette.200}",
-          _dark: "{colors.gray-palette.700}",
+          base: "{colors.gray.200}",
+          _dark: "{colors.gray.700}",
         },
       },
     },
     fg: {
       default: {
-        value: { base: "{colors.gray-palette.950}", _dark: "{colors.white}" },
+        value: { base: "{colors.gray.950}", _dark: "{colors.white}" },
       },
       emphasized: {
         value: {
-          base: "{colors.gray-palette.700}",
-          _dark: "{colors.gray-palette.200}",
+          base: "{colors.gray.700}",
+          _dark: "{colors.gray.200}",
         },
       },
       muted: {
         value: {
-          base: "{colors.gray-palette.600}",
-          _dark: "{colors.gray-palette.300}",
+          base: "{colors.gray.600}",
+          _dark: "{colors.gray.300}",
         },
       },
       subtle: {
         value: {
-          base: "{colors.gray-palette.500}",
-          _dark: "{colors.gray-palette.400}",
+          base: "{colors.gray.500}",
+          _dark: "{colors.gray.400}",
         },
       },
       disabled: {
         value: {
-          base: "{colors.gray-palette.300}",
-          _dark: "{colors.gray-palette.700}",
+          base: "{colors.gray.300}",
+          _dark: "{colors.gray.700}",
         },
       },
     },
@@ -90,20 +90,20 @@ export const semanticTokens = defineSemanticTokens({
     border: {
       default: {
         value: {
-          base: "{colors.gray-palette.200}",
-          _dark: "{colors.gray-palette.800}",
+          base: "{colors.gray.200}",
+          _dark: "{colors.gray.800}",
         },
       },
       emphasized: {
         value: {
-          base: "{colors.gray-palette.300}",
-          _dark: "{colors.gray-palette.700}",
+          base: "{colors.gray.300}",
+          _dark: "{colors.gray.700}",
         },
       },
       outline: {
         value: {
-          base: "{colors.gray-palette.600}",
-          _dark: "{colors.gray-palette.400}",
+          base: "{colors.gray.600}",
+          _dark: "{colors.gray.400}",
         },
       },
       accent: {
@@ -111,8 +111,8 @@ export const semanticTokens = defineSemanticTokens({
       },
       disabled: {
         value: {
-          base: "{colors.gray-palette.200}",
-          _dark: "{colors.gray-palette.800}",
+          base: "{colors.gray.200}",
+          _dark: "{colors.gray.800}",
         },
       },
     },
