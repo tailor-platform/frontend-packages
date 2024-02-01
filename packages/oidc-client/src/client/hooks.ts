@@ -11,6 +11,7 @@ export type UserInfo = {
   email: string;
 };
 
+// useAuth is a hook that abstracts out provider-agnostic interface functions related to authorization
 export const useAuth = () => {
   const config = useTailorAuth();
 
@@ -47,6 +48,7 @@ export const useAuth = () => {
   };
 };
 
+// usePlatform is a hook that contains Tailor Platform specific functions
 export const usePlatform = () => {
   const config = useTailorAuth();
 
