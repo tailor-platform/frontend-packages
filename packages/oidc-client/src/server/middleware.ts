@@ -15,7 +15,7 @@ type Options = {
 
 class CallbackError extends Error {
   constructor(
-    readonly type: string,
+    readonly name: string,
     readonly message: string,
   ) {
     super(message);
@@ -35,14 +35,14 @@ export const withAuth = (
         const redirectURI = nextURL.searchParams.get("redirect_uri");
         if (!code || !redirectURI) {
           throw new CallbackError(
-            "E00000",
+            "invalid-params",
             "code and redirectURI should be filled",
           );
         }
 
         const session = await internalExchangeTokenForSession(config, code);
         if ("error" in session) {
-          throw new CallbackError("E00001", session.error);
+          throw new CallbackError("failed-exchange", session.error);
         }
         options?.prepend &&
           (await options.prepend({
@@ -77,9 +77,10 @@ const buildCookieEntry = <const T extends keyof Session>(
   name: string,
   value: T,
 ) => {
-  // `expires_in` comes as seconds
+  // Use `expires_in` field from Tailor Platform auth service which comes as seconds
   const expires = session.expires_in * 1000;
 
+  // Use the strictest cookie here
   return {
     name,
     value: session[value],
