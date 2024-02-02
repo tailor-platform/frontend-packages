@@ -3,17 +3,19 @@ import { http, HttpResponse } from "msw";
 import { ReactNode } from "react";
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 import { renderHook, waitFor } from "@testing-library/react";
-import { useTailorAuthUtils } from "./hooks";
+import { useAuth, usePlatform } from "./hooks";
 import { TailorAuthProvider } from "./provider";
-import { Config } from "./config";
+import { mockAuthConfig } from "@tests/mocks";
 
-const mockAuthConfig = new Config({
-  apiUrl: "https://mock-api-url.com",
-  loginPath: "/mock-login",
-  loginCallbackPath: "/mock-callback",
-  tokenPath: "/mock-token",
-  refreshTokenPath: "/mock-refresh-token",
-  userInfoPath: "/mock-userinfo",
+const redirectMock = vi.hoisted(() => {
+  return {
+    redirect: vi.fn(),
+  };
+});
+vi.mock("next/navigation", () => {
+  return {
+    redirect: redirectMock.redirect,
+  };
 });
 
 const server = setupServer(
@@ -42,52 +44,20 @@ beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
-describe("useTailorAuthUtils", () => {
+describe("useAuth", () => {
   it("correctly constructs the login URL", () => {
-    const { result } = renderHook(() => useTailorAuthUtils(), {
+    const { result } = renderHook(() => useAuth(), {
       wrapper: mockProvider,
     });
-    const loginUrl = result.current.makeLoginUrl("/redirect-path");
+    result.current.login({ redirectPath: "/redirect-path" });
 
-    expect(loginUrl).toBe(
+    expect(redirectMock.redirect).toHaveBeenCalledWith(
       "https://mock-api-url.com/mock-login?redirect_uri=http://localhost:3000/mock-callback?redirect_uri=/redirect-path",
     );
   });
 
-  it("exchanges token for session", async () => {
-    const { result } = renderHook(() => useTailorAuthUtils(), {
-      wrapper: mockProvider,
-    });
-
-    let sessionResult = {};
-    await waitFor(async () => {
-      sessionResult = await result.current.exchangeTokenForSession("mockCode");
-    });
-
-    expect(sessionResult).toHaveProperty("accessToken");
-    if ("accessToken" in sessionResult) {
-      expect(sessionResult.accessToken).toBe("mockAccessToken");
-    }
-    if ("refreshToken" in sessionResult) {
-      expect(sessionResult.refreshToken).toBe("mockRefreshToken");
-    }
-  });
-
-  it("gets logged-in platform user", async () => {
-    const { result } = renderHook(() => useTailorAuthUtils(), {
-      wrapper: mockProvider,
-    });
-
-    let userResult = {};
-    await waitFor(async () => {
-      userResult = await result.current.getLoggedInPlatformUser("mockToken");
-    });
-
-    expect(userResult).toHaveProperty("sub");
-  });
-
-  it("refresh token for session", async () => {
-    const { result } = renderHook(() => useTailorAuthUtils(), {
+  it("refreshes token for session", async () => {
+    const { result } = renderHook(() => useAuth(), {
       wrapper: mockProvider,
     });
 
@@ -103,5 +73,20 @@ describe("useTailorAuthUtils", () => {
     if ("refreshToken" in sessionResult) {
       expect(sessionResult.refreshToken).toBe("mockRefreshToken");
     }
+  });
+});
+
+describe("usePlatform", () => {
+  it("gets logged-in platform user", async () => {
+    const { result } = renderHook(() => usePlatform(), {
+      wrapper: mockProvider,
+    });
+
+    let userResult = {};
+    await waitFor(async () => {
+      userResult = await result.current.getCurrentUser("mockToken");
+    });
+
+    expect(userResult).toHaveProperty("sub");
   });
 });
