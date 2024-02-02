@@ -28,8 +28,6 @@ export const useAuth = () => {
     refreshToken: string,
   ): Promise<SessionResult | ErrorResponse> => {
     const refreshTokenPath = config.refreshTokenPath();
-    const formData = new FormData();
-    formData.append("refresh_token", refreshToken);
     const res = await fetch(config.apiUrl(refreshTokenPath), {
       method: "POST",
       headers: {
