@@ -25,7 +25,7 @@ describe("middleware", () => {
   });
 
   describe("handleCallback", () => {
-    it("should obtain a token and stores it in the cookies", async () => {
+    it("obtains a token and stores it in the cookies", async () => {
       const params = new URLSearchParams({
         code: "12345",
         redirect_uri: "/users",
@@ -49,8 +49,7 @@ describe("middleware", () => {
       expect(token?.value).toBe(mockSession.access_token);
     });
 
-    it("should call onError when params are invalid", async () => {
-      // Impaired params
+    it("calls onError when params are invalid", async () => {
       const params = new URLSearchParams({
         code: "12345",
       });
@@ -63,7 +62,7 @@ describe("middleware", () => {
       expect(onErrorMock).toHaveBeenCalledWith(paramsError());
     });
 
-    it("should call onError when the token exchange isn't successful", async () => {
+    it("calls onError when the token exchange isn't successful", async () => {
       const params = new URLSearchParams({
         code: "12345",
         redirect_uri: "/users",
