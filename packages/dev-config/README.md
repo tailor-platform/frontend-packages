@@ -23,7 +23,7 @@ Add the following in your `package.json`:
 ```jsonc
 {
   // ...
-  "prettier": "@tailor-platform/dev-config/prettier"
+  "prettier": "@tailor-platform/dev-config/prettier",
 }
 ```
 
@@ -45,7 +45,7 @@ Add the following in your `tsconfig.json`:
 
 ```jsonc
 {
-  "extends": "@tailor-platform/dev-config/typescript/nextjs"
+  "extends": "@tailor-platform/dev-config/typescript/nextjs",
 }
 ```
 
