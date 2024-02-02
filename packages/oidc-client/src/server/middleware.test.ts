@@ -4,6 +4,7 @@ import {
   test,
   describe,
   expect,
+  it,
   MockInstance,
 } from "vitest";
 import { NextResponse } from "next/server";
@@ -24,60 +25,62 @@ describe("middleware", () => {
     fetchSpy.mockRestore();
   });
 
-  test("handleCallback should success", async () => {
-    const params = new URLSearchParams({
-      code: "12345",
-      redirect_uri: "/users",
+  describe("handleCallback", () => {
+    it("should succeed", async () => {
+      const params = new URLSearchParams({
+        code: "12345",
+        redirect_uri: "/users",
+      });
+
+      const onErrorMock = vi.fn();
+      const prependMock = vi.fn();
+      const result = await handleCallback(params, mockAuthConfig, {
+        onError: onErrorMock,
+        prepend: prependMock,
+      });
+
+      expect(onErrorMock).not.toHaveBeenCalled();
+      expect(prependMock).toHaveBeenCalledWith({
+        token: mockSession.access_token,
+        userID: mockSession.user_id,
+      });
+      expect(result).toBeInstanceOf(NextResponse);
+
+      const token = result?.cookies.get("tailor.token");
+      expect(token?.value).toBe(mockSession.access_token);
     });
 
-    const onErrorMock = vi.fn();
-    const prependMock = vi.fn();
-    const result = await handleCallback(params, mockAuthConfig, {
-      onError: onErrorMock,
-      prepend: prependMock,
+    it("should call onError when params are impaired", async () => {
+      // Impaired params
+      const params = new URLSearchParams({
+        code: "12345",
+      });
+
+      const onErrorMock = vi.fn();
+      await handleCallback(params, mockAuthConfig, {
+        onError: onErrorMock,
+      });
+
+      expect(onErrorMock).toHaveBeenCalledWith(paramsError());
     });
 
-    expect(onErrorMock).not.toHaveBeenCalled();
-    expect(prependMock).toHaveBeenCalledWith({
-      token: mockSession.access_token,
-      userID: mockSession.user_id,
+    it("should call onError when errored in exchanging token with session", async () => {
+      const params = new URLSearchParams({
+        code: "12345",
+        redirect_uri: "/users",
+      });
+
+      const errorResp = {
+        error: "internal testing error",
+      };
+      fetchSpy.mockResolvedValue(new Response(JSON.stringify(errorResp)));
+
+      const onErrorMock = vi.fn();
+      await handleCallback(params, mockAuthConfig, {
+        onError: onErrorMock,
+      });
+
+      expect(onErrorMock).toHaveBeenCalledWith(exchangeError(errorResp.error));
     });
-    expect(result).toBeInstanceOf(NextResponse);
-
-    const token = result?.cookies.get("tailor.token");
-    expect(token?.value).toBe(mockSession.access_token);
-  });
-
-  test("handleCallback should call onError when params are impaired", async () => {
-    // Impaired params
-    const params = new URLSearchParams({
-      code: "12345",
-    });
-
-    const onErrorMock = vi.fn();
-    await handleCallback(params, mockAuthConfig, {
-      onError: onErrorMock,
-    });
-
-    expect(onErrorMock).toHaveBeenCalledWith(paramsError());
-  });
-
-  test("handleCallback should call onError when errored in exchanging token with session", async () => {
-    const params = new URLSearchParams({
-      code: "12345",
-      redirect_uri: "/users",
-    });
-
-    const errorResp = {
-      error: "internal testing error",
-    };
-    fetchSpy.mockResolvedValue(new Response(JSON.stringify(errorResp)));
-
-    const onErrorMock = vi.fn();
-    await handleCallback(params, mockAuthConfig, {
-      onError: onErrorMock,
-    });
-
-    expect(onErrorMock).toHaveBeenCalledWith(exchangeError(errorResp.error));
   });
 });
