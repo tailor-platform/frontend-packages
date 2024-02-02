@@ -26,7 +26,7 @@ describe("middleware", () => {
   });
 
   describe("handleCallback", () => {
-    it("should succeed", async () => {
+    it("should obtain a token and stores it in the cookies", async () => {
       const params = new URLSearchParams({
         code: "12345",
         redirect_uri: "/users",
