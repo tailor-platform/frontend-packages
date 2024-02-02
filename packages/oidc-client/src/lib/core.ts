@@ -14,6 +14,5 @@ export const internalExchangeTokenForSession = async (
     body: formData,
   });
 
-  const text = await res.text();
-  return JSON.parse(text) as Session;
+  return (await res.json()) as Session;
 };
