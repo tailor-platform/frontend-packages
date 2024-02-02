@@ -24,7 +24,6 @@ export default defineConfig({
   conditions,
   globalCss,
   emitPackage: true,
-  importMap: "@tailor-platform/styled-system",
   outdir: "@tailor-platform/styled-system",
   logLevel: "info",
 });
