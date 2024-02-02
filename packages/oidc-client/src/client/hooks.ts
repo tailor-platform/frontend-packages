@@ -36,8 +36,7 @@ export const useAuth = () => {
       body: `refresh_token=${encodeURIComponent(refreshToken)}`,
     });
 
-    const text = await res.text();
-    return JSON.parse(text) as SessionResult;
+    return (await res.json()) as SessionResult;
   };
 
   return {
@@ -59,8 +58,7 @@ export const usePlatform = () => {
         Authorization: `Bearer ${token}`,
       },
     });
-    const text = await res.text();
-    return JSON.parse(text) as UserInfo;
+    return (await res.json()) as UserInfo;
   };
 
   return {
