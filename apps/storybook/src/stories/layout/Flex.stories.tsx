@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Box, Flex, FlexProps } from "@tailor-platform/styled-system/jsx";
+import { Box, Flex, FlexProps } from "@tailor-platform/design-systems";
 
 Flex.displayName = "Flex";
 Box.displayName = "Box";

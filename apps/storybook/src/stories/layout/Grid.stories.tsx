@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Grid, GridItem, GridProps } from "@tailor-platform/styled-system/jsx";
+import { Grid, GridItem, GridProps } from "@tailor-platform/design-systems";
 
 Grid.displayName = "Grid";
 GridItem.displayName = "GridItem";

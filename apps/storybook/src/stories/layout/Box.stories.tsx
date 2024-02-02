@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Box, BoxProps } from "@tailor-platform/styled-system/jsx";
+import { Box, BoxProps } from "@tailor-platform/design-systems";
 
 Box.displayName = "Box";
 

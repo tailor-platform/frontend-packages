@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Container, ContainerProps } from "@tailor-platform/styled-system/jsx";
+import { Container, ContainerProps } from "@tailor-platform/design-systems";
 
 Container.displayName = "Container";
 

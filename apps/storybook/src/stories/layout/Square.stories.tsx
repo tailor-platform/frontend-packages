@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Square, SquareProps } from "@tailor-platform/styled-system/jsx";
+import { Square, SquareProps } from "@tailor-platform/design-systems";
 
 Square.displayName = "Square";
 

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Box, Wrap, WrapProps } from "@tailor-platform/styled-system/jsx";
+import { Box, Wrap, WrapProps } from "@tailor-platform/design-systems";
 
 Wrap.displayName = "Wrap";
 Box.displayName = "Box";
