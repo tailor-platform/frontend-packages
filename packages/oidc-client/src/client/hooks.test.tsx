@@ -56,7 +56,7 @@ describe("useAuth", () => {
     );
   });
 
-  it("refresh token for session", async () => {
+  it("refreshes token for session", async () => {
     const { result } = renderHook(() => useAuth(), {
       wrapper: mockProvider,
     });
