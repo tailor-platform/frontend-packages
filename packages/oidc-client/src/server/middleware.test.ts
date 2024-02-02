@@ -50,7 +50,7 @@ describe("middleware", () => {
       expect(token?.value).toBe(mockSession.access_token);
     });
 
-    it("should call onError when params are impaired", async () => {
+    it("should call onError when params are invalid", async () => {
       // Impaired params
       const params = new URLSearchParams({
         code: "12345",
@@ -64,7 +64,7 @@ describe("middleware", () => {
       expect(onErrorMock).toHaveBeenCalledWith(paramsError());
     });
 
-    it("should call onError when errored in exchanging token with session", async () => {
+    it("should call onError when the token exchange isn't successful", async () => {
       const params = new URLSearchParams({
         code: "12345",
         redirect_uri: "/users",
