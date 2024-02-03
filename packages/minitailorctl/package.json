@@ -11,8 +11,10 @@
   },
   "scripts": {
     "build": "pnpm run type-check && tsup",
+    "lint": "eslint '**/*.{ts,tsx}' --ignore-pattern 'dist/*' --max-warnings=0",
     "ts:exec": "node --import @swc-node/register/esm-register",
-    "type-check": "tsc --noEmit --incremental --pretty"
+    "type-check": "tsc --noEmit --incremental --pretty",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "keywords": [],
   "author": "",
