@@ -1,8 +1,8 @@
 {
+  "extends": "@tailor-platform/dev-config/typescript/base",
   "compilerOptions": {
     "moduleResolution": "NodeNext",
     "module": "NodeNext",
-    "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
