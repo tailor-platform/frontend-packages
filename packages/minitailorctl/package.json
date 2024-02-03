@@ -1,6 +1,7 @@
 {
-  "name": "minitailorctl",
+  "name": "@tailor-platform/minitailorctl",
   "version": "0.1.0",
+  "private": false,
   "description": "CLI utility tools for minitailor",
   "type": "module",
   "files": [
@@ -9,6 +10,7 @@
   "bin": {
     "minitailorctl": "dist/minitailorctl.js"
   },
+  "repository": "https://github.com/tailor-platform/frontend-packages",
   "scripts": {
     "build": "pnpm run type-check && tsup",
     "lint": "eslint '**/*.{ts,tsx}' --ignore-pattern 'dist/*' --max-warnings=0",
