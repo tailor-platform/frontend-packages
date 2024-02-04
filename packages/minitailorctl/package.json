@@ -1,6 +1,6 @@
 {
   "name": "@tailor-platform/minitailorctl",
-  "version": "0.1.0",
+  "version": "0.1.0-preview.0",
   "private": false,
   "description": "CLI utility tools for minitailor",
   "type": "module",
