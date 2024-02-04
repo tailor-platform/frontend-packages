@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import {
   VisuallyHidden,
   VisuallyHiddenProps,
-} from "@tailor-platform/styled-system/jsx";
+} from "@tailor-platform/design-systems";
 
 VisuallyHidden.displayName = "VisuallyHidden";
 

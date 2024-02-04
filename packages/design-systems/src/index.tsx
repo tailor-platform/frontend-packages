@@ -31,3 +31,29 @@ export {
 export { Text } from "@/components/Text";
 export { Textarea, type TextareaProps } from "@/components/Textarea";
 export { LabelField, type LabelFieldProps } from "@/components/LabelField";
+
+export {
+  AspectRatio,
+  type AspectRatioProps,
+} from "@/components/patterns/AspectRatio";
+export { Bleed, type BleedProps } from "@/components/patterns/Bleed";
+export { Box, type BoxProps } from "@/components/patterns/Box";
+export { Center, type CenterProps } from "@/components/patterns/Center";
+export { Circle, type CircleProps } from "@/components/patterns/Circle";
+export {
+  Container,
+  type ContainerProps,
+} from "@/components/patterns/Container";
+export { Flex, type FlexProps } from "@/components/patterns/Flex";
+export { Float, type FloatProps } from "@/components/patterns/Float";
+export { Grid, type GridProps } from "@/components/patterns/Grid";
+export { GridItem, type GridItemProps } from "@/components/patterns/GridItem";
+export { HStack, type HstackProps } from "@/components/patterns/HStack";
+export { Square, type SquareProps } from "@/components/patterns/Square";
+export { Stack, type StackProps } from "@/components/patterns/Stack";
+export {
+  VisuallyHidden,
+  type VisuallyHiddenProps,
+} from "@/components/patterns/VisuallyHidden";
+export { VStack, type VstackProps } from "@/components/patterns/VStack";
+export { Wrap, type WrapProps } from "@/components/patterns/Wrap";

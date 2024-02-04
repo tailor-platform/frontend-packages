@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Bleed, BleedProps, Box } from "@tailor-platform/styled-system/jsx";
+import { Bleed, BleedProps, Box } from "@tailor-platform/design-systems";
 
 Bleed.displayName = "Bleed";
 Box.displayName = "Box";

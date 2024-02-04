@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Circle, CircleProps } from "@tailor-platform/styled-system/jsx";
+import { Circle, CircleProps } from "@tailor-platform/design-systems";
 
 Circle.displayName = "Circle";
 

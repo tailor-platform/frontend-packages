@@ -4,7 +4,7 @@ import {
   AspectRatio,
   AspectRatioProps,
   Box,
-} from "@tailor-platform/styled-system/jsx";
+} from "@tailor-platform/design-systems";
 
 AspectRatio.displayName = "AspectRatio";
 

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Box, Float, FloatProps } from "@tailor-platform/styled-system/jsx";
+import { Box, Float, FloatProps } from "@tailor-platform/design-systems";
 
 Float.displayName = "Float";
 Box.displayName = "Box";
