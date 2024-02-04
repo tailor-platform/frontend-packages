@@ -13,6 +13,7 @@
   "repository": "https://github.com/tailor-platform/frontend-packages",
   "scripts": {
     "build": "pnpm run type-check && tsup",
+    "release:preview": "NODE_ENV=production pnpm run build && pnpm publish --tag preview",
     "lint": "eslint '**/*.{ts,tsx}' --ignore-pattern 'dist/*' --max-warnings=0",
     "ts:exec": "node --import @swc-node/register/esm-register",
     "type-check": "tsc --noEmit --incremental --pretty",
