@@ -29,9 +29,5 @@ export const runBuiltinCommands = async (args: readonly string[]) => {
       }
     });
 
-  //
-  // More builtin commands will be implemented here...
-  //
-
   app.parse(args);
 };
