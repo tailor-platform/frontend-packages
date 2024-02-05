@@ -1,0 +1,24 @@
+{
+  "name": "@tailor-platform/codegen",
+  "version": "0.1.0",
+  "description": "CLI for generating everything needed in Tailor Platform application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "execa": "^8.0.1"
+  },
+  "devDependencies": {
+    "@swc-node/register": "^1.8.0",
+    "@tailor-platform/dev-config": "workspace:*",
+    "@types/node": "^20.11.16",
+    "eslint": "^8.56.0",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3"
+  },
+  "prettier": "@tailor-platform/dev-config/prettier"
+}
