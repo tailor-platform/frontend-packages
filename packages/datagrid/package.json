@@ -40,7 +40,7 @@
     "react": "^18.2.0"
   },
   "devDependencies": {
-    "@pandacss/dev": "^0.20.1",
+    "@pandacss/dev": "^0.29.1",
     "@swc/core": "^1.3.101",
     "@tailor-platform/dev-config": "workspace:*",
     "@tanstack/table-core": "^8.10.7",
