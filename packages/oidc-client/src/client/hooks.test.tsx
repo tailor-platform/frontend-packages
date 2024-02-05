@@ -7,17 +7,6 @@ import { useAuth, usePlatform } from "./hooks";
 import { TailorAuthProvider } from "./provider";
 import { mockAuthConfig } from "@tests/mocks";
 
-const redirectMock = vi.hoisted(() => {
-  return {
-    redirect: vi.fn(),
-  };
-});
-vi.mock("next/navigation", () => {
-  return {
-    redirect: redirectMock.redirect,
-  };
-});
-
 const server = setupServer(
   http.post("https://mock-api-url.com/mock-token", () => {
     return HttpResponse.json({
@@ -45,48 +34,64 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 describe("useAuth", () => {
-  it("correctly constructs the login URL", () => {
-    const { result } = renderHook(() => useAuth(), {
-      wrapper: mockProvider,
-    });
-    result.current.login({ redirectPath: "/redirect-path" });
+  describe("login", () => {
+    it("correctly redirects to the login URL", () => {
+      // we can't simply spy on the window.location.replace method, need to completely
+      // replace the window.location object.
+      const originalWindowLocation = window.location;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
+      delete (window as any).location;
+      const replaceMock = vi.fn();
+      window.location = { ...originalWindowLocation, replace: replaceMock };
 
-    expect(redirectMock.redirect).toHaveBeenCalledWith(
-      "https://mock-api-url.com/mock-login?redirect_uri=http://localhost:3000/mock-callback?redirect_uri=/redirect-path",
-    );
+      const { result } = renderHook(() => useAuth(), {
+        wrapper: mockProvider,
+      });
+      result.current.login({ redirectPath: "/redirect-path" });
+
+      expect(replaceMock).toHaveBeenCalledWith(
+        "https://mock-api-url.com/mock-login?redirect_uri=http://localhost:3000/mock-callback?redirect_uri=/redirect-path",
+      );
+
+      window.location = originalWindowLocation;
+    });
   });
 
-  it("refreshes token for session", async () => {
-    const { result } = renderHook(() => useAuth(), {
-      wrapper: mockProvider,
-    });
+  describe("refreshToken", () => {
+    it("refreshes token for session", async () => {
+      const { result } = renderHook(() => useAuth(), {
+        wrapper: mockProvider,
+      });
 
-    let sessionResult = {};
-    await waitFor(async () => {
-      sessionResult = await result.current.refreshToken("mockToken");
-    });
+      let sessionResult = {};
+      await waitFor(async () => {
+        sessionResult = await result.current.refreshToken("mockToken");
+      });
 
-    expect(sessionResult).toHaveProperty("accessToken");
-    if ("accessToken" in sessionResult) {
-      expect(sessionResult.accessToken).toBe("mockAccessToken");
-    }
-    if ("refreshToken" in sessionResult) {
-      expect(sessionResult.refreshToken).toBe("mockRefreshToken");
-    }
+      expect(sessionResult).toHaveProperty("accessToken");
+      if ("accessToken" in sessionResult) {
+        expect(sessionResult.accessToken).toBe("mockAccessToken");
+      }
+      if ("refreshToken" in sessionResult) {
+        expect(sessionResult.refreshToken).toBe("mockRefreshToken");
+      }
+    });
   });
 });
 
 describe("usePlatform", () => {
-  it("gets logged-in platform user", async () => {
-    const { result } = renderHook(() => usePlatform(), {
-      wrapper: mockProvider,
-    });
+  describe("getCurrentUser", () => {
+    it("gets logged-in platform user", async () => {
+      const { result } = renderHook(() => usePlatform(), {
+        wrapper: mockProvider,
+      });
 
-    let userResult = {};
-    await waitFor(async () => {
-      userResult = await result.current.getCurrentUser("mockToken");
-    });
+      let userResult = {};
+      await waitFor(async () => {
+        userResult = await result.current.getCurrentUser("mockToken");
+      });
 
-    expect(userResult).toHaveProperty("sub");
+      expect(userResult).toHaveProperty("sub");
+    });
   });
 });

@@ -15,13 +15,18 @@ export type UserInfo = {
 export const useAuth = () => {
   const config = useTailorAuth();
 
-  const login = (args: { redirectPath: string }): string => {
+  const login = (args: { redirectPath: string }) => {
+    if (window === undefined) {
+      throw new Error("login is only available on client component");
+    }
+
     const apiLoginUrl = config.apiUrl(config.loginPath());
     const callbackPath = config.loginCallbackPath();
     const redirectUrl = encodeURI(
       `${config.appUrl(callbackPath)}?redirect_uri=${args.redirectPath}`,
     );
-    return redirect(`${apiLoginUrl}?redirect_uri=${redirectUrl}`);
+
+    window.location.replace(`${apiLoginUrl}?redirect_uri=${redirectUrl}`);
   };
 
   const refreshToken = async (
