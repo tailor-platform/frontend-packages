@@ -31,7 +31,7 @@ export class LevelledLogger {
     if (logLevels[this.level] > logLevels.info) {
       return;
     }
-    this.logger.info(`${chalk.bold.yellow(`[${prefix}]`)} ${msg}`, ...params);
+    this.logger.info(`${chalk.bold.white(`[${prefix}]`)} ${msg}`, ...params);
   }
 
   debug(prefix: string, msg?: string, ...params: unknown[]) {
