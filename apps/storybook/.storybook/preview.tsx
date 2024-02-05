@@ -4,7 +4,7 @@ import "../../../packages/datagrid/dist/index.css";
 import type { Preview, StoryFn } from "@storybook/react";
 import React from "react";
 
-import { Box } from "@tailor-platform/styled-system/jsx";
+import { Box } from "@tailor-platform/design-systems";
 
 import { ColorModeButton } from "./ColorModeButton";
 

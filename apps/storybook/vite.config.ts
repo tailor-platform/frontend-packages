@@ -10,7 +10,7 @@ export default defineConfig({
         panda({
           configPath: path.resolve(
             __dirname,
-            "./../../packages/design-systems/panda.config.ts",
+            "./../../packages/datagrid/panda.config.ts",
           ),
         }),
       ],
@@ -20,7 +20,7 @@ export default defineConfig({
     alias: {
       "@tailor-platform/styled-system": path.resolve(
         __dirname,
-        "./../../packages/design-systems/node_modules/@tailor-platform/styled-system",
+        "./../../node_modules/@tailor-platform/styled-system",
       ),
       "@tailor-platform/design-systems/client": path.resolve(
         __dirname,
