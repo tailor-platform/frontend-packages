@@ -14,7 +14,7 @@ As a result, the `minitailorctl` command (and its `mtctl` alias) will be availab
 
 ### Tailorctl proxy
 
-minitailorctl can run any commands on [tailorctl](https://github.com/tailor-platform/tailorctl) without explictly configured your envivonment to connect it to minitailor.
+minitailorctl can run any command from [tailorctl](https://github.com/tailor-platform/tailorctl) and is pre-configured to communicate with a locally running minitailor instance. 
 
 ```bash
 # The below is the same as "tailorctl alpha workspace create --name test-workspace",
