@@ -12,7 +12,7 @@ const devOpts =
 
 export default defineConfig({
   entry: {
-    react: "src/react/index.ts",
+    cli: "src/cli/index.ts",
   },
   clean: true,
   minify: true,

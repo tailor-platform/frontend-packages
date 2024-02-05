@@ -2,7 +2,11 @@
   "name": "@tailor-platform/codegen",
   "version": "0.1.0",
   "description": "CLI for generating everything needed in Tailor Platform application",
+  "type": "module",
   "main": "index.js",
+  "bin": {
+    "codegen": "dist/cli.js"
+  },
   "scripts": {
     "build": "pnpm run type-check && tsup",
     "ts:exec": "node --import @swc-node/register/esm-register",
@@ -13,7 +17,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "execa": "^8.0.1"
+    "execa": "^8.0.1",
+    "gql-query-builder": "^3.8.0",
+    "inflection": "^3.0.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@swc-node/register": "^1.8.0",
