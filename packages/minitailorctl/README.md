@@ -20,6 +20,6 @@ minitailorctl can run any command from [tailorctl](https://github.com/tailor-pla
 # The below is the same as "tailorctl alpha workspace create --name test-workspace",
 # but always runs with environment variables to connect to minitailor internally.
 
-$ minitailorctl -- alpha workspace create --name test-workspace
-Workspace test-workspace created
+minitailorctl -- alpha workspace create --name test-workspace
+# => Workspace test-workspace created
 ```
