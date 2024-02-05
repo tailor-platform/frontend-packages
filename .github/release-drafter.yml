@@ -28,6 +28,9 @@ autolabeler:
   - label: 'Package: oidc-client'
     files:
       - packages/oidc-client/**
+  - label: 'Package: minitailorctl'
+    files:
+      - packages/minitailorctl/**
   # Add labels based on the PR title, which is usually identical to the first commit in the PR and
   # follows the Conventional Commit messages convention.
   - label: 'Type: Feature'
