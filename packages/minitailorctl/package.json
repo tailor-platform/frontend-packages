@@ -8,7 +8,8 @@
     "dist"
   ],
   "bin": {
-    "minitailorctl": "dist/minitailorctl.js"
+    "minitailorctl": "dist/minitailorctl.js",
+    "mtctl": "dist/minitailorctl.js"
   },
   "repository": "https://github.com/tailor-platform/frontend-packages",
   "scripts": {
