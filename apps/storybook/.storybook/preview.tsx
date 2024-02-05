@@ -1,4 +1,4 @@
-import "../node_modules/@tailor-platform/styled-system/styles.css"
+import "../src/index.css"
 
 import type { Preview, StoryFn } from "@storybook/react";
 import React from "react";

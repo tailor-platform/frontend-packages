@@ -14,6 +14,7 @@ export default defineConfig({
   include: [
     "../**/*.{ts,tsx}",
     "../../../node_modules/@tailor-platform/src/**/*/tsx",
+    './node_modules/@tailor-platform/design-systems/dist/panda.buildinfo.json',
   ],
   jsxFramework: "react",
   outdir: "../../../node_modules/@tailor-platform/styled-system",
@@ -27,4 +28,5 @@ export default defineConfig({
   },
   conditions,
   globalCss,
+  importMap: "@tailor-platform/styled-system"
 });

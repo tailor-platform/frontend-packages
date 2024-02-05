@@ -33,5 +33,5 @@ export default defineConfig({
   globalCss,
   emitPackage: true,
   outdir: "@tailor-platform/styled-system",
-  importMap: "@tailor-platform/styled-system"
+  importMap: "@tailor-platform/styled-system",
 });
