@@ -10,11 +10,7 @@ importers:
     devDependencies:
       '@commitlint/cli':
         specifier: ^18.4.4
-<<<<<<< HEAD
         version: 18.4.4(@types/node@18.19.6)(typescript@5.3.3)
-=======
-        version: 18.4.4(@types/node@18.19.3)(typescript@5.3.3)
->>>>>>> 3fe37f8 (chore(*): fix lockfile)
       '@commitlint/config-conventional':
         specifier: ^18.4.4
         version: 18.4.4
@@ -26,11 +22,7 @@ importers:
         version: 7.6.7(react-dom@18.2.0)(react@18.2.0)
       '@turbo/gen':
         specifier: ^1.11.3
-<<<<<<< HEAD
         version: 1.11.3(@types/node@18.19.6)(typescript@5.3.3)
-=======
-        version: 1.11.3(@types/node@18.19.3)(typescript@5.3.3)
->>>>>>> 3fe37f8 (chore(*): fix lockfile)
       cz-customizable:
         specifier: ^7.0.0
         version: 7.0.0
@@ -70,8 +62,14 @@ importers:
         version: 1.1.0(@internationalized/date@3.5.1)
 =======
         specifier: ^1.0.0
+<<<<<<< HEAD
         version: 1.1.0(@internationalized/date@3.5.0)
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+        version: 1.1.0(@internationalized/date@3.5.0)
+=======
+        version: 1.1.0(@internationalized/date@3.5.1)
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       '@ark-ui/react':
 <<<<<<< HEAD
         specifier: ~2.2.3
@@ -81,8 +79,14 @@ importers:
         version: 1.1.0(@internationalized/date@3.5.1)(react-dom@18.2.0)(react@18.2.0)
 =======
         specifier: ~1.1.0
+<<<<<<< HEAD
         version: 1.1.0(@internationalized/date@3.5.0)(react-dom@18.2.0)(react@18.2.0)
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+        version: 1.1.0(@internationalized/date@3.5.0)(react-dom@18.2.0)(react@18.2.0)
+=======
+        version: 1.1.0(@internationalized/date@3.5.1)(react-dom@18.2.0)(react@18.2.0)
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       '@hookform/resolvers':
         specifier: ^3.3.2
         version: 3.3.2(react-hook-form@7.48.2)
@@ -114,12 +118,14 @@ importers:
         version: 0.29.1(typescript@5.3.2)
 =======
         specifier: ^0.18.2
-<<<<<<< HEAD
         version: 0.18.3(@types/node@18.19.6)(@types/react-dom@18.2.17)(@types/react@18.2.42)(typescript@5.3.2)
+<<<<<<< HEAD
 =======
         version: 0.18.3(@types/node@18.19.3)(@types/react-dom@18.2.17)(@types/react@18.2.42)(typescript@5.3.2)
 >>>>>>> 3fe37f8 (chore(*): fix lockfile)
 >>>>>>> 940776c (chore(*): fix lockfile)
+=======
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
       '@storybook/addon-essentials':
         specifier: ^7.5.2
         version: 7.6.3(@types/react-dom@18.2.17)(@types/react@18.2.42)(react-dom@18.2.0)(react@18.2.0)
@@ -200,11 +206,7 @@ importers:
         version: 0.1.1(@storybook/addons@6.5.16)(@storybook/api@6.5.16)(@storybook/components@6.5.16)(@storybook/core-events@6.5.16)(@storybook/theming@8.0.0)(react-dom@18.2.0)(react@18.2.0)
       ts-node:
         specifier: ^10.9.1
-<<<<<<< HEAD
         version: 10.9.1(@types/node@18.19.6)(typescript@5.3.2)
-=======
-        version: 10.9.1(@types/node@18.19.3)(typescript@5.3.2)
->>>>>>> 3fe37f8 (chore(*): fix lockfile)
       typescript:
         specifier: ^5.2.2
         version: 5.3.2
@@ -217,12 +219,18 @@ importers:
         version: 4.5.1(@types/node@18.19.6)
 =======
         specifier: ^4.5.1
-<<<<<<< HEAD
         version: 4.5.1(@types/node@18.19.6)
+<<<<<<< HEAD
 =======
         version: 4.5.1(@types/node@18.19.3)
 >>>>>>> 3fe37f8 (chore(*): fix lockfile)
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+        version: 4.5.1(@types/node@18.19.3)
+>>>>>>> 3fe37f8 (chore(*): fix lockfile)
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       zod:
         specifier: ^3.22.4
         version: 3.22.4
@@ -253,8 +261,14 @@ importers:
 =======
       '@testing-library/user-event':
         specifier: ^14.5.1
+<<<<<<< HEAD
         version: 14.5.1(@testing-library/dom@9.3.3)
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+        version: 14.5.1(@testing-library/dom@9.3.3)
+=======
+        version: 14.5.1(@testing-library/dom@9.3.4)
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       '@types/node':
         specifier: ^18.16.16
         version: 18.19.2
@@ -412,10 +426,10 @@ importers:
     dependencies:
       '@ark-ui/anatomy':
         specifier: ^1.1.0
-        version: 1.1.0(@internationalized/date@3.5.0)
+        version: 1.1.0(@internationalized/date@3.5.1)
       '@ark-ui/react':
         specifier: ~1.1.0
-        version: 1.1.0(@internationalized/date@3.5.0)(react-dom@18.2.0)(react@18.2.0)
+        version: 1.1.0(@internationalized/date@3.5.1)(react-dom@18.2.0)(react@18.2.0)
       '@tailor-platform/design-systems':
         specifier: workspace:*
         version: link:../design-systems
@@ -449,7 +463,7 @@ importers:
         version: 14.1.2(react-dom@18.2.0)(react@18.2.0)
       '@testing-library/user-event':
         specifier: ^14.5.1
-        version: 14.5.1(@testing-library/dom@9.3.3)
+        version: 14.5.1(@testing-library/dom@9.3.4)
       '@types/jsdom':
         specifier: ^21.1.6
         version: 21.1.6
@@ -464,7 +478,7 @@ importers:
         version: 18.2.17
       esbuild-css-modules-plugin:
         specifier: ^3.1.0
-        version: 3.1.0(esbuild@0.19.8)
+        version: 3.1.0(esbuild@0.19.11)
       postcss:
         specifier: ^8.4.32
         version: 8.4.32
@@ -496,8 +510,14 @@ importers:
         version: 1.1.0(@internationalized/date@3.5.1)
 =======
         specifier: ^1.1.0
+<<<<<<< HEAD
         version: 1.1.0(@internationalized/date@3.5.0)
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+        version: 1.1.0(@internationalized/date@3.5.0)
+=======
+        version: 1.1.0(@internationalized/date@3.5.1)
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       '@ark-ui/react':
 <<<<<<< HEAD
         specifier: 2.2.3
@@ -510,8 +530,14 @@ importers:
         version: 1.1.0(@internationalized/date@3.5.1)(react-dom@18.2.0)(react@18.2.0)
 =======
         specifier: ~1.1.0
+<<<<<<< HEAD
         version: 1.1.0(@internationalized/date@3.5.0)(react-dom@18.2.0)(react@18.2.0)
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+        version: 1.1.0(@internationalized/date@3.5.0)(react-dom@18.2.0)(react@18.2.0)
+=======
+        version: 1.1.0(@internationalized/date@3.5.1)(react-dom@18.2.0)(react@18.2.0)
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       '@pandacss/types':
         specifier: ^0.36.0
         version: 0.36.0
@@ -551,7 +577,7 @@ importers:
         version: 14.1.2(react-dom@18.2.0)(react@18.2.0)
       '@testing-library/user-event':
         specifier: ^14.5.1
-        version: 14.5.1(@testing-library/dom@9.3.3)
+        version: 14.5.1(@testing-library/dom@9.3.4)
       '@types/node':
         specifier: ^18.16.16
         version: 18.19.2
@@ -570,17 +596,24 @@ importers:
       postcss-cli:
         specifier: ^11.0.0
 <<<<<<< HEAD
+<<<<<<< HEAD
         version: 11.0.0(postcss@8.4.35)
 ||||||| parent of b804af0 (chore(*): fix lockfile)
         version: 11.0.0(postcss@8.4.33)
 =======
         version: 11.0.0(postcss@8.4.32)
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+        version: 11.0.0(postcss@8.4.32)
+=======
+        version: 11.0.0(postcss@8.4.33)
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       react:
         specifier: ^18.2.0
         version: 18.2.0
       tsup:
         specifier: ^8.0.1
+<<<<<<< HEAD
 <<<<<<< HEAD
         version: 8.0.1(@swc/core@1.3.100)(postcss@8.4.35)(typescript@5.3.3)
 ||||||| parent of b804af0 (chore(*): fix lockfile)
@@ -588,6 +621,11 @@ importers:
 =======
         version: 8.0.1(@swc/core@1.3.100)(postcss@8.4.32)(typescript@5.3.3)
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+        version: 8.0.1(@swc/core@1.3.100)(postcss@8.4.32)(typescript@5.3.3)
+=======
+        version: 8.0.1(@swc/core@1.3.100)(postcss@8.4.33)(typescript@5.3.3)
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
@@ -633,13 +671,13 @@ importers:
         version: 4.6.0(quill-delta@5.1.0)(rxjs@7.8.1)(tslib@2.6.2)
       prettier:
         specifier: ^3.1.1
-        version: 3.1.1
+        version: 3.2.4
       ts-node:
         specifier: ^10.9.1
-        version: 10.9.1(@types/node@20.10.8)(typescript@5.3.3)
+        version: 10.9.2(@types/node@20.10.8)(typescript@5.3.3)
       tsup:
         specifier: ^8.0.1
-        version: 8.0.1(ts-node@10.9.1)(typescript@5.3.3)
+        version: 8.0.1(ts-node@10.9.2)(typescript@5.3.3)
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
@@ -648,7 +686,7 @@ importers:
         version: 4.3.1(typescript@5.3.3)
       vitest:
         specifier: ^1.2.1
-        version: 1.2.1(@types/node@20.10.8)
+        version: 1.2.2(@types/node@20.10.8)
 
   packages/dev-config:
     dependencies:
@@ -1003,6 +1041,7 @@ packages:
     dev: false
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /@ark-ui/anatomy@2.3.1(@internationalized/date@3.5.2):
     resolution: {integrity: sha512-pfHDkuFRFdzOnZxqNcAld1b03ehvFrOqXery9JHBTchP8+VmAmxg6ZDn4Se1ie4HvcmXD6IU61jltJB/aXYpJg==}
 ||||||| parent of b804af0 (chore(*): fix lockfile)
@@ -1010,6 +1049,11 @@ packages:
     resolution: {integrity: sha512-ClB8qUt1ZYLcTrLHA7zVgGPTmz4RaJvDEQdz0PozWYjfys55n/QRMLP9/bu4tLhAH7V3QU0Kllxo4iT4/Iz+lQ==}
 =======
   /@ark-ui/anatomy@1.1.0(@internationalized/date@3.5.0):
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+  /@ark-ui/anatomy@1.1.0(@internationalized/date@3.5.0):
+=======
+  /@ark-ui/anatomy@1.1.0(@internationalized/date@3.5.1):
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     resolution: {integrity: sha512-ClB8qUt1ZYLcTrLHA7zVgGPTmz4RaJvDEQdz0PozWYjfys55n/QRMLP9/bu4tLhAH7V3QU0Kllxo4iT4/Iz+lQ==}
 >>>>>>> b804af0 (chore(*): fix lockfile)
     dependencies:
@@ -1091,7 +1135,7 @@ packages:
       '@zag-js/color-utils': 0.30.0
       '@zag-js/combobox': 0.30.0
       '@zag-js/date-picker': 0.30.0
-      '@zag-js/date-utils': 0.30.0(@internationalized/date@3.5.0)
+      '@zag-js/date-utils': 0.30.0(@internationalized/date@3.5.1)
       '@zag-js/dialog': 0.30.0
       '@zag-js/editable': 0.30.0
       '@zag-js/file-upload': 0.30.0
@@ -1119,6 +1163,7 @@ packages:
     dev: false
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /@ark-ui/react@2.2.3(@internationalized/date@3.5.2)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-W43rbimG1f7v1jk8J+PG/3um8/PaL1lQZEnRPzaXtQjEoiBlXH4yFyJakoEldxoZEQGB8x7SUkjHxZ93cRceuQ==}
 ||||||| parent of b804af0 (chore(*): fix lockfile)
@@ -1126,12 +1171,18 @@ packages:
     resolution: {integrity: sha512-4B5lBgP/X2iX1Cjk7q/Yf51LOzRgo+wh+FQDf7HHc5HzYXt28rtcEDdTuqfKpeomMCdV5JbndJeyiiSGfzY4WA==}
 =======
   /@ark-ui/react@1.1.0(@internationalized/date@3.5.0)(react-dom@18.2.0)(react@18.2.0):
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+  /@ark-ui/react@1.1.0(@internationalized/date@3.5.0)(react-dom@18.2.0)(react@18.2.0):
+=======
+  /@ark-ui/react@1.1.0(@internationalized/date@3.5.1)(react-dom@18.2.0)(react@18.2.0):
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     resolution: {integrity: sha512-4B5lBgP/X2iX1Cjk7q/Yf51LOzRgo+wh+FQDf7HHc5HzYXt28rtcEDdTuqfKpeomMCdV5JbndJeyiiSGfzY4WA==}
 >>>>>>> b804af0 (chore(*): fix lockfile)
     peerDependencies:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
     dependencies:
+<<<<<<< HEAD
 <<<<<<< HEAD
       '@ark-ui/anatomy': 2.3.1(@internationalized/date@3.5.2)
       '@zag-js/accordion': 0.38.0
@@ -1209,6 +1260,11 @@ packages:
       '@zag-js/types': 0.30.0
 =======
       '@ark-ui/anatomy': 1.1.0(@internationalized/date@3.5.0)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      '@ark-ui/anatomy': 1.1.0(@internationalized/date@3.5.0)
+=======
+      '@ark-ui/anatomy': 1.1.0(@internationalized/date@3.5.1)
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       '@zag-js/accordion': 0.30.0
       '@zag-js/avatar': 0.30.0
       '@zag-js/carousel': 0.30.0
@@ -1218,7 +1274,7 @@ packages:
       '@zag-js/combobox': 0.30.0
       '@zag-js/core': 0.30.0
       '@zag-js/date-picker': 0.30.0
-      '@zag-js/date-utils': 0.30.0(@internationalized/date@3.5.0)
+      '@zag-js/date-utils': 0.30.0(@internationalized/date@3.5.1)
       '@zag-js/dialog': 0.30.0
       '@zag-js/editable': 0.30.0
       '@zag-js/file-upload': 0.30.0
@@ -1269,8 +1325,8 @@ packages:
       events: 3.3.0
       prettier: 2.8.8
       prettier-plugin-astro: 0.9.1
-      vscode-css-languageservice: 6.2.11
-      vscode-html-languageservice: 5.1.1
+      vscode-css-languageservice: 6.2.12
+      vscode-html-languageservice: 5.1.2
       vscode-languageserver: 8.1.0
       vscode-languageserver-protocol: 3.17.5
       vscode-languageserver-textdocument: 1.0.11
@@ -1284,11 +1340,7 @@ packages:
       astro: ^2.5.0
     dependencies:
       '@astrojs/prism': 2.1.2
-<<<<<<< HEAD
       astro: 2.9.6(@types/node@18.19.6)
-=======
-      astro: 2.9.6(@types/node@18.19.3)
->>>>>>> 3fe37f8 (chore(*): fix lockfile)
       github-slugger: 1.5.0
       import-meta-resolve: 2.2.2
       rehype-raw: 6.1.1
@@ -1296,8 +1348,8 @@ packages:
       remark-gfm: 3.0.1
       remark-parse: 10.0.2
       remark-rehype: 10.1.0
-      remark-smartypants: 2.0.0
-      shiki: 0.14.5
+      remark-smartypants: 2.1.0
+      shiki: 0.14.7
       unified: 10.1.2
       unist-util-visit: 4.1.2
       vfile: 5.3.7
@@ -1321,8 +1373,8 @@ packages:
       react: ^17.0.2 || ^18.0.0
       react-dom: ^17.0.2 || ^18.0.0
     dependencies:
-      '@babel/core': 7.23.5
-      '@babel/plugin-transform-react-jsx': 7.23.4(@babel/core@7.23.5)
+      '@babel/core': 7.23.7
+      '@babel/plugin-transform-react-jsx': 7.23.4(@babel/core@7.23.7)
       '@types/react': 18.2.42
       '@types/react-dom': 18.2.17
       react: 18.2.0
@@ -1441,6 +1493,29 @@ packages:
       - supports-color
     dev: true
 
+  /@babel/core@7.23.7:
+    resolution: {integrity: sha512-+UpDgowcmqe36d4NwqvKsyPMlOLNGMsfMmQ5WGCu+siCe3t3dfe9njrzGfdN4qq+bcNUt0+Vw6haRxBOycs4dw==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      '@ampproject/remapping': 2.2.1
+      '@babel/code-frame': 7.23.5
+      '@babel/generator': 7.23.6
+      '@babel/helper-compilation-targets': 7.23.6
+      '@babel/helper-module-transforms': 7.23.3(@babel/core@7.23.7)
+      '@babel/helpers': 7.23.8
+      '@babel/parser': 7.23.6
+      '@babel/template': 7.22.15
+      '@babel/traverse': 7.23.7
+      '@babel/types': 7.23.6
+      convert-source-map: 2.0.0
+      debug: 4.3.4(supports-color@5.5.0)
+      gensync: 1.0.0-beta.2
+      json5: 2.2.3
+      semver: 6.3.1
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
   /@babel/generator@7.23.5:
     resolution: {integrity: sha512-BPssCHrBD+0YrxviOa3QzpqwhNIXKEtOa2jQrm4FlmkC2apYgRnQcmPWiGZDlGxiNtltnUFolMe8497Esry+jA==}
     engines: {node: '>=6.9.0'}
@@ -1460,6 +1535,7 @@ packages:
       jsesc: 2.5.2
 >>>>>>> b804af0 (chore(*): fix lockfile)
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   /@babel/generator@7.23.6:
     resolution: {integrity: sha512-qrSfCYxYQB5owCmGLbl8XRpX1ytXlpueOb0N0UmQwA073KZxejgQTzAmJezxvpwQD9uGtK2shHdi55QT+MbjIw==}
@@ -1483,6 +1559,19 @@ packages:
 
 =======
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+  /@babel/generator@7.23.6:
+    resolution: {integrity: sha512-qrSfCYxYQB5owCmGLbl8XRpX1ytXlpueOb0N0UmQwA073KZxejgQTzAmJezxvpwQD9uGtK2shHdi55QT+MbjIw==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      '@babel/types': 7.23.6
+      '@jridgewell/gen-mapping': 0.3.3
+      '@jridgewell/trace-mapping': 0.3.20
+      jsesc: 2.5.2
+    dev: true
+
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
   /@babel/helper-annotate-as-pure@7.22.5:
     resolution: {integrity: sha512-LvBTxu8bQSQkcyKOU+a1btnNFQ1dMAd0R6PyW3arXes06F6QLWLIrd681bxRPIXlrMGR3XYnW9JyML7dP3qgxg==}
     engines: {node: '>=6.9.0'}
@@ -1522,6 +1611,7 @@ packages:
       semver: 6.3.1
     dev: true
 
+<<<<<<< HEAD
 =======
   /@babel/helper-compilation-targets@7.22.15:
     resolution: {integrity: sha512-y6EEzULok0Qvz8yyLkCvVX+02ic+By2UdOhylwUOvOn9dvYc9mKICJuuU1n1XBI02YWsNsnrY1kc6DVbjcXbtw==}
@@ -1534,6 +1624,9 @@ packages:
       lru-cache: 5.1.1
       semver: 6.3.1
 
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
   /@babel/helper-create-class-features-plugin@7.23.5(@babel/core@7.23.5):
     resolution: {integrity: sha512-QELlRWxSpgdwdJzSJn4WAhKC+hvw/AtHbbrIoncKHkhKKR/luAlKkgBDcri1EzWAo8f8VvYVryEHN4tax/V67A==}
     engines: {node: '>=6.9.0'}
@@ -1669,6 +1762,7 @@ packages:
     dev: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /@babel/helper-module-transforms@7.23.3(@babel/core@7.23.7):
     resolution: {integrity: sha512-7bBs4ED9OmswdfDzpz4MpWgSrV7FXlc3zIagvLFjS5H+Mk7Snr21vQ6QwrsoCGMfNC4e4LQPdoULEt4ykz0SRQ==}
     engines: {node: '>=6.9.0'}
@@ -1699,6 +1793,23 @@ packages:
 
 =======
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+  /@babel/helper-module-transforms@7.23.3(@babel/core@7.23.7):
+    resolution: {integrity: sha512-7bBs4ED9OmswdfDzpz4MpWgSrV7FXlc3zIagvLFjS5H+Mk7Snr21vQ6QwrsoCGMfNC4e4LQPdoULEt4ykz0SRQ==}
+    engines: {node: '>=6.9.0'}
+    peerDependencies:
+      '@babel/core': ^7.0.0
+    dependencies:
+      '@babel/core': 7.23.7
+      '@babel/helper-environment-visitor': 7.22.20
+      '@babel/helper-module-imports': 7.22.15
+      '@babel/helper-simple-access': 7.22.5
+      '@babel/helper-split-export-declaration': 7.22.6
+      '@babel/helper-validator-identifier': 7.22.20
+    dev: true
+
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
   /@babel/helper-optimise-call-expression@7.22.5:
     resolution: {integrity: sha512-HBwaojN0xFRx4yIvpwGqxiV2tUfl7401jlok564NgB9EHS1y6QT17FmKWm4ztqjeVdXLuC4fSvHc5ePpQjoTbw==}
     engines: {node: '>=6.9.0'}
@@ -1829,6 +1940,7 @@ packages:
       - supports-color
     dev: true
 
+<<<<<<< HEAD
 =======
   /@babel/helpers@7.23.5:
     resolution: {integrity: sha512-oO7us8FzTEsG3U6ag9MfdF1iA/7Z6dz+MtFhifZk8C8o453rGJFFWUP1t+ULM9TUIAzC9uxXEiXjOiVMyd7QPg==}
@@ -1841,6 +1953,9 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
   /@babel/highlight@7.23.4:
     resolution: {integrity: sha512-acGdbYSfp2WheJoJm/EBBBLh/ID8KDc64ISZ9DYtBmC8/Q204PZJLHyzeB5qMzJ5trcOkybd78M4x2KWsUq++A==}
     engines: {node: '>=6.9.0'}
@@ -1880,6 +1995,7 @@ packages:
       '@babel/types': 7.23.6
     dev: true
 
+<<<<<<< HEAD
 =======
   /@babel/parser@7.23.5:
     resolution: {integrity: sha512-hOOqoiNXrmGdFbhgCzu6GiURxUgM27Xwd/aPuu8RfHEZPBzL1Z54okAHAQjXfcQNwvrlkAmAp4SlRTZ45vlthQ==}
@@ -1889,6 +2005,9 @@ packages:
       '@babel/types': 7.23.5
 >>>>>>> b804af0 (chore(*): fix lockfile)
 
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
   /@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression@7.23.3(@babel/core@7.23.5):
     resolution: {integrity: sha512-iRkKcCqb7iGnq9+3G6rZ+Ciz5VywC4XNRHe57lKM+jOeYAoR0lVqdeeDRfh0tQcTfw/+vBhHn926FmQhLtlFLQ==}
     engines: {node: '>=6.9.0'}
@@ -2144,6 +2263,16 @@ packages:
 
   /@babel/plugin-syntax-json-strings@7.8.3(@babel/core@7.23.7):
     resolution: {integrity: sha512-lY6kdGpWHvjoe2vk4WrAapEuBR69EMxZl+RoGRhrFGNYVK8mOPAW8VfbT/ZgrFbXlDNiiaxQnAtgVCZ6jv30EA==}
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+    dependencies:
+      '@babel/core': 7.23.7
+      '@babel/helper-plugin-utils': 7.22.5
+    dev: true
+
+  /@babel/plugin-syntax-jsx@7.23.3(@babel/core@7.23.7):
+    resolution: {integrity: sha512-EB2MELswq55OHUoRZLGg/zC7QWUKfNLpE57m/S2yr1uEneIgsTgrSzXP3NXEsMkVn76OlaVVnzN+ugObuYGwhg==}
+    engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
     dependencies:
@@ -3206,6 +3335,23 @@ packages:
       '@babel/helper-plugin-utils': 7.22.5
     dev: true
 
+<<<<<<< HEAD
+=======
+  /@babel/plugin-transform-react-jsx@7.23.4(@babel/core@7.23.7):
+    resolution: {integrity: sha512-5xOpoPguCZCRbo/JeHlloSkTA8Bld1J/E1/kLfD1nsuiW1m8tduTA1ERCgIZokDflX/IBzKcqR3l7VlRgiIfHA==}
+    engines: {node: '>=6.9.0'}
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+    dependencies:
+      '@babel/core': 7.23.7
+      '@babel/helper-annotate-as-pure': 7.22.5
+      '@babel/helper-module-imports': 7.22.15
+      '@babel/helper-plugin-utils': 7.22.5
+      '@babel/plugin-syntax-jsx': 7.23.3(@babel/core@7.23.7)
+      '@babel/types': 7.23.6
+    dev: true
+
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
   /@babel/plugin-transform-regenerator@7.23.3(@babel/core@7.23.5):
     resolution: {integrity: sha512-KP+75h0KghBMcVpuKisx3XTu9Ncut8Q8TuvGO4IhY+9D5DFEckQefOuIsB/gQ2tG71lCke4NMrtIPS8pOj18BQ==}
     engines: {node: '>=6.9.0'}
@@ -3697,12 +3843,12 @@ packages:
     resolution: {integrity: sha512-x/rqGMdzj+fWZvCOYForTghzbtqPDZ5gPwaoNGHdgDfF2QA/XZbCBp4Moo5scrkAMPhB7z26XM/AaHuIJdgauA==}
     dev: true
 
-  /@babel/runtime-corejs3@7.23.5:
-    resolution: {integrity: sha512-7+ziVclejQTLYhXl+Oi1f6gTGD1XDCeLa4R472TNGQxb08zbEJ0OdNoh5Piz+57Ltmui6xR88BXR4gS3/Toslw==}
+  /@babel/runtime-corejs3@7.23.8:
+    resolution: {integrity: sha512-2ZzmcDugdm0/YQKFVYsXiwUN7USPX8PM7cytpb4PFl87fM+qYPSvTZX//8tyeJB1j0YDmafBJEbl5f8NfLyuKw==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      core-js-pure: 3.34.0
-      regenerator-runtime: 0.14.0
+      core-js-pure: 3.35.0
+      regenerator-runtime: 0.14.1
     dev: true
 
   /@babel/runtime@7.23.5:
@@ -3711,6 +3857,7 @@ packages:
     dependencies:
       regenerator-runtime: 0.14.1
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   /@babel/runtime@7.23.8:
     resolution: {integrity: sha512-Y7KbAP984rn1VGMbGqKmBLio9V7y5Je9GvU4rQPCPinCyNfUcToxIXl06d59URp/F3LwinvODxab5N/G6qggkw==}
@@ -3735,6 +3882,16 @@ packages:
 
 =======
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+  /@babel/runtime@7.23.8:
+    resolution: {integrity: sha512-Y7KbAP984rn1VGMbGqKmBLio9V7y5Je9GvU4rQPCPinCyNfUcToxIXl06d59URp/F3LwinvODxab5N/G6qggkw==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.14.1
+    dev: true
+
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
   /@babel/template@7.22.15:
     resolution: {integrity: sha512-QPErUVm4uyJa60rkI73qneDacvdvzxshT3kksGqlGWYdOTIUOwJ7RDUL8sGqslY1uXWSL6xMFKEXDS3ox2uF0w==}
     engines: {node: '>=6.9.0'}
@@ -3761,6 +3918,7 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
+<<<<<<< HEAD
 ||||||| parent of b804af0 (chore(*): fix lockfile)
   /@babel/traverse@7.23.7:
     resolution: {integrity: sha512-tY3mM8rH9jM0YHFGyfC0/xf+SB5eKUu7HPj7/k3fpi9dAlsMc5YbQvDi0Sh2QTPXqMhyaAtzAr807TIyfQrmyg==}
@@ -3782,6 +3940,27 @@ packages:
 
 =======
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+  /@babel/traverse@7.23.7:
+    resolution: {integrity: sha512-tY3mM8rH9jM0YHFGyfC0/xf+SB5eKUu7HPj7/k3fpi9dAlsMc5YbQvDi0Sh2QTPXqMhyaAtzAr807TIyfQrmyg==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      '@babel/code-frame': 7.23.5
+      '@babel/generator': 7.23.6
+      '@babel/helper-environment-visitor': 7.22.20
+      '@babel/helper-function-name': 7.23.0
+      '@babel/helper-hoist-variables': 7.22.5
+      '@babel/helper-split-export-declaration': 7.22.6
+      '@babel/parser': 7.23.6
+      '@babel/types': 7.23.6
+      debug: 4.3.4(supports-color@5.5.0)
+      globals: 11.12.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
   /@babel/types@7.23.5:
     resolution: {integrity: sha512-ON5kSOJwVO6xXVRTvOI0eOnWe7VdUcIpsovGo9U/Br4Ie4UVFQTboO2cYnDhAGU6Fp+UxSiT+pMft0SMHfuq6w==}
     engines: {node: '>=6.9.0'}
@@ -3791,6 +3970,7 @@ packages:
       to-fast-properties: 2.0.0
     dev: true
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   /@babel/types@7.23.6:
     resolution: {integrity: sha512-+uarb83brBzPKN38NX1MkB6vb6+mwvR6amUulqAE7ccQw1pEl+bCia9TbdG1lsnFP7lZySvUn37CHyXQdfTwzg==}
@@ -3812,6 +3992,18 @@ packages:
 
 =======
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+  /@babel/types@7.23.6:
+    resolution: {integrity: sha512-+uarb83brBzPKN38NX1MkB6vb6+mwvR6amUulqAE7ccQw1pEl+bCia9TbdG1lsnFP7lZySvUn37CHyXQdfTwzg==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      '@babel/helper-string-parser': 7.23.4
+      '@babel/helper-validator-identifier': 7.22.20
+      to-fast-properties: 2.0.0
+    dev: true
+
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
   /@base2/pretty-print-object@1.0.1:
     resolution: {integrity: sha512-4iri8i1AqYHJE2DstZYkyEprg6Pq6sKx3xn5FpySk9sNhH7qN2LLlHJCfDTZRILNwQNPD7mATWM0TBui7uC1pA==}
     dev: true
@@ -3862,6 +4054,7 @@ packages:
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   /@commander-js/extra-typings@11.1.0(commander@11.1.0):
     resolution: {integrity: sha512-GuvZ38d23H+7Tz2C9DhzCepivsOsky03s5NI+KCy7ke1FNUvsJ2oO47scQ9YaGGhgjgNW5OYYNSADmbjcSoIhw==}
     peerDependencies:
@@ -3887,6 +4080,20 @@ packages:
 =======
 =======
 >>>>>>> 3fe37f8 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+<<<<<<< HEAD
+<<<<<<< HEAD
+  /@commitlint/cli@18.4.4(@types/node@18.19.6)(typescript@5.3.3):
+=======
+<<<<<<< HEAD
+  /@commitlint/cli@18.4.4(@types/node@20.10.8)(typescript@5.3.3):
+>>>>>>> 4cbbcf5 (chore(dev-config): update lockfile)
+    resolution: {integrity: sha512-Ro3wIo//fV3XiV1EkdpHog6huaEyNcUAVrSmtgKqYM5g982wOWmP4FXvEDFwRMVgz878CNBvvCc33dMZ5AQJ/g==}
+=======
+=======
+>>>>>>> 3fe37f8 (chore(*): fix lockfile)
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
   /@commander-js/extra-typings@11.1.0(commander@11.1.0):
     resolution: {integrity: sha512-GuvZ38d23H+7Tz2C9DhzCepivsOsky03s5NI+KCy7ke1FNUvsJ2oO47scQ9YaGGhgjgNW5OYYNSADmbjcSoIhw==}
     peerDependencies:
@@ -3895,18 +4102,14 @@ packages:
       commander: 11.1.0
     dev: false
 
-  /@commitlint/cli@18.4.4(@types/node@18.19.3)(typescript@5.3.3):
+  /@commitlint/cli@18.4.4(@types/node@18.19.6)(typescript@5.3.3):
     resolution: {integrity: sha512-Ro3wIo//fV3XiV1EkdpHog6huaEyNcUAVrSmtgKqYM5g982wOWmP4FXvEDFwRMVgz878CNBvvCc33dMZ5AQJ/g==}
     engines: {node: '>=v18'}
     hasBin: true
     dependencies:
       '@commitlint/format': 18.4.4
       '@commitlint/lint': 18.4.4
-<<<<<<< HEAD
       '@commitlint/load': 18.4.4(@types/node@18.19.6)(typescript@5.3.3)
-=======
-      '@commitlint/load': 18.4.4(@types/node@18.19.3)(typescript@5.3.3)
->>>>>>> 3fe37f8 (chore(*): fix lockfile)
       '@commitlint/read': 18.4.4
       '@commitlint/types': 18.4.4
       execa: 5.1.1
@@ -3977,11 +4180,7 @@ packages:
       '@commitlint/types': 18.4.4
     dev: true
 
-<<<<<<< HEAD
   /@commitlint/load@18.4.4(@types/node@18.19.6)(typescript@5.3.3):
-=======
-  /@commitlint/load@18.4.4(@types/node@18.19.3)(typescript@5.3.3):
->>>>>>> 3fe37f8 (chore(*): fix lockfile)
     resolution: {integrity: sha512-RaDIa9qwOw2xRJ3Jr2DBXd14rmnHJIX2XdZF4kmoF1rgsg/+7cvrExLSUNAkQUNimyjCn1b/bKX2Omm+GdY0XQ==}
     engines: {node: '>=v18'}
     dependencies:
@@ -3991,11 +4190,7 @@ packages:
       '@commitlint/types': 18.4.4
       chalk: 4.1.2
       cosmiconfig: 8.3.6(typescript@5.3.3)
-<<<<<<< HEAD
       cosmiconfig-typescript-loader: 5.0.0(@types/node@18.19.6)(cosmiconfig@8.3.6)(typescript@5.3.3)
-=======
-      cosmiconfig-typescript-loader: 5.0.0(@types/node@18.19.3)(cosmiconfig@8.3.6)(typescript@5.3.3)
->>>>>>> 3fe37f8 (chore(*): fix lockfile)
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       lodash.uniq: 4.5.0
@@ -4134,6 +4329,7 @@ packages:
     dev: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /@esbuild/aix-ppc64@0.19.11:
     resolution: {integrity: sha512-FnzU0LyE3ySQk7UntJO4+qIiQgI7KoODnZg5xzXIrFJlKd2P2gwHsHY4927xj9y5PJmJSzULiUCWmv7iWnNa7g==}
     engines: {node: '>=12'}
@@ -4173,6 +4369,18 @@ packages:
 
 =======
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+  /@esbuild/aix-ppc64@0.19.11:
+    resolution: {integrity: sha512-FnzU0LyE3ySQk7UntJO4+qIiQgI7KoODnZg5xzXIrFJlKd2P2gwHsHY4927xj9y5PJmJSzULiUCWmv7iWnNa7g==}
+    engines: {node: '>=12'}
+    cpu: [ppc64]
+    os: [aix]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
   /@esbuild/android-arm64@0.17.19:
     resolution: {integrity: sha512-KBMWvEZooR7+kzY0BtbTQn0OAYY7CsiydT63pVEaPtVYF0hXbUaOyZog37DKxK7NF3XacBJOpYT4adIJh+avxA==}
     engines: {node: '>=12'}
@@ -4190,8 +4398,8 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/android-arm64@0.19.8:
-    resolution: {integrity: sha512-B8JbS61bEunhfx8kasogFENgQfr/dIp+ggYXwTqdbMAgGDhRa3AaPpQMuQU0rNxDLECj6FhDzk1cF9WHMVwrtA==}
+  /@esbuild/android-arm64@0.19.11:
+    resolution: {integrity: sha512-aiu7K/5JnLj//KOnOfEZ0D90obUkRzDMyqd/wNAUQ34m4YUPVhRZpnqKV9uqDGxT7cToSDnIHsGooyIczu9T+Q==}
     engines: {node: '>=12'}
     cpu: [arm64]
     os: [android]
@@ -4234,8 +4442,8 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/android-arm@0.19.8:
-    resolution: {integrity: sha512-31E2lxlGM1KEfivQl8Yf5aYU/mflz9g06H6S15ITUFQueMFtFjESRMoDSkvMo8thYvLBax+VKTPlpnx+sPicOA==}
+  /@esbuild/android-arm@0.19.11:
+    resolution: {integrity: sha512-5OVapq0ClabvKvQ58Bws8+wkLCV+Rxg7tUVbo9xu034Nm536QTII4YzhaFriQ7rMrorfnFKUsArD2lqKbFY4vw==}
     engines: {node: '>=12'}
     cpu: [arm]
     os: [android]
@@ -4278,8 +4486,8 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/android-x64@0.19.8:
-    resolution: {integrity: sha512-rdqqYfRIn4jWOp+lzQttYMa2Xar3OK9Yt2fhOhzFXqg0rVWEfSclJvZq5fZslnz6ypHvVf3CT7qyf0A5pM682A==}
+  /@esbuild/android-x64@0.19.11:
+    resolution: {integrity: sha512-eccxjlfGw43WYoY9QgB82SgGgDbibcqyDTlk3l3C0jOVHKxrjdc9CTwDUQd0vkvYg5um0OH+GpxYvp39r+IPOg==}
     engines: {node: '>=12'}
     cpu: [x64]
     os: [android]
@@ -4322,8 +4530,8 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/darwin-arm64@0.19.8:
-    resolution: {integrity: sha512-RQw9DemMbIq35Bprbboyf8SmOr4UXsRVxJ97LgB55VKKeJOOdvsIPy0nFyF2l8U+h4PtBx/1kRf0BelOYCiQcw==}
+  /@esbuild/darwin-arm64@0.19.11:
+    resolution: {integrity: sha512-ETp87DRWuSt9KdDVkqSoKoLFHYTrkyz2+65fj9nfXsaV3bMhTCjtQfw3y+um88vGRKRiF7erPrh/ZuIdLUIVxQ==}
     engines: {node: '>=12'}
     cpu: [arm64]
     os: [darwin]
@@ -4366,8 +4574,8 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/darwin-x64@0.19.8:
-    resolution: {integrity: sha512-3sur80OT9YdeZwIVgERAysAbwncom7b4bCI2XKLjMfPymTud7e/oY4y+ci1XVp5TfQp/bppn7xLw1n/oSQY3/Q==}
+  /@esbuild/darwin-x64@0.19.11:
+    resolution: {integrity: sha512-fkFUiS6IUK9WYUO/+22omwetaSNl5/A8giXvQlcinLIjVkxwTLSktbF5f/kJMftM2MJp9+fXqZ5ezS7+SALp4g==}
     engines: {node: '>=12'}
     cpu: [x64]
     os: [darwin]
@@ -4410,8 +4618,8 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/freebsd-arm64@0.19.8:
-    resolution: {integrity: sha512-WAnPJSDattvS/XtPCTj1tPoTxERjcTpH6HsMr6ujTT+X6rylVe8ggxk8pVxzf5U1wh5sPODpawNicF5ta/9Tmw==}
+  /@esbuild/freebsd-arm64@0.19.11:
+    resolution: {integrity: sha512-lhoSp5K6bxKRNdXUtHoNc5HhbXVCS8V0iZmDvyWvYq9S5WSfTIHU2UGjcGt7UeS6iEYp9eeymIl5mJBn0yiuxA==}
     engines: {node: '>=12'}
     cpu: [arm64]
     os: [freebsd]
@@ -4454,8 +4662,8 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/freebsd-x64@0.19.8:
-    resolution: {integrity: sha512-ICvZyOplIjmmhjd6mxi+zxSdpPTKFfyPPQMQTK/w+8eNK6WV01AjIztJALDtwNNfFhfZLux0tZLC+U9nSyA5Zg==}
+  /@esbuild/freebsd-x64@0.19.11:
+    resolution: {integrity: sha512-JkUqn44AffGXitVI6/AbQdoYAq0TEullFdqcMY/PCUZ36xJ9ZJRtQabzMA+Vi7r78+25ZIBosLTOKnUXBSi1Kw==}
     engines: {node: '>=12'}
     cpu: [x64]
     os: [freebsd]
@@ -4498,8 +4706,8 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/linux-arm64@0.19.8:
-    resolution: {integrity: sha512-z1zMZivxDLHWnyGOctT9JP70h0beY54xDDDJt4VpTX+iwA77IFsE1vCXWmprajJGa+ZYSqkSbRQ4eyLCpCmiCQ==}
+  /@esbuild/linux-arm64@0.19.11:
+    resolution: {integrity: sha512-LneLg3ypEeveBSMuoa0kwMpCGmpu8XQUh+mL8XXwoYZ6Be2qBnVtcDI5azSvh7vioMDhoJFZzp9GWp9IWpYoUg==}
     engines: {node: '>=12'}
     cpu: [arm64]
     os: [linux]
@@ -4542,8 +4750,8 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/linux-arm@0.19.8:
-    resolution: {integrity: sha512-H4vmI5PYqSvosPaTJuEppU9oz1dq2A7Mr2vyg5TF9Ga+3+MGgBdGzcyBP7qK9MrwFQZlvNyJrvz6GuCaj3OukQ==}
+  /@esbuild/linux-arm@0.19.11:
+    resolution: {integrity: sha512-3CRkr9+vCV2XJbjwgzjPtO8T0SZUmRZla+UL1jw+XqHZPkPgZiyWvbDvl9rqAN8Zl7qJF0O/9ycMtjU67HN9/Q==}
     engines: {node: '>=12'}
     cpu: [arm]
     os: [linux]
@@ -4586,8 +4794,8 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/linux-ia32@0.19.8:
-    resolution: {integrity: sha512-1a8suQiFJmZz1khm/rDglOc8lavtzEMRo0v6WhPgxkrjcU0LkHj+TwBrALwoz/OtMExvsqbbMI0ChyelKabSvQ==}
+  /@esbuild/linux-ia32@0.19.11:
+    resolution: {integrity: sha512-caHy++CsD8Bgq2V5CodbJjFPEiDPq8JJmBdeyZ8GWVQMjRD0sU548nNdwPNvKjVpamYYVL40AORekgfIubwHoA==}
     engines: {node: '>=12'}
     cpu: [ia32]
     os: [linux]
@@ -4630,8 +4838,8 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/linux-loong64@0.19.8:
-    resolution: {integrity: sha512-fHZWS2JJxnXt1uYJsDv9+b60WCc2RlvVAy1F76qOLtXRO+H4mjt3Tr6MJ5l7Q78X8KgCFudnTuiQRBhULUyBKQ==}
+  /@esbuild/linux-loong64@0.19.11:
+    resolution: {integrity: sha512-ppZSSLVpPrwHccvC6nQVZaSHlFsvCQyjnvirnVjbKSHuE5N24Yl8F3UwYUUR1UEPaFObGD2tSvVKbvR+uT1Nrg==}
     engines: {node: '>=12'}
     cpu: [loong64]
     os: [linux]
@@ -4674,8 +4882,8 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/linux-mips64el@0.19.8:
-    resolution: {integrity: sha512-Wy/z0EL5qZYLX66dVnEg9riiwls5IYnziwuju2oUiuxVc+/edvqXa04qNtbrs0Ukatg5HEzqT94Zs7J207dN5Q==}
+  /@esbuild/linux-mips64el@0.19.11:
+    resolution: {integrity: sha512-B5x9j0OgjG+v1dF2DkH34lr+7Gmv0kzX6/V0afF41FkPMMqaQ77pH7CrhWeR22aEeHKaeZVtZ6yFwlxOKPVFyg==}
     engines: {node: '>=12'}
     cpu: [mips64el]
     os: [linux]
@@ -4718,8 +4926,8 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/linux-ppc64@0.19.8:
-    resolution: {integrity: sha512-ETaW6245wK23YIEufhMQ3HSeHO7NgsLx8gygBVldRHKhOlD1oNeNy/P67mIh1zPn2Hr2HLieQrt6tWrVwuqrxg==}
+  /@esbuild/linux-ppc64@0.19.11:
+    resolution: {integrity: sha512-MHrZYLeCG8vXblMetWyttkdVRjQlQUb/oMgBNurVEnhj4YWOr4G5lmBfZjHYQHHN0g6yDmCAQRR8MUHldvvRDA==}
     engines: {node: '>=12'}
     cpu: [ppc64]
     os: [linux]
@@ -4762,8 +4970,8 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/linux-riscv64@0.19.8:
-    resolution: {integrity: sha512-T2DRQk55SgoleTP+DtPlMrxi/5r9AeFgkhkZ/B0ap99zmxtxdOixOMI570VjdRCs9pE4Wdkz7JYrsPvsl7eESg==}
+  /@esbuild/linux-riscv64@0.19.11:
+    resolution: {integrity: sha512-f3DY++t94uVg141dozDu4CCUkYW+09rWtaWfnb3bqe4w5NqmZd6nPVBm+qbz7WaHZCoqXqHz5p6CM6qv3qnSSQ==}
     engines: {node: '>=12'}
     cpu: [riscv64]
     os: [linux]
@@ -4806,8 +5014,8 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/linux-s390x@0.19.8:
-    resolution: {integrity: sha512-NPxbdmmo3Bk7mbNeHmcCd7R7fptJaczPYBaELk6NcXxy7HLNyWwCyDJ/Xx+/YcNH7Im5dHdx9gZ5xIwyliQCbg==}
+  /@esbuild/linux-s390x@0.19.11:
+    resolution: {integrity: sha512-A5xdUoyWJHMMlcSMcPGVLzYzpcY8QP1RtYzX5/bS4dvjBGVxdhuiYyFwp7z74ocV7WDc0n1harxmpq2ePOjI0Q==}
     engines: {node: '>=12'}
     cpu: [s390x]
     os: [linux]
@@ -4850,8 +5058,8 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/linux-x64@0.19.8:
-    resolution: {integrity: sha512-lytMAVOM3b1gPypL2TRmZ5rnXl7+6IIk8uB3eLsV1JwcizuolblXRrc5ShPrO9ls/b+RTp+E6gbsuLWHWi2zGg==}
+  /@esbuild/linux-x64@0.19.11:
+    resolution: {integrity: sha512-grbyMlVCvJSfxFQUndw5mCtWs5LO1gUlwP4CDi4iJBbVpZcqLVT29FxgGuBJGSzyOxotFG4LoO5X+M1350zmPA==}
     engines: {node: '>=12'}
     cpu: [x64]
     os: [linux]
@@ -4894,8 +5102,8 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/netbsd-x64@0.19.8:
-    resolution: {integrity: sha512-hvWVo2VsXz/8NVt1UhLzxwAfo5sioj92uo0bCfLibB0xlOmimU/DeAEsQILlBQvkhrGjamP0/el5HU76HAitGw==}
+  /@esbuild/netbsd-x64@0.19.11:
+    resolution: {integrity: sha512-13jvrQZJc3P230OhU8xgwUnDeuC/9egsjTkXN49b3GcS5BKvJqZn86aGM8W9pd14Kd+u7HuFBMVtrNGhh6fHEQ==}
     engines: {node: '>=12'}
     cpu: [x64]
     os: [netbsd]
@@ -4938,8 +5146,8 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/openbsd-x64@0.19.8:
-    resolution: {integrity: sha512-/7Y7u77rdvmGTxR83PgaSvSBJCC2L3Kb1M/+dmSIvRvQPXXCuC97QAwMugBNG0yGcbEGfFBH7ojPzAOxfGNkwQ==}
+  /@esbuild/openbsd-x64@0.19.11:
+    resolution: {integrity: sha512-ysyOGZuTp6SNKPE11INDUeFVVQFrhcNDVUgSQVDzqsqX38DjhPEPATpid04LCoUr2WXhQTEZ8ct/EgJCUDpyNw==}
     engines: {node: '>=12'}
     cpu: [x64]
     os: [openbsd]
@@ -4982,8 +5190,8 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/sunos-x64@0.19.8:
-    resolution: {integrity: sha512-9Lc4s7Oi98GqFA4HzA/W2JHIYfnXbUYgekUP/Sm4BG9sfLjyv6GKKHKKVs83SMicBF2JwAX6A1PuOLMqpD001w==}
+  /@esbuild/sunos-x64@0.19.11:
+    resolution: {integrity: sha512-Hf+Sad9nVwvtxy4DXCZQqLpgmRTQqyFyhT3bZ4F2XlJCjxGmRFF0Shwn9rzhOYRB61w9VMXUkxlBy56dk9JJiQ==}
     engines: {node: '>=12'}
     cpu: [x64]
     os: [sunos]
@@ -5026,8 +5234,8 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/win32-arm64@0.19.8:
-    resolution: {integrity: sha512-rq6WzBGjSzihI9deW3fC2Gqiak68+b7qo5/3kmB6Gvbh/NYPA0sJhrnp7wgV4bNwjqM+R2AApXGxMO7ZoGhIJg==}
+  /@esbuild/win32-arm64@0.19.11:
+    resolution: {integrity: sha512-0P58Sbi0LctOMOQbpEOvOL44Ne0sqbS0XWHMvvrg6NE5jQ1xguCSSw9jQeUk2lfrXYsKDdOe6K+oZiwKPilYPQ==}
     engines: {node: '>=12'}
     cpu: [arm64]
     os: [win32]
@@ -5070,8 +5278,8 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/win32-ia32@0.19.8:
-    resolution: {integrity: sha512-AIAbverbg5jMvJznYiGhrd3sumfwWs8572mIJL5NQjJa06P8KfCPWZQ0NwZbPQnbQi9OWSZhFVSUWjjIrn4hSw==}
+  /@esbuild/win32-ia32@0.19.11:
+    resolution: {integrity: sha512-6YOrWS+sDJDmshdBIQU+Uoyh7pQKrdykdefC1avn76ss5c+RN6gut3LZA4E2cH5xUEp5/cA0+YxRaVtRAb0xBg==}
     engines: {node: '>=12'}
     cpu: [ia32]
     os: [win32]
@@ -5114,8 +5322,8 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/win32-x64@0.19.8:
-    resolution: {integrity: sha512-bfZ0cQ1uZs2PqpulNL5j/3w+GDhP36k1K5c38QdQg+Swy51jFZWWeIkteNsufkQxp986wnqRRsb/bHbY1WQ7TA==}
+  /@esbuild/win32-x64@0.19.11:
+    resolution: {integrity: sha512-vfkhltrjCAb603XaFhqhAF4LGDi2M4OrCRrFusyQ+iTLQ/o60QQXxc9cZC/FFpihBI9N1Grn6SMKVJ4KP7Fuiw==}
     engines: {node: '>=12'}
     cpu: [x64]
     os: [win32]
@@ -5171,7 +5379,7 @@ packages:
       ajv: 6.12.6
       debug: 4.3.4(supports-color@5.5.0)
       espree: 9.6.1
-      globals: 13.23.0
+      globals: 13.24.0
       ignore: 5.3.0
       import-fresh: 3.3.0
       js-yaml: 4.1.0
@@ -5246,6 +5454,17 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
+  /@humanwhocodes/config-array@0.11.14:
+    resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
+    engines: {node: '>=10.10.0'}
+    dependencies:
+      '@humanwhocodes/object-schema': 2.0.2
+      debug: 4.3.4(supports-color@5.5.0)
+      minimatch: 3.1.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
   /@humanwhocodes/module-importer@1.0.1:
     resolution: {integrity: sha512-bxveV4V8v5Yb4ncFTT3rPSgZBOpCkjfK0y4oVVVJwIuDVBRMDXrPyXRL988i5ap9m9bnyEEjWfm5WkBmtffLfA==}
     engines: {node: '>=12.22'}
@@ -5253,6 +5472,7 @@ packages:
   /@humanwhocodes/object-schema@2.0.1:
     resolution: {integrity: sha512-dvuCeX5fC9dXgJn9t+X5atfmgQAzUOWqS1254Gh0m6i8wKd10ebXkfNKiRK+1GWi/yTvvLDHpoxLr0xxxeslWw==}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   /@humanwhocodes/object-schema@2.0.2:
     resolution: {integrity: sha512-6EwiSjwWYP7pTckG6I5eyFANjPhmPjUX9JRLUSfNPC7FX7zK9gyZAfUEaECL6ALTpGX5AjnBq3C9XmVWPitNpw==}
@@ -5262,6 +5482,9 @@ packages:
     resolution: {integrity: sha512-nH5mxoTEoqk6WpoBz80GMpDSm9jH5V9AF8n+JZAZfMzd9gHeEG9w1o3KawPRR72lfzpP+QxBHLkOKLEApwhDiQ==}
     engines: {node: '>=18'}
 ||||||| parent of b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
   /@humanwhocodes/object-schema@2.0.2:
     resolution: {integrity: sha512-6EwiSjwWYP7pTckG6I5eyFANjPhmPjUX9JRLUSfNPC7FX7zK9gyZAfUEaECL6ALTpGX5AjnBq3C9XmVWPitNpw==}
     dev: true
@@ -5320,6 +5543,12 @@ packages:
       '@swc/helpers': 0.5.3
     dev: false
 
+  /@internationalized/date@3.5.1:
+    resolution: {integrity: sha512-LUQIfwU9e+Fmutc/DpRTGXSdgYZLBegi4wygCWDSVmUdLTaMHsQyASDiJtREwanwKuQLq0hY76fCJ9J/9I2xOQ==}
+    dependencies:
+      '@swc/helpers': 0.5.3
+    dev: false
+
   /@internationalized/number@3.4.0:
     resolution: {integrity: sha512-8TvotW3qVDHC4uv/BVoN6Qx0Dm8clHY1/vpH+dh+XRiPW/9NVpKn1P8d1A+WLphWrMwyqyWXI7uWehJPviaeIw==}
     dependencies:
@@ -5370,7 +5599,7 @@ packages:
     resolution: {integrity: sha512-ok/BTPFzFKVMwO5eOHRrvnBVHdRy9IrsrW1GpMaQ9MCnilNLXQKmAX8s1YXDFaai9xJpac2ySzV0YeRRECr2Vw==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
-      '@babel/core': 7.23.5
+      '@babel/core': 7.23.7
       '@jest/types': 29.6.3
       '@jridgewell/trace-mapping': 0.3.20
       babel-plugin-istanbul: 6.1.1
@@ -5396,12 +5625,18 @@ packages:
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
 <<<<<<< HEAD
+<<<<<<< HEAD
       '@types/node': 18.19.6
 ||||||| parent of 73155d7 (chore(dev-config): update lockfile)
       '@types/node': 18.19.2
 =======
       '@types/node': 18.19.3
 >>>>>>> 73155d7 (chore(dev-config): update lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      '@types/node': 18.19.3
+=======
+      '@types/node': 18.19.6
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       '@types/yargs': 16.0.9
       chalk: 4.1.2
     dev: true
@@ -5415,6 +5650,7 @@ packages:
       '@types/istanbul-reports': 3.0.4
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       '@types/node': 18.19.6
 ||||||| parent of 73155d7 (chore(dev-config): update lockfile)
       '@types/node': 20.10.8
@@ -5436,6 +5672,11 @@ packages:
 >>>>>>> fc65d7a (chore(dev-config): update lockfile)
 =======
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      '@types/node': 18.19.3
+=======
+      '@types/node': 18.19.6
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       '@types/yargs': 17.0.32
       chalk: 4.1.2
     dev: true
@@ -5455,16 +5696,28 @@ packages:
       react-docgen-typescript: 2.2.2(typescript@5.3.2)
       typescript: 5.3.2
 <<<<<<< HEAD
+<<<<<<< HEAD
       vite: 5.0.12(@types/node@18.19.6)
 ||||||| parent of b804af0 (chore(*): fix lockfile)
       vite: 4.5.1(@types/node@18.19.6)
 =======
 <<<<<<< HEAD
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+<<<<<<< HEAD
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       vite: 4.5.1(@types/node@18.19.6)
+<<<<<<< HEAD
 =======
       vite: 4.5.1(@types/node@18.19.3)
 >>>>>>> 3fe37f8 (chore(*): fix lockfile)
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+      vite: 4.5.1(@types/node@18.19.3)
+>>>>>>> 3fe37f8 (chore(*): fix lockfile)
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     dev: true
 
   /@jridgewell/gen-mapping@0.3.3:
@@ -5509,7 +5762,7 @@ packages:
       react: '>=16'
     dependencies:
       '@types/mdx': 2.0.10
-      '@types/react': 18.2.42
+      '@types/react': 18.2.47
       react: 18.2.0
     dev: true
 
@@ -5790,6 +6043,7 @@ packages:
     dev: false
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /@pandacss/dev@0.29.1(typescript@5.3.2):
     resolution: {integrity: sha512-awaLcRuJhr10GOO0nWwsWMjW/ekM0ksySuP3nveAXWxTl4IBtdH7eP6RmPOw03ShFHXKe9R7V+a1awHQuITXwg==}
     hasBin: true
@@ -5805,10 +6059,9 @@ packages:
       '@pandacss/types': 0.29.1
 =======
 <<<<<<< HEAD
-  /@pandacss/dev@0.18.3(@types/node@18.19.6)(@types/react-dom@18.2.17)(@types/react@18.2.42)(typescript@5.3.2):
 =======
-  /@pandacss/dev@0.18.3(@types/node@18.19.3)(@types/react-dom@18.2.17)(@types/react@18.2.42)(typescript@5.3.2):
->>>>>>> 3fe37f8 (chore(*): fix lockfile)
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
+  /@pandacss/dev@0.18.3(@types/node@18.19.6)(@types/react-dom@18.2.17)(@types/react@18.2.42)(typescript@5.3.2):
     resolution: {integrity: sha512-YEesW9kQH2ua9MjkJjACjBqAS2yzTBtb+QYOSHkArpGEU20oISP/lcMBWrfl8ZIH94sFHv7lfifbdYrW8KPhHA==}
     hasBin: true
     dependencies:
@@ -5820,11 +6073,7 @@ packages:
       '@pandacss/postcss': 0.18.3(typescript@5.3.2)
       '@pandacss/preset-panda': 0.18.3
       '@pandacss/shared': 0.18.3
-<<<<<<< HEAD
       '@pandacss/studio': 0.18.3(@types/node@18.19.6)(@types/react-dom@18.2.17)(@types/react@18.2.42)(typescript@5.3.2)
-=======
-      '@pandacss/studio': 0.18.3(@types/node@18.19.3)(@types/react-dom@18.2.17)(@types/react@18.2.42)(typescript@5.3.2)
->>>>>>> 3fe37f8 (chore(*): fix lockfile)
       '@pandacss/token-dictionary': 0.18.3
       '@pandacss/types': 0.18.3
 >>>>>>> 940776c (chore(*): fix lockfile)
@@ -5985,7 +6234,11 @@ packages:
       lodash.merge: 4.6.2
       look-it-up: 2.1.0
       outdent: 0.8.0
+<<<<<<< HEAD
       perfect-debounce: 1.0.0
+=======
+      pathe: 1.1.2
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
       pkg-types: 1.0.3
       pluralize: 8.0.0
       postcss: 8.4.35
@@ -5999,7 +6252,51 @@ packages:
       - bluebird
       - encoding
       - jsdom
+<<<<<<< HEAD
       - supports-color
+=======
+      - typescript
+    dev: true
+
+  /@pandacss/node@0.20.1(typescript@5.3.3):
+    resolution: {integrity: sha512-zWtO3tv6Szdk+CoCgb27Yj8Thhcj4pt/Kg7aigvxG8sVUXmyHJ+tx9LXlwC9TguZUz+vdbp3KxVVq2XlhU+yuw==}
+    dependencies:
+      '@pandacss/config': 0.20.1
+      '@pandacss/core': 0.20.1
+      '@pandacss/error': 0.20.1
+      '@pandacss/extractor': 0.20.1(typescript@5.3.3)
+      '@pandacss/generator': 0.20.1
+      '@pandacss/is-valid-prop': 0.20.1
+      '@pandacss/logger': 0.20.1
+      '@pandacss/parser': 0.20.1(typescript@5.3.3)
+      '@pandacss/shared': 0.20.1
+      '@pandacss/token-dictionary': 0.20.1
+      '@pandacss/types': 0.20.1
+      chokidar: 3.5.3
+      fast-glob: 3.3.2
+      file-size: 1.0.0
+      filesize: 10.1.0
+      fs-extra: 11.1.1
+      glob-parent: 6.0.2
+      hookable: 5.5.3
+      is-glob: 4.0.3
+      lil-fp: 1.4.5
+      lodash.merge: 4.6.2
+      look-it-up: 2.1.0
+      microdiff: 1.3.2
+      outdent: 0.8.0
+      pathe: 1.1.2
+      pkg-types: 1.0.3
+      pluralize: 8.0.0
+      postcss: 8.4.33
+      preferred-pm: 3.1.2
+      prettier: 2.8.8
+      ts-morph: 19.0.0
+      ts-pattern: 5.0.5
+      tsconfck: 2.1.2(typescript@5.3.3)
+    transitivePeerDependencies:
+      - jsdom
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
       - typescript
     dev: true
 
@@ -6084,6 +6381,7 @@ packages:
   /@pandacss/parser@0.29.1(typescript@5.3.2):
     resolution: {integrity: sha512-haRXKUwvLC5R4wIuywUDMrw05HZ3XRSwr8wi3nGfbV2RhezjgF+Eazou4SiwZyEIQQQlwz+LuCwXBRp9mwJ4lg==}
     dependencies:
+<<<<<<< HEAD
       '@pandacss/config': 0.29.1
       '@pandacss/core': 0.29.1
       '@pandacss/extractor': 0.29.1(typescript@5.3.2)
@@ -6091,6 +6389,35 @@ packages:
       '@pandacss/shared': 0.29.1
       '@pandacss/types': 0.29.1
       '@vue/compiler-sfc': 3.3.4
+=======
+      '@pandacss/config': 0.18.3
+      '@pandacss/extractor': 0.18.3(typescript@5.3.2)
+      '@pandacss/is-valid-prop': 0.18.3
+      '@pandacss/logger': 0.18.3
+      '@pandacss/shared': 0.18.3
+      '@pandacss/types': 0.18.3
+      '@vue/compiler-sfc': 3.3.4
+      lil-fp: 1.4.5
+      magic-string: 0.30.5
+      ts-morph: 19.0.0
+      ts-pattern: 5.0.5
+    transitivePeerDependencies:
+      - jsdom
+      - typescript
+    dev: true
+
+  /@pandacss/parser@0.20.1(typescript@5.3.3):
+    resolution: {integrity: sha512-ebwR7D5cOWnF3FVsjd7bm/objBW9L1eCSfyJyZd05n4wcyO01MCrL4vTyc4lE2YudrBY9VqE38k/IdbiCTwaKw==}
+    dependencies:
+      '@pandacss/config': 0.20.1
+      '@pandacss/extractor': 0.20.1(typescript@5.3.3)
+      '@pandacss/is-valid-prop': 0.20.1
+      '@pandacss/logger': 0.20.1
+      '@pandacss/shared': 0.20.1
+      '@pandacss/types': 0.20.1
+      '@vue/compiler-sfc': 3.3.4
+      lil-fp: 1.4.5
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
       magic-string: 0.30.5
       ts-morph: 19.0.0
       ts-pattern: 5.0.5
@@ -6138,8 +6465,28 @@ packages:
   /@pandacss/postcss@0.29.1(typescript@5.3.2):
     resolution: {integrity: sha512-HRwL4LYS9mk1JQ2AtWxN3rF6CF11rQXTbvJ85u/M77zScHdG5Ztas0If+C2aZmFOdyuVO/6iyMOvUJ9gmP3Ozg==}
     dependencies:
+<<<<<<< HEAD
       '@pandacss/node': 0.29.1(typescript@5.3.2)
+<<<<<<< HEAD
       postcss: 8.4.35
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      postcss: 8.4.33
+=======
+=======
+      '@pandacss/node': 0.18.3(typescript@5.3.2)
+      postcss: 8.4.33
+    transitivePeerDependencies:
+      - jsdom
+      - typescript
+    dev: true
+
+  /@pandacss/postcss@0.20.1(typescript@5.3.3):
+    resolution: {integrity: sha512-ecTjhDyO5TSUGBnei8HvzNujuUEeh4IgCnYX0GHgZ8Rxzt7Mgg7Xh0KjFInyJNcnVRxxjwoy70O8FS7cpYXOfw==}
+    dependencies:
+      '@pandacss/node': 0.20.1(typescript@5.3.3)
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
+      postcss: 8.4.33
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     transitivePeerDependencies:
       - bluebird
       - encoding
@@ -6201,12 +6548,12 @@ packages:
     dev: false
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
-  /@pandacss/studio@0.18.3(@types/node@18.19.6)(@types/react-dom@18.2.17)(@types/react@18.2.42)(typescript@5.3.2):
 =======
-  /@pandacss/studio@0.18.3(@types/node@18.19.3)(@types/react-dom@18.2.17)(@types/react@18.2.42)(typescript@5.3.2):
->>>>>>> 3fe37f8 (chore(*): fix lockfile)
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
+  /@pandacss/studio@0.18.3(@types/node@18.19.6)(@types/react-dom@18.2.17)(@types/react@18.2.42)(typescript@5.3.2):
     resolution: {integrity: sha512-c6Sij4iEeKlItzNCKKkBJuydT2VcKd4h6SXgiNe6/TkG2jcefvWLmcGD/u9GvHpWozGe3MCiBZn9bnVIVtI1xg==}
     dependencies:
       '@astrojs/react': 2.2.1(@types/react-dom@18.2.17)(@types/react@18.2.42)(react-dom@18.2.0)(react@18.2.0)
@@ -6216,19 +6563,11 @@ packages:
       '@pandacss/shared': 0.18.3
       '@pandacss/token-dictionary': 0.18.3
       '@pandacss/types': 0.18.3
-<<<<<<< HEAD
       astro: 2.9.6(@types/node@18.19.6)
       javascript-stringify: 2.1.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       vite: 4.4.11(@types/node@18.19.6)
-=======
-      astro: 2.9.6(@types/node@18.19.3)
-      javascript-stringify: 2.1.0
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      vite: 4.4.11(@types/node@18.19.3)
->>>>>>> 3fe37f8 (chore(*): fix lockfile)
     transitivePeerDependencies:
       - '@types/node'
       - '@types/react'
@@ -6292,6 +6631,14 @@ packages:
     requiresBuild: true
     optional: true
 
+<<<<<<< HEAD
+=======
+  /@pkgr/core@0.1.1:
+    resolution: {integrity: sha512-cq8o4cWH0ibXh9VGi5P20Tu9XF/0fFXl9EUinr9QfTM7a7p0oTA4iJRCQWppXR1Pg8dSM0UCItCkPwsk9qWWYA==}
+    engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
+    dev: true
+
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
   /@radix-ui/number@1.0.1:
     resolution: {integrity: sha512-T5gIdVO2mmPW3NNhjNgEP3cqMXjXL9UbO0BzWcXfvdBs+BohbQxvd/K5hSVKmn9/lbTdsQVKbUcP5WLCwvUbBg==}
     dependencies:
@@ -6865,6 +7212,7 @@ packages:
     dev: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /@rollup/rollup-android-arm-eabi@4.12.0:
     resolution: {integrity: sha512-+ac02NL/2TCKRrJu2wffk1kZ+RyqxVUlbjSagNgPm94frxtr+XDL12E5Ll1enWskLrtrZ2r8L3wED1orIibV/w==}
     cpu: [arm]
@@ -6882,12 +7230,20 @@ packages:
   /@rollup/rollup-android-arm-eabi@4.6.1:
     resolution: {integrity: sha512-0WQ0ouLejaUCRsL93GD4uft3rOmB8qoQMU05Kb8CmMtMBe7XUDLAltxVZI1q6byNqEtU7N1ZX1Vw5lIpgulLQA==}
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+  /@rollup/rollup-android-arm-eabi@4.6.1:
+    resolution: {integrity: sha512-0WQ0ouLejaUCRsL93GD4uft3rOmB8qoQMU05Kb8CmMtMBe7XUDLAltxVZI1q6byNqEtU7N1ZX1Vw5lIpgulLQA==}
+=======
+  /@rollup/rollup-android-arm-eabi@4.9.4:
+    resolution: {integrity: sha512-ub/SN3yWqIv5CWiAZPHVS1DloyZsJbtXmX4HxUTIpS0BHm9pW5iYBo2mIZi+hE3AeiTzHz33blwSnhdUo+9NpA==}
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     cpu: [arm]
     os: [android]
     requiresBuild: true
     dev: true
     optional: true
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   /@rollup/rollup-android-arm64@4.12.0:
     resolution: {integrity: sha512-OBqcX2BMe6nvjQ0Nyp7cC90cnumt8PXmO7Dp3gfAju/6YwG0Tj74z1vKrfRz7qAv23nBcYM8BCbhrsWqO7PzQQ==}
@@ -6906,6 +7262,13 @@ packages:
   /@rollup/rollup-android-arm64@4.6.1:
     resolution: {integrity: sha512-1TKm25Rn20vr5aTGGZqo6E4mzPicCUD79k17EgTLAsXc1zysyi4xXKACfUbwyANEPAEIxkzwue6JZ+stYzWUTA==}
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+  /@rollup/rollup-android-arm64@4.6.1:
+    resolution: {integrity: sha512-1TKm25Rn20vr5aTGGZqo6E4mzPicCUD79k17EgTLAsXc1zysyi4xXKACfUbwyANEPAEIxkzwue6JZ+stYzWUTA==}
+=======
+  /@rollup/rollup-android-arm64@4.9.4:
+    resolution: {integrity: sha512-ehcBrOR5XTl0W0t2WxfTyHCR/3Cq2jfb+I4W+Ch8Y9b5G+vbAecVv0Fx/J1QKktOrgUYsIKxWAKgIpvw56IFNA==}
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     cpu: [arm64]
     os: [android]
     requiresBuild: true
@@ -6913,14 +7276,23 @@ packages:
     optional: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /@rollup/rollup-darwin-arm64@4.12.0:
     resolution: {integrity: sha512-X64tZd8dRE/QTrBIEs63kaOBG0b5GVEd3ccoLtyf6IdXtHdh8h+I56C2yC3PtC9Ucnv0CpNFJLqKFVgCYe0lOQ==}
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+  /@rollup/rollup-darwin-arm64@4.6.1:
+    resolution: {integrity: sha512-cEXJQY/ZqMACb+nxzDeX9IPLAg7S94xouJJCNVE5BJM8JUEP4HeTF+ti3cmxWeSJo+5D+o8Tc0UAWUkfENdeyw==}
+=======
+  /@rollup/rollup-darwin-arm64@4.9.4:
+    resolution: {integrity: sha512-1fzh1lWExwSTWy8vJPnNbNM02WZDS8AW3McEOb7wW+nPChLKf3WG2aG7fhaUmfX5FKw9zhsF5+MBwArGyNM7NA==}
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
+<<<<<<< HEAD
   /@rollup/rollup-darwin-arm64@4.9.4:
     resolution: {integrity: sha512-1fzh1lWExwSTWy8vJPnNbNM02WZDS8AW3McEOb7wW+nPChLKf3WG2aG7fhaUmfX5FKw9zhsF5+MBwArGyNM7NA==}
 ||||||| parent of b804af0 (chore(*): fix lockfile)
@@ -6939,12 +7311,20 @@ packages:
 <<<<<<< HEAD
   /@rollup/rollup-darwin-x64@4.12.0:
     resolution: {integrity: sha512-cc71KUZoVbUJmGP2cOuiZ9HSOP14AzBAThn3OU+9LcA1+IUqswJyR1cAJj3Mg55HbjZP6OLAIscbQsQLrpgTOg==}
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+  /@rollup/rollup-darwin-x64@4.6.1:
+    resolution: {integrity: sha512-LoSU9Xu56isrkV2jLldcKspJ7sSXmZWkAxg7sW/RfF7GS4F5/v4EiqKSMCFbZtDu2Nc1gxxFdQdKwkKS4rwxNg==}
+=======
+  /@rollup/rollup-darwin-x64@4.9.4:
+    resolution: {integrity: sha512-Gc6cukkF38RcYQ6uPdiXi70JB0f29CwcQ7+r4QpfNpQFVHXRd0DfWFidoGxjSx1DwOETM97JPz1RXL5ISSB0pA==}
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
+<<<<<<< HEAD
   /@rollup/rollup-darwin-x64@4.9.4:
     resolution: {integrity: sha512-Gc6cukkF38RcYQ6uPdiXi70JB0f29CwcQ7+r4QpfNpQFVHXRd0DfWFidoGxjSx1DwOETM97JPz1RXL5ISSB0pA==}
 ||||||| parent of b804af0 (chore(*): fix lockfile)
@@ -6963,12 +7343,20 @@ packages:
 <<<<<<< HEAD
   /@rollup/rollup-linux-arm-gnueabihf@4.12.0:
     resolution: {integrity: sha512-a6w/Y3hyyO6GlpKL2xJ4IOh/7d+APaqLYdMf86xnczU3nurFTaVN9s9jOXQg97BE4nYm/7Ga51rjec5nfRdrvA==}
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+  /@rollup/rollup-linux-arm-gnueabihf@4.6.1:
+    resolution: {integrity: sha512-EfI3hzYAy5vFNDqpXsNxXcgRDcFHUWSx5nnRSCKwXuQlI5J9dD84g2Usw81n3FLBNsGCegKGwwTVsSKK9cooSQ==}
+=======
+  /@rollup/rollup-linux-arm-gnueabihf@4.9.4:
+    resolution: {integrity: sha512-g21RTeFzoTl8GxosHbnQZ0/JkuFIB13C3T7Y0HtKzOXmoHhewLbVTFBQZu+z5m9STH6FZ7L/oPgU4Nm5ErN2fw==}
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     cpu: [arm]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
+<<<<<<< HEAD
   /@rollup/rollup-linux-arm-gnueabihf@4.9.4:
     resolution: {integrity: sha512-g21RTeFzoTl8GxosHbnQZ0/JkuFIB13C3T7Y0HtKzOXmoHhewLbVTFBQZu+z5m9STH6FZ7L/oPgU4Nm5ErN2fw==}
 ||||||| parent of b804af0 (chore(*): fix lockfile)
@@ -7002,12 +7390,20 @@ packages:
   /@rollup/rollup-linux-arm64-gnu@4.6.1:
     resolution: {integrity: sha512-9lhc4UZstsegbNLhH0Zu6TqvDfmhGzuCWtcTFXY10VjLLUe4Mr0Ye2L3rrtHaDd/J5+tFMEuo5LTCSCMXWfUKw==}
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+  /@rollup/rollup-linux-arm64-gnu@4.6.1:
+    resolution: {integrity: sha512-9lhc4UZstsegbNLhH0Zu6TqvDfmhGzuCWtcTFXY10VjLLUe4Mr0Ye2L3rrtHaDd/J5+tFMEuo5LTCSCMXWfUKw==}
+=======
+  /@rollup/rollup-linux-arm64-gnu@4.9.4:
+    resolution: {integrity: sha512-TVYVWD/SYwWzGGnbfTkrNpdE4HON46orgMNHCivlXmlsSGQOx/OHHYiQcMIOx38/GWgwr/po2LBn7wypkWw/Mg==}
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   /@rollup/rollup-linux-arm64-musl@4.12.0:
     resolution: {integrity: sha512-eTvzUS3hhhlgeAv6bfigekzWZjaEX9xP9HhxB0Dvrdbkk5w/b+1Sxct2ZuDxNJKzsRStSq1EaEkVSEe7A7ipgQ==}
@@ -7026,12 +7422,20 @@ packages:
   /@rollup/rollup-linux-arm64-musl@4.6.1:
     resolution: {integrity: sha512-FfoOK1yP5ksX3wwZ4Zk1NgyGHZyuRhf99j64I5oEmirV8EFT7+OhUZEnP+x17lcP/QHJNWGsoJwrz4PJ9fBEXw==}
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+  /@rollup/rollup-linux-arm64-musl@4.6.1:
+    resolution: {integrity: sha512-FfoOK1yP5ksX3wwZ4Zk1NgyGHZyuRhf99j64I5oEmirV8EFT7+OhUZEnP+x17lcP/QHJNWGsoJwrz4PJ9fBEXw==}
+=======
+  /@rollup/rollup-linux-arm64-musl@4.9.4:
+    resolution: {integrity: sha512-XcKvuendwizYYhFxpvQ3xVpzje2HHImzg33wL9zvxtj77HvPStbSGI9czrdbfrf8DGMcNNReH9pVZv8qejAQ5A==}
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   /@rollup/rollup-linux-riscv64-gnu@4.12.0:
     resolution: {integrity: sha512-ix+qAB9qmrCRiaO71VFfY8rkiAZJL8zQRXveS27HS+pKdjwUfEhqo2+YF2oI+H/22Xsiski+qqwIBxVewLK7sw==}
@@ -7074,12 +7478,28 @@ packages:
   /@rollup/rollup-linux-x64-gnu@4.6.1:
     resolution: {integrity: sha512-DNGZvZDO5YF7jN5fX8ZqmGLjZEXIJRdJEdTFMhiyXqyXubBa0WVLDWSNlQ5JR2PNgDbEV1VQowhVRUh+74D+RA==}
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+  /@rollup/rollup-linux-x64-gnu@4.6.1:
+    resolution: {integrity: sha512-DNGZvZDO5YF7jN5fX8ZqmGLjZEXIJRdJEdTFMhiyXqyXubBa0WVLDWSNlQ5JR2PNgDbEV1VQowhVRUh+74D+RA==}
+=======
+  /@rollup/rollup-linux-riscv64-gnu@4.9.4:
+    resolution: {integrity: sha512-LFHS/8Q+I9YA0yVETyjonMJ3UA+DczeBd/MqNEzsGSTdNvSJa1OJZcSH8GiXLvcizgp9AlHs2walqRcqzjOi3A==}
+    cpu: [riscv64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@rollup/rollup-linux-x64-gnu@4.9.4:
+    resolution: {integrity: sha512-dIYgo+j1+yfy81i0YVU5KnQrIJZE8ERomx17ReU4GREjGtDW4X+nvkBak2xAUpyqLs4eleDSj3RrV72fQos7zw==}
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     cpu: [x64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   /@rollup/rollup-linux-x64-musl@4.12.0:
     resolution: {integrity: sha512-LfFdRhNnW0zdMvdCb5FNuWlls2WbbSridJvxOvYWgSBOYZtgBfW9UGNJG//rwMqTX1xQE9BAodvMH9tAusKDUw==}
@@ -7098,6 +7518,13 @@ packages:
   /@rollup/rollup-linux-x64-musl@4.6.1:
     resolution: {integrity: sha512-RkJVNVRM+piYy87HrKmhbexCHg3A6Z6MU0W9GHnJwBQNBeyhCJG9KDce4SAMdicQnpURggSvtbGo9xAWOfSvIQ==}
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+  /@rollup/rollup-linux-x64-musl@4.6.1:
+    resolution: {integrity: sha512-RkJVNVRM+piYy87HrKmhbexCHg3A6Z6MU0W9GHnJwBQNBeyhCJG9KDce4SAMdicQnpURggSvtbGo9xAWOfSvIQ==}
+=======
+  /@rollup/rollup-linux-x64-musl@4.9.4:
+    resolution: {integrity: sha512-RoaYxjdHQ5TPjaPrLsfKqR3pakMr3JGqZ+jZM0zP2IkDtsGa4CqYaWSfQmZVgFUCgLrTnzX+cnHS3nfl+kB6ZQ==}
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     cpu: [x64]
     os: [linux]
     requiresBuild: true
@@ -7105,14 +7532,23 @@ packages:
     optional: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /@rollup/rollup-win32-arm64-msvc@4.12.0:
     resolution: {integrity: sha512-JPDxovheWNp6d7AHCgsUlkuCKvtu3RB55iNEkaQcf0ttsDU/JZF+iQnYcQJSk/7PtT4mjjVG8N1kpwnI9SLYaw==}
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+  /@rollup/rollup-win32-arm64-msvc@4.6.1:
+    resolution: {integrity: sha512-v2FVT6xfnnmTe3W9bJXl6r5KwJglMK/iRlkKiIFfO6ysKs0rDgz7Cwwf3tjldxQUrHL9INT/1r4VA0n9L/F1vQ==}
+=======
+  /@rollup/rollup-win32-arm64-msvc@4.9.4:
+    resolution: {integrity: sha512-T8Q3XHV+Jjf5e49B4EAaLKV74BbX7/qYBRQ8Wop/+TyyU0k+vSjiLVSHNWdVd1goMjZcbhDmYZUYW5RFqkBNHQ==}
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
     dev: true
     optional: true
 
+<<<<<<< HEAD
   /@rollup/rollup-win32-arm64-msvc@4.9.4:
     resolution: {integrity: sha512-T8Q3XHV+Jjf5e49B4EAaLKV74BbX7/qYBRQ8Wop/+TyyU0k+vSjiLVSHNWdVd1goMjZcbhDmYZUYW5RFqkBNHQ==}
 ||||||| parent of b804af0 (chore(*): fix lockfile)
@@ -7131,12 +7567,20 @@ packages:
 <<<<<<< HEAD
   /@rollup/rollup-win32-ia32-msvc@4.12.0:
     resolution: {integrity: sha512-fjtuvMWRGJn1oZacG8IPnzIV6GF2/XG+h71FKn76OYFqySXInJtseAqdprVTDTyqPxQOG9Exak5/E9Z3+EJ8ZA==}
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+  /@rollup/rollup-win32-ia32-msvc@4.6.1:
+    resolution: {integrity: sha512-YEeOjxRyEjqcWphH9dyLbzgkF8wZSKAKUkldRY6dgNR5oKs2LZazqGB41cWJ4Iqqcy9/zqYgmzBkRoVz3Q9MLw==}
+=======
+  /@rollup/rollup-win32-ia32-msvc@4.9.4:
+    resolution: {integrity: sha512-z+JQ7JirDUHAsMecVydnBPWLwJjbppU+7LZjffGf+Jvrxq+dVjIE7By163Sc9DKc3ADSU50qPVw0KonBS+a+HQ==}
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     cpu: [ia32]
     os: [win32]
     requiresBuild: true
     dev: true
     optional: true
 
+<<<<<<< HEAD
   /@rollup/rollup-win32-ia32-msvc@4.9.4:
     resolution: {integrity: sha512-z+JQ7JirDUHAsMecVydnBPWLwJjbppU+7LZjffGf+Jvrxq+dVjIE7By163Sc9DKc3ADSU50qPVw0KonBS+a+HQ==}
 ||||||| parent of b804af0 (chore(*): fix lockfile)
@@ -7155,6 +7599,13 @@ packages:
 <<<<<<< HEAD
   /@rollup/rollup-win32-x64-msvc@4.12.0:
     resolution: {integrity: sha512-ZYmr5mS2wd4Dew/JjT0Fqi2NPB/ZhZ2VvPp7SmvPZb4Y1CG/LRcS6tcRo2cYU7zLK5A7cdbhWnnWmUjoI4qapg==}
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+  /@rollup/rollup-win32-x64-msvc@4.6.1:
+    resolution: {integrity: sha512-0zfTlFAIhgz8V2G8STq8toAjsYYA6eci1hnXuyOTUFnymrtJwnS6uGKiv3v5UrPZkBlamLvrLV2iiaeqCKzb0A==}
+=======
+  /@rollup/rollup-win32-x64-msvc@4.9.4:
+    resolution: {integrity: sha512-LfdGXCV9rdEify1oxlN9eamvDSjv9md9ZVMAbNHA87xqIfFCxImxan9qZ8+Un54iK2nnqPlbnSi4R54ONtbWBw==}
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     cpu: [x64]
     os: [win32]
     requiresBuild: true
@@ -7424,12 +7875,18 @@ packages:
       '@storybook/theming': 6.5.16(react-dom@18.2.0)(react@18.2.0)
       '@types/webpack-env': 1.18.4
 <<<<<<< HEAD
+<<<<<<< HEAD
       core-js: 3.36.0
 ||||||| parent of b804af0 (chore(*): fix lockfile)
       core-js: 3.35.0
 =======
       core-js: 3.34.0
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      core-js: 3.34.0
+=======
+      core-js: 3.35.0
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       global: 4.4.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -7450,12 +7907,18 @@ packages:
       '@storybook/semver': 7.3.2
       '@storybook/theming': 6.5.16(react-dom@18.2.0)(react@18.2.0)
 <<<<<<< HEAD
+<<<<<<< HEAD
       core-js: 3.36.0
 ||||||| parent of b804af0 (chore(*): fix lockfile)
       core-js: 3.35.0
 =======
       core-js: 3.34.0
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      core-js: 3.34.0
+=======
+      core-js: 3.35.0
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       fast-deep-equal: 3.1.3
       global: 4.4.0
       lodash: 4.17.21
@@ -7566,14 +8029,14 @@ packages:
       color-convert: 2.0.1
       dequal: 2.0.3
       lodash: 4.17.21
-      markdown-to-jsx: 7.3.2(react@18.2.0)
+      markdown-to-jsx: 7.4.0(react@18.2.0)
       memoizerific: 1.11.3
       polished: 4.2.2
       react: 18.2.0
       react-colorful: 5.6.1(react-dom@18.2.0)(react@18.2.0)
       react-dom: 18.2.0(react@18.2.0)
       telejson: 7.2.0
-      tocbot: 4.23.0
+      tocbot: 4.25.0
       ts-dedent: 2.2.0
       util-deprecate: 1.0.2
     transitivePeerDependencies:
@@ -7664,6 +8127,7 @@ packages:
       rollup: 3.29.4
       typescript: 5.3.2
 <<<<<<< HEAD
+<<<<<<< HEAD
       vite: 5.0.12(@types/node@18.19.6)
     transitivePeerDependencies:
       - encoding
@@ -7708,11 +8172,22 @@ packages:
       vite: 4.5.1(@types/node@18.19.6)
 =======
 <<<<<<< HEAD
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+<<<<<<< HEAD
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       vite: 4.5.1(@types/node@18.19.6)
+<<<<<<< HEAD
 =======
       vite: 4.5.1(@types/node@18.19.3)
 >>>>>>> 3fe37f8 (chore(*): fix lockfile)
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+      vite: 4.5.1(@types/node@18.19.3)
+>>>>>>> 3fe37f8 (chore(*): fix lockfile)
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -7722,12 +8197,18 @@ packages:
     resolution: {integrity: sha512-VylzaWQZaMozEwZPJdyJoz+0jpDa8GRyaqu9TGG6QGv+KU5POoZaGLDkRE7TzWkyyP0KQLo80K99MssZCpgSeg==}
     dependencies:
 <<<<<<< HEAD
+<<<<<<< HEAD
       core-js: 3.36.0
 ||||||| parent of b804af0 (chore(*): fix lockfile)
       core-js: 3.35.0
 =======
       core-js: 3.34.0
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      core-js: 3.34.0
+=======
+      core-js: 3.35.0
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       ts-dedent: 2.2.0
       util-deprecate: 1.0.2
     dev: true
@@ -7882,12 +8363,18 @@ packages:
     resolution: {integrity: sha512-pxcNaCj3ItDdicPTXTtmYJE3YC1SjxFrBmHcyrN+nffeNyiMuViJdOOZzzzucTUG0wcOOX8jaSyak+nnHg5H1Q==}
     dependencies:
 <<<<<<< HEAD
+<<<<<<< HEAD
       core-js: 3.36.0
 ||||||| parent of b804af0 (chore(*): fix lockfile)
       core-js: 3.35.0
 =======
       core-js: 3.34.0
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      core-js: 3.34.0
+=======
+      core-js: 3.35.0
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       global: 4.4.0
     dev: true
 
@@ -7967,12 +8454,18 @@ packages:
       '@storybook/csf': 0.0.2--canary.4566f4d.1
       '@storybook/theming': 6.5.16(react-dom@18.2.0)(react@18.2.0)
 <<<<<<< HEAD
+<<<<<<< HEAD
       core-js: 3.36.0
 ||||||| parent of b804af0 (chore(*): fix lockfile)
       core-js: 3.35.0
 =======
       core-js: 3.34.0
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      core-js: 3.34.0
+=======
+      core-js: 3.35.0
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       memoizerific: 1.11.3
       qs: 6.11.2
       react: 18.2.0
@@ -8103,6 +8596,7 @@ packages:
       '@storybook/types': 7.6.3
       '@types/find-cache-dir': 3.2.1
 <<<<<<< HEAD
+<<<<<<< HEAD
       '@types/node': 18.19.6
       '@types/node-fetch': 2.6.10
 ||||||| parent of 73155d7 (chore(dev-config): update lockfile)
@@ -8110,6 +8604,11 @@ packages:
       '@types/node-fetch': 2.6.9
 =======
       '@types/node': 18.19.3
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      '@types/node': 18.19.3
+=======
+      '@types/node': 18.19.6
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       '@types/node-fetch': 2.6.9
 >>>>>>> 73155d7 (chore(dev-config): update lockfile)
       '@types/pretty-hrtime': 1.0.3
@@ -8141,8 +8640,8 @@ packages:
       '@storybook/node-logger': 7.6.7
       '@storybook/types': 7.6.7
       '@types/find-cache-dir': 3.2.1
-      '@types/node': 18.19.3
-      '@types/node-fetch': 2.6.9
+      '@types/node': 18.19.6
+      '@types/node-fetch': 2.6.10
       '@types/pretty-hrtime': 1.0.3
       chalk: 4.1.2
       esbuild: 0.18.20
@@ -8205,6 +8704,7 @@ packages:
     resolution: {integrity: sha512-qMZQwmvzpH5F2uwNUllTPg6eZXr2OaYZQRRN8VZJiuorZzDNdAFmiVWMWdkThwmyLEJuQKXxqCL8lMj/7PPM+g==}
     dependencies:
 <<<<<<< HEAD
+<<<<<<< HEAD
       core-js: 3.36.0
     dev: true
 
@@ -8217,6 +8717,11 @@ packages:
 =======
       core-js: 3.34.0
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      core-js: 3.34.0
+=======
+      core-js: 3.35.0
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     dev: true
 
   /@storybook/core-events@7.6.3:
@@ -8308,12 +8813,18 @@ packages:
       '@storybook/types': 7.6.3
       '@types/detect-port': 1.3.5
 <<<<<<< HEAD
+<<<<<<< HEAD
       '@types/node': 18.19.6
 ||||||| parent of 73155d7 (chore(dev-config): update lockfile)
       '@types/node': 18.19.2
 =======
       '@types/node': 18.19.3
 >>>>>>> 73155d7 (chore(dev-config): update lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      '@types/node': 18.19.3
+=======
+      '@types/node': 18.19.6
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       '@types/pretty-hrtime': 1.0.3
       '@types/semver': 7.5.6
       better-opn: 3.0.2
@@ -8367,7 +8878,7 @@ packages:
     resolution: {integrity: sha512-YL7e6H4iVcsDI0UpgpdQX2IiGDrlbgaQMHQgDLWXmZyKxBcy0ONROAX5zoT1ml44EHkL60TMaG4f7SinviJCog==}
     dependencies:
       '@storybook/csf-tools': 7.6.7
-      unplugin: 1.5.1
+      unplugin: 1.6.0
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -8416,10 +8927,10 @@ packages:
   /@storybook/csf-tools@7.6.7:
     resolution: {integrity: sha512-hyRbUGa2Uxvz3U09BjcOfMNf/5IYgRum1L6XszqK2O8tK9DGte1r6hArCIAcqiEmFMC40d0kalPzqu6WMNn7sg==}
     dependencies:
-      '@babel/generator': 7.23.5
-      '@babel/parser': 7.23.5
-      '@babel/traverse': 7.23.5
-      '@babel/types': 7.23.5
+      '@babel/generator': 7.23.6
+      '@babel/parser': 7.23.6
+      '@babel/traverse': 7.23.7
+      '@babel/types': 7.23.6
       '@storybook/csf': 0.1.2
       '@storybook/types': 7.6.7
       fs-extra: 11.2.0
@@ -8666,7 +9177,7 @@ packages:
       '@storybook/csf': 0.1.2
       '@storybook/global': 5.0.0
       '@storybook/types': 7.6.7
-      '@types/qs': 6.9.10
+      '@types/qs': 6.9.11
       dequal: 2.0.3
       lodash: 4.17.21
       memoizerific: 1.11.3
@@ -8751,16 +9262,28 @@ packages:
       react-docgen: 7.0.1
       react-dom: 18.2.0(react@18.2.0)
 <<<<<<< HEAD
+<<<<<<< HEAD
       vite: 5.0.12(@types/node@18.19.6)
 ||||||| parent of b804af0 (chore(*): fix lockfile)
       vite: 4.5.1(@types/node@18.19.6)
 =======
 <<<<<<< HEAD
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+<<<<<<< HEAD
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       vite: 4.5.1(@types/node@18.19.6)
+<<<<<<< HEAD
 =======
       vite: 4.5.1(@types/node@18.19.3)
 >>>>>>> 3fe37f8 (chore(*): fix lockfile)
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+      vite: 4.5.1(@types/node@18.19.3)
+>>>>>>> 3fe37f8 (chore(*): fix lockfile)
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     transitivePeerDependencies:
       - '@preact/preset-vite'
       - encoding
@@ -8858,12 +9381,18 @@ packages:
     dependencies:
       '@storybook/client-logger': 6.5.16
 <<<<<<< HEAD
+<<<<<<< HEAD
       core-js: 3.36.0
 ||||||| parent of b804af0 (chore(*): fix lockfile)
       core-js: 3.35.0
 =======
       core-js: 3.34.0
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      core-js: 3.34.0
+=======
+      core-js: 3.35.0
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       memoizerific: 1.11.3
       qs: 6.11.2
       react: 18.2.0
@@ -8901,12 +9430,18 @@ packages:
     hasBin: true
     dependencies:
 <<<<<<< HEAD
+<<<<<<< HEAD
       core-js: 3.36.0
 ||||||| parent of b804af0 (chore(*): fix lockfile)
       core-js: 3.35.0
 =======
       core-js: 3.34.0
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      core-js: 3.34.0
+=======
+      core-js: 3.35.0
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       find-up: 4.1.0
     dev: true
 
@@ -8958,12 +9493,18 @@ packages:
     dependencies:
       '@storybook/client-logger': 6.5.16
 <<<<<<< HEAD
+<<<<<<< HEAD
       core-js: 3.36.0
 ||||||| parent of b804af0 (chore(*): fix lockfile)
       core-js: 3.35.0
 =======
       core-js: 3.34.0
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      core-js: 3.34.0
+=======
+      core-js: 3.35.0
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       memoizerific: 1.11.3
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -9508,6 +10049,7 @@ packages:
     dev: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /@testing-library/dom@9.3.4:
     resolution: {integrity: sha512-FlS4ZWlp97iiNWig0Muq8p+3rVDjRiYE+YKGbAqXOu9nwJFFOdL00kFpz42M+4huzYi86vAK1sOOfyOG45muIQ==}
     engines: {node: '>=14'}
@@ -9539,6 +10081,23 @@ packages:
 
 =======
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+  /@testing-library/dom@9.3.4:
+    resolution: {integrity: sha512-FlS4ZWlp97iiNWig0Muq8p+3rVDjRiYE+YKGbAqXOu9nwJFFOdL00kFpz42M+4huzYi86vAK1sOOfyOG45muIQ==}
+    engines: {node: '>=14'}
+    dependencies:
+      '@babel/code-frame': 7.23.5
+      '@babel/runtime': 7.23.8
+      '@types/aria-query': 5.0.4
+      aria-query: 5.1.3
+      chalk: 4.1.2
+      dom-accessibility-api: 0.5.16
+      lz-string: 1.5.0
+      pretty-format: 27.5.1
+    dev: true
+
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
   /@testing-library/jest-dom@6.1.5(vitest@1.0.2):
     resolution: {integrity: sha512-3y04JLW+EceVPy2Em3VwNr95dOKqA8DhR0RJHhHKDZNYXcVXnEK7WIrpj4eYU8SVt/qYZ2aRWt/WgQ+grNES8g==}
     engines: {node: '>=14', npm: '>=6', yarn: '>=1'}
@@ -9591,6 +10150,15 @@ packages:
       '@testing-library/dom': 9.3.3
     dev: true
 
+  /@testing-library/user-event@14.5.1(@testing-library/dom@9.3.4):
+    resolution: {integrity: sha512-UCcUKrUYGj7ClomOo2SpNVvx4/fkd/2BbIHDCle8A0ax+P3bU7yJwDBDrS6ZwdTMARWTGODX1hEsCcO+7beJjg==}
+    engines: {node: '>=12', npm: '>=6'}
+    peerDependencies:
+      '@testing-library/dom': '>=7.21.4'
+    dependencies:
+      '@testing-library/dom': 9.3.4
+    dev: true
+
   /@theme-toggles/react@4.1.0(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-h3SuJMsej8DfelHt5fjNIlaMfJOK52Vku4pPDVoHaTwjAcoTr4fn8hzeur2oiqWBYFYfKugvv1RdQaBFXaiPKg==}
     peerDependencies:
@@ -9601,7 +10169,10 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-<<<<<<< HEAD
+  /@tokenizer/token@0.3.0:
+    resolution: {integrity: sha512-OvjF+z51L3ov0OyAU0duzsYuvO01PH7x4t6DJx+guahgTnBHkhJdG7soQeTSFLWN3efnHyibZ4Z8l2EuWwJN3A==}
+    dev: false
+
   /@tootallnate/once@2.0.0:
     resolution: {integrity: sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==}
     engines: {node: '>= 10'}
@@ -9610,12 +10181,21 @@ packages:
     dev: true
 =======
     dev: true
+<<<<<<< HEAD
 =======
   /@tokenizer/token@0.3.0:
     resolution: {integrity: sha512-OvjF+z51L3ov0OyAU0duzsYuvO01PH7x4t6DJx+guahgTnBHkhJdG7soQeTSFLWN3efnHyibZ4Z8l2EuWwJN3A==}
     dev: false
 >>>>>>> 4cbbcf5 (chore(dev-config): update lockfile)
 >>>>>>> 73155d7 (chore(dev-config): update lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+  /@tokenizer/token@0.3.0:
+    resolution: {integrity: sha512-OvjF+z51L3ov0OyAU0duzsYuvO01PH7x4t6DJx+guahgTnBHkhJdG7soQeTSFLWN3efnHyibZ4Z8l2EuWwJN3A==}
+    dev: false
+>>>>>>> 4cbbcf5 (chore(dev-config): update lockfile)
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
 
   /@tootallnate/quickjs-emscripten@0.23.0:
     resolution: {integrity: sha512-C5Mc6rdnsaJDjO3UpGW/CQTHtCKaYlScZTly4JIu97Jxo/odCiH0ITnDXSJPTOrEKk/ycSZ0AOgTmkDtkOsvIA==}
@@ -9654,11 +10234,7 @@ packages:
     resolution: {integrity: sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==}
     dev: true
 
-<<<<<<< HEAD
   /@turbo/gen@1.11.3(@types/node@18.19.6)(typescript@5.3.3):
-=======
-  /@turbo/gen@1.11.3(@types/node@18.19.3)(typescript@5.3.3):
->>>>>>> 3fe37f8 (chore(*): fix lockfile)
     resolution: {integrity: sha512-cHGRj7Jn7Hw1cA7NuwWYfYdhEliQX4LuSfEB9L1m8ifGkHalU3bbYXcehzLThmckpGpUQGnXYx0UtVudbQ42HA==}
     hasBin: true
     dependencies:
@@ -9670,11 +10246,7 @@ packages:
       minimatch: 9.0.3
       node-plop: 0.26.3
       proxy-agent: 6.3.1
-<<<<<<< HEAD
       ts-node: 10.9.2(@types/node@18.19.6)(typescript@5.3.3)
-=======
-      ts-node: 10.9.1(@types/node@18.19.3)(typescript@5.3.3)
->>>>>>> 3fe37f8 (chore(*): fix lockfile)
       update-check: 1.5.4
       validate-npm-package-name: 5.0.0
     transitivePeerDependencies:
@@ -9741,17 +10313,6 @@ packages:
     dependencies:
       '@types/connect': 3.4.38
 <<<<<<< HEAD
-      '@types/node': 18.19.6
-||||||| parent of 73155d7 (chore(dev-config): update lockfile)
-      '@types/node': 18.19.2
-=======
-      '@types/node': 18.19.3
->>>>>>> 73155d7 (chore(dev-config): update lockfile)
-    dev: true
-
-  /@types/connect@3.4.38:
-    resolution: {integrity: sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug==}
-    dependencies:
 <<<<<<< HEAD
       '@types/node': 18.19.6
 ||||||| parent of 73155d7 (chore(dev-config): update lockfile)
@@ -9759,6 +10320,29 @@ packages:
 =======
       '@types/node': 18.19.3
 >>>>>>> 73155d7 (chore(dev-config): update lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      '@types/node': 18.19.3
+=======
+      '@types/node': 18.19.6
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
+    dev: true
+
+  /@types/connect@3.4.38:
+    resolution: {integrity: sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug==}
+    dependencies:
+<<<<<<< HEAD
+<<<<<<< HEAD
+      '@types/node': 18.19.6
+||||||| parent of 73155d7 (chore(dev-config): update lockfile)
+      '@types/node': 18.19.2
+=======
+      '@types/node': 18.19.3
+>>>>>>> 73155d7 (chore(dev-config): update lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      '@types/node': 18.19.3
+=======
+      '@types/node': 18.19.6
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     dev: true
 
   /@types/cookie@0.6.0:
@@ -9769,12 +10353,18 @@ packages:
     resolution: {integrity: sha512-fXRhhUkG4H3TQk5dBhQ7m/JDdSNHKwR2BBia62lhwEIq9xGiQKLxd6LymNhn47SjXhsUEPmxi+PKw2OkW4LLjA==}
     dependencies:
 <<<<<<< HEAD
+<<<<<<< HEAD
       '@types/node': 18.19.6
 ||||||| parent of 73155d7 (chore(dev-config): update lockfile)
       '@types/node': 18.19.2
 =======
       '@types/node': 18.19.3
 >>>>>>> 73155d7 (chore(dev-config): update lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      '@types/node': 18.19.3
+=======
+      '@types/node': 18.19.6
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     dev: true
 
   /@types/detect-port@1.3.5:
@@ -9813,6 +10403,7 @@ packages:
     resolution: {integrity: sha512-OaJ7XLaelTgrvlZD8/aa0vvvxZdUmlCn6MtWeB7TkiKW70BQLc9XEPpDLPdbo52ZhXUCrznlWdCHWxJWtdyajA==}
     dependencies:
 <<<<<<< HEAD
+<<<<<<< HEAD
       '@types/node': 18.19.6
       '@types/qs': 6.9.11
 ||||||| parent of 73155d7 (chore(dev-config): update lockfile)
@@ -9820,6 +10411,11 @@ packages:
       '@types/qs': 6.9.10
 =======
       '@types/node': 18.19.3
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      '@types/node': 18.19.3
+=======
+      '@types/node': 18.19.6
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       '@types/qs': 6.9.10
 >>>>>>> 73155d7 (chore(dev-config): update lockfile)
       '@types/range-parser': 1.2.7
@@ -9844,12 +10440,18 @@ packages:
     dependencies:
       '@types/minimatch': 5.1.2
 <<<<<<< HEAD
+<<<<<<< HEAD
       '@types/node': 18.19.6
 ||||||| parent of 73155d7 (chore(dev-config): update lockfile)
       '@types/node': 18.19.2
 =======
       '@types/node': 18.19.3
 >>>>>>> 73155d7 (chore(dev-config): update lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      '@types/node': 18.19.3
+=======
+      '@types/node': 18.19.6
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     dev: true
 
   /@types/graceful-fs@4.1.9:
@@ -9857,6 +10459,7 @@ packages:
     dependencies:
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       '@types/node': 18.19.6
 ||||||| parent of 73155d7 (chore(dev-config): update lockfile)
       '@types/node': 20.10.8
@@ -9878,12 +10481,22 @@ packages:
 >>>>>>> fc65d7a (chore(dev-config): update lockfile)
 =======
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      '@types/node': 18.19.3
+=======
+      '@types/node': 18.19.6
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     dev: true
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
   /@types/hast@2.3.8:
     resolution: {integrity: sha512-aMIqAlFd2wTIDZuvLbhUT+TGvMxrNC8ECUIVtH6xxy0sQLs3iu6NO8Kp/VT5je7i5ufnebXzdV1dNDMnvaH6IQ==}
+=======
+  /@types/hast@2.3.10:
+    resolution: {integrity: sha512-McWspRw8xx8J9HurkVBfYj0xKoE25tOFlHGdx4MJ5xORQrMGZNqJhVQWaIbm6Oyla5kYOXtDiopzKRJzEOkwJw==}
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
     dependencies:
       '@types/unist': 2.0.10
     dev: true
@@ -10016,6 +10629,7 @@ packages:
     dev: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ||||||| parent of 73155d7 (chore(dev-config): update lockfile)
   /@types/node-fetch@2.6.9:
     resolution: {integrity: sha512-bQVlnMLFJ2d35DkPNjEPmd9ueO/rh5EiaZt2bhqiSarPjZIuIV6bPQVqcrEyvNo+AfTrRGVazle1tl597w3gfA==}
@@ -10025,10 +10639,20 @@ packages:
     dev: true
 
 =======
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+  /@types/node-fetch@2.6.10:
+    resolution: {integrity: sha512-PPpPK6F9ALFTn59Ka3BaL+qGuipRfxNE8qVgkp0bVixeiR2c2/L+IVOiBdu9JhhT22sWnQEp6YyHGI2b2+CMcA==}
+    dependencies:
+      '@types/node': 18.19.6
+      form-data: 4.0.0
+    dev: true
+
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
   /@types/node-fetch@2.6.9:
     resolution: {integrity: sha512-bQVlnMLFJ2d35DkPNjEPmd9ueO/rh5EiaZt2bhqiSarPjZIuIV6bPQVqcrEyvNo+AfTrRGVazle1tl597w3gfA==}
     dependencies:
-      '@types/node': 18.19.3
+      '@types/node': 18.19.6
       form-data: 4.0.0
     dev: true
 
@@ -10042,8 +10666,8 @@ packages:
       undici-types: 5.26.5
     dev: true
 
-  /@types/node@18.19.3:
-    resolution: {integrity: sha512-k5fggr14DwAytoA/t8rPrIz++lXK7/DqckthCmoZOKNsEbJkId4Z//BqgApXBUGrGddrigYa1oqheo/7YmW4rg==}
+  /@types/node@18.19.6:
+    resolution: {integrity: sha512-X36s5CXMrrJOs2lQCdDF68apW4Rfx9ixYMawlepwmE4Anezv/AV2LSpKD1Ub8DAc+urp5bk0BGZ6NtmBitfnsg==}
     dependencies:
       undici-types: 5.26.5
     dev: true
@@ -10109,12 +10733,16 @@ packages:
     resolution: {integrity: sha512-oGk0gmhnEJK4Yyk+oI7EfXsLayXatCWPHary1MtcmbAifkobT9cM9yutG/hZKIseOU0MqbIwQ/u2nn/Gb+ltuQ==}
     dev: true
 
+<<<<<<< HEAD
 =======
   /@types/qs@6.9.10:
     resolution: {integrity: sha512-3Gnx08Ns1sEoCrWssEgTSJs/rsT2vhGP+Ja9cnnk9k4ALxinORlQneLXFeFKOTJMOeZUFD1s7w+w2AphTpvzZw==}
 >>>>>>> b804af0 (chore(*): fix lockfile)
     dev: true
 
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
   /@types/range-parser@1.2.7:
     resolution: {integrity: sha512-hKormJbkJqzQGhziax5PItDUTMAM9uE2XXQmM37dyd4hVM+5aVl7oVxMVUiVQn2oCQFN/LKCZdvSM0pFRqbSmQ==}
     dev: true
@@ -10132,6 +10760,14 @@ packages:
       '@types/scheduler': 0.16.8
       csstype: 3.1.2
 
+  /@types/react@18.2.47:
+    resolution: {integrity: sha512-xquNkkOirwyCgoClNk85BjP+aqnIS+ckAJ8i37gAbDs14jfW/J23f2GItAf33oiUPQnqNMALiFeoM9Y5mbjpVQ==}
+    dependencies:
+      '@types/prop-types': 15.7.11
+      '@types/scheduler': 0.16.8
+      csstype: 3.1.3
+    dev: true
+
   /@types/resolve@1.20.6:
     resolution: {integrity: sha512-A4STmOXPhMUtHH+S6ymgE2GiBSMqf4oTvcQZMcHzokuTLVYzXTB8ttjcgxOVaAp2lGwEdzZ0J+cRbbeevQj1UQ==}
     dev: true
@@ -10147,12 +10783,18 @@ packages:
     dependencies:
       '@types/mime': 1.3.5
 <<<<<<< HEAD
+<<<<<<< HEAD
       '@types/node': 18.19.6
 ||||||| parent of 73155d7 (chore(dev-config): update lockfile)
       '@types/node': 18.19.2
 =======
       '@types/node': 18.19.3
 >>>>>>> 73155d7 (chore(dev-config): update lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      '@types/node': 18.19.3
+=======
+      '@types/node': 18.19.6
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     dev: true
 
   /@types/serve-static@1.15.5:
@@ -10161,12 +10803,18 @@ packages:
       '@types/http-errors': 2.0.4
       '@types/mime': 3.0.4
 <<<<<<< HEAD
+<<<<<<< HEAD
       '@types/node': 18.19.6
 ||||||| parent of 73155d7 (chore(dev-config): update lockfile)
       '@types/node': 18.19.2
 =======
       '@types/node': 18.19.3
 >>>>>>> 73155d7 (chore(dev-config): update lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      '@types/node': 18.19.3
+=======
+      '@types/node': 18.19.6
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     dev: true
 
   /@types/statuses@2.0.4:
@@ -10178,6 +10826,7 @@ packages:
     dependencies:
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       '@types/node': 18.19.6
 ||||||| parent of 73155d7 (chore(dev-config): update lockfile)
       '@types/node': 20.10.8
@@ -10199,6 +10848,11 @@ packages:
 >>>>>>> fc65d7a (chore(dev-config): update lockfile)
 =======
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      '@types/node': 18.19.3
+=======
+      '@types/node': 18.19.6
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     dev: true
 
   /@types/tinycolor2@1.4.6:
@@ -10207,6 +10861,10 @@ packages:
 
   /@types/unist@2.0.10:
     resolution: {integrity: sha512-IfYcSBWE3hLpBg8+X2SEa8LVkJdJEkT2Ese2aaLs3ptGdVtABxndrMaxuFlQ1qdFf9Q5rDvDpxI3WwgvKFAsQA==}
+    dev: true
+
+  /@types/unist@3.0.2:
+    resolution: {integrity: sha512-dqId9J8K/vGi5Zr7oo212BGii5m3q5Hxlkwy3WpYuKPklmBEvsbMYYyLxAQpSffdLl/gdW0XUpKWFvYmyoWCoQ==}
     dev: true
 
   /@types/uuid@9.0.7:
@@ -10640,7 +11298,6 @@ packages:
     peerDependencies:
       vite: ^4 || ^5
     dependencies:
-<<<<<<< HEAD
       '@swc/core': 1.3.102
 <<<<<<< HEAD
       vite: 5.0.12(@types/node@18.19.6)
@@ -10648,11 +11305,19 @@ packages:
       vite: 4.5.1(@types/node@18.19.6)
 =======
       vite: 4.5.1(@types/node@18.19.6)
+<<<<<<< HEAD
 =======
       '@swc/core': 1.3.100
       vite: 4.5.1(@types/node@18.19.3)
 >>>>>>> 3fe37f8 (chore(*): fix lockfile)
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+      '@swc/core': 1.3.100
+      vite: 4.5.1(@types/node@18.19.3)
+>>>>>>> 3fe37f8 (chore(*): fix lockfile)
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     transitivePeerDependencies:
       - '@swc/helpers'
     dev: true
@@ -10669,16 +11334,28 @@ packages:
       magic-string: 0.27.0
       react-refresh: 0.14.0
 <<<<<<< HEAD
+<<<<<<< HEAD
       vite: 5.0.12(@types/node@18.19.6)
 ||||||| parent of b804af0 (chore(*): fix lockfile)
       vite: 4.5.1(@types/node@18.19.6)
 =======
 <<<<<<< HEAD
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+<<<<<<< HEAD
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       vite: 4.5.1(@types/node@18.19.6)
+<<<<<<< HEAD
 =======
       vite: 4.5.1(@types/node@18.19.3)
 >>>>>>> 3fe37f8 (chore(*): fix lockfile)
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+      vite: 4.5.1(@types/node@18.19.3)
+>>>>>>> 3fe37f8 (chore(*): fix lockfile)
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -10712,15 +11389,15 @@ packages:
     dependencies:
       '@vitest/spy': 1.1.3
       '@vitest/utils': 1.1.3
-      chai: 4.3.10
+      chai: 4.4.0
     dev: true
 
-  /@vitest/expect@1.2.1:
-    resolution: {integrity: sha512-/bqGXcHfyKgFWYwIgFr1QYDaR9e64pRKxgBNWNXPefPFRhgm+K3+a/dS0cUGEreWngets3dlr8w8SBRw2fCfFQ==}
+  /@vitest/expect@1.2.2:
+    resolution: {integrity: sha512-3jpcdPAD7LwHUUiT2pZTj2U82I2Tcgg2oVPvKxhn6mDI2On6tfvPQTjAI4628GUGDZrCm4Zna9iQHm5cEexOAg==}
     dependencies:
-      '@vitest/spy': 1.2.1
-      '@vitest/utils': 1.2.1
-      chai: 4.3.10
+      '@vitest/spy': 1.2.2
+      '@vitest/utils': 1.2.2
+      chai: 4.4.0
     dev: true
 
   /@vitest/runner@1.0.2:
@@ -10736,15 +11413,15 @@ packages:
     dependencies:
       '@vitest/utils': 1.1.3
       p-limit: 5.0.0
-      pathe: 1.1.1
+      pathe: 1.1.2
     dev: true
 
-  /@vitest/runner@1.2.1:
-    resolution: {integrity: sha512-zc2dP5LQpzNzbpaBt7OeYAvmIsRS1KpZQw4G3WM/yqSV1cQKNKwLGmnm79GyZZjMhQGlRcSFMImLjZaUQvNVZQ==}
+  /@vitest/runner@1.2.2:
+    resolution: {integrity: sha512-JctG7QZ4LSDXr5CsUweFgcpEvrcxOV1Gft7uHrvkQ+fsAVylmWQvnaAr/HDp3LAH1fztGMQZugIheTWjaGzYIg==}
     dependencies:
-      '@vitest/utils': 1.2.1
+      '@vitest/utils': 1.2.2
       p-limit: 5.0.0
-      pathe: 1.1.1
+      pathe: 1.1.2
     dev: true
 
   /@vitest/snapshot@1.0.2:
@@ -10759,15 +11436,15 @@ packages:
     resolution: {integrity: sha512-U0r8pRXsLAdxSVAyGNcqOU2H3Z4Y2dAAGGelL50O0QRMdi1WWeYHdrH/QWpN1e8juWfVKsb8B+pyJwTC+4Gy9w==}
     dependencies:
       magic-string: 0.30.5
-      pathe: 1.1.1
+      pathe: 1.1.2
       pretty-format: 29.7.0
     dev: true
 
-  /@vitest/snapshot@1.2.1:
-    resolution: {integrity: sha512-Tmp/IcYEemKaqAYCS08sh0vORLJkMr0NRV76Gl8sHGxXT5151cITJCET20063wk0Yr/1koQ6dnmP6eEqezmd/Q==}
+  /@vitest/snapshot@1.2.2:
+    resolution: {integrity: sha512-SmGY4saEw1+bwE1th6S/cZmPxz/Q4JWsl7LvbQIky2tKE35US4gd0Mjzqfr84/4OD0tikGWaWdMja/nWL5NIPA==}
     dependencies:
       magic-string: 0.30.5
-      pathe: 1.1.1
+      pathe: 1.1.2
       pretty-format: 29.7.0
     dev: true
 
@@ -10783,8 +11460,8 @@ packages:
       tinyspy: 2.2.0
     dev: true
 
-  /@vitest/spy@1.2.1:
-    resolution: {integrity: sha512-vG3a/b7INKH7L49Lbp0IWrG6sw9j4waWAucwnksPB1r1FTJgV7nkBByd9ufzu6VWya/QTvQW4V9FShZbZIB2UQ==}
+  /@vitest/spy@1.2.2:
+    resolution: {integrity: sha512-k9Gcahssw8d7X3pSLq3e3XEu/0L78mUkCjivUqCQeXJm9clfXR/Td8+AP+VC1O6fKPIDLcHDTAmBOINVuv6+7g==}
     dependencies:
       tinyspy: 2.2.0
     dev: true
@@ -10807,9 +11484,14 @@ packages:
     dev: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   /@vitest/utils@1.2.1:
     resolution: {integrity: sha512-bsH6WVZYe/J2v3+81M5LDU8kW76xWObKIURpPrOXm2pjBniBu2MERI/XP60GpS4PHU3jyK50LUutOwrx4CyHUg==}
+=======
+  /@vitest/utils@1.2.2:
+    resolution: {integrity: sha512-WKITBHLsBHlpjnDQahr+XK6RE7MiAsgrIkr0pGhQ9ygoxBfUeG0lUG5iLlzqjmKSlBv3+j5EGsriBzh+C3Tq9g==}
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
     dependencies:
       diff-sequences: 29.6.3
       estree-walker: 3.0.3
@@ -10827,17 +11509,8 @@ packages:
       vscode-uri: 2.1.2
     dev: true
 
-  /@vscode/l10n@0.0.16:
-    resolution: {integrity: sha512-JT5CvrIYYCrmB+dCana8sUqJEcGB1ZDXNLMQ2+42bW995WmNoenijWMUdZfwmuQUTQcEVVIa2OecZzTYWUW9Cg==}
-    dev: true
-
-  /@vue/compiler-core@3.3.10:
-    resolution: {integrity: sha512-doe0hODR1+i1menPkRzJ5MNR6G+9uiZHIknK3Zn5OcIztu6GGw7u0XUzf3AgB8h/dfsZC9eouzoLo3c3+N/cVA==}
-    dependencies:
-      '@babel/parser': 7.23.5
-      '@vue/shared': 3.3.10
-      estree-walker: 2.0.2
-      source-map-js: 1.0.2
+  /@vscode/l10n@0.0.18:
+    resolution: {integrity: sha512-KYSIHVmslkaCDyw013pphY+d7x1qV8IZupYfeIfzNA+nsaWHbn5uPuQRvdRFsa9zFzGeudPuoGoZ1Op4jrJXIQ==}
     dev: true
 
 >>>>>>> adde8b1 (chore(dev-cli): update vitest)
@@ -10965,6 +11638,7 @@ packages:
     dev: false
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /@xprofiler/node-pre-gyp@1.0.11:
     resolution: {integrity: sha512-kNFT4XscrA+Hjh+jSHs49PiG/YGf08a6eNDo16qjSnCaT4B5ngrKDcNtEJ6CnS0sDP/1oZmHCBYECB6wGKP7lg==}
     hasBin: true
@@ -10989,6 +11663,30 @@ packages:
 =======
     dev: true
 =======
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+<<<<<<< HEAD
+  /@xprofiler/node-pre-gyp@1.0.11:
+    resolution: {integrity: sha512-kNFT4XscrA+Hjh+jSHs49PiG/YGf08a6eNDo16qjSnCaT4B5ngrKDcNtEJ6CnS0sDP/1oZmHCBYECB6wGKP7lg==}
+    hasBin: true
+    dependencies:
+      detect-libc: 1.0.3
+      https-proxy-agent: 5.0.1
+      make-dir: 3.1.0
+      node-fetch: 2.7.0
+      node-gyp: 9.3.1
+      nopt: 5.0.0
+      npmlog: 5.0.1
+      rimraf: 3.0.2
+      semver: 7.5.4
+      tar: 6.2.0
+    transitivePeerDependencies:
+      - bluebird
+      - encoding
+      - supports-color
+    dev: true
+=======
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
   /@xhmikosr/archive-type@6.0.1:
     resolution: {integrity: sha512-PB3NeJL8xARZt52yDBupK0dNPn8uIVQDe15qNehUpoeeLWCZyAOam4vGXnoZGz2N9D1VXtjievJuCsXam2TmbQ==}
     engines: {node: ^14.14.0 || >=16.0.0}
@@ -11002,7 +11700,7 @@ packages:
     dependencies:
       file-type: 18.7.0
       is-stream: 3.0.0
-      tar-stream: 3.1.6
+      tar-stream: 3.1.7
     dev: false
 
   /@xhmikosr/decompress-tarbz2@7.0.0:
@@ -11062,8 +11760,33 @@ packages:
       merge-options: 3.0.4
       p-event: 5.0.1
     dev: false
+<<<<<<< HEAD
 >>>>>>> 4cbbcf5 (chore(dev-config): update lockfile)
 >>>>>>> 73155d7 (chore(dev-config): update lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+>>>>>>> 4cbbcf5 (chore(dev-config): update lockfile)
+=======
+
+  /@xprofiler/node-pre-gyp@1.0.11:
+    resolution: {integrity: sha512-kNFT4XscrA+Hjh+jSHs49PiG/YGf08a6eNDo16qjSnCaT4B5ngrKDcNtEJ6CnS0sDP/1oZmHCBYECB6wGKP7lg==}
+    hasBin: true
+    dependencies:
+      detect-libc: 1.0.3
+      https-proxy-agent: 5.0.1
+      make-dir: 3.1.0
+      node-fetch: 2.7.0
+      node-gyp: 9.3.1
+      nopt: 5.0.0
+      npmlog: 5.0.1
+      rimraf: 3.0.2
+      semver: 7.5.4
+      tar: 6.2.0
+    transitivePeerDependencies:
+      - bluebird
+      - encoding
+      - supports-color
+    dev: true
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
 
   /@yarnpkg/esbuild-plugin-pnp@3.0.0-rc.15(esbuild@0.18.20):
     resolution: {integrity: sha512-kYzDJO5CA9sy+on/s2aIW0411AklfCi8Ck/4QDivOqsMKpStZA2SsR+X27VTggGwpStWaLrjJcDcdDMowtG8MA==}
@@ -11261,6 +11984,14 @@ packages:
       '@zag-js/types': 0.38.0
       '@zag-js/utils': 0.38.0
 ||||||| parent of b804af0 (chore(*): fix lockfile)
+  /@zag-js/date-utils@0.30.0(@internationalized/date@3.5.1):
+    resolution: {integrity: sha512-oOyZnDSPeWo0c+gF1J1iwViAK9eLS/QNazOiQ56E3Rg95KzzzWStuXIn33zZSt2bYsLklxq20TlZIWIIfL5TlQ==}
+    peerDependencies:
+      '@internationalized/date': '>=3.0.0'
+    dependencies:
+      '@internationalized/date': 3.5.1
+    dev: false
+
   /@zag-js/date-utils@0.30.0(@internationalized/date@3.5.1):
     resolution: {integrity: sha512-oOyZnDSPeWo0c+gF1J1iwViAK9eLS/QNazOiQ56E3Rg95KzzzWStuXIn33zZSt2bYsLklxq20TlZIWIIfL5TlQ==}
     peerDependencies:
@@ -11778,6 +12509,7 @@ packages:
     dev: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /acorn@8.11.3:
     resolution: {integrity: sha512-Y9rRfJG5jcKOE0CLisYbojUjIrIEE7AGMzA/Sm4BslANhbS+cDMpgBdcPT91oJ7OuJ9hYJBx59RjbhxVnrF8Xg==}
     engines: {node: '>=0.4.0'}
@@ -11792,6 +12524,15 @@ packages:
 
 =======
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+  /acorn@8.11.3:
+    resolution: {integrity: sha512-Y9rRfJG5jcKOE0CLisYbojUjIrIEE7AGMzA/Sm4BslANhbS+cDMpgBdcPT91oJ7OuJ9hYJBx59RjbhxVnrF8Xg==}
+    engines: {node: '>=0.4.0'}
+    hasBin: true
+    dev: true
+
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
   /address@1.2.2:
     resolution: {integrity: sha512-4B/qKCfeE/ODUaAUpSwfzazo5x29WD4r3vXiWsB7I2mSDAihwEqKO+g8GELZUQSSAo5e1XTYh3ZVfLyxBc12nA==}
     engines: {node: '>= 10.0.0'}
@@ -12143,16 +12884,16 @@ packages:
       '@astrojs/markdown-remark': 2.2.1(astro@2.9.6)
       '@astrojs/telemetry': 2.1.1
       '@astrojs/webapi': 2.2.0
-      '@babel/core': 7.23.5
-      '@babel/generator': 7.23.5
-      '@babel/parser': 7.23.5
-      '@babel/plugin-transform-react-jsx': 7.23.4(@babel/core@7.23.5)
-      '@babel/traverse': 7.23.5
-      '@babel/types': 7.23.5
+      '@babel/core': 7.23.7
+      '@babel/generator': 7.23.6
+      '@babel/parser': 7.23.6
+      '@babel/plugin-transform-react-jsx': 7.23.4(@babel/core@7.23.7)
+      '@babel/traverse': 7.23.7
+      '@babel/types': 7.23.6
       '@types/babel__core': 7.20.5
       '@types/dom-view-transitions': 1.0.4
       '@types/yargs-parser': 21.0.3
-      acorn: 8.11.2
+      acorn: 8.11.3
       boxen: 6.2.1
       chokidar: 3.5.3
       ci-info: 3.9.0
@@ -12183,99 +12924,16 @@ packages:
       rehype: 12.0.1
       semver: 7.5.4
       server-destroy: 1.0.1
-      shiki: 0.14.5
+      shiki: 0.14.7
       string-width: 5.1.2
       strip-ansi: 7.1.0
       tsconfig-resolver: 3.0.1
       typescript: 5.3.3
       unist-util-visit: 4.1.2
       vfile: 5.3.7
-<<<<<<< HEAD
       vite: 4.5.1(@types/node@18.19.6)
-=======
-      vite: 4.5.1(@types/node@18.19.2)
       vitefu: 0.2.5(vite@4.5.1)
-      which-pm: 2.1.1
-      yargs-parser: 21.1.1
-      zod: 3.22.4
-    transitivePeerDependencies:
-      - '@types/node'
-      - less
-      - lightningcss
-      - sass
-      - stylus
-      - sugarss
-      - supports-color
-      - terser
-    dev: true
-
-  /astro@2.9.6(@types/node@18.19.3):
-    resolution: {integrity: sha512-yvbZQ6YOWYLejyQ4nAcgZLDYQ34enQJ5/LWlXKtUzXzpsUHB75vJMj+XmEq5Q2eVlZOlQrp0lU+nhSRGaOsOUQ==}
-    engines: {node: '>=16.12.0', npm: '>=6.14.0'}
-    hasBin: true
-    peerDependencies:
-      sharp: '>=0.31.0'
-    peerDependenciesMeta:
-      sharp:
-        optional: true
-    dependencies:
-      '@astrojs/compiler': 1.8.2
-      '@astrojs/internal-helpers': 0.1.2
-      '@astrojs/language-server': 1.0.8
-      '@astrojs/markdown-remark': 2.2.1(astro@2.9.6)
-      '@astrojs/telemetry': 2.1.1
-      '@astrojs/webapi': 2.2.0
-      '@babel/core': 7.23.5
-      '@babel/generator': 7.23.5
-      '@babel/parser': 7.23.5
-      '@babel/plugin-transform-react-jsx': 7.23.4(@babel/core@7.23.5)
-      '@babel/traverse': 7.23.5
-      '@babel/types': 7.23.5
-      '@types/babel__core': 7.20.5
-      '@types/dom-view-transitions': 1.0.4
-      '@types/yargs-parser': 21.0.3
-      acorn: 8.11.2
-      boxen: 6.2.1
-      chokidar: 3.5.3
-      ci-info: 3.9.0
-      common-ancestor-path: 1.0.1
-      cookie: 0.5.0
-      debug: 4.3.4(supports-color@5.5.0)
-      deepmerge-ts: 4.3.0
-      devalue: 4.3.2
-      diff: 5.1.0
-      es-module-lexer: 1.4.1
-      esbuild: 0.17.19
-      estree-walker: 3.0.0
-      execa: 6.1.0
-      fast-glob: 3.3.2
-      github-slugger: 2.0.0
-      gray-matter: 4.0.3
-      html-escaper: 3.0.3
-      js-yaml: 4.1.0
-      kleur: 4.1.5
-      magic-string: 0.27.0
-      mime: 3.0.0
-      network-information-types: 0.1.1(typescript@5.3.3)
-      ora: 6.3.1
-      p-limit: 4.0.0
-      path-to-regexp: 6.2.1
-      preferred-pm: 3.1.2
-      prompts: 2.4.2
-      rehype: 12.0.1
-      semver: 7.5.4
-      server-destroy: 1.0.1
-      shiki: 0.14.5
-      string-width: 5.1.2
-      strip-ansi: 7.1.0
-      tsconfig-resolver: 3.0.1
-      typescript: 5.3.3
-      unist-util-visit: 4.1.2
-      vfile: 5.3.7
-      vite: 4.5.1(@types/node@18.19.3)
->>>>>>> 3fe37f8 (chore(*): fix lockfile)
-      vitefu: 0.2.5(vite@4.5.1)
-      which-pm: 2.1.1
+      which-pm: 2.0.0
       yargs-parser: 21.1.1
       zod: 3.22.4
     transitivePeerDependencies:
@@ -12447,8 +13105,8 @@ packages:
   /base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
 
-  /basic-ftp@5.0.3:
-    resolution: {integrity: sha512-QHX8HLlncOLpy54mh+k/sWIFd0ThmRqwe9ZjELybGZK+tZ8rUb9VO0saKJUROTbE+KhzDUT7xziGpGrW8Kmd+g==}
+  /basic-ftp@5.0.4:
+    resolution: {integrity: sha512-8PzkB0arJFV4jJWSGOYR+OEic6aeKMu/osRhBULN6RY0ykby6LKhbmuQ5ublvaas5BOwboah5D87nrHyuh8PPA==}
     engines: {node: '>=10.0.0'}
     dev: true
 
@@ -12583,6 +13241,7 @@ packages:
       node-eval: 2.0.0
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /bundle-n-require@1.1.1:
     resolution: {integrity: sha512-EB2wFjXF106LQLe/CYnKCMCdLeTW47AtcEtUfiqAOgr2a08k0+YgRklur2aLfEYHlhz6baMskZ8L2U92Hh0vyA==}
     dependencies:
@@ -12594,6 +13253,9 @@ packages:
 ||||||| parent of b804af0 (chore(*): fix lockfile)
   /bundle-require@4.0.2(esbuild@0.19.11):
 =======
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
 <<<<<<< HEAD
   /bundle-require@4.0.2(esbuild@0.19.11):
 =======
@@ -12606,12 +13268,20 @@ packages:
 
   /bundle-require@4.0.2(esbuild@0.19.8):
 >>>>>>> 940776c (chore(*): fix lockfile)
+<<<<<<< HEAD
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+=======
+  /bundle-require@4.0.2(esbuild@0.19.11):
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     resolution: {integrity: sha512-jwzPOChofl67PSTW2SGubV9HBQAhhR2i6nskiOThauo9dzwDUgOWQScFVaJkjEfYX+UXiD+LEx8EblQMc2wIag==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     peerDependencies:
       esbuild: '>=0.17'
     dependencies:
+<<<<<<< HEAD
 <<<<<<< HEAD
       esbuild: 0.19.12
 ||||||| parent of b804af0 (chore(*): fix lockfile)
@@ -12619,6 +13289,11 @@ packages:
 =======
       esbuild: 0.19.8
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      esbuild: 0.19.8
+=======
+      esbuild: 0.19.11
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       load-tsconfig: 0.2.5
     dev: true
 
@@ -12643,7 +13318,6 @@ packages:
     resolution: {integrity: sha512-b6Ilus+c3RrdDk+JhLKUAQfzzgLEPy6wcXqS7f/xe1EETvsDP6GORG7SFuOs6cID5YkqchW/LXZbX5bc8j7ZcQ==}
     engines: {node: '>=8'}
 
-<<<<<<< HEAD
   /cacache@16.1.3:
     resolution: {integrity: sha512-/+Emcj9DAXxX4cwlLmRI9c166RuL3w30zp4R7Joiv2cQTtTtA+jeuCAjH3ZlGnYS3tKENSrKhAzVVP9GVyzeYQ==}
     engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
@@ -12673,7 +13347,7 @@ packages:
     dev: true
 =======
     dev: true
-=======
+
   /cacheable-lookup@7.0.0:
     resolution: {integrity: sha512-+qJyx4xiKra8mZrcwhjMRMUhD5NR1R8esPkzIYxX96JiecFoxAXFuz/GpR3+ev4PE1WamHip78wV0vcmPQtp8w==}
     engines: {node: '>=14.16'}
@@ -12691,8 +13365,13 @@ packages:
       normalize-url: 8.0.0
       responselike: 3.0.0
     dev: false
+<<<<<<< HEAD
 >>>>>>> 4cbbcf5 (chore(dev-config): update lockfile)
 >>>>>>> 73155d7 (chore(dev-config): update lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+>>>>>>> 4cbbcf5 (chore(dev-config): update lockfile)
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
 
   /call-bind@1.0.6:
     resolution: {integrity: sha512-Mj50FLHtlsoVfRfnHaZvyrooHcrlceNZdL/QBvJJVd9Ta55qCQK0gs4ss2oZDeV9zFCs6ewzYgVE5yfVmfFpVg==}
@@ -12745,6 +13424,19 @@ packages:
 
   /chai@4.3.10:
     resolution: {integrity: sha512-0UXG04VuVbruMUYbJ6JctvH0YnC/4q3/AkT18q4NaITo91CUm0liMS9VqzT9vZhVQ/1eqPanMWjBM+Juhfb/9g==}
+    engines: {node: '>=4'}
+    dependencies:
+      assertion-error: 1.1.0
+      check-error: 1.0.3
+      deep-eql: 4.1.3
+      get-func-name: 2.0.2
+      loupe: 2.3.7
+      pathval: 1.1.1
+      type-detect: 4.0.8
+    dev: true
+
+  /chai@4.4.0:
+    resolution: {integrity: sha512-x9cHNq1uvkCdU+5xTkNh5WtgD4e4yDFCsp9jVc7N7qVeKeftv3gO/ZrviX5d+3ZfxdYnZXZYujjRInu1RogU6A==}
     engines: {node: '>=4'}
     dependencies:
       assertion-error: 1.1.0
@@ -13165,11 +13857,12 @@ packages:
       browserslist: 4.22.2
     dev: true
 
-  /core-js-pure@3.34.0:
-    resolution: {integrity: sha512-pmhivkYXkymswFfbXsANmBAewXx86UBfmagP+w0wkK06kLsLlTK5oQmsURPivzMkIBQiYq2cjamcZExIwlFQIg==}
+  /core-js-pure@3.35.0:
+    resolution: {integrity: sha512-f+eRYmkou59uh7BPcyJ8MC76DiGhspj1KMxVIcF24tzP8NA9HVa1uC7BTW2tgx7E1QVCzDzsgp7kArrzhlz8Ew==}
     requiresBuild: true
     dev: true
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   /core-js@3.36.0:
     resolution: {integrity: sha512-mt7+TUBbTFg5+GngsAxeKBTl5/VS0guFeJacYge9OmHb+m058UwwIm41SE9T4Den7ClatV57B6TYTuJ0CX1MAw==}
@@ -13180,6 +13873,13 @@ packages:
   /core-js@3.34.0:
     resolution: {integrity: sha512-aDdvlDder8QmY91H88GzNi9EtQi2TjvQhpCX6B1v/dAZHU1AuLgHvRh54RiOerpEhEW46Tkf+vgAViB/CWC0ag==}
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+  /core-js@3.34.0:
+    resolution: {integrity: sha512-aDdvlDder8QmY91H88GzNi9EtQi2TjvQhpCX6B1v/dAZHU1AuLgHvRh54RiOerpEhEW46Tkf+vgAViB/CWC0ag==}
+=======
+  /core-js@3.35.0:
+    resolution: {integrity: sha512-ntakECeqg81KqMueeGJ79Q5ZgQNR+6eaE8sxGCx62zMbAIj65q+uYvatToew3m6eAGdU4gNZwpZ34NMe4GYswg==}
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     requiresBuild: true
     dev: true
 
@@ -13187,11 +13887,7 @@ packages:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
     dev: true
 
-<<<<<<< HEAD
   /cosmiconfig-typescript-loader@5.0.0(@types/node@18.19.6)(cosmiconfig@8.3.6)(typescript@5.3.3):
-=======
-  /cosmiconfig-typescript-loader@5.0.0(@types/node@18.19.3)(cosmiconfig@8.3.6)(typescript@5.3.3):
->>>>>>> 3fe37f8 (chore(*): fix lockfile)
     resolution: {integrity: sha512-+8cK7jRAReYkMwMiG+bxhcNKiHJDM6bR9FD/nGBXOWdMLuYawjF5cGrtLilJ+LGd3ZjCXnJjR5DkfWPoIVlqJA==}
     engines: {node: '>=v16'}
     peerDependencies:
@@ -13199,11 +13895,7 @@ packages:
       cosmiconfig: '>=8.2'
       typescript: '>=4'
     dependencies:
-<<<<<<< HEAD
       '@types/node': 18.19.6
-=======
-      '@types/node': 18.19.3
->>>>>>> 3fe37f8 (chore(*): fix lockfile)
       cosmiconfig: 8.3.6(typescript@5.3.3)
       jiti: 1.21.0
       typescript: 5.3.3
@@ -13293,6 +13985,7 @@ packages:
     resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
 
@@ -13303,6 +13996,13 @@ packages:
 
 =======
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+  /csstype@3.1.3:
+    resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
+    dev: true
+
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
   /cz-customizable@7.0.0:
     resolution: {integrity: sha512-pQKkGSm+8SY9VY/yeJqDOla1MjrGaG7WG4EYLLEV4VNctGO7WdzdGtWEr2ydKSkrpmTs7f8fmBksg/FaTrUAyw==}
     hasBin: true
@@ -13920,6 +14620,7 @@ packages:
     dev: false
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ||||||| parent of b804af0 (chore(*): fix lockfile)
   /esbuild-css-modules-plugin@3.1.0(esbuild@0.19.11):
     resolution: {integrity: sha512-3+BYIKHlGqhL1/9FbWFUD3bGyxR9+H0wGHH2QpzqJZ5UIYBwr6oyWspio3YGgZeJvzstiOgX+UdY7MBaXt+aAg==}
@@ -13934,12 +14635,17 @@ packages:
 
 =======
   /esbuild-css-modules-plugin@3.1.0(esbuild@0.19.8):
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+  /esbuild-css-modules-plugin@3.1.0(esbuild@0.19.8):
+=======
+  /esbuild-css-modules-plugin@3.1.0(esbuild@0.19.11):
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     resolution: {integrity: sha512-3+BYIKHlGqhL1/9FbWFUD3bGyxR9+H0wGHH2QpzqJZ5UIYBwr6oyWspio3YGgZeJvzstiOgX+UdY7MBaXt+aAg==}
     engines: {node: '>= 16.20.0'}
     peerDependencies:
       esbuild: '*'
     dependencies:
-      esbuild: 0.19.8
+      esbuild: 0.19.11
       lightningcss: 1.22.1
       lodash-es: 4.17.21
     dev: true
@@ -14030,34 +14736,35 @@ packages:
       '@esbuild/win32-x64': 0.18.20
     dev: true
 
-  /esbuild@0.19.8:
-    resolution: {integrity: sha512-l7iffQpT2OrZfH2rXIp7/FkmaeZM0vxbxN9KfiCwGYuZqzMg/JdvX26R31Zxn/Pxvsrg3Y9N6XTcnknqDyyv4w==}
+  /esbuild@0.19.11:
+    resolution: {integrity: sha512-HJ96Hev2hX/6i5cDVwcqiJBBtuo9+FeIJOtZ9W1kA5M6AMJRHUZlpYZ1/SbEwtO0ioNAW8rUooVpC/WehY2SfA==}
     engines: {node: '>=12'}
     hasBin: true
     requiresBuild: true
     optionalDependencies:
-      '@esbuild/android-arm': 0.19.8
-      '@esbuild/android-arm64': 0.19.8
-      '@esbuild/android-x64': 0.19.8
-      '@esbuild/darwin-arm64': 0.19.8
-      '@esbuild/darwin-x64': 0.19.8
-      '@esbuild/freebsd-arm64': 0.19.8
-      '@esbuild/freebsd-x64': 0.19.8
-      '@esbuild/linux-arm': 0.19.8
-      '@esbuild/linux-arm64': 0.19.8
-      '@esbuild/linux-ia32': 0.19.8
-      '@esbuild/linux-loong64': 0.19.8
-      '@esbuild/linux-mips64el': 0.19.8
-      '@esbuild/linux-ppc64': 0.19.8
-      '@esbuild/linux-riscv64': 0.19.8
-      '@esbuild/linux-s390x': 0.19.8
-      '@esbuild/linux-x64': 0.19.8
-      '@esbuild/netbsd-x64': 0.19.8
-      '@esbuild/openbsd-x64': 0.19.8
-      '@esbuild/sunos-x64': 0.19.8
-      '@esbuild/win32-arm64': 0.19.8
-      '@esbuild/win32-ia32': 0.19.8
-      '@esbuild/win32-x64': 0.19.8
+      '@esbuild/aix-ppc64': 0.19.11
+      '@esbuild/android-arm': 0.19.11
+      '@esbuild/android-arm64': 0.19.11
+      '@esbuild/android-x64': 0.19.11
+      '@esbuild/darwin-arm64': 0.19.11
+      '@esbuild/darwin-x64': 0.19.11
+      '@esbuild/freebsd-arm64': 0.19.11
+      '@esbuild/freebsd-x64': 0.19.11
+      '@esbuild/linux-arm': 0.19.11
+      '@esbuild/linux-arm64': 0.19.11
+      '@esbuild/linux-ia32': 0.19.11
+      '@esbuild/linux-loong64': 0.19.11
+      '@esbuild/linux-mips64el': 0.19.11
+      '@esbuild/linux-ppc64': 0.19.11
+      '@esbuild/linux-riscv64': 0.19.11
+      '@esbuild/linux-s390x': 0.19.11
+      '@esbuild/linux-x64': 0.19.11
+      '@esbuild/netbsd-x64': 0.19.11
+      '@esbuild/openbsd-x64': 0.19.11
+      '@esbuild/sunos-x64': 0.19.11
+      '@esbuild/win32-arm64': 0.19.11
+      '@esbuild/win32-ia32': 0.19.11
+      '@esbuild/win32-x64': 0.19.11
     dev: true
 
   /esbuild@0.19.12:
@@ -14517,7 +15224,7 @@ packages:
       '@eslint-community/regexpp': 4.10.0
       '@eslint/eslintrc': 2.1.4
       '@eslint/js': 8.56.0
-      '@humanwhocodes/config-array': 0.11.13
+      '@humanwhocodes/config-array': 0.11.14
       '@humanwhocodes/module-importer': 1.0.1
       '@nodelib/fs.walk': 1.2.8
       '@ungap/structured-clone': 1.2.0
@@ -14536,7 +15243,7 @@ packages:
       file-entry-cache: 6.0.1
       find-up: 5.0.0
       glob-parent: 6.0.2
-      globals: 13.23.0
+      globals: 13.24.0
       graphemer: 1.4.0
       ignore: 5.3.0
       imurmurhash: 0.1.4
@@ -14632,22 +15339,7 @@ packages:
       human-signals: 3.0.1
       is-stream: 3.0.0
       merge-stream: 2.0.0
-      npm-run-path: 5.1.0
-      onetime: 6.0.0
-      signal-exit: 3.0.7
-      strip-final-newline: 3.0.0
-    dev: true
-
-  /execa@7.2.0:
-    resolution: {integrity: sha512-UduyVP7TLB5IcAQl+OzLyLcS/l32W/GLg+AhHJ+ow40FOk2U3SAllPwR44v4vmdFwIWqpdwxxpQbF1n5ta9seA==}
-    engines: {node: ^14.18.0 || ^16.14.0 || >=18.0.0}
-    dependencies:
-      cross-spawn: 7.0.3
-      get-stream: 6.0.1
-      human-signals: 4.3.1
-      is-stream: 3.0.0
-      merge-stream: 2.0.0
-      npm-run-path: 5.1.0
+      npm-run-path: 5.2.0
       onetime: 6.0.0
       signal-exit: 3.0.7
       strip-final-newline: 3.0.0
@@ -14663,7 +15355,7 @@ packages:
       human-signals: 5.0.0
       is-stream: 3.0.0
       merge-stream: 2.0.0
-      npm-run-path: 5.1.0
+      npm-run-path: 5.2.0
       onetime: 6.0.0
       signal-exit: 4.1.0
       strip-final-newline: 3.0.0
@@ -15187,7 +15879,7 @@ packages:
     resolution: {integrity: sha512-5KLucCJobh8vBY1K07EFV4+cPZH3mrV9YeAruUseCQKHB58SGjjT2l9/eA9LD082IiuMjSlFJEcdJ27TXvbZNw==}
     engines: {node: '>= 14'}
     dependencies:
-      basic-ftp: 5.0.3
+      basic-ftp: 5.0.4
       data-uri-to-buffer: 6.0.1
       debug: 4.3.4(supports-color@5.5.0)
       fs-extra: 8.1.0
@@ -15213,7 +15905,7 @@ packages:
       https-proxy-agent: 7.0.2
       mri: 1.2.0
       node-fetch-native: 1.4.1
-      pathe: 1.1.1
+      pathe: 1.1.2
       tar: 6.2.0
     transitivePeerDependencies:
       - supports-color
@@ -15288,17 +15980,6 @@ packages:
 =======
     dev: true
 
-  /glob@7.1.6:
-    resolution: {integrity: sha512-LwaxwyZ72Lk7vZINtNNrywX0ZuLyStrdDtabefZKAY5ZGJhVtgdznluResxNmPitE0SAO+O26sWTHeKSI2wMBA==}
-    dependencies:
-      fs.realpath: 1.0.0
-      inflight: 1.0.6
-      inherits: 2.0.4
-      minimatch: 3.1.2
-      once: 1.4.0
-      path-is-absolute: 1.0.1
-    dev: true
-
   /glob@7.1.7:
     resolution: {integrity: sha512-OvD9ENzPLbegENnYP5UUfJIirTg4+XwMWGaQfQTY0JenxNvvIKP3U3/tAQSPIu/lHxXYSZmpXlUHeqAIdKzBLQ==}
     dependencies:
@@ -15351,6 +16032,12 @@ packages:
 
   /globals@13.23.0:
     resolution: {integrity: sha512-XAmF0RjlrjY23MA51q3HltdlGxUpXPvg0GioKiD9X6HD28iMjo2dKC8Vqwm7lne4GNr78+RHTfliktR6ZH09wA==}
+    engines: {node: '>=8'}
+    dependencies:
+      type-fest: 0.20.2
+
+  /globals@13.24.0:
+    resolution: {integrity: sha512-AhO5QUcj8llrbG09iWhPU2B204J1xnPeL8kQmVorSsy+Sjj1sk8gIyh6cUocGmH4L0UuhAJy+hJMRA4mgA4mFQ==}
     engines: {node: '>=8'}
     dependencies:
       type-fest: 0.20.2
@@ -15522,6 +16209,84 @@ packages:
     dependencies:
       function-bind: 1.1.2
 
+<<<<<<< HEAD
+=======
+  /hast-util-from-parse5@7.1.2:
+    resolution: {integrity: sha512-Nz7FfPBuljzsN3tCQ4kCBKqdNhQE2l0Tn+X1ubgKBPRoiDIu1mL08Cfw4k7q71+Duyaw7DXDN+VTAp4Vh3oCOw==}
+    dependencies:
+      '@types/hast': 2.3.10
+      '@types/unist': 2.0.10
+      hastscript: 7.2.0
+      property-information: 6.4.1
+      vfile: 5.3.7
+      vfile-location: 4.1.0
+      web-namespaces: 2.0.1
+    dev: true
+
+  /hast-util-parse-selector@3.1.1:
+    resolution: {integrity: sha512-jdlwBjEexy1oGz0aJ2f4GKMaVKkA9jwjr4MjAAI22E5fM/TXVZHuS5OpONtdeIkRKqAaryQ2E9xNQxijoThSZA==}
+    dependencies:
+      '@types/hast': 2.3.10
+    dev: true
+
+  /hast-util-raw@7.2.3:
+    resolution: {integrity: sha512-RujVQfVsOrxzPOPSzZFiwofMArbQke6DJjnFfceiEbFh7S05CbPt0cYN+A5YeD3pso0JQk6O1aHBnx9+Pm2uqg==}
+    dependencies:
+      '@types/hast': 2.3.10
+      '@types/parse5': 6.0.3
+      hast-util-from-parse5: 7.1.2
+      hast-util-to-parse5: 7.1.0
+      html-void-elements: 2.0.1
+      parse5: 6.0.1
+      unist-util-position: 4.0.4
+      unist-util-visit: 4.1.2
+      vfile: 5.3.7
+      web-namespaces: 2.0.1
+      zwitch: 2.0.4
+    dev: true
+
+  /hast-util-to-html@8.0.4:
+    resolution: {integrity: sha512-4tpQTUOr9BMjtYyNlt0P50mH7xj0Ks2xpo8M943Vykljf99HW6EzulIoJP1N3eKOSScEHzyzi9dm7/cn0RfGwA==}
+    dependencies:
+      '@types/hast': 2.3.10
+      '@types/unist': 2.0.10
+      ccount: 2.0.1
+      comma-separated-tokens: 2.0.3
+      hast-util-raw: 7.2.3
+      hast-util-whitespace: 2.0.1
+      html-void-elements: 2.0.1
+      property-information: 6.4.1
+      space-separated-tokens: 2.0.2
+      stringify-entities: 4.0.3
+      zwitch: 2.0.4
+    dev: true
+
+  /hast-util-to-parse5@7.1.0:
+    resolution: {integrity: sha512-YNRgAJkH2Jky5ySkIqFXTQiaqcAtJyVE+D5lkN6CdtOqrnkLfGYYrEcKuHOJZlp+MwjSwuD3fZuawI+sic/RBw==}
+    dependencies:
+      '@types/hast': 2.3.10
+      comma-separated-tokens: 2.0.3
+      property-information: 6.4.1
+      space-separated-tokens: 2.0.2
+      web-namespaces: 2.0.1
+      zwitch: 2.0.4
+    dev: true
+
+  /hast-util-whitespace@2.0.1:
+    resolution: {integrity: sha512-nAxA0v8+vXSBDt3AnRUNjyRIQ0rD+ntpbAp4LnPkumc5M9yUbSMa4XDU9Q6etY4f1Wp4bNgvc1yjiZtsTTrSng==}
+    dev: true
+
+  /hastscript@7.2.0:
+    resolution: {integrity: sha512-TtYPq24IldU8iKoJQqvZOuhi5CyCQRAbvDOX0x1eW6rsHSxa/1i2CCiptNTotGHJ3VoHRGmqiv6/D3q113ikkw==}
+    dependencies:
+      '@types/hast': 2.3.10
+      comma-separated-tokens: 2.0.3
+      hast-util-parse-selector: 3.1.1
+      property-information: 6.4.1
+      space-separated-tokens: 2.0.2
+    dev: true
+
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
   /header-case@1.0.1:
     resolution: {integrity: sha512-i0q9mkOeSuhXw6bGgiQCCBgY/jlZuV/7dZXyZ9c6LcBrqwvT8eT719E9uxE5LiZftdl+z81Ugbg/VvXV4OJOeQ==}
     dependencies:
@@ -15568,6 +16333,7 @@ packages:
   /http-cache-semantics@4.1.1:
     resolution: {integrity: sha512-er295DKPVsV82j5kw1Gjt+ADA/XYHsajl82cGNQG2eyoPkvgUhX+nDIyelzhIWbbsXP39EHcI6l5tYs2FYqYXQ==}
 <<<<<<< HEAD
+<<<<<<< HEAD
 ||||||| parent of 73155d7 (chore(dev-config): update lockfile)
     dev: true
 =======
@@ -15577,6 +16343,14 @@ packages:
     dev: false
 >>>>>>> 4cbbcf5 (chore(dev-config): update lockfile)
 >>>>>>> 73155d7 (chore(dev-config): update lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+<<<<<<< HEAD
+    dev: true
+=======
+    dev: false
+>>>>>>> 4cbbcf5 (chore(dev-config): update lockfile)
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
 
   /http-errors@2.0.0:
     resolution: {integrity: sha512-FtwrG/euBzaEjYeRqOgly7G0qviiXoJWnvEH2Z1plBdXgbyjv34pHTSb9zoeHMyDy33+DWy5Wt9Wo+TURtOYSQ==}
@@ -15651,6 +16425,14 @@ packages:
     engines: {node: '>=10.17.0'}
     dev: true
 
+<<<<<<< HEAD
+=======
+  /human-signals@3.0.1:
+    resolution: {integrity: sha512-rQLskxnM/5OCldHo+wNXbpVgDn5A17CUoKX+7Sokwaknlq7CdSnphy0W39GU8dw59XiCXmFXDg4fRuckQRKewQ==}
+    engines: {node: '>=12.20.0'}
+    dev: true
+
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
   /human-signals@5.0.0:
     resolution: {integrity: sha512-AXcZb6vzzrFAUE61HnN4mpLqd/cSIwNQjtNWR0euPm6y0iqx3G4gOXaIDdtdDwZmhwe82LA6+zinmW4UBWVePQ==}
     engines: {node: '>=16.17.0'}
@@ -16219,6 +17001,7 @@ packages:
       '@types/graceful-fs': 4.1.9
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       '@types/node': 18.19.6
 ||||||| parent of 73155d7 (chore(dev-config): update lockfile)
       '@types/node': 20.10.8
@@ -16240,6 +17023,11 @@ packages:
 >>>>>>> fc65d7a (chore(dev-config): update lockfile)
 =======
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      '@types/node': 18.19.3
+=======
+      '@types/node': 18.19.6
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       anymatch: 3.1.3
       fb-watchman: 2.0.2
       graceful-fs: 4.2.11
@@ -16258,12 +17046,18 @@ packages:
     dependencies:
       '@jest/types': 27.5.1
 <<<<<<< HEAD
+<<<<<<< HEAD
       '@types/node': 18.19.6
 ||||||| parent of 73155d7 (chore(dev-config): update lockfile)
       '@types/node': 18.19.2
 =======
       '@types/node': 18.19.3
 >>>>>>> 73155d7 (chore(dev-config): update lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      '@types/node': 18.19.3
+=======
+      '@types/node': 18.19.6
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     dev: true
 
   /jest-regex-util@29.6.3:
@@ -16278,6 +17072,7 @@ packages:
       '@jest/types': 29.6.3
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       '@types/node': 18.19.6
 ||||||| parent of 73155d7 (chore(dev-config): update lockfile)
       '@types/node': 20.10.8
@@ -16299,6 +17094,11 @@ packages:
 >>>>>>> fc65d7a (chore(dev-config): update lockfile)
 =======
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      '@types/node': 18.19.3
+=======
+      '@types/node': 18.19.6
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       chalk: 4.1.2
       ci-info: 3.9.0
       graceful-fs: 4.2.11
@@ -16311,6 +17111,7 @@ packages:
     dependencies:
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       '@types/node': 18.19.6
 ||||||| parent of 73155d7 (chore(dev-config): update lockfile)
       '@types/node': 20.10.8
@@ -16332,6 +17133,11 @@ packages:
 >>>>>>> fc65d7a (chore(dev-config): update lockfile)
 =======
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      '@types/node': 18.19.3
+=======
+      '@types/node': 18.19.6
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       jest-util: 29.7.0
       merge-stream: 2.0.0
       supports-color: 8.1.1
@@ -17104,6 +17910,7 @@ packages:
       react: 18.2.0
     dev: true
 
+<<<<<<< HEAD
 =======
   /markdown-to-jsx@7.3.2(react@18.2.0):
     resolution: {integrity: sha512-B+28F5ucp83aQm+OxNrPkS8z0tMKaeHiy0lHJs3LqCyDQFtWuenaIrkaVTgAm1pf1AU85LXltva86hlaT17i8Q==}
@@ -17115,12 +17922,143 @@ packages:
 >>>>>>> b804af0 (chore(*): fix lockfile)
     dev: true
 
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
   /mdast-util-definitions@4.0.0:
     resolution: {integrity: sha512-k8AJ6aNnUkB7IE+5azR9h81O5EQ/cTDXtWdMq9Kk5KcEW/8ritU5CeLg/9HhOC++nALHBlaogJ5jz0Ybk3kPMQ==}
     dependencies:
       unist-util-visit: 2.0.3
     dev: true
 
+<<<<<<< HEAD
+=======
+  /mdast-util-definitions@5.1.2:
+    resolution: {integrity: sha512-8SVPMuHqlPME/z3gqVwWY4zVXn8lqKv/pAhC57FuJ40ImXyBpmO5ukh98zB2v7Blql2FiHjHv9LVztSIqjY+MA==}
+    dependencies:
+      '@types/mdast': 3.0.15
+      '@types/unist': 2.0.10
+      unist-util-visit: 4.1.2
+    dev: true
+
+  /mdast-util-find-and-replace@2.2.2:
+    resolution: {integrity: sha512-MTtdFRz/eMDHXzeK6W3dO7mXUlF82Gom4y0oOgvHhh/HXZAGvIQDUvQ0SuUx+j2tv44b8xTHOm8K/9OoRFnXKw==}
+    dependencies:
+      '@types/mdast': 3.0.15
+      escape-string-regexp: 5.0.0
+      unist-util-is: 5.2.1
+      unist-util-visit-parents: 5.1.3
+    dev: true
+
+  /mdast-util-from-markdown@1.3.1:
+    resolution: {integrity: sha512-4xTO/M8c82qBcnQc1tgpNtubGUW/Y1tBQ1B0i5CtSoelOLKFYlElIr3bvgREYYO5iRqbMY1YuqZng0GVOI8Qww==}
+    dependencies:
+      '@types/mdast': 3.0.15
+      '@types/unist': 2.0.10
+      decode-named-character-reference: 1.0.2
+      mdast-util-to-string: 3.2.0
+      micromark: 3.2.0
+      micromark-util-decode-numeric-character-reference: 1.1.0
+      micromark-util-decode-string: 1.1.0
+      micromark-util-normalize-identifier: 1.1.0
+      micromark-util-symbol: 1.1.0
+      micromark-util-types: 1.1.0
+      unist-util-stringify-position: 3.0.3
+      uvu: 0.5.6
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /mdast-util-gfm-autolink-literal@1.0.3:
+    resolution: {integrity: sha512-My8KJ57FYEy2W2LyNom4n3E7hKTuQk/0SES0u16tjA9Z3oFkF4RrC/hPAPgjlSpezsOvI8ObcXcElo92wn5IGA==}
+    dependencies:
+      '@types/mdast': 3.0.15
+      ccount: 2.0.1
+      mdast-util-find-and-replace: 2.2.2
+      micromark-util-character: 1.2.0
+    dev: true
+
+  /mdast-util-gfm-footnote@1.0.2:
+    resolution: {integrity: sha512-56D19KOGbE00uKVj3sgIykpwKL179QsVFwx/DCW0u/0+URsryacI4MAdNJl0dh+u2PSsD9FtxPFbHCzJ78qJFQ==}
+    dependencies:
+      '@types/mdast': 3.0.15
+      mdast-util-to-markdown: 1.5.0
+      micromark-util-normalize-identifier: 1.1.0
+    dev: true
+
+  /mdast-util-gfm-strikethrough@1.0.3:
+    resolution: {integrity: sha512-DAPhYzTYrRcXdMjUtUjKvW9z/FNAMTdU0ORyMcbmkwYNbKocDpdk+PX1L1dQgOID/+vVs1uBQ7ElrBQfZ0cuiQ==}
+    dependencies:
+      '@types/mdast': 3.0.15
+      mdast-util-to-markdown: 1.5.0
+    dev: true
+
+  /mdast-util-gfm-table@1.0.7:
+    resolution: {integrity: sha512-jjcpmNnQvrmN5Vx7y7lEc2iIOEytYv7rTvu+MeyAsSHTASGCCRA79Igg2uKssgOs1i1po8s3plW0sTu1wkkLGg==}
+    dependencies:
+      '@types/mdast': 3.0.15
+      markdown-table: 3.0.3
+      mdast-util-from-markdown: 1.3.1
+      mdast-util-to-markdown: 1.5.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /mdast-util-gfm-task-list-item@1.0.2:
+    resolution: {integrity: sha512-PFTA1gzfp1B1UaiJVyhJZA1rm0+Tzn690frc/L8vNX1Jop4STZgOE6bxUhnzdVSB+vm2GU1tIsuQcA9bxTQpMQ==}
+    dependencies:
+      '@types/mdast': 3.0.15
+      mdast-util-to-markdown: 1.5.0
+    dev: true
+
+  /mdast-util-gfm@2.0.2:
+    resolution: {integrity: sha512-qvZ608nBppZ4icQlhQQIAdc6S3Ffj9RGmzwUKUWuEICFnd1LVkN3EktF7ZHAgfcEdvZB5owU9tQgt99e2TlLjg==}
+    dependencies:
+      mdast-util-from-markdown: 1.3.1
+      mdast-util-gfm-autolink-literal: 1.0.3
+      mdast-util-gfm-footnote: 1.0.2
+      mdast-util-gfm-strikethrough: 1.0.3
+      mdast-util-gfm-table: 1.0.7
+      mdast-util-gfm-task-list-item: 1.0.2
+      mdast-util-to-markdown: 1.5.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /mdast-util-phrasing@3.0.1:
+    resolution: {integrity: sha512-WmI1gTXUBJo4/ZmSk79Wcb2HcjPJBzM1nlI/OUWA8yk2X9ik3ffNbBGsU+09BFmXaL1IBb9fiuvq6/KMiNycSg==}
+    dependencies:
+      '@types/mdast': 3.0.15
+      unist-util-is: 5.2.1
+    dev: true
+
+  /mdast-util-to-hast@12.3.0:
+    resolution: {integrity: sha512-pits93r8PhnIoU4Vy9bjW39M2jJ6/tdHyja9rrot9uujkN7UTU9SDnE6WNJz/IGyQk3XHX6yNNtrBH6cQzm8Hw==}
+    dependencies:
+      '@types/hast': 2.3.10
+      '@types/mdast': 3.0.15
+      mdast-util-definitions: 5.1.2
+      micromark-util-sanitize-uri: 1.2.0
+      trim-lines: 3.0.1
+      unist-util-generated: 2.0.1
+      unist-util-position: 4.0.4
+      unist-util-visit: 4.1.2
+    dev: true
+
+  /mdast-util-to-markdown@1.5.0:
+    resolution: {integrity: sha512-bbv7TPv/WC49thZPg3jXuqzuvI45IL2EVAr/KxF0BSdHsU0ceFHOmwQn6evxAh1GaoK/6GQ1wp4R4oW2+LFL/A==}
+    dependencies:
+      '@types/mdast': 3.0.15
+      '@types/unist': 2.0.10
+      longest-streak: 3.1.0
+      mdast-util-phrasing: 3.0.1
+      mdast-util-to-string: 3.2.0
+      micromark-util-decode-string: 1.1.0
+      unist-util-visit: 4.1.2
+      zwitch: 2.0.4
+    dev: true
+
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
   /mdast-util-to-string@1.1.0:
     resolution: {integrity: sha512-jVU0Nr2B9X3MU4tSK7JP1CMkSvOj7X5l/GboG1tKRw52lLF1x2Ju92Ms9tNetCcbfX3hzlM73zYo2NKkWSfF/A==}
     dev: true
@@ -17137,7 +18075,7 @@ packages:
       tslib: '2'
     dependencies:
       json-joy: 9.9.1(quill-delta@5.1.0)(rxjs@7.8.1)(tslib@2.6.2)
-      thingies: 1.15.0(tslib@2.6.2)
+      thingies: 1.16.0(tslib@2.6.2)
       tslib: 2.6.2
     transitivePeerDependencies:
       - quill-delta
@@ -17501,10 +18439,13 @@ packages:
     dev: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 2b06707 (chore(dev-config): update lockfile)
 =======
 <<<<<<< HEAD
 >>>>>>> 940776c (chore(*): fix lockfile)
+=======
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
   /next@14.1.0(@babel/core@7.23.5)(react-dom@18.2.0)(react@18.2.0):
 >>>>>>> 73155d7 (chore(dev-config): update lockfile)
     resolution: {integrity: sha512-wlzrsbfeSU48YQBjZhDzOwhWhGsy+uQycR8bHAOt1LY1bn3zZEcDyHQOEoN3aWzQ8LHCAJ1nqrWCc9XF2+O45Q==}
@@ -17546,9 +18487,12 @@ packages:
     dev: false
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> 3fe37f8 (chore(*): fix lockfile)
+=======
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
   /nlcst-to-string@3.1.1:
     resolution: {integrity: sha512-63mVyqaqt0cmn2VcI2aH6kxe1rLAmSROqHMA0i4qqg1tidkfExgpb0FGMikMCn86mw5dFtBtEANfmSSK7TjNHw==}
     dependencies:
@@ -17595,7 +18539,15 @@ packages:
     dependencies:
       whatwg-url: 5.0.0
 
-<<<<<<< HEAD
+  /node-fetch@3.3.2:
+    resolution: {integrity: sha512-dRB78srN/l6gqWulah9SrxeYnxeddIG30+GOqK/9OlLVyLg3HPnr6SqOWTWOXKRwC2eGYCkZ59NNuSgvSrpgOA==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dependencies:
+      data-uri-to-buffer: 4.0.1
+      fetch-blob: 3.2.0
+      formdata-polyfill: 4.0.10
+    dev: false
+
   /node-gyp@9.3.1:
     resolution: {integrity: sha512-4Q16ZCqq3g8awk6UplT7AuxQ35XN4R/yf/+wSAwcBUAjg7l58RTactWaP8fIDTi0FzI7YcVLujwExakZlfWkXg==}
     engines: {node: ^12.13 || ^14.13 || >=16}
@@ -17619,6 +18571,7 @@ packages:
     dev: true
 =======
     dev: true
+<<<<<<< HEAD
 =======
   /node-fetch@3.3.2:
     resolution: {integrity: sha512-dRB78srN/l6gqWulah9SrxeYnxeddIG30+GOqK/9OlLVyLg3HPnr6SqOWTWOXKRwC2eGYCkZ59NNuSgvSrpgOA==}
@@ -17630,6 +18583,19 @@ packages:
     dev: false
 >>>>>>> 4cbbcf5 (chore(dev-config): update lockfile)
 >>>>>>> 73155d7 (chore(dev-config): update lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+  /node-fetch@3.3.2:
+    resolution: {integrity: sha512-dRB78srN/l6gqWulah9SrxeYnxeddIG30+GOqK/9OlLVyLg3HPnr6SqOWTWOXKRwC2eGYCkZ59NNuSgvSrpgOA==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dependencies:
+      data-uri-to-buffer: 4.0.1
+      fetch-blob: 3.2.0
+      formdata-polyfill: 4.0.10
+    dev: false
+>>>>>>> 4cbbcf5 (chore(dev-config): update lockfile)
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
 
   /node-int64@0.4.0:
     resolution: {integrity: sha512-O5lz91xSOeoXP6DulyHfllpq+Eg00MWitZIbtPfoSEvqIHdl5gfcY6hYzDWnj0qD5tz52PI08u9qUvSVeUBeHw==}
@@ -17639,7 +18605,7 @@ packages:
     resolution: {integrity: sha512-Cov028YhBZ5aB7MdMWJEmwyBig43aGL5WT4vdoB28Oitau1zZAcHUn8Sgfk9HM33TqhtLJ9PlM/O0Mv+QpV/4Q==}
     engines: {node: '>=8.9.4'}
     dependencies:
-      '@babel/runtime-corejs3': 7.23.5
+      '@babel/runtime-corejs3': 7.23.8
       '@types/inquirer': 6.5.0
       change-case: 3.1.0
       del: 5.1.0
@@ -17753,8 +18719,8 @@ packages:
       path-key: 3.1.1
     dev: true
 
-  /npm-run-path@5.1.0:
-    resolution: {integrity: sha512-sJOdmRGrY2sjNTRMbSvluQqg+8X7ZK61yvzBEIDhz4f8z1TZFYABsqjjCBd/0PUNE9M6QDgHJXQkGUEm7Q+l9Q==}
+  /npm-run-path@5.2.0:
+    resolution: {integrity: sha512-W4/tgAXFqFA0iL7fk0+uQ3g7wkL8xJmx3XdK0VGb4cHW//eZTtKGvFBBoRKVTpY7n6ze4NL9ly7rgXcHufqXKg==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dependencies:
       path-key: 4.0.0
@@ -18207,6 +19173,7 @@ packages:
     dev: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /pathe@1.1.2:
     resolution: {integrity: sha512-whLdWMYL2TwI08hn8/ZqAbrVemu0LNaNNJZX73O6qaIdCTfXutsLhMkjdENX0qhsQ9uIimo4/aQOmXkoon2nDQ==}
 
@@ -18217,6 +19184,13 @@ packages:
 
 =======
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+  /pathe@1.1.2:
+    resolution: {integrity: sha512-whLdWMYL2TwI08hn8/ZqAbrVemu0LNaNNJZX73O6qaIdCTfXutsLhMkjdENX0qhsQ9uIimo4/aQOmXkoon2nDQ==}
+    dev: true
+
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
   /pathval@1.1.1:
     resolution: {integrity: sha512-Dp6zGqpTdETdR63lehJYPeIOqpiNBNtc7BpWSLrOje7UaIsE5aY92r/AunQA7rsXvet3lrJ3JnZX29UPTKXyKQ==}
     dev: true
@@ -18287,6 +19261,13 @@ packages:
       jsonc-parser: 3.2.0
       mlly: 1.4.2
       pathe: 1.1.2
+<<<<<<< HEAD
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      pathe: 1.1.1
+    dev: true
+=======
+    dev: true
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
 
   /pluralize@8.0.0:
     resolution: {integrity: sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==}
@@ -18324,6 +19305,7 @@ packages:
     dev: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /postcss-discard-duplicates@6.0.0(postcss@8.4.35):
 ||||||| parent of b804af0 (chore(*): fix lockfile)
   /postcss-cli@11.0.0(postcss@8.4.33):
@@ -18353,6 +19335,10 @@ packages:
   /postcss-discard-duplicates@6.0.0(postcss@8.4.33):
 =======
 <<<<<<< HEAD
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+<<<<<<< HEAD
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
   /postcss-cli@11.0.0(postcss@8.4.33):
     resolution: {integrity: sha512-xMITAI7M0u1yolVcXJ9XTZiO9aO49mcoKQy6pCDFdMh9kGqhzLVpWxeD/32M/QBmkhcGypZFFOLNLmIW4Pg4RA==}
     engines: {node: '>=18'}
@@ -18378,10 +19364,17 @@ packages:
     dev: true
 
   /postcss-discard-duplicates@6.0.0(postcss@8.4.33):
+<<<<<<< HEAD
 =======
   /postcss-discard-duplicates@6.0.0(postcss@8.4.32):
 >>>>>>> 3fe37f8 (chore(*): fix lockfile)
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+  /postcss-discard-duplicates@6.0.0(postcss@8.4.32):
+>>>>>>> 3fe37f8 (chore(*): fix lockfile)
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     resolution: {integrity: sha512-bU1SXIizMLtDW4oSsi5C/xHKbhLlhek/0/yCnoMQany9k3nPBq+Ctsv/9oMmyqbR96HYHxZcHyK2HR5P/mqoGA==}
     engines: {node: ^14 || ^16 || >=18.0}
     peerDependencies:
@@ -18452,7 +19445,7 @@ packages:
       yaml: 2.3.4
     dev: true
 
-  /postcss-load-config@4.0.2(ts-node@10.9.1):
+  /postcss-load-config@4.0.2(postcss@8.4.33):
     resolution: {integrity: sha512-bSVhyJGL00wMVoPUzAVAnbEoWyqRxkjv64tUl427SKnPrENtq6hJwUojroMz2VB+Q1edmi4IfrAPpami5VVgMQ==}
     engines: {node: '>= 14'}
     peerDependencies:
@@ -18465,7 +19458,24 @@ packages:
         optional: true
     dependencies:
       lilconfig: 3.0.0
-      ts-node: 10.9.1(@types/node@20.10.8)(typescript@5.3.3)
+      postcss: 8.4.33
+      yaml: 2.3.4
+    dev: true
+
+  /postcss-load-config@4.0.2(ts-node@10.9.2):
+    resolution: {integrity: sha512-bSVhyJGL00wMVoPUzAVAnbEoWyqRxkjv64tUl427SKnPrENtq6hJwUojroMz2VB+Q1edmi4IfrAPpami5VVgMQ==}
+    engines: {node: '>= 14'}
+    peerDependencies:
+      postcss: '>=8.0.9'
+      ts-node: '>=9.0.0'
+    peerDependenciesMeta:
+      postcss:
+        optional: true
+      ts-node:
+        optional: true
+    dependencies:
+      lilconfig: 3.0.0
+      ts-node: 10.9.2(@types/node@20.10.8)(typescript@5.3.3)
       yaml: 2.3.4
     dev: true
 
@@ -18490,6 +19500,7 @@ packages:
     dev: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /postcss-merge-rules@6.0.1(postcss@8.4.35):
 ||||||| parent of b804af0 (chore(*): fix lockfile)
   /postcss-load-config@5.0.2(postcss@8.4.33):
@@ -18512,6 +19523,10 @@ packages:
   /postcss-merge-rules@6.0.1(postcss@8.4.33):
 =======
 <<<<<<< HEAD
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+<<<<<<< HEAD
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
   /postcss-load-config@5.0.2(postcss@8.4.33):
     resolution: {integrity: sha512-Q8QR3FYbqOKa0bnC1UQ2bFq9/ulHX5Bi34muzitMr8aDtUelO5xKeJEYC/5smE0jNE9zdB/NBnOwXKexELbRlw==}
     engines: {node: '>= 18'}
@@ -18530,10 +19545,17 @@ packages:
     dev: true
 
   /postcss-merge-rules@6.0.1(postcss@8.4.33):
+<<<<<<< HEAD
 =======
   /postcss-merge-rules@6.0.1(postcss@8.4.32):
 >>>>>>> 3fe37f8 (chore(*): fix lockfile)
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+  /postcss-merge-rules@6.0.1(postcss@8.4.32):
+>>>>>>> 3fe37f8 (chore(*): fix lockfile)
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     resolution: {integrity: sha512-a4tlmJIQo9SCjcfiCcCMg/ZCEe0XTkl/xK0XHBs955GWg9xDX3NwP9pwZ78QUOWB8/0XCjZeJn98Dae0zg6AAw==}
     engines: {node: ^14 || ^16 || >=18.0}
     peerDependencies:
@@ -18630,12 +19652,16 @@ packages:
       thenby: 1.3.4
     dev: true
 
+<<<<<<< HEAD
 =======
       postcss: 8.4.32
 >>>>>>> b804af0 (chore(*): fix lockfile)
       thenby: 1.3.4
     dev: true
 
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
   /postcss-selector-parser@6.0.13:
     resolution: {integrity: sha512-EaV1Gl4mUEV4ddhDnv/xtj7sxwrwxdetHdWUGnT4VJQf+4d05v6lHYZr8N573k5Z0BViss7BDhfWtKS3+sfAqQ==}
     engines: {node: '>=4'}
@@ -18699,6 +19725,7 @@ packages:
       source-map-js: 1.0.2
     dev: true
 
+<<<<<<< HEAD
 =======
   /postcss@8.4.32:
     resolution: {integrity: sha512-D/kj5JNu6oo2EIy+XL/26JEDTlIbB8hw85G8StOE6L74RQAVVP5rej6wxCNqyMbR4RkPfqvezVbPw81Ngd6Kcw==}
@@ -18710,6 +19737,9 @@ packages:
     dev: true
 >>>>>>> b804af0 (chore(*): fix lockfile)
 
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
   /preferred-pm@3.1.2:
     resolution: {integrity: sha512-nk7dKrcW8hfCZ4H6klWcdRknBOXWzNQByJ0oJyX97BOupsYD+FzLS4hflgEu/uPUEHZCuRfMxzCBsuWd7OzT8Q==}
     engines: {node: '>=10'}
@@ -18723,6 +19753,19 @@ packages:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
 
+<<<<<<< HEAD
+=======
+  /prettier-plugin-astro@0.9.1:
+    resolution: {integrity: sha512-pYZXSbdq0eElvzoIMArzv1SBn1NUXzopjlcnt6Ql8VW32PjC12NovwBjXJ6rh8qQLi7vF8jNqAbraKW03UPfag==}
+    engines: {node: ^14.15.0 || >=16.0.0, pnpm: '>=7.14.0'}
+    dependencies:
+      '@astrojs/compiler': 1.8.2
+      prettier: 2.8.8
+      sass-formatter: 0.7.9
+      synckit: 0.8.8
+    dev: true
+
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
   /prettier@2.8.8:
     resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
     engines: {node: '>=10.13.0'}
@@ -18826,6 +19869,13 @@ packages:
       object-assign: 4.1.1
       react-is: 16.13.1
 
+<<<<<<< HEAD
+=======
+  /property-information@6.4.1:
+    resolution: {integrity: sha512-OHYtXfu5aI2sS2LWFSN5rgJjrQ4pCy8i1jubJLe2QvMF8JJ++HXTUIVWFLfXJoaOfvYYjk2SN8J2wFUWIGXT4w==}
+    dev: true
+
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
   /proxy-addr@2.0.7:
     resolution: {integrity: sha512-llQsMLSUDUPT44jdrU/O37qlnifitDP+ZwrmmZcoSKyLKvtZxpyV0n2/bD/N4tBAAZ/gJEdZU7KMraoK1+XYAg==}
     engines: {node: '>= 0.10'}
@@ -19282,11 +20332,15 @@ packages:
     resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
     dev: true
 
+<<<<<<< HEAD
 =======
   /regenerator-runtime@0.14.0:
     resolution: {integrity: sha512-srw17NI0TUWHuGa5CFGGmhfNIeja30WMBfbslPNhf6JrqQlLN5gcrvig1oqPxiVaXb0oW0XRKtH6Nngs5lKCIA==}
 >>>>>>> b804af0 (chore(*): fix lockfile)
 
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
   /regenerator-transform@0.15.2:
     resolution: {integrity: sha512-hfMp2BoF0qOk3uc5V20ALGDS2ddjQaLrdl7xrGXvAIow7qeWRM2VA2HuCHkUKk9slq3VwEwLNK3DFBqDfPGYtg==}
     dependencies:
@@ -19334,6 +20388,7 @@ packages:
       jsesc: 0.5.0
     dev: true
 
+<<<<<<< HEAD
   /rehackt@0.0.5(@types/react@18.2.42)(react@18.2.0):
     resolution: {integrity: sha512-BI1rV+miEkaHj8zd2n+gaMgzu/fKz7BGlb4zZ6HAiY9adDmJMkaDcmuXlJFv0eyKUob+oszs3/2gdnXUrzx2Tg==}
     peerDependencies:
@@ -19349,6 +20404,46 @@ packages:
       react: 18.2.0
     dev: false
 
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+<<<<<<< HEAD
+=======
+  /rehype-parse@8.0.5:
+    resolution: {integrity: sha512-Ds3RglaY/+clEX2U2mHflt7NlMA72KspZ0JLUJgBBLpRddBcEw3H8uYZQliQriku22NZpYMfjDdSgHcjxue24A==}
+    dependencies:
+      '@types/hast': 2.3.10
+      hast-util-from-parse5: 7.1.2
+      parse5: 6.0.1
+      unified: 10.1.2
+    dev: true
+
+  /rehype-raw@6.1.1:
+    resolution: {integrity: sha512-d6AKtisSRtDRX4aSPsJGTfnzrX2ZkHQLE5kiUuGOeEoLpbEulFF4hj0mLPbsa+7vmguDKOVVEQdHKDSwoaIDsQ==}
+    dependencies:
+      '@types/hast': 2.3.10
+      hast-util-raw: 7.2.3
+      unified: 10.1.2
+    dev: true
+
+  /rehype-stringify@9.0.4:
+    resolution: {integrity: sha512-Uk5xu1YKdqobe5XpSskwPvo1XeHUUucWEQSl8hTrXt5selvca1e8K1EZ37E6YoZ4BT8BCqCdVfQW7OfHfthtVQ==}
+    dependencies:
+      '@types/hast': 2.3.10
+      hast-util-to-html: 8.0.4
+      unified: 10.1.2
+    dev: true
+
+  /rehype@12.0.1:
+    resolution: {integrity: sha512-ey6kAqwLM3X6QnMDILJthGvG1m1ULROS9NT4uG9IDCuv08SFyLlreSuvOa//DgEvbXx62DS6elGVqusWhRUbgw==}
+    dependencies:
+      '@types/hast': 2.3.10
+      rehype-parse: 8.0.5
+      rehype-stringify: 9.0.4
+      unified: 10.1.2
+    dev: true
+
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
   /remark-external-links@8.0.0:
     resolution: {integrity: sha512-5vPSX0kHoSsqtdftSHhIYofVINC8qmp0nctkeU9YoJwV3YfiBRiI6cbFRJ0oI/1F9xS+bopXG0m2KS8VFscuKA==}
     dependencies:
@@ -19359,6 +20454,39 @@ packages:
       unist-util-visit: 2.0.3
     dev: true
 
+<<<<<<< HEAD
+=======
+  /remark-gfm@3.0.1:
+    resolution: {integrity: sha512-lEFDoi2PICJyNrACFOfDD3JlLkuSbOa5Wd8EPt06HUdptv8Gn0bxYTdbU/XXQ3swAPkEaGxxPN9cbnMHvVu1Ig==}
+    dependencies:
+      '@types/mdast': 3.0.15
+      mdast-util-gfm: 2.0.2
+      micromark-extension-gfm: 2.0.3
+      unified: 10.1.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /remark-parse@10.0.2:
+    resolution: {integrity: sha512-3ydxgHa/ZQzG8LvC7jTXccARYDcRld3VfcgIIFs7bI6vbRSxJJmzgLEIIoYKyrfhaY+ujuWaf/PJiMZXoiCXgw==}
+    dependencies:
+      '@types/mdast': 3.0.15
+      mdast-util-from-markdown: 1.3.1
+      unified: 10.1.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /remark-rehype@10.1.0:
+    resolution: {integrity: sha512-EFmR5zppdBp0WQeDVZ/b66CWJipB2q2VLNFMabzDSGR66Z2fQii83G5gTBbgGEnEEA0QRussvrFHxk1HWGJskw==}
+    dependencies:
+      '@types/hast': 2.3.10
+      '@types/mdast': 3.0.15
+      mdast-util-to-hast: 12.3.0
+      unified: 10.1.2
+    dev: true
+
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
   /remark-slug@6.1.0:
     resolution: {integrity: sha512-oGCxDF9deA8phWvxFuyr3oSJsdyUAxMFbA0mZ7Y1Sas+emILtO+e5WutF9564gDsEN4IXaQXm5pFo6MLH+YmwQ==}
     dependencies:
@@ -19367,6 +20495,18 @@ packages:
       unist-util-visit: 2.0.3
     dev: true
 
+<<<<<<< HEAD
+=======
+  /remark-smartypants@2.1.0:
+    resolution: {integrity: sha512-qoF6Vz3BjU2tP6OfZqHOvCU0ACmu/6jhGaINSQRI9mM7wCxNQTKB3JUAN4SVoN2ybElEDTxBIABRep7e569iJw==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dependencies:
+      retext: 8.1.0
+      retext-smartypants: 5.2.0
+      unist-util-visit: 5.0.0
+    dev: true
+
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
   /require-directory@2.1.1:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
     engines: {node: '>=0.10.0'}
@@ -19536,6 +20676,7 @@ packages:
     dev: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /rollup@4.12.0:
     resolution: {integrity: sha512-wz66wn4t1OHIJw3+XU7mJJQV/2NAfw5OAk6G6Hoo3zcvz/XOfQ52Vgi+AN4Uxoxi0KBBwk2g8zPrTDA4btSB/Q==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
@@ -19568,21 +20709,31 @@ packages:
   /rollup@4.6.1:
     resolution: {integrity: sha512-jZHaZotEHQaHLgKr8JnQiDT1rmatjgKlMekyksz+yk9jt/8z9quNjnKNRoaM0wd9DC2QKXjmWWuDYtM3jfF8pQ==}
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+  /rollup@4.6.1:
+    resolution: {integrity: sha512-jZHaZotEHQaHLgKr8JnQiDT1rmatjgKlMekyksz+yk9jt/8z9quNjnKNRoaM0wd9DC2QKXjmWWuDYtM3jfF8pQ==}
+=======
+  /rollup@4.9.4:
+    resolution: {integrity: sha512-2ztU7pY/lrQyXSCnnoU4ICjT/tCG9cdH3/G25ERqE3Lst6vl2BCM5hL2Nw+sslAvAf+ccKsAq1SkKQALyqhR7g==}
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
+    dependencies:
+      '@types/estree': 1.0.5
     optionalDependencies:
-      '@rollup/rollup-android-arm-eabi': 4.6.1
-      '@rollup/rollup-android-arm64': 4.6.1
-      '@rollup/rollup-darwin-arm64': 4.6.1
-      '@rollup/rollup-darwin-x64': 4.6.1
-      '@rollup/rollup-linux-arm-gnueabihf': 4.6.1
-      '@rollup/rollup-linux-arm64-gnu': 4.6.1
-      '@rollup/rollup-linux-arm64-musl': 4.6.1
-      '@rollup/rollup-linux-x64-gnu': 4.6.1
-      '@rollup/rollup-linux-x64-musl': 4.6.1
-      '@rollup/rollup-win32-arm64-msvc': 4.6.1
-      '@rollup/rollup-win32-ia32-msvc': 4.6.1
-      '@rollup/rollup-win32-x64-msvc': 4.6.1
+      '@rollup/rollup-android-arm-eabi': 4.9.4
+      '@rollup/rollup-android-arm64': 4.9.4
+      '@rollup/rollup-darwin-arm64': 4.9.4
+      '@rollup/rollup-darwin-x64': 4.9.4
+      '@rollup/rollup-linux-arm-gnueabihf': 4.9.4
+      '@rollup/rollup-linux-arm64-gnu': 4.9.4
+      '@rollup/rollup-linux-arm64-musl': 4.9.4
+      '@rollup/rollup-linux-riscv64-gnu': 4.9.4
+      '@rollup/rollup-linux-x64-gnu': 4.9.4
+      '@rollup/rollup-linux-x64-musl': 4.9.4
+      '@rollup/rollup-win32-arm64-msvc': 4.9.4
+      '@rollup/rollup-win32-ia32-msvc': 4.9.4
+      '@rollup/rollup-win32-x64-msvc': 4.9.4
       fsevents: 2.3.3
     dev: true
 
@@ -19648,6 +20799,15 @@ packages:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
     requiresBuild: true
 
+<<<<<<< HEAD
+=======
+  /sass-formatter@0.7.9:
+    resolution: {integrity: sha512-CWZ8XiSim+fJVG0cFLStwDvft1VI7uvXdCNJYXhDvowiv+DsbD1nXLiQ4zrE5UBvj5DWZJ93cwN0NX5PMsr1Pw==}
+    dependencies:
+      suf-log: 2.5.3
+    dev: true
+
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
   /saxes@6.0.0:
     resolution: {integrity: sha512-xAg7SOnEhrm5zI3puOOKyy1OMcMlIJZYNJY7xLBwSze0UjhPLnWfj2GF2EpT0jmzaJKIWKHLsaSSajf35bcYnA==}
     engines: {node: '>=v12.22.7'}
@@ -19777,6 +20937,7 @@ packages:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
 
+<<<<<<< HEAD
   /shiki@0.14.7:
     resolution: {integrity: sha512-dNPAPrxSc87ua2sKJ3H5dQ/6ZaY8RNnaAqK+t0eG7p0Soi2ydiqbGOTaZCqaYvA/uZYfS1LJnemt3Q+mSfcPCg==}
     dependencies:
@@ -19786,6 +20947,21 @@ packages:
       vscode-textmate: 8.0.0
     dev: true
 
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+<<<<<<< HEAD
+=======
+  /shiki@0.14.7:
+    resolution: {integrity: sha512-dNPAPrxSc87ua2sKJ3H5dQ/6ZaY8RNnaAqK+t0eG7p0Soi2ydiqbGOTaZCqaYvA/uZYfS1LJnemt3Q+mSfcPCg==}
+    dependencies:
+      ansi-sequence-parser: 1.1.1
+      jsonc-parser: 3.2.0
+      vscode-oniguruma: 1.7.0
+      vscode-textmate: 8.0.0
+    dev: true
+
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
   /side-channel@1.0.4:
     resolution: {integrity: sha512-q5XPytqFEIKHkGdiMIrY10mvLRvnQh42/+GoBlFW3b2LXLE2xxJpZFdm94we0BaoV3RwJyGqg5wS7epxTv0Zvw==}
     dependencies:
@@ -19959,14 +21135,20 @@ packages:
     dev: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
   /std-env@3.7.0:
     resolution: {integrity: sha512-JPbdCEQLj1w5GilpiHAx3qJvFndqybBysA3qUOnznweH4QbNYUsW/ea8QzSrnh0vNsezMMw5bcVool8lM0gwzg==}
     dev: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> 940776c (chore(*): fix lockfile)
+=======
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
   /stdin-discarder@0.1.0:
     resolution: {integrity: sha512-xhV7w8S+bUwlPTb4bAOUQhv8/cSS5offJuX8GQGq32ONF0ZtDWKfkdomM3HMRA+LhX6um/FZ0COqlwsjD53LeQ==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
@@ -20039,17 +21221,16 @@ packages:
     resolution: {integrity: sha512-AiisoFqQ0vbGcZgQPY1cdP2I76glaVA/RauYR4G4thNFgkTqr90yXTo4LYX60Jl+sIlPNHHdGSwo01AvbKUSVQ==}
     dev: true
 
-<<<<<<< HEAD
   /streamsearch@1.1.0:
     resolution: {integrity: sha512-Mcc5wHehp9aXz1ax6bZUyY5afg9u2rv5cqQI3mRrYkGC8rW2hM02jWuwjtL++LS5qinSyhj2QfLyNsuc+VsExg==}
     engines: {node: '>=10.0.0'}
-=======
-  /streamx@2.15.6:
-    resolution: {integrity: sha512-q+vQL4AAz+FdfT137VF69Cc/APqUbxy+MDOImRrMvchJpigHj9GksgDU2LYbO9rx7RX6osWgxJB2WxhYv4SZAw==}
+    dev: false
+
+  /streamx@2.15.7:
+    resolution: {integrity: sha512-NPEKS5+yjyo597eafGbKW5ujh7Sm6lDLHZQd/lRSz6S0VarpADBJItqfB4PnwpS+472oob1GX5cCY9vzfJpHUA==}
     dependencies:
       fast-fifo: 1.3.2
       queue-tick: 1.0.1
->>>>>>> 4cbbcf5 (chore(dev-config): update lockfile)
     dev: false
 
   /strict-event-emitter@0.5.1:
@@ -20211,9 +21392,10 @@ packages:
   /strip-literal@1.3.0:
     resolution: {integrity: sha512-PugKzOsyXpArk0yWmUwqOZecSO0GH0bPoctLcqNDH9J04pVW3lflYE0ujElBGTloevcxF5MofAOZ7C5l2b+wLg==}
     dependencies:
-      acorn: 8.11.2
+      acorn: 8.11.3
     dev: true
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   /styled-jsx@5.1.1(@babel/core@7.23.7)(react@18.2.0):
@@ -20222,6 +21404,24 @@ packages:
 =======
 <<<<<<< HEAD
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+  /strip-outer@2.0.0:
+    resolution: {integrity: sha512-A21Xsm1XzUkK0qK1ZrytDUvqsQWict2Cykhvi0fBQntGG5JSprESasEyV1EZ/4CiR5WB5KjzLTrP/bO37B0wPg==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dev: false
+
+  /strtok3@7.0.0:
+    resolution: {integrity: sha512-pQ+V+nYQdC5H3Q7qBZAz/MO6lwGhoC2gOAjuouGf/VO0m7vQRh8QNMl2Uf6SwAtzZ9bOw3UIeBukEGNJl5dtXQ==}
+    engines: {node: '>=14.16'}
+    dependencies:
+      '@tokenizer/token': 0.3.0
+      peek-readable: 5.0.0
+    dev: false
+
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
   /styled-jsx@5.1.1(@babel/core@7.23.5)(react@18.2.0):
 =======
 <<<<<<< HEAD
@@ -20244,36 +21444,14 @@ packages:
       react: 18.2.0
     dev: false
 
-=======
-<<<<<<< HEAD
->>>>>>> 4cbbcf5 (chore(dev-config): update lockfile)
   /sucrase@3.35.0:
     resolution: {integrity: sha512-8EbVDiu9iN/nESwxeSxDKe0dunta1GOlHufmSSXxMD2z2/tMZpDMpvXQGsc+ajGo8y2uYUmixaSRUc/QPoQ0GA==}
     engines: {node: '>=16 || 14 >=14.17'}
-=======
-=======
->>>>>>> 3fe37f8 (chore(*): fix lockfile)
-  /strip-outer@2.0.0:
-    resolution: {integrity: sha512-A21Xsm1XzUkK0qK1ZrytDUvqsQWict2Cykhvi0fBQntGG5JSprESasEyV1EZ/4CiR5WB5KjzLTrP/bO37B0wPg==}
-    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
-    dev: false
-
-  /strtok3@7.0.0:
-    resolution: {integrity: sha512-pQ+V+nYQdC5H3Q7qBZAz/MO6lwGhoC2gOAjuouGf/VO0m7vQRh8QNMl2Uf6SwAtzZ9bOw3UIeBukEGNJl5dtXQ==}
-    engines: {node: '>=14.16'}
-    dependencies:
-      '@tokenizer/token': 0.3.0
-      peek-readable: 5.0.0
-    dev: false
-
-  /sucrase@3.34.0:
-    resolution: {integrity: sha512-70/LQEZ07TEcxiU2dz51FKaE6hCTWC6vr7FOk3Gr0U60C3shtAN+H+BFr9XlYe5xqf3RA8nrc+VIwzCfnxuXJw==}
-    engines: {node: '>=8'}
     hasBin: true
     dependencies:
       '@jridgewell/gen-mapping': 0.3.3
       commander: 4.1.1
-      glob: 7.1.6
+      glob: 10.3.10
       lines-and-columns: 1.2.4
       mz: 2.7.0
       pirates: 4.0.6
@@ -20323,6 +21501,17 @@ packages:
     resolution: {integrity: sha512-AsS729u2RHUfEra9xJrE39peJcc2stq2+poBXX8bcM08Y6g9j/i/PUzwNQqkaJde7Ntg1TO7bSREbR5sdosQ+g==}
     dev: true
 
+<<<<<<< HEAD
+=======
+  /synckit@0.8.8:
+    resolution: {integrity: sha512-HwOKAP7Wc5aRGYdKH+dw0PRRpbO841v2DENBtjnR5HFWoiNByAl7vrx3p0G/rCyYXQsrxqtX48TImFtPcIHSpQ==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    dependencies:
+      '@pkgr/core': 0.1.1
+      tslib: 2.6.2
+    dev: true
+
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
   /tabbable@6.2.0:
     resolution: {integrity: sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew==}
     dev: false
@@ -20352,12 +21541,12 @@ packages:
       readable-stream: 3.6.2
     dev: true
 
-  /tar-stream@3.1.6:
-    resolution: {integrity: sha512-B/UyjYwPpMBv+PaFSWAmtYjwdrlEaZQEhMIBFNC5oEG8lpiW8XjcSdmEaClj28ArfKScKHs2nshz3k2le6crsg==}
+  /tar-stream@3.1.7:
+    resolution: {integrity: sha512-qJj60CXt7IU1Ffyc3NJMjh6EkuCFej46zUqJ4J7pqYlThyd9bO0XBTmcOIhSzZJVWfsLks0+nle/j538YAW9RQ==}
     dependencies:
       b4a: 1.6.4
       fast-fifo: 1.3.2
-      streamx: 2.15.6
+      streamx: 2.15.7
     dev: false
 
   /tar@6.2.0:
@@ -20455,8 +21644,8 @@ packages:
       any-promise: 1.3.0
     dev: true
 
-  /thingies@1.15.0(tslib@2.6.2):
-    resolution: {integrity: sha512-ZSJlvEpD8QllYim0VSGlbAoob/iPrTWNlV/m8ltizMvMmzzU2gVJvHfH9ijLstyciWF70ZiQXqz+BCXWJq+ZQw==}
+  /thingies@1.16.0(tslib@2.6.2):
+    resolution: {integrity: sha512-J23AVs11hSQxuJxvfQyMIaS9z1QpDxOCvMkL3ZxZl8/jmkgmnNGWrlyNxVz6Jbh0U6DuGmHqq6f7zUROfg/ncg==}
     engines: {node: '>=10.18'}
     peerDependencies:
       tslib: ^2
@@ -20508,6 +21697,11 @@ packages:
     engines: {node: '>=14.0.0'}
     dev: true
 
+  /tinypool@0.8.2:
+    resolution: {integrity: sha512-SUszKYe5wgsxnNOVlBYO6IC+8VGWdVGZWAqUxp3UErNBtptZvWbwyUOyzNL59zigz2rCA92QiL3wvG+JDSdJdQ==}
+    engines: {node: '>=14.0.0'}
+    dev: true
+
   /tinyspy@2.2.0:
     resolution: {integrity: sha512-d2eda04AN/cPOR89F7Xv5bK/jrQEhmcLFe6HFldoeO9AJtps+fqEnh486vnT/8y4bw38pSyxDcTCAq+Ks2aJTg==}
     engines: {node: '>=14.0.0'}
@@ -20553,12 +21747,16 @@ packages:
     resolution: {integrity: sha512-kE5wyCQJ40hqUaRVkyQ4z5+4juzYsv/eK+aqD97N62YH0TxFhzJvo22RUQQZdO3YnXAk42ZOfOpjVdy+Z0YokA==}
     dev: true
 
+<<<<<<< HEAD
 =======
   /tocbot@4.23.0:
     resolution: {integrity: sha512-5DWuSZXsqG894mkGb8ZsQt9myyQyVxE50AiGRZ0obV0BVUTVkaZmc9jbgpknaAAPUm4FIrzGkEseD6FuQJYJDQ==}
 >>>>>>> b804af0 (chore(*): fix lockfile)
     dev: true
 
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
   /toidentifier@1.0.1:
     resolution: {integrity: sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA==}
     engines: {node: '>=0.6'}
@@ -20707,11 +21905,7 @@ packages:
       code-block-writer: 12.0.0
     dev: false
 
-<<<<<<< HEAD
   /ts-node@10.9.1(@types/node@18.19.6)(typescript@5.3.2):
-=======
-  /ts-node@10.9.1(@types/node@18.19.3)(typescript@5.3.2):
->>>>>>> 3fe37f8 (chore(*): fix lockfile)
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -20730,11 +21924,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-<<<<<<< HEAD
       '@types/node': 18.19.6
-=======
-      '@types/node': 18.19.3
->>>>>>> 3fe37f8 (chore(*): fix lockfile)
       acorn: 8.11.2
       acorn-walk: 8.3.0
       arg: 4.1.3
@@ -20746,13 +21936,8 @@ packages:
       yn: 3.1.1
     dev: true
 
-<<<<<<< HEAD
   /ts-node@10.9.2(@types/node@18.19.6)(typescript@5.3.3):
     resolution: {integrity: sha512-f0FFpIdcHgn8zcPSbf1dRevwt047YMnaiJM3u2w2RewrB+fob/zePZcrOyQoLMMO7aBIddLcQIEK5dYjkLnGrQ==}
-=======
-  /ts-node@10.9.1(@types/node@18.19.3)(typescript@5.3.3):
-    resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
->>>>>>> 3fe37f8 (chore(*): fix lockfile)
     hasBin: true
     peerDependencies:
       '@swc/core': '>=1.2.50'
@@ -20770,29 +21955,9 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-<<<<<<< HEAD
       '@types/node': 18.19.6
       acorn: 8.11.3
-=======
-      '@types/node': 18.19.3
-      acorn: 8.11.2
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 3fe37f8 (chore(*): fix lockfile)
       acorn-walk: 8.3.1
-=======
-      acorn-walk: 8.3.0
->>>>>>> 1179337 (feat(dev-cli): --only-file option in start command)
-=======
-      acorn-walk: 8.3.1
-=======
-      acorn-walk: 8.3.0
->>>>>>> 35ec187 (chore(dev-cli): add @types/node)
-=======
-      acorn-walk: 8.3.1
->>>>>>> 1bd34ff (chore(dev-cli): update vitest)
       arg: 4.1.3
       create-require: 1.1.1
       diff: 4.0.2
@@ -20802,8 +21967,8 @@ packages:
       yn: 3.1.1
     dev: true
 
-  /ts-node@10.9.1(@types/node@20.10.8)(typescript@5.3.3):
-    resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
+  /ts-node@10.9.2(@types/node@20.10.8)(typescript@5.3.3):
+    resolution: {integrity: sha512-f0FFpIdcHgn8zcPSbf1dRevwt047YMnaiJM3u2w2RewrB+fob/zePZcrOyQoLMMO7aBIddLcQIEK5dYjkLnGrQ==}
     hasBin: true
     peerDependencies:
       '@swc/core': '>=1.2.50'
@@ -20822,9 +21987,8 @@ packages:
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
       '@types/node': 20.10.8
-      acorn: 8.11.2
+      acorn: 8.11.3
       acorn-walk: 8.3.1
->>>>>>> 56fd685 (feat(dev-cli): pluggable usecase design (#25))
       arg: 4.1.3
       create-require: 1.1.1
       diff: 4.0.2
@@ -20908,6 +22072,7 @@ packages:
   /tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   /tsup@8.0.1(@swc/core@1.3.100)(postcss@8.4.35)(typescript@5.3.3):
     resolution: {integrity: sha512-hvW7gUSG96j53ZTSlT4j/KL0q1Q2l6TqGBFc6/mu/L46IoNWqLLUzLRLP1R8Q7xrJTmkDxxDoojV5uCVs1sVOg==}
@@ -21043,6 +22208,11 @@ packages:
 =======
   /tsup@8.0.1(@swc/core@1.3.100)(postcss@8.4.32)(typescript@5.3.3):
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+  /tsup@8.0.1(@swc/core@1.3.100)(postcss@8.4.32)(typescript@5.3.3):
+=======
+  /tsup@8.0.1(@swc/core@1.3.100)(postcss@8.4.33)(typescript@5.3.3):
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     resolution: {integrity: sha512-hvW7gUSG96j53ZTSlT4j/KL0q1Q2l6TqGBFc6/mu/L46IoNWqLLUzLRLP1R8Q7xrJTmkDxxDoojV5uCVs1sVOg==}
     engines: {node: '>=18'}
     hasBin: true
@@ -21062,20 +22232,20 @@ packages:
         optional: true
     dependencies:
       '@swc/core': 1.3.100
-      bundle-require: 4.0.2(esbuild@0.19.8)
+      bundle-require: 4.0.2(esbuild@0.19.11)
       cac: 6.7.14
       chokidar: 3.5.3
       debug: 4.3.4(supports-color@5.5.0)
-      esbuild: 0.19.8
+      esbuild: 0.19.11
       execa: 5.1.1
       globby: 11.1.0
       joycon: 3.1.1
-      postcss: 8.4.32
-      postcss-load-config: 4.0.2(postcss@8.4.32)
+      postcss: 8.4.33
+      postcss-load-config: 4.0.2(postcss@8.4.33)
       resolve-from: 5.0.0
-      rollup: 4.6.1
+      rollup: 4.9.4
       source-map: 0.8.0-beta.0
-      sucrase: 3.34.0
+      sucrase: 3.35.0
       tree-kill: 1.2.2
       typescript: 5.3.3
     transitivePeerDependencies:
@@ -21103,19 +22273,19 @@ packages:
         optional: true
     dependencies:
       '@swc/core': 1.3.100
-      bundle-require: 4.0.2(esbuild@0.19.8)
+      bundle-require: 4.0.2(esbuild@0.19.11)
       cac: 6.7.14
       chokidar: 3.5.3
       debug: 4.3.4(supports-color@5.5.0)
-      esbuild: 0.19.8
+      esbuild: 0.19.11
       execa: 5.1.1
       globby: 11.1.0
       joycon: 3.1.1
-      postcss-load-config: 4.0.2(ts-node@10.9.1)
+      postcss-load-config: 4.0.2(ts-node@10.9.2)
       resolve-from: 5.0.0
-      rollup: 4.6.1
+      rollup: 4.9.4
       source-map: 0.8.0-beta.0
-      sucrase: 3.34.0
+      sucrase: 3.35.0
       tree-kill: 1.2.2
       typescript: 5.3.3
     transitivePeerDependencies:
@@ -21143,17 +22313,18 @@ packages:
         optional: true
     dependencies:
       '@swc/core': 1.3.101
-      bundle-require: 4.0.2(esbuild@0.19.8)
+      bundle-require: 4.0.2(esbuild@0.19.11)
       cac: 6.7.14
       chokidar: 3.5.3
       debug: 4.3.4(supports-color@5.5.0)
-      esbuild: 0.19.8
+      esbuild: 0.19.11
       execa: 5.1.1
       globby: 11.1.0
       joycon: 3.1.1
       postcss: 8.4.32
       postcss-load-config: 4.0.2(postcss@8.4.32)
       resolve-from: 5.0.0
+<<<<<<< HEAD
 <<<<<<< HEAD
       rollup: 4.9.4
 >>>>>>> 73155d7 (chore(dev-config): update lockfile)
@@ -21162,8 +22333,13 @@ packages:
 =======
       rollup: 4.6.1
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      rollup: 4.6.1
+=======
+      rollup: 4.9.4
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       source-map: 0.8.0-beta.0
-      sucrase: 3.34.0
+      sucrase: 3.35.0
       tree-kill: 1.2.2
       typescript: 5.3.3
     transitivePeerDependencies:
@@ -21192,15 +22368,22 @@ packages:
     dependencies:
       '@swc/core': 1.3.102
 <<<<<<< HEAD
+<<<<<<< HEAD
       bundle-require: 4.0.2(esbuild@0.19.12)
 ||||||| parent of b804af0 (chore(*): fix lockfile)
       bundle-require: 4.0.2(esbuild@0.19.11)
 =======
       bundle-require: 4.0.2(esbuild@0.19.8)
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      bundle-require: 4.0.2(esbuild@0.19.8)
+=======
+      bundle-require: 4.0.2(esbuild@0.19.11)
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       cac: 6.7.14
       chokidar: 3.5.3
       debug: 4.3.4(supports-color@5.5.0)
+<<<<<<< HEAD
 <<<<<<< HEAD
       esbuild: 0.19.12
 ||||||| parent of b804af0 (chore(*): fix lockfile)
@@ -21208,9 +22391,15 @@ packages:
 =======
       esbuild: 0.19.8
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      esbuild: 0.19.8
+=======
+      esbuild: 0.19.11
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       execa: 5.1.1
       globby: 11.1.0
       joycon: 3.1.1
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -21235,10 +22424,15 @@ packages:
 =======
       postcss-load-config: 4.0.2(ts-node@10.9.1)
 >>>>>>> 1f5143b (chore(dev-cli): update vitest)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      postcss-load-config: 4.0.2(ts-node@10.9.1)
+=======
+      postcss-load-config: 4.0.2(ts-node@10.9.2)
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       resolve-from: 5.0.0
-      rollup: 4.6.1
+      rollup: 4.9.4
       source-map: 0.8.0-beta.0
-      sucrase: 3.34.0
+      sucrase: 3.35.0
       tree-kill: 1.2.2
       typescript: 5.3.3
     transitivePeerDependencies:
@@ -21246,7 +22440,7 @@ packages:
       - ts-node
     dev: true
 
-  /tsup@8.0.1(ts-node@10.9.1)(typescript@5.3.3):
+  /tsup@8.0.1(ts-node@10.9.2)(typescript@5.3.3):
     resolution: {integrity: sha512-hvW7gUSG96j53ZTSlT4j/KL0q1Q2l6TqGBFc6/mu/L46IoNWqLLUzLRLP1R8Q7xrJTmkDxxDoojV5uCVs1sVOg==}
     engines: {node: '>=18'}
     hasBin: true
@@ -21265,17 +22459,24 @@ packages:
       typescript:
         optional: true
     dependencies:
-      bundle-require: 4.0.2(esbuild@0.19.8)
+      bundle-require: 4.0.2(esbuild@0.19.11)
       cac: 6.7.14
       chokidar: 3.5.3
       debug: 4.3.4(supports-color@5.5.0)
-      esbuild: 0.19.8
+      esbuild: 0.19.11
       execa: 5.1.1
       globby: 11.1.0
       joycon: 3.1.1
+<<<<<<< HEAD
       postcss-load-config: 4.0.2(ts-node@10.9.1)
 >>>>>>> 76ae9fc (feat(dev-cli): pluggable usecase design (#25))
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      postcss-load-config: 4.0.2(ts-node@10.9.1)
+=======
+      postcss-load-config: 4.0.2(ts-node@10.9.2)
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       resolve-from: 5.0.0
+<<<<<<< HEAD
 <<<<<<< HEAD
       rollup: 4.12.0
       source-map: 0.8.0-beta.0
@@ -21323,8 +22524,13 @@ packages:
 =======
       rollup: 4.6.1
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+      rollup: 4.6.1
+=======
+      rollup: 4.9.4
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
       source-map: 0.8.0-beta.0
-      sucrase: 3.34.0
+      sucrase: 3.35.0
       tree-kill: 1.2.2
       typescript: 5.3.3
     transitivePeerDependencies:
@@ -21627,6 +22833,46 @@ packages:
     resolution: {integrity: sha512-ZOQSsnce92GrxSqlnEEseX0gi7GH9zTJZ0p9dtu87WRb/37mMPO2Ilx1s/t9vBHrFhbgweUwb+t7cIn5dxPhZg==}
     dev: true
 
+<<<<<<< HEAD
+=======
+  /unist-util-is@5.2.1:
+    resolution: {integrity: sha512-u9njyyfEh43npf1M+yGKDGVPbY/JWEemg5nH05ncKPfi+kBbKBJoTdsogMu33uhytuLlv9y0O7GH7fEdwLdLQw==}
+    dependencies:
+      '@types/unist': 2.0.10
+    dev: true
+
+  /unist-util-is@6.0.0:
+    resolution: {integrity: sha512-2qCTHimwdxLfz+YzdGfkqNlH0tLi9xjTnHddPmJwtIG9MGsdbutfTc4P+haPD7l7Cjxf/WZj+we5qfVPvvxfYw==}
+    dependencies:
+      '@types/unist': 3.0.2
+    dev: true
+
+  /unist-util-modify-children@3.1.1:
+    resolution: {integrity: sha512-yXi4Lm+TG5VG+qvokP6tpnk+r1EPwyYL04JWDxLvgvPV40jANh7nm3udk65OOWquvbMDe+PL9+LmkxDpTv/7BA==}
+    dependencies:
+      '@types/unist': 2.0.10
+      array-iterate: 2.0.1
+    dev: true
+
+  /unist-util-position@4.0.4:
+    resolution: {integrity: sha512-kUBE91efOWfIVBo8xzh/uZQ7p9ffYRtUbMRZBNFYwf0RK8koUMx6dGUfwylLOKmaT2cs4wSW96QoYUSXAyEtpg==}
+    dependencies:
+      '@types/unist': 2.0.10
+    dev: true
+
+  /unist-util-stringify-position@3.0.3:
+    resolution: {integrity: sha512-k5GzIBZ/QatR8N5X2y+drfpWG8IDBzdnVj6OInRNWm1oXrzydiaAT2OQiA8DPRRZyAKb9b6I2a6PxYklZD0gKg==}
+    dependencies:
+      '@types/unist': 2.0.10
+    dev: true
+
+  /unist-util-visit-children@2.0.2:
+    resolution: {integrity: sha512-+LWpMFqyUwLGpsQxpumsQ9o9DG2VGLFrpz+rpVXYIEdPy57GSy5HioC0g3bg/8WP9oCLlapQtklOzQ8uLS496Q==}
+    dependencies:
+      '@types/unist': 2.0.10
+    dev: true
+
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
   /unist-util-visit-parents@3.1.1:
     resolution: {integrity: sha512-1KROIZWo6bcMrZEwiH2UrXDyalAa0uqzWCxCJj6lPOvTve2WkfgCytoDTPaMnodXh1WrXOq0haVYHj99ynJlsg==}
     dependencies:
@@ -21634,6 +22880,23 @@ packages:
       unist-util-is: 4.1.0
     dev: true
 
+<<<<<<< HEAD
+=======
+  /unist-util-visit-parents@5.1.3:
+    resolution: {integrity: sha512-x6+y8g7wWMyQhL1iZfhIPhDAs7Xwbn9nRosDXl7qoPTSCy0yNxnKc+hWokFifWQIDGi154rdUqKvbCa4+1kLhg==}
+    dependencies:
+      '@types/unist': 2.0.10
+      unist-util-is: 5.2.1
+    dev: true
+
+  /unist-util-visit-parents@6.0.1:
+    resolution: {integrity: sha512-L/PqWzfTP9lzzEa6CKs0k2nARxTdZduw3zyh8d2NVBnsyvHjSX4TWse388YrrQKbvI8w20fGjGlhgT96WwKykw==}
+    dependencies:
+      '@types/unist': 3.0.2
+      unist-util-is: 6.0.0
+    dev: true
+
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
   /unist-util-visit@2.0.3:
     resolution: {integrity: sha512-iJ4/RczbJMkD0712mGktuGpm/U4By4FfDonL7N/9tATGIF4imikjOuagyMY53tnZq3NP6BcmlrHhEKAfGWjh7Q==}
     dependencies:
@@ -21642,6 +22905,25 @@ packages:
       unist-util-visit-parents: 3.1.1
     dev: true
 
+<<<<<<< HEAD
+=======
+  /unist-util-visit@4.1.2:
+    resolution: {integrity: sha512-MSd8OUGISqHdVvfY9TPhyK2VdUrPgxkUtWSuMHF6XAAFuL4LokseigBnZtPnJMu+FbynTkFNnFlyjxpVKujMRg==}
+    dependencies:
+      '@types/unist': 2.0.10
+      unist-util-is: 5.2.1
+      unist-util-visit-parents: 5.1.3
+    dev: true
+
+  /unist-util-visit@5.0.0:
+    resolution: {integrity: sha512-MR04uvD+07cwl/yhVuVWAtw+3GOR/knlL55Nd/wAdblk27GCVt3lqpTivy/tkJcZoNPzTwS1Y+KMojlLDhoTzg==}
+    dependencies:
+      '@types/unist': 3.0.2
+      unist-util-is: 6.0.0
+      unist-util-visit-parents: 6.0.1
+    dev: true
+
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
   /universalify@0.1.2:
     resolution: {integrity: sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==}
     engines: {node: '>= 4.0.0'}
@@ -21670,7 +22952,16 @@ packages:
   /unplugin@1.5.1:
     resolution: {integrity: sha512-0QkvG13z6RD+1L1FoibQqnvTwVBXvS4XSPwAyinVgoOCl2jAgwzdUKmEj05o4Lt8xwQI85Hb6mSyYkcAGwZPew==}
     dependencies:
-      acorn: 8.11.2
+      acorn: 8.11.3
+      chokidar: 3.5.3
+      webpack-sources: 3.2.3
+      webpack-virtual-modules: 0.6.1
+    dev: true
+
+  /unplugin@1.6.0:
+    resolution: {integrity: sha512-BfJEpWBu3aE/AyHx8VaNE/WgouoQxgH9baAiH82JjX8cqVyi3uJQstqwD5J+SZxIK326SZIhsSZlALXVBCknTQ==}
+    dependencies:
+      acorn: 8.11.3
       chokidar: 3.5.3
       webpack-sources: 3.2.3
       webpack-virtual-modules: 0.6.1
@@ -21897,6 +23188,7 @@ packages:
       debug: 4.3.4(supports-color@5.5.0)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       pathe: 1.1.2
       picocolors: 1.0.0
 <<<<<<< HEAD
@@ -21920,8 +23212,11 @@ packages:
 =======
 =======
       pathe: 1.1.1
+=======
+      pathe: 1.1.2
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
       picocolors: 1.0.0
-      vite: 5.0.6(@types/node@18.19.2)
+      vite: 5.0.12(@types/node@18.19.2)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -21933,15 +23228,16 @@ packages:
       - terser
     dev: true
 
-  /vite-node@1.2.1(@types/node@20.10.8):
-    resolution: {integrity: sha512-fNzHmQUSOY+y30naohBvSW7pPn/xn3Ib/uqm+5wAJQJiqQsU0NBR78XdRJb04l4bOFKjpTWld0XAfkKlrDbySg==}
+  /vite-node@1.2.2(@types/node@20.10.8):
+    resolution: {integrity: sha512-1as4rDTgVWJO3n1uHmUYqq7nsFgINQ9u+mRcXpjeOMJUmviqNKjcZB7UfRZrlM7MjYXMKpuWp5oGkjaFLnjawg==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     dependencies:
       cac: 6.7.14
       debug: 4.3.4(supports-color@5.5.0)
-      pathe: 1.1.1
+      pathe: 1.1.2
       picocolors: 1.0.0
+<<<<<<< HEAD
 <<<<<<< HEAD
       vite: 5.0.6(@types/node@18.19.2)
 >>>>>>> 940776c (chore(*): fix lockfile)
@@ -21952,7 +23248,14 @@ packages:
 =======
       vite: 5.0.6(@types/node@20.10.8)
 >>>>>>> 79b1e7b (feat(dev-cli): --only-file option in start command)
+<<<<<<< HEAD
 >>>>>>> b000d14 (feat(dev-cli): --only-file option in start command)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+=======
+      vite: 5.0.12(@types/node@20.10.8)
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -21966,8 +23269,6 @@ packages:
 
   /vite-tsconfig-paths@4.3.1(typescript@5.3.3)(vite@5.1.4):
     resolution: {integrity: sha512-cfgJwcGOsIxXOLU/nELPny2/LUD/lcf1IbfyeKTv2bsupVbTH/xpFtdQlBmIP1GEK2CjjLxYhFfB+QODFAx5aw==}
-<<<<<<< HEAD
-=======
     peerDependencies:
       vite: '*'
     peerDependenciesMeta:
@@ -21982,6 +23283,7 @@ packages:
       - typescript
     dev: true
 
+<<<<<<< HEAD
   /vite@4.4.11(@types/node@18.19.2):
     resolution: {integrity: sha512-ksNZJlkcU9b0lBwAGZGGaZHCMqHsc8OpgtoYhsQ4/I2v5cnpmmmqe5pM4nv/4Hn6G/2GhTdj0DhZh2e+Er1q5A==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -22044,10 +23346,9 @@ packages:
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
-  /vite@4.4.11(@types/node@18.19.6):
 =======
-  /vite@4.4.11(@types/node@18.19.3):
->>>>>>> 3fe37f8 (chore(*): fix lockfile)
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
+  /vite@4.4.11(@types/node@18.19.6):
     resolution: {integrity: sha512-ksNZJlkcU9b0lBwAGZGGaZHCMqHsc8OpgtoYhsQ4/I2v5cnpmmmqe5pM4nv/4Hn6G/2GhTdj0DhZh2e+Er1q5A==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -22075,11 +23376,7 @@ packages:
       terser:
         optional: true
     dependencies:
-<<<<<<< HEAD
       '@types/node': 18.19.6
-=======
-      '@types/node': 18.19.3
->>>>>>> 3fe37f8 (chore(*): fix lockfile)
       esbuild: 0.18.20
       postcss: 8.4.33
       rollup: 3.29.4
@@ -22124,11 +23421,11 @@ packages:
     dev: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 940776c (chore(*): fix lockfile)
-  /vite@4.5.1(@types/node@18.19.6):
 =======
-  /vite@4.5.1(@types/node@18.19.3):
->>>>>>> 3fe37f8 (chore(*): fix lockfile)
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
+  /vite@4.5.1(@types/node@18.19.6):
     resolution: {integrity: sha512-AXXFaAJ8yebyqzoNB9fu2pHoo/nWX+xZlaRwoeYUxEqBO+Zj4msE5G+BhGBll9lYEKv9Hfks52PAF2X7qDYXQA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -22156,11 +23453,7 @@ packages:
       terser:
         optional: true
     dependencies:
-<<<<<<< HEAD
       '@types/node': 18.19.6
-=======
-      '@types/node': 18.19.3
->>>>>>> 3fe37f8 (chore(*): fix lockfile)
       esbuild: 0.18.20
       postcss: 8.4.32
       rollup: 3.29.4
@@ -22169,7 +23462,14 @@ packages:
     dev: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> b804af0 (chore(*): fix lockfile)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
   /vite@5.0.12(@types/node@18.19.2):
     resolution: {integrity: sha512-4hsnEkG3q0N4Tzf1+t6NdN9dg/L3BM+q8SWgbSPnJvrgH2kgdyzfVJwbR1ic69/4uMJJ/3dqDZZE5/WwqW8U1w==}
     engines: {node: ^18.0.0 || >=20.0.0}
@@ -22206,6 +23506,7 @@ packages:
       fsevents: 2.3.3
     dev: true
 
+<<<<<<< HEAD
   /vite@5.0.12(@types/node@18.19.6):
     resolution: {integrity: sha512-4hsnEkG3q0N4Tzf1+t6NdN9dg/L3BM+q8SWgbSPnJvrgH2kgdyzfVJwbR1ic69/4uMJJ/3dqDZZE5/WwqW8U1w==}
 =======
@@ -22303,6 +23604,10 @@ packages:
   /vite@5.0.6(@types/node@20.10.8):
 >>>>>>> 940776c (chore(*): fix lockfile)
     resolution: {integrity: sha512-MD3joyAEBtV7QZPl2JVVUai6zHms3YOmLR+BpMzLlX2Yzjfcc4gTgNi09d/Rua3F4EtC8zdwPU8eQYyib4vVMQ==}
+=======
+  /vite@5.0.12(@types/node@20.10.8):
+    resolution: {integrity: sha512-4hsnEkG3q0N4Tzf1+t6NdN9dg/L3BM+q8SWgbSPnJvrgH2kgdyzfVJwbR1ic69/4uMJJ/3dqDZZE5/WwqW8U1w==}
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
@@ -22330,9 +23635,9 @@ packages:
         optional: true
     dependencies:
       '@types/node': 20.10.8
-      esbuild: 0.19.8
-      postcss: 8.4.32
-      rollup: 4.6.1
+      esbuild: 0.19.11
+      postcss: 8.4.33
+      rollup: 4.9.4
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
@@ -22345,11 +23650,7 @@ packages:
       vite:
         optional: true
     dependencies:
-<<<<<<< HEAD
       vite: 4.5.1(@types/node@18.19.6)
-=======
-      vite: 4.5.1(@types/node@18.19.3)
->>>>>>> 3fe37f8 (chore(*): fix lockfile)
     dev: true
 
 >>>>>>> aacd1b7 (chore(dev-cli): add interfaces and usecase)
@@ -22518,18 +23819,18 @@ packages:
       '@vitest/utils': 1.1.3
       acorn-walk: 8.3.1
       cac: 6.7.14
-      chai: 4.3.10
+      chai: 4.4.0
       debug: 4.3.4(supports-color@5.5.0)
       execa: 8.0.1
       local-pkg: 0.5.0
       magic-string: 0.30.5
-      pathe: 1.1.1
+      pathe: 1.1.2
       picocolors: 1.0.0
-      std-env: 3.6.0
+      std-env: 3.7.0
       strip-literal: 1.3.0
       tinybench: 2.5.1
       tinypool: 0.8.1
-      vite: 5.0.6(@types/node@18.19.2)
+      vite: 5.0.12(@types/node@18.19.2)
       vite-node: 1.1.3(@types/node@18.19.2)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
@@ -22542,6 +23843,7 @@ packages:
       - terser
     dev: true
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   /vscode-oniguruma@1.7.0:
@@ -22557,6 +23859,9 @@ packages:
 ||||||| parent of 1f5143b (chore(dev-cli): update vitest)
 =======
 >>>>>>> 1f5143b (chore(dev-cli): update vitest)
+||||||| parent of b70952c (chore(dev-cli): fix lockfile)
+=======
+>>>>>>> b70952c (chore(dev-cli): fix lockfile)
 <<<<<<< HEAD
 =======
   /vitest@1.1.3(@types/node@20.10.8):
@@ -22565,6 +23870,10 @@ packages:
   /vitest@1.2.1(@types/node@20.10.8):
     resolution: {integrity: sha512-TRph8N8rnSDa5M2wKWJCMnztCZS9cDcgVTQ6tsTFTG/odHJ4l5yNVqvbeDJYJRZ6is3uxaEpFs8LL6QM+YFSdA==}
 >>>>>>> adde8b1 (chore(dev-cli): update vitest)
+=======
+  /vitest@1.2.2(@types/node@20.10.8):
+    resolution: {integrity: sha512-d5Ouvrnms3GD9USIK36KG8OZ5bEvKEkITFtnGv56HFaSlbItJuYr7hv2Lkn903+AvRAgSixiamozUVfORUekjw==}
+>>>>>>> 9ef38ef (chore(dev-cli): fix lockfile)
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
@@ -22589,26 +23898,26 @@ packages:
         optional: true
     dependencies:
       '@types/node': 20.10.8
-      '@vitest/expect': 1.2.1
-      '@vitest/runner': 1.2.1
-      '@vitest/snapshot': 1.2.1
-      '@vitest/spy': 1.2.1
-      '@vitest/utils': 1.2.1
+      '@vitest/expect': 1.2.2
+      '@vitest/runner': 1.2.2
+      '@vitest/snapshot': 1.2.2
+      '@vitest/spy': 1.2.2
+      '@vitest/utils': 1.2.2
       acorn-walk: 8.3.2
       cac: 6.7.14
-      chai: 4.3.10
+      chai: 4.4.0
       debug: 4.3.4(supports-color@5.5.0)
       execa: 8.0.1
       local-pkg: 0.5.0
       magic-string: 0.30.5
-      pathe: 1.1.1
+      pathe: 1.1.2
       picocolors: 1.0.0
-      std-env: 3.6.0
+      std-env: 3.7.0
       strip-literal: 1.3.0
       tinybench: 2.5.1
-      tinypool: 0.8.1
-      vite: 5.0.6(@types/node@20.10.8)
-      vite-node: 1.2.1(@types/node@20.10.8)
+      tinypool: 0.8.2
+      vite: 5.0.12(@types/node@20.10.8)
+      vite-node: 1.2.2(@types/node@20.10.8)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less
@@ -22620,19 +23929,19 @@ packages:
       - terser
     dev: true
 
-  /vscode-css-languageservice@6.2.11:
-    resolution: {integrity: sha512-qn49Wa6K94LnizpVxmlYrcPf1Cb36gq1nNueW0COhi4shylXBzET5wuDbH8ZWQlJD0HM5Mmnn7WE9vQVVs+ULA==}
+  /vscode-css-languageservice@6.2.12:
+    resolution: {integrity: sha512-PS9r7HgNjqzRl3v91sXpCyZPc8UDotNo6gntFNtGCKPhGA9Frk7g/VjX1Mbv3F00pn56D+rxrFzR9ep4cawOgA==}
     dependencies:
-      '@vscode/l10n': 0.0.16
+      '@vscode/l10n': 0.0.18
       vscode-languageserver-textdocument: 1.0.11
       vscode-languageserver-types: 3.17.5
       vscode-uri: 3.0.8
     dev: true
 
-  /vscode-html-languageservice@5.1.1:
-    resolution: {integrity: sha512-JenrspIIG/Q+93R6G3L6HdK96itSisMynE0glURqHpQbL3dKAKzdm8L40lAHNkwJeBg+BBPpAshZKv/38onrTQ==}
+  /vscode-html-languageservice@5.1.2:
+    resolution: {integrity: sha512-wkWfEx/IIR3s2P5yD4aTGHiOb8IAzFxgkSt1uSC3itJ4oDAm23yG7o0L29JljUdnXDDgLafPAvhv8A2I/8riHw==}
     dependencies:
-      '@vscode/l10n': 0.0.16
+      '@vscode/l10n': 0.0.18
       vscode-languageserver-textdocument: 1.0.11
       vscode-languageserver-types: 3.17.5
       vscode-uri: 3.0.8
