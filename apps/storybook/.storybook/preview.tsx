@@ -1,5 +1,4 @@
-import "../../../packages/design-systems/src/output.css";
-import "../../../packages/datagrid/dist/index.css";
+import "../node_modules/@tailor-platform/styled-system/styles.css"
 
 import type { Preview, StoryFn } from "@storybook/react";
 import React from "react";

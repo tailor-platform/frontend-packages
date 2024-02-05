@@ -10,7 +10,7 @@ export default defineConfig({
         panda({
           configPath: path.resolve(
             __dirname,
-            "./../../packages/datagrid/panda.config.ts",
+            "./panda.config.ts",
           ),
         }),
       ],
