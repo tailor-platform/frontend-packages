@@ -57,3 +57,9 @@ export {
 } from "@/components/patterns/VisuallyHidden";
 export { VStack, type VstackProps } from "@/components/patterns/VStack";
 export { Wrap, type WrapProps } from "@/components/patterns/Wrap";
+
+export {
+  Accordion,
+  type AccordionProps,
+  type AccordionItem,
+} from "@/components/composite/Accordion";
