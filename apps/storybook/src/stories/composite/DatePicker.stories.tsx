@@ -1,8 +1,8 @@
-import { DatePicker, type DatePickerProps } from "@ark-ui/react";
+// import { DatePicker, type DatePickerProps } from "@ark-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { datePicker } from "@tailor-platform/styled-system/recipes";
 import { Flex } from "@tailor-platform/styled-system/jsx";
-import { Button, IconButton, Input } from "@tailor-platform/design-systems";
+import { Button, IconButton, Input, DatePicker, type DatePickerProps } from "@tailor-platform/design-systems";
 import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 
 import { datePickerTypes } from "../../ark-types";
@@ -20,12 +20,13 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const classes = datePicker();
+// const classes = datePicker();
 
 export const Default: Story = {
   render: () => (
     <Flex h={400}>
-      <DatePicker.Root className={classes.root} startOfWeek={1}>
+      <DatePicker label="Picker" />
+      {/* <DatePicker.Root className={classes.root} startOfWeek={1}>
         <DatePicker.Label className={classes.label}>
           Date Picker
         </DatePicker.Label>
@@ -191,7 +192,7 @@ export const Default: Story = {
             </DatePicker.View>
           </DatePicker.Content>
         </DatePicker.Positioner>
-      </DatePicker.Root>
+      </DatePicker.Root> */}
     </Flex>
   ),
 };

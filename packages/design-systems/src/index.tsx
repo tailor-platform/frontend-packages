@@ -57,3 +57,6 @@ export {
 } from "@/components/patterns/VisuallyHidden";
 export { VStack, type VstackProps } from "@/components/patterns/VStack";
 export { Wrap, type WrapProps } from "@/components/patterns/Wrap";
+
+
+export { DatePicker, type DatePickerProps } from "@/components/composite/DatePicker";
