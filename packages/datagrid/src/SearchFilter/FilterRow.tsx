@@ -379,7 +379,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
               borderRadius={"4px"}
               variant="outline"
               placeholder={inputValuePlaceHolder}
-              onChange={(e) => {
+              onChange={(e:  React.ChangeEvent<HTMLInputElement>) => {
                 onChangeValue(e.target.value);
               }}
               value={[currentFilter.value]}
