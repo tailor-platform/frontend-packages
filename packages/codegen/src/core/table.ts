@@ -25,7 +25,8 @@ export class GQLOpsGenerator
         return acc;
       }
 
-      const { query } = gql.query(
+      // Generating single queries
+      const singleOp = gql.query(
         {
           operation: inflection.camelize(table.name, true),
           variables: {
@@ -42,7 +43,39 @@ export class GQLOpsGenerator
         },
       );
 
-      return acc + "\n\n" + query;
+      // Generating collection queries
+      const collectionOp = gql.query(
+        {
+          operation: inflection.pluralize(
+            inflection.camelize(table.name, true),
+          ),
+          variables: {
+            from: {
+              type: "Int",
+            },
+            size: {
+              type: "Int",
+            },
+            query: {
+              type: table.name + "QueryInput",
+            },
+            order: {
+              type: inflection.camelize(table.name) + "OrderInput",
+            },
+          },
+          fields: [
+            {
+              collection: fields,
+            },
+          ],
+        },
+        null,
+        {
+          operationName: `list${table.name}`,
+        },
+      );
+
+      return acc + "\n\n" + singleOp.query + "\n\n" + collectionOp.query;
     }, "");
   }
 
