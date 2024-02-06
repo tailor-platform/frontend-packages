@@ -1,4 +1,4 @@
-import { cloneElement, isValidElement, ReactElement } from "react";
+import { cloneElement, isValidElement, ReactElement, ReactNode } from "react";
 import { css, cx } from "@tailor-platform/styled-system/css";
 import {
   type HTMLStyledProps,
@@ -9,7 +9,12 @@ import {
   type ButtonVariantProps,
 } from "@tailor-platform/styled-system/recipes";
 
-export type IconButtonProps = HTMLStyledProps<"button"> &
+type IconButtonContentProps = {
+  children?: ReactNode | undefined;
+};
+
+export type IconButtonProps = IconButtonContentProps &
+  HTMLStyledProps<"button"> &
   ButtonVariantProps & { icon?: ReactElement; "aria-label": string };
 
 export const IconButton = (props: IconButtonProps) => {

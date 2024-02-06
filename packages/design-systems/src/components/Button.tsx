@@ -18,6 +18,7 @@ type ButtonContentProps = {
   children?: ReactNode | undefined;
   leftIcon?: ReactElement;
   rightIcon?: ReactElement;
+  href?: string;
 };
 
 export type ButtonProps = ButtonVariantProps &
@@ -71,7 +72,13 @@ const ButtonContent = (props: PropsWithChildren<ButtonContentProps>) => {
   );
 };
 
-const ButtonIcon = (props: HTMLStyledProps<"span">) => {
+type ButtonIconContentProps = {
+  children?: ReactNode | undefined;
+};
+
+type ButtonIconProps = ButtonIconContentProps & HTMLStyledProps<"span">;
+
+const ButtonIcon = (props: ButtonIconProps) => {
   const { children, ...rest } = props;
 
   return (

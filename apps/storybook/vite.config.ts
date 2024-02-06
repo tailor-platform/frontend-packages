@@ -8,10 +8,7 @@ export default defineConfig({
     postcss: {
       plugins: [
         panda({
-          configPath: path.resolve(
-            __dirname,
-            "./panda.config.ts",
-          ),
+          configPath: path.resolve(__dirname, "./panda.config.ts"),
         }),
       ],
     },
