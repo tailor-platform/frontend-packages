@@ -1,4 +1,4 @@
-import { Select as AS, Portal } from "@ark-ui/react";
+import { Select as AS, CollectionItem, Portal } from "@ark-ui/react";
 import { IconButton, Input, Text } from "@tailor-platform/design-systems";
 import { Box, Flex, styled } from "@tailor-platform/styled-system/jsx";
 import { select } from "@tailor-platform/styled-system/recipes";
@@ -6,6 +6,11 @@ import { ApplicableType, FilterRowProps } from "@types";
 import { CheckIcon, ChevronDown, X } from "lucide-react";
 import { useCallback, useMemo } from "react";
 import { getLocalizedFilterConditions } from "../data/filter";
+
+interface ValueChangeDetails<T extends CollectionItem = CollectionItem> {
+  value: string[];
+  items: T[];
+}
 
 const Select = {
   Root: styled(AS.Root), // classes.root
@@ -140,7 +145,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         items={jointConditions}
         positioning={{ sameWidth: true }}
         closeOnSelect
-        onValueChange={(e) => {
+        onValueChange={(e: ValueChangeDetails<CollectionItem>) => {
           onChangeJointCondition(e.value);
         }}
         value={
@@ -195,7 +200,9 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         items={columns}
         positioning={{ sameWidth: true }}
         closeOnSelect
-        onValueChange={(e) => onChangeColumn(e.value)}
+        onValueChange={(e: ValueChangeDetails<CollectionItem>) =>
+          onChangeColumn(e.value)
+        }
         value={selectedColumnObject ? [selectedColumnObject.value] : []}
         width={180}
         data-testid="select-column"
@@ -248,7 +255,9 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         items={filteredFilterConditions}
         positioning={{ sameWidth: true }}
         closeOnSelect
-        onValueChange={(e) => onChangeCondition(e.value)}
+        onValueChange={(e: ValueChangeDetails<CollectionItem>) =>
+          onChangeCondition(e.value)
+        }
         value={[currentFilter.condition]}
         width={180}
         data-testid="select-condition"
@@ -307,7 +316,9 @@ export const FilterRow = <TData extends Record<string, unknown>>(
             positioning={{ sameWidth: true }}
             closeOnSelect
             width={180}
-            onValueChange={(e) => onChangeValue(e.value)}
+            onValueChange={(e: ValueChangeDetails<CollectionItem>) =>
+              onChangeValue(e.value)
+            }
             data-testid="select-input-value"
           >
             <Select.Control className={classes.control}>
@@ -356,7 +367,9 @@ export const FilterRow = <TData extends Record<string, unknown>>(
             positioning={{ sameWidth: true }}
             closeOnSelect
             width={180}
-            onValueChange={(e) => onChangeValue(e.value)}
+            onValueChange={(e: ValueChangeDetails<CollectionItem>) =>
+              onChangeValue(e.value)
+            }
             data-testid="select-input-value"
           >
             <Select.Control className={classes.control}>
