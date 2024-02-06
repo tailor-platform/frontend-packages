@@ -3,16 +3,35 @@ import { IconButton, Input, Text } from "@tailor-platform/design-systems";
 import { cx } from "@tailor-platform/styled-system/css";
 import { Box, Flex, styled } from "@tailor-platform/styled-system/jsx";
 import { select } from "@tailor-platform/styled-system/recipes";
-import { ApplicableType, FilterRowProps } from "@types";
+import { ApplicableType, Column, FilterRowProps, JointCondition } from "@types";
 import { CheckIcon, ChevronDown, X } from "lucide-react";
-import { ComponentType, forwardRef, useCallback, useMemo } from "react";
+import {
+  ComponentType,
+  ReactNode,
+  forwardRef,
+  useCallback,
+  useMemo,
+} from "react";
 import { getLocalizedFilterConditions } from "../data/filter";
 
 const classes = select();
 
 function withClass<
   T extends {
+    children?: ReactNode;
     className?: string;
+    items?: JointCondition[] | Column<T>[] | string[];
+    item?: JointCondition | Column<T> | string;
+    id?: string;
+    placeholder?: string;
+    fontWeight?: string;
+    color?: string;
+    positioning?: { sameWidth: boolean };
+    closeOnSelect?: boolean;
+    width?: number;
+    onValueChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+    value?: string[];
+    visibility?: "hidden" | "visible";
   },
 >(Comp: ComponentType<T>, additionalClassName: string) {
   const WithClassComp = forwardRef<unknown, T>((props, ref) => {
@@ -155,7 +174,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         positioning={{ sameWidth: true }}
         closeOnSelect
         onValueChange={(e) => {
-          onChangeJointCondition(e.value);
+          onChangeJointCondition([e.target.value]);
         }}
         value={
           currentFilter.jointCondition ? [currentFilter.jointCondition] : []
@@ -200,7 +219,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         items={columns}
         positioning={{ sameWidth: true }}
         closeOnSelect
-        onValueChange={(e) => onChangeColumn(e.value)}
+        onValueChange={(e) => onChangeColumn([e.target.value])}
         value={selectedColumnObject ? [selectedColumnObject.value] : []}
         width={180}
         data-testid="select-column"
@@ -238,7 +257,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         items={filteredFilterConditions}
         positioning={{ sameWidth: true }}
         closeOnSelect
-        onValueChange={(e) => onChangeCondition(e.value)}
+        onValueChange={(e) => onChangeCondition([e.target.value])}
         value={[currentFilter.condition]}
         width={180}
         data-testid="select-condition"
@@ -282,7 +301,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
             positioning={{ sameWidth: true }}
             closeOnSelect
             width={180}
-            onValueChange={(e) => onChangeValue(e.value)}
+            onValueChange={(e) => onChangeValue([e.target.value])}
             data-testid="select-input-value"
           >
             <Select.Control>
@@ -317,7 +336,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
             positioning={{ sameWidth: true }}
             closeOnSelect
             width={180}
-            onValueChange={(e) => onChangeValue(e.value)}
+            onValueChange={(e) => onChangeValue([e.target.value])}
             data-testid="select-input-value"
           >
             <Select.Control>
