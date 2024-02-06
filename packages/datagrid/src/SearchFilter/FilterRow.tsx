@@ -3,14 +3,36 @@ import { IconButton, Input, Text } from "@tailor-platform/design-systems";
 import { cx } from "@tailor-platform/styled-system/css";
 import { Box, Flex, styled } from "@tailor-platform/styled-system/jsx";
 import { select } from "@tailor-platform/styled-system/recipes";
-import { ApplicableType, FilterRowProps } from "@types";
+import { ApplicableType, Column, FilterRowProps, JointCondition } from "@types";
 import { CheckIcon, ChevronDown, X } from "lucide-react";
-import { ComponentType, forwardRef, useCallback, useMemo } from "react";
+import {
+  ComponentType,
+  ReactNode,
+  forwardRef,
+  useCallback,
+  useMemo,
+} from "react";
 import { getLocalizedFilterConditions } from "../data/filter";
 
 const classes = select();
 
-function withClass<T extends { className?: string }>(
+function withClass<
+  T extends {
+    children?: ReactNode;
+    className?: string;
+    items?: JointCondition[] | Column<T>[] | string[];
+    item?: JointCondition | Column<T> | string;
+    id?: string;
+    placeholder?: string;
+    fontWeight?: string;
+    color?: string;
+    positioning?: {sameWidth: boolean};
+    closeOnSelect?: boolean;
+    width?: number;
+    onValueChange?: (e: any) => void;
+  },
+>(
+// function withClass<T extends { className?: string }>(
   Comp: ComponentType<T>,
   additionalClassName: string,
 ) {
