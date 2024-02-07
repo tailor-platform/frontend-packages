@@ -1,3 +1,5 @@
-import dsPandaConfig from "./node_modules/@tailor-platform/dev-config/pandacss";
+import { defineConfig } from "@pandacss/dev";
 
-export default dsPandaConfig;
+import { buildPandaConfig } from "./node_modules/@tailor-platform/dev-config/pandacss";
+
+export default buildPandaConfig(defineConfig({}));

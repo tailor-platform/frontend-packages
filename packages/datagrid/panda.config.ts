@@ -20,14 +20,16 @@ export default defineConfig({
   outdir: "../../../node_modules/@tailor-platform/styled-system",
   preflight: true,
   theme: {
-    recipes,
-    semanticTokens,
-    slotRecipes,
-    textStyles,
-    tokens,
+    extend: {
+      recipes,
+      semanticTokens,
+      slotRecipes,
+      textStyles,
+      tokens,
+    },
   },
   conditions,
-  globalCss,
+  globalCss: { extend: globalCss },
   importMap: "@tailor-platform/styled-system",
   patterns: {
     extend: {
