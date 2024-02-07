@@ -1,12 +1,13 @@
-import { ReactNode } from "react";
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 import { renderHook, waitFor } from "@testing-library/react";
 import { useAuth, usePlatform } from "./hooks";
 import { TailorAuthProvider } from "./provider";
 import { buildMockServer, mockAuthConfig } from "@tests/mocks";
 
-const mockProvider = ({ children }: { children: ReactNode }) => (
-  <TailorAuthProvider config={mockAuthConfig}>{children}</TailorAuthProvider>
+const mockProvider = (props: React.PropsWithChildren) => (
+  <TailorAuthProvider config={mockAuthConfig}>
+    {props.children}
+  </TailorAuthProvider>
 );
 
 const mockServer = buildMockServer();
