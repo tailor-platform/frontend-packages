@@ -139,7 +139,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
                   }
                   data-column-index={header.index}
                   onDragStart={onDragStart}
-                  onDragOver={(e: DragEvent<HTMLDivElement>): void => {
+                  onDragOver={(e): void => {
                     e.preventDefault();
                   }}
                   onDrop={onDrop}

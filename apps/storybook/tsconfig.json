@@ -28,7 +28,7 @@
         "./src/*"
       ],
       "@tailor-platform/styled-system": [
-        "./../../node_modules/@tailor-platform/styled-system"
+        "./../../packages/design-systems/node_modules/@tailor-platform/styled-system"
       ],
       "@tailor-platform/design-systems/*": [
         "./../../packages/design-systems/dist/*"

@@ -4,13 +4,7 @@ import {
 } from "@tailor-platform/styled-system/jsx";
 import { radio } from "@tailor-platform/styled-system/recipes";
 
-type RadioContentProps = {
-  defaultChecked?: boolean;
-};
-
-export type RadioProps = RadioContentProps &
-  React.PropsWithChildren &
-  HTMLStyledProps<"input">;
+export type RadioProps = HTMLStyledProps<"input">;
 
 export const Radio = (props: RadioProps) => {
   const { children, defaultChecked, ...rest } = props;
