@@ -31,11 +31,12 @@ export default defineConfig({
   importMap: "@tailor-platform/styled-system",
   patterns: {
     extend: {
+      // temporary workaround for ts error in /packages/design-systems/src/components/Form.tsx
       box: {
         properties: {
           className: { type: "string" },
         },
       },
     },
-  }, // temporary workaround for ts error in /packages/design-systems/src/components/Form.tsx
+  },
 });
