@@ -100,3 +100,8 @@ export const useSession = (options?: SessionOption) => {
 
   return useSessionResult;
 };
+
+// Clear session stored on memory (this is only for test usage)
+export const clearSession = () => {
+  useSessionResult = null;
+};
