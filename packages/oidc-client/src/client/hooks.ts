@@ -77,7 +77,7 @@ export const usePlatform = () => {
   };
 };
 
-let useSessionResult: SessionResult | null = null;
+let internalClientSession: SessionResult | null = null;
 export const useSession = (options?: SessionOption) => {
   assertWindowIsAvailable();
 
@@ -86,22 +86,22 @@ export const useSession = (options?: SessionOption) => {
   const getSession = async () => {
     const rawResp = await fetch(config.appUrl(clientSessionPath));
     const r = (await rawResp.json()) as SessionResult;
-    useSessionResult = r;
+    internalClientSession = r;
   };
 
-  if (!useSessionResult) {
+  if (!internalClientSession) {
     throw getSession();
   }
 
-  if (options?.required && useSessionResult.token === undefined) {
+  if (options?.required && internalClientSession.token === undefined) {
     window.location.replace(config.appUrl(internalUnauthorizedPath));
     return;
   }
 
-  return useSessionResult;
+  return internalClientSession;
 };
 
-// Clear session stored on memory (this is only for test usage)
+// Clear session internally stored on memory (this is only for test usage)
 export const clearSession = () => {
-  useSessionResult = null;
+  internalClientSession = null;
 };
