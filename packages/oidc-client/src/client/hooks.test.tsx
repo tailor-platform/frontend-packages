@@ -2,7 +2,7 @@ import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 import { renderHook, waitFor } from "@testing-library/react";
 import { useAuth, usePlatform } from "./hooks";
 import { TailorAuthProvider } from "./provider";
-import { buildMockServer, mockAuthConfig } from "@tests/mocks";
+import { buildMockPlatformServer, mockAuthConfig } from "@tests/mocks";
 
 const mockProvider = (props: React.PropsWithChildren) => (
   <TailorAuthProvider config={mockAuthConfig}>
@@ -10,7 +10,7 @@ const mockProvider = (props: React.PropsWithChildren) => (
   </TailorAuthProvider>
 );
 
-const mockServer = buildMockServer();
+const mockServer = buildMockPlatformServer();
 beforeAll(() => mockServer.listen());
 afterEach(() => mockServer.resetHandlers());
 afterAll(() => mockServer.close());

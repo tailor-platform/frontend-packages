@@ -32,7 +32,9 @@ export const mockAuthConfigValue = {
   userInfoPath: "/mock-userinfo",
 };
 export const mockAuthConfig = new Config(mockAuthConfigValue);
-export const buildMockServer = (response?: typeof defaultMockedResponse) => {
+export const buildMockPlatformServer = (
+  response?: typeof defaultMockedResponse,
+) => {
   const mockResponse = {
     ...defaultMockedResponse,
     ...response,

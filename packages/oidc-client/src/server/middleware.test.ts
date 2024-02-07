@@ -3,14 +3,14 @@ import { NextResponse } from "next/server";
 import { HttpResponse, http } from "msw";
 import { exchangeError, handleCallback, paramsError } from "./middleware";
 import {
-  buildMockServer,
+  buildMockPlatformServer,
   mockAuthConfig,
   mockAuthConfigValue,
 } from "@tests/mocks";
 import { mockSession } from "@tests/mocks";
 import { Config } from "@client";
 
-const mockServer = buildMockServer();
+const mockServer = buildMockPlatformServer();
 beforeAll(() => mockServer.listen());
 afterEach(() => mockServer.resetHandlers());
 afterAll(() => mockServer.close());
