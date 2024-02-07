@@ -1,42 +1,31 @@
-import { Select as AS, Portal } from "@ark-ui/react";
+import { Select as AS, CollectionItem, Portal } from "@ark-ui/react";
 import { IconButton, Input, Text } from "@tailor-platform/design-systems";
-import { cx } from "@tailor-platform/styled-system/css";
 import { Box, Flex, styled } from "@tailor-platform/styled-system/jsx";
 import { select } from "@tailor-platform/styled-system/recipes";
 import { ApplicableType, FilterRowProps } from "@types";
 import { CheckIcon, ChevronDown, X } from "lucide-react";
-import { ComponentType, forwardRef, useCallback, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { getLocalizedFilterConditions } from "../data/filter";
 
-const classes = select();
-
-function withClass<T extends { className?: string }>(
-  Comp: ComponentType<T>,
-  additionalClassName: string,
-) {
-  const WithClassComp = forwardRef<unknown, T>((props, ref) => {
-    const { className, ...rest } = props;
-    const ClassNames = cx(className, additionalClassName);
-    return <Comp ref={ref} {...(rest as T)} className={ClassNames} />;
-  });
-  WithClassComp.displayName = Comp.displayName;
-  return WithClassComp;
+interface ValueChangeDetails<T extends CollectionItem = CollectionItem> {
+  value: string[];
+  items: T[];
 }
 
 const Select = {
-  Root: withClass(styled(AS.Root), classes.root),
-  ClearTrigger: withClass(styled(AS.ClearTrigger), classes.clearTrigger),
-  Content: withClass(styled(AS.Content), classes.content),
-  Control: withClass(styled(AS.Control), classes.control),
-  Item: withClass(styled(AS.Item), classes.item),
-  ItemGroup: withClass(styled(AS.ItemGroup), classes.itemGroup),
-  ItemGroupLabel: withClass(styled(AS.ItemGroupLabel), classes.itemGroupLabel),
-  ItemIndicator: withClass(styled(AS.ItemIndicator), classes.itemIndicator),
-  ItemText: withClass(styled(AS.ItemText), classes.itemText),
-  Label: withClass(styled(AS.Label), classes.label),
-  Positioner: withClass(styled(AS.Positioner), classes.positioner),
-  Trigger: withClass(styled(AS.Trigger), classes.trigger),
-  ValueText: withClass(styled(AS.ValueText), classes.valueText),
+  Root: styled(AS.Root),
+  ClearTrigger: styled(AS.ClearTrigger),
+  Content: styled(AS.Content),
+  Control: styled(AS.Control),
+  Item: styled(AS.Item),
+  ItemGroup: styled(AS.ItemGroup),
+  ItemGroupLabel: styled(AS.ItemGroupLabel),
+  ItemIndicator: styled(AS.ItemIndicator),
+  ItemText: styled(AS.ItemText),
+  Label: styled(AS.Label),
+  Positioner: styled(AS.Positioner),
+  Trigger: styled(AS.Trigger),
+  ValueText: styled(AS.ValueText),
 };
 
 export const FilterRow = <TData extends Record<string, unknown>>(
@@ -51,6 +40,8 @@ export const FilterRow = <TData extends Record<string, unknown>>(
     jointConditions,
     currentFilter,
   } = props;
+
+  const classes = select();
 
   const DATE_INPUT_PLACEHOLDER = "YYYY-MM-DD";
   const filterConditions = getLocalizedFilterConditions(localization);
@@ -150,10 +141,11 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         data-testid="delete-filter-row"
       />
       <Select.Root
+        className={classes.root}
         items={jointConditions}
         positioning={{ sameWidth: true }}
         closeOnSelect
-        onValueChange={(e) => {
+        onValueChange={(e: ValueChangeDetails<CollectionItem>) => {
           onChangeJointCondition(e.value);
         }}
         value={
@@ -163,12 +155,13 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         width={180}
         visibility={isFirstRow ? "hidden" : "visible"}
       >
-        <Select.Label fontWeight="bold">
+        <Select.Label className={classes.label} fontWeight="bold">
           {localization.filter.jointConditionLabel}
         </Select.Label>
-        <Select.Control>
-          <Select.Trigger>
+        <Select.Control className={classes.control}>
+          <Select.Trigger className={classes.trigger}>
             <Select.ValueText
+              className={classes.valueText}
               color="fg.subtle"
               placeholder={localization.filter.jointConditionPlaceholder}
             />
@@ -176,16 +169,23 @@ export const FilterRow = <TData extends Record<string, unknown>>(
           </Select.Trigger>
         </Select.Control>
         <Portal>
-          <Select.Positioner>
-            <Select.Content>
+          <Select.Positioner className={classes.positioner}>
+            <Select.Content className={classes.content}>
               <Select.ItemGroup
+                className={classes.itemGroup}
                 id="jointConditions"
                 data-testid="select-joint-condition-options"
               >
                 {jointConditions.map((item) => (
-                  <Select.Item key={item.value} item={item}>
-                    <Select.ItemText>{item.label}</Select.ItemText>
-                    <Select.ItemIndicator>
+                  <Select.Item
+                    className={classes.item}
+                    key={item.value}
+                    item={item}
+                  >
+                    <Select.ItemText className={classes.itemText}>
+                      {item.label}
+                    </Select.ItemText>
+                    <Select.ItemIndicator className={classes.itemIndicator}>
                       <CheckIcon />
                     </Select.ItemIndicator>
                   </Select.Item>
@@ -196,20 +196,28 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         </Portal>
       </Select.Root>
       <Select.Root
+        className={classes.root}
         items={columns}
         positioning={{ sameWidth: true }}
         closeOnSelect
-        onValueChange={(e) => onChangeColumn(e.value)}
+        onValueChange={(e: ValueChangeDetails<CollectionItem>) =>
+          onChangeColumn(e.value)
+        }
         value={selectedColumnObject ? [selectedColumnObject.value] : []}
         width={180}
         data-testid="select-column"
       >
-        <Select.Label fontWeight="bold" color="fg.default">
+        <Select.Label
+          className={classes.label}
+          fontWeight="bold"
+          color="fg.default"
+        >
           {localization.filter.columnLabel}
         </Select.Label>
-        <Select.Control>
-          <Select.Trigger>
+        <Select.Control className={classes.control}>
+          <Select.Trigger className={classes.trigger}>
             <Select.ValueText
+              className={classes.valueText}
               color="fg.subtle"
               placeholder={localization.filter.columnPlaceholder}
             />
@@ -217,13 +225,22 @@ export const FilterRow = <TData extends Record<string, unknown>>(
           </Select.Trigger>
         </Select.Control>
         <Portal>
-          <Select.Positioner>
-            <Select.Content data-testid="select-column-options">
-              <Select.ItemGroup id="column">
+          <Select.Positioner className={classes.positioner}>
+            <Select.Content
+              className={classes.content}
+              data-testid="select-column-options"
+            >
+              <Select.ItemGroup className={classes.itemGroup} id="column">
                 {columns.map((item) => (
-                  <Select.Item key={item.value} item={item}>
-                    <Select.ItemText>{item.label}</Select.ItemText>
-                    <Select.ItemIndicator>
+                  <Select.Item
+                    className={classes.item}
+                    key={item.value}
+                    item={item}
+                  >
+                    <Select.ItemText className={classes.itemText}>
+                      {item.label}
+                    </Select.ItemText>
+                    <Select.ItemIndicator className={classes.itemIndicator}>
                       <CheckIcon />
                     </Select.ItemIndicator>
                   </Select.Item>
@@ -234,20 +251,28 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         </Portal>
       </Select.Root>
       <Select.Root
+        className={classes.root}
         items={filteredFilterConditions}
         positioning={{ sameWidth: true }}
         closeOnSelect
-        onValueChange={(e) => onChangeCondition(e.value)}
+        onValueChange={(e: ValueChangeDetails<CollectionItem>) =>
+          onChangeCondition(e.value)
+        }
         value={[currentFilter.condition]}
         width={180}
         data-testid="select-condition"
       >
-        <Select.Label fontWeight="bold" color="fg.default">
+        <Select.Label
+          className={classes.label}
+          fontWeight="bold"
+          color="fg.default"
+        >
           {localization.filter.condition.conditionLabel}
         </Select.Label>
-        <Select.Control>
-          <Select.Trigger>
+        <Select.Control className={classes.control}>
+          <Select.Trigger className={classes.trigger}>
             <Select.ValueText
+              className={classes.valueText}
               color="fg.subtle"
               placeholder={localization.filter.condition.conditionPlaceholder}
             />
@@ -255,13 +280,22 @@ export const FilterRow = <TData extends Record<string, unknown>>(
           </Select.Trigger>
         </Select.Control>
         <Portal>
-          <Select.Positioner>
-            <Select.Content data-testid="select-condition-options">
-              <Select.ItemGroup id="condition">
+          <Select.Positioner className={classes.positioner}>
+            <Select.Content
+              className={classes.content}
+              data-testid="select-condition-options"
+            >
+              <Select.ItemGroup className={classes.itemGroup} id="condition">
                 {filteredFilterConditions.map((item) => (
-                  <Select.Item key={item.value} item={item}>
-                    <Select.ItemText>{item.label}</Select.ItemText>
-                    <Select.ItemIndicator>
+                  <Select.Item
+                    className={classes.item}
+                    key={item.value}
+                    item={item}
+                  >
+                    <Select.ItemText className={classes.itemText}>
+                      {item.label}
+                    </Select.ItemText>
+                    <Select.ItemIndicator className={classes.itemIndicator}>
                       <CheckIcon />
                     </Select.ItemIndicator>
                   </Select.Item>
@@ -277,16 +311,20 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         </Text>
         {selectedColumnObject?.meta?.type === "enum" ? (
           <Select.Root
+            className={classes.root}
             items={enumList}
             positioning={{ sameWidth: true }}
             closeOnSelect
             width={180}
-            onValueChange={(e) => onChangeValue(e.value)}
+            onValueChange={(e: ValueChangeDetails<CollectionItem>) =>
+              onChangeValue(e.value)
+            }
             data-testid="select-input-value"
           >
-            <Select.Control>
-              <Select.Trigger>
+            <Select.Control className={classes.control}>
+              <Select.Trigger className={classes.trigger}>
                 <Select.ValueText
+                  className={classes.valueText}
                   color="fg.subtle"
                   placeholder={inputValuePlaceHolder}
                 />
@@ -294,13 +332,25 @@ export const FilterRow = <TData extends Record<string, unknown>>(
               </Select.Trigger>
             </Select.Control>
             <Portal>
-              <Select.Positioner>
-                <Select.Content data-testid="select-input-value-options">
-                  <Select.ItemGroup id="filterByValue">
+              <Select.Positioner className={classes.positioner}>
+                <Select.Content
+                  className={classes.content}
+                  data-testid="select-input-value-options"
+                >
+                  <Select.ItemGroup
+                    className={classes.itemGroup}
+                    id="filterByValue"
+                  >
                     {enumList.map((item) => (
-                      <Select.Item key={item} item={item}>
-                        <Select.ItemText>{item}</Select.ItemText>
-                        <Select.ItemIndicator>
+                      <Select.Item
+                        className={classes.item}
+                        key={item}
+                        item={item}
+                      >
+                        <Select.ItemText className={classes.itemText}>
+                          {item}
+                        </Select.ItemText>
+                        <Select.ItemIndicator className={classes.itemIndicator}>
                           <CheckIcon />
                         </Select.ItemIndicator>
                       </Select.Item>
@@ -312,16 +362,20 @@ export const FilterRow = <TData extends Record<string, unknown>>(
           </Select.Root>
         ) : selectedColumnObject?.meta?.type === "boolean" ? (
           <Select.Root
+            className={classes.root}
             items={["true", "false"]}
             positioning={{ sameWidth: true }}
             closeOnSelect
             width={180}
-            onValueChange={(e) => onChangeValue(e.value)}
+            onValueChange={(e: ValueChangeDetails<CollectionItem>) =>
+              onChangeValue(e.value)
+            }
             data-testid="select-input-value"
           >
-            <Select.Control>
-              <Select.Trigger>
+            <Select.Control className={classes.control}>
+              <Select.Trigger className={classes.trigger}>
                 <Select.ValueText
+                  className={classes.valueText}
                   color="fg.subtle"
                   placeholder={inputValuePlaceHolder}
                 />
@@ -329,18 +383,29 @@ export const FilterRow = <TData extends Record<string, unknown>>(
               </Select.Trigger>
             </Select.Control>
             <Portal>
-              <Select.Positioner>
-                <Select.Content>
-                  <Select.ItemGroup id="filterByValue">
-                    <Select.Item key={0} item={"true"}>
-                      <Select.ItemText>{"true"}</Select.ItemText>
-                      <Select.ItemIndicator>
+              <Select.Positioner className={classes.positioner}>
+                <Select.Content className={classes.content}>
+                  <Select.ItemGroup
+                    className={classes.itemGroup}
+                    id="filterByValue"
+                  >
+                    <Select.Item className={classes.item} key={0} item={"true"}>
+                      <Select.ItemText className={classes.itemText}>
+                        {"true"}
+                      </Select.ItemText>
+                      <Select.ItemIndicator className={classes.itemIndicator}>
                         <CheckIcon />
                       </Select.ItemIndicator>
                     </Select.Item>
-                    <Select.Item key={1} item={"false"}>
-                      <Select.ItemText>{"false"}</Select.ItemText>
-                      <Select.ItemIndicator>
+                    <Select.Item
+                      className={classes.item}
+                      key={1}
+                      item={"false"}
+                    >
+                      <Select.ItemText className={classes.itemText}>
+                        {"false"}
+                      </Select.ItemText>
+                      <Select.ItemIndicator className={classes.itemIndicator}>
                         <CheckIcon />
                       </Select.ItemIndicator>
                     </Select.Item>
@@ -359,7 +424,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
               borderRadius={"4px"}
               variant="outline"
               placeholder={inputValuePlaceHolder}
-              onChange={(e) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 onChangeValue(e.target.value);
               }}
               value={[currentFilter.value]}

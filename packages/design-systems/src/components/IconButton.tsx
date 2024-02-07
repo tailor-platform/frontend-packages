@@ -9,7 +9,8 @@ import {
   type ButtonVariantProps,
 } from "@tailor-platform/styled-system/recipes";
 
-export type IconButtonProps = HTMLStyledProps<"button"> &
+export type IconButtonProps = React.PropsWithChildren &
+  HTMLStyledProps<"button"> &
   ButtonVariantProps & { icon?: ReactElement; "aria-label": string };
 
 export const IconButton = (props: IconButtonProps) => {
