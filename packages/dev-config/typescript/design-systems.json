@@ -1,34 +1,28 @@
 {
-    "$schema": "https://json.schemastore.org/tsconfig",
-    "display": "Design systems",
-    "extends": "./base.json",
-    "compilerOptions": {
-      "target": "ES2020",
-      "useDefineForClassFields": true,
-      "lib": [
-        "ES2020",
-        "DOM",
-        "DOM.Iterable"
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Design systems",
+  "extends": "./base.json",
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": ".",
+    "paths": {
+      "@*": ["./src/*"],
+      "@tailor-platform/styled-system": [
+        "./node_modules/@tailor-platform/styled-system"
       ],
-      "moduleResolution": "bundler",
-      "allowImportingTsExtensions": true,
-      "resolveJsonModule": true,
-      "noEmit": true,
-      "jsx": "react-jsx",
-      "noUnusedLocals": true,
-      "noUnusedParameters": true,
-      "noFallthroughCasesInSwitch": true,
-      "baseUrl": ".",
-        "paths": {
-            "@*": [
-              "./src/*"
-            ],
-            "@tailor-platform/styled-system": [
-              "./node_modules/@tailor-platform/styled-system"
-            ],
-            "@tailor-platform/design-systems/*": [
-              "./node_modules/design-systems/dist/*"
-            ]
-        }
+      "@tailor-platform/design-systems/*": [
+        "./node_modules/design-systems/dist/*"
+      ]
     }
+  }
 }
