@@ -1,8 +1,10 @@
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
-import { renderHook, waitFor } from "@testing-library/react";
-import { useAuth, usePlatform } from "./hooks";
+import { renderHook, waitFor, render, screen } from "@testing-library/react";
+import { Suspense } from "react";
+import { clearSession, useAuth, usePlatform, useSession } from "./hooks";
 import { TailorAuthProvider } from "./provider";
-import { buildMockPlatformServer, mockAuthConfig } from "@tests/mocks";
+import { buildMockServer, mockAuthConfig, mockSession } from "@tests/mocks";
+import { withMockedReplace } from "@tests/helper";
 
 const mockProvider = (props: React.PropsWithChildren) => (
   <TailorAuthProvider config={mockAuthConfig}>
@@ -10,32 +12,28 @@ const mockProvider = (props: React.PropsWithChildren) => (
   </TailorAuthProvider>
 );
 
-const mockServer = buildMockPlatformServer();
+const mockServer = buildMockServer();
 beforeAll(() => mockServer.listen());
-afterEach(() => mockServer.resetHandlers());
+afterEach(() => {
+  clearSession();
+  mockServer.resetHandlers();
+});
 afterAll(() => mockServer.close());
 
 describe("useAuth", () => {
   describe("login", () => {
-    it("correctly redirects to the login URL", () => {
-      // we can't simply spy on the window.location.replace method, need to completely
-      // replace the window.location object.
-      const originalWindowLocation = window.location;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
-      delete (window as any).location;
+    it("correctly redirects to the login URL", async () => {
       const replaceMock = vi.fn();
-      window.location = { ...originalWindowLocation, replace: replaceMock };
-
-      const { result } = renderHook(() => useAuth(), {
-        wrapper: mockProvider,
+      await withMockedReplace(replaceMock, () => {
+        const { result } = renderHook(() => useAuth(), {
+          wrapper: mockProvider,
+        });
+        result.current.login({ redirectPath: "/redirect-path" });
       });
-      result.current.login({ redirectPath: "/redirect-path" });
 
       expect(replaceMock).toHaveBeenCalledWith(
         "https://mock-api-url.com/mock-login?redirect_uri=http://localhost:3000/mock-callback?redirect_uri=/redirect-path",
       );
-
-      window.location = originalWindowLocation;
     });
   });
 
@@ -74,6 +72,38 @@ describe("usePlatform", () => {
       });
 
       expect(userResult).toHaveProperty("sub");
+    });
+  });
+});
+
+describe("useSession", () => {
+  it("suspends component while fetching and returns token when finished", async () => {
+    const TestComponent = () => {
+      const session = useSession();
+      return <div>token: {session?.token}</div>;
+    };
+
+    const replaceMock = vi.fn();
+    await withMockedReplace(replaceMock, () => {
+      render(<TestComponent />, {
+        wrapper: (props: React.PropsWithChildren) => {
+          return (
+            <TailorAuthProvider config={mockAuthConfig}>
+              <Suspense fallback={<div>Suspending</div>}>
+                {props.children}
+              </Suspense>
+            </TailorAuthProvider>
+          );
+        },
+      });
+    });
+
+    expect(screen.getByText("Suspending")).toBeTruthy();
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(`token: ${mockSession.access_token}`),
+      ).toBeTruthy();
     });
   });
 });
