@@ -13,19 +13,19 @@ interface ValueChangeDetails<T extends CollectionItem = CollectionItem> {
 }
 
 const Select = {
-  Root: styled(AS.Root), // classes.root
-  ClearTrigger: styled(AS.ClearTrigger), // classes.clearTrigger
-  Content: styled(AS.Content), // classes.content
-  Control: styled(AS.Control), // classes.control
-  Item: styled(AS.Item), // classes.item
-  ItemGroup: styled(AS.ItemGroup), // classes.itemGroup
-  ItemGroupLabel: styled(AS.ItemGroupLabel), // classes.itemGroupLabel
-  ItemIndicator: styled(AS.ItemIndicator), // classes.itemIndicator
-  ItemText: styled(AS.ItemText), // classes.itemText
-  Label: styled(AS.Label), // classes.label
-  Positioner: styled(AS.Positioner), // classes.positioner
-  Trigger: styled(AS.Trigger), // classes.trigger
-  ValueText: styled(AS.ValueText), // classes.valueText
+  Root: styled(AS.Root),
+  ClearTrigger: styled(AS.ClearTrigger),
+  Content: styled(AS.Content),
+  Control: styled(AS.Control),
+  Item: styled(AS.Item),
+  ItemGroup: styled(AS.ItemGroup),
+  ItemGroupLabel: styled(AS.ItemGroupLabel),
+  ItemIndicator: styled(AS.ItemIndicator),
+  ItemText: styled(AS.ItemText),
+  Label: styled(AS.Label),
+  Positioner: styled(AS.Positioner),
+  Trigger: styled(AS.Trigger),
+  ValueText: styled(AS.ValueText),
 };
 
 export const FilterRow = <TData extends Record<string, unknown>>(
