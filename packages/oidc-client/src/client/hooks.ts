@@ -82,9 +82,14 @@ export const usePlatform = () => {
 
 let internalClientSession: SessionResult | null = null;
 export const useSession = (options?: SessionOption) => {
+  const config = useTailorAuth();
+
   assertWindowIsAvailable();
 
-  const config = useTailorAuth();
+  if (options?.required && internalClientSession?.token === undefined) {
+    window.location.replace(config.appUrl(internalUnauthorizedPath));
+    return;
+  }
 
   const getSession = async () => {
     const rawResp = await fetch(config.appUrl(internalClientSessionPath));
@@ -94,11 +99,6 @@ export const useSession = (options?: SessionOption) => {
 
   if (!internalClientSession) {
     throw getSession();
-  }
-
-  if (options?.required && internalClientSession.token === undefined) {
-    window.location.replace(config.appUrl(internalUnauthorizedPath));
-    return;
   }
 
   return internalClientSession;

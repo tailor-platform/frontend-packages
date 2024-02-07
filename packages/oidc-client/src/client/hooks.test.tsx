@@ -1,10 +1,12 @@
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 import { renderHook, waitFor, render, screen } from "@testing-library/react";
 import { Suspense } from "react";
+import { http, HttpResponse } from "msw";
 import { clearClientSession, useAuth, usePlatform, useSession } from "./hooks";
 import { TailorAuthProvider } from "./provider";
 import { buildMockServer, mockAuthConfig, mockSession } from "@tests/mocks";
 import { withMockedReplace } from "@tests/helper";
+import { internalClientSessionPath } from "@server/middleware/internal";
 
 const mockProvider = (props: React.PropsWithChildren) => (
   <TailorAuthProvider config={mockAuthConfig}>
@@ -77,24 +79,23 @@ describe("usePlatform", () => {
 });
 
 describe("useSession", () => {
+  const SuspendingWrapper = (props: React.PropsWithChildren) => {
+    return (
+      <TailorAuthProvider config={mockAuthConfig}>
+        <Suspense fallback={<div>Suspending</div>}>{props.children}</Suspense>
+      </TailorAuthProvider>
+    );
+  };
+
   it("suspends component while fetching and returns token when finished", async () => {
     const TestComponent = () => {
       const session = useSession();
       return <div>token: {session?.token}</div>;
     };
 
-    const replaceMock = vi.fn();
-    await withMockedReplace(replaceMock, () => {
+    await withMockedReplace(vi.fn(), () => {
       render(<TestComponent />, {
-        wrapper: (props: React.PropsWithChildren) => {
-          return (
-            <TailorAuthProvider config={mockAuthConfig}>
-              <Suspense fallback={<div>Suspending</div>}>
-                {props.children}
-              </Suspense>
-            </TailorAuthProvider>
-          );
-        },
+        wrapper: SuspendingWrapper,
       });
     });
 
@@ -105,5 +106,31 @@ describe("useSession", () => {
         screen.getByText(`token: ${mockSession.access_token}`),
       ).toBeTruthy();
     });
+  });
+
+  it("redirects users to the unauthorized route if session is empty", async () => {
+    mockServer.use(
+      http.post(mockAuthConfig.appUrl(internalClientSessionPath), () => {
+        return HttpResponse.json({
+          token: undefined,
+        });
+      }),
+    );
+
+    const TestComponent = () => {
+      const session = useSession({
+        required: true,
+      });
+      return <div>token: {session?.token}</div>;
+    };
+
+    const replaceMock = vi.fn();
+    await withMockedReplace(replaceMock, () => {
+      render(<TestComponent />, {
+        wrapper: SuspendingWrapper,
+      });
+    });
+
+    expect(replaceMock).toHaveBeenCalled();
   });
 });
