@@ -1,5 +1,4 @@
 {
-  "compilerOptions": {},
   "extends": "./node_modules/@tailor-platform/dev-config/typescript/design-systems.json",
   "include": [
     "src"
