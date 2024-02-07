@@ -8,10 +8,7 @@ import { table } from "@tailor-platform/styled-system/recipes";
 
 const classes = table();
 
-type TableContentProps = {
-  className?: string;
-};
-type TableProps = TableContentProps & HTMLStyledProps<"table">;
+type TableProps = HTMLStyledProps<"table">;
 const Table = (props: TableProps) => {
   const { className, ...rest } = props;
   return (
@@ -24,7 +21,7 @@ const Table = (props: TableProps) => {
   );
 };
 
-type TableHeaderProps = TableContentProps & HTMLStyledProps<"thead">;
+type TableHeaderProps = HTMLStyledProps<"thead">;
 const TableHeader = (props: TableHeaderProps) => {
   const { className, ...rest } = props;
   return (
@@ -33,7 +30,7 @@ const TableHeader = (props: TableHeaderProps) => {
 };
 TableHeader.displayName = "TableHeader";
 
-type TableBodyProps = TableContentProps & HTMLStyledProps<"tbody">;
+type TableBodyProps = HTMLStyledProps<"tbody">;
 const TableBody = (props: TableBodyProps) => {
   const { className, ...rest } = props;
   return (
@@ -43,7 +40,7 @@ const TableBody = (props: TableBodyProps) => {
 
 TableBody.displayName = "TableBody";
 
-type TableFooterProps = TableContentProps & HTMLStyledProps<"tfoot">;
+type TableFooterProps = HTMLStyledProps<"tfoot">;
 const TableFooter = (props: TableFooterProps) => {
   const { className, ...rest } = props;
   return (
@@ -53,7 +50,7 @@ const TableFooter = (props: TableFooterProps) => {
 
 TableFooter.displayName = "TableFooter";
 
-type TableRowProps = TableContentProps & HTMLStyledProps<"tr">;
+type TableRowProps = HTMLStyledProps<"tr">;
 const TableRow = (props: TableRowProps) => {
   const { className, ...rest } = props;
   return <styled.tr className={cx("group", classes.tr, className)} {...rest} />;
@@ -61,7 +58,7 @@ const TableRow = (props: TableRowProps) => {
 
 TableRow.displayName = "TableRow";
 
-type TableHeadProps = TableContentProps & HTMLStyledProps<"th">;
+type TableHeadProps = HTMLStyledProps<"th">;
 const TableHead = (props: TableHeadProps) => {
   const { className, ...rest } = props;
   return <styled.th className={cx("group", classes.th, className)} {...rest} />;
@@ -69,7 +66,7 @@ const TableHead = (props: TableHeadProps) => {
 
 TableHead.displayName = "TableHead";
 
-type TableCellProps = TableContentProps & HTMLStyledProps<"td">;
+type TableCellProps = HTMLStyledProps<"td">;
 const TableCell = (props: TableCellProps) => {
   const { className, ...rest } = props;
   return <styled.td className={cx("group", classes.td, className)} {...rest} />;
@@ -77,7 +74,7 @@ const TableCell = (props: TableCellProps) => {
 
 TableCell.displayName = "TableCell";
 
-type TableCaptionProps = TableContentProps & HTMLStyledProps<"caption">;
+type TableCaptionProps = HTMLStyledProps<"caption">;
 const TableCaption = (props: TableCaptionProps) => {
   const { className, ...rest } = props;
   return (

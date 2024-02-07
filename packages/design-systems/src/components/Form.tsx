@@ -93,7 +93,7 @@ const FormItem = forwardRef<HTMLDivElement, BoxProps>(
 
     return (
       <FormItemContext.Provider value={{ id }}>
-        <Box ref={ref} className={cx(className?.toString())} {...props} />
+        <Box ref={ref} className={cx(className)} {...props} />
       </FormItemContext.Provider>
     );
   },

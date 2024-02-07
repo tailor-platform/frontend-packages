@@ -11,17 +11,17 @@ import {
   isValidElement,
   type PropsWithChildren,
   type ReactElement,
+  type ReactNode,
 } from "react";
 
 type ButtonContentProps = {
+  children?: ReactNode | undefined;
   leftIcon?: ReactElement;
   rightIcon?: ReactElement;
-  href?: string;
 };
 
 export type ButtonProps = ButtonVariantProps &
   ButtonContentProps &
-  React.PropsWithChildren &
   HTMLStyledProps<"button"> &
   HTMLStyledProps<"a">;
 
@@ -71,9 +71,7 @@ const ButtonContent = (props: PropsWithChildren<ButtonContentProps>) => {
   );
 };
 
-type ButtonIconProps = React.PropsWithChildren & HTMLStyledProps<"span">;
-
-const ButtonIcon = (props: ButtonIconProps) => {
+const ButtonIcon = (props: HTMLStyledProps<"span">) => {
   const { children, ...rest } = props;
 
   return (
