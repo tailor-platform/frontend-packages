@@ -39,7 +39,7 @@ export const switchRecipe = defineRecipe({
         _dark: "brown.900",
       },
       _checked: {
-        background: "accent.default !important",
+        background: "primary.default !important",
       },
       _focusVisible: {
         "--shadow": {

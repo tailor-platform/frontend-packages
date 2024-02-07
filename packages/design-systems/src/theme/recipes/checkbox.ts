@@ -41,18 +41,18 @@ export const checkbox = defineRecipe({
         },
       },
       _checked: {
-        background: "accent.default",
-        borderColor: "accent.default",
+        background: "primary.default",
+        borderColor: "primary.default",
         color: "bg.default",
         _hover: {
-          borderColor: "accent.default",
+          borderColor: "primary.default",
         },
       },
       _indeterminate: {
-        borderColor: "accent.default",
-        color: "accent.default",
+        borderColor: "primary.default",
+        color: "primary.default",
         _hover: {
-          borderColor: "accent.default",
+          borderColor: "primary.default",
         },
       },
     },

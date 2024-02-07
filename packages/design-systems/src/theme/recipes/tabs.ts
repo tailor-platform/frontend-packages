@@ -29,9 +29,9 @@ export const tabs = defineRecipe({
         color: "fg.emphasized",
       },
       _selected: {
-        color: "accent.default",
+        color: "primary.default",
         _hover: {
-          color: "accent.default",
+          color: "primary.default",
         },
       },
       _disabled: {
@@ -41,7 +41,7 @@ export const tabs = defineRecipe({
     },
     indicator: {
       height: "2px",
-      background: "accent.default",
+      background: "primary.default",
       bottom: "-1px",
     },
     content: {
@@ -78,7 +78,7 @@ export const tabs = defineRecipe({
           },
         },
         indicator: {
-          background: "accent.default",
+          background: "primary.default",
         },
       }),
     },

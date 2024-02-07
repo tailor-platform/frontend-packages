@@ -30,7 +30,7 @@ export const segmentGroup = defineSlotRecipe({
       borderLeftWidth: {
         _vertical: "2px",
       },
-      borderColor: "accent.default",
+      borderColor: "primary.default",
       transform: {
         _horizontal: "translateY(1px)",
         _vertical: "translateX(-1px)",

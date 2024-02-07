@@ -40,7 +40,7 @@ export const button = defineRecipe({
     variant: {
       primary: {
         color: "white",
-        backgroundColor: "accent.default",
+        backgroundColor: "primary.default",
         _disabled: {
           background: "bg.muted",
           color: "fg.placeholder",
@@ -51,7 +51,7 @@ export const button = defineRecipe({
           },
         },
         _hover: {
-          backgroundColor: "accent.emphasized",
+          backgroundColor: "primary.emphasized",
         },
         _focusVisible: {
           zIndex: 1,
