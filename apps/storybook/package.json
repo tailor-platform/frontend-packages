@@ -4,12 +4,11 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "pnpm panda && storybook dev -p 6006",
+    "dev": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "panda": "panda codegen",
-    "chromatic": "pnpm panda && chromatic --exit-zero-on-changes",
+    "chromatic": "chromatic --exit-zero-on-changes",
     "ark:types": "node --loader ts-node/esm/transpile-only ./scripts/generate-ark-types.ts",
     "storybook:types": "node --loader ts-node/esm/transpile-only ./scripts/generate-storybook-types.ts",
     "ark:storybook:types": "pnpm ark:types && pnpm storybook:types"

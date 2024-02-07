@@ -8,10 +8,7 @@ export default defineConfig({
     postcss: {
       plugins: [
         panda({
-          configPath: path.resolve(
-            __dirname,
-            "./../../packages/design-systems/panda.config.ts",
-          ),
+          configPath: path.resolve(__dirname, "./panda.config.ts"),
         }),
       ],
     },
@@ -20,7 +17,7 @@ export default defineConfig({
     alias: {
       "@tailor-platform/styled-system": path.resolve(
         __dirname,
-        "./../../packages/design-systems/node_modules/@tailor-platform/styled-system",
+        "./../../node_modules/@tailor-platform/styled-system",
       ),
       "@tailor-platform/design-systems/client": path.resolve(
         __dirname,
