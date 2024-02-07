@@ -36,7 +36,7 @@ export const input = defineRecipe({
             _dark: "colors.blue.400",
           },
           boxShadow: "0 0 0 1px var(--shadow)",
-          borderColor: "accent.default",
+          borderColor: "primary.default",
         },
       },
     },

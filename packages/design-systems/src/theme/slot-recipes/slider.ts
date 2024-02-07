@@ -23,7 +23,7 @@ export const slider = defineSlotRecipe({
       flex: "1",
     },
     range: {
-      background: "accent.default",
+      background: "primary.default",
     },
     thumb: {
       background: "bg.default",

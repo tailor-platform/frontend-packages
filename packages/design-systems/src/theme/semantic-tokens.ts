@@ -66,7 +66,7 @@ export const semanticTokens = defineSemanticTokens({
         },
       },
     },
-    accent: {
+    primary: {
       default: {
         value: {
           base: "{colors.tailor-blue.600}",
@@ -107,7 +107,7 @@ export const semanticTokens = defineSemanticTokens({
         },
       },
       accent: {
-        value: "{colors.accent.default}",
+        value: "{colors.primary.default}",
       },
       disabled: {
         value: {

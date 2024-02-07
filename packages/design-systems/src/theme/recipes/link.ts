@@ -27,11 +27,11 @@ export const link = defineRecipe({
         pl: "4",
         fontSize: { base: "md", lg: "sm" },
         lineHeight: "1.5rem",
-        _hover: { color: "fg.default", borderLeftColor: "accent.muted" },
+        _hover: { color: "fg.default", borderLeftColor: "primary.muted" },
         _currentPage: {
           color: "fg.default",
           fontWeight: "semibold",
-          borderColor: "accent.muted",
+          borderColor: "primary.muted",
         },
       },
       toc: {
@@ -45,14 +45,14 @@ export const link = defineRecipe({
         _currentPage: {
           color: "fg.default",
           fontWeight: "semibold",
-          borderColor: "accent.default",
+          borderColor: "primary.default",
         },
       },
       mdx: {
         color: "fg.emphasized",
         _visited: { color: "fg.emphasized" },
         textDecoration: "underline",
-        textDecorationColor: "accent.muted",
+        textDecorationColor: "primary.muted",
         textUnderlineOffset: "0.2em",
       },
     },

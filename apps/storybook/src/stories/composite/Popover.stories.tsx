@@ -73,7 +73,7 @@ export const Default: Story = {
                     Dismiss
                   </Button>
                 </PopoverCloseTrigger>
-                <Button variant="link" size="sm" color="accent.default">
+                <Button variant="link" size="sm" color="primary.default">
                   Show
                 </Button>
               </Stack>

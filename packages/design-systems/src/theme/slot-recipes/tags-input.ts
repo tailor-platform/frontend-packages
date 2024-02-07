@@ -24,7 +24,7 @@ export const tagsInput = defineSlotRecipe({
       transitionTimingFunction: "default",
       _focusWithin: {
         borderColor: "border.accent",
-        boxShadow: "accent",
+        boxShadow: "primary",
       },
     },
     input: {
@@ -41,7 +41,7 @@ export const tagsInput = defineSlotRecipe({
       fontWeight: "medium",
       _highlighted: {
         borderColor: "border.accent",
-        boxShadow: "accent",
+        boxShadow: "primary",
       },
       _hidden: {
         display: "none",

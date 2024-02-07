@@ -260,7 +260,7 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
         })}
       </Box>
       <Button
-        backgroundColor="accent.default"
+        backgroundColor="primary.default"
         marginTop={4}
         onClick={() => {
           addNewFilterRowHandler(numberOfFilterRows);

@@ -37,8 +37,8 @@ export const radio = defineRecipe({
         },
       },
       _checked: {
-        background: "accent.default",
-        borderColor: "accent.default",
+        background: "primary.default",
+        borderColor: "primary.default",
         "--outline-color": {
           base: "colors.white",
           _dark: "colors.gray.950",

@@ -24,12 +24,12 @@ export const radioGroup = defineSlotRecipe({
         background: "bg.subtle",
       },
       _checked: {
-        background: "accent.default",
+        background: "primary.default",
         borderColor: "border.accent",
         outlineColor: "bg.default",
         outlineStyle: "solid",
         _hover: {
-          background: "accent.default",
+          background: "primary.default",
         },
       },
       _disabled: {
