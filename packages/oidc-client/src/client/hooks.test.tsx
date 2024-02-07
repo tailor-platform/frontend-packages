@@ -1,37 +1,18 @@
-import { setupServer } from "msw/node";
-import { http, HttpResponse } from "msw";
 import { ReactNode } from "react";
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 import { renderHook, waitFor } from "@testing-library/react";
 import { useAuth, usePlatform } from "./hooks";
 import { TailorAuthProvider } from "./provider";
-import { mockAuthConfig } from "@tests/mocks";
-
-const server = setupServer(
-  http.post("https://mock-api-url.com/mock-token", () => {
-    return HttpResponse.json({
-      accessToken: "mockAccessToken",
-      refreshToken: "mockRefreshToken",
-    });
-  }),
-  http.get("https://mock-api-url.com/mock-userinfo", () => {
-    return HttpResponse.json({ sub: "mockSub" });
-  }),
-  http.post("https://mock-api-url.com/mock-refresh-token", () => {
-    return HttpResponse.json({
-      accessToken: "mockAccessToken",
-      refreshToken: "mockRefreshToken",
-    });
-  }),
-);
+import { buildMockServer, mockAuthConfig } from "@tests/mocks";
 
 const mockProvider = ({ children }: { children: ReactNode }) => (
   <TailorAuthProvider config={mockAuthConfig}>{children}</TailorAuthProvider>
 );
 
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
+const mockServer = buildMockServer();
+beforeAll(() => mockServer.listen());
+afterEach(() => mockServer.resetHandlers());
+afterAll(() => mockServer.close());
 
 describe("useAuth", () => {
   describe("login", () => {

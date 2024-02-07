@@ -1,3 +1,5 @@
+import { http, HttpResponse } from "msw";
+import { setupServer } from "msw/node";
 import { Config, Session } from "@client";
 
 export const mockSession: Session = {
@@ -7,7 +9,20 @@ export const mockSession: Session = {
   user_id: "43a05b99-ebe1-4b89-8284-e4447e3a3551",
 };
 
-export const mockAuthConfig = new Config({
+const defaultMockedResponse = {
+  token: () => HttpResponse.json(mockSession),
+  userinfo: () =>
+    HttpResponse.json({
+      sub: "mockSub",
+    }),
+  refreshToken: () =>
+    HttpResponse.json({
+      accessToken: "mockAccessToken",
+      refreshToken: "mockRefreshToken",
+    }),
+};
+
+export const mockAuthConfigValue = {
   apiHost: "https://mock-api-url.com",
   appHost: "http://localhost:3000",
   loginPath: "/mock-login",
@@ -15,4 +30,23 @@ export const mockAuthConfig = new Config({
   tokenPath: "/mock-token",
   refreshTokenPath: "/mock-refresh-token",
   userInfoPath: "/mock-userinfo",
-});
+};
+export const mockAuthConfig = new Config(mockAuthConfigValue);
+export const buildMockServer = (response?: typeof defaultMockedResponse) => {
+  const mockResponse = {
+    ...defaultMockedResponse,
+    ...response,
+  };
+
+  return setupServer(
+    http.post(mockAuthConfig.apiUrl(mockAuthConfig.tokenPath()), () =>
+      mockResponse.token(),
+    ),
+    http.get(mockAuthConfig.apiUrl(mockAuthConfig.userInfoPath()), () =>
+      mockResponse.userinfo(),
+    ),
+    http.post(mockAuthConfig.apiUrl(mockAuthConfig.refreshTokenPath()), () =>
+      mockResponse.refreshToken(),
+    ),
+  );
+};
