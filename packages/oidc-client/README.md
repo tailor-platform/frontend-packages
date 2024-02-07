@@ -144,7 +144,7 @@ const Component = async () => {
   const { token } = useSession();
   const { getCurrentUser } = usePlatform();
 
-  const user = await getUser(token);
+  const user = await getCurrentUser(token);
 
   // utilize session and user data...
 };
