@@ -37,5 +37,5 @@ export default defineConfig({
         },
       },
     },
-  },
+  }, // temporary workaround for ts error in /packages/design-systems/src/components/Form.tsx
 });
