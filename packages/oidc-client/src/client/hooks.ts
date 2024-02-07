@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import { clientSessionPath, internalUnauthorizedPath } from "../lib/config";
 import { ErrorResponse, SessionOption, SessionResult } from "@lib/types";
 import { useTailorAuth } from "@client/provider";
@@ -11,14 +10,21 @@ export type UserInfo = {
   email: string;
 };
 
+const NoWindowError = new Error(
+  "window object should be available to use this function",
+);
+const assertWindowIsAvailable = () => {
+  if (window === undefined) {
+    throw NoWindowError;
+  }
+};
+
 // useAuth is a hook that abstracts out provider-agnostic interface functions related to authorization
 export const useAuth = () => {
   const config = useTailorAuth();
 
   const login = (args: { redirectPath: string }) => {
-    if (window === undefined) {
-      throw new Error("login is only available on client component");
-    }
+    assertWindowIsAvailable();
 
     const apiLoginUrl = config.apiUrl(config.loginPath());
     const callbackPath = config.loginCallbackPath();
@@ -73,6 +79,8 @@ export const usePlatform = () => {
 
 let useSessionResult: SessionResult | null = null;
 export const useSession = (options?: SessionOption) => {
+  assertWindowIsAvailable();
+
   const config = useTailorAuth();
 
   const getSession = async () => {
@@ -86,7 +94,8 @@ export const useSession = (options?: SessionOption) => {
   }
 
   if (options?.required && useSessionResult.token === undefined) {
-    redirect(internalUnauthorizedPath);
+    window.location.replace(config.appUrl(internalUnauthorizedPath));
+    return;
   }
 
   return useSessionResult;
