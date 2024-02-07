@@ -6,19 +6,12 @@
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "baseUrl": [
-        "."
-      ],
-      "@*": [
-        "./src/*"
-      ],
+      "baseUrl": ["."],
+      "@*": ["./src/*"],
       "@tailor-platform/styled-system/*": [
         "./node_modules/@tailor-platform/styled-system/*"
       ]
     }
   },
-  "include": [
-    "vite.config.ts",
-    "vite-env.d.ts"
-  ]
+  "include": ["vite.config.ts", "vite-env.d.ts"]
 }
