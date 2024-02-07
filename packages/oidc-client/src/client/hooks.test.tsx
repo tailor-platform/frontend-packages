@@ -1,7 +1,7 @@
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 import { renderHook, waitFor, render, screen } from "@testing-library/react";
 import { Suspense } from "react";
-import { clearSession, useAuth, usePlatform, useSession } from "./hooks";
+import { clearClientSession, useAuth, usePlatform, useSession } from "./hooks";
 import { TailorAuthProvider } from "./provider";
 import { buildMockServer, mockAuthConfig, mockSession } from "@tests/mocks";
 import { withMockedReplace } from "@tests/helper";
@@ -15,7 +15,7 @@ const mockProvider = (props: React.PropsWithChildren) => (
 const mockServer = buildMockServer();
 beforeAll(() => mockServer.listen());
 afterEach(() => {
-  clearSession();
+  clearClientSession();
   mockServer.resetHandlers();
 });
 afterAll(() => mockServer.close());

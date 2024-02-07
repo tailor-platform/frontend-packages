@@ -102,6 +102,6 @@ export const useSession = (options?: SessionOption) => {
 };
 
 // Clear session internally stored on memory (this is only for test usage)
-export const clearSession = () => {
+export const clearClientSession = () => {
   internalClientSession = null;
 };
