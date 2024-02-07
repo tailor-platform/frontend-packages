@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
-import { MiddlewareHandlerOptions } from "../middleware";
+import { RouteHandler } from "../middleware";
 import { internalExchangeTokenForSession } from "@lib/core";
-import { Config } from "@/lib/config";
 import { Session } from "@/lib/types";
 
 export class CallbackError extends Error {
@@ -18,11 +17,12 @@ export const paramsError = () =>
 export const exchangeError = (reason: string) =>
   new CallbackError("failed-exchange", reason);
 
-export const callbackHandler = async (
-  params: URLSearchParams,
-  config: Config,
-  options?: MiddlewareHandlerOptions,
-) => {
+export const callbackHandler: RouteHandler = async ({
+  request,
+  config,
+  options,
+}) => {
+  const params = request.nextUrl.searchParams;
   const code = params.get("code");
   const redirectURI = params.get("redirect_uri");
   if (!code || !redirectURI) {

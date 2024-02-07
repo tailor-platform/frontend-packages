@@ -1,4 +1,6 @@
+import { NextRequest } from "next/server";
 import { Mock } from "vitest";
+import { RouteHandler } from "@server/middleware";
 
 // we can't simply spy on the window.location.replace method.
 // this is a helper function to completely replace the window.location object.
@@ -14,4 +16,14 @@ export const withMockedReplace = async (
   await test();
 
   window.location = originalWindowLocation;
+};
+
+export const buildRequestWithParams = (
+  base: string,
+  params?: URLSearchParams,
+) => new NextRequest(new Request(`${base}?${params?.toString()}`));
+
+export const testingError = new Error("this is testing error");
+export const testingErrorHandler: RouteHandler = () => {
+  throw testingError;
 };

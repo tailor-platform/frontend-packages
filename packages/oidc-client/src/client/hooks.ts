@@ -1,6 +1,9 @@
-import { clientSessionPath, internalUnauthorizedPath } from "../lib/config";
 import { ErrorResponse, SessionOption, SessionResult } from "@lib/types";
 import { useTailorAuth } from "@client/provider";
+import {
+  internalClientSessionPath,
+  internalUnauthorizedPath,
+} from "@server/middleware/internal";
 
 export type UserInfo = {
   sub: string;
@@ -84,7 +87,7 @@ export const useSession = (options?: SessionOption) => {
   const config = useTailorAuth();
 
   const getSession = async () => {
-    const rawResp = await fetch(config.appUrl(clientSessionPath));
+    const rawResp = await fetch(config.appUrl(internalClientSessionPath));
     const r = (await rawResp.json()) as SessionResult;
     internalClientSession = r;
   };

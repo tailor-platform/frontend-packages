@@ -1,7 +1,7 @@
 import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
 import { Config, Session } from "@client";
-import { clientSessionPath } from "@lib/config";
+import { internalClientSessionPath } from "@server/middleware/internal";
 
 export const mockSession: Session = {
   access_token: "mockAccessToken",
@@ -53,7 +53,7 @@ export const buildMockServer = (response?: typeof defaultMockedResponse) => {
     http.post(mockAuthConfig.apiUrl(mockAuthConfig.refreshTokenPath()), () =>
       mockResponse.refreshToken(),
     ),
-    http.get(mockAuthConfig.appUrl(clientSessionPath), () =>
+    http.get(mockAuthConfig.appUrl(internalClientSessionPath), () =>
       mockResponse.clientSession(),
     ),
   );

@@ -9,6 +9,7 @@ import {
 } from "@tests/mocks";
 import { mockSession } from "@tests/mocks";
 import { Config } from "@client";
+import { buildRequestWithParams } from "@tests/helper";
 
 const mockServer = buildMockServer();
 beforeAll(() => mockServer.listen());
@@ -16,16 +17,25 @@ afterEach(() => mockServer.resetHandlers());
 afterAll(() => mockServer.close());
 
 describe("callback", () => {
+  const baseURL = mockAuthConfig.appUrl(mockAuthConfig.loginCallbackPath());
+
   it("obtains a token and stores it in the cookies", async () => {
-    const params = new URLSearchParams({
-      code: "12345",
-      redirect_uri: "/users",
-    });
+    const request = buildRequestWithParams(
+      baseURL,
+      new URLSearchParams({
+        code: "12345",
+        redirect_uri: "/users",
+      }),
+    );
 
     const onErrorMock = vi.fn();
     const prependMock = vi.fn();
-    const result = await callbackHandler(params, mockAuthConfig, {
-      prepend: prependMock,
+    const result = await callbackHandler({
+      request,
+      config: mockAuthConfig,
+      options: {
+        prepend: prependMock,
+      },
     });
 
     expect(onErrorMock).not.toHaveBeenCalled();
@@ -40,13 +50,16 @@ describe("callback", () => {
   });
 
   it("calls onError when params are invalid", async () => {
-    const params = new URLSearchParams({
-      code: "12345",
-    });
-
-    await expect(callbackHandler(params, mockAuthConfig)).rejects.toThrow(
-      paramsError(),
+    const request = buildRequestWithParams(
+      baseURL,
+      new URLSearchParams({
+        code: "12345",
+      }),
     );
+
+    await expect(
+      callbackHandler({ request, config: mockAuthConfig }),
+    ).rejects.toThrow(paramsError());
   });
 
   it("calls onError when the token exchange isn't successful", async () => {
@@ -61,18 +74,21 @@ describe("callback", () => {
       }),
     );
 
-    const params = new URLSearchParams({
-      code: "12345",
-      redirect_uri: "/users",
-    });
+    const request = buildRequestWithParams(
+      baseURL,
+      new URLSearchParams({
+        code: "12345",
+        redirect_uri: "/users",
+      }),
+    );
 
     const authConfig = new Config({
       ...mockAuthConfigValue,
       tokenPath: invalidTokenPath,
     });
 
-    await expect(callbackHandler(params, authConfig)).rejects.toThrow(
-      exchangeError(invalidTokenError),
-    );
+    await expect(
+      callbackHandler({ request, config: authConfig }),
+    ).rejects.toThrow(exchangeError(invalidTokenError));
   });
 });
