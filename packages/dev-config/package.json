@@ -10,10 +10,12 @@
   },
   "exports": {
     "./typescript/base": "./typescript/base.json",
+    "./typescript/design-systems": "./typescript/design-systems.json",
     "./typescript/nextjs": "./typescript/nextjs.json",
     "./typescript/react-library": "./typescript/react-library.json",
     "./eslint": "./eslint/eslintrc.js",
-    "./prettier": "./prettier/index.js"
+    "./prettier": "./prettier/index.js",
+    "./pandacss": "./prettier/index.js"
   },
   "repository": "https://github.com/tailor-platform/frontend-packages",
   "dependencies": {
