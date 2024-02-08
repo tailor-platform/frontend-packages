@@ -20,6 +20,7 @@ export function buildPandaConfig(config) {
 export const defaultPandaConfig = defineConfig({
   preflight: true,
   include: [
+    "./node_modules/@tailor-platform/datagrid/dist/panda.buildinfo.json",
     "./node_modules/@tailor-platform/design-systems/dist/panda.buildinfo.json",
   ],
   exclude: [],
