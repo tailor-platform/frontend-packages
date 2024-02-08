@@ -23,6 +23,10 @@ export default defineConfig({
         __dirname,
         "./../../packages/design-systems/dist/client.mjs",
       ),
+      "@tailor-platform/dev-config/pandacss": path.resolve(
+        __dirname,
+        "./node_modules/@tailor-platform/dev-config/pandacss",
+      ),
     },
   },
   plugins: [react()],

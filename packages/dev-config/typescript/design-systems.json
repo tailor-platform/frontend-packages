@@ -7,6 +7,7 @@
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "moduleResolution": "bundler",
+    "allowJs": true,
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "noEmit": true,
@@ -23,8 +24,8 @@
       "@tailor-platform/design-systems/*": [
         "./node_modules/@tailor-platform/design-systems/dist/*"
       ],
-      "@tailor-platform/dev-config": [
-        "./node_modules/@tailor-platform/dev-config"
+      "@tailor-platform/dev-config/*": [
+        "./node_modules/@tailor-platform/dev-config/*"
       ]
     }
   }
