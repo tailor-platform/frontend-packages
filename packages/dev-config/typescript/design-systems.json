@@ -21,7 +21,10 @@
         "./node_modules/@tailor-platform/styled-system"
       ],
       "@tailor-platform/design-systems/*": [
-        "./node_modules/design-systems/dist/*"
+        "./node_modules/@tailor-platform/design-systems/dist/*"
+      ],
+      "@tailor-platform/dev-config/": [
+        "./node_modules/@tailor-platform/dev-config"
       ]
     }
   }
