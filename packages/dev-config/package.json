@@ -17,7 +17,6 @@
   },
   "repository": "https://github.com/tailor-platform/frontend-packages",
   "dependencies": {
-    "@pandacss/dev": "^0.29.1",
     "@typescript-eslint/eslint-plugin": "^6.7.5",
     "@typescript-eslint/parser": "^6.2.1",
     "eslint": "^8.42.0",
@@ -30,5 +29,11 @@
     "eslint-plugin-todo-comment": "^1.1.0",
     "eslint-plugin-vitest": "^0.3.16",
     "eslint-plugin-vitest-globals": "^1.4.0"
+  },
+  "devDependencies": {
+    "@pandacss/dev": "^0.29.1"
+  },
+  "peerDependencies": {
+    "@pandacss/dev": "^0.29.1"
   }
 }
