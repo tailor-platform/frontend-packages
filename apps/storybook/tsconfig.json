@@ -2,9 +2,10 @@
   "compilerOptions": {
     "paths": {
       "@tailor-platform/dev-config/*": [
-        "./node_modules/@tailor-platform/dev-config/*"
-      ]
-    }},
+        "./node_modules/@tailor-platform/dev-config/*",
+      ],
+    },
+  },
   "extends": "./node_modules/@tailor-platform/dev-config/typescript/design-systems.json",
   "include": ["src"],
   "references": [
