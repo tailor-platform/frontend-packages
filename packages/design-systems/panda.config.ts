@@ -1,5 +1,4 @@
 import { defineConfig } from "@pandacss/dev";
-
 import { recipes } from "./src/theme/recipes";
 import { semanticTokens } from "./src/theme/semantic-tokens";
 import { slotRecipes } from "./src/theme/slot-recipes";
