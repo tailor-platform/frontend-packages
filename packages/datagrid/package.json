@@ -1,6 +1,6 @@
 {
   "name": "@tailor-platform/datagrid",
-  "version": "0.5.2",
+  "version": "0.5.2-preview.1",
   "private": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
