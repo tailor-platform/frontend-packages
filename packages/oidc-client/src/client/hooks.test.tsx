@@ -1,59 +1,41 @@
-import { setupServer } from "msw/node";
-import { http, HttpResponse } from "msw";
-import { ReactNode } from "react";
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
-import { renderHook, waitFor } from "@testing-library/react";
-import { useAuth, usePlatform } from "./hooks";
+import { renderHook, waitFor, render, screen } from "@testing-library/react";
+import { Suspense } from "react";
+import { http, HttpResponse } from "msw";
+import { clearClientSession, useAuth, usePlatform, useSession } from "./hooks";
 import { TailorAuthProvider } from "./provider";
-import { mockAuthConfig } from "@tests/mocks";
+import { buildMockServer, mockAuthConfig, mockSession } from "@tests/mocks";
+import { withMockReplace } from "@tests/helper";
+import { internalClientSessionPath } from "@server/middleware/internal";
 
-const server = setupServer(
-  http.post("https://mock-api-url.com/mock-token", () => {
-    return HttpResponse.json({
-      accessToken: "mockAccessToken",
-      refreshToken: "mockRefreshToken",
-    });
-  }),
-  http.get("https://mock-api-url.com/mock-userinfo", () => {
-    return HttpResponse.json({ sub: "mockSub" });
-  }),
-  http.post("https://mock-api-url.com/mock-refresh-token", () => {
-    return HttpResponse.json({
-      accessToken: "mockAccessToken",
-      refreshToken: "mockRefreshToken",
-    });
-  }),
+const mockProvider = (props: React.PropsWithChildren) => (
+  <TailorAuthProvider config={mockAuthConfig}>
+    {props.children}
+  </TailorAuthProvider>
 );
 
-const mockProvider = ({ children }: { children: ReactNode }) => (
-  <TailorAuthProvider config={mockAuthConfig}>{children}</TailorAuthProvider>
-);
-
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
+const mockServer = buildMockServer();
+beforeAll(() => mockServer.listen());
+afterEach(() => {
+  clearClientSession();
+  mockServer.resetHandlers();
+});
+afterAll(() => mockServer.close());
 
 describe("useAuth", () => {
   describe("login", () => {
-    it("correctly redirects to the login URL", () => {
-      // we can't simply spy on the window.location.replace method, need to completely
-      // replace the window.location object.
-      const originalWindowLocation = window.location;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
-      delete (window as any).location;
+    it("correctly redirects to the login URL", async () => {
       const replaceMock = vi.fn();
-      window.location = { ...originalWindowLocation, replace: replaceMock };
-
-      const { result } = renderHook(() => useAuth(), {
-        wrapper: mockProvider,
+      await withMockReplace(replaceMock, () => {
+        const { result } = renderHook(() => useAuth(), {
+          wrapper: mockProvider,
+        });
+        result.current.login({ redirectPath: "/redirect-path" });
       });
-      result.current.login({ redirectPath: "/redirect-path" });
 
       expect(replaceMock).toHaveBeenCalledWith(
         "https://mock-api-url.com/mock-login?redirect_uri=http://localhost:3000/mock-callback?redirect_uri=/redirect-path",
       );
-
-      window.location = originalWindowLocation;
     });
   });
 
@@ -93,5 +75,62 @@ describe("usePlatform", () => {
 
       expect(userResult).toHaveProperty("sub");
     });
+  });
+});
+
+describe("useSession", () => {
+  const SuspendingWrapper = (props: React.PropsWithChildren) => {
+    return (
+      <TailorAuthProvider config={mockAuthConfig}>
+        <Suspense fallback={<div>Suspending</div>}>{props.children}</Suspense>
+      </TailorAuthProvider>
+    );
+  };
+
+  it("suspends component while fetching and returns token when finished", async () => {
+    const TestComponent = () => {
+      const session = useSession();
+      return <div>token: {session?.token}</div>;
+    };
+
+    await withMockReplace(vi.fn(), () => {
+      render(<TestComponent />, {
+        wrapper: SuspendingWrapper,
+      });
+    });
+
+    expect(screen.getByText("Suspending")).toBeTruthy();
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(`token: ${mockSession.access_token}`),
+      ).toBeTruthy();
+    });
+  });
+
+  it("redirects users to the unauthorized route if session is empty", async () => {
+    mockServer.use(
+      http.post(mockAuthConfig.appUrl(internalClientSessionPath), () => {
+        return HttpResponse.json({
+          token: undefined,
+        });
+      }),
+    );
+
+    const TestComponent = () => {
+      const session = useSession({
+        required: true,
+      });
+      return <div>token: {session?.token}</div>;
+    };
+
+    const replaceMock = vi.fn();
+    await withMockReplace(replaceMock, () => {
+      render(<TestComponent />, {
+        wrapper: SuspendingWrapper,
+      });
+    });
+
+    expect(replaceMock).toHaveBeenCalled();
   });
 });

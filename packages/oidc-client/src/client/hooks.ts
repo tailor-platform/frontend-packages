@@ -1,7 +1,9 @@
-import { redirect } from "next/navigation";
-import { clientSessionPath, internalUnauthorizedPath } from "../lib/config";
 import { ErrorResponse, SessionOption, SessionResult } from "@lib/types";
 import { useTailorAuth } from "@client/provider";
+import {
+  internalClientSessionPath,
+  internalUnauthorizedPath,
+} from "@server/middleware/internal";
 
 export type UserInfo = {
   sub: string;
@@ -11,14 +13,21 @@ export type UserInfo = {
   email: string;
 };
 
+const NoWindowError = new Error(
+  "window object should be available to use this function",
+);
+const assertWindowIsAvailable = () => {
+  if (window === undefined) {
+    throw NoWindowError;
+  }
+};
+
 // useAuth is a hook that abstracts out provider-agnostic interface functions related to authorization
 export const useAuth = () => {
   const config = useTailorAuth();
 
   const login = (args: { redirectPath: string }) => {
-    if (window === undefined) {
-      throw new Error("login is only available on client component");
-    }
+    assertWindowIsAvailable();
 
     const apiLoginUrl = config.apiUrl(config.loginPath());
     const callbackPath = config.loginCallbackPath();
@@ -71,23 +80,30 @@ export const usePlatform = () => {
   };
 };
 
-let useSessionResult: SessionResult | null = null;
-export const useSession = (options?: SessionOption) => {
+let internalClientSession: SessionResult | null = null;
+export const useSession = (options?: SessionOption): SessionResult => {
   const config = useTailorAuth();
 
+  assertWindowIsAvailable();
+
+  if (options?.required && internalClientSession?.token === undefined) {
+    window.location.replace(config.appUrl(internalUnauthorizedPath));
+  }
+
   const getSession = async () => {
-    const rawResp = await fetch(config.appUrl(clientSessionPath));
-    const r = (await rawResp.json()) as SessionResult;
-    useSessionResult = r;
+    const rawResp = await fetch(config.appUrl(internalClientSessionPath));
+    const session = (await rawResp.json()) as SessionResult;
+    internalClientSession = session;
   };
 
-  if (!useSessionResult) {
+  if (!internalClientSession) {
     throw getSession();
   }
 
-  if (options?.required && useSessionResult.token === undefined) {
-    redirect(internalUnauthorizedPath);
-  }
+  return internalClientSession;
+};
 
-  return useSessionResult;
+// Clear session internally stored on memory (this is only for test usage)
+export const clearClientSession = () => {
+  internalClientSession = null;
 };
