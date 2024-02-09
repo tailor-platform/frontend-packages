@@ -10,7 +10,7 @@ export const mockSession: Session = {
   user_id: "43a05b99-ebe1-4b89-8284-e4447e3a3551",
 };
 
-const defaultMockedResponse = {
+const defaultMockResponse = {
   token: () => HttpResponse.json(mockSession),
   userinfo: () =>
     HttpResponse.json({
@@ -37,9 +37,9 @@ export const mockAuthConfigValue = {
   userInfoPath: "/mock-userinfo",
 };
 export const mockAuthConfig = new Config(mockAuthConfigValue);
-export const buildMockServer = (response?: typeof defaultMockedResponse) => {
+export const buildMockServer = (response?: typeof defaultMockResponse) => {
   const mockResponse = {
-    ...defaultMockedResponse,
+    ...defaultMockResponse,
     ...response,
   };
 
