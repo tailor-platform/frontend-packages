@@ -3,7 +3,7 @@ import { Mock } from "vitest";
 
 // we can't simply spy on the window.location.replace method.
 // this is a helper function to completely replace the window.location object.
-export const withMockedReplace = async (
+export const withMockReplace = async (
   replaceMock: Mock,
   test: () => Promise<void> | void,
 ) => {

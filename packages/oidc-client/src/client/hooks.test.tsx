@@ -5,7 +5,7 @@ import { http, HttpResponse } from "msw";
 import { clearClientSession, useAuth, usePlatform, useSession } from "./hooks";
 import { TailorAuthProvider } from "./provider";
 import { buildMockServer, mockAuthConfig, mockSession } from "@tests/mocks";
-import { withMockedReplace } from "@tests/helper";
+import { withMockReplace } from "@tests/helper";
 import { internalClientSessionPath } from "@server/middleware/internal";
 
 const mockProvider = (props: React.PropsWithChildren) => (
@@ -26,7 +26,7 @@ describe("useAuth", () => {
   describe("login", () => {
     it("correctly redirects to the login URL", async () => {
       const replaceMock = vi.fn();
-      await withMockedReplace(replaceMock, () => {
+      await withMockReplace(replaceMock, () => {
         const { result } = renderHook(() => useAuth(), {
           wrapper: mockProvider,
         });
@@ -93,7 +93,7 @@ describe("useSession", () => {
       return <div>token: {session?.token}</div>;
     };
 
-    await withMockedReplace(vi.fn(), () => {
+    await withMockReplace(vi.fn(), () => {
       render(<TestComponent />, {
         wrapper: SuspendingWrapper,
       });
@@ -125,7 +125,7 @@ describe("useSession", () => {
     };
 
     const replaceMock = vi.fn();
-    await withMockedReplace(replaceMock, () => {
+    await withMockReplace(replaceMock, () => {
       render(<TestComponent />, {
         wrapper: SuspendingWrapper,
       });
