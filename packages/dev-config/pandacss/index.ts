@@ -1,4 +1,4 @@
-import { defineConfig } from "@pandacss/dev";
+import { defineConfig, type Config } from "@pandacss/dev";
 
 import {
   conditions,
@@ -10,7 +10,7 @@ import {
   tokens,
 } from "../../design-systems/dist/client";
 
-export function buildPandaConfig(config) {
+export function buildPandaConfig(config: Config): Config {
   return defineConfig({
     ...defaultPandaConfig,
     ...config,
