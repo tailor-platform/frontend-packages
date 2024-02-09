@@ -22,7 +22,7 @@
   ],
   "repository": "https://github.com/tailor-platform/frontend-packages",
   "scripts": {
-    "build": "tsup --entry src/index.tsx --entry src/client.tsx --entry src/theme.tsx --format cjs,esm --dts --external react && panda ship --outfile dist/panda.buildinfo.json",
+    "build": "panda ship --outfile dist/panda.buildinfo.json && tsup --entry src/index.tsx --entry src/client.tsx --entry src/theme.tsx --format cjs,esm --dts --external react",
     "dev": "pnpm build --watch",
     "lint": "eslint '**/*.{ts,tsx}' --ignore-pattern 'dist/*' --max-warnings=0",
     "publish:dev": "pnpm build && yalc push --sig",
