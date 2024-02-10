@@ -1,7 +1,7 @@
 "use client";
 
 import { flexRender } from "@tanstack/react-table";
-import { Columns as ColumnsIcon, Filter as FilterIcon } from "lucide-react";
+import { Columns as ColumnsIcon, Filter as FilterIcon, MoreVertical as MoreVerticalIcon } from "lucide-react";
 import { Pagination } from "@ark-ui/react";
 import { DragEvent, useCallback, useEffect, useState } from "react";
 
@@ -206,7 +206,14 @@ export const DataGrid = <TData extends Record<string, unknown>>({
                       borderColor: "border.default",
                     })}
                   >
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    <div
+                      className={css({
+                        display: "flex",
+                      })}
+                    >
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      <MoreVerticalIcon/>
+                    </div>
                   </TableCell>
                 ))}
               </TableRow>

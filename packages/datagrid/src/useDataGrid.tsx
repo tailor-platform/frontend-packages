@@ -21,6 +21,10 @@ export const useDataGrid = <TData extends Record<string, unknown>>({
   enableRowSelection = false,
   onRowSelectionChange,
   rowSelection,
+  enablePinning = true,
+  keepPinnedRows = false,
+  columnPinning,
+  setColumnPinning,
 }: useDataGridProps<TData>): DataGridInstance<TData> => {
   const { pageIndex = 0, pageSize = 10 } = pagination || {};
 
@@ -75,6 +79,8 @@ export const useDataGrid = <TData extends Record<string, unknown>>({
     onColumnVisibilityChange,
     enableColumnResizing: true,
     columnResizeMode: "onChange",
+    enablePinning,
+    keepPinnedRows
   });
 
   return {
