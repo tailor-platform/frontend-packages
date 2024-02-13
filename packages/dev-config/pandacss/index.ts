@@ -8,7 +8,7 @@ import {
   slotRecipes,
   textStyles,
   tokens,
-} from "../../design-systems/dist/client";
+} from "@tailor-platform/design-systems/client";
 
 export function buildPandaConfig(config: Config): Config {
   return defineConfig({
