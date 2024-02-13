@@ -1,7 +1,7 @@
 {
   "name": "@tailor-platform/dev-config",
   "description": "Common package that hosts the rules for ESLint, Prettier and TypeScript.",
-  "version": "0.6.0-preview.3",
+  "version": "0.6.0-preview.4",
   "private": false,
   "scripts": {
     "build": "exit 0",
@@ -15,7 +15,7 @@
     "./typescript/react-library": "./typescript/react-library.json",
     "./eslint": "./eslint/eslintrc.js",
     "./prettier": "./prettier/index.js",
-    "./pandacss": "./pandacss/index.js"
+    "./pandacss": "./pandacss/index.ts"
   },
   "repository": "https://github.com/tailor-platform/frontend-packages",
   "dependencies": {

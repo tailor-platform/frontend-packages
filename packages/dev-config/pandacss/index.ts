@@ -14,15 +14,18 @@ export function buildPandaConfig(config: Config): Config {
   return defineConfig({
     ...defaultPandaConfig,
     ...config,
+    theme: {
+      extend: {
+        ...defaultPandaConfig.theme.extend,
+        ...config.theme.extend,
+      },
+    },
   });
 }
 
 export const defaultPandaConfig = defineConfig({
   preflight: true,
-  include: [
-    "./node_modules/@tailor-platform/datagrid/dist/panda.buildinfo.json",
-    "./node_modules/@tailor-platform/design-systems/dist/panda.buildinfo.json",
-  ],
+  include: [],
   exclude: [],
   jsxFramework: "react",
   theme: {
