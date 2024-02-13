@@ -11,13 +11,44 @@ import {
 } from "@tailor-platform/design-systems/client";
 
 export function buildPandaConfig(config: Config): Config {
+  const { theme: defaultTheme, ...defaultRest } = defaultPandaConfig;
+  const {
+    recipes: defaultRecipes,
+    slotRecipes: defaultSlotRecipes,
+    semanticTokens: defaultSemanticTokens,
+    textStyles: defaultTextStyles,
+    tokens: defaultTokens,
+  } = defaultTheme.extend;
+  const { theme, ...rest } = config;
+  const { recipes, slotRecipes, semanticTokens, textStyles, tokens } =
+    theme.extend;
+
   return defineConfig({
-    ...defaultPandaConfig,
-    ...config,
+    ...defaultRest,
+    ...rest,
     theme: {
       extend: {
-        ...defaultPandaConfig.theme.extend,
         ...config.theme.extend,
+        recipes: {
+          ...defaultRecipes,
+          ...recipes,
+        },
+        slotRecipes: {
+          ...defaultSlotRecipes,
+          ...slotRecipes,
+        },
+        semanticTokens: {
+          ...defaultSemanticTokens,
+          ...semanticTokens,
+        },
+        textStyles: {
+          ...defaultTextStyles,
+          ...textStyles,
+        },
+        tokens: {
+          ...defaultTokens,
+          ...tokens,
+        },
       },
     },
   });
