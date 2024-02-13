@@ -20,34 +20,32 @@ export function buildPandaConfig(config: Config): Config {
     tokens: defaultTokens,
   } = defaultTheme.extend;
   const { theme, ...rest } = config;
-  const { recipes, slotRecipes, semanticTokens, textStyles, tokens } =
-    theme.extend;
 
   return defineConfig({
     ...defaultRest,
     ...rest,
     theme: {
       extend: {
-        ...config.theme.extend,
+        ...theme?.extend,
         recipes: {
           ...defaultRecipes,
-          ...recipes,
+          ...theme?.extend.recipes,
         },
         slotRecipes: {
           ...defaultSlotRecipes,
-          ...slotRecipes,
+          ...theme?.extend.slotRecipes,
         },
         semanticTokens: {
           ...defaultSemanticTokens,
-          ...semanticTokens,
+          ...theme?.extend.semanticTokens,
         },
         textStyles: {
           ...defaultTextStyles,
-          ...textStyles,
+          ...theme?.extend.textStyles,
         },
         tokens: {
           ...defaultTokens,
-          ...tokens,
+          ...theme?.extend.tokens,
         },
       },
     },
