@@ -1,4 +1,5 @@
 import { DatePicker as ArkDatePicker } from "@ark-ui/react";
+import { forwardRef} from "react"
 
 import { type HTMLStyledProps } from "@tailor-platform/styled-system/jsx";
 import { datePicker } from "@tailor-platform/styled-system/recipes";
@@ -11,7 +12,7 @@ export type DatePickerProps = HTMLStyledProps<"div"> & {
   label?: string;
 };
 
-export const DatePicker = (props: DatePickerProps) => {
+export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>((props: DatePickerProps, ref: React.ForwardedRef<HTMLInputElement>) => {
   const { label } = props;
   const classes = datePicker();
   return (
@@ -23,7 +24,7 @@ export const DatePicker = (props: DatePickerProps) => {
       )}
       <ArkDatePicker.Control className={classes.control}>
         <ArkDatePicker.Input asChild>
-          <Input />
+          <Input ref={ref} />
         </ArkDatePicker.Input>
         <ArkDatePicker.Trigger asChild>
           <IconButton variant="secondary" aria-label="Open date picker">
@@ -185,6 +186,6 @@ export const DatePicker = (props: DatePickerProps) => {
       </ArkDatePicker.Positioner>
     </ArkDatePicker.Root>
   );
-};
+});
 
 ArkDatePicker.displayName = "DatePicker";
