@@ -1,46 +1,16 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "useDefineForClassFields": true,
-    "lib": [
-      "ES2020",
-      "DOM",
-      "DOM.Iterable"
-    ],
-    "esModuleInterop": true,
-    "module": "ESNext",
-    "skipLibCheck": true,
-    /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "baseUrl": ".",
     "paths": {
-      "@*": [
-        "./src/*"
+      "@tailor-platform/dev-config/*": [
+        "./node_modules/@tailor-platform/dev-config/*",
       ],
-      "@tailor-platform/styled-system": [
-        "./../../packages/design-systems/node_modules/@tailor-platform/styled-system"
-      ],
-      "@tailor-platform/design-systems/*": [
-        "./../../packages/design-systems/dist/*"
-      ]
-    }
+    },
   },
-  "include": [
-    "src"
-  ],
+  "extends": "./node_modules/@tailor-platform/dev-config/typescript/design-systems.json",
+  "include": ["src"],
   "references": [
     {
-      "path": "./tsconfig.node.json"
-    }
-  ]
+      "path": "./tsconfig.node.json",
+    },
+  ],
 }

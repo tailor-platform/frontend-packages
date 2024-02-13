@@ -1,6 +1,6 @@
 {
   "name": "@tailor-platform/datagrid",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "private": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -21,8 +21,7 @@
   "repository": "https://github.com/tailor-platform/frontend-packages",
   "scripts": {
     "prepare": "panda codegen",
-    "build": "pnpm build:css && tsup src/index.tsx --format cjs,esm --dts --external react",
-    "build:css": "npx postcss -o ./src/output.css ./src/index.css",
+    "build": "panda ship --outfile dist/panda.buildinfo.json && tsup src/index.tsx --format cjs,esm --dts --external react",
     "dev": "pnpm build --watch",
     "lint": "eslint '**/*.{ts,tsx}' --ignore-pattern 'dist/*' --max-warnings=0",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",

@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@tailor-platform/design-systems/client": [
+        "../design-systems/dist/client",
+      ],
+    },
+  },
+}

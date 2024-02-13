@@ -5,8 +5,8 @@
     "build": "find packages -type d -name dist -exec rm -rf {} +; turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{js,ts,tsx,md}\"",
-    "format:ci": "prettier --check \"**/*.{js,ts,tsx,md}\"",
+    "format": "prettier --write \"**/*.{js,ts,tsx,md,json}\"",
+    "format:ci": "prettier --check \"**/*.{js,ts,tsx,md,json}\"",
     "test": "turbo run test",
     "commit": "./node_modules/cz-customizable/standalone.js",
     "prepare": "pnpm exec husky install",
@@ -47,6 +47,7 @@
     "husky": "^8.0.3",
     "nodemon": "^3.0.2",
     "prettier": "^3.2.4",
+    "react": "^18.2.0",
     "turbo": "1.11.3",
     "yalc": "1.0.0-pre.53"
   },
