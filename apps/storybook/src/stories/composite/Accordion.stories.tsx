@@ -6,7 +6,7 @@ import {
   type AccordionItem,
 } from "@tailor-platform/design-systems";
 
-const meta: Meta<AccordionProps> = {
+const meta = {
   title: "Composite/Accordion",
   component: Accordion,
   parameters: {

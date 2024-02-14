@@ -1,12 +1,14 @@
 import { accordionAnatomy } from "@ark-ui/anatomy";
-import { defineParts, defineRecipe } from "@pandacss/dev";
+import { defineParts, defineRecipe, defineSlotRecipe } from "@pandacss/dev";
 
-const parts = defineParts(accordionAnatomy.build());
+// const parts = defineParts(accordionAnatomy.build());
 
-export const accordion = defineRecipe({
+export const accordion = defineSlotRecipe({
   className: "accordion",
+  slots: accordionAnatomy.keys(),
   description: "An accordion style",
-  base: parts({
+  // base: parts({
+  base: {
     root: {
       width: "100%",
       background: "bg.surface",
@@ -43,5 +45,6 @@ export const accordion = defineRecipe({
       p: "4",
       textStyle: "sm",
     },
-  }),
+  // }),
+  },
 });
