@@ -3,24 +3,29 @@ import {
   type AccordionProps as ArkAccordionProps,
 } from "@ark-ui/react";
 import { type HTMLStyledProps } from "@tailor-platform/styled-system/jsx";
-import { accordion } from "@tailor-platform/styled-system/recipes";
+import {
+  accordion,
+  type AccordionVariantProps,
+} from "@tailor-platform/styled-system/recipes";
 import { ChevronDown } from "lucide-react";
-import { Button, ButtonProps } from "../Button";
 import { Text } from "../Text";
 
 export type AccordionItem = {
-  text: string;
+  text: string | React.ReactElement;
   content: React.ReactNode;
 };
 
-export type AccordionProps = HTMLStyledProps<"div"> &
+type AccordionContentProps = {
+  items: AccordionItem[];
+};
+
+export type AccordionProps = AccordionVariantProps &
   ArkAccordionProps &
-  ButtonProps & {
-    items: AccordionItem[];
-  };
+  AccordionContentProps &
+  HTMLStyledProps<"div">;
 
 export const Accordion = (props: AccordionProps) => {
-  const { items, variant = "tertiary", size, ...rest } = props;
+  const { items, variant = "tertiary", ...rest } = props;
 
   const AccordionIcon = (props: { isOpen: boolean }) => {
     const iconStyles = {
@@ -31,37 +36,41 @@ export const Accordion = (props: AccordionProps) => {
     return <ChevronDown height={16} style={iconStyles} />;
   };
 
-  const accordionClasses = accordion();
+  const accordionClasses = accordion({ variant });
   return (
     <ArkAccordion.Root className={accordionClasses.root} {...rest}>
-      {items.map((item, id) => (
-        <ArkAccordion.Item
-          className={accordionClasses.item}
-          key={id}
-          value={item.text}
-        >
-          {({ isOpen }) => (
-            <>
-              <ArkAccordion.ItemTrigger
-                className={accordionClasses.itemTrigger}
-                asChild
-              >
-                <Button w="full" variant={variant} size={size} {...rest}>
-                  <Text w="full" textAlign="left">
-                    {item.text}?
-                  </Text>
+      {items.map((item, id) => {
+        const isString = typeof item.text === "string";
+        return (
+          <ArkAccordion.Item
+            className={accordionClasses.item}
+            key={id}
+            value={typeof item.text === "string" ? item.text : id.toString()}
+          >
+            {({ isOpen }) => (
+              <>
+                <ArkAccordion.ItemTrigger
+                  className={accordionClasses.itemTrigger}
+                >
+                  {isString ? (
+                    <Text w="full" textAlign="left">
+                      {item.text}
+                    </Text>
+                  ) : (
+                    item.text
+                  )}
                   <AccordionIcon isOpen={isOpen} />
-                </Button>
-              </ArkAccordion.ItemTrigger>
-              <ArkAccordion.ItemContent
-                className={accordionClasses.itemContent}
-              >
-                {item.content}
-              </ArkAccordion.ItemContent>
-            </>
-          )}
-        </ArkAccordion.Item>
-      ))}
+                </ArkAccordion.ItemTrigger>
+                <ArkAccordion.ItemContent
+                  className={accordionClasses.itemContent}
+                >
+                  {item.content}
+                </ArkAccordion.ItemContent>
+              </>
+            )}
+          </ArkAccordion.Item>
+        );
+      })}
     </ArkAccordion.Root>
   );
 };

@@ -22,25 +22,27 @@ export const Default: Story = {
   render: () => {
     const items: AccordionItem[] = [
       {
-        text: "What is React",
+        text: "What is React?",
         content: `Pudding donut gummies chupa chups oat cake marzipan biscuit
     tart. Dessert macaroon ice cream bonbon jelly. Jelly topping
     tiramisu halvah lollipop.`,
       },
       {
-        text: "What is Solid",
+        text: "What is Solid?",
         content: `Pudding donut gummies chupa chups oat cake marzipan biscuit
     tart. Dessert macaroon ice cream bonbon jelly. Jelly topping
     tiramisu halvah lollipop.`,
       },
       {
-        text: "What is Vue",
+        text: "What is Vue?",
         content: `Pudding donut gummies chupa chups oat cake marzipan biscuit
     tart. Dessert macaroon ice cream bonbon jelly. Jelly topping
     tiramisu halvah lollipop.`,
       },
     ];
 
-    return <Accordion items={items} />;
+    return (
+      <Accordion items={items} defaultValue={["What is React?"]} collapsible />
+    );
   },
 };
