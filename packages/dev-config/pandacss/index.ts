@@ -1,7 +1,4 @@
-import {
-  defineConfig,
-  type Config,
-} from "@pandacss/dev";
+import { defineConfig, type Config } from "@pandacss/dev";
 import { deepmerge } from "deepmerge-ts";
 import {
   conditions,
@@ -14,10 +11,10 @@ import {
 } from "@tailor-platform/design-systems/client";
 
 export function buildPandaConfig(config: Config): Config {
-  const mergedConfig: Config = deepmerge(defaultPandaConfig,config)
+  const mergedConfig: Config = deepmerge(defaultPandaConfig, config);
 
   return defineConfig({
-    ...mergedConfig
+    ...mergedConfig,
   });
 }
 
