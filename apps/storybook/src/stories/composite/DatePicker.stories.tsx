@@ -1,4 +1,3 @@
-// import { DatePicker, type DatePickerProps } from "@ark-ui/react";
 import { useRef} from "react"
 import type { Meta, StoryObj } from "@storybook/react";
 import { Flex } from "@tailor-platform/styled-system/jsx";
