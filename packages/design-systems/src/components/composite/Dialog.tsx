@@ -1,7 +1,7 @@
 import {
   Dialog as ArkDialog,
   DialogProps as ArkDialogProps,
-  Portal
+  Portal,
 } from "@ark-ui/react";
 import {
   dialog,
@@ -12,15 +12,35 @@ import { IconButton } from "../IconButton";
 import { Stack } from "../patterns/Stack";
 import { X as XIcon } from "lucide-react";
 
+type DialogContentProps = {
+  buttonText: string;
+  title: string;
+  description: string;
+  cancelText?: string;
+  confirmText?: string;
+  confirmFunction: () => void;
+};
 
-export type DialogProps = ArkDialogProps & DialogVariantProps;
+export type DialogProps = ArkDialogProps &
+  DialogVariantProps &
+  DialogContentProps;
 
 export const Dialog = (props: DialogProps) => {
+  const {
+    buttonText,
+    title,
+    description,
+    cancelText = "cancel",
+    confirmText = "confirm",
+    confirmFunction,
+    ...rest
+  } = props;
+
   const classes = dialog();
   return (
-    <ArkDialog.Root {...props}>
+    <ArkDialog.Root {...rest}>
       <ArkDialog.Trigger asChild>
-        <Button variant="secondary">Open dialog</Button>
+        <Button variant="secondary">{buttonText}</Button>
       </ArkDialog.Trigger>
       <Portal>
         <ArkDialog.Backdrop className={classes.backdrop} />
@@ -29,24 +49,26 @@ export const Dialog = (props: DialogProps) => {
             <Stack gap="8" p="6">
               <Stack gap="1">
                 <ArkDialog.Title className={classes.title}>
-                  Dialog Title
+                  {title}
                 </ArkDialog.Title>
                 <ArkDialog.Description className={classes.description}>
-                  Dialog Description
+                  {description}
                 </ArkDialog.Description>
               </Stack>
               <Stack gap="3" direction="row" width="full">
                 <ArkDialog.CloseTrigger asChild>
                   <Button variant="secondary" width="full">
-                    Cancel
+                    {cancelText}
                   </Button>
                 </ArkDialog.CloseTrigger>
-                <Button width="full">Confirm</Button>
+                <Button onClick={() => confirmFunction()} width="full">
+                  {confirmText}
+                </Button>
               </Stack>
             </Stack>
             {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-            {/* @ts-ignore */}
             <ArkDialog.CloseTrigger
+              /* @ts-ignore */
               position="absolute"
               top="2"
               right="2"
