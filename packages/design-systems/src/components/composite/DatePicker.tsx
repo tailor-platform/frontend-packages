@@ -1,12 +1,11 @@
 import { DatePicker as ArkDatePicker } from "@ark-ui/react";
 import { forwardRef } from "react";
-
 import { type HTMLStyledProps } from "@tailor-platform/styled-system/jsx";
 import { datePicker } from "@tailor-platform/styled-system/recipes";
+import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { Button } from "../Button";
 import { IconButton } from "../IconButton";
 import { Input } from "../Input";
-import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 
 export type DatePickerProps = HTMLStyledProps<"div"> & {
   label?: string;
@@ -190,4 +189,4 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
   },
 );
 
-ArkDatePicker.displayName = "DatePicker";
+DatePicker.displayName = "DatePicker";

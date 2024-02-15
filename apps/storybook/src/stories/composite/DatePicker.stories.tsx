@@ -21,10 +21,8 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// const classes = datePicker();
-
 export const Default: Story = {
-  render: () => {
+  render: function Comp() {
     const inputRef = useRef<HTMLInputElement>(null);
     return (
       <Flex h={400}>
