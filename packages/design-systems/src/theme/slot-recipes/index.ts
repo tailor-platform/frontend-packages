@@ -3,6 +3,7 @@ import { code } from "./code";
 import { datagrid } from "./datagrid";
 import { datePicker } from "./date-picker";
 import { dialog } from "./dialog";
+import { hoverCard } from "./hover-card";
 import { menu } from "./menu";
 import { numberInput } from "./number-input";
 import { pagination } from "./pagination";
@@ -23,6 +24,7 @@ export const slotRecipes = {
   datagrid,
   datePicker,
   dialog,
+  hoverCard,
   menu,
   numberInput,
   pagination,
