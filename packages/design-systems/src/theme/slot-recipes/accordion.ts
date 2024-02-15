@@ -190,7 +190,7 @@ export const accordion = defineSlotRecipe({
         },
       },
       xl: {
-        root: {
+        itemTrigger: {
           h: "12",
           minW: "12",
           px: "5",
