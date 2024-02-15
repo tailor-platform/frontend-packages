@@ -7,10 +7,10 @@ import {
   dialog,
   DialogVariantProps,
 } from "@tailor-platform/styled-system/recipes";
+import { X as XIcon } from "lucide-react";
 import { Button } from "../Button";
 import { IconButton } from "../IconButton";
 import { Stack } from "../patterns/Stack";
-import { X as XIcon } from "lucide-react";
 
 type DialogContentProps = {
   buttonText: string;

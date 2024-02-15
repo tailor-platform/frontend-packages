@@ -1,9 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import {
-  Dialog,
-  DialogProps,
-} from "@tailor-platform/design-systems";
+import { Dialog, DialogProps } from "@tailor-platform/design-systems";
 import { dialogTypes } from "../../ark-types";
 
 const meta = {
