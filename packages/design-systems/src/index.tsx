@@ -63,3 +63,7 @@ export {
   type AccordionProps,
   type AccordionItem,
 } from "@/components/composite/Accordion";
+export {
+  DatePicker,
+  type DatePickerProps,
+} from "@/components/composite/DatePicker";
