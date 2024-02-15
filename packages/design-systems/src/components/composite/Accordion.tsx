@@ -25,7 +25,7 @@ export type AccordionProps = AccordionVariantProps &
   HTMLStyledProps<"div">;
 
 export const Accordion = (props: AccordionProps) => {
-  const { items, variant = "tertiary", ...rest } = props;
+  const { items, variant, ...rest } = props;
 
   const AccordionIcon = (props: { isOpen: boolean }) => {
     const iconStyles = {

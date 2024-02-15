@@ -43,7 +43,7 @@ export const accordion = defineSlotRecipe({
     },
   },
   defaultVariants: {
-    variant: "primary",
+    variant: "tertiary",
   },
   variants: {
     variant: {
