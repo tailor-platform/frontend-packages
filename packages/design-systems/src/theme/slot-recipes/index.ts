@@ -1,3 +1,4 @@
+import { accordion } from "./accordion";
 import { code } from "./code";
 import { datePicker } from "./date-picker";
 import { dialog } from "./dialog";
@@ -11,6 +12,7 @@ import { tagsInput } from "./tags-input";
 import { toast } from "./toast";
 
 export const slotRecipes = {
+  accordion,
   code,
   datePicker,
   dialog,

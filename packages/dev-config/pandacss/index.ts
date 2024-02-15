@@ -1,5 +1,5 @@
 import { defineConfig, type Config } from "@pandacss/dev";
-
+import { deepmerge } from "deepmerge-ts";
 import {
   conditions,
   globalCss,
@@ -11,44 +11,10 @@ import {
 } from "@tailor-platform/design-systems/client";
 
 export function buildPandaConfig(config: Config): Config {
-  const { theme: defaultTheme, ...defaultRest } = defaultPandaConfig;
-  const {
-    recipes: defaultRecipes,
-    slotRecipes: defaultSlotRecipes,
-    semanticTokens: defaultSemanticTokens,
-    textStyles: defaultTextStyles,
-    tokens: defaultTokens,
-  } = defaultTheme.extend;
-  const { theme, ...rest } = config;
+  const mergedConfig: Config = deepmerge(defaultPandaConfig, config);
 
   return defineConfig({
-    ...defaultRest,
-    ...rest,
-    theme: {
-      extend: {
-        ...theme?.extend,
-        recipes: {
-          ...defaultRecipes,
-          ...theme?.extend.recipes,
-        },
-        slotRecipes: {
-          ...defaultSlotRecipes,
-          ...theme?.extend.slotRecipes,
-        },
-        semanticTokens: {
-          ...defaultSemanticTokens,
-          ...theme?.extend.semanticTokens,
-        },
-        textStyles: {
-          ...defaultTextStyles,
-          ...theme?.extend.textStyles,
-        },
-        tokens: {
-          ...defaultTokens,
-          ...theme?.extend.tokens,
-        },
-      },
-    },
+    ...mergedConfig,
   });
 }
 

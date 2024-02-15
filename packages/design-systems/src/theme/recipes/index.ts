@@ -1,4 +1,3 @@
-import { accordion } from "./accordion";
 import { appBar } from "./app-bar";
 import { appBarMenuTrigger } from "./app-bar-menu-trigger";
 import { avatar } from "./avatar";
@@ -24,7 +23,6 @@ import { label } from "./label";
 import { labelField } from "./label-field";
 
 export const recipes = {
-  accordion,
   appBar,
   appBarMenuTrigger,
   avatar,
