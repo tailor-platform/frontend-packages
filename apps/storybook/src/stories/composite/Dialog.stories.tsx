@@ -18,7 +18,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: (props) => {
+  render: function Comp(props) {
     const [open, setOpen] = useState(false);
     return (
       <>

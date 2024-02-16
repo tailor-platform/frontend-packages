@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import {
   Dialog as ArkDialog,
   DialogProps as ArkDialogProps,
@@ -11,7 +12,6 @@ import { X as XIcon } from "lucide-react";
 import { Button } from "../Button";
 import { IconButton } from "../IconButton";
 import { Stack } from "../patterns/Stack";
-import { ReactNode } from "react";
 
 type DialogContentProps = {
   buttonText: string;
