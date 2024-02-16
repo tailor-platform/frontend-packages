@@ -178,31 +178,6 @@ importers:
         specifier: ^3.22.4
         version: 3.22.4
 
-  packages/cli:
-    dependencies:
-      execa:
-        specifier: ^8.0.1
-        version: 8.0.1
-      yargs:
-        specifier: ^17.7.2
-        version: 17.7.2
-    devDependencies:
-      '@swc-node/register':
-        specifier: ^1.8.0
-        version: 1.8.0(@swc/core@1.3.102)(@swc/types@0.1.5)(typescript@5.3.3)
-      '@tailor-platform/dev-config':
-        specifier: workspace:*
-        version: link:../dev-config
-      '@types/node':
-        specifier: ^20.11.16
-        version: 20.11.16
-      tsup:
-        specifier: ^8.0.1
-        version: 8.0.1(@swc/core@1.3.102)(typescript@5.3.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.3.3
-
   packages/client:
     dependencies:
       '@apollo/client':
@@ -266,37 +241,6 @@ importers:
       vitest:
         specifier: ^1.0.2
         version: 1.0.2(@types/node@18.19.2)(jsdom@23.0.1)
-
-  packages/clitools:
-    dependencies:
-      chalk:
-        specifier: ^5.3.0
-        version: 5.3.0
-      execa:
-        specifier: ^8.0.1
-        version: 8.0.1
-      yargs:
-        specifier: ^17.7.2
-        version: 17.7.2
-    devDependencies:
-      '@swc-node/register':
-        specifier: ^1.8.0
-        version: 1.8.0(@swc/core@1.3.102)(@swc/types@0.1.5)(typescript@5.3.3)
-      '@tailor-platform/dev-config':
-        specifier: workspace:*
-        version: link:../dev-config
-      '@types/node':
-        specifier: ^20.11.16
-        version: 20.11.16
-      eslint:
-        specifier: ^8.56.0
-        version: 8.56.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.0.1(@swc/core@1.3.102)(typescript@5.3.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.3.3
 
   packages/datagrid:
     dependencies:
@@ -3473,40 +3417,6 @@ packages:
     resolution: {integrity: sha512-U69T3ItWHvLwGg5eJ0n3I62nWuE6ilHlmz7zM0npLBRvPRd7e6NYmg54vvRtP5mZG7kZqZCFVdsTWo7BPtBujg==}
     dev: true
 
-<<<<<<< HEAD
-=======
-  /@pandacss/config@0.18.3:
-    resolution: {integrity: sha512-EQZV/x2CcncotJcJHnyQdKlEWNjUUPqAMvVYvaA5l7IpFCY0T94t4MJY4YbvBTMDiN3WgluAqr7Il9dDy1hDtw==}
-    dependencies:
-      '@pandacss/error': 0.18.3
-      '@pandacss/logger': 0.18.3
-      '@pandacss/preset-base': 0.18.3
-      '@pandacss/preset-panda': 0.18.3
-      '@pandacss/types': 0.18.3
-      bundle-n-require: 1.0.1
-      escalade: 3.1.1
-      jiti: 1.21.0
-      merge-anything: 5.1.7
-      typescript: 5.3.3
-    dev: true
-
-  /@pandacss/config@0.20.1:
-    resolution: {integrity: sha512-RG+WWK2NAZhmikChYsER61YIHiR4IsLH52guJdhuerk+nT5dpSrs3RkGM5F8Fs18Pkcj+gWwcS+g+g41ictf1w==}
-    dependencies:
-      '@pandacss/error': 0.20.1
-      '@pandacss/logger': 0.20.1
-      '@pandacss/preset-base': 0.20.1
-      '@pandacss/preset-panda': 0.20.1
-      '@pandacss/shared': 0.20.1
-      '@pandacss/types': 0.20.1
-      bundle-n-require: 1.0.1
-      escalade: 3.1.1
-      jiti: 1.21.0
-      merge-anything: 5.1.7
-      typescript: 5.3.3
-    dev: true
-
->>>>>>> 88ebe21 (feat(minitailorctl): initial version)
   /@pandacss/config@0.29.1:
     resolution: {integrity: sha512-FJQQD71v/toRPGDGDq+/NcOPO05Fo4gk7oNuzGrcj6JP4xbdwTswF7h7L1ucH1PdFnmqOJ5Gu/aHKV07gn9tmA==}
     dependencies:
@@ -7982,7 +7892,6 @@ packages:
     resolution: {integrity: sha512-nc0Axzp/0FILLEVsm4fNwLCwMttvhEI263QtVPQcbpfZZ3ts0hLsZGOpE6czNlid7CJ9MlyH8reXkpsf3YUY4w==}
     engines: {node: '>=0.4.0'}
     hasBin: true
-    dev: true
 
   /acorn@8.11.3:
     resolution: {integrity: sha512-Y9rRfJG5jcKOE0CLisYbojUjIrIEE7AGMzA/Sm4BslANhbS+cDMpgBdcPT91oJ7OuJ9hYJBx59RjbhxVnrF8Xg==}
@@ -8304,88 +8213,6 @@ packages:
       tslib: 2.6.2
     dev: true
 
-<<<<<<< HEAD
-=======
-  /astro@2.9.6(@types/node@18.19.6):
-    resolution: {integrity: sha512-yvbZQ6YOWYLejyQ4nAcgZLDYQ34enQJ5/LWlXKtUzXzpsUHB75vJMj+XmEq5Q2eVlZOlQrp0lU+nhSRGaOsOUQ==}
-    engines: {node: '>=16.12.0', npm: '>=6.14.0'}
-    hasBin: true
-    peerDependencies:
-      sharp: '>=0.31.0'
-    peerDependenciesMeta:
-      sharp:
-        optional: true
-    dependencies:
-      '@astrojs/compiler': 1.8.2
-      '@astrojs/internal-helpers': 0.1.2
-      '@astrojs/language-server': 1.0.8
-      '@astrojs/markdown-remark': 2.2.1(astro@2.9.6)
-      '@astrojs/telemetry': 2.1.1
-      '@astrojs/webapi': 2.2.0
-      '@babel/core': 7.23.5
-      '@babel/generator': 7.23.5
-      '@babel/parser': 7.23.5
-      '@babel/plugin-transform-react-jsx': 7.23.4(@babel/core@7.23.5)
-      '@babel/traverse': 7.23.5
-      '@babel/types': 7.23.5
-      '@types/babel__core': 7.20.5
-      '@types/dom-view-transitions': 1.0.4
-      '@types/yargs-parser': 21.0.3
-      acorn: 8.11.2
-      boxen: 6.2.1
-      chokidar: 3.5.3
-      ci-info: 3.9.0
-      common-ancestor-path: 1.0.1
-      cookie: 0.5.0
-      debug: 4.3.4(supports-color@5.5.0)
-      deepmerge-ts: 4.3.0
-      devalue: 4.3.2
-      diff: 5.1.0
-      es-module-lexer: 1.4.1
-      esbuild: 0.17.19
-      estree-walker: 3.0.0
-      execa: 6.1.0
-      fast-glob: 3.3.2
-      github-slugger: 2.0.0
-      gray-matter: 4.0.3
-      html-escaper: 3.0.3
-      js-yaml: 4.1.0
-      kleur: 4.1.5
-      magic-string: 0.27.0
-      mime: 3.0.0
-      network-information-types: 0.1.1(typescript@5.3.3)
-      ora: 6.3.1
-      p-limit: 4.0.0
-      path-to-regexp: 6.2.1
-      preferred-pm: 3.1.2
-      prompts: 2.4.2
-      rehype: 12.0.1
-      semver: 7.5.4
-      server-destroy: 1.0.1
-      shiki: 0.14.5
-      string-width: 5.1.2
-      strip-ansi: 7.1.0
-      tsconfig-resolver: 3.0.1
-      typescript: 5.3.3
-      unist-util-visit: 4.1.2
-      vfile: 5.3.7
-      vite: 4.5.1(@types/node@18.19.6)
-      vitefu: 0.2.5(vite@4.5.1)
-      which-pm: 2.1.1
-      yargs-parser: 21.1.1
-      zod: 3.22.4
-    transitivePeerDependencies:
-      - '@types/node'
-      - less
-      - lightningcss
-      - sass
-      - stylus
-      - sugarss
-      - supports-color
-      - terser
-    dev: true
-
->>>>>>> 88ebe21 (feat(minitailorctl): initial version)
   /async-limiter@1.0.1:
     resolution: {integrity: sha512-csOlWGAcRFJaI6m+F2WKdnMKr4HhdhFVBk0H/QbJFMCr+uO2kwohwXQPxw/9OCxp05r5ghVBFSyioixx3gfkNQ==}
     dev: true
@@ -8787,13 +8614,11 @@ packages:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
 
-<<<<<<< HEAD
-=======
   /chalk@5.3.0:
     resolution: {integrity: sha512-dLitG79d+GV1Nb/VYcCDFivJeK1hiukt9QjRNVOsUtTy1rR1YJsmpGGTZ3qJos+uw7WmWF4wUwBd9jxjocFC2w==}
     engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
+    dev: false
 
->>>>>>> 88ebe21 (feat(minitailorctl): initial version)
   /change-case@3.1.0:
     resolution: {integrity: sha512-2AZp7uJZbYEzRPsFoa+ijKdvp9zsrnnt6+yFokfwEpeJm0xuJDVoxiRCAaTzyJND8GJkofo2IcKWaUZ/OECVzw==}
     dependencies:
@@ -12726,19 +12551,7 @@ packages:
     engines: {node: '>= 0.4.0'}
     dev: true
 
-<<<<<<< HEAD
   /next@14.1.0(@babel/core@7.23.7)(react-dom@18.2.0)(react@18.2.0):
-=======
-  /network-information-types@0.1.1(typescript@5.3.3):
-    resolution: {integrity: sha512-mLXNafJYOkiJB6IlF727YWssTRpXitR+tKSLyA5VAdBi3SOvLf5gtizHgxf241YHPWocnAO/fAhVrB/68tPHDw==}
-    peerDependencies:
-      typescript: '>= 3.0.0'
-    dependencies:
-      typescript: 5.3.3
-    dev: true
-
-  /next@14.1.0(@babel/core@7.23.5)(react-dom@18.2.0)(react@18.2.0):
->>>>>>> 88ebe21 (feat(minitailorctl): initial version)
     resolution: {integrity: sha512-wlzrsbfeSU48YQBjZhDzOwhWhGsy+uQycR8bHAOt1LY1bn3zZEcDyHQOEoN3aWzQ8LHCAJ1nqrWCc9XF2+O45Q==}
     engines: {node: '>=18.17.0'}
     hasBin: true
