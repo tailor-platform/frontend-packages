@@ -47,6 +47,7 @@ export type useDataGridProps<TData> = {
   enablePinning?: boolean;
   keepPinnedRows?: boolean;
   columnPinning?: ColumnPinningState;
+  // columnPinning?: any;
   setColumnPinning?: (updater: Updater<ColumnPinningState>) => void
 };
 export type ColumnMetaWithTypeInfo<TData> = ColumnMeta<TData, unknown> & {
@@ -164,5 +165,9 @@ export interface Localization {
     hideShow: {
       showAll: string;
     };
+    pinnedColumn: {
+      pinnedRight: string;
+      pinnedLeft: string;
+    }
   };
 }

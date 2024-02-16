@@ -1,7 +1,7 @@
 "use client";
 
 import { flexRender } from "@tanstack/react-table";
-import { Columns as ColumnsIcon, Filter as FilterIcon, MoreVertical as MoreVerticalIcon } from "lucide-react";
+import { Columns as ColumnsIcon, Filter as FilterIcon } from "lucide-react";
 import { Pagination } from "@ark-ui/react";
 import { DragEvent, useCallback, useEffect, useState } from "react";
 
@@ -24,6 +24,7 @@ import { HideShow } from "./ColumnFeature/HideShow";
 import { CustomFilter } from "./SearchFilter/CustomFilter";
 import "./index.css";
 import { Localization_EN } from "./locales/en";
+import { PinnedColumn } from "@ColumnFeature/PinnedColumn";
 
 const classes = pagination();
 
@@ -144,7 +145,10 @@ export const DataGrid = <TData extends Record<string, unknown>>({
                   }}
                   onDrop={onDrop}
                 >
-                  {!header.isPlaceholder &&
+                  <div className={css({
+                    display: "flex"
+                  })}>
+                    {!header.isPlaceholder &&
                     flexRender(
                       header.column.columnDef.header,
                       header.getContext(),
@@ -170,6 +174,15 @@ export const DataGrid = <TData extends Record<string, unknown>>({
                       })}
                     ></div>
                   )}
+                    {header.id !== 'select' && (
+                      <PinnedColumn
+                      localization={localization}
+                      setColumnPinning={(position) => {
+                        header.column.pin(`${position}`)
+                      }}
+                    />
+                    )}
+                  </div>
                 </TableHead>
               ))}
             </TableRow>
@@ -206,14 +219,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
                       borderColor: "border.default",
                     })}
                   >
-                    <div
-                      className={css({
-                        display: "flex",
-                      })}
-                    >
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                      <MoreVerticalIcon/>
-                    </div>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
               </TableRow>
