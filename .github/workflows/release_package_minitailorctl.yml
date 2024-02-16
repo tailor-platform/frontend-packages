@@ -18,6 +18,7 @@ jobs:
     uses: ./.github/workflows/make_github_release.yml
     with:
       package_name: minitailorctl
+      cc_name: mtctl
       tag: ${{ needs.check-existing-release.outputs.tag }}
   publish-npm-package:
     needs:
