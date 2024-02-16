@@ -1,0 +1,17 @@
+name: minitailorctl package CI
+
+on:
+  push:
+    paths:
+      - packages/minitailorctl/**
+      - .github/workflows/test_package_minitailorctl.yml
+      - .github/actions/ci/action.yml
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/ci
+        with:
+          package: "@tailor-platform/minitailorctl"
