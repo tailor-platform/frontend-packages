@@ -17,7 +17,6 @@ import {
   TableRow,
   Text,
 } from "@tailor-platform/design-systems";
-import { css } from "@tailor-platform/styled-system/css";
 
 import { Column, ColumnMetaWithTypeInfo, type DataGridInstance } from "@types";
 import { HideShow } from "./ColumnFeature/HideShow";
