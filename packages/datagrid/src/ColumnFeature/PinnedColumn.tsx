@@ -1,21 +1,19 @@
-import { DragEvent, useCallback, useEffect, useState } from "react";
-import { Box, Flex } from "@tailor-platform/styled-system/jsx";
-import { Button, Checkbox } from "@tailor-platform/design-systems";
-import { scrollBar } from "@tailor-platform/styled-system/recipes";
-import type { Column, ColumnPinningState, Updater } from "@tanstack/react-table";
+import { useState } from "react";
+import { Box } from "@tailor-platform/styled-system/jsx";
+import { Button } from "@tailor-platform/design-systems";
 import { MoreVertical as MoreVerticalIcon } from "lucide-react";
 import { Localization } from "@types";
 import { css } from "@tailor-platform/styled-system/css";
 
-type HideShowProps<TData extends Record<string, unknown>> = {
+type PinnedColumnProps = {
   setColumnPinning: (position: 'right' | 'left') => void;
   localization: Localization;
 };
 
-export const PinnedColumn = <TData extends Record<string, unknown>>({
+export const PinnedColumn = ({
   setColumnPinning,
   localization,
-}: HideShowProps<TData>) => {
+}: PinnedColumnProps) => {
   const [isOpenedPinnedColumnModal, setIsOpenedPinnedColumnModal] = useState<boolean>(false)
 
   return (
@@ -69,6 +67,5 @@ export const PinnedColumn = <TData extends Record<string, unknown>>({
         </Box>
       )}
     </div>
-    
   );
 };

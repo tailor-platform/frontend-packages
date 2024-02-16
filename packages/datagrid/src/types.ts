@@ -45,9 +45,7 @@ export type useDataGridProps<TData> = {
   rowSelection?: RowSelectionState;
   onRowSelectionChange?: OnChangeFn<RowSelectionState>;
   enablePinning?: boolean;
-  keepPinnedRows?: boolean;
   columnPinning?: ColumnPinningState;
-  // columnPinning?: any;
   setColumnPinning?: (updater: Updater<ColumnPinningState>) => void
 };
 export type ColumnMetaWithTypeInfo<TData> = ColumnMeta<TData, unknown> & {
