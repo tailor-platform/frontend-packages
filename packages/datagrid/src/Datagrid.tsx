@@ -6,7 +6,7 @@ import { Pagination } from "@ark-ui/react";
 import { DragEvent, useCallback, useEffect, useState } from "react";
 
 import { HStack, Stack } from "@tailor-platform/styled-system/jsx";
-import { pagination } from "@tailor-platform/styled-system/recipes";
+import { pagination, datagrid } from "@tailor-platform/styled-system/recipes";
 import {
   Button,
   Table,
@@ -26,6 +26,7 @@ import "./index.css";
 import { Localization_EN } from "./locales/en";
 
 const classes = pagination();
+const datagridClasses = datagrid();
 
 export const DataGrid = <TData extends Record<string, unknown>>({
   table,
@@ -113,24 +114,15 @@ export const DataGrid = <TData extends Record<string, unknown>>({
         </HStack>
       )}
 
-      <Table
-        className={css({
-          borderWidth: "0.5px",
-          borderColor: "border.default",
-        })}
-      >
+      <Table className={datagridClasses.table}>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
+            <TableRow className={datagridClasses.tableRow} key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <TableHead
                   key={header.id}
                   colSpan={header.colSpan}
-                  className={css({
-                    position: "relative",
-                    borderWidth: "0.5px",
-                    borderColor: "border.default",
-                  })}
+                  className={datagridClasses.tableHead}
                   style={{
                     width: header.id === "select" ? "40px" : header.getSize(), //First column with checkboxes
                   }}
@@ -153,21 +145,22 @@ export const DataGrid = <TData extends Record<string, unknown>>({
                     <div
                       onMouseDown={header.getResizeHandler()}
                       onTouchStart={header.getResizeHandler()}
-                      className={css({
-                        position: "absolute",
-                        top: 0,
-                        right: 0,
-                        height: "100%",
-                        width: "4px",
-                        background: "rgba(0, 0, 0, 0.5)",
-                        cursor: "col-resize",
-                        userSelect: "none",
-                        touchAction: "none",
-                        opacity: 0, //Hide by default
-                        _hover: {
-                          opacity: 1, //Show on hover
-                        },
-                      })}
+                      className={datagridClasses.tableHeadDivider}
+                      // className={css({
+                      //   position: "absolute",
+                      //   top: 0,
+                      //   right: 0,
+                      //   height: "100%",
+                      //   width: "4px",
+                      //   background: "rgba(0, 0, 0, 0.5)",
+                      //   cursor: "col-resize",
+                      //   userSelect: "none",
+                      //   touchAction: "none",
+                      //   opacity: 0, //Hide by default
+                      //   _hover: {
+                      //     opacity: 1, //Show on hover
+                      //   },
+                      // })}
                     ></div>
                   )}
                 </TableHead>
@@ -195,16 +188,14 @@ export const DataGrid = <TData extends Record<string, unknown>>({
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
+                className={datagridClasses.tableRow}
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell
                     key={cell.id}
-                    className={css({
-                      borderWidth: "0.5px",
-                      borderColor: "border.default",
-                    })}
+                    className={datagridClasses.tableData}
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
