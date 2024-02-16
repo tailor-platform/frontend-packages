@@ -146,21 +146,6 @@ export const DataGrid = <TData extends Record<string, unknown>>({
                       onMouseDown={header.getResizeHandler()}
                       onTouchStart={header.getResizeHandler()}
                       className={datagridClasses.tableHeadDivider}
-                      // className={css({
-                      //   position: "absolute",
-                      //   top: 0,
-                      //   right: 0,
-                      //   height: "100%",
-                      //   width: "4px",
-                      //   background: "rgba(0, 0, 0, 0.5)",
-                      //   cursor: "col-resize",
-                      //   userSelect: "none",
-                      //   touchAction: "none",
-                      //   opacity: 0, //Hide by default
-                      //   _hover: {
-                      //     opacity: 1, //Show on hover
-                      //   },
-                      // })}
                     ></div>
                   )}
                 </TableHead>

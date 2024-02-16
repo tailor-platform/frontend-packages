@@ -27,13 +27,10 @@ export const datagrid = defineSlotRecipe({
     },
     tableHeadDivider: {
       position: "absolute",
-      top: "50%",
-      // top: 0,
+      top: 0,
       right: 0,
-      height: "50%",
-      // height: "100%",
-      width: "3px",
-      // width: "4px",
+      height: "100%",
+      width: "4px",
       background: "rgba(0, 0, 0, 0.5)",
       cursor: "col-resize",
       userSelect: "none",
@@ -42,10 +39,6 @@ export const datagrid = defineSlotRecipe({
       _hover: {
         opacity: 1, //Show on hover
       },
-      transform: "translateY(-50%)",
-      // _last: {
-      //     opacity: "0 !important",
-      // }
     },
   },
 });
