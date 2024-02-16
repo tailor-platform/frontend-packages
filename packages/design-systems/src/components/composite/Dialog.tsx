@@ -11,14 +11,17 @@ import { X as XIcon } from "lucide-react";
 import { Button } from "../Button";
 import { IconButton } from "../IconButton";
 import { Stack } from "../patterns/Stack";
+import { ReactNode } from "react";
 
 type DialogContentProps = {
   buttonText: string;
   title: string;
-  description: string;
+  description: ReactNode;
   cancelText?: string;
   confirmText?: string;
-  confirmFunction: () => void;
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  onConfirm: (control?: { close: () => void }) => void;
 };
 
 export type DialogProps = ArkDialogProps &
@@ -32,16 +35,22 @@ export const Dialog = (props: DialogProps) => {
     description,
     cancelText = "cancel",
     confirmText = "confirm",
-    confirmFunction,
+    open,
+    setOpen,
+    onConfirm,
     ...rest
   } = props;
 
   const classes = dialog();
+  const close = () => setOpen(false);
   return (
-    <ArkDialog.Root {...rest}>
-      <ArkDialog.Trigger asChild>
-        <Button variant="secondary">{buttonText}</Button>
-      </ArkDialog.Trigger>
+    <ArkDialog.Root
+      open={open}
+      onPointerDownOutside={() => {
+        close();
+      }}
+      {...rest}
+    >
       <Portal>
         <ArkDialog.Backdrop className={classes.backdrop} />
         <ArkDialog.Positioner className={classes.positioner}>
@@ -57,11 +66,15 @@ export const Dialog = (props: DialogProps) => {
               </Stack>
               <Stack gap="3" direction="row" width="full">
                 <ArkDialog.CloseTrigger asChild>
-                  <Button variant="secondary" width="full">
+                  <Button
+                    onClick={() => close()}
+                    variant="secondary"
+                    width="full"
+                  >
                     {cancelText}
                   </Button>
                 </ArkDialog.CloseTrigger>
-                <Button onClick={() => confirmFunction()} width="full">
+                <Button onClick={() => onConfirm({ close })} width="full">
                   {confirmText}
                 </Button>
               </Stack>
@@ -78,6 +91,7 @@ export const Dialog = (props: DialogProps) => {
                 aria-label="Close Dialog"
                 variant="tertiary"
                 size="sm"
+                onClick={() => close()}
               >
                 <XIcon />
               </IconButton>
