@@ -24,7 +24,7 @@ import { HideShow } from "./ColumnFeature/HideShow";
 import { CustomFilter } from "./SearchFilter/CustomFilter";
 import "./index.css";
 import { Localization_EN } from "./locales/en";
-import { PinnedColumn } from "@ColumnFeature/PinnedColumn";
+import { PinnedColumn } from "./ColumnFeature/PinnedColumn";
 
 const classes = pagination();
 
@@ -176,11 +176,11 @@ export const DataGrid = <TData extends Record<string, unknown>>({
                   )}
                     {header.id !== 'select' && (
                       <PinnedColumn
-                      localization={localization}
-                      setColumnPinning={(position) => {
-                        header.column.pin(`${position}`)
-                      }}
-                    />
+                        localization={localization}
+                        setColumnPinning={(position) => {
+                          header.column.pin(`${position}`)
+                        }}
+                      />
                     )}
                   </div>
                 </TableHead>

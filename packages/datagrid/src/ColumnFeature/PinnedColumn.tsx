@@ -25,6 +25,7 @@ export const PinnedColumn = <TData extends Record<string, unknown>>({
       })}
     >
       <MoreVerticalIcon
+        data-testid="open-pinned-column-modal"
         className={css({
           cursor: "pointer",
         })}
