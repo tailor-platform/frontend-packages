@@ -51,16 +51,13 @@ const buildCookieEntry = <const T extends keyof Session>(
   name: string,
   value: T,
 ) => {
-  // Use `expires_in` field from Tailor Platform auth service which comes as seconds
-  const expires = session.expires_in * 1000;
-
   // Use the strictest cookie here
+  // Here does not manually set `expires` in cookies because token expiration is handled on Tailor Plaform side
   return {
     name,
     value: session[value],
     sameSite: "strict" as const,
     httpOnly: true,
     secure: true,
-    expires,
   };
 };
