@@ -22,7 +22,7 @@
   ],
   "repository": "https://github.com/tailor-platform/frontend-packages",
   "scripts": {
-    "build": "tsup --entry src/client/index.ts --entry src/server/index.ts --format cjs,esm --dts --external react",
+    "build": "tsup",
     "dev": "pnpm run build -- --watch",
     "lint": "eslint '**/*.{ts,tsx}' --ignore-pattern 'dist/*' --max-warnings=0",
     "test": "vitest run --reporter verbose",
@@ -53,7 +53,8 @@
     "vitest": "^1.0.2"
   },
   "peerDependencies": {
-    "next": "^v14"
+    "next": "^v14",
+    "@apollo/client": "^3"
   },
   "prettier": "@tailor-platform/dev-config/prettier"
 }

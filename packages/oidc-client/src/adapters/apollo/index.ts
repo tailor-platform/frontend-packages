@@ -1,0 +1,1 @@
+export { authLink } from "./link";
