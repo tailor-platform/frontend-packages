@@ -22,8 +22,8 @@ export const withAuth = (
   options?: WithAuthOptions,
   middleware?: NextMiddleware,
 ): NextMiddleware => {
-  return async (request, event) => {
-    await middlewareRouter(
+  return async (request, event) =>
+    middlewareRouter(
       { request, config, options },
       {
         // Add middleware routes here
@@ -35,7 +35,6 @@ export const withAuth = (
         await middleware?.(request, event);
       },
     );
-  };
 };
 
 type RouterParams = {
@@ -69,7 +68,7 @@ export const middlewareRouter = async (
 
     if (routeKey) {
       const handler = routes[routeKey];
-      await handler({
+      return await handler({
         request,
         config: params.config,
         options: params.options,
@@ -80,6 +79,7 @@ export const middlewareRouter = async (
   } catch (e: unknown) {
     if (e instanceof Error && options?.onError) {
       await options.onError(e);
+      return NextResponse.next();
     }
   }
 };
