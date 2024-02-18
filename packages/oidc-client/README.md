@@ -176,7 +176,7 @@ This package provides adapters to integrate authentication with third-party pack
 `@tailor-platform/oidc-client/adapters/apollo` is a package with custom ApolloLink that automatically sets tokens in authorization header as a bearer token.
 
 ```ts
-import { authLink } from "@tailor-platform/oidc-client/adapters/apollo"
+import { authLink } from "@tailor-platform/oidc-client/adapters/apollo";
 import { config } from "@/libs/authConfig";
 
 const client = new ApolloClient({
@@ -187,5 +187,5 @@ const client = new ApolloClient({
       uri: "http://yourapp.mini.tailor.tech:8000/query",
     }),
   ]),
-})
+});
 ```
