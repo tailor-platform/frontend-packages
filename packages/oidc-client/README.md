@@ -12,7 +12,7 @@ Create configuration in somewhere in your app:
 import { Config } from "@tailor-platform/oidc-client";
 
 export const config = new Config({
-  apiHost: "http://ima.mini.tailor.tech:8000",
+  apiHost: "http://yourapp.mini.tailor.tech:8000",
   appHost: "http://localhost:3000",
 });
 ```
@@ -165,4 +165,27 @@ const Page = () => {
 
   return <div>Token: {session.token}</div>;
 };
+```
+
+## Adapters
+
+This package provides adapters to integrate authentication with third-party packages.
+
+### Apollo Client
+
+`@tailor-platform/oidc-client/adapters/apollo` is a package with custom ApolloLink that automatically sets tokens in authorization header as a bearer token.
+
+```ts
+import { authLink } from "@tailor-platform/oidc-client/adapters/apollo"
+import { config } from "@/libs/authConfig";
+
+const client = new ApolloClient({
+  link: from([
+    authLink(config),
+    new HttpLink({
+      credentials: "include",
+      uri: "http://yourapp.mini.tailor.tech:8000/query",
+    }),
+  ]),
+})
 ```
