@@ -1,0 +1,1 @@
+export { authenticatedHttpLink } from "./link";
