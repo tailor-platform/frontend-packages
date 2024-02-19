@@ -59,7 +59,7 @@
   },
   "peerDependencies": {
     "next": "^v14",
-    "@apollo/client": "^3"
+    "@apollo/client": "^3.9"
   },
   "prettier": "@tailor-platform/dev-config/prettier"
 }
