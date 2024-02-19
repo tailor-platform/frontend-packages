@@ -17,7 +17,7 @@ export class Config {
   constructor(
     private readonly params: Pick<ContextConfig, "apiHost" | "appHost"> &
       Partial<ContextConfig>,
-    private readonly namedStrategies: Array<AbstractStrategy> = [
+    private readonly strategies: Array<AbstractStrategy> = [
       new DefaultStrategy(),
     ],
   ) {}
