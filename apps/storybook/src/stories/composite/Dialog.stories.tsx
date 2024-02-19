@@ -19,13 +19,13 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: function Comp(props) {
-    const [open, setOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
     return (
       <>
         <Button
           variant="secondary"
           onClick={() => {
-            setOpen(!open);
+            setIsOpen(true);
           }}
         >
           Open dialog
@@ -35,8 +35,8 @@ export const Default: Story = {
           buttonText="Open Dialog"
           title="title"
           description="Dialog Description"
-          open={open}
-          setOpen={setOpen}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
           onConfirm={(control) => {
             control?.close();
           }}

@@ -19,8 +19,8 @@ type DialogContentProps = {
   description: ReactNode;
   cancelText?: string;
   confirmText?: string;
-  open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   onConfirm: (control?: { close: () => void }) => void;
 };
 
@@ -35,20 +35,18 @@ export const Dialog = (props: DialogProps) => {
     description,
     cancelText = "cancel",
     confirmText = "confirm",
-    open,
-    setOpen,
+    isOpen,
+    setIsOpen,
     onConfirm,
     ...rest
   } = props;
 
   const classes = dialog();
-  const close = () => setOpen(false);
+  const close = () => setIsOpen(false);
   return (
     <ArkDialog.Root
-      open={open}
-      onPointerDownOutside={() => {
-        close();
-      }}
+      open={isOpen}
+      onOpenChange={(e) => setIsOpen(e.open)}
       {...rest}
     >
       <Portal>
