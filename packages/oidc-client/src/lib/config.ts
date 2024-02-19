@@ -1,3 +1,6 @@
+import { AbstractStrategy } from "@strategies/abstract";
+import { DefaultStrategy } from "@strategies/default";
+
 type ContextConfig = {
   apiHost: string;
   appHost: string;
@@ -14,6 +17,9 @@ export class Config {
   constructor(
     private readonly params: Pick<ContextConfig, "apiHost" | "appHost"> &
       Partial<ContextConfig>,
+    private readonly namedStrategies: Array<AbstractStrategy> = [
+      new DefaultStrategy(),
+    ],
   ) {}
 
   apiUrl(path: string) {
