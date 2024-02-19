@@ -176,12 +176,30 @@ This package provides adapters to integrate authentication with third-party pack
 `@tailor-platform/oidc-client/adapters/apollo` is a package with custom ApolloLink that automatically sets tokens in authorization header as a bearer token.
 
 ```ts
-import { ApolloClient } from "@apollo/client";
+"use client";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { authenticatedHttpLink } from "@tailor-platform/oidc-client/adapters/apollo";
+import { TailorAuthProvider } from "@tailor-platform/oidc-client";
+import dynamic from "next/dynamic";
 import { config } from "@/libs/authConfig";
+
+const ApolloProvider = dynamic(
+  () => import("@apollo/client").then((modules) => modules.ApolloProvider),
+  { ssr: false },
+);
 
 const client = new ApolloClient({
   link: authenticatedHttpLink(config),
-  // ...
+  cache: new InMemoryCache(),
 });
+
+export const Providers = ({ children }: { children: ReactNode }) => {
+  return (
+    <TailorAuthProvider config={config}>
+      <ApolloProvider client={client}>
+        {children}
+      </ApolloProvider>
+    </TailorAuthProvider>
+  );
+};
 ```
