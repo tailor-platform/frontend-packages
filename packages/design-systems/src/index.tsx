@@ -68,3 +68,7 @@ export {
   type DatePickerProps,
 } from "@/components/composite/DatePicker";
 export { Dialog, type DialogProps } from "@/components/composite/Dialog";
+export {
+  HoverCard,
+  type HoverCardProps,
+} from "@/components/composite/HoverCard";
