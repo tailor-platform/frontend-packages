@@ -7,10 +7,6 @@ import { internalClientSessionPath } from "@server/middleware/internal";
 
 export const authenticatedHttpLink = (config: Config) =>
   from([
-    new HttpLink({
-      credentials: "include",
-      uri: config.apiUrl("/query"),
-    }),
     setContext(async (_, { headers }) => {
       const buildAuthorizationHeader = async () => {
         if (headers && "authorization" in headers) {
@@ -48,5 +44,11 @@ export const authenticatedHttpLink = (config: Config) =>
           }
         }
       }
+    }),
+
+    // HttpLink should always be put at last in order to avoid `You are calling concat on a terminating link` error
+    new HttpLink({
+      credentials: "include",
+      uri: config.apiUrl("/query"),
     }),
   ]);
