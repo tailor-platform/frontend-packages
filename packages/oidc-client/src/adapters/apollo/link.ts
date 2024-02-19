@@ -35,13 +35,10 @@ export const authenticatedHttpLink = (config: Config) =>
       };
     }),
     onError(({ networkError }) => {
-      if (networkError) {
-        if (networkError?.name === "ServerError") {
-          const serverErrorStatusCode = (networkError as ServerError)
-            .statusCode;
-          if (serverErrorStatusCode === 401) {
-            location.replace(config.unauthorizedPath());
-          }
+      if (networkError?.name === "ServerError") {
+        const serverErrorStatusCode = (networkError as ServerError).statusCode;
+        if (serverErrorStatusCode === 401) {
+          location.replace(config.unauthorizedPath());
         }
       }
     }),
