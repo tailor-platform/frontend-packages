@@ -1,6 +1,6 @@
 {
   "name": "@tailor-platform/oidc-client",
-  "version": "0.7.0-preview.2",
+  "version": "0.7.0",
   "private": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
