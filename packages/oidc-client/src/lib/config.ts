@@ -13,14 +13,29 @@ type ContextConfig = {
 };
 
 export class Config {
-  // Only "apiUrl" should be required
+  private readonly strategyMap: Map<string, AbstractStrategy>;
+
+  // Only "apiUrl" and "appHost" should be required
   constructor(
     private readonly params: Pick<ContextConfig, "apiHost" | "appHost"> &
       Partial<ContextConfig>,
     private readonly strategies: Array<AbstractStrategy> = [
       new DefaultStrategy(),
     ],
-  ) {}
+  ) {
+    this.strategyMap = new Map();
+    strategies.forEach((strategy) => {
+      this.strategyMap.set(strategy.name(), strategy);
+    });
+  }
+
+  getStrategy(name: string) {
+    return this.strategyMap.get(name);
+  }
+
+  getStrategyNames() {
+    return Array.from(this.strategyMap.keys());
+  }
 
   apiUrl(path: string) {
     return this.params.apiHost + path;
