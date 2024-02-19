@@ -134,6 +134,29 @@ const conformThElemntsIndex = (text: string, textIndex: number) => {
   expect(indexOfThWithText).toBe(textIndex)
 }
 
+const conformPinnedThElementsIndex = async(text: string, pinnedText: string, afterThElementPosition: number) => {
+  const targetElement = screen.getByText(text);
+  const element = within(targetElement).getByTestId("open-pinned-column-modal");
+  expect(element).toBeInTheDocument();
+
+  const user = userEvent.setup();
+  await user.click(element);
+
+  const pinnedElement = screen.getByText(pinnedText)
+  expect(pinnedElement).toBeVisible();
+
+  let indexOfThWithText = -1;
+  await user.click(pinnedElement)
+  const thElements = screen.getAllByRole('columnheader')
+  thElements.forEach((thElement, index) => {
+    if (thElement.textContent === text) {
+      indexOfThWithText = index;
+    }
+  });
+  expect(indexOfThWithText).toBeGreaterThan(-1);
+  expect(indexOfThWithText).toBe(afterThElementPosition)
+}
+
 describe("<PinnedColumn />", () => {
   it("renders correctly", async () => {
     render(<PinnedColumnTest />);
@@ -148,70 +171,12 @@ describe("<PinnedColumn />", () => {
 
   it("pinned the 'Status' column to right and pinned the 'Amount' column to left", async () => {
     render(<DataGridWithPinnedColumn />);
-    const user = userEvent.setup();
-
-    // const thElements = screen.getAllByRole('columnheader')
-    let indexOfThWithStatusText = -1;
-    let indexOfThWithAmountText = -1;
-    // thElements.forEach((thElement, index) => {
-    //   if (thElement.textContent === 'Status') {
-    //     indexOfThWithStatusText = index;
-    //   }
-    // });
-    // thElements.forEach((thElement, index) => {
-    //   if (thElement.textContent === 'Amount') {
-    //     indexOfThWithAmountText = index;
-    //   }
-    // });
-    // expect(indexOfThWithStatusText).toBeGreaterThan(-1);
-    // expect(indexOfThWithStatusText).toBe(0)
-    // expect(indexOfThWithAmountText).toBeGreaterThan(-1);
-    // expect(indexOfThWithAmountText).toBe(2)
 
     conformThElemntsIndex("Status", 0)
     conformThElemntsIndex("Amount", 2)
 
-    // Status click
-    const targetElement = screen.getByText("Status");
-    const element = within(targetElement).getByTestId("open-pinned-column-modal");
-    expect(element).toBeInTheDocument()
-    await user.click(element)
-
-    const pinnedRightElement = screen.getByText("Pinned Right")
-    const pinnedLeftElement = screen.getByText("Pinned Left")
-    expect(pinnedRightElement).toBeVisible();
-    expect(pinnedLeftElement).toBeVisible();
-
-    await user.click(pinnedRightElement)
-    const afterThElements = screen.getAllByRole('columnheader')
-    afterThElements.forEach((thElement, index) => {
-      if (thElement.textContent === 'Status') {
-        indexOfThWithStatusText = index;
-      }
-    });
-    expect(indexOfThWithStatusText).toBeGreaterThan(-1);
-    expect(indexOfThWithStatusText).toBe(2)
-
-    // Amount click
-    const targetAmountElement = screen.getByText("Amount");
-    const amountElement = within(targetAmountElement).getByTestId("open-pinned-column-modal");
-    expect(amountElement).toBeInTheDocument()
-    await user.click(amountElement)
-
-    const pinnedRightAmountElement = screen.getByText("Pinned Right")
-    const pinnedLeftAmountElement = screen.getByText("Pinned Left")
-    expect(pinnedRightAmountElement).toBeVisible();
-    expect(pinnedLeftAmountElement).toBeVisible();
-
-    await user.click(pinnedLeftAmountElement)
-    const afterAmountThElements = screen.getAllByRole('columnheader')
-    afterAmountThElements.forEach((thElement, index) => {
-      if (thElement.textContent === 'Amount') {
-        indexOfThWithAmountText = index;
-      }
-    });
-    expect(indexOfThWithAmountText).toBeGreaterThan(-1);
-    expect(indexOfThWithAmountText).toBe(0)
+    await conformPinnedThElementsIndex("Status", "Pinned Right", 2)
+    await conformPinnedThElementsIndex("Amount", "Pinned Left", 0)
 
   });
 });
