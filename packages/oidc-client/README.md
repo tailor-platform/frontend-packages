@@ -182,5 +182,6 @@ import { config } from "@/libs/authConfig";
 
 const client = new ApolloClient({
   link: authenticatedHttpLink(config),
+  // ...
 });
 ```
