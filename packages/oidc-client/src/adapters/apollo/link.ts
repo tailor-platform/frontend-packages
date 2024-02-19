@@ -1,12 +1,16 @@
-import { from, ServerError } from "@apollo/client";
+import { from, HttpLink, ServerError } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { onError } from "@apollo/client/link/error";
 import { Config } from "@client";
 import { SessionResult } from "@lib/types";
 import { internalClientSessionPath } from "@server/middleware/internal";
 
-export const authLink = (config: Config) =>
+export const authenticatedHttpLink = (config: Config) =>
   from([
+    new HttpLink({
+      credentials: "include",
+      uri: config.apiUrl("/query"),
+    }),
     setContext(async (_, { headers }) => {
       const buildAuthorizationHeader = async () => {
         if (headers && "authorization" in headers) {

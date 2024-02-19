@@ -1,1 +1,1 @@
-export { authLink } from "./link";
+export { authenticatedHttpLink } from "./link";
