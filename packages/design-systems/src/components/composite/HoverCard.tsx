@@ -8,26 +8,19 @@ import {
   type HTMLStyledProps,
 } from "@tailor-platform/styled-system/jsx";
 import { hoverCard } from "@tailor-platform/styled-system/recipes";
-import { Avatar } from "../Avatar";
 
 export type HoverCardProps = HTMLStyledProps<"div"> &
   ArkHoverCardProps &
-  React.PropsWithChildren;
+  React.PropsWithChildren & {
+    trigger: React.ReactNode;
+  };
 
 export const HoverCard = (props: HoverCardProps) => {
-  const { children, ...rest } = props;
+  const { children, trigger, ...rest } = props;
   const classes = hoverCard();
   return (
     <ArkHoverCard.Root {...rest}>
-      <ArkHoverCard.Trigger asChild>
-        <a href="https://www.tailor.tech/" target="_blank" rel="noreferrer">
-          <Avatar
-            fallback="TA"
-            alt="Tailor Avatar"
-            src="https://source.boringavatars.com/beam"
-          />
-        </a>
-      </ArkHoverCard.Trigger>
+      <ArkHoverCard.Trigger asChild>{trigger}</ArkHoverCard.Trigger>
       <Portal>
         <ArkHoverCard.Positioner className={classes.positioner}>
           <ArkHoverCard.Content className={classes.content}>

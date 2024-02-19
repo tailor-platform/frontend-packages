@@ -21,7 +21,7 @@ export const hoverCard = defineSlotRecipe({
     },
     arrow: {
       "--arrow-size": "12px",
-      "--arrow-background": "bg.surface",
+      "--arrow-background": "bg.canvas",
     },
     arrowTip: {
       borderColor: "bg.surface",
