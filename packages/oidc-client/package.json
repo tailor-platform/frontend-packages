@@ -15,6 +15,11 @@
       "types": "./dist/server/index.d.ts",
       "import": "./dist/server/index.mjs",
       "require": "./dist/server/index.js"
+    },
+    "./adapters/apollo": {
+      "types": "./dist/adapters/apollo/index.d.ts",
+      "import": "./dist/adapters/apollo/index.mjs",
+      "require": "./dist/adapters/apollo/index.js"
     }
   },
   "files": [
