@@ -13,6 +13,12 @@ export type UserInfo = {
   email: string;
 };
 
+const InvalidAuthenticationTrigger = new Error(
+  "invalid authentication trigger",
+);
+const NoCorrespondingStrategyError = new Error(
+  "no corresponding authentication strategy available",
+);
 const NoWindowError = new Error(
   "window object should be available to use this function",
 );
@@ -26,16 +32,25 @@ const assertWindowIsAvailable = () => {
 export const useAuth = () => {
   const config = useTailorAuth();
 
-  const login = (args: { redirectPath: string }) => {
+  const login = (name: string, args: Record<string, unknown>) => {
     assertWindowIsAvailable();
 
-    const apiLoginUrl = config.apiUrl(config.loginPath());
-    const callbackPath = config.loginCallbackPath();
-    const redirectUrl = encodeURI(
-      `${config.appUrl(callbackPath)}?redirect_uri=${args.redirectPath}`,
-    );
+    const strategy = config.getStrategy(name);
+    if (!strategy) {
+      throw NoCorrespondingStrategyError;
+    }
 
-    window.location.replace(`${apiLoginUrl}?redirect_uri=${redirectUrl}`);
+    const trigger = strategy.authenticate(config, args);
+    switch (trigger.mode) {
+      case "function-call":
+        trigger.callback();
+        break;
+      case "redirection":
+        window.location.replace(trigger.uri);
+        break;
+      default:
+        throw InvalidAuthenticationTrigger;
+    }
   };
 
   const refreshToken = async (
