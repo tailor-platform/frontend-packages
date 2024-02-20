@@ -33,7 +33,7 @@ export const Default: Story = {
         <Dialog
           {...props}
           buttonText="Open Dialog"
-          // title="title"
+          title="title"
           description="Dialog Description"
           isOpen={isOpen}
           setIsOpen={setIsOpen}
