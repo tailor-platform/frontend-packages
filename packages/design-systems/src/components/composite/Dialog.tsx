@@ -15,12 +15,12 @@ import { Stack } from "../patterns/Stack";
 
 type DialogContentProps = {
   buttonText: string;
-  title: string;
+  title?: string;
   description: ReactNode;
   cancelText?: string;
   confirmText?: string;
   isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsOpen: (isOpen: boolean) => void;
   onConfirm: (control?: { close: () => void }) => void;
 };
 
@@ -33,8 +33,8 @@ export const Dialog = (props: DialogProps) => {
     buttonText,
     title,
     description,
-    cancelText = "cancel",
-    confirmText = "confirm",
+    cancelText = "Cancel",
+    confirmText = "Confirm",
     isOpen,
     setIsOpen,
     onConfirm,
@@ -55,9 +55,11 @@ export const Dialog = (props: DialogProps) => {
           <ArkDialog.Content className={classes.content}>
             <Stack gap="8" p="6">
               <Stack gap="1">
-                <ArkDialog.Title className={classes.title}>
-                  {title}
-                </ArkDialog.Title>
+                {title && (
+                  <ArkDialog.Title className={classes.title}>
+                    {title}
+                  </ArkDialog.Title>
+                )}
                 <ArkDialog.Description className={classes.description}>
                   {description}
                 </ArkDialog.Description>
