@@ -13,9 +13,7 @@ export type UserInfo = {
   email: string;
 };
 
-const InvalidAuthenticationTrigger = new Error(
-  "invalid authentication trigger",
-);
+const InvalidAuthenticationFlowError = new Error("invalid authentication flow");
 const NoCorrespondingStrategyError = new Error(
   "no corresponding authentication strategy available",
 );
@@ -56,7 +54,7 @@ export const useAuth = () => {
         window.location.replace(trigger.uri);
         break;
       default:
-        throw InvalidAuthenticationTrigger;
+        throw InvalidAuthenticationFlowError;
     }
   };
 
