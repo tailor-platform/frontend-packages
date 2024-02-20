@@ -4,7 +4,7 @@ import { AbstractStrategy } from "@strategies/abstract";
 
 type Options = { redirectPath: string };
 
-export class DefaultStrategy implements AbstractStrategy<Options> {
+export class OIDCStrategy implements AbstractStrategy<Options> {
   name() {
     return "default";
   }

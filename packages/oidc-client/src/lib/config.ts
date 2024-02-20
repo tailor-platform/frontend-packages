@@ -1,5 +1,5 @@
 import { AbstractStrategy } from "@strategies/abstract";
-import { DefaultStrategy } from "@strategies/default";
+import { OIDCStrategy } from "@strategies/oidc";
 
 type ContextConfig = {
   apiHost: string;
@@ -12,6 +12,13 @@ type ContextConfig = {
   userInfoPath: string;
 };
 
+// Default strategy is OIDC
+const defaultStrategy = new (class extends OIDCStrategy {
+  name() {
+    return "default";
+  }
+})();
+
 export class Config {
   private readonly strategyMap: Map<string, AbstractStrategy>;
 
@@ -19,9 +26,7 @@ export class Config {
   constructor(
     private readonly params: Pick<ContextConfig, "apiHost" | "appHost"> &
       Partial<ContextConfig>,
-    private readonly strategies: Array<AbstractStrategy> = [
-      new DefaultStrategy(),
-    ],
+    private readonly strategies: Array<AbstractStrategy> = [defaultStrategy],
   ) {
     this.strategyMap = new Map();
     strategies.forEach((strategy) => {
@@ -53,7 +58,7 @@ export class Config {
     return this.params.unauthorizedPath || "/unauthorized";
   }
 
-  loginCallbackPath(strategy: string = "default") {
+  loginCallbackPath(strategy: string = defaultStrategy.name()) {
     return this.params.loginCallbackPath || `/login/callback/${strategy}`;
   }
 
