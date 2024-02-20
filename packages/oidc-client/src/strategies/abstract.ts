@@ -1,6 +1,10 @@
 import { Config } from "@lib/config";
 
-export type AuthenticateFlow =
+type CallbackResult = {
+  payload: FormData;
+  redirectUri: string;
+};
+type AuthenticateResult<R = unknown> =
   | {
       // Redirection-base authentication flow (eg. OIDC/SAML/...)
       mode: "redirection";
@@ -13,22 +17,23 @@ export type AuthenticateFlow =
       mode: "function-call";
 
       // Callback is a function expected to be executed in `login` function
-      callback: () => Promise<void> | void;
+      result: R;
     };
 
-type CallbackResult = {
-  payload: FormData;
-  redirectUri: string;
-};
-
-export type AbstractStrategy<T = Record<string, unknown>> = {
+export type AbstractStrategy<
+  T extends Record<string, unknown> = Record<string, unknown>,
+  R = unknown,
+> = {
   // Name should return the name of strategy.
   // The value returned from this will be used as identifier in middleware callback
   name(): string;
 
-  // Authenticate is expected to tell if authentication flow is redirection or function-call.
-  authenticate(config: Config, options: T): AuthenticateFlow;
-
   // Callback is a function to be handled in a callback handler in middleware.
   callback(config: Config, params: URLSearchParams): CallbackResult;
+
+  // Authenticate is expected to tell if authentication flow is redirection or function-call.
+  authenticate(
+    config: Config,
+    options: T,
+  ): Promise<AuthenticateResult<R>> | AuthenticateResult<R>;
 };

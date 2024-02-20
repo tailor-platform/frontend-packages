@@ -13,7 +13,6 @@ export type UserInfo = {
   email: string;
 };
 
-const InvalidAuthenticationFlowError = new Error("invalid authentication flow");
 const NoCorrespondingStrategyError = new Error(
   "no corresponding authentication strategy available",
 );
@@ -45,16 +44,9 @@ export const useAuth = () => {
     }
 
     const options = params?.options || {};
-    const trigger = strategy.authenticate(config, options);
-    switch (trigger.mode) {
-      case "function-call":
-        await trigger.callback();
-        break;
-      case "redirection":
-        window.location.replace(trigger.uri);
-        break;
-      default:
-        throw InvalidAuthenticationFlowError;
+    const trigger = await strategy.authenticate(config, options);
+    if (trigger.mode === "redirection") {
+      window.location.replace(trigger.uri);
     }
   };
 

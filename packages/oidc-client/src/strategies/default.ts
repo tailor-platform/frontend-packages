@@ -1,6 +1,6 @@
 import { paramsError } from "@server/middleware/callback";
 import { Config } from "@lib/config";
-import { AbstractStrategy, AuthenticateFlow } from "@strategies/abstract";
+import { AbstractStrategy } from "@strategies/abstract";
 
 type Options = { redirectPath: string };
 
@@ -9,7 +9,7 @@ export class DefaultStrategy implements AbstractStrategy<Options> {
     return "default";
   }
 
-  authenticate(config: Config, options: Options): AuthenticateFlow {
+  authenticate(config: Config, options: Options) {
     const apiLoginUrl = config.apiUrl(config.loginPath());
     const callbackPath = config.loginCallbackPath();
     const redirectUrl = encodeURI(
@@ -17,7 +17,7 @@ export class DefaultStrategy implements AbstractStrategy<Options> {
     );
 
     return {
-      mode: "redirection",
+      mode: "redirection" as const,
       uri: `${apiLoginUrl}?redirect_uri=${redirectUrl}`,
     };
   }
