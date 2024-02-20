@@ -7,7 +7,6 @@ import { Localization_EN } from "../locales/en";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataGrid } from "../Datagrid";
 import userEvent from "@testing-library/user-event";
-import type { Column } from "@tanstack/react-table";
 
 enum PaymentStatus {
   pending = "pending",
@@ -171,11 +170,14 @@ describe("<PinnedColumn />", () => {
   it("pinned the 'Status' column to right and pinned the 'Amount' column to left", async () => {
     render(<DataGridWithPinnedColumn />);
 
-    conformThElemntsIndex("Status", 0)
-    conformThElemntsIndex("Amount", 2)
+    const targetElement = screen.getByText("Status");
+    const element = within(targetElement).getByTestId("open-pinned-column-modal");
+    expect(element).toBeInTheDocument();
 
-    await conformPinnedThElementsIndex("Status", "Pinned Right", 2)
-    await conformPinnedThElementsIndex("Amount", "Pinned Left", 0)
+    conformThElemntsIndex("Status", 0);
+    conformThElemntsIndex("Amount", 2);
 
+    await conformPinnedThElementsIndex("Status", "Pinned Right", 2);
+    await conformPinnedThElementsIndex("Amount", "Pinned Left", 0);
   });
 });
