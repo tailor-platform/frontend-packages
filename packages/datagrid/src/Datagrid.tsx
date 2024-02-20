@@ -176,10 +176,8 @@ export const DataGrid = <TData extends Record<string, unknown>>({
                   )}
                     {header.id !== 'select' && (
                       <PinnedColumn
+                        column={header.column}
                         localization={localization}
-                        setColumnPinning={(position) => {
-                          header.column.pin(`${position}`)
-                        }}
                       />
                     )}
                   </div>

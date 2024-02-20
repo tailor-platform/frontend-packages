@@ -7,6 +7,7 @@ import { Localization_EN } from "../locales/en";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataGrid } from "../Datagrid";
 import userEvent from "@testing-library/user-event";
+import type { Column } from "@tanstack/react-table";
 
 enum PaymentStatus {
   pending = "pending",
@@ -100,15 +101,13 @@ const PinnedColumnTest = () => {
   const table = useDataGrid({
     data,
     columns,
-    enableHiding: true,
   });
+  const tableColumns = table.getAllLeafColumns()
+
   return (
     <PinnedColumn
       localization={Localization_EN}
-      setColumnPinning={(position) => {
-        // header.column.pin(`${position}`)
-        console.log('position')
-      }}
+      column={tableColumns[0]}
     />
   );
 };

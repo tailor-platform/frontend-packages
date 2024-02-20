@@ -3,17 +3,18 @@ import { Box } from "@tailor-platform/styled-system/jsx";
 import { Button } from "@tailor-platform/design-systems";
 import { MoreVertical as MoreVerticalIcon } from "lucide-react";
 import { Localization } from "@types";
+import type { Column } from "@tanstack/react-table";
 import { css } from "@tailor-platform/styled-system/css";
 
-type PinnedColumnProps = {
-  setColumnPinning: (position: 'right' | 'left') => void;
+type PinnedColumnProps<TData extends Record<string, unknown>> = {
+  column: Column<TData>
   localization: Localization;
 };
 
-export const PinnedColumn = ({
-  setColumnPinning,
+export const PinnedColumn = <TData extends Record<string, unknown>>({
+  column,
   localization,
-}: PinnedColumnProps) => {
+}: PinnedColumnProps<TData>) => {
   const [isOpenedPinnedColumnModal, setIsOpenedPinnedColumnModal] = useState<boolean>(false)
 
   return (
@@ -47,7 +48,7 @@ export const PinnedColumn = ({
             size="xs"
             mb={4}
             onClick={() => {
-              setColumnPinning('right')
+              column.pin("right")
               setIsOpenedPinnedColumnModal(false)
             }}
           >
@@ -58,7 +59,7 @@ export const PinnedColumn = ({
             size="xs"
             mb={4}
             onClick={() => {
-              setColumnPinning('left')
+              column.pin("left")
               setIsOpenedPinnedColumnModal(false)
             }}
           >
