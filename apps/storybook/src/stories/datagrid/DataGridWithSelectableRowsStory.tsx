@@ -3,11 +3,11 @@
 import { useState } from "react";
 
 import {
+  Box,
   DataGrid,
   DataGridInstance,
   useDataGrid,
-} from "@tailor-platform/datagrid";
-import { Box } from "@tailor-platform/styled-system/jsx";
+} from "@tailor-platform/design-systems";
 
 import { COLUMNS as columns, DATA as data } from "../../data/datagrid.ts";
 

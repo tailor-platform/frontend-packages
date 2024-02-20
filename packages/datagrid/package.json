@@ -20,7 +20,6 @@
   ],
   "repository": "https://github.com/tailor-platform/frontend-packages",
   "scripts": {
-    "prepare": "panda codegen",
     "build": "panda ship --outfile dist/panda.buildinfo.json && tsup --entry src/index.tsx --entry src/client.tsx --format cjs,esm --dts --external react",
     "dev": "pnpm build --watch",
     "lint": "eslint '**/*.{ts,tsx}' --ignore-pattern 'dist/*' --max-warnings=0",

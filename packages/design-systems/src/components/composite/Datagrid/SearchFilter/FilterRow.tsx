@@ -1,11 +1,15 @@
-import { Select as AS, CollectionItem, Portal } from "@ark-ui/react";
-import { IconButton, Input, Text } from "@tailor-platform/design-systems";
-import { Box, Flex, styled } from "@tailor-platform/styled-system/jsx";
-import { select } from "@tailor-platform/styled-system/recipes";
-import { ApplicableType, FilterRowProps } from "@types";
-import { CheckIcon, ChevronDown, X } from "lucide-react";
 import { useCallback, useMemo } from "react";
+import { CheckIcon, ChevronDown, X } from "lucide-react";
+import { Select as AS, CollectionItem, Portal } from "@ark-ui/react";
+import { styled } from "@tailor-platform/styled-system/jsx";
+import { select } from "@tailor-platform/styled-system/recipes";
+import { Box } from "../../../patterns/Box";
+import { Flex } from "../../../patterns/Flex";
+import { IconButton } from "../../../IconButton";
+import { Input } from "../../../Input";
+import { Text } from "../../../Text";
 import { getLocalizedFilterConditions } from "../data/filter";
+import { ApplicableType, FilterRowProps } from "./../types";
 
 interface ValueChangeDetails<T extends CollectionItem = CollectionItem> {
   value: string[];

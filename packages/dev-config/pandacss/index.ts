@@ -9,7 +9,6 @@ import {
   textStyles,
   tokens,
 } from "@tailor-platform/design-systems/client";
-import { datagrid } from "@tailor-platform/datagrid/client";
 
 export function buildPandaConfig(config: Config): Config {
   const mergedConfig: Config = deepmerge(defaultPandaConfig, config);
@@ -27,10 +26,7 @@ export const defaultPandaConfig = defineConfig({
   theme: {
     extend: {
       recipes,
-      slotRecipes: {
-        ...slotRecipes,
-        datagrid,
-      },
+      slotRecipes,
       semanticTokens,
       textStyles,
       tokens,

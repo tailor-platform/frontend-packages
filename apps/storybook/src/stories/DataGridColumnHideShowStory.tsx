@@ -1,11 +1,11 @@
 "use client";
 
 import {
+  Box,
   DataGrid,
   DataGridInstance,
   useDataGrid,
-} from "@tailor-platform/datagrid";
-import { Box } from "@tailor-platform/styled-system/jsx";
+} from "@tailor-platform/design-systems";
 import { useState } from "react";
 import { DATA as data, COLUMNS as columns } from "../data/datagrid";
 

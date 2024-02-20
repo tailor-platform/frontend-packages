@@ -3,7 +3,6 @@ import { defineConfig } from "@pandacss/dev";
 import { recipes } from "../design-systems/src/theme/recipes";
 import { semanticTokens } from "../design-systems/src/theme/semantic-tokens";
 import { slotRecipes } from "../design-systems/src/theme/slot-recipes";
-import { datagrid } from "@theme/slot-recipes/datagrid";
 import { textStyles } from "../design-systems/src/theme/text-styles";
 import { tokens } from "../design-systems/src/theme/tokens";
 import { globalCss } from "../design-systems/src/theme/global-css";
@@ -25,10 +24,7 @@ export default defineConfig({
     extend: {
       recipes,
       semanticTokens,
-      slotRecipes: {
-        ...slotRecipes,
-        datagrid,
-      },
+      slotRecipes,
       textStyles,
       tokens,
     },

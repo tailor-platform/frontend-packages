@@ -2,7 +2,7 @@
  * This file will contain the data used in datagrid story
  */
 
-import { ColumnDef } from "@tailor-platform/datagrid";
+import { ColumnDef } from "@tanstack/react-table";
 import { Payment, PaymentStatus } from "../types/datagrid";
 
 export const COLUMNS: ColumnDef<Payment>[] = [

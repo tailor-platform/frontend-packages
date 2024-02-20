@@ -1,13 +1,13 @@
 "use client";
 
 import {
+  Box,
   DataGrid,
   DataGridInstance,
   useDataGrid,
-} from "@tailor-platform/datagrid";
-import { Localization_JA } from "@tailor-platform/datagrid/locales/ja";
-import { Localization_EN } from "@tailor-platform/datagrid/locales/en";
-import { Box } from "@tailor-platform/styled-system/jsx";
+  LOCALIZATION_JA,
+  LOCALIZATION_EN,
+} from "@tailor-platform/design-systems";
 
 import { COLUMNS as columns, DATA as data } from "../../data/datagrid.ts";
 
@@ -25,7 +25,7 @@ export const DataGridMultilingualStory = ({
     data,
     columns,
     enableColumnFilters,
-    localization: localization === "JA" ? Localization_JA : Localization_EN,
+    localization: localization === "JA" ? LOCALIZATION_JA : LOCALIZATION_EN,
   });
 
   return (

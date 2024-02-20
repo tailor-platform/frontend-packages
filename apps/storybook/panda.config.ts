@@ -6,8 +6,6 @@ export default buildPandaConfig(
     include: [
       "./src/stories/**/*.{js,jsx,ts,tsx}",
       "./../../packages/design-systems/src/**/*.{js,jsx,ts,tsx}",
-      "./../../packages/datagrid/src/**/*.{js,jsx,ts,tsx}",
-      "./node_modules/@tailor-platform/datagrid/dist/panda.buildinfo.json",
       "./node_modules/@tailor-platform/design-systems/dist/panda.buildinfo.json",
     ],
   }),
