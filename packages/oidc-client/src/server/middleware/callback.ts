@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { RouteHandler } from "../middleware";
-import { internalExchangeTokenForSession } from "@lib/core";
-import { Session } from "@/lib/types";
+import { ErrorResponse, Session } from "@/lib/types";
 
 export class CallbackError extends Error {
   constructor(
@@ -22,24 +21,39 @@ export const callbackHandler: RouteHandler = async ({
   config,
   options,
 }) => {
-  const params = request.nextUrl.searchParams;
-  const code = params.get("code");
-  const redirectURI = params.get("redirect_uri");
-  if (!code || !redirectURI) {
-    throw paramsError();
+  const strategyName = request.nextUrl.pathname.split("/").pop();
+  if (!strategyName || strategyName === "callback") {
+    // Here should be raising errors
+    return;
   }
 
-  const session = await internalExchangeTokenForSession(config, code);
+  const strategy = config.getStrategy(strategyName);
+  if (!strategy) {
+    // Error: No corresponding strategy
+    return;
+  }
+
+  const { payload, redirectUri } = strategy.callback(
+    config,
+    request.nextUrl.searchParams,
+  );
+  const res = await fetch(config.apiUrl(config.tokenPath()), {
+    method: "POST",
+    body: payload,
+  });
+
+  const session = (await res.json()) as Session | ErrorResponse;
   if ("error" in session) {
     throw exchangeError(session.error);
   }
+
   options?.prepend &&
     (await options.prepend({
       token: session.access_token,
       userID: session.user_id,
     }));
 
-  const redirection = NextResponse.redirect(config.appUrl(redirectURI));
+  const redirection = NextResponse.redirect(config.appUrl(redirectUri));
   redirection.cookies.set(
     buildCookieEntry(session, "tailor.token", "access_token"),
   );

@@ -28,19 +28,26 @@ const assertWindowIsAvailable = () => {
   }
 };
 
+type LoginParams = {
+  name?: string;
+  options: Record<string, unknown>;
+};
+
 // useAuth is a hook that abstracts out provider-agnostic interface functions related to authorization
 export const useAuth = () => {
   const config = useTailorAuth();
 
-  const login = (name: string, args: Record<string, unknown>) => {
+  const login = (params?: LoginParams) => {
     assertWindowIsAvailable();
 
+    const name = params?.name || "default";
     const strategy = config.getStrategy(name);
     if (!strategy) {
       throw NoCorrespondingStrategyError;
     }
 
-    const trigger = strategy.authenticate(config, args);
+    const options = params?.options || {};
+    const trigger = strategy.authenticate(config, options);
     switch (trigger.mode) {
       case "function-call":
         trigger.callback();

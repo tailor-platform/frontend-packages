@@ -16,14 +16,19 @@ export type AuthenticateFlow =
       callback: () => void;
     };
 
+type CallbackResult = {
+  payload: FormData;
+  redirectUri: string;
+};
+
 export type AbstractStrategy<T = Record<string, unknown>> = {
   // Name should return the name of strategy.
   // The value returned from this will be used as identifier in middleware callback
   name(): string;
 
   // Authenticate is expected to tell if authentication flow is redirection or function-call.
-  authenticate(config: Config, args: T): AuthenticateFlow;
+  authenticate(config: Config, options: T): AuthenticateFlow;
 
   // Callback is a function to be handled in a callback handler in middleware.
-  callback(config: Config, params: URLSearchParams): FormData;
+  callback(config: Config, params: URLSearchParams): CallbackResult;
 };

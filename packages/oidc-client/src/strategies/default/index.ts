@@ -2,18 +2,18 @@ import { paramsError } from "@server/middleware/callback";
 import { Config } from "@lib/config";
 import { AbstractStrategy, AuthenticateFlow } from "@strategies/abstract";
 
-type Args = { redirectPath: string };
+type Options = { redirectPath: string };
 
-export class DefaultStrategy implements AbstractStrategy<Args> {
+export class DefaultStrategy implements AbstractStrategy<Options> {
   name() {
     return "default";
   }
 
-  authenticate(config: Config, args: Args): AuthenticateFlow {
+  authenticate(config: Config, options: Options): AuthenticateFlow {
     const apiLoginUrl = config.apiUrl(config.loginPath());
     const callbackPath = config.loginCallbackPath();
     const redirectUrl = encodeURI(
-      `${config.appUrl(callbackPath)}?redirect_uri=${args.redirectPath}`,
+      `${config.appUrl(callbackPath)}?redirect_uri=${options.redirectPath}`,
     );
 
     return {
@@ -33,6 +33,9 @@ export class DefaultStrategy implements AbstractStrategy<Args> {
     const payload = new FormData();
     payload.append("code", code);
     payload.append("redirect_uri", redirectUri);
-    return payload;
+    return {
+      payload,
+      redirectUri: redirectURI,
+    };
   }
 }
