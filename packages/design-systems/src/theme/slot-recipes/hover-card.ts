@@ -28,6 +28,5 @@ export const hoverCard = defineSlotRecipe({
       borderTopWidth: "1px",
       borderLeftWidth: "1px",
     },
-    trigger: {},
   },
 });
