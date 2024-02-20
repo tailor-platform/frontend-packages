@@ -3,10 +3,7 @@ import {
   type HoverCardProps as ArkHoverCardProps,
   Portal,
 } from "@ark-ui/react";
-import {
-  styled,
-  type HTMLStyledProps,
-} from "@tailor-platform/styled-system/jsx";
+import { type HTMLStyledProps } from "@tailor-platform/styled-system/jsx";
 import { hoverCard } from "@tailor-platform/styled-system/recipes";
 
 export type HoverCardProps = HTMLStyledProps<"div"> &
