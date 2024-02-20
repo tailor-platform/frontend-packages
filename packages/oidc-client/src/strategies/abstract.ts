@@ -32,12 +32,13 @@ export type AbstractStrategy<
   // The value returned from this will be used as identifier in middleware callback
   name(): string;
 
-  // Callback is a function to be handled in a callback handler in middleware.
-  callback(config: Config, params: URLSearchParams): CallbackResult;
-
-  // Authenticate is expected to tell if authentication flow is redirection or function-call.
+  // Authenticate is a function that runs when users trigger `login` function on client components
+  // The returned value tells if authentication flow is redirection or manual callback.
   authenticate(
     config: Config,
     options: T,
   ): Promise<AuthenticateResult> | AuthenticateResult;
+
+  // Callback is a function to be handled in a callback handler in middleware.
+  callback(config: Config, params: URLSearchParams): CallbackResult;
 };
