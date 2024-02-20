@@ -31,7 +31,7 @@ export const mockAuthConfigValue = {
   apiHost: "https://mock-api-url.com",
   appHost: "http://localhost:3000",
   loginPath: "/mock-login",
-  loginCallbackPath: "/mock-callback",
+  loginCallbackPath: "/mock-callback/default",
   tokenPath: "/mock-token",
   refreshTokenPath: "/mock-refresh-token",
   userInfoPath: "/mock-userinfo",

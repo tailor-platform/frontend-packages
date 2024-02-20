@@ -36,7 +36,7 @@ describe("useAuth", () => {
       });
 
       expect(replaceMock).toHaveBeenCalledWith(
-        "https://mock-api-url.com/mock-login?redirect_uri=http://localhost:3000/mock-callback?redirect_uri=/redirect-path",
+        "https://mock-api-url.com/mock-login?redirect_uri=http://localhost:3000/mock-callback/default?redirect_uri=/redirect-path",
       );
     });
   });
