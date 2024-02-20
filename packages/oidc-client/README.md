@@ -206,7 +206,7 @@ export const Providers = ({ children }: { children: ReactNode }) => {
 
 ## Strategies
 
-Strategies are plugin mechanism to add authentication process. 
+Strategies are plugin mechanism to add authentication process.
 
 All built-in authentications are also implemented as a strategy. The default is `OIDCStrategy`.
 
