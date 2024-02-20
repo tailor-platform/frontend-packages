@@ -30,7 +30,7 @@ describe("useAuth", () => {
         const { result } = renderHook(() => useAuth(), {
           wrapper: mockProvider,
         });
-        result.current.login({ redirectPath: "/redirect-path" });
+        result.current.login({ options: { redirectPath: "/redirect-path" } });
       });
 
       expect(replaceMock).toHaveBeenCalledWith(

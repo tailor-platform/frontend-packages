@@ -21,7 +21,7 @@ describe("callback", () => {
 
   it("obtains a token and stores it in the cookies", async () => {
     const request = buildRequestWithParams(
-      baseURL,
+      baseURL + "/default",
       new URLSearchParams({
         code: "12345",
         redirect_uri: "/users",
@@ -51,7 +51,7 @@ describe("callback", () => {
 
   it("calls onError when params are invalid", async () => {
     const request = buildRequestWithParams(
-      baseURL,
+      baseURL + "/default",
       new URLSearchParams({
         code: "12345",
       }),
@@ -75,7 +75,7 @@ describe("callback", () => {
     );
 
     const request = buildRequestWithParams(
-      baseURL,
+      baseURL + "/default",
       new URLSearchParams({
         code: "12345",
         redirect_uri: "/users",

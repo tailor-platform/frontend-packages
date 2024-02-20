@@ -13,7 +13,7 @@ export class DefaultStrategy implements AbstractStrategy<Options> {
     const apiLoginUrl = config.apiUrl(config.loginPath());
     const callbackPath = config.loginCallbackPath();
     const redirectUrl = encodeURI(
-      `${config.appUrl(callbackPath)}?redirect_uri=${options.redirectPath}`,
+      `${config.appUrl(callbackPath)}?redirect_uri=${options.redirectPath ?? "/"}`,
     );
 
     return {
