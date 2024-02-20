@@ -13,7 +13,7 @@ export type AuthenticateFlow =
       mode: "function-call";
 
       // Callback is a function expected to be executed in `login` function
-      callback: () => void;
+      callback: () => Promise<void> | void;
     };
 
 type CallbackResult = {

@@ -35,7 +35,7 @@ type LoginParams = {
 export const useAuth = () => {
   const config = useTailorAuth();
 
-  const login = (params?: LoginParams) => {
+  const login = async (params?: LoginParams) => {
     assertWindowIsAvailable();
 
     const name = params?.name || "default";
@@ -48,7 +48,7 @@ export const useAuth = () => {
     const trigger = strategy.authenticate(config, options);
     switch (trigger.mode) {
       case "function-call":
-        trigger.callback();
+        await trigger.callback();
         break;
       case "redirection":
         window.location.replace(trigger.uri);
