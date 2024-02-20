@@ -15,6 +15,8 @@ export const paramsError = () =>
   new CallbackError("invalid-params", "code and redirectURI should be filled");
 export const exchangeError = (reason: string) =>
   new CallbackError("failed-exchange", reason);
+export const noCorrespondingStrategyError = (name: string) =>
+  new CallbackError("no-corresponding-strategy", name);
 
 export const callbackHandler: RouteHandler = async ({
   request,
@@ -23,14 +25,12 @@ export const callbackHandler: RouteHandler = async ({
 }) => {
   const strategyName = request.nextUrl.pathname.split("/").pop();
   if (!strategyName || strategyName === "callback") {
-    // Here should be raising errors
-    return;
+    throw noCorrespondingStrategyError("<empty>");
   }
 
   const strategy = config.getStrategy(strategyName);
   if (!strategy) {
-    // Error: No corresponding strategy
-    return;
+    throw noCorrespondingStrategyError(strategyName);
   }
 
   const { payload, redirectUri } = strategy.callback(
