@@ -4,7 +4,7 @@ type CallbackResult = {
   payload: FormData;
   redirectUri: string;
 };
-type AuthenticateResult<R = unknown> =
+type AuthenticateResult =
   | {
       // Redirection-base authentication flow (eg. OIDC/SAML/...)
       mode: "redirection";
@@ -13,16 +13,15 @@ type AuthenticateResult<R = unknown> =
       uri: string;
     }
   | {
-      // Function-based authentication flow (eg. Firebase SDK/AWS Cognite JS SDK/...)
-      mode: "function-call";
+      // Manually calling callback
+      mode: "manual-callback";
 
-      // Callback is a function expected to be executed in `login` function
-      result: R;
+      // Payload to be sent to callback handler
+      payload: FormData;
     };
 
 export type AbstractStrategy<
   T extends Record<string, unknown> = Record<string, unknown>,
-  R = unknown,
 > = {
   // Name should return the name of strategy.
   // The value returned from this will be used as identifier in middleware callback
@@ -35,5 +34,5 @@ export type AbstractStrategy<
   authenticate(
     config: Config,
     options: T,
-  ): Promise<AuthenticateResult<R>> | AuthenticateResult<R>;
+  ): Promise<AuthenticateResult> | AuthenticateResult;
 };

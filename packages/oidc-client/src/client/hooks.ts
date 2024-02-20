@@ -44,9 +44,17 @@ export const useAuth = () => {
     }
 
     const options = params?.options || {};
-    const trigger = await strategy.authenticate(config, options);
-    if (trigger.mode === "redirection") {
-      window.location.replace(trigger.uri);
+    const result = await strategy.authenticate(config, options);
+    switch (result.mode) {
+      case "redirection":
+        window.location.replace(result.uri);
+        break;
+      case "manual-callback":
+        await fetch(config.loginCallbackPath(strategy.name()), {
+          body: result.payload,
+        });
+        break;
+      default:
     }
   };
 

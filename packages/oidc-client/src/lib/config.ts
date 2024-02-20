@@ -53,8 +53,8 @@ export class Config {
     return this.params.unauthorizedPath || "/unauthorized";
   }
 
-  loginCallbackPath() {
-    return this.params.loginCallbackPath || "/login/callback";
+  loginCallbackPath(strategy: string = "default") {
+    return this.params.loginCallbackPath || `/login/callback/${strategy}`;
   }
 
   tokenPath() {
