@@ -26,11 +26,13 @@ describe("useAuth", () => {
   describe("login", () => {
     it("correctly redirects to the login URL", async () => {
       const replaceMock = vi.fn();
-      await withMockReplace(replaceMock, () => {
+      await withMockReplace(replaceMock, async () => {
         const { result } = renderHook(() => useAuth(), {
           wrapper: mockProvider,
         });
-        result.current.login({ options: { redirectPath: "/redirect-path" } });
+        await result.current.login({
+          options: { redirectPath: "/redirect-path" },
+        });
       });
 
       expect(replaceMock).toHaveBeenCalledWith(
