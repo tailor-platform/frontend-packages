@@ -2,7 +2,7 @@ import "cross-fetch/polyfill";
 import { graphql, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
 import userEvent from "@testing-library/user-event";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import { gql, useApolloClient } from "@apollo/client";
 import { useState } from "react";
 import { TailorProvider } from "./provider";
@@ -78,7 +78,9 @@ describe("TailorProvider", () => {
       );
 
       const user = userEvent.setup();
-      await user.click(screen.getByTestId("request"));
+      await act(async () => {
+        await user.click(screen.getByTestId("request"));
+      });
       expect(getItemSpy).toHaveBeenCalled();
       expect(screen.getByTestId("status").textContent).toBe(
         "with header: Bearer local-storage-token",
@@ -99,7 +101,9 @@ describe("TailorProvider", () => {
       );
 
       const user = userEvent.setup();
-      await user.click(screen.getByTestId("request"));
+      await act(async () => {
+        await user.click(screen.getByTestId("request"));
+      });
       expect(screen.getByTestId("status").textContent).toBe(
         "with header: Bearer dynamic-token",
       );
@@ -123,7 +127,9 @@ describe("TailorProvider", () => {
       );
 
       const user = userEvent.setup();
-      await user.click(screen.getByTestId("request"));
+      await act(async () => {
+        await user.click(screen.getByTestId("request"));
+      });
       expect(getItemSpy).toHaveBeenCalled();
       expect(screen.getByTestId("status").textContent).toBe(
         "with header: Bearer dynamic-overriding-token",
@@ -197,7 +203,9 @@ describe("TailorProvider", () => {
       );
 
       const user = userEvent.setup();
-      await user.click(screen.getByTestId("request"));
+      await act(async () => {
+        await user.click(screen.getByTestId("request"));
+      });
       expect(spyRemoveItem).toHaveBeenCalledWith("token");
       expect(spyRemoveItem).toHaveBeenCalledWith("user");
       expect(replaceMock).toHaveBeenCalledWith("/login");
