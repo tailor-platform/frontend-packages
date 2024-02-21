@@ -1,6 +1,8 @@
 "use client";
 
-import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { useState } from "react";
+import { 
+  ColumnPinningState,getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { Checkbox } from "../../Checkbox";
 import { type DataGridInstance, type UseDataGridProps } from "./types";
 
@@ -22,7 +24,11 @@ export const useDataGrid = <TData extends Record<string, unknown>>({
   rowSelection,
 }: UseDataGridProps<TData>): DataGridInstance<TData> => {
   const { pageIndex = 0, pageSize = 10 } = pagination || {};
-
+  const [columnPinning, setColumnPinning] = useState<ColumnPinningState>({	
+    left: ["select"],	
+    right: [],	
+    });	
+    
   const initialState: Record<string, unknown> = {
     pagination: {
       pageIndex,
@@ -69,11 +75,13 @@ export const useDataGrid = <TData extends Record<string, unknown>>({
     onRowSelectionChange: enableRowSelection ? onRowSelectionChange : undefined,
     state: {
       columnVisibility,
+      columnPinning,
       rowSelection: enableRowSelection ? rowSelection : {},
     },
     onColumnVisibilityChange,
     enableColumnResizing: true,
     columnResizeMode: "onChange",
+    onColumnPinningChange: setColumnPinning,
   });
 
   return {

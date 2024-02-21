@@ -7,6 +7,10 @@ export const LOCALIZATION_EN: Localization = {
     hideShow: {
       showAll: "Show All",
     },
+    pinnedColumn: {
+      pinnedRight: "Pinned Right",
+      pinnedLeft: "Pinned Left",
+    },
   },
   filter: {
     filterLabel: "Filter",

@@ -4,6 +4,7 @@ import { flexRender } from "@tanstack/react-table";
 import { Columns as ColumnsIcon, Filter as FilterIcon } from "lucide-react";
 import { Pagination } from "@ark-ui/react";
 import { DragEvent, useCallback, useEffect, useState } from "react";
+import { css } from "@tailor-platform/styled-system/css";
 import { pagination, datagrid } from "@tailor-platform/styled-system/recipes";
 import { Button } from "../../Button";
 import {
@@ -19,6 +20,7 @@ import { HStack } from "../../patterns/HStack";
 import { Stack } from "../../patterns/Stack";
 import { Column, ColumnMetaWithTypeInfo, type DataGridInstance } from "./types";
 import { HideShow } from "./ColumnFeature/HideShow";
+import { PinnedColumn } from "./ColumnFeature/PinnedColumn";
 import { CustomFilter } from "./SearchFilter/CustomFilter";
 import { LOCALIZATION_EN } from "./locales/en";
 
@@ -133,18 +135,30 @@ export const DataGrid = <TData extends Record<string, unknown>>({
                   }}
                   onDrop={onDrop}
                 >
-                  {!header.isPlaceholder &&
-                    flexRender(
-                      header.column.columnDef.header,
-                      header.getContext(),
+                  <div
+                    className={css({
+                      display: "flex",
+                    })}
+                  >
+                    {!header.isPlaceholder &&
+                      flexRender(
+                        header.column.columnDef.header,
+                        header.getContext(),
+                      )}
+                    {header.column.getCanResize() && (
+                      <div
+                        onMouseDown={header.getResizeHandler()}
+                        onTouchStart={header.getResizeHandler()}
+                        className={datagridClasses.tableHeadDivider}
+                      ></div>
                     )}
-                  {header.column.getCanResize() && (
-                    <div
-                      onMouseDown={header.getResizeHandler()}
-                      onTouchStart={header.getResizeHandler()}
-                      className={datagridClasses.tableHeadDivider}
-                    ></div>
-                  )}
+                    {header.id !== "select" && (
+                      <PinnedColumn
+                        column={header.column}
+                        localization={localization}
+                      />
+                    )}
+                  </div>
                 </TableHead>
               ))}
             </TableRow>

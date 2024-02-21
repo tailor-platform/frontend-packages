@@ -7,6 +7,10 @@ export const LOCALIZATION_JA: Localization = {
     hideShow: {
       showAll: "全て表示",
     },
+    pinnedColumn: {
+      pinnedRight: "右に固定",
+      pinnedLeft: "左に固定",
+    },
   },
   filter: {
     filterLabel: "フィルタ",
