@@ -203,3 +203,38 @@ export const Providers = ({ children }: { children: ReactNode }) => {
   );
 };
 ```
+
+## Strategies
+
+Strategies are plugin mechanism to add authentication process.
+
+All built-in authentications are also implemented as a strategy. The default is `OIDCStrategy`.
+
+Users can implement their own custom authentication by writing custom strategies. See [src/strategies/abstract.ts](src/strategies/abstract.ts) to know interfaces expected to be implemented.
+
+### Example
+
+```ts
+type Option = {
+  email: string;
+  password: string;
+};
+
+export class YourOwnStrategy implements AbstractStrategy<Options> {
+  name() {
+    return "your-own-strategy";
+  }
+
+  authenticate(config: Config, options: Options) {
+    // Implement authentication here
+    // Here will be executed on client components by `login` function in useAuth hook
+    // (See `AuthenticateResult` type to know what this function is required to return)
+  }
+
+  callback(config: Config, params: URLSearchParams) {
+    // Implement callback process here
+    // Here will be executed in server side as a part of Next.js middleware
+    // (See `CallbackResult` type to know what this function is required to return)
+  }
+}
+```

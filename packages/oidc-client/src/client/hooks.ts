@@ -13,6 +13,9 @@ export type UserInfo = {
   email: string;
 };
 
+const NoCorrespondingStrategyError = new Error(
+  "no corresponding authentication strategy available",
+);
 const NoWindowError = new Error(
   "window object should be available to use this function",
 );
@@ -22,20 +25,37 @@ const assertWindowIsAvailable = () => {
   }
 };
 
+type LoginParams = {
+  name?: string;
+  options: Record<string, unknown>;
+};
+
 // useAuth is a hook that abstracts out provider-agnostic interface functions related to authorization
 export const useAuth = () => {
   const config = useTailorAuth();
 
-  const login = (args: { redirectPath: string }) => {
+  const login = async (params?: LoginParams) => {
     assertWindowIsAvailable();
 
-    const apiLoginUrl = config.apiUrl(config.loginPath());
-    const callbackPath = config.loginCallbackPath();
-    const redirectUrl = encodeURI(
-      `${config.appUrl(callbackPath)}?redirect_uri=${args.redirectPath}`,
-    );
+    const name = params?.name || "default";
+    const strategy = config.getStrategy(name);
+    if (!strategy) {
+      throw NoCorrespondingStrategyError;
+    }
 
-    window.location.replace(`${apiLoginUrl}?redirect_uri=${redirectUrl}`);
+    const options = params?.options || {};
+    const result = await strategy.authenticate(config, options);
+    switch (result.mode) {
+      case "redirection":
+        window.location.replace(result.uri);
+        break;
+      case "manual-callback":
+        await fetch(config.loginCallbackPath(strategy.name()), {
+          body: result.payload,
+        });
+        break;
+      default:
+    }
   };
 
   const refreshToken = async (

@@ -17,12 +17,13 @@ type WithAuthOptions = MiddlewareHandlerOptions & {
   onError?: (err: Error) => Promise<void> | void;
 };
 
-export const withAuth = (
-  config: Config,
-  options?: WithAuthOptions,
-  middleware?: NextMiddleware,
-): NextMiddleware => {
-  return async (request, event) =>
+export const withAuth =
+  (
+    config: Config,
+    options?: WithAuthOptions,
+    middleware?: NextMiddleware,
+  ): NextMiddleware =>
+  async (request, event) =>
     middlewareRouter(
       { request, config, options },
       {
@@ -35,7 +36,6 @@ export const withAuth = (
         await middleware?.(request, event);
       },
     );
-};
 
 type RouterParams = {
   request: NextRequest;

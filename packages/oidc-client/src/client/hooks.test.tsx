@@ -26,15 +26,17 @@ describe("useAuth", () => {
   describe("login", () => {
     it("correctly redirects to the login URL", async () => {
       const replaceMock = vi.fn();
-      await withMockReplace(replaceMock, () => {
+      await withMockReplace(replaceMock, async () => {
         const { result } = renderHook(() => useAuth(), {
           wrapper: mockProvider,
         });
-        result.current.login({ redirectPath: "/redirect-path" });
+        await result.current.login({
+          options: { redirectPath: "/redirect-path" },
+        });
       });
 
       expect(replaceMock).toHaveBeenCalledWith(
-        "https://mock-api-url.com/mock-login?redirect_uri=http://localhost:3000/mock-callback?redirect_uri=/redirect-path",
+        "https://mock-api-url.com/mock-login?redirect_uri=http://localhost:3000/mock-callback/default?redirect_uri=/redirect-path",
       );
     });
   });
