@@ -1,6 +1,9 @@
 {
   "name": "@tailor-platform/frontend-packages",
   "private": true,
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "build": "find packages -type d -name dist -exec rm -rf {} +; turbo run build",
     "dev": "turbo run dev",
