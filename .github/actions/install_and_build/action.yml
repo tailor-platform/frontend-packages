@@ -18,7 +18,7 @@ runs:
       shell: bash
       run: |-
         npm i -g npm
-        npm i -g corepack
+        npm i -g corepack@0.25.1
 
     - name: setup pnpm
       shell: bash
