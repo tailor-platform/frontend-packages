@@ -1,3 +1,6 @@
+import { AbstractStrategy } from "@strategies/abstract";
+import { OIDCStrategy } from "@strategies/oidc";
+
 type ContextConfig = {
   apiHost: string;
   appHost: string;
@@ -9,12 +12,35 @@ type ContextConfig = {
   userInfoPath: string;
 };
 
+// Default strategy is OIDC
+const defaultStrategy = new (class extends OIDCStrategy {
+  name() {
+    return "default";
+  }
+})();
+
 export class Config {
-  // Only "apiUrl" should be required
+  private readonly strategyMap: Map<string, AbstractStrategy>;
+
+  // Only "apiUrl" and "appHost" should be required
   constructor(
     private readonly params: Pick<ContextConfig, "apiHost" | "appHost"> &
       Partial<ContextConfig>,
-  ) {}
+    private readonly strategies: Array<AbstractStrategy> = [defaultStrategy],
+  ) {
+    this.strategyMap = new Map();
+    strategies.forEach((strategy) => {
+      this.strategyMap.set(strategy.name(), strategy);
+    });
+  }
+
+  getStrategy(name: string) {
+    return this.strategyMap.get(name);
+  }
+
+  getStrategyNames() {
+    return Array.from(this.strategyMap.keys());
+  }
 
   apiUrl(path: string) {
     return this.params.apiHost + path;
@@ -32,8 +58,8 @@ export class Config {
     return this.params.unauthorizedPath || "/unauthorized";
   }
 
-  loginCallbackPath() {
-    return this.params.loginCallbackPath || "/login/callback";
+  loginCallbackPath(strategy: string = defaultStrategy.name()) {
+    return this.params.loginCallbackPath || `/login/callback/${strategy}`;
   }
 
   tokenPath() {
@@ -48,13 +74,3 @@ export class Config {
     return this.params.userInfoPath || "/auth/userinfo";
   }
 }
-
-// Internal path to fetch token from client components
-// `useSession` hook fetches token from this endpoint by extracting it from cookies.
-export const clientSessionPath = "/__auth/session" as const;
-
-// Internal path redirecting (through middleware) to `unauthorizedPath` set in ContextConfig
-// This is the path used in redirection caused by login guard in server components
-// The middleware that reads ContextConfig is in charge of redirecting to the `unauthorizedPath`
-// through this path when unauthorized users guarded in `getServerSession`.
-export const internalUnauthorizedPath = "/__auth/unauthorized" as const;

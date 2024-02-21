@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Design systems",
+  "extends": "./nextjs.json",
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "jsx": "react-jsx",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": ".",
+    "paths": {
+      "@*": ["./src/*"],
+      "@tailor-platform/styled-system": [
+        "./node_modules/@tailor-platform/styled-system"
+      ],
+      "@tailor-platform/design-systems/*": [
+        "./node_modules/@tailor-platform/design-systems/dist/*"
+      ],
+      "@tailor-platform/dev-config/*": [
+        "./node_modules/@tailor-platform/dev-config/*"
+      ]
+    }
+  }
+}

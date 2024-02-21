@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@tailor-platform/design-systems/client": [
+        "../design-systems/dist/client",
+      ],
+      "@tailor-platform/datagrid/client": ["../datagrid/dist/client"],
+    },
+  },
+}

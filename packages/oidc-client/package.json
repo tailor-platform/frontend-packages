@@ -1,6 +1,6 @@
 {
   "name": "@tailor-platform/oidc-client",
-  "version": "0.5.0",
+  "version": "0.8.0",
   "private": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -15,6 +15,11 @@
       "types": "./dist/server/index.d.ts",
       "import": "./dist/server/index.mjs",
       "require": "./dist/server/index.js"
+    },
+    "./adapters/apollo": {
+      "types": "./dist/adapters/apollo/index.d.ts",
+      "import": "./dist/adapters/apollo/index.mjs",
+      "require": "./dist/adapters/apollo/index.js"
     }
   },
   "files": [
@@ -22,7 +27,7 @@
   ],
   "repository": "https://github.com/tailor-platform/frontend-packages",
   "scripts": {
-    "build": "tsup --entry src/client/index.ts --entry src/server/index.ts --format cjs,esm --dts --external react",
+    "build": "tsup",
     "dev": "pnpm run build -- --watch",
     "lint": "eslint '**/*.{ts,tsx}' --ignore-pattern 'dist/*' --max-warnings=0",
     "test": "vitest run --reporter verbose",
@@ -41,6 +46,7 @@
     "@types/react-dom": "^18.2.17",
     "@typescript-eslint/eslint-plugin": "^6.13.2",
     "@typescript-eslint/parser": "^6.13.2",
+    "@vitejs/plugin-react": "^4.2.1",
     "cross-fetch": "^4.0.0",
     "eslint": "^8.55.0",
     "jsdom": "^23.0.1",
@@ -52,7 +58,8 @@
     "vitest": "^1.0.2"
   },
   "peerDependencies": {
-    "next": "^v14"
+    "next": "^v14",
+    "@apollo/client": "^3.9"
   },
   "prettier": "@tailor-platform/dev-config/prettier"
 }

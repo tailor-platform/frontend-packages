@@ -12,7 +12,7 @@ Create configuration in somewhere in your app:
 import { Config } from "@tailor-platform/oidc-client";
 
 export const config = new Config({
-  apiHost: "http://ima.mini.tailor.tech:8000",
+  apiHost: "http://yourapp.mini.tailor.tech:8000",
   appHost: "http://localhost:3000",
 });
 ```
@@ -144,7 +144,7 @@ const Component = async () => {
   const { token } = useSession();
   const { getCurrentUser } = usePlatform();
 
-  const user = await getUser(token);
+  const user = await getCurrentUser(token);
 
   // utilize session and user data...
 };
@@ -165,4 +165,76 @@ const Page = () => {
 
   return <div>Token: {session.token}</div>;
 };
+```
+
+## Adapters
+
+This package provides adapters to integrate authentication with third-party packages.
+
+### Apollo Client
+
+`@tailor-platform/oidc-client/adapters/apollo` is a package with custom ApolloLink that automatically sets tokens in authorization header as a bearer token.
+
+```ts
+"use client";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { authenticatedHttpLink } from "@tailor-platform/oidc-client/adapters/apollo";
+import { TailorAuthProvider } from "@tailor-platform/oidc-client";
+import dynamic from "next/dynamic";
+import { config } from "@/libs/authConfig";
+
+const ApolloProvider = dynamic(
+  () => import("@apollo/client").then((modules) => modules.ApolloProvider),
+  { ssr: false },
+);
+
+const client = new ApolloClient({
+  link: authenticatedHttpLink(config),
+  cache: new InMemoryCache(),
+});
+
+export const Providers = ({ children }: { children: ReactNode }) => {
+  return (
+    <TailorAuthProvider config={config}>
+      <ApolloProvider client={client}>
+        {children}
+      </ApolloProvider>
+    </TailorAuthProvider>
+  );
+};
+```
+
+## Strategies
+
+Strategies are plugin mechanism to add authentication process.
+
+All built-in authentications are also implemented as a strategy. The default is `OIDCStrategy`.
+
+Users can implement their own custom authentication by writing custom strategies. See [src/strategies/abstract.ts](src/strategies/abstract.ts) to know interfaces expected to be implemented.
+
+### Example
+
+```ts
+type Option = {
+  email: string;
+  password: string;
+};
+
+export class YourOwnStrategy implements AbstractStrategy<Options> {
+  name() {
+    return "your-own-strategy";
+  }
+
+  authenticate(config: Config, options: Options) {
+    // Implement authentication here
+    // Here will be executed on client components by `login` function in useAuth hook
+    // (See `AuthenticateResult` type to know what this function is required to return)
+  }
+
+  callback(config: Config, params: URLSearchParams) {
+    // Implement callback process here
+    // Here will be executed in server side as a part of Next.js middleware
+    // (See `CallbackResult` type to know what this function is required to return)
+  }
+}
 ```

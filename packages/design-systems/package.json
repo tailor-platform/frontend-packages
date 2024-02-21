@@ -1,6 +1,6 @@
 {
   "name": "@tailor-platform/design-systems",
-  "version": "0.14.0",
+  "version": "0.15.3",
   "private": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -22,12 +22,10 @@
   ],
   "repository": "https://github.com/tailor-platform/frontend-packages",
   "scripts": {
-    "build": "tsup --entry src/index.tsx --entry src/client.tsx --entry src/theme.tsx --format cjs,esm --dts --external react",
-    "build:css": "npx postcss -o ./src/output.css ./src/index.css",
+    "build": "panda ship --outfile dist/panda.buildinfo.json && tsup --entry src/index.tsx --entry src/client.tsx --entry src/theme.tsx --format cjs,esm --dts --external react",
     "dev": "pnpm build --watch",
     "lint": "eslint '**/*.{ts,tsx}' --ignore-pattern 'dist/*' --max-warnings=0",
-    "prepare": "panda codegen",
-    "publish:dev": "pnpm prepare && pnpm build && yalc push --sig",
+    "publish:dev": "pnpm build && yalc push --sig",
     "publish:dev:watch": "nodemon -e ts,tsx -w ./src -x 'rm -rf ./dist && pnpm publish:dev'",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "type-check": "tsc --noEmit --incremental --pretty",
