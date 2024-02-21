@@ -10,7 +10,7 @@ runs:
   steps:
     - uses: actions/setup-node@v3
       with:
-        node-version-file: "package.json"
+        node-version-file: 'package.json'
 
     # update corepack because pnpm delegates some commands to npm behind the scenes and
     # out of date versions of corepack fail with "Usage Error: This project is configured to use pnpm"
