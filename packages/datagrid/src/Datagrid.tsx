@@ -24,6 +24,7 @@ import { CustomFilter } from "./SearchFilter/CustomFilter";
 import "./index.css";
 import { Localization_EN } from "./locales/en";
 import { PinnedColumn } from "./ColumnFeature/PinnedColumn";
+import { css } from "@tailor-platform/styled-system/css";
 
 const classes = pagination();
 const datagridClasses = datagrid();
