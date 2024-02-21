@@ -1,6 +1,6 @@
 import { defineConfig } from "@pandacss/dev";
-import { globalCss } from "../design-systems/src/theme/global-css";
-import { conditions } from "../design-systems/src/theme/conditions";
+import { globalCss } from "./src/theme/global-css";
+import { conditions } from "./src/theme/conditions";
 import { recipes } from "./src/theme/recipes";
 import { semanticTokens } from "./src/theme/semantic-tokens";
 import { slotRecipes } from "./src/theme/slot-recipes";
@@ -11,7 +11,7 @@ export default defineConfig({
   emitPackage: true,
   include: ["./src/**/*.{js,jsx,ts,tsx}"],
   jsxFramework: "react",
-  outdir: "../../../node_modules/@tailor-platform/styled-system",
+  outdir: "@tailor-platform/styled-system",
   preflight: true,
   theme: {
     extend: {

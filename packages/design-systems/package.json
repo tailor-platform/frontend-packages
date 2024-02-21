@@ -15,7 +15,9 @@
       "types": "./dist/client.d.ts",
       "import": "./dist/client.js",
       "require": "./dist/client.js"
-    }
+    },
+    "./components/composite/Datagrid/locales/*.ts": "./dist/locales/*.ts",
+    "./pandacss": "./pandacss/index.ts"
   },
   "files": [
     "dist/**"
@@ -66,6 +68,7 @@
     "@pandacss/types": "^0.20.1",
     "@radix-ui/react-slot": "^1.0.2",
     "@tanstack/react-table": "^8.10.7",
+    "deepmerge-ts": "^5.1.0",
     "lucide-react": "^0.294.0",
     "react-hook-form": "^7.48.2"
   },

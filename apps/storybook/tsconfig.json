@@ -1,6 +1,13 @@
 {
   "compilerOptions": {
     "paths": {
+      "baseUrl": ["."],
+      "@tailor-platform/styled-system/*": [
+        "./node_modules/@tailor-platform/styled-system/*",
+      ],
+      "@tailor-platform/design-systems/client": [
+        "./node_modules/@tailor-platform/design-systems/dist/client",
+      ],
       "@tailor-platform/dev-config/*": [
         "./node_modules/@tailor-platform/dev-config/*",
       ],
