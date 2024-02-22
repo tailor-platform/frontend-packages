@@ -135,7 +135,9 @@ const conformPinnedThElementsIndex = async (
   afterThElementPosition: number,
 ) => {
   const targetElement = screen.getByText(text);
-  const element = within(targetElement).getByTestId("open-pinned-column-modal");
+  const element = within(targetElement).getByLabelText(
+    "Open Pinned Column Modal",
+  );
   expect(element).toBeInTheDocument();
 
   const user = userEvent.setup();
@@ -161,9 +163,11 @@ describe("<PinnedColumn />", () => {
     render(<PinnedColumnTest />);
 
     const user = userEvent.setup();
-    const openPinnedColumnModal = screen.getAllByTestId(
-      "open-pinned-column-modal",
+    const openPinnedColumnModal = screen.getAllByLabelText(
+      "Open Pinned Column Modal",
     )[0];
+
+    expect(openPinnedColumnModal).toBeInTheDocument();
     await user.click(openPinnedColumnModal);
 
     expect(screen.getByText("Pinned Right")).toBeVisible();
@@ -174,8 +178,8 @@ describe("<PinnedColumn />", () => {
     render(<DataGridWithPinnedColumn />);
 
     const targetElement = screen.getByText("Status");
-    const element = within(targetElement).getByTestId(
-      "open-pinned-column-modal",
+    const element = within(targetElement).getByLabelText(
+      "Open Pinned Column Modal",
     );
     expect(element).toBeInTheDocument();
 
