@@ -8,7 +8,7 @@ import {
   mockAuthConfigValue,
 } from "@tests/mocks";
 import { mockSession } from "@tests/mocks";
-import { Config } from "@client";
+import { Config } from "@core/config";
 import { buildRequestWithParams } from "@tests/helper";
 
 const mockServer = buildMockServer();

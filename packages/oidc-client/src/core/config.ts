@@ -1,5 +1,5 @@
-import { AbstractStrategy } from "@strategies/abstract";
-import { OIDCStrategy } from "@strategies/oidc";
+import { AbstractStrategy } from "@core/strategies/abstract";
+import { OIDCStrategy } from "@core/strategies/oidc";
 
 type ContextConfig = {
   apiHost: string;

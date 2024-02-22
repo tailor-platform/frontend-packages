@@ -1,4 +1,4 @@
-import { ErrorResponse, SessionOption, SessionResult } from "@lib/types";
+import { ErrorResponse, SessionOption, SessionResult } from "@core/types";
 import { useTailorAuth } from "@client/provider";
 import {
   internalClientSessionPath,

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { RouteHandler } from "@server/middleware";
-import { ErrorResponse, Session } from "@lib/types";
+import { ErrorResponse, Session } from "@core/types";
 
 export class CallbackError extends Error {
   constructor(

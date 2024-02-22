@@ -1,6 +1,7 @@
 import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
-import { Config, Session } from "@client";
+import { Config } from "@core/config";
+import { Session } from "@core/types";
 import { internalClientSessionPath } from "@server/middleware/internal";
 
 export const mockSession: Session = {

@@ -7,7 +7,7 @@ import {
   internalUnauthorizedPath,
   internalUnauthroziedHandler,
 } from "./middleware/internal";
-import { Config } from "@/lib/config";
+import { Config } from "@core/config";
 
 export type MiddlewareHandlerOptions = {
   prepend?: (args: { token: string; userID: string }) => Promise<void> | void;

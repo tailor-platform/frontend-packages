@@ -1,12 +1,12 @@
 import { paramsError } from "@server/middleware/callback";
-import { Config } from "@lib/config";
-import { AbstractStrategy } from "@strategies/abstract";
+import { Config } from "@core/config";
+import { AbstractStrategy } from "@core/strategies/abstract";
 
 type Options = { redirectPath: string };
 
 export class OIDCStrategy implements AbstractStrategy<Options> {
   name() {
-    return "default";
+    return "oidc";
   }
 
   authenticate(config: Config, options: Options) {
