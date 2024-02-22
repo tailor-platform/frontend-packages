@@ -18,7 +18,7 @@ module.exports = {
     { name: "dev-config" },
     { name: "ds" },
     { name: "monitoring" },
-    { name: "oidc-client" },
+    { name: "auth" },
     { name: "storybook" },
     { name: "utils" },
     { name: "mtctl" },
