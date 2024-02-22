@@ -137,22 +137,24 @@ export const DataGrid = <TData extends Record<string, unknown>>({
                   }}
                   onDrop={onDrop}
                 >
-                  <div className={css({
-                    display: "flex"
-                  })}>
+                  <div
+                    className={css({
+                      display: "flex",
+                    })}
+                  >
                     {!header.isPlaceholder &&
-                    flexRender(
-                      header.column.columnDef.header,
-                      header.getContext(),
+                      flexRender(
+                        header.column.columnDef.header,
+                        header.getContext(),
+                      )}
+                    {header.column.getCanResize() && (
+                      <div
+                        onMouseDown={header.getResizeHandler()}
+                        onTouchStart={header.getResizeHandler()}
+                        className={datagridClasses.tableHeadDivider}
+                      ></div>
                     )}
-                  {header.column.getCanResize() && (
-                    <div
-                      onMouseDown={header.getResizeHandler()}
-                      onTouchStart={header.getResizeHandler()}
-                      className={datagridClasses.tableHeadDivider}
-                    ></div>
-                  )}
-                    {header.id !== 'select' && (
+                    {header.id !== "select" && (
                       <PinnedColumn
                         column={header.column}
                         localization={localization}

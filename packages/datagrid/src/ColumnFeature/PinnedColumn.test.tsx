@@ -101,13 +101,10 @@ const PinnedColumnTest = () => {
     data,
     columns,
   });
-  const tableColumns = table.getAllLeafColumns()
+  const tableColumns = table.getAllLeafColumns();
 
   return (
-    <PinnedColumn
-      localization={Localization_EN}
-      column={tableColumns[0]}
-    />
+    <PinnedColumn localization={Localization_EN} column={tableColumns[0]} />
   );
 };
 
@@ -121,7 +118,7 @@ const DataGridWithPinnedColumn = () => {
 };
 
 const conformThElemntsIndex = (text: string, textIndex: number) => {
-  const thElements = screen.getAllByRole('columnheader')
+  const thElements = screen.getAllByRole("columnheader");
   let indexOfThWithText = -1;
   thElements.forEach((thElement, index) => {
     if (thElement.textContent === text) {
@@ -129,10 +126,14 @@ const conformThElemntsIndex = (text: string, textIndex: number) => {
     }
   });
   expect(indexOfThWithText).toBeGreaterThan(-1);
-  expect(indexOfThWithText).toBe(textIndex)
-}
+  expect(indexOfThWithText).toBe(textIndex);
+};
 
-const conformPinnedThElementsIndex = async(text: string, pinnedText: string, afterThElementPosition: number) => {
+const conformPinnedThElementsIndex = async (
+  text: string,
+  pinnedText: string,
+  afterThElementPosition: number,
+) => {
   const targetElement = screen.getByText(text);
   const element = within(targetElement).getByTestId("open-pinned-column-modal");
   expect(element).toBeInTheDocument();
@@ -140,27 +141,29 @@ const conformPinnedThElementsIndex = async(text: string, pinnedText: string, aft
   const user = userEvent.setup();
   await user.click(element);
 
-  const pinnedElement = screen.getByText(pinnedText)
+  const pinnedElement = screen.getByText(pinnedText);
   expect(pinnedElement).toBeVisible();
 
   let indexOfThWithText = -1;
-  await user.click(pinnedElement)
-  const thElements = screen.getAllByRole('columnheader')
+  await user.click(pinnedElement);
+  const thElements = screen.getAllByRole("columnheader");
   thElements.forEach((thElement, index) => {
     if (thElement.textContent === text) {
       indexOfThWithText = index;
     }
   });
   expect(indexOfThWithText).toBeGreaterThan(-1);
-  expect(indexOfThWithText).toBe(afterThElementPosition)
-}
+  expect(indexOfThWithText).toBe(afterThElementPosition);
+};
 
 describe("<PinnedColumn />", () => {
   it("renders correctly", async () => {
     render(<PinnedColumnTest />);
-    
-    const user = userEvent.setup();    
-    const openPinnedColumnModal = screen.getAllByTestId("open-pinned-column-modal")[0];
+
+    const user = userEvent.setup();
+    const openPinnedColumnModal = screen.getAllByTestId(
+      "open-pinned-column-modal",
+    )[0];
     await user.click(openPinnedColumnModal);
 
     expect(screen.getByText("Pinned Right")).toBeVisible();
@@ -171,7 +174,9 @@ describe("<PinnedColumn />", () => {
     render(<DataGridWithPinnedColumn />);
 
     const targetElement = screen.getByText("Status");
-    const element = within(targetElement).getByTestId("open-pinned-column-modal");
+    const element = within(targetElement).getByTestId(
+      "open-pinned-column-modal",
+    );
     expect(element).toBeInTheDocument();
 
     conformThElemntsIndex("Status", 0);

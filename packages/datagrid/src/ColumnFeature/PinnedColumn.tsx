@@ -7,7 +7,7 @@ import type { Column } from "@tanstack/react-table";
 import { css } from "@tailor-platform/styled-system/css";
 
 type PinnedColumnProps<TData extends Record<string, unknown>> = {
-  column: Column<TData>
+  column: Column<TData>;
   localization: Localization;
 };
 
@@ -15,7 +15,8 @@ export const PinnedColumn = <TData extends Record<string, unknown>>({
   column,
   localization,
 }: PinnedColumnProps<TData>) => {
-  const [isOpenedPinnedColumnModal, setIsOpenedPinnedColumnModal] = useState<boolean>(false)
+  const [isOpenedPinnedColumnModal, setIsOpenedPinnedColumnModal] =
+    useState<boolean>(false);
 
   return (
     <div
@@ -29,7 +30,7 @@ export const PinnedColumn = <TData extends Record<string, unknown>>({
           cursor: "pointer",
         })}
         onClick={() => {
-          setIsOpenedPinnedColumnModal(!isOpenedPinnedColumnModal)
+          setIsOpenedPinnedColumnModal(!isOpenedPinnedColumnModal);
         }}
       />
       {isOpenedPinnedColumnModal && (
@@ -48,8 +49,8 @@ export const PinnedColumn = <TData extends Record<string, unknown>>({
             size="xs"
             mb={4}
             onClick={() => {
-              column.pin("right")
-              setIsOpenedPinnedColumnModal(false)
+              column.pin("right");
+              setIsOpenedPinnedColumnModal(false);
             }}
           >
             {localization.columnFeatures.pinnedColumn.pinnedRight}
@@ -59,8 +60,8 @@ export const PinnedColumn = <TData extends Record<string, unknown>>({
             size="xs"
             mb={4}
             onClick={() => {
-              column.pin("left")
-              setIsOpenedPinnedColumnModal(false)
+              column.pin("left");
+              setIsOpenedPinnedColumnModal(false);
             }}
           >
             {localization.columnFeatures.pinnedColumn.pinnedLeft}
