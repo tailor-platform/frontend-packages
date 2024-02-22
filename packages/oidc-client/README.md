@@ -215,12 +215,14 @@ Users can implement their own custom authentication by writing custom strategies
 ### Example
 
 ```ts
+import { AbstractStrategy } from "@tailor-platform/oidc-client/core";
+
 type Option = {
   email: string;
   password: string;
 };
 
-export class YourOwnStrategy implements AbstractStrategy<Options> {
+export class YourOwnAuthenticationStrategy implements AbstractStrategy<Options> {
   name() {
     return "your-own-strategy";
   }
@@ -237,4 +239,14 @@ export class YourOwnStrategy implements AbstractStrategy<Options> {
     // (See `CallbackResult` type to know what this function is required to return)
   }
 }
+```
+
+Custom strategies can be pluged-in from your configuration.
+
+```ts
+export const config = new Config({
+  // your configurations here...
+}, [
+  new YourOwnAuthenticationStrategy(),
+]);
 ```
