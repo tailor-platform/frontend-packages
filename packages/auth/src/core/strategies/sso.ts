@@ -45,4 +45,4 @@ export const ssoStrategyBuilder = (name: string, paramName: string) => {
 };
 
 export const OIDCStrategy = ssoStrategyBuilder("oidc", "code");
-export const SAMLStrategy = ssoStrategyBuilder("saml", "samlResponse");
+export const SAMLStrategy = ssoStrategyBuilder("saml", "SAMLResponse");
