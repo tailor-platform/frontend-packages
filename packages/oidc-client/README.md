@@ -222,7 +222,9 @@ type Option = {
   password: string;
 };
 
-export class YourOwnAuthenticationStrategy implements AbstractStrategy<Options> {
+export class YourOwnAuthenticationStrategy
+  implements AbstractStrategy<Options>
+{
   name() {
     return "your-own-strategy";
   }
@@ -244,9 +246,10 @@ export class YourOwnAuthenticationStrategy implements AbstractStrategy<Options> 
 Custom strategies can be pluged-in from your configuration.
 
 ```ts
-export const config = new Config({
-  // your configurations here...
-}, [
-  new YourOwnAuthenticationStrategy(),
-]);
+export const config = new Config(
+  {
+    // your configurations here...
+  },
+  [new YourOwnAuthenticationStrategy()],
+);
 ```
