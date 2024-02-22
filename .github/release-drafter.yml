@@ -10,9 +10,6 @@ autolabeler:
   - label: 'Package: client'
     files:
       - packages/client/**
-  - label: 'Package: datagrid'
-    files:
-      - packages/datagrid/**
   - label: 'Package: design-systems'
     files:
       - packages/design-systems/**
