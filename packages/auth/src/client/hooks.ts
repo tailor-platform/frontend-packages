@@ -4,6 +4,7 @@ import {
   internalClientSessionPath,
   internalUnauthorizedPath,
 } from "@server/middleware/internal";
+import { defaultStrategy } from "@core/config";
 
 export type UserInfo = {
   sub: string;
@@ -37,7 +38,7 @@ export const useAuth = () => {
   const login = async (params?: LoginParams) => {
     assertWindowIsAvailable();
 
-    const name = params?.name || "default";
+    const name = params?.name || defaultStrategy.name();
     const strategy = config.getStrategy(name);
     if (!strategy) {
       throw NoCorrespondingStrategyError;
