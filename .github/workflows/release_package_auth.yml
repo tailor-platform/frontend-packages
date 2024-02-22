@@ -1,23 +1,23 @@
-name: release @tailor-platform/oidc-client
+name: release @tailor-platform/auth
 
 on:
   push:
     branches:
       - main
     paths:
-      - packages/oidc-client/package.json
+      - packages/auth/package.json
 
 jobs:
   check-existing-release:
     uses: ./.github/workflows/check_existing_release.yml
     with:
-      package_name: oidc-client
+      package_name: auth
   make-release-if-needed:
     needs: check-existing-release
     if: ${{ needs.check-existing-release.outputs.tag_exists == 'false' }}
     uses: ./.github/workflows/make_github_release.yml
     with:
-      package_name: oidc-client
+      package_name: auth
       tag: ${{ needs.check-existing-release.outputs.tag }}
   publish-npm-package:
     needs:
@@ -26,4 +26,4 @@ jobs:
     uses: ./.github/workflows/publish_npm_package.yml
     secrets: inherit
     with:
-      package_name: oidc-client
+      package_name: auth

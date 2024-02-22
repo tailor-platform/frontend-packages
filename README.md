@@ -26,7 +26,7 @@ Tailor's base configuration for ESLint, Prettier and Typescript.
 
 Tools and utilities for integrating monitoring solutions.
 
-### @tailor-platform/oidc-client
+### @tailor-platform/auth
 
 A React Context provider and utilities for handling Tailor OIDC authentication
 

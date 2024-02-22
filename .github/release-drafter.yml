@@ -28,9 +28,9 @@ autolabeler:
   - label: 'Package: utils'
     files:
       - packages/utils/**
-  - label: 'Package: oidc-client'
+  - label: 'Package: auth'
     files:
-      - packages/oidc-client/**
+      - packages/auth/**
   # Add labels based on the PR title, which is usually identical to the first commit in the PR and
   # follows the Conventional Commit messages convention.
   - label: 'Type: Feature'

@@ -1,10 +1,10 @@
-name: oidc-client package CI
+name: auth package CI
 
 on:
   push:
     paths:
-      - packages/oidc-client/**
-      - .github/workflows/test_package_client.yml
+      - packages/auth/**
+      - .github/workflows/test_package_auth.yml
       - .github/actions/ci/action.yml
 
 jobs:
@@ -14,4 +14,4 @@ jobs:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/ci
         with:
-          package: "@tailor-platform/oidc-client"
+          package: "@tailor-platform/auth"

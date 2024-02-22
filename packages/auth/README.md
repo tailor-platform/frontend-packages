@@ -1,4 +1,4 @@
-# @tailor-platform/oidc-client
+# @tailor-platform/auth
 
 This package provides ways to handle Tailor authentication
 
@@ -9,7 +9,7 @@ This package provides ways to handle Tailor authentication
 Create configuration in somewhere in your app:
 
 ```ts
-import { Config } from "@tailor-platform/oidc-client/core";
+import { Config } from "@tailor-platform/auth/core";
 
 export const config = new Config({
   apiHost: "http://yourapp.mini.tailor.tech:8000",
@@ -35,7 +35,7 @@ Each of these properties in `config` to specific environment variables or consta
 Use the `TailorAuthProvider` component to wrap your application layouts/pages, for instance:
 
 ```tsx
-import { TailorAuthProvider } from "@tailor-platform/oidc-client/client";
+import { TailorAuthProvider } from "@tailor-platform/auth/client";
 import { config } from "@/libs/authConfig";
 
 export const Providers = ({ children }: { children: ReactNode }) => (
@@ -52,7 +52,7 @@ A middleware that mainly intercepts requests to login callback.
 This middlware is required to be used in your app to use the hooks introduced later.
 
 ```tsx
-import { withAuth } from "@tailor-platform/oidc-client/server";
+import { withAuth } from "@tailor-platform/auth/server";
 import { config as authConfig } from "@/libs/authConfig";
 
 const middleware: unknown = withAuth(
@@ -83,7 +83,7 @@ A hook to get token in client components.
 
 ```tsx
 "use client";
-import { useSession } from "@tailor-platform/oidc-client/client";
+import { useSession } from "@tailor-platform/auth/client";
 
 const Page = () => {
   const session = useSession({
@@ -106,7 +106,7 @@ Here is an example of how to use these functions:
 
 ```tsx
 "use client";
-import { useAuth } from "@tailor-platform/oidc-client/client";
+import { useAuth } from "@tailor-platform/auth/client";
 
 // Redirect to `/dashboard` after logging in
 const Component = async () => {
@@ -138,7 +138,7 @@ Here is an example of how to use these functions:
 
 ```tsx
 "use client";
-import { usePlatform } from "@tailor-platform/oidc-client/client";
+import { usePlatform } from "@tailor-platform/auth/client";
 
 const Component = async () => {
   const { token } = useSession();
@@ -154,11 +154,11 @@ const Component = async () => {
 
 #### `getServerSession` hook
 
-A function to get token on server components that can be imported from `@tailor-platform/oidc-client/server`.
+A function to get token on server components that can be imported from `@tailor-platform/auth/server`.
 
 ```tsx
 "use server";
-import { getServerSession } from "@tailor-platform/oidc-client/server";
+import { getServerSession } from "@tailor-platform/auth/server";
 
 const Page = () => {
   const session = getServerSession();
@@ -173,13 +173,13 @@ This package provides adapters to integrate authentication with third-party pack
 
 ### Apollo Client
 
-`@tailor-platform/oidc-client/adapters/apollo` is a package with custom ApolloLink that automatically sets tokens in authorization header as a bearer token.
+`@tailor-platform/auth/adapters/apollo` is a package with custom ApolloLink that automatically sets tokens in authorization header as a bearer token.
 
 ```ts
 "use client";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
-import { authenticatedHttpLink } from "@tailor-platform/oidc-client/adapters/apollo";
-import { TailorAuthProvider } from "@tailor-platform/oidc-client/client";
+import { authenticatedHttpLink } from "@tailor-platform/auth/adapters/apollo";
+import { TailorAuthProvider } from "@tailor-platform/auth/client";
 import dynamic from "next/dynamic";
 import { config } from "@/libs/authConfig";
 
@@ -215,7 +215,7 @@ Users can implement their own custom authentication by writing custom strategies
 ### Example
 
 ```ts
-import { AbstractStrategy } from "@tailor-platform/oidc-client/core";
+import { AbstractStrategy } from "@tailor-platform/auth/core";
 
 type Option = {
   email: string;
