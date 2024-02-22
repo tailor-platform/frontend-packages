@@ -6,7 +6,7 @@ type Options = { redirectPath: string };
 
 export class OIDCStrategy implements AbstractStrategy<Options> {
   name() {
-    return "default";
+    return "oidc";
   }
 
   authenticate(config: Config, options: Options) {
