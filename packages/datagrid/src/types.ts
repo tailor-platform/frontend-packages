@@ -1,11 +1,12 @@
 import type {
   ColumnDef,
   ColumnMeta,
+  ColumnPinningState,
   OnChangeFn,
   PaginationState,
   RowSelectionState,
 } from "@tanstack/react-table";
-import type { Table } from "@tanstack/table-core/build/lib/types";
+import type { Table, Updater } from "@tanstack/table-core/build/lib/types";
 
 interface PageChangeDetails {
   page: number;
@@ -43,6 +44,9 @@ export type useDataGridProps<TData> = {
   enableRowSelection?: boolean;
   rowSelection?: RowSelectionState;
   onRowSelectionChange?: OnChangeFn<RowSelectionState>;
+  enablePinning?: boolean;
+  columnPinning?: ColumnPinningState;
+  setColumnPinning?: (updater: Updater<ColumnPinningState>) => void;
 };
 export type ColumnMetaWithTypeInfo<TData> = ColumnMeta<TData, unknown> & {
   type: string;
@@ -158,6 +162,10 @@ export interface Localization {
   columnFeatures: {
     hideShow: {
       showAll: string;
+    };
+    pinnedColumn: {
+      pinnedRight: string;
+      pinnedLeft: string;
     };
   };
 }

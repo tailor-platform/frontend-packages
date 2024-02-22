@@ -23,6 +23,8 @@ import { HideShow } from "./ColumnFeature/HideShow";
 import { CustomFilter } from "./SearchFilter/CustomFilter";
 import "./index.css";
 import { Localization_EN } from "./locales/en";
+import { PinnedColumn } from "./ColumnFeature/PinnedColumn";
+import { css } from "@tailor-platform/styled-system/css";
 
 const classes = pagination();
 const datagridClasses = datagrid();
@@ -135,18 +137,30 @@ export const DataGrid = <TData extends Record<string, unknown>>({
                   }}
                   onDrop={onDrop}
                 >
-                  {!header.isPlaceholder &&
-                    flexRender(
-                      header.column.columnDef.header,
-                      header.getContext(),
+                  <div
+                    className={css({
+                      display: "flex",
+                    })}
+                  >
+                    {!header.isPlaceholder &&
+                      flexRender(
+                        header.column.columnDef.header,
+                        header.getContext(),
+                      )}
+                    {header.column.getCanResize() && (
+                      <div
+                        onMouseDown={header.getResizeHandler()}
+                        onTouchStart={header.getResizeHandler()}
+                        className={datagridClasses.tableHeadDivider}
+                      ></div>
                     )}
-                  {header.column.getCanResize() && (
-                    <div
-                      onMouseDown={header.getResizeHandler()}
-                      onTouchStart={header.getResizeHandler()}
-                      className={datagridClasses.tableHeadDivider}
-                    ></div>
-                  )}
+                    {header.id !== "select" && (
+                      <PinnedColumn
+                        column={header.column}
+                        localization={localization}
+                      />
+                    )}
+                  </div>
                 </TableHead>
               ))}
             </TableRow>
