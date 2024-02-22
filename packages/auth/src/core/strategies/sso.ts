@@ -4,6 +4,8 @@ import { paramsError } from "@server/middleware/callback";
 
 export type Options = { redirectPath: string };
 
+// `ssoStrategyBuilder` is a function to define SSO related strategy dynamically
+// Currently, this builder aims to support OIDC and SAML
 export const ssoStrategyBuilder = (name: string, paramName: string) => {
   return class SSOStrategy implements AbstractStrategy<Options> {
     name() {
