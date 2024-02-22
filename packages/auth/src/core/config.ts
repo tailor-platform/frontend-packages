@@ -1,5 +1,5 @@
+import { OIDCStrategy, SAMLStrategy } from "./strategies/sso";
 import { AbstractStrategy } from "@core/strategies/abstract";
-import { OIDCStrategy } from "@core/strategies/oidc";
 
 type ContextConfig = {
   apiHost: string;
@@ -26,7 +26,11 @@ export class Config {
   constructor(
     private readonly params: Pick<ContextConfig, "apiHost" | "appHost"> &
       Partial<ContextConfig>,
-    private readonly strategies: Array<AbstractStrategy> = [defaultStrategy],
+    private readonly strategies: Array<AbstractStrategy> = [
+      defaultStrategy,
+      new OIDCStrategy(),
+      new SAMLStrategy(),
+    ],
   ) {
     this.strategyMap = new Map();
     strategies.forEach((strategy) => {
