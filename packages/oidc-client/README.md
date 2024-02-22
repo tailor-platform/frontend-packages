@@ -9,7 +9,7 @@ This package provides ways to handle Tailor authentication
 Create configuration in somewhere in your app:
 
 ```ts
-import { Config } from "@tailor-platform/oidc-client";
+import { Config } from "@tailor-platform/oidc-client/core";
 
 export const config = new Config({
   apiHost: "http://yourapp.mini.tailor.tech:8000",
@@ -35,7 +35,7 @@ Each of these properties in `config` to specific environment variables or consta
 Use the `TailorAuthProvider` component to wrap your application layouts/pages, for instance:
 
 ```tsx
-import { TailorAuthProvider } from "@tailor-platform/oidc-client";
+import { TailorAuthProvider } from "@tailor-platform/oidc-client/client";
 import { config } from "@/libs/authConfig";
 
 export const Providers = ({ children }: { children: ReactNode }) => (
@@ -83,7 +83,7 @@ A hook to get token in client components.
 
 ```tsx
 "use client";
-import { useSession } from "@tailor-platform/oidc-client";
+import { useSession } from "@tailor-platform/oidc-client/client";
 
 const Page = () => {
   const session = useSession({
@@ -106,7 +106,7 @@ Here is an example of how to use these functions:
 
 ```tsx
 "use client";
-import { useAuth } from "@tailor-platform/oidc-client";
+import { useAuth } from "@tailor-platform/oidc-client/client";
 
 // Redirect to `/dashboard` after logging in
 const Component = async () => {
@@ -138,7 +138,7 @@ Here is an example of how to use these functions:
 
 ```tsx
 "use client";
-import { usePlatform } from "@tailor-platform/oidc-client";
+import { usePlatform } from "@tailor-platform/oidc-client/client";
 
 const Component = async () => {
   const { token } = useSession();
@@ -179,7 +179,7 @@ This package provides adapters to integrate authentication with third-party pack
 "use client";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { authenticatedHttpLink } from "@tailor-platform/oidc-client/adapters/apollo";
-import { TailorAuthProvider } from "@tailor-platform/oidc-client";
+import { TailorAuthProvider } from "@tailor-platform/oidc-client/client";
 import dynamic from "next/dynamic";
 import { config } from "@/libs/authConfig";
 

@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { internalUnauthorizedPath } from "./middleware/internal";
-import { SessionOption, SessionResult } from "@lib/types";
+import { SessionOption, SessionResult } from "@core/types";
 
 export const getServerSession = (options?: SessionOption): SessionResult => {
   const cookieStore = cookies();

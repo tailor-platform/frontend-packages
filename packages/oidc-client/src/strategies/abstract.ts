@@ -1,4 +1,4 @@
-import { Config } from "@lib/config";
+import { Config } from "@core/config";
 
 type CallbackResult = {
   // Payload to be sent out to /auth/token endpoint on Tailor Platform to issue token

@@ -1,5 +1,5 @@
 import { paramsError } from "@server/middleware/callback";
-import { Config } from "@lib/config";
+import { Config } from "@core/config";
 import { AbstractStrategy } from "@strategies/abstract";
 
 type Options = { redirectPath: string };

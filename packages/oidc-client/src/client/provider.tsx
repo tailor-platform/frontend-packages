@@ -1,5 +1,5 @@
 import { createContext, type ReactNode, useContext } from "react";
-import { Config } from "../lib/config";
+import { Config } from "../core/config";
 
 const TailorAuthContext = createContext<Config | undefined>(undefined);
 

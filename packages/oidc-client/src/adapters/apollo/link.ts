@@ -1,8 +1,8 @@
 import { from, HttpLink, ServerError } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { onError } from "@apollo/client/link/error";
-import { Config } from "@client";
-import { SessionResult } from "@lib/types";
+import { Config } from "@core/config";
+import { SessionResult } from "@core/types";
 import { internalClientSessionPath } from "@server/middleware/internal";
 
 export const authenticatedHttpLink = (config: Config) =>
