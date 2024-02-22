@@ -5,9 +5,10 @@ import {
   DataGrid,
   DataGridInstance,
   useDataGrid,
-  LOCALIZATION_JA,
-  LOCALIZATION_EN,
 } from "@tailor-platform/design-systems";
+
+import { LOCALIZATION_JA } from "@tailor-platform/design-systems/locales/ja";
+import { LOCALIZATION_EN } from "@tailor-platform/design-systems/locales/en";
 
 import { COLUMNS as columns, DATA as data } from "../../data/datagrid.ts";
 

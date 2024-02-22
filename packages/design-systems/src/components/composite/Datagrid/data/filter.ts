@@ -2,8 +2,8 @@ import {
   FilterCondition,
   GraphQLFilterOperator,
   JointCondition,
-  Localization,
 } from "../types";
+import type { Localization } from "../../../../locales/types";
 
 export const getLocalizedFilterConditions = (
   localization: Localization,

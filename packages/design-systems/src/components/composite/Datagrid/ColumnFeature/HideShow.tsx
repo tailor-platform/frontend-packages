@@ -4,7 +4,7 @@ import { Button } from "../../../Button";
 import { Checkbox } from "../../../Checkbox";
 import { Box } from "../../../patterns/Box";
 import { Flex } from "../../../patterns/Flex";
-import { Localization } from "../types";
+import type { Localization } from "../../../../locales/types";
 
 type HideShowProps<TData extends Record<string, unknown>> = {
   allColumnsHandler: () => (event: unknown) => void;
@@ -36,7 +36,7 @@ export const HideShow = <TData extends Record<string, unknown>>({
           handler({ target: { checked: true } });
         }}
       >
-        {localization.columnFeatures.hideShow.showAll}
+        {localization.columnFeatures?.hideShow.showAll}
       </Button>
       <Flex
         h="324px"

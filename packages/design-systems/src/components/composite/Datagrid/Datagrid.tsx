@@ -6,6 +6,7 @@ import { Pagination } from "@ark-ui/react";
 import { DragEvent, useCallback, useEffect, useState } from "react";
 import { css } from "@tailor-platform/styled-system/css";
 import { pagination, datagrid } from "@tailor-platform/styled-system/recipes";
+import { LOCALIZATION_EN } from "../../../locales/en";
 import { Button } from "../../Button";
 import {
   Table,
@@ -18,11 +19,10 @@ import {
 import { Text } from "../../Text";
 import { HStack } from "../../patterns/HStack";
 import { Stack } from "../../patterns/Stack";
-import { Column, ColumnMetaWithTypeInfo, type DataGridInstance } from "./types";
 import { HideShow } from "./ColumnFeature/HideShow";
 import { PinnedColumn } from "./ColumnFeature/PinnedColumn";
 import { CustomFilter } from "./SearchFilter/CustomFilter";
-import { LOCALIZATION_EN } from "./locales/en";
+import { Column, ColumnMetaWithTypeInfo, type DataGridInstance } from "./types";
 
 const classes = pagination();
 const datagridClasses = datagrid();

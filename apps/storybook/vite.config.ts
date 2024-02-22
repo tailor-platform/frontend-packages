@@ -24,17 +24,24 @@ export default defineConfig({
         ),
       },
       {
-        find: "@tailor-platform/design-systems/client",
+        find: "@tailor-platform/design-systems/*",
         replacement: path.resolve(
           __dirname,
-          "./../../packages/design-systems/dist/client.mjs",
+          "./node_modules/design-systems/dist/*",
         ),
       },
       {
-        find: "@tailor-platform/dev-config/pandacss",
+        find: "@tailor-platform/design-systems/locales",
         replacement: path.resolve(
           __dirname,
-          "./node_modules/@tailor-platform/dev-config/pandacss",
+          "./node_modules/@tailor-platform/design-systems/dist/locales",
+        ),
+      },
+      {
+        find: "@tailor-platform/design-systems/pandacss",
+        replacement: path.resolve(
+          __dirname,
+          "./node_modules/@tailor-platform/design-systems/dist/pandacss",
         ),
       },
     ],

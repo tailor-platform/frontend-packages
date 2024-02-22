@@ -16,8 +16,14 @@
       "import": "./dist/client.js",
       "require": "./dist/client.js"
     },
-    "./components/composite/Datagrid/locales/*.ts": "./dist/locales/*.ts",
-    "./pandacss": "./pandacss/index.ts"
+    "./locales/*": {
+      "types": "./dist/locales/*.d.ts",
+      "import": "./dist/locales/*.js",
+      "require": "./dist/locales/*.js"
+    },
+    "./pandacss": {
+      "import": "./dist/pandacss/index.js"
+    }
   },
   "files": [
     "dist/**"
@@ -25,7 +31,7 @@
   "repository": "https://github.com/tailor-platform/frontend-packages",
   "scripts": {
     "prepare": "panda codegen",
-    "build": "panda ship --outfile dist/panda.buildinfo.json && tsup --entry src/index.tsx --entry src/client.tsx --entry src/theme.tsx --format cjs,esm --dts --external react",
+    "build": "tsup --config tsup.config.ts && panda ship --outfile dist/panda.buildinfo.json",
     "dev": "pnpm build --watch",
     "lint": "eslint '**/*.{ts,tsx}' --ignore-pattern 'dist/*' --max-warnings=0",
     "publish:dev": "pnpm build && yalc push --sig",

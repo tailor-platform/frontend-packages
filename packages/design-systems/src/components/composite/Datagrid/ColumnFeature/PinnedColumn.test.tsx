@@ -1,12 +1,12 @@
 import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import "@testing-library/jest-dom/vitest";
-import { PinnedColumn } from "./PinnedColumn";
-import { useDataGrid } from "../useDataGrid";
-import { Localization_EN } from "../locales/en";
-import { ColumnDef } from "@tanstack/react-table";
-import { DataGrid } from "../Datagrid";
 import userEvent from "@testing-library/user-event";
+import { ColumnDef } from "@tanstack/react-table";
+import { LOCALIZATION_EN } from "../../../../locales/en";
+import { useDataGrid } from "../useDataGrid";
+import { DataGrid } from "../Datagrid";
+import { PinnedColumn } from "./PinnedColumn";
 
 enum PaymentStatus {
   pending = "pending",
@@ -104,7 +104,7 @@ const PinnedColumnTest = () => {
   const tableColumns = table.getAllLeafColumns();
 
   return (
-    <PinnedColumn localization={Localization_EN} column={tableColumns[0]} />
+    <PinnedColumn localization={LOCALIZATION_EN} column={tableColumns[0]} />
   );
 };
 

@@ -6,6 +6,11 @@ This is the monorepo for Tailor npm packages.
 
 A React Context provider that handles user authentication.
 
+### @tailor-platform/datagrid
+
+This package has been deprecated. If you want to use it, please use it from design-systems.
+A Datagrid component and hooks tailored for managing complex data tables.
+
 ### @tailor-platform/utils
 
 Utility functions to work with Tailor data types, conversions, etc.

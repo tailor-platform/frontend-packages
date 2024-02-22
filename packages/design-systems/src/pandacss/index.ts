@@ -1,12 +1,12 @@
 import { defineConfig, type Config } from "@pandacss/dev";
 import { deepmerge } from "deepmerge-ts";
-import { globalCss } from "../src/theme/global-css";
-import { conditions } from "../src/theme/conditions";
-import { recipes } from "../src/theme/recipes";
-import { semanticTokens } from "../src/theme/semantic-tokens";
-import { slotRecipes } from "../src/theme/slot-recipes";
-import { textStyles } from "../src/theme/text-styles";
-import { tokens } from "../src/theme/tokens";
+import { globalCss } from "../theme/global-css";
+import { conditions } from "../theme/conditions";
+import { recipes } from "../theme/recipes";
+import { semanticTokens } from "../theme/semantic-tokens";
+import { slotRecipes } from "../theme/slot-recipes";
+import { textStyles } from "../theme/text-styles";
+import { tokens } from "../theme/tokens";
 
 export const buildPandaConfig = (config: Config): Config => {
   const mergedConfig: Config = deepmerge(defaultPandaConfig, config);

@@ -1,6 +1,3 @@
-export { Code, type CodeProps } from "@/components/Code";
-export { Form } from "@/components/Form";
-
 export { semanticTokens } from "@/theme/semantic-tokens";
 export { textStyles } from "@/theme/text-styles";
 export { tokens } from "@/theme/tokens";

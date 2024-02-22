@@ -5,7 +5,7 @@ import {
   DataGrid,
   DataGridInstance,
   useDataGrid,
-} from "@tailor-platform/datagrid";
+} from "@tailor-platform/design-systems";
 import { Box } from "@tailor-platform/styled-system/jsx";
 import { COLUMNS as columns, DATA as data } from "../../data/datagrid.ts";
 

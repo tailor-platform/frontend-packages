@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from "vitest";
 import "@testing-library/jest-dom/vitest";
 import userEvent from "@testing-library/user-event";
 import { useDataGrid } from "../useDataGrid";
-import { LOCALIZATION_EN } from "../locales/en";
+import { LOCALIZATION_EN } from "../../../../locales/en";
 import { DataGrid } from "../Datagrid";
 import { HideShow } from "./HideShow";
 

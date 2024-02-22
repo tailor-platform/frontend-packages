@@ -7,6 +7,7 @@ import type {
   RowSelectionState,
 } from "@tanstack/react-table";
 import type { Table, Updater } from "@tanstack/table-core/build/lib/types";
+import type { Localization } from "../../../locales/types";
 
 interface PageChangeDetails {
   page: number;
@@ -131,41 +132,3 @@ export type ApplicableType =
   | "date"
   | "number"
   | "boolean";
-export interface Localization {
-  filter: {
-    filterLabel: string;
-    filterResetLabel: string;
-    addNewFilterLabel: string;
-    jointConditionLabel: string;
-    jointConditionPlaceholder: string;
-    columnLabel: string;
-    columnPlaceholder: string;
-    condition: {
-      conditionLabel: string;
-      conditionPlaceholder: string;
-      operatorLabel: {
-        equal: string;
-        notEqual: string;
-        include: string;
-        notInclude: string;
-        greaterThan: string;
-        lessThan: string;
-        greaterThanOrEqual: string;
-        lessThanOrEqual: string;
-      };
-    };
-    valueLabel: string;
-    valuePlaceholder: string;
-    valuePlaceholderEnum: string;
-    validationErrorDate: string;
-  };
-  columnFeatures: {
-    hideShow: {
-      showAll: string;
-    };
-    pinnedColumn: {
-      pinnedRight: string;
-      pinnedLeft: string;
-    };
-  };
-}

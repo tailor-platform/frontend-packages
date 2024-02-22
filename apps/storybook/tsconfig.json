@@ -5,11 +5,14 @@
       "@tailor-platform/styled-system/*": [
         "./node_modules/@tailor-platform/styled-system/*",
       ],
-      "@tailor-platform/design-systems/client": [
-        "./node_modules/@tailor-platform/design-systems/dist/client",
+      "@tailor-platform/design-systems": [
+        "./node_modules/@tailor-platform/design-systems/dist",
       ],
-      "@tailor-platform/dev-config/*": [
-        "./node_modules/@tailor-platform/dev-config/*",
+      "@tailor-platform/design-systems/locales": [
+        "./node_modules/@tailor-platform/design-systems/dist/locales",
+      ],
+      "@tailor-platform/design-systems/pandacss": [
+        "./node_modules/@tailor-platform/design-systems/dist/pandacss",
       ],
     },
   },

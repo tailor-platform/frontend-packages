@@ -31,6 +31,8 @@ export {
 export { Text } from "@/components/Text";
 export { Textarea, type TextareaProps } from "@/components/Textarea";
 export { LabelField, type LabelFieldProps } from "@/components/LabelField";
+export { Code, type CodeProps } from "@/components/Code";
+export { Form } from "@/components/Form";
 
 export {
   AspectRatio,
@@ -75,7 +77,5 @@ export {
   type UseDataGridProps,
   type Localization,
   useDataGrid,
-  LOCALIZATION_EN,
-  LOCALIZATION_JA,
 } from "@components/composite/Datagrid";
 export * from "@tanstack/react-table";

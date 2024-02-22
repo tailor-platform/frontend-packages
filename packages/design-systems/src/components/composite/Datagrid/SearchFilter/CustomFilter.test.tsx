@@ -9,8 +9,8 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import { Column, GraphQLQueryFilter } from "../types";
 import "@testing-library/jest-dom/vitest"; //For userEvent used for clicks etc. DONT use fireEvent for clicks etc. as it might not work properly with select elements
-import { LOCALIZATION_JA } from "../locales/ja";
-import { LOCALIZATION_EN } from "../locales/en";
+import { LOCALIZATION_JA } from "../../../../locales/ja";
+import { LOCALIZATION_EN } from "../../../../locales/en";
 import {
   addFilter,
   deleteFilter,
