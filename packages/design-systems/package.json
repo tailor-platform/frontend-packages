@@ -22,7 +22,9 @@
       "require": "./dist/locales/*.js"
     },
     "./pandacss": {
-      "import": "./dist/pandacss/index.js"
+      "types": "./dist/pandacss/index.d.ts",
+      "import": "./dist/pandacss/index.js",
+      "require": "./dist/pandacss/index.js"
     }
   },
   "files": [

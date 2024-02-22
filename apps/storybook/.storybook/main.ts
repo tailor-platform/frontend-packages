@@ -50,24 +50,12 @@ const config: StorybookConfig = {
     },
   },
   async viteFinal(config, { configType }) {
-    // config.define = { "process.env" : {}}
-    // console.log(config.resolve)
-    // if(config.resolve?.alias) {
-    //   config.resolve.alias = {
-    //     ...config.resolve?.alias,
-    //     '@tailor-platform/design-systems/locales/*': path.resolve(__dirname, '../node_modules/@tailor-platform/design-systems/dist/locales/*'),
-    //     '@tailor-platform/design-systems/pandacss': path.resolve(__dirname, '../node_modules/@tailor-platform/design-systems/dist/pandacss'),
-    //   }
-    //   console.log(config.resolve)
-
-    // }
     const isProduction = configType === "PRODUCTION";
     const res = await loadConfigFromFile(
       isProduction ? configEnvBuild : configEnvServe,
       path.resolve(__dirname, "../vite.config.ts"),
     );
     if (res) {
-      console.log(res);
       const { config: userConfig } = res;
       return mergeConfig(config, {
         ...userConfig,

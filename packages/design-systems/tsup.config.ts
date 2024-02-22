@@ -11,8 +11,8 @@ export default defineConfig({
     // "locales/*": "src/locales/*"
   },
   format: ["cjs", "esm"],
+  external: ["react"],
   dts: true,
   clean: true,
   sourcemap: true,
-  external: ["react"],
 });
