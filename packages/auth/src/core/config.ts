@@ -1,4 +1,5 @@
 import { OIDCStrategy, SAMLStrategy } from "./strategies/sso";
+import { MinitailorStrategy } from "./strategies/minitailor";
 import { AbstractStrategy } from "@core/strategies/abstract";
 
 type ContextConfig = {
@@ -29,6 +30,7 @@ export class Config {
       Partial<ContextConfig>,
     private readonly strategies: Array<AbstractStrategy> = [
       defaultStrategy,
+      new MinitailorStrategy(),
       new OIDCStrategy(),
       new SAMLStrategy(),
     ],
