@@ -40,17 +40,17 @@ By using the correct conventional commit prefixes, the [labeler](./.github/workf
 
 ### Scopes
 
-| SCOPE         | Description                              |
-| ------------- | ---------------------------------------- |
-| (client)      | @tailor-platform/client                  |
-| (datagrid)    | @tailor-platform/datagrid                |
-| (ds)          | @tailor-platform/design-systems          |
-| (dev-config)  | @tailor-platform/dev-config              |
-| (monitoring)  | @tailor-platform/monitoring              |
-| (auth) | @tailor-platform/auth             |
-| (storybook)   | apps/storybook                           |
-| (utils)       | @tailor-platform/utils                   |
-|               | no scope (e.g., changes for root folder) |
+| SCOPE        | Description                              |
+| ------------ | ---------------------------------------- |
+| (client)     | @tailor-platform/client                  |
+| (datagrid)   | @tailor-platform/datagrid                |
+| (ds)         | @tailor-platform/design-systems          |
+| (dev-config) | @tailor-platform/dev-config              |
+| (monitoring) | @tailor-platform/monitoring              |
+| (auth)       | @tailor-platform/auth                    |
+| (storybook)  | apps/storybook                           |
+| (utils)      | @tailor-platform/utils                   |
+|              | no scope (e.g., changes for root folder) |
 
 ### Examples
 
