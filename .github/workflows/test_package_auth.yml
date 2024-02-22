@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - packages/auth/**
-      - .github/workflows/test_package_client.yml
+      - .github/workflows/test_package_auth.yml
       - .github/actions/ci/action.yml
 
 jobs:
