@@ -1,7 +1,7 @@
 import { createRequire } from "node:module";
 import { LevelledLogger } from "./logger.js";
 
-export const runBuiltinCommands = async (args: readonly string[]) => {
+export const getBuiltinCommands = async () => {
   const { Command } = await import("@commander-js/extra-typings");
   const program = new Command();
 
@@ -15,7 +15,9 @@ export const runBuiltinCommands = async (args: readonly string[]) => {
     version: string;
     description: string;
   };
-  program
+  const logger = new LevelledLogger();
+
+  const app = program
     .name("minitailorctl")
     .description(description)
     .option("--verbose", "enable verbosity", false)
@@ -28,5 +30,5 @@ export const runBuiltinCommands = async (args: readonly string[]) => {
       }
     });
 
-  app.parse(args);
+  return app;
 };

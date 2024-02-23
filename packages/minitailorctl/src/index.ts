@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import process from "node:process";
 import { extractProxyCommand, runTailorctl } from "./tailorctl.js";
-import { getBuiltin } from "./commands.js";
+import { getBuiltinCommands } from "./commands.js";
 
 const runCLI = async (argv: readonly string[]) => {
   const proxyCommands = extractProxyCommand(argv);
@@ -9,7 +9,7 @@ const runCLI = async (argv: readonly string[]) => {
     return await runTailorctl(proxyCommands);
   }
 
-  const builtin = await getBuiltin();
+  const builtin = await getBuiltinCommands();
   builtin.parse(argv);
 };
 
