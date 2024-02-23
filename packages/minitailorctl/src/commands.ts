@@ -15,9 +15,8 @@ export const runBuiltinCommands = async (args: readonly string[]) => {
     version: string;
     description: string;
   };
-  const logger = new LevelledLogger();
-  const app = program
-    .name("tailordev")
+  program
+    .name("minitailorctl")
     .description(description)
     .option("--verbose", "enable verbosity", false)
     .version(version)
