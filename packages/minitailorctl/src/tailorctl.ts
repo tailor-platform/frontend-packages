@@ -13,7 +13,14 @@ export const runTailorctl = (args: readonly string[]) =>
   });
 
 // Commands specified here is always exuecuted as tailorctl proxy without a splitter
-const specialProxyCommands = ["app", "auth", "config", "cue", "workspace"];
+const specialProxyCommands = [
+  "app",
+  "auth",
+  "config",
+  "cue",
+  "workspace",
+  "alpha",
+];
 
 // Run tailorctl proxy mode if splitter ("--") is specified before arguments
 // But some specific commands listed in `specialProxyCommands` are exception
