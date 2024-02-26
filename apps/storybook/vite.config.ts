@@ -31,6 +31,13 @@ export default defineConfig({
         ),
       },
       {
+        find: "@tailor-platform/design-systems/client",
+        replacement: path.resolve(
+          __dirname,
+          "./../../packages/design-systems/dist/client.mjs",
+        ),
+      },
+      {
         find: "@tailor-platform/design-systems/locales",
         replacement: path.resolve(
           __dirname,
