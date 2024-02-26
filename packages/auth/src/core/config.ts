@@ -1,5 +1,5 @@
+import { OIDCStrategy, SAMLStrategy } from "./strategies/sso";
 import { AbstractStrategy } from "@core/strategies/abstract";
-import { OIDCStrategy } from "@core/strategies/oidc";
 
 type ContextConfig = {
   apiHost: string;
@@ -12,8 +12,9 @@ type ContextConfig = {
   userInfoPath: string;
 };
 
-// Default strategy is OIDC
-const defaultStrategy = new (class extends OIDCStrategy {
+// `defaultStrategy` is a strategy used if users don't specify the strategy name in `login` function
+// Currently, the default is OIDC, but fine to be changed in need.
+export const defaultStrategy = new (class extends OIDCStrategy {
   name() {
     return "default";
   }
@@ -26,7 +27,11 @@ export class Config {
   constructor(
     private readonly params: Pick<ContextConfig, "apiHost" | "appHost"> &
       Partial<ContextConfig>,
-    private readonly strategies: Array<AbstractStrategy> = [defaultStrategy],
+    private readonly strategies: Array<AbstractStrategy> = [
+      defaultStrategy,
+      new OIDCStrategy(),
+      new SAMLStrategy(),
+    ],
   ) {
     this.strategyMap = new Map();
     strategies.forEach((strategy) => {
