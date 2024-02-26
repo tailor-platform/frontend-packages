@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Code, CodeProps } from "@tailor-platform/design-systems";
+import { Code, CodeProps } from "@tailor-platform/design-systems/client";
 
 const meta = {
   title: "Standalone/Code",

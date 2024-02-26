@@ -8,7 +8,6 @@ export default defineConfig({
     "locales/index": "src/locales/index.ts",
     "locales/ja": "src/locales/ja.ts",
     "locales/en": "src/locales/en.ts",
-    // "locales/*": "src/locales/*"
   },
   format: ["cjs", "esm"],
   external: ["react"],
