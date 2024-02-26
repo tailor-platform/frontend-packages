@@ -8,10 +8,6 @@ type ConfigEnv = {
   isSsrBuild?: boolean;
   isPreview?: boolean;
 };
-const configEnvServe: ConfigEnv = {
-  mode: "development",
-  command: "serve",
-};
 
 const configEnvBuild: ConfigEnv = {
   mode: "production",
@@ -48,10 +44,9 @@ const config: StorybookConfig = {
       // propFilter: (prop) => true, // Enable it when you need to view all props from external libraries.
     },
   },
-  async viteFinal(config, { configType }) {
-    const isProduction = configType === "PRODUCTION";
+  async viteFinal(config) {
     const res = await loadConfigFromFile(
-      isProduction ? configEnvBuild : configEnvServe,
+      configEnvBuild,
       path.resolve(__dirname, "../vite.config.ts"),
     );
     // The return value of loadConfigFromFile can be null, so destructuring assignment is not allowed.
