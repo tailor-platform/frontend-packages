@@ -59,6 +59,7 @@ services:
       - 8000:8000
       - 18009:18009
       - 18090:18090
+      - 18888:18888
     profiles:
       - ${options.profile}
     volumes:
