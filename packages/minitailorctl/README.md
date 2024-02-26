@@ -14,7 +14,7 @@ As a result, the `minitailorctl` command (and its `mtctl` alias as well) will be
 
 ### Start and reset
 
-The primary purpose of `minitailorctl` is operating middleware containers for minitailor. 
+The primary purpose of `minitailorctl` is operating middleware containers for minitailor.
 
 Those commands internally operates `docker-compose` as a wrapper, so make sure it is installed on your machine.
 
