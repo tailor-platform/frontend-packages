@@ -11,7 +11,12 @@ const devOpts =
     : {};
 
 export default defineConfig({
-  entry: ["src/client/index.ts", "src/server/index.ts", "src/adapters/apollo"],
+  entry: [
+    "src/client/index.ts",
+    "src/server/index.ts",
+    "src/core/index.ts",
+    "src/adapters/apollo",
+  ],
   clean: true,
   minify: true,
   format: ["cjs", "esm"],
