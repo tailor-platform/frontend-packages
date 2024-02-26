@@ -8,7 +8,7 @@ minitailorctl (mtctl) is a CLI tool that wraps [tailorctl](https://github.com/ta
 npm install -g @tailor-platform/minitailorctl
 ```
 
-As a result, the `minitailorctl` command (and its `mtctl` alias) will be available in your terminal.
+As a result, the `minitailorctl` command (and its `mtctl` alias as well) will be available in your terminal.
 
 ## Features
 
