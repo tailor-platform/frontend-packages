@@ -1,8 +1,6 @@
 import panda from "@pandacss/dev/postcss";
-import react from "@vitejs/plugin-react-swc";
 import { defineConfig } from "vite";
 import * as path from "path";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   css: {
@@ -53,5 +51,4 @@ export default defineConfig({
       },
     ],
   },
-  plugins: [react(), tsconfigPaths()],
 });

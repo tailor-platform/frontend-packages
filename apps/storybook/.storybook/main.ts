@@ -1,6 +1,5 @@
 import type { StorybookConfig } from "@storybook/react-vite";
 import path from "path";
-import tsconfigPaths from "vite-tsconfig-paths";
 import { loadConfigFromFile, mergeConfig } from "vite";
 
 type ConfigEnv = {
@@ -59,7 +58,6 @@ const config: StorybookConfig = {
       const { config: userConfig } = res;
       return mergeConfig(config, {
         ...userConfig,
-        plugins: [tsconfigPaths()],
       });
     }
 
