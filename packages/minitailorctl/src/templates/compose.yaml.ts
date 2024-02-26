@@ -1,13 +1,4 @@
-import * as fs from "fs/promises";
-import { LevelledLogger } from "../logger.js";
-
-export const generateCommand = async (logger: LevelledLogger) => {
-  await fs.writeFile("./compose.yml", composeYaml().trim());
-
-  logger.info("generate", "Generated compose.yml");
-};
-
-const composeYaml = () =>
+export const composeYaml = () =>
   `
 version: "3.7"
 services:
