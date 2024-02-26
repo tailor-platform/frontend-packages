@@ -22,19 +22,15 @@ Those commands internally operates `docker-compose` as a wrapper, so make sure i
 
 `start` command at first tries to generate `compose.yml` that contains service definitions to run minitailor container on your machine, and then it spins up containers on docker-compose.
 
-It will skip generation if `compose.yml` already exists in the current directory.
-
-##### Usage
-
 ```bash
 minitailorctl start
 ```
 
+It will skip generation if `compose.yml` already exists in the current directory.
+
 #### Reset
 
 `reset` command shuts down minitailor containers.
-
-##### Usage
 
 ```bash
 minitailorctl reset
