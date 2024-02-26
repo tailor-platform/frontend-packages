@@ -4,7 +4,8 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import { Button, Input, Form } from "@tailor-platform/design-systems";
+import { Button, Input } from "@tailor-platform/design-systems";
+import { Form } from "@tailor-platform/design-systems/client";
 import { VStack } from "@tailor-platform/styled-system/jsx";
 
 type FormInput = {

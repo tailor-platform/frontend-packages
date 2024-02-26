@@ -7,7 +7,7 @@ import {
   useDataGrid,
 } from "@tailor-platform/design-systems/client";
 import { useState } from "react";
-import { DATA as data, COLUMNS as columns } from "../data/datagrid";
+import { DATA as data, COLUMNS as columns } from "../../data/datagrid";
 
 export type DataGridColumnHideShowProps = {
   enableHiding?: boolean;
