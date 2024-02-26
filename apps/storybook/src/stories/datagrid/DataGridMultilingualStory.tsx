@@ -1,13 +1,11 @@
 "use client";
 
-import {
-  Box,
-} from "@tailor-platform/design-systems";
+import { Box } from "@tailor-platform/design-systems";
 import {
   DataGrid,
   DataGridInstance,
   useDataGrid,
-} from "@tailor-platform/design-systems/client"
+} from "@tailor-platform/design-systems/client";
 
 import { LOCALIZATION_JA } from "@tailor-platform/design-systems/locales/ja";
 import { LOCALIZATION_EN } from "@tailor-platform/design-systems/locales/en";
