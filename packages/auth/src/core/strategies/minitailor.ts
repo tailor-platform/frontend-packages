@@ -13,12 +13,14 @@ export class MinitailorStrategy implements AbstractStrategy<Options> {
   }
 
   async authenticate(config: Config, options: Options) {
-    const payload = new FormData();
-    payload.append("email", options.email);
-
     const tokenRawResult = await fetch("http://mini.tailor.tech:18888/token", {
       method: "POST",
-      body: payload,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: options.email,
+      }),
     });
     const tokenResult = (await tokenRawResult.json()) as { id_token: string };
     const callbackPayload = new FormData();
