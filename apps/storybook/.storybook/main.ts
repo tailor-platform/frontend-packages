@@ -54,6 +54,8 @@ const config: StorybookConfig = {
       isProduction ? configEnvBuild : configEnvServe,
       path.resolve(__dirname, "../vite.config.ts"),
     );
+    // The return value of loadConfigFromFile can be null, so destructuring assignment is not allowed.
+    // Therefore, type guard is implemented to avoid ts error.
     if (res) {
       const { config: userConfig } = res;
       return mergeConfig(config, {
