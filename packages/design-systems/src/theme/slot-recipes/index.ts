@@ -1,5 +1,6 @@
 import { accordion } from "./accordion";
 import { code } from "./code";
+import { datagrid } from "./datagrid";
 import { datePicker } from "./date-picker";
 import { dialog } from "./dialog";
 import { pagination } from "./pagination";
@@ -14,6 +15,7 @@ import { toast } from "./toast";
 export const slotRecipes = {
   accordion,
   code,
+  datagrid,
   datePicker,
   dialog,
   pagination,

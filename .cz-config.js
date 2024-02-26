@@ -14,7 +14,6 @@ module.exports = {
 
   scopes: [
     { name: "client" },
-    { name: "datagrid" },
     { name: "dev-config" },
     { name: "ds" },
     { name: "monitoring" },

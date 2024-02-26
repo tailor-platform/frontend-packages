@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
+    "prepare": "pnpm panda",
     "dev": "pnpm panda && storybook dev -p 6006",
     "build-storybook": "storybook build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
@@ -40,7 +41,6 @@
     "@storybook/react-vite": "^7.5.2",
     "@storybook/testing-library": "^0.2.2",
     "@storybook/theming": "^7.5.3",
-    "@tailor-platform/datagrid": "workspace:*",
     "@tailor-platform/design-systems": "workspace:*",
     "@tailor-platform/dev-config": "workspace:*",
     "@types/react": "^18.2.34",
