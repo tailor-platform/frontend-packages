@@ -1,4 +1,4 @@
-import { TagsInput, type TagsInputProps } from "@ark-ui/react";
+import { TagsInput, type TagsInputRootProps } from "@ark-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { X as XIcon } from "lucide-react";
 
@@ -6,17 +6,17 @@ import { Button, IconButton } from "@tailor-platform/design-systems";
 import { tagsInput } from "@tailor-platform/styled-system/recipes";
 import { tagsInputTypes } from "../../ark-types";
 
-TagsInput.displayName = "TagsInput";
+TagsInput.Root.displayName = "TagsInput";
 
 const meta = {
   title: "Composite/TagInput",
-  component: TagsInput,
+  component: TagsInput.Root,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
   argTypes: { ...tagsInputTypes },
-} satisfies Meta<TagsInputProps>;
+} satisfies Meta<TagsInputRootProps>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

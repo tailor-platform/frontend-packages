@@ -8,13 +8,13 @@ import { selectTypes } from "../../ark-types";
 
 const meta = {
   title: "Composite/Select",
-  component: Select,
+  component: Select.Root,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
   argTypes: { ...selectTypes },
-} as Meta<typeof Select>;
+} as Meta<typeof Select.Root>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -49,7 +49,9 @@ export const Default: Story = {
           <Select.Control>
             <Select.Trigger className={classes.trigger}>
               <Select.ValueText placeholder="Select a Framework" />
-              <ChevronsUpDownIcon />
+              <Select.Indicator>
+                <ChevronsUpDownIcon />
+              </Select.Indicator>
             </Select.Trigger>
           </Select.Control>
           <Portal>

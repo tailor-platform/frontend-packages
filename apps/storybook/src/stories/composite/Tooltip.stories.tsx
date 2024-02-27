@@ -1,12 +1,4 @@
-import {
-  Tooltip,
-  TooltipArrow,
-  TooltipArrowTip,
-  TooltipContent,
-  TooltipPositioner,
-  type TooltipProps,
-  TooltipTrigger,
-} from "@ark-ui/react";
+import { Tooltip, type TooltipRootProps } from "@ark-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { Text } from "@tailor-platform/design-systems";
@@ -15,44 +7,46 @@ import { tooltip } from "@tailor-platform/styled-system/recipes";
 
 import { toastTypes } from "../../ark-types";
 
-TooltipArrow.displayName = "TooltipArrow";
-TooltipArrowTip.displayName = "TooltipArrowTip";
-TooltipContent.displayName = "TooltipContent";
-TooltipPositioner.displayName = "TooltipPositioner";
-TooltipTrigger.displayName = "TooltipTrigger";
+Tooltip.Arrow.displayName = "TooltipArrow";
+Tooltip.ArrowTip.displayName = "TooltipArrowTip";
+Tooltip.Content.displayName = "TooltipContent";
+Tooltip.Positioner.displayName = "TooltipPositioner";
+Tooltip.Trigger.displayName = "TooltipTrigger";
 
 const meta = {
   title: "Composite/Tooltip",
-  component: Tooltip,
+  component: Tooltip.Root,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
   argTypes: { ...toastTypes },
-} satisfies Meta<TooltipProps>;
+} satisfies Meta<TooltipRootProps>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+const classes = tooltip();
 
 export const Default: Story = {
   args: {},
   render: (props) => (
     <Box h={100}>
-      <Tooltip openDelay={0} closeDelay={200} {...props}>
-        <TooltipTrigger asChild>
+      <Tooltip.Root openDelay={0} closeDelay={200} {...props}>
+        <Tooltip.Trigger className={classes.trigger} asChild>
           <styled.span textStyle="sm" fontWeight="medium">
             Hover me
           </styled.span>
-        </TooltipTrigger>
-        <TooltipPositioner className={tooltip({})}>
-          <TooltipArrow>
-            <TooltipArrowTip />
-          </TooltipArrow>
-          <TooltipContent>
+        </Tooltip.Trigger>
+        <Tooltip.Positioner className={classes.positioner}>
+          <Tooltip.Arrow className={classes.arrow}>
+            <Tooltip.ArrowTip className={classes.arrowTip} />
+          </Tooltip.Arrow>
+          <Tooltip.Content className={classes.content}>
             <Text>My Tooltip</Text>
-          </TooltipContent>
-        </TooltipPositioner>
-      </Tooltip>
+          </Tooltip.Content>
+        </Tooltip.Positioner>
+      </Tooltip.Root>
     </Box>
   ),
 };

@@ -1,4 +1,4 @@
-import { Slider, type SliderProps } from "@ark-ui/react";
+import { Slider, type SliderRootProps } from "@ark-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { Box } from "@tailor-platform/styled-system/jsx";
@@ -18,7 +18,7 @@ const meta = {
   },
   tags: ["autodocs"],
   argTypes: { ...sliderTypes },
-} satisfies Meta<SliderProps>;
+} satisfies Meta<SliderRootProps>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

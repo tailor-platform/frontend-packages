@@ -1,4 +1,4 @@
-import { createToaster, Toast, ToastProps } from "@ark-ui/react";
+import { createToaster, Toast, type ToastRootProps } from "@ark-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { XIcon } from "lucide-react";
 
@@ -9,13 +9,13 @@ import { toastTypes } from "../../ark-types";
 
 const meta = {
   title: "Composite/Toast",
-  component: Toast,
+  component: Toast.Root,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
   argTypes: { ...toastTypes },
-} satisfies Meta<ToastProps>;
+} satisfies Meta<ToastRootProps>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
