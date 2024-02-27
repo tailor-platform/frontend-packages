@@ -1,14 +1,13 @@
 import { defineConfig } from "@pandacss/dev";
-import { buildPandaConfig } from "@tailor-platform/dev-config/pandacss";
+import { buildPandaConfig } from "../../packages/design-systems/src/pandacss";
 
 export default buildPandaConfig(
   defineConfig({
     include: [
       "./src/stories/**/*.{js,jsx,ts,tsx}",
-      "./../../packages/design-systems/src/**/*.{js,jsx,ts,tsx}",
-      "./../../packages/datagrid/src/**/*.{js,jsx,ts,tsx}",
-      "./node_modules/@tailor-platform/datagrid/dist/panda.buildinfo.json",
       "./node_modules/@tailor-platform/design-systems/dist/panda.buildinfo.json",
     ],
+    importMap: "@tailor-platform/design-systems",
+    outdir: "@tailor-platform/styled-system",
   }),
 );

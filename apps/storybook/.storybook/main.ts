@@ -1,5 +1,18 @@
 import type { StorybookConfig } from "@storybook/react-vite";
-import { mergeConfig } from "vite";
+import path from "path";
+import { loadConfigFromFile, mergeConfig } from "vite";
+
+type ConfigEnv = {
+  command: "build" | "serve";
+  mode: string;
+  isSsrBuild?: boolean;
+  isPreview?: boolean;
+};
+
+const configEnvBuild: ConfigEnv = {
+  mode: "production",
+  command: "build",
+};
 
 const config: StorybookConfig = {
   stories: [
@@ -32,7 +45,18 @@ const config: StorybookConfig = {
     },
   },
   async viteFinal(config) {
-    return mergeConfig(config, {});
+    const res = await loadConfigFromFile(
+      configEnvBuild,
+      path.resolve(__dirname, "../vite.config.ts"),
+    );
+    if (res) {
+      const { config: userConfig } = res;
+      return mergeConfig(config, {
+        ...userConfig,
+      });
+    }
+
+    return config;
   },
 };
 export default config;
