@@ -61,9 +61,5 @@
     "zod": "^3.22.4"
   },
   "packageManager": "pnpm@8.11.0",
-  "prettier": "@tailor-platform/dev-config/prettier",
-  "peerDependencies": {
-    "@ark-ui/anatomy": "^2.2.0",
-    "@ark-ui/react": "~2.1.1"
-  }
+  "prettier": "@tailor-platform/dev-config/prettier"
 }
