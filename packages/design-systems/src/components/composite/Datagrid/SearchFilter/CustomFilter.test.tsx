@@ -389,9 +389,9 @@ describe("<CustomFilter />", () => {
 
     // Input value
     const inputValue = await screen.findByTestId("select-input-value");
-    await act(async() => {
+    await act(async () => {
       fireEvent.change(inputValue, { target: { value: "800" } });
-    })
+    });
 
     expect(inputValue).toHaveValue(800);
 
