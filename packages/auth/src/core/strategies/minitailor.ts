@@ -23,12 +23,12 @@ export class MinitailorStrategy implements AbstractStrategy<Options> {
       }),
     });
     const tokenResult = (await tokenRawResult.json()) as { id_token: string };
-    const callbackPayload = new FormData();
-    callbackPayload.append("id_token", tokenResult.id_token);
-    callbackPayload.append("redirect_path", options.redirectPath);
     return {
       mode: "manual-callback" as const,
-      payload: callbackPayload,
+      payload: {
+        id_token: tokenResult.id_token,
+        redirect_path: options.redirectPath,
+      },
     };
   }
 
@@ -39,8 +39,10 @@ export class MinitailorStrategy implements AbstractStrategy<Options> {
       throw paramsError();
     }
 
+    const redirectUri = encodeURI(config.appUrl(config.loginCallbackPath()));
     const payload = new FormData();
     payload.append("id_token", idToken);
+    payload.append("redirect_uri", redirectUri);
     return {
       payload,
       redirectUri: redirectURI,

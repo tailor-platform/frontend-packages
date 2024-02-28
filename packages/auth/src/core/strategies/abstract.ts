@@ -21,7 +21,7 @@ type AuthenticateResult =
       mode: "manual-callback";
 
       // Payload to be sent to callback handler
-      payload: FormData;
+      payload: Record<string, string>;
     };
 
 // AbstractStrategy is an interface that all authentication strategies are expected to implement
