@@ -18,7 +18,6 @@ This package provides ways to handle Tailor authentication
 - [Strategies](#strategies)
   - [Customization](#customization)
 
-
 ## Configuration
 
 Create configuration in somewhere in your app:
