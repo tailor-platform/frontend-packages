@@ -6,13 +6,13 @@ import { slider } from "@tailor-platform/styled-system/recipes";
 
 import { sliderTypes } from "../../ark-types";
 
-Slider.displayName = "Slider";
+Slider.Root.displayName = "Slider";
 
 const classes = slider();
 
 const meta = {
   title: "Composite/Slider",
-  component: Slider,
+  component: Slider.Root,
   parameters: {
     layout: "centered",
   },
