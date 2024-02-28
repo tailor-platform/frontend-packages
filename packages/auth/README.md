@@ -1,10 +1,25 @@
-# @tailor-platform/auth
+# @tailor-platform/auth <!-- omit in toc -->
 
 This package provides ways to handle Tailor authentication
 
-## Usage
+- [Configuration](#configuration)
+- [Provider](#provider)
+- [Middlewares](#middlewares)
+  - [`withAuth` middleware for Next.js](#withauth-middleware-for-nextjs)
+- [Hooks (client)](#hooks-client)
+  - [`useSession` hook](#usesession-hook)
+  - [`useAuth` hook](#useauth-hook)
+    - [Login](#login)
+  - [`usePlatform` hook](#useplatform-hook)
+- [Function (server)](#function-server)
+  - [`getServerSession` hook](#getserversession-hook)
+- [Adapters](#adapters)
+  - [Apollo Client](#apollo-client)
+- [Strategies](#strategies)
+  - [Customization](#customization)
 
-### Configuration
+
+## Configuration
 
 Create configuration in somewhere in your app:
 
@@ -30,7 +45,7 @@ Each of these properties in `config` to specific environment variables or consta
 | refreshTokenPath  |          | Auth service refresh token endpoint                               | `/auth/token/refresh` |
 | userInfoPath      |          | Auth service endpoint to fetch basic user information             | `/auth/userinfo`      |
 
-### Provider
+## Provider
 
 Use the `TailorAuthProvider` component to wrap your application layouts/pages, for instance:
 
@@ -43,9 +58,9 @@ export const Providers = ({ children }: { children: ReactNode }) => (
 );
 ```
 
-### Middlewares
+## Middlewares
 
-#### `withAuth` middleware for Next.js
+### `withAuth` middleware for Next.js
 
 A middleware that mainly intercepts requests to login callback.
 
@@ -75,9 +90,9 @@ const middleware: unknown = withAuth(
 export default middleware;
 ```
 
-### Hooks (client)
+## Hooks (client)
 
-#### `useSession` hook
+### `useSession` hook
 
 A hook to get token in client components.
 
@@ -97,12 +112,14 @@ const Page = () => {
 
 ### `useAuth` hook
 
-A hook that provides authorization functionality. It includes:
+A hook that provides authorization functionality for clients. It includes:
 
 - `login`: A function to redirect to login URL.
 - `refreshToken`: A function to refresh your token.
 
-Here is an example of how to use these functions:
+#### Login
+
+`login` is a function retuned from `useAuth` hook that works as an entrypoint on client components to initialize authentication process.
 
 ```tsx
 "use client";
@@ -111,16 +128,25 @@ import { useAuth } from "@tailor-platform/auth/client";
 // Redirect to `/dashboard` after logging in
 const Component = async () => {
   const { login } = useAuth();
+  const doLogin = useCallback(() => {
+    login({
+      // name is optional, but you can specify one of the following:
+      // * oidc (default)
+      // * saml
+      // * minitailor
+      name: "oidc"
+
+      // options are parameters required in strategies specified in `name` field above.
+      // the fields here will vary on the strategy you use.
+      options: {
+        redirectPath: "/dashboard",
+      }
+    });
+  }, [login])
 
   return (
     <div>
-      <button
-        onClick={() => {
-          login({
-            redirectPath: "/dashboard",
-          });
-        }}
-      >
+      <button onClick={doLogin}>
         Login
       </button>
     </div>
@@ -128,7 +154,7 @@ const Component = async () => {
 };
 ```
 
-#### `usePlatform` hook
+### `usePlatform` hook
 
 The hook that provides utility functions for Tailor Platform specific operation. It includes:
 
@@ -150,9 +176,9 @@ const Component = async () => {
 };
 ```
 
-### Function (server)
+## Function (server)
 
-#### `getServerSession` hook
+### `getServerSession` hook
 
 A function to get token on server components that can be imported from `@tailor-platform/auth/server`.
 
@@ -210,9 +236,9 @@ Strategies are plugin mechanism to add authentication process.
 
 All built-in authentications are also implemented as a strategy. The default is `OIDCStrategy`.
 
-Users can implement their own custom authentication by writing custom strategies. See [src/strategies/abstract.ts](src/strategies/abstract.ts) to know interfaces expected to be implemented.
+### Customization
 
-### Example
+Users can implement their own custom authentication by writing custom strategies. See [src/strategies/abstract.ts](src/strategies/abstract.ts) to know interfaces expected to be implemented.
 
 ```ts
 import { AbstractStrategy } from "@tailor-platform/auth/core";
