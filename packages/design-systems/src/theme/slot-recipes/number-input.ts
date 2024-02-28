@@ -1,8 +1,6 @@
 import { numberInputAnatomy } from "@ark-ui/anatomy";
 import { defineSlotRecipe } from "@pandacss/dev";
 
-// const parts = defineParts(numberInputAnatomy.build());
-
 const trigger = {
   alignItems: "center",
   appearance: "none",

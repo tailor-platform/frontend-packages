@@ -1,8 +1,6 @@
 import { menuAnatomy } from "@ark-ui/anatomy";
 import { defineSlotRecipe } from "@pandacss/dev";
 
-// const parts = defineParts(menuAnatomy.build());
-
 const baseItemStyle = {
   alignItems: "center",
   borderRadius: "md",
