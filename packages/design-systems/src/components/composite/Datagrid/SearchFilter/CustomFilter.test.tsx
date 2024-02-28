@@ -40,7 +40,7 @@ class MockResizeObserver {
     // do nothing
   }
 }
-(global as any).ResizeObserver = MockResizeObserver;
+global.ResizeObserver = MockResizeObserver;
 
 enum PaymentStatus {
   pending = "pending",
