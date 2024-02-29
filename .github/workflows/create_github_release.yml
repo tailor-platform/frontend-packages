@@ -13,14 +13,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Get the latest release
+      - name: Generate a release note between the previous release and the upcoming next
         uses: actions/github-script@v7
         with:
           script: |
             const { PACKAGE_NAME, NEXT_TAG } = process.env
             const { data: releases } = await github.rest.repos.listReleases({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
+              ...context.repo
             })
             const targetReleases = releases.filter(({ tag_name }) => tag_name.startsWith(PACKAGE_NAME))
             const { tag_name: previousReleaseTag } = targetReleases[0]
@@ -31,11 +30,11 @@ jobs:
             console.log("Next release:", nextReleaseTag)
 
             // Generatea a releaese note
-            const generatedRelease = await github.rest.repos.generateReleaseNotes({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
+            const { data: generatedReleaseNote } = await github.rest.repos.generateReleaseNotes({
+              ...context.repo
               tag_name: `${PACKAGE_NAME}/${NEXT_TAG}`,
               previous_tag_name: previousReleaseTag,
             })
-            console.log(generatedRelease)
+
+            return generatedRelaseNote
 
