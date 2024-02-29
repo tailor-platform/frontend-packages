@@ -33,7 +33,7 @@ jobs:
 
             return {
               previous: previousReleaseTag,
-              next: nextRelaseTag
+              next: nextReleaseTag
             } 
 
       - name: Generate a release note
