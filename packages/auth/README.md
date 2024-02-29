@@ -133,21 +133,19 @@ const Component = async () => {
       // * oidc (default)
       // * saml
       // * minitailor
-      name: "oidc"
+      name: "oidc",
 
       // options are parameters required in strategies specified in `name` field above.
       // the fields here will vary on the strategy you use.
       options: {
         redirectPath: "/dashboard",
-      }
+      },
     });
-  }, [login])
+  }, [login]);
 
   return (
     <div>
-      <button onClick={doLogin}>
-        Login
-      </button>
+      <button onClick={doLogin}>Login</button>
     </div>
   );
 };
