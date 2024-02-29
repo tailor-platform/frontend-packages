@@ -50,11 +50,12 @@ export const useAuth = () => {
       case "redirection":
         window.location.replace(result.uri);
         break;
-      case "manual-callback":
-        await fetch(config.loginCallbackPath(strategy.name()), {
-          body: result.payload,
-        });
+      case "manual-callback": {
+        const params = new URLSearchParams(result.payload);
+        const callbackPath = config.loginCallbackPath(strategy.name());
+        window.location.replace(`${callbackPath}?${params.toString()}`);
         break;
+      }
       default:
     }
   };
