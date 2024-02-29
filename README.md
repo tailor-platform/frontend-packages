@@ -2,38 +2,13 @@
 
 This is the monorepo for Tailor npm packages.
 
-### @tailor-platform/client
-
-A React Context provider that handles user authentication.
-
-### @tailor-platform/datagrid
-
-This package has been deprecated. If you want to use it, please use it from design-systems.
-A Datagrid component and hooks tailored for managing complex data tables.
-
-### @tailor-platform/utils
-
-Utility functions to work with Tailor data types, conversions, etc.
-
-### @tailor-platform/design-systems
-
-Design Systems that handles shared UIs.
-
-### @tailor-platform/dev-config
-
-Tailor's base configuration for ESLint, Prettier and Typescript.
-
-### @tailor-platform/monitoring
-
-Tools and utilities for integrating monitoring solutions.
-
-### @tailor-platform/auth
-
-A React Context provider and utilities for handling Tailor OIDC authentication
-
-## Other Packages
-
-Those packages are used within this repository and aren't published (yet?).
+|package|status|description|
+|:------|:-----|:----------|
+|[@tailor-platform/auth](packages/auth)|![NPM Version](https://img.shields.io/npm/v/@tailor-platform/auth) ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/tailor-platform/frontend-packages/test_package_auth.yml?branch=main)|An utilities for handling Tailor Platform authentication with Next.js and Apollo support.|
+|[@tailor-platform/design-systems](packages/design-systems)|![NPM Version](https://img.shields.io/npm/v/@tailor-platform/design-systems) ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/tailor-platform/frontend-packages/test_package_ds.yml?branch=main)|Design Systems that handles shared UIs.|
+|[@tailor-platform/utils](packages/utils)|![NPM Version](https://img.shields.io/npm/v/@tailor-platform/utils) ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/tailor-platform/frontend-packages/test_package_utils.yml?branch=main)|Utility functions to work with Tailor data types, conversions, etc.|
+|[@tailor-platform/monitoring](packages/monitoring)|![NPM Version](https://img.shields.io/npm/v/@tailor-platform/monitoring) ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/tailor-platform/frontend-packages/test_package_monitoring.yml?branch=main)|Tools and utilities for integrating monitoring solutions.|
+|[@tailor-platform/dev-config](packages/dev-config)|![NPM Version](https://img.shields.io/npm/v/@tailor-platform/dev-config)|Tailor's base configuration for ESLint, Prettier and Typescript.|
 
 ## Apps
 
