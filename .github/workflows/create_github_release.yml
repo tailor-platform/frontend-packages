@@ -13,9 +13,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Generate a release note between the previous release and the upcoming next
+      - name: Fetching the latest release tag and build the next release tag 
+        id: get-tags
         uses: actions/github-script@v7
         with:
+          result-encoding: json
           script: |
             const { PACKAGE_NAME, NEXT_TAG } = process.env
             const { data: releases } = await github.rest.repos.listReleases({
@@ -29,12 +31,17 @@ jobs:
             const nextReleaseTag = `${PACKAGE_NAME}/${NEXT_TAG}`
             console.log("Next release:", nextReleaseTag)
 
-            // Generatea a releaese note
-            const { data: generatedReleaseNote } = await github.rest.repos.generateReleaseNotes({
-              ...context.repo
-              tag_name: `${PACKAGE_NAME}/${NEXT_TAG}`,
-              previous_tag_name: previousReleaseTag,
-            })
+            return {
+              previous: previousReleaseTag,
+              next: nextRelaseTag
+            } 
 
-            return generatedRelaseNote
-
+      - name: Generate a release note
+        uses: conventional-release-note@v1
+        with:
+          kind: default
+          previous-tag: steps.get-tags.outputs.result.previous
+          current-tag: steps.get-tags.outputs.result.next
+          scopes: |
+            ${{ env.PACKAGE_NAME }}
+          include-non-scoped: false
