@@ -41,7 +41,7 @@ jobs:
           curl -sS -X POST \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             -d "{ \"previous_tag_name\": \"${{ steps.get-previous-tag.outputs.tag }}\", \"tag_name\": \"${{ inputs.tag }}\" }" \
-           https://api.github.com/repos/${{ github.repository }}/releases/generate-notes  | jq -r .body > $HOME/release_notes.md
+           https://api.github.com/repos/${{ github.repository }}/releases/generate-notes  | jq .body > $HOME/release_notes.md
       - name: Filter release notes
         id: filter-release-notes
         run: |
