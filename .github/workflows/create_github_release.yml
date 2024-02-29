@@ -40,8 +40,8 @@ jobs:
         uses: yuk1ty/conventional-release-note@v1.1.1
         with:
           kind: default
-          previous-tag: steps.get-tags.outputs.result.previous
-          current-tag: steps.get-tags.outputs.result.next
+          previous-tag: ${{ steps.get-tags.outputs.result.previous }}
+          current-tag: ${{ steps.get-tags.outputs.result.next }}
           scopes: |
             ${{ env.PACKAGE_NAME }}
           include-non-scoped: false
