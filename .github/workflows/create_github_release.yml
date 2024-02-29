@@ -3,7 +3,7 @@ name: Create Github release
 on: push
 
 env:
-  PACKAGE_NAME: utils
+  PACKAGE_NAME: ds 
   NEXT_TAG: "0.4.0"
 
 jobs:
@@ -15,25 +15,27 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Fetching the latest release tag
-        id: get-previous-tag
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const { PACKAGE_NAME, NEXT_TAG } = process.env
-            const { data: releases } = await github.rest.repos.listReleases({
-              ...context.repo
-            })
-            const targetReleases = releases.filter(({ tag_name }) => tag_name.startsWith(PACKAGE_NAME))
-            const { tag_name: previousReleaseTag } = targetReleases[0]
-            return previousReleaseTag
+      # - name: Fetching the latest release tag
+      #   id: get-previous-tag
+      #   uses: actions/github-script@v7
+      #   with:
+      #     script: |
+      #       const { PACKAGE_NAME, NEXT_TAG } = process.env
+      #       const { data: releases } = await github.rest.repos.listReleases({
+      #         ...context.repo
+      #       })
+      #       const targetReleases = releases.filter(({ tag_name }) => tag_name.startsWith(PACKAGE_NAME))
+      #       const { tag_name: previousReleaseTag } = targetReleases[0]
+      #       return previousReleaseTag
 
       - name: Generate a release note
         id: generate-release-note
         uses: yuk1ty/conventional-release-note@v1.1.1
         with:
           kind: default
-          previous-tag: ${{ steps.get-previous-tag.outputs.result }}
+          previous-tag: design-systems/0.13.0
+          current-tag: design-systems/0.14.0
+          # previous-tag: ${{ steps.get-previous-tag.outputs.result }}
           # current-tag: ${{ env.PACKAGE_NAME }}/${{ env.NEXT_TAG }}
           scopes: |
             ${{ env.PACKAGE_NAME }}
