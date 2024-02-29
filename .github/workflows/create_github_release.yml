@@ -13,11 +13,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Fetching the latest release tag and build the next release tag 
-        id: get-tags
+      - name: Fetching the latest release tag
+        id: get-previous-tag
         uses: actions/github-script@v7
         with:
-          result-encoding: json
           script: |
             const { PACKAGE_NAME, NEXT_TAG } = process.env
             const { data: releases } = await github.rest.repos.listReleases({
@@ -25,26 +24,14 @@ jobs:
             })
             const targetReleases = releases.filter(({ tag_name }) => tag_name.startsWith(PACKAGE_NAME))
             const { tag_name: previousReleaseTag } = targetReleases[0]
-            console.log("Previous release:", previousReleaseTag)
-
-            // Build a tag for next release
-            const nextReleaseTag = `${PACKAGE_NAME}/${NEXT_TAG}`
-            console.log("Next release:", nextReleaseTag)
-
-            return {
-              previous: previousReleaseTag,
-              next: nextReleaseTag
-            } 
-
-      - name: Dump result
-        run: echo "${{ toJSON(steps.get-tags.outputs.result).previous }}"
+            return previousReleaseTag
 
       - name: Generate a release note
         uses: yuk1ty/conventional-release-note@v1.1.1
         with:
           kind: default
-          previous-tag: ${{ steps.get-tags.outputs.result.previous }}
-          current-tag: ${{ steps.get-tags.outputs.result.next }}
+          previous-tag: ${{ steps.get-previous-tag.outputs.result }}
+          current-tag: ${{ env.PACKAGE_NAME }}/${{ env.NEXT_TAG }}
           scopes: |
             ${{ env.PACKAGE_NAME }}
           include-non-scoped: false
