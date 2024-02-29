@@ -9,7 +9,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - uses: get the latest release
+      - name: get the latest release
+        uses: actions/github-script@v7
         with:
           script: |
             cosnst releases = await github.rest.issues.listReleases({
