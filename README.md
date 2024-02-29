@@ -1,6 +1,6 @@
 # frontend-packages
 
-[!cover](assets/cover.svg)
+![cover](assets/cover.svg)
 
 This is the monorepo for Tailor npm packages.
 
