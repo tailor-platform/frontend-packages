@@ -1,12 +1,12 @@
 import {
-  Popover as PopoverArk,
+  PopoverRoot as PopoverArk,
   PopoverArrow,
   PopoverArrowTip,
   PopoverCloseTrigger,
   PopoverContent,
   PopoverDescription,
   PopoverPositioner,
-  type PopoverProps,
+  type PopoverRootProps,
   PopoverTitle,
   PopoverTrigger,
 } from "@ark-ui/react";
@@ -39,7 +39,7 @@ const meta = {
   },
   tags: ["autodocs"],
   argTypes: { ...popoverTypes },
-} satisfies Meta<PopoverProps>;
+} satisfies Meta<PopoverRootProps>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

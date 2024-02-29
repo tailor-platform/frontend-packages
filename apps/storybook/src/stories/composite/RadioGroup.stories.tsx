@@ -1,20 +1,20 @@
-import { RadioGroup, RadioGroupProps } from "@ark-ui/react";
+import { RadioGroup, type RadioGroupRootProps } from "@ark-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { radioGroup } from "@tailor-platform/styled-system/recipes";
 import { radioGroupTypes } from "../../ark-types";
 
-RadioGroup.displayName = "RadioGroup";
+RadioGroup.Root.displayName = "RadioGroup";
 
 const meta = {
   title: "Composite/RadioGroup",
-  component: RadioGroup,
+  component: RadioGroup.Root,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
   argTypes: { ...radioGroupTypes },
-} satisfies Meta<RadioGroupProps>;
+} satisfies Meta<RadioGroupRootProps>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

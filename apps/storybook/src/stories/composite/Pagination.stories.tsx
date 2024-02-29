@@ -1,4 +1,4 @@
-import { Pagination, type PaginationProps } from "@ark-ui/react";
+import { Pagination, type PaginationRootProps } from "@ark-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 
@@ -6,19 +6,19 @@ import { Button, IconButton } from "@tailor-platform/design-systems";
 import { pagination } from "@tailor-platform/styled-system/recipes";
 import { paginationTypes } from "../../ark-types";
 
-Pagination.displayName = "Pagination";
+Pagination.Root.displayName = "Pagination";
 
 const classes = pagination();
 
 const meta = {
   title: "Composite/Pagination",
-  component: Pagination,
+  component: Pagination.Root,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
   argTypes: { ...paginationTypes },
-} satisfies Meta<PaginationProps>;
+} satisfies Meta<PaginationRootProps>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

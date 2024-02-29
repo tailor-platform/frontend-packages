@@ -1,16 +1,4 @@
-import {
-  Menu,
-  MenuContent,
-  MenuItem,
-  MenuItemGroup,
-  MenuItemGroupLabel,
-  MenuOptionItem,
-  MenuPositioner,
-  MenuSeparator,
-  MenuTrigger,
-  MenuTriggerItem,
-  Portal,
-} from "@ark-ui/react";
+import { Menu, Portal } from "@ark-ui/react";
 import { ChevronRight } from "lucide-react";
 import { useState } from "react";
 
@@ -23,9 +11,10 @@ export const MenuStory = () => {
     framework: "",
     libraries: [],
   });
+  const classes = menu();
 
   return (
-    <Menu
+    <Menu.Root
       closeOnSelect={false}
       value={value}
       onValueChange={(data) => {
@@ -35,82 +24,126 @@ export const MenuStory = () => {
         }));
       }}
     >
-      <MenuTrigger asChild>
+      <Menu.Trigger asChild>
         <Button>Open menu</Button>
-      </MenuTrigger>
+      </Menu.Trigger>
       <Portal>
-        <MenuPositioner className={menu()}>
-          <MenuContent>
-            <MenuItem id="new-tab">New Tab...</MenuItem>
-            <MenuItem id="new-win">New Window...</MenuItem>
-            <MenuItemGroup id="radio-group">
-              <MenuItemGroupLabel htmlFor="radio-group">
+        <Menu.Positioner className={classes.positioner}>
+          <Menu.Content className={classes.content}>
+            <Menu.Item className={classes.item} id="new-tab">
+              New Tab...
+            </Menu.Item>
+            <Menu.Item className={classes.item} id="new-win">
+              New Window...
+            </Menu.Item>
+            <Menu.ItemGroup className={classes.itemGroup} id="radio-group">
+              <Menu.ItemGroupLabel
+                className={classes.itemGroupLabel}
+                htmlFor="radio-group"
+              >
                 Radio Group
-              </MenuItemGroupLabel>
-              <MenuOptionItem name="framework" type="radio" value="react">
+              </Menu.ItemGroupLabel>
+              <Menu.OptionItem
+                className={classes.optionItem}
+                name="framework"
+                type="radio"
+                value="react"
+              >
                 {({ isChecked }) => (
                   <Radio name="framework" defaultChecked={isChecked}>
                     React
                   </Radio>
                 )}
-              </MenuOptionItem>
-              <MenuOptionItem name="framework" type="radio" value="solid">
+              </Menu.OptionItem>
+              <Menu.OptionItem
+                className={classes.optionItem}
+                name="framework"
+                type="radio"
+                value="solid"
+              >
                 {({ isChecked }) => (
                   <Radio name="framework" defaultChecked={isChecked}>
                     Solid
                   </Radio>
                 )}
-              </MenuOptionItem>
-              <MenuOptionItem name="framework" type="radio" value="vue">
+              </Menu.OptionItem>
+              <Menu.OptionItem
+                className={classes.optionItem}
+                name="framework"
+                type="radio"
+                value="vue"
+              >
                 {({ isChecked }) => (
                   <Radio name="framework" defaultChecked={isChecked}>
                     Vue
                   </Radio>
                 )}
-              </MenuOptionItem>
-            </MenuItemGroup>
+              </Menu.OptionItem>
+            </Menu.ItemGroup>
 
-            <MenuItemGroup id="checkbox-group">
-              <MenuItemGroupLabel htmlFor="checkbox-group">
+            <Menu.ItemGroup className={classes.itemGroup} id="checkbox-group">
+              <Menu.ItemGroupLabel
+                className={classes.itemGroupLabel}
+                htmlFor="checkbox-group"
+              >
                 Checkbox Group
-              </MenuItemGroupLabel>
-              <MenuOptionItem name="libraries" type="checkbox" value="react-1">
+              </Menu.ItemGroupLabel>
+              <Menu.OptionItem
+                className={classes.optionItem}
+                name="libraries"
+                type="checkbox"
+                value="react-1"
+              >
                 {({ isChecked }) => (
                   <Checkbox checked={isChecked}>React</Checkbox>
                 )}
-              </MenuOptionItem>
-              <MenuOptionItem name="libraries" type="checkbox" value="solid-1">
+              </Menu.OptionItem>
+              <Menu.OptionItem
+                className={classes.optionItem}
+                name="libraries"
+                type="checkbox"
+                value="solid-1"
+              >
                 {({ isChecked }) => (
                   <Checkbox checked={isChecked}>Solid</Checkbox>
                 )}
-              </MenuOptionItem>
-              <MenuOptionItem name="libraries" type="checkbox" value="vue-1">
+              </Menu.OptionItem>
+              <Menu.OptionItem
+                className={classes.optionItem}
+                name="libraries"
+                type="checkbox"
+                value="vue-1"
+              >
                 {({ isChecked }) => (
                   <Checkbox checked={isChecked}>Vue</Checkbox>
                 )}
-              </MenuOptionItem>
-            </MenuItemGroup>
-            <MenuSeparator />
-            <Menu
+              </Menu.OptionItem>
+            </Menu.ItemGroup>
+            <Menu.Separator className={classes.separator} />
+            <Menu.Root
               closeOnSelect={false}
               positioning={{ placement: "right-start" }}
             >
-              <MenuTriggerItem>
+              <Menu.TriggerItem className={classes.triggerItem}>
                 <styled.span flex="1">More options</styled.span>
                 <ChevronRight />
-              </MenuTriggerItem>
+              </Menu.TriggerItem>
               <Portal>
-                <MenuPositioner className={menu()}>
-                  <MenuContent>
-                    <MenuItem id="twitter">Twitter</MenuItem>
-                    <MenuItem id="message">Message</MenuItem>
-                  </MenuContent>
-                </MenuPositioner>
+                <Menu.Positioner className={classes.positioner}>
+                  <Menu.Content className={classes.content}>
+                    <Menu.Item className={classes.item} id="twitter">
+                      Twitter
+                    </Menu.Item>
+                    <Menu.Item className={classes.item} id="message">
+                      Message
+                    </Menu.Item>
+                  </Menu.Content>
+                </Menu.Positioner>
               </Portal>
-            </Menu>
-          </MenuContent>
-        </MenuPositioner>
+            </Menu.Root>
+          </Menu.Content>
+        </Menu.Positioner>
       </Portal>
-    </Menu>
+    </Menu.Root>
   );
 };

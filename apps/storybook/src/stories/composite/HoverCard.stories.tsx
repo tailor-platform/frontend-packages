@@ -1,4 +1,4 @@
-import { HoverCard, type HoverCardProps, Portal } from "@ark-ui/react";
+import { HoverCard, type HoverCardRootProps, Portal } from "@ark-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { Avatar, Button, Text } from "@tailor-platform/design-systems";
@@ -15,7 +15,7 @@ const meta = {
   },
   tags: ["autodocs"],
   argTypes: { ...hoverCardTypes },
-} satisfies Meta<HoverCardProps>;
+} satisfies Meta<HoverCardRootProps>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

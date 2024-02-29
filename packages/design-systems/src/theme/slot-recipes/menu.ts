@@ -1,7 +1,5 @@
 import { menuAnatomy } from "@ark-ui/anatomy";
-import { defineParts, defineRecipe } from "@pandacss/dev";
-
-const parts = defineParts(menuAnatomy.build());
+import { defineSlotRecipe } from "@pandacss/dev";
 
 const baseItemStyle = {
   alignItems: "center",
@@ -19,10 +17,11 @@ const baseItemStyle = {
   },
 } as const;
 
-export const menu = defineRecipe({
+export const menu = defineSlotRecipe({
   className: "menu",
   description: "A menu style",
-  base: parts({
+  slots: [...menuAnatomy.keys()],
+  base: {
     positioner: {
       zIndex: "100",
     },
@@ -65,5 +64,5 @@ export const menu = defineRecipe({
       px: "2.5",
       py: "2",
     },
-  }),
+  },
 });

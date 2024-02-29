@@ -1,4 +1,4 @@
-import { Slider, type SliderProps } from "@ark-ui/react";
+import { Slider, type SliderRootProps } from "@ark-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { Box } from "@tailor-platform/styled-system/jsx";
@@ -6,19 +6,19 @@ import { slider } from "@tailor-platform/styled-system/recipes";
 
 import { sliderTypes } from "../../ark-types";
 
-Slider.displayName = "Slider";
+Slider.Root.displayName = "Slider";
 
 const classes = slider();
 
 const meta = {
   title: "Composite/Slider",
-  component: Slider,
+  component: Slider.Root,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
   argTypes: { ...sliderTypes },
-} satisfies Meta<SliderProps>;
+} satisfies Meta<SliderRootProps>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

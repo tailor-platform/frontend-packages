@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import {
-  Menu,
+  MenuRoot,
   MenuContent,
   MenuItem,
   MenuPositioner,
@@ -36,7 +36,7 @@ export const Default: Story = {
     return (
       <AppBar>
         <Text className={appBarClasses.title}>header title</Text>
-        <Menu>
+        <MenuRoot>
           <MenuTrigger aria-label="Open" className={menuTriggerClasses.root}>
             <Flex className={menuTriggerClasses.content}>
               <Text>Open Button</Text>
@@ -55,7 +55,7 @@ export const Default: Story = {
               </MenuContent>
             </MenuPositioner>
           </Portal>
-        </Menu>
+        </MenuRoot>
       </AppBar>
     );
   },

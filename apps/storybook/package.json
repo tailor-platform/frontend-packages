@@ -16,8 +16,8 @@
     "ark:storybook:types": "pnpm ark:types && pnpm storybook:types"
   },
   "dependencies": {
-    "@ark-ui/anatomy": "^1.0.0",
-    "@ark-ui/react": "~1.1.0",
+    "@ark-ui/anatomy": "^2.2.0",
+    "@ark-ui/react": "~2.1.1",
     "@hookform/resolvers": "^3.3.2",
     "@tanstack/react-table": "^8.10.7",
     "@theme-toggles/react": "^4.1.0",

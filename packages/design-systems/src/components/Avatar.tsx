@@ -1,8 +1,8 @@
 import {
-  Avatar as ArkAvatar,
+  AvatarRoot as ArkAvatar,
   AvatarFallback,
   AvatarImage,
-  AvatarProps as AvatarArkProps,
+  AvatarRootProps as AvatarArkProps,
 } from "@ark-ui/react";
 import {
   avatar,

@@ -1,4 +1,5 @@
 import {
+  act,
   fireEvent,
   render,
   screen,
@@ -27,6 +28,19 @@ import { CustomFilter } from "./CustomFilter";
 window.HTMLElement.prototype.scrollTo = function () {}; //(https://github.com/jsdom/jsdom/issues/1695)
 /* eslint-disable-next-line @typescript-eslint/no-empty-function */
 window.HTMLElement.prototype.scrollIntoView = function () {}; //(https://github.com/jsdom/jsdom/issues/1695)
+
+class MockResizeObserver {
+  observe(): void {
+    // do nothing
+  }
+  unobserve(): void {
+    // do nothing
+  }
+  disconnect(): void {
+    // do nothing
+  }
+}
+global.ResizeObserver = MockResizeObserver;
 
 enum PaymentStatus {
   pending = "pending",
@@ -168,12 +182,16 @@ describe("<CustomFilter />", () => {
     const selectColumn = screen.getByTestId("select-column");
     const selectColumnOptions = screen.getByTestId("select-column-options");
     const selectColumnButton = within(selectColumn).getByRole("button");
-    await user.click(selectColumnButton);
+    await act(async () => {
+      await user.click(selectColumnButton);
+    });
 
     const statusOption = within(selectColumnOptions).getByText("Status");
     expect(statusOption).toBeVisible();
 
-    await user.click(statusOption);
+    await act(async () => {
+      await user.click(statusOption);
+    });
 
     expect(statusOption).not.toBeVisible();
     expect(selectColumn).toHaveTextContent("Status");
@@ -184,7 +202,9 @@ describe("<CustomFilter />", () => {
       "select-condition-options",
     );
     const selectConditionButton = within(selectCondition).getByRole("button");
-    await user.click(selectConditionButton);
+    await act(async () => {
+      await user.click(selectConditionButton);
+    });
 
     const equalConditionOption = within(selectConditionOptions).getByText(
       "に等しい",
@@ -195,7 +215,9 @@ describe("<CustomFilter />", () => {
     ).toBeVisible();
     expect(within(selectConditionOptions).queryByText("を含む")).toBeNull();
 
-    await user.click(equalConditionOption);
+    await act(async () => {
+      await user.click(equalConditionOption);
+    });
 
     expect(equalConditionOption).not.toBeVisible();
     expect(selectCondition).toHaveTextContent("に等しい");
@@ -204,7 +226,9 @@ describe("<CustomFilter />", () => {
     const selectValue = screen.getByTestId("select-input-value");
     const selectValueOptions = screen.getByTestId("select-input-value-options");
     const selectValueButton = within(selectValue).getByRole("button");
-    await user.click(selectValueButton);
+    await act(async () => {
+      await user.click(selectValueButton);
+    });
 
     const pendingValueOption = within(selectValueOptions).getByText("pending");
     expect(pendingValueOption).toBeVisible();
@@ -212,7 +236,9 @@ describe("<CustomFilter />", () => {
     expect(within(selectValueOptions).getByText("success")).toBeVisible();
     expect(within(selectValueOptions).getByText("failed")).toBeVisible();
 
-    await user.click(pendingValueOption);
+    await act(async () => {
+      await user.click(pendingValueOption);
+    });
 
     expect(pendingValueOption).not.toBeVisible();
     expect(selectValue).toHaveTextContent("pending");
@@ -243,12 +269,16 @@ describe("<CustomFilter />", () => {
     const selectColumn = screen.getByTestId("select-column");
     const selectColumnOptions = screen.getByTestId("select-column-options");
     const selectColumnButton = within(selectColumn).getByRole("button");
-    await user.click(selectColumnButton);
+    await act(async () => {
+      await user.click(selectColumnButton);
+    });
 
     const emailOption = within(selectColumnOptions).getByText("Email");
     expect(emailOption).toBeVisible();
 
-    await user.click(emailOption);
+    await act(async () => {
+      await user.click(emailOption);
+    });
 
     expect(emailOption).not.toBeVisible();
     expect(selectColumn).toHaveTextContent("Email");
@@ -259,7 +289,9 @@ describe("<CustomFilter />", () => {
       "select-condition-options",
     );
     const selectConditionButton = within(selectCondition).getByRole("button");
-    await user.click(selectConditionButton);
+    await act(async () => {
+      await user.click(selectConditionButton);
+    });
 
     const equalConditionOption = within(selectConditionOptions).getByText(
       "に等しい",
@@ -270,15 +302,19 @@ describe("<CustomFilter />", () => {
       within(selectConditionOptions).queryByText("に等しくない"),
     ).toBeNull();
 
-    await user.click(equalConditionOption);
+    await act(async () => {
+      await user.click(equalConditionOption);
+    });
 
     expect(equalConditionOption).not.toBeVisible();
     expect(selectCondition).toHaveTextContent("に等しい");
 
     // Input value
     const inputValue = screen.getByTestId("select-input-value");
-    await user.click(inputValue);
-    await user.type(inputValue, "test@test.com");
+    await act(async () => {
+      await user.click(inputValue);
+      await user.type(inputValue, "test@test.com");
+    });
 
     expect(inputValue).toHaveValue("test@test.com");
 
@@ -305,12 +341,16 @@ describe("<CustomFilter />", () => {
     const selectColumn = screen.getByTestId("select-column");
     const selectColumnOptions = screen.getByTestId("select-column-options");
     const selectColumnButton = within(selectColumn).getByRole("button");
-    await user.click(selectColumnButton);
+    await act(async () => {
+      await user.click(selectColumnButton);
+    });
 
     const amountOption = within(selectColumnOptions).getByText("Amount");
     expect(amountOption).toBeVisible();
 
-    await user.click(amountOption);
+    await act(async () => {
+      await user.click(amountOption);
+    });
 
     expect(amountOption).not.toBeVisible();
     expect(selectColumn).toHaveTextContent("Amount");
@@ -321,7 +361,9 @@ describe("<CustomFilter />", () => {
       "select-condition-options",
     );
     const selectConditionButton = within(selectCondition).getByRole("button");
-    await user.click(selectConditionButton);
+    await act(async () => {
+      await user.click(selectConditionButton);
+    });
 
     const equalConditionOption = within(selectConditionOptions).getByText(
       "に等しい",
@@ -338,14 +380,18 @@ describe("<CustomFilter />", () => {
 
     expect(within(selectConditionOptions).queryByText("を含む")).toBeNull();
 
-    await user.click(equalConditionOption);
+    await act(async () => {
+      await user.click(equalConditionOption);
+    });
 
     expect(equalConditionOption).not.toBeVisible();
     expect(selectCondition).toHaveTextContent("に等しい");
 
     // Input value
     const inputValue = await screen.findByTestId("select-input-value");
-    fireEvent.change(inputValue, { target: { value: "800" } });
+    await act(async () => {
+      fireEvent.change(inputValue, { target: { value: "800" } });
+    });
 
     expect(inputValue).toHaveValue(800);
 
@@ -371,11 +417,15 @@ describe("<CustomFilter />", () => {
     //Select column
     const selectColumn = screen.getByTestId("select-column");
     const selectColumnButton = within(selectColumn).getByRole("button");
-    await user.click(selectColumnButton);
+    await act(async () => {
+      await user.click(selectColumnButton);
+    });
 
     const createdAtOption = screen.getByRole("option", { name: "CreatedAt" });
     expect(createdAtOption).toBeVisible();
-    await user.click(createdAtOption);
+    await act(async () => {
+      await user.click(createdAtOption);
+    });
     expect(createdAtOption).not.toBeVisible();
     expect(selectColumn).toHaveTextContent("CreatedAt");
 
@@ -385,7 +435,9 @@ describe("<CustomFilter />", () => {
       "select-condition-options",
     );
     const selectConditionButton = within(selectCondition).getByRole("button");
-    await user.click(selectConditionButton);
+    await act(async () => {
+      await user.click(selectConditionButton);
+    });
 
     const lteConditionOption = within(selectConditionOptions).getByText("以下");
     expect(lteConditionOption).toBeVisible();
@@ -400,15 +452,19 @@ describe("<CustomFilter />", () => {
 
     expect(within(selectConditionOptions).queryByText("を含む")).toBeNull();
 
-    await user.click(lteConditionOption);
+    await act(async () => {
+      await user.click(lteConditionOption);
+    });
 
     expect(lteConditionOption).not.toBeVisible();
     expect(selectCondition).toHaveTextContent("以下");
 
     //Input value
     const inputValue = screen.getByTestId("select-input-value");
-    await user.click(inputValue);
-    await user.type(inputValue, "2023-11-14");
+    await act(async () => {
+      await user.click(inputValue);
+      await user.type(inputValue, "2023-11-14");
+    });
     expect(inputValue).toHaveValue("2023-11-14");
 
     //Check filters
@@ -438,13 +494,17 @@ describe("<CustomFilter />", () => {
     //Select column
     const selectColumn = screen.getByTestId("select-column");
     const selectColumnButton = within(selectColumn).getByRole("button");
-    await user.click(selectColumnButton);
+    await act(async () => {
+      await user.click(selectColumnButton);
+    });
 
     const creditCardUsedOption = screen.getByRole("option", {
       name: "CreditCardUsed",
     });
     expect(creditCardUsedOption).toBeVisible();
-    await user.click(creditCardUsedOption);
+    await act(async () => {
+      await user.click(creditCardUsedOption);
+    });
     expect(creditCardUsedOption).not.toBeVisible();
     expect(selectColumn).toHaveTextContent("CreditCardUsed");
 
@@ -454,7 +514,9 @@ describe("<CustomFilter />", () => {
       "select-condition-options",
     );
     const selectConditionButton = within(selectCondition).getByRole("button");
-    await user.click(selectConditionButton);
+    await act(async () => {
+      await user.click(selectConditionButton);
+    });
 
     const eqConditionOption = within(selectConditionOptions).getByText(
       "に等しい",
@@ -472,7 +534,9 @@ describe("<CustomFilter />", () => {
 
     expect(screen.queryByText("を含む")).toBeNull();
 
-    await user.click(eqConditionOption);
+    await act(async () => {
+      await user.click(eqConditionOption);
+    });
 
     expect(eqConditionOption).not.toBeVisible();
     expect(selectCondition).toHaveTextContent("に等しい");
@@ -480,13 +544,17 @@ describe("<CustomFilter />", () => {
     //Select value
     const selectValue = screen.getByTestId("select-input-value");
     const selectValueButton = within(selectValue).getByRole("button");
-    await user.click(selectValueButton);
+    await act(async () => {
+      await user.click(selectValueButton);
+    });
 
     const trueOption = screen.getByRole("option", { name: "true" });
     expect(trueOption).toBeVisible();
     expect(screen.getByRole("option", { name: "false" })).toBeVisible();
 
-    await user.click(trueOption);
+    await act(async () => {
+      await user.click(trueOption);
+    });
 
     expect(trueOption).not.toBeVisible();
     expect(selectValue).toHaveTextContent("true");

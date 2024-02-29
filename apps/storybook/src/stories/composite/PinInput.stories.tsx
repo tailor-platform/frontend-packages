@@ -1,8 +1,8 @@
 import {
-  PinInput,
+  PinInputRoot,
   PinInputControl,
   PinInputInput,
-  type PinInputProps,
+  type PinInputRootProps,
 } from "@ark-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
 
@@ -11,28 +11,28 @@ import { input, pinInput } from "@tailor-platform/styled-system/recipes";
 
 import { pinInputTypes } from "../../ark-types";
 
-PinInput.displayName = "PinInput";
+PinInputRoot.displayName = "PinInput";
 PinInputControl.displayName = "PinInputControl";
 PinInputInput.displayName = "PinInputInput";
 
 const meta = {
   title: "Composite/PinInput",
-  component: PinInput,
+  component: PinInputRoot,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
   argTypes: { ...pinInputTypes },
-} satisfies Meta<PinInputProps>;
+} satisfies Meta<PinInputRootProps>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: (props) => (
-    <PinInput
+    <PinInputRoot
       placeholder="0"
-      onComplete={(e) => alert(e.valueAsString)}
+      onValueComplete={(e) => alert(e.valueAsString)}
       className={pinInput()}
       {...props}
     >
@@ -48,6 +48,6 @@ export const Default: Story = {
           />
         ))}
       </PinInputControl>
-    </PinInput>
+    </PinInputRoot>
   ),
 };

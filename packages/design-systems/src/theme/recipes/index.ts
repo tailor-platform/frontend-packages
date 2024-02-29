@@ -9,16 +9,11 @@ import { drawer } from "./drawer";
 import { hoverCard } from "./hover-card";
 import { input } from "./input";
 import { link } from "./link";
-import { menu } from "./menu";
-import { numberInput } from "./number-input";
 import { pinInput } from "./pin-input";
 import { popover } from "./popover";
 import { radio } from "./radio";
 import { scrollBar } from "./scroll-bar";
 import { skeletonLoader } from "./skeleton-loader";
-import { switchRecipe } from "./switch";
-import { tabs } from "./tabs";
-import { tooltip } from "./tooltip";
 import { label } from "./label";
 import { labelField } from "./label-field";
 
@@ -34,16 +29,11 @@ export const recipes = {
   hoverCard,
   input,
   link,
-  menu,
-  numberInput,
   pinInput,
   popover,
   radio,
   scrollBar,
   skeletonLoader,
-  switchRecipe,
-  tabs,
-  tooltip,
   label,
   labelField,
 };

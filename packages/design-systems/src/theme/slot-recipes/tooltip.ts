@@ -1,12 +1,11 @@
 import { tooltipAnatomy } from "@ark-ui/anatomy";
-import { defineParts, defineRecipe } from "@pandacss/dev";
+import { defineSlotRecipe } from "@pandacss/dev";
 
-const parts = defineParts(tooltipAnatomy.build());
-
-export const tooltip = defineRecipe({
+export const tooltip = defineSlotRecipe({
   className: "tooltip",
   description: "A tooltip style",
-  base: parts({
+  slots: [...tooltipAnatomy.keys()],
+  base: {
     content: {
       background: "fg.default",
       borderRadius: "l2",
@@ -21,5 +20,5 @@ export const tooltip = defineRecipe({
         animation: "fadeIn 0.25s ease-out",
       },
     },
-  }),
+  },
 });
