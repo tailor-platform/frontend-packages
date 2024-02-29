@@ -67,7 +67,7 @@ export class Config {
 
   loginCallbackPath(strategy?: string) {
     const basePath = this.params.loginCallbackPath || `/login/callback`;
-    return strategy ? basePath + "/" + strategy : basePath;
+    return strategy ? `${basePath}/${strategy}` : basePath;
   }
 
   tokenPath() {
