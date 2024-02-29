@@ -22,7 +22,7 @@ jobs:
               repo: context.repo.repo,
               per_page: 1,
             })
-            const targetReleases = releases.filter((release) => 
-              release.tag_name.startsWith(PACKAGE_NAME),
-            )
+            const targetReleases = releases.filter(({ tag_name }) => tag_name.startsWith(PACKAGE_NAME))
+            const release = targetReleases[0]
+            console.log("Previous release:", release)
 
