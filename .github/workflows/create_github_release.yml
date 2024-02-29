@@ -26,6 +26,10 @@ jobs:
             const { tag_name: previousReleaseTag } = targetReleases[0]
             console.log("Previous release:", previousReleaseTag)
 
+            // Build a tag for next release
+            const nextReleaseTag = `${PACKAGE_NAME}/${NEXT_TAG}`
+            console.log("Next release:", nextReleaseTag)
+
             // Generatea a releaese note
             const generatedRelease = await github.rest.repos.generateReleaseNotes({
               owner: context.repo.owner,
@@ -33,6 +37,5 @@ jobs:
               tag_name: `${PACKAGE_NAME}/${NEXT_TAG}`,
               previous_tag_name: previousReleaseTag,
             })
-
-            console.log(generatedRelease.body)
+            console.log(generatedRelease)
 
