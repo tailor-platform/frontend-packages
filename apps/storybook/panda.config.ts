@@ -7,7 +7,5 @@ export default buildPandaConfig(
       "./src/stories/**/*.{js,jsx,ts,tsx}",
       "./node_modules/@tailor-platform/design-systems/dist/panda.buildinfo.json",
     ],
-    importMap: "@tailor-platform/design-systems",
-    outdir: "@tailor-platform/styled-system",
   }),
 );

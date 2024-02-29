@@ -1,19 +1,17 @@
 import { switchAnatomy } from "@ark-ui/anatomy";
-import { defineParts, defineRecipe } from "@pandacss/dev";
+import { defineSlotRecipe } from "@pandacss/dev";
 
-const parts = defineParts(switchAnatomy.build());
-
-export const switchRecipe = defineRecipe({
+export const switchRecipe = defineSlotRecipe({
   className: "switchRecipe",
   description: "A switch style",
-  base: parts({
+  slots: [...switchAnatomy.keys()],
+  base: {
     root: {
       display: "flex",
       alignItems: "center",
       position: "relative",
       gap: "2",
       width: "fit-content",
-
       "--switch-track-diff":
         "calc(var(--switch-track-width) - var(--switch-track-height))",
       "--switch-thumb-x": "var(--switch-track-diff)",
@@ -87,5 +85,5 @@ export const switchRecipe = defineRecipe({
         transform: "translateX(var(--switch-thumb-x))",
       },
     },
-  }),
+  },
 });

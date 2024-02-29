@@ -1,12 +1,11 @@
 import { tabsAnatomy } from "@ark-ui/anatomy";
-import { defineParts, defineRecipe } from "@pandacss/dev";
+import { defineSlotRecipe } from "@pandacss/dev";
 
-const parts = defineParts(tabsAnatomy.build());
-
-export const tabs = defineRecipe({
+export const tabs = defineSlotRecipe({
   className: "tabs",
   description: "A tabs style",
-  base: parts({
+  slots: [...tabsAnatomy.keys()],
+  base: {
     root: {
       width: "full",
     },
@@ -54,10 +53,10 @@ export const tabs = defineRecipe({
       minH: "xl",
       p: "4",
     },
-  }),
+  },
   variants: {
     variant: {
-      fill: parts({
+      fill: {
         list: {
           alignItems: "center",
           background: {
@@ -80,7 +79,7 @@ export const tabs = defineRecipe({
         indicator: {
           background: "primary.default",
         },
-      }),
+      },
     },
   },
 });

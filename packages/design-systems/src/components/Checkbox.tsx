@@ -1,10 +1,10 @@
 import { styled } from "@tailor-platform/styled-system/jsx";
 import { checkbox } from "@tailor-platform/styled-system/recipes";
 import {
-  Checkbox as ArkCheckbox,
+  CheckboxRoot as ArkCheckbox,
   CheckboxControl,
   CheckboxLabel,
-  type CheckboxProps as ArkCheckboxProps,
+  type CheckboxRootProps as ArkCheckboxProps,
 } from "@ark-ui/react";
 import type { ReactNode } from "react";
 

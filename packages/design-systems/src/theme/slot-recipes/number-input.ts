@@ -1,7 +1,5 @@
 import { numberInputAnatomy } from "@ark-ui/anatomy";
-import { defineParts, defineRecipe } from "@pandacss/dev";
-
-const parts = defineParts(numberInputAnatomy.build());
+import { defineSlotRecipe } from "@pandacss/dev";
 
 const trigger = {
   alignItems: "center",
@@ -50,10 +48,11 @@ const trigger = {
   },
 } as const;
 
-export const numberInput = defineRecipe({
+export const numberInput = defineSlotRecipe({
   className: "numberInput",
   description: "A number input style",
-  base: parts({
+  slots: [...numberInputAnatomy.keys()],
+  base: {
     root: {
       borderColor: "border.emphasized",
       borderRadius: "lg",
@@ -94,5 +93,5 @@ export const numberInput = defineRecipe({
       borderBottomWidth: "1px",
       borderColor: "border.emphasized",
     },
-  }),
+  },
 });

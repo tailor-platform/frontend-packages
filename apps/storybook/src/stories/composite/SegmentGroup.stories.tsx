@@ -1,20 +1,20 @@
-import { SegmentGroup, SegmentGroupProps } from "@ark-ui/react";
+import { SegmentGroup, type SegmentGroupRootProps } from "@ark-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { segmentGroup } from "@tailor-platform/styled-system/recipes";
 import { segmentGroupTypes } from "../../ark-types";
 
-SegmentGroup.displayName = "SegmentGroup";
+SegmentGroup.Root.displayName = "SegmentGroup";
 
 const meta = {
   title: "Composite/Segment",
-  component: SegmentGroup,
+  component: SegmentGroup.Root,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
   argTypes: { ...segmentGroupTypes },
-} satisfies Meta<SegmentGroupProps>;
+} satisfies Meta<SegmentGroupRootProps>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

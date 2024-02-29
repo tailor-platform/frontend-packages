@@ -1,6 +1,6 @@
 import {
   Accordion as ArkAccordion,
-  type AccordionProps as ArkAccordionProps,
+  type AccordionRootProps as ArkAccordionProps,
 } from "@ark-ui/react";
 import { type HTMLStyledProps } from "@tailor-platform/styled-system/jsx";
 import {
