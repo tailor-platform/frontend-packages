@@ -1,0 +1,20 @@
+name: create Github release
+
+on: push
+
+jobs:
+  create-github-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: get the latest release
+        with:
+          script: |
+            cosnst releases = await github.rest.issues.listReleases({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              per_page: 1,
+            })
+            console.log(releases)
