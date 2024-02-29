@@ -31,7 +31,7 @@ jobs:
         with:
           kind: default
           previous-tag: ${{ steps.get-previous-tag.outputs.result }}
-          current-tag: ${{ env.PACKAGE_NAME }}/${{ env.NEXT_TAG }}
+          # current-tag: ${{ env.PACKAGE_NAME }}/${{ env.NEXT_TAG }}
           scopes: |
             ${{ env.PACKAGE_NAME }}
           include-non-scoped: false
