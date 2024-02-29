@@ -29,6 +29,7 @@ jobs:
             return previousReleaseTag
 
       - name: Generate a release note
+        id: generate-release-note
         uses: yuk1ty/conventional-release-note@v1.1.1
         with:
           kind: default
@@ -37,3 +38,6 @@ jobs:
           scopes: |
             ${{ env.PACKAGE_NAME }}
           include-non-scoped: false
+
+      - name: Dump release note
+        run: echo "${{ steps.generate-release-note.outputs.summary }}"
