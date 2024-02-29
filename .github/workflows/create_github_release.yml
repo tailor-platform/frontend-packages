@@ -36,6 +36,9 @@ jobs:
               next: nextReleaseTag
             } 
 
+      - name: Dump result
+        run: echo "${{ steps.get-tags.outputs.result }}"
+
       - name: Generate a release note
         uses: yuk1ty/conventional-release-note@v1.1.1
         with:
