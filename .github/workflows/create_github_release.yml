@@ -37,7 +37,7 @@ jobs:
             } 
 
       - name: Generate a release note
-        uses: yuk1ty/conventional-release-note@v1
+        uses: yuk1ty/conventional-release-note@v1.1.1
         with:
           kind: default
           previous-tag: steps.get-tags.outputs.result.previous
