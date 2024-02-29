@@ -1,6 +1,6 @@
 import {
   HoverCard as ArkHoverCard,
-  type HoverCardProps as ArkHoverCardProps,
+  type HoverCardRootProps as ArkHoverCardProps,
   Portal,
 } from "@ark-ui/react";
 import { type HTMLStyledProps } from "@tailor-platform/styled-system/jsx";

@@ -4,7 +4,7 @@ import {
   Button,
   Text,
   HoverCard,
-  type HoverCardRootProps,
+  type HoverCardProps,
 } from "@tailor-platform/design-systems";
 import { Stack, styled } from "@tailor-platform/styled-system/jsx";
 import { hoverCardTypes } from "../../ark-types";
@@ -17,7 +17,7 @@ const meta = {
   },
   tags: ["autodocs"],
   argTypes: { ...hoverCardTypes },
-} satisfies Meta<HoverCardRootProps>;
+} satisfies Meta<HoverCardProps>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
