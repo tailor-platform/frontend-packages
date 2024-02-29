@@ -4,6 +4,7 @@ on: push
 
 env:
   PACKAGE_NAME: utils
+  NEXT_TAG: "0.4.0"
 
 jobs:
   create-github-release:
@@ -16,12 +17,22 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const { PACKAGE_NAME } = process.env
+            const { PACKAGE_NAME, NEXT_TAG } = process.env
             const { data: releases } = await github.rest.repos.listReleases({
               owner: context.repo.owner,
               repo: context.repo.repo,
             })
             const targetReleases = releases.filter(({ tag_name }) => tag_name.startsWith(PACKAGE_NAME))
-            const release = targetReleases[0]
-            console.log("Previous release:", release)
+            const { tag_name: previousReleaseTag } = targetReleases[0]
+            console.log("Previous release:", previousReleaseTag)
+
+            // Generatea a releaese note
+            const generatedRelease = await github.rest.repos.generateReleaseNotes({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: `${PACKAGE_NAME}/${NEXT_TAG}`,
+              previous_tag_name: previousReleaseTag,
+            })
+
+            console.log(generatedRelease.body)
 
