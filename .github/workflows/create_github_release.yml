@@ -37,7 +37,7 @@ jobs:
             } 
 
       - name: Dump result
-        run: echo "${{ steps.get-tags.outputs.result[\"previous\"] }}"
+        run: echo "${{ toJSON(steps.get-tags.outputs.result).previous }}"
 
       - name: Generate a release note
         uses: yuk1ty/conventional-release-note@v1.1.1
