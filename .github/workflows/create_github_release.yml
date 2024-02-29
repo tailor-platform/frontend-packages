@@ -34,7 +34,6 @@ jobs:
         with:
           kind: default
           previous-tag: design-systems/0.13.0
-          current-tag: design-systems/0.14.0
           # previous-tag: ${{ steps.get-previous-tag.outputs.result }}
           # current-tag: ${{ env.PACKAGE_NAME }}/${{ env.NEXT_TAG }}
           scopes: |
