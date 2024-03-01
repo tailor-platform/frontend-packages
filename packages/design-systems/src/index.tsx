@@ -68,3 +68,8 @@ export {
   type DatePickerProps,
 } from "@/components/composite/DatePicker";
 export { Dialog, type DialogProps } from "@/components/composite/Dialog";
+
+export {
+  Pagination,
+  type PaginationProps,
+} from "@/components/composite/Pagination";
