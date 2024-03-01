@@ -2,7 +2,7 @@ import { defineConfig } from "tsup";
 
 export default defineConfig({
   banner: {
-    js: "use client"
+    js: `"use client"`,
   },
   entry: {
     index: "src/index.tsx",
