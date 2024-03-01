@@ -1,5 +1,3 @@
-"use client";
-
 import { flexRender } from "@tanstack/react-table";
 import { Columns as ColumnsIcon, Filter as FilterIcon } from "lucide-react";
 import { Pagination } from "@ark-ui/react";

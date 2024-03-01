@@ -38,6 +38,7 @@
     "lint": "eslint '**/*.{ts,tsx}' --ignore-pattern 'dist/*' --max-warnings=0",
     "publish:dev": "pnpm build && yalc push --sig",
     "publish:dev:watch": "nodemon -e ts,tsx -w ./src -x 'rm -rf ./dist && pnpm publish:dev'",
+    "release:preview": "NODE_ENV=production pnpm run build && pnpm publish --tag preview",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "type-check": "tsc --noEmit --incremental --pretty",
     "pre-commit": "lint-staged && pnpm type-check",
