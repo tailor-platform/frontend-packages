@@ -30,7 +30,6 @@ export const pinInput = defineSlotRecipe({
           borderRadius: "l2",
           borderWidth: "1px",
           color: "fg.default",
-          textAlign: "left",
           _focus: {
             zIndex: 1,
             "--shadow": {
