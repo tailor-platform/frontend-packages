@@ -24,11 +24,13 @@ export const callbackHandler: RouteHandler = async ({
   options,
 }) => {
   const strategyName = request.nextUrl.pathname.split("/").pop();
-  if (!strategyName || strategyName === "callback") {
+  if (!strategyName
+    // || strategyName === "callback"
+  ) {
     throw noCorrespondingStrategyError("<empty>");
   }
 
-  const strategy = config.getStrategy(strategyName);
+  const strategy = config.getStrategy(strategyName === "callback" ? "default" : strategyName);
   if (!strategy) {
     throw noCorrespondingStrategyError(strategyName);
   }
@@ -72,6 +74,6 @@ const buildCookieEntry = <const T extends keyof Session>(
     value: session[value],
     sameSite: "strict" as const,
     httpOnly: true,
-    secure: true,
+    // secure: true,
   };
 };
