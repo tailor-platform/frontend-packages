@@ -33,7 +33,7 @@
   "repository": "https://github.com/tailor-platform/frontend-packages",
   "scripts": {
     "prepare": "panda codegen",
-    "build": "tsup --config tsup.config.ts && tsup --clean false --config tsup-client.config.ts && panda ship --outfile dist/panda.buildinfo.json",
+    "build": "tsup --config tsup.config.ts && panda ship --outfile dist/panda.buildinfo.json",
     "dev": "pnpm build --watch",
     "lint": "eslint '**/*.{ts,tsx}' --ignore-pattern 'dist/*' --max-warnings=0",
     "publish:dev": "pnpm build && yalc push --sig",
