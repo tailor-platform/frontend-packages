@@ -9,7 +9,6 @@ import { drawer } from "./drawer";
 import { hoverCard } from "./hover-card";
 import { input } from "./input";
 import { link } from "./link";
-// import { pinInput } from "./pin-input";
 import { popover } from "./popover";
 import { radio } from "./radio";
 import { scrollBar } from "./scroll-bar";
@@ -29,7 +28,6 @@ export const recipes = {
   hoverCard,
   input,
   link,
-  // pinInput,
   popover,
   radio,
   scrollBar,
