@@ -1,4 +1,22 @@
-import { defineConfig } from "tsup";
+/// <reference types="node" />
+import { Options, defineConfig } from "tsup";
+
+const devOpts: Options =
+  process.env.NODE_ENV === "development"
+    ? {
+        minify: false,
+        splitting: false,
+        sourcemap: true,
+      }
+    : {};
+
+const commonOpts: Options = {
+  format: ["cjs", "esm"],
+  external: ["react"],
+  dts: true,
+  clean: true,
+  ...devOpts,
+};
 
 export default defineConfig([
   {
@@ -9,11 +27,7 @@ export default defineConfig([
       "locales/ja": "src/locales/ja.ts",
       "locales/en": "src/locales/en.ts",
     },
-    format: ["cjs", "esm"],
-    external: ["react"],
-    dts: true,
-    clean: true,
-    sourcemap: true,
+    ...commonOpts,
   },
   {
     banner: {
@@ -22,10 +36,6 @@ export default defineConfig([
     entry: {
       client: "src/client.tsx",
     },
-    format: ["cjs", "esm"],
-    external: ["react"],
-    dts: true,
-    clean: true,
-    sourcemap: true,
+    ...commonOpts,
   },
 ]);
