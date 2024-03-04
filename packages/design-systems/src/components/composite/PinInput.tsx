@@ -23,8 +23,12 @@ export const PinInput = (props: PinInputProps) => {
       {...rest}
     >
       <ArkPinInput.Control className={classes.control}>
-        {[...Array(digits)].map((id, index) => (
-          <ArkPinInput.Input key={id} index={index} className={classes.input} />
+        {[...(Array(digits) as number[])].map((id, index) => (
+          <ArkPinInput.Input
+            key={"pininput" + id}
+            index={index}
+            className={classes.input}
+          />
         ))}
       </ArkPinInput.Control>
     </ArkPinInput.Root>
