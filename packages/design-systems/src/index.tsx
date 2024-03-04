@@ -64,3 +64,8 @@ export {
   type AccordionItem,
 } from "@/components/composite/Accordion";
 export { Dialog, type DialogProps } from "@/components/composite/Dialog";
+
+export {
+  NumberInput,
+  type NumberInputProps,
+} from "@/components/composite/NumberInput";
