@@ -19,7 +19,7 @@
     "@ark-ui/anatomy": "^2.2.0",
     "@ark-ui/react": "~2.0.2",
     "@hookform/resolvers": "^3.3.2",
-    "@tanstack/react-table": "^8.10.7",
+    "@tanstack/react-table": "^8.12.0",
     "@theme-toggles/react": "^4.1.0",
     "lucide-react": "^0.292.0",
     "react": "^18.2.0",
