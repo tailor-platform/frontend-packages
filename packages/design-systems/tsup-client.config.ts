@@ -5,6 +5,7 @@ export default defineConfig({
     js: `"use client"`,
   },
   entry: {
+    index: "src/index.tsx",
     client: "src/client.tsx",
   },
   format: ["cjs", "esm"],
