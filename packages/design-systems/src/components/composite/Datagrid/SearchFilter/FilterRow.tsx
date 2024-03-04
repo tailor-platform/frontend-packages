@@ -1,5 +1,3 @@
-"use client";
-
 import { useCallback, useMemo } from "react";
 import { CheckIcon, ChevronDown, X } from "lucide-react";
 import { Select as AS, CollectionItem, Portal } from "@ark-ui/react";

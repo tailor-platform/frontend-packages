@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { Box } from "@tailor-platform/styled-system/jsx";
 import type { Column } from "@tanstack/react-table";
