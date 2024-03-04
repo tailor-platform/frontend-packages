@@ -8,7 +8,6 @@ import { dividerStyle } from "./divider";
 import { drawer } from "./drawer";
 import { input } from "./input";
 import { link } from "./link";
-import { pinInput } from "./pin-input";
 import { popover } from "./popover";
 import { radio } from "./radio";
 import { scrollBar } from "./scroll-bar";
@@ -27,7 +26,6 @@ export const recipes = {
   drawer,
   input,
   link,
-  pinInput,
   popover,
   radio,
   scrollBar,

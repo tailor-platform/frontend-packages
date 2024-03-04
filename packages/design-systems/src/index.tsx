@@ -68,10 +68,11 @@ export {
   type HoverCardProps,
 } from "@/components/composite/HoverCard";
 export {
-  Pagination,
-  type PaginationProps,
-} from "@/components/composite/Pagination";
-export {
   NumberInput,
   type NumberInputProps,
 } from "@/components/composite/NumberInput";
+export {
+  Pagination,
+  type PaginationProps,
+} from "@/components/composite/Pagination";
+export { PinInput, type PinInputProps } from "@/components/composite/PinInput";

@@ -7,6 +7,7 @@ import { hoverCard } from "./hover-card";
 import { menu } from "./menu";
 import { numberInput } from "./number-input";
 import { pagination } from "./pagination";
+import { pinInput } from "./pin-input";
 import { radioGroup } from "./radio-group";
 import { segmentGroup } from "./segment-group";
 import { select } from "./select";
@@ -28,6 +29,7 @@ export const slotRecipes = {
   menu,
   numberInput,
   pagination,
+  pinInput,
   radioGroup,
   segmentGroup,
   select,
