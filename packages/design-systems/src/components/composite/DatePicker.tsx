@@ -1,4 +1,4 @@
-import { DatePicker as ArkDatePicker } from "@ark-ui/react";
+import { DatePicker as ArkDatePicker } from "@ark-ui/react/date-picker";
 import { forwardRef } from "react";
 import { type HTMLStyledProps } from "@tailor-platform/styled-system/jsx";
 import { datePicker } from "@tailor-platform/styled-system/recipes";

@@ -1,6 +1,6 @@
 import { flexRender } from "@tanstack/react-table";
 import { Columns as ColumnsIcon, Filter as FilterIcon } from "lucide-react";
-import { Pagination } from "@ark-ui/react";
+import { Pagination } from "@ark-ui/react/pagination";
 import { DragEvent, useCallback, useEffect, useState } from "react";
 import { css } from "@tailor-platform/styled-system/css";
 import { pagination, datagrid } from "@tailor-platform/styled-system/recipes";
