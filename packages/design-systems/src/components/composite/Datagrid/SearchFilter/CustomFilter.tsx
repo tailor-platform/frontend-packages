@@ -1,3 +1,5 @@
+"use client";
+
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Box } from "../../../patterns/Box";
 import { Button } from "../../../Button";
