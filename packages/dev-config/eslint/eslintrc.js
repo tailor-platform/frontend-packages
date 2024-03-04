@@ -8,7 +8,6 @@ module.exports = {
     "plugin:vitest/recommended",
     "plugin:vitest-globals/recommended",
     "plugin:testing-library/react",
-    // TODO: Use "plugin:@typescript-eslint/recommended-type-checked" once sdh-client is ready
     "plugin:@typescript-eslint/recommended-type-checked",
   ],
   ignorePatterns: [
