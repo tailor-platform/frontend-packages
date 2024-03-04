@@ -17,6 +17,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: (props) => (
-    <PinInput onValueComplete={(e) => alert(e.valueAsString)} {...props} />
+    <PinInput digits={4} onValueComplete={(e) => alert(e.valueAsString)} {...props} />
   ),
 };

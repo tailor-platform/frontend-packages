@@ -7,10 +7,12 @@ import {
   type PinInputVariantProps,
 } from "@tailor-platform/styled-system/recipes";
 
-export type PinInputProps = PinInputVariantProps & ArkPinInputProps;
+export type PinInputProps = PinInputVariantProps & ArkPinInputProps & {
+  digits?: number
+};
 
 export const PinInput = (props: PinInputProps) => {
-  const { placeholder = "0", ...rest } = props;
+  const { placeholder = "0", digits = 4, ...rest } = props;
 
   const classes = pinInput();
   return (
@@ -20,7 +22,7 @@ export const PinInput = (props: PinInputProps) => {
       {...rest}
     >
       <ArkPinInput.Control className={classes.control}>
-        {[0, 1, 2, 3].map((id, index) => (
+        {[...Array(digits)].map((id, index) => (
           <ArkPinInput.Input key={id} index={index} className={classes.input} />
         ))}
       </ArkPinInput.Control>
