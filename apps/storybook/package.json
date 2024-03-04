@@ -40,7 +40,7 @@
     "@storybook/react": "^7.5.2",
     "@storybook/react-vite": "^7.6.17",
     "@storybook/testing-library": "^0.2.2",
-    "@storybook/theming": "^7.5.3",
+    "@storybook/theming": "^7.6.17",
     "@tailor-platform/design-systems": "workspace:*",
     "@tailor-platform/dev-config": "workspace:*",
     "@types/react": "^18.2.34",
