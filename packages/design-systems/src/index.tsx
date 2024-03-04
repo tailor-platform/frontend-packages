@@ -64,6 +64,10 @@ export {
 } from "@/components/composite/Accordion";
 export { Dialog, type DialogProps } from "@/components/composite/Dialog";
 export {
+  HoverCard,
+  type HoverCardProps,
+} from "@/components/composite/HoverCard";
+export {
   Pagination,
   type PaginationProps,
 } from "@/components/composite/Pagination";

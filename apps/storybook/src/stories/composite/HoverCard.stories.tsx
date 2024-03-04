@@ -1,10 +1,12 @@
-import { HoverCard, type HoverCardRootProps, Portal } from "@ark-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
-
-import { Avatar, Button, Text } from "@tailor-platform/design-systems";
+import {
+  Avatar,
+  Button,
+  Text,
+  HoverCard,
+  type HoverCardProps,
+} from "@tailor-platform/design-systems";
 import { Stack, styled } from "@tailor-platform/styled-system/jsx";
-import { hoverCard } from "@tailor-platform/styled-system/recipes";
-
 import { hoverCardTypes } from "../../ark-types";
 
 const meta = {
@@ -15,76 +17,60 @@ const meta = {
   },
   tags: ["autodocs"],
   argTypes: { ...hoverCardTypes },
-} satisfies Meta<HoverCardRootProps>;
+} satisfies Meta<HoverCardProps>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: () => (
-    <HoverCard.Root>
-      <HoverCard.Trigger asChild>
-        <a href="https://www.tailor.tech/" target="_blank" rel="noreferrer">
-          <Avatar
-            fallback="TA"
-            alt="Tailor Avatar"
-            src="https://source.boringavatars.com/beam"
-          />
-        </a>
-      </HoverCard.Trigger>
-      <Portal>
-        <HoverCard.Positioner className={hoverCard()}>
-          <HoverCard.Content>
-            <HoverCard.Arrow>
-              <HoverCard.ArrowTip />
-            </HoverCard.Arrow>
-            <Stack gap="4">
-              <Stack
-                direction="row"
-                justifyContent="space-between"
-                width="full"
-              >
-                <Avatar
-                  fallback="TA"
-                  alt="Tailor Avatar"
-                  src="https://source.boringavatars.com/beam"
-                />
-                <Button
-                  variant="secondary"
-                  size="xs"
-                  onClick={() => alert("Follow")}
-                >
-                  Follow
-                </Button>
+  render: () => {
+    const Trigger = (
+      <a href="https://www.tailor.tech/" target="_blank" rel="noreferrer">
+        <Avatar
+          fallback="TA"
+          alt="Tailor Avatar"
+          src="https://source.boringavatars.com/beam"
+        />
+      </a>
+    );
+
+    return (
+      <HoverCard trigger={Trigger}>
+        <Stack gap="4">
+          <Stack direction="row" justifyContent="space-between" width="full">
+            <Avatar
+              fallback="TA"
+              alt="Tailor Avatar"
+              src="https://source.boringavatars.com/beam"
+            />
+            <Button
+              variant="secondary"
+              size="xs"
+              onClick={() => alert("Follow")}
+            >
+              Follow
+            </Button>
+          </Stack>
+          <Stack gap="2">
+            <Stack gap="1">
+              <Stack direction="row" gap="1">
+                <styled.span textStyle="sm" fontWeight="semibold">
+                  tailor
+                </styled.span>
+                <styled.span textStyle="sm" color="fg.muted">
+                  Tailor Inc
+                </styled.span>
               </Stack>
-              <Stack gap="2">
-                <Stack gap="1">
-                  <Stack direction="row" gap="1">
-                    <styled.span textStyle="sm" fontWeight="semibold">
-                      tailor
-                    </styled.span>
-                    <styled.span textStyle="sm" color="fg.muted">
-                      Tailor Inc
-                    </styled.span>
-                  </Stack>
-                  <Text textStyle="sm">
-                    Composable Headless ERP to build your tailor-made business
-                    apps
-                  </Text>
-                </Stack>
-                <Stack
-                  direction="row"
-                  gap="1"
-                  alignItems="center"
-                  color="fg.muted"
-                >
-                  <Text textStyle="xs">Tokyo, Japan</Text>
-                </Stack>
-              </Stack>
+              <Text textStyle="sm">
+                Composable Headless ERP to build your tailor-made business apps
+              </Text>
             </Stack>
-          </HoverCard.Content>
-        </HoverCard.Positioner>
-      </Portal>
-    </HoverCard.Root>
-  ),
+            <Stack direction="row" gap="1" alignItems="center" color="fg.muted">
+              <Text textStyle="xs">Tokyo, Japan</Text>
+            </Stack>
+          </Stack>
+        </Stack>
+      </HoverCard>
+    );
+  },
 };
