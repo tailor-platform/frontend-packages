@@ -6,9 +6,9 @@ export default defineConfig({
   },
   entry: {
     client: "src/client.tsx",
-    "locales/index": "src/locales/index.ts",
-    "locales/ja": "src/locales/ja.ts",
-    "locales/en": "src/locales/en.ts",
+    // "locales/index": "src/locales/index.ts",
+    // "locales/ja": "src/locales/ja.ts",
+    // "locales/en": "src/locales/en.ts",
   },
   format: ["cjs", "esm"],
   external: ["react"],
