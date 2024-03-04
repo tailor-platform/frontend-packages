@@ -6,7 +6,6 @@ import { button } from "./button";
 import { checkbox } from "./checkbox";
 import { dividerStyle } from "./divider";
 import { drawer } from "./drawer";
-import { hoverCard } from "./hover-card";
 import { input } from "./input";
 import { link } from "./link";
 import { popover } from "./popover";
@@ -25,7 +24,6 @@ export const recipes = {
   checkbox,
   dividerStyle,
   drawer,
-  hoverCard,
   input,
   link,
   popover,
