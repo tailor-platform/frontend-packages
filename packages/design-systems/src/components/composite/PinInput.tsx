@@ -7,9 +7,10 @@ import {
   type PinInputVariantProps,
 } from "@tailor-platform/styled-system/recipes";
 
-export type PinInputProps = PinInputVariantProps & ArkPinInputProps & {
-  digits?: number
-};
+export type PinInputProps = PinInputVariantProps &
+  ArkPinInputProps & {
+    digits?: number;
+  };
 
 export const PinInput = (props: PinInputProps) => {
   const { placeholder = "0", digits = 4, ...rest } = props;
