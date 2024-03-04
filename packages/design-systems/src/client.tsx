@@ -15,4 +15,8 @@ export {
   type Localization,
   useDataGrid,
 } from "@components/composite/Datagrid";
+export {
+  DatePicker,
+  type DatePickerProps,
+} from "@/components/composite/DatePicker";
 export * from "@tanstack/react-table";
