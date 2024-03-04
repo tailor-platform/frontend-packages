@@ -57,18 +57,21 @@ export {
 } from "@/components/patterns/VisuallyHidden";
 export { VStack, type VstackProps } from "@/components/patterns/VStack";
 export { Wrap, type WrapProps } from "@/components/patterns/Wrap";
-
 export {
   Accordion,
   type AccordionProps,
   type AccordionItem,
 } from "@/components/composite/Accordion";
-export {
-  DatePicker,
-  type DatePickerProps,
-} from "@/components/composite/DatePicker";
 export { Dialog, type DialogProps } from "@/components/composite/Dialog";
 export {
   HoverCard,
   type HoverCardProps,
 } from "@/components/composite/HoverCard";
+export {
+  Pagination,
+  type PaginationProps,
+} from "@/components/composite/Pagination";
+export {
+  NumberInput,
+  type NumberInputProps,
+} from "@/components/composite/NumberInput";

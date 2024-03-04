@@ -4,7 +4,7 @@ import { Flex } from "@tailor-platform/styled-system/jsx";
 import {
   DatePicker,
   type DatePickerProps,
-} from "@tailor-platform/design-systems";
+} from "@tailor-platform/design-systems/client";
 
 import { datePickerTypes } from "../../ark-types";
 
