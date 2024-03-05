@@ -1,0 +1,19 @@
+name: release @tailor-platform/utils
+
+on:
+  push:
+    tags:
+      - "utils/*"
+
+jobs:
+  create-release:
+    uses: ./.github/workflows/create_github_release.yml
+    secrets: inherit
+    with:
+      package_name: utils
+
+  publish-package:
+    uses: ./.github/workflows/publish_npm_package.yml
+    secrets: inherit
+    with:
+      package_name: utils
