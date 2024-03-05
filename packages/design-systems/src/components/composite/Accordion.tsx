@@ -1,7 +1,7 @@
 import {
   Accordion as ArkAccordion,
   type AccordionRootProps as ArkAccordionProps,
-} from "@ark-ui/react";
+} from "@ark-ui/react/accordion";
 import { type HTMLStyledProps } from "@tailor-platform/styled-system/jsx";
 import {
   accordion,

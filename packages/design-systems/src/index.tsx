@@ -28,8 +28,7 @@ export {
   type TableProps,
   type TableRowProps,
 } from "@/components/Table";
-export { Text } from "@/components/Text";
-export { Textarea, type TextareaProps } from "@/components/Textarea";
+export { Text, Textarea } from "@/components/Text";
 export { LabelField, type LabelFieldProps } from "@/components/LabelField";
 
 export {

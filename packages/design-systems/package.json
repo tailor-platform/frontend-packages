@@ -1,6 +1,6 @@
 {
   "name": "@tailor-platform/design-systems",
-  "version": "0.17.3",
+  "version": "0.17.4",
   "private": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -41,7 +41,8 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "type-check": "tsc --noEmit --incremental --pretty",
     "pre-commit": "lint-staged && pnpm type-check",
-    "test": "vitest run --reporter verbose"
+    "test": "vitest run --reporter verbose",
+    "release:preview": "NODE_ENV=production pnpm run build && pnpm publish --tag preview"
   },
   "lint-staged": {
     "./**/*.{js,ts,tsx,jsx}": [
@@ -71,8 +72,8 @@
     "zod": "^3.22.4"
   },
   "dependencies": {
-    "@ark-ui/anatomy": "^2.2.0",
-    "@ark-ui/react": "~2.0.2",
+    "@ark-ui/anatomy": "2.3.1",
+    "@ark-ui/react": "2.2.2",
     "@pandacss/types": "^0.20.1",
     "@radix-ui/react-slot": "^1.0.2",
     "@tanstack/react-table": "^8.12.0",
@@ -81,8 +82,8 @@
     "react-hook-form": "^7.48.2"
   },
   "peerDependencies": {
-    "@ark-ui/anatomy": "^2.2.0",
-    "@ark-ui/react": "~2.0.2",
+    "@ark-ui/anatomy": "2.3.1",
+    "@ark-ui/react": "2.2.2",
     "@pandacss/dev": "^0.29.1"
   },
   "prettier": "@tailor-platform/dev-config/prettier"

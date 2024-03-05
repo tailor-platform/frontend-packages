@@ -1,8 +1,7 @@
-"use client";
-
 import { useCallback, useMemo } from "react";
 import { CheckIcon, ChevronDown, X } from "lucide-react";
-import { Select as AS, CollectionItem, Portal } from "@ark-ui/react";
+import { Select as AS, CollectionItem } from "@ark-ui/react/select";
+import { Portal } from "@ark-ui/react/portal";
 import { styled } from "@tailor-platform/styled-system/jsx";
 import { select } from "@tailor-platform/styled-system/recipes";
 import { Box } from "../../../patterns/Box";

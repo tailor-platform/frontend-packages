@@ -5,7 +5,7 @@ import {
   CheckboxControl,
   CheckboxLabel,
   type CheckboxRootProps as ArkCheckboxProps,
-} from "@ark-ui/react";
+} from "@ark-ui/react/checkbox";
 import type { ReactNode } from "react";
 
 export type CheckboxProps = ArkCheckboxProps & {

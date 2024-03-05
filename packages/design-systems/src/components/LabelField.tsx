@@ -1,4 +1,3 @@
-"use client";
 import { cx } from "@tailor-platform/styled-system/css";
 import { labelField } from "@tailor-platform/styled-system/recipes";
 import { Box, Stack } from "@tailor-platform/styled-system/jsx";
