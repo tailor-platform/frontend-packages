@@ -22,6 +22,9 @@ jobs:
         with:
           node-version-file: 'package.json'
 
+      - name: Check if the package is publishable
+        run: npx can-npm-publish --verbose
+
       - uses: ./.github/actions/install_and_build
         with:
           scope: "@tailor-platform/${{ inputs.package_name }}"
