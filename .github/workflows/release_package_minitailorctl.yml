@@ -20,12 +20,3 @@ jobs:
       package_name: minitailorctl
       cc_name: mtctl
       tag: ${{ needs.check-existing-release.outputs.tag }}
-  publish-npm-package:
-    needs:
-      - check-existing-release
-      - make-release-if-needed
-    uses: ./.github/workflows/publish_npm_package.yml
-    secrets: inherit
-    with:
-      package_name: minitailorctl
-

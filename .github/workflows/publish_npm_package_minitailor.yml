@@ -1,0 +1,13 @@
+name: publish @tailor-platform/minitailor to npm
+
+on:
+  push:
+    tags:
+      - "minitailor/*"
+
+jobs:
+  publish:
+    uses: ./.github/workflows/publish_npm_package.yml
+    secrets: inherit
+    with:
+      package_name: minitailor

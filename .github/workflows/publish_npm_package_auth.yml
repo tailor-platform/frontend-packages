@@ -1,0 +1,13 @@
+name: publish @tailor-platform/auth to npm
+
+on:
+  push:
+    tags:
+      - "auth/*"
+
+jobs:
+  publish:
+    uses: ./.github/workflows/publish_npm_package.yml
+    secrets: inherit
+    with:
+      package_name: auth

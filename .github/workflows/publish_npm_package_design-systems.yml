@@ -1,0 +1,13 @@
+name: publish @tailor-platform/design-systems to npm
+
+on:
+  push:
+    tags:
+      - "design-systems/*"
+
+jobs:
+  publish:
+    uses: ./.github/workflows/publish_npm_package.yml
+    secrets: inherit
+    with:
+      package_name: design-systems

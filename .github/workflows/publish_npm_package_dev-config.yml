@@ -1,0 +1,13 @@
+name: publish @tailor-platform/dev-config to npm
+
+on:
+  push:
+    tags:
+      - "dev-config/*"
+
+jobs:
+  publish:
+    uses: ./.github/workflows/publish_npm_package.yml
+    secrets: inherit
+    with:
+      package_name: dev-config
