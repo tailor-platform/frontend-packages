@@ -8,22 +8,7 @@ on:
       - packages/utils/package.json
 
 jobs:
-  check-existing-release:
-    uses: ./.github/workflows/check_existing_release.yml
-    with:
-      package_name: utils
-  make-release-if-needed:
-    needs: check-existing-release
-    if: ${{ needs.check-existing-release.outputs.tag_exists == 'false' }}
-    uses: ./.github/workflows/make_github_release.yml
-    with:
-      package_name: utils
-      tag: ${{ needs.check-existing-release.outputs.tag }}
-  publish-npm-package:
-    needs:
-      - check-existing-release
-      - make-release-if-needed
-    uses: ./.github/workflows/publish_npm_package.yml
-    secrets: inherit
+  create-tag:
+    uses: ./.github/workflows/create-tag-from-package.yml
     with:
       package_name: utils
