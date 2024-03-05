@@ -1,0 +1,14 @@
+name: create a release tag for @tailor-platform/utils
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - packages/utils/package.json
+
+jobs:
+  create-tag:
+    uses: ./.github/workflows/create_release_tag.yml
+    with:
+      package_name: utils
