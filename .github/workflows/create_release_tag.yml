@@ -1,4 +1,4 @@
-name: create tag from package.json
+name: create a release tag from package.json
 
 on:
   workflow_call:
