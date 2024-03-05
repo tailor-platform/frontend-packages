@@ -7,9 +7,6 @@ autolabeler:
   - label: 'App: storybook'
     files:
       - apps/storybook/**
-  - label: 'Package: client'
-    files:
-      - packages/client/**
   - label: 'Package: design-systems'
     files:
       - packages/design-systems/**

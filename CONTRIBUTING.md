@@ -42,8 +42,6 @@ By using the correct conventional commit prefixes, the [labeler](./.github/workf
 
 | SCOPE        | Description                              |
 | ------------ | ---------------------------------------- |
-| (client)     | @tailor-platform/client                  |
-| (datagrid)   | @tailor-platform/datagrid                |
 | (ds)         | @tailor-platform/design-systems          |
 | (dev-config) | @tailor-platform/dev-config              |
 | (monitoring) | @tailor-platform/monitoring              |
@@ -57,8 +55,6 @@ By using the correct conventional commit prefixes, the [labeler](./.github/workf
 ```
 feat(ds): Add Pagination component for easier data browsing
 
-fix(client): Fix bug causing errors in TailorProvider
-
 chore(utils): Update comments for toTailorDate function
 ```
 
@@ -66,13 +62,13 @@ chore(utils): Update comments for toTailorDate function
 
 ### When a PR is opened
 
-The labeler will run and add labels depending on the changed file paths ("Package: client", ...) and on the PR title prefix, following the Conventional Commit conventions ("Type: Feature", ...).
+The labeler will run and add labels depending on the changed file paths ("Package: auth", ...) and on the PR title prefix, following the Conventional Commit conventions ("Type: Feature", ...).
 
 ### When a PR is merged
 
 1. The release workflows will be kicked off based on changes in the package.json files: the logic is if the package.json of the package(s) has not changed, then no version bump has been performed.
 
-1. If there's a change in a package.json file, it will extract the version and check whether a tag already exists based on the package name: client -> client/x.x.x, utils -> utils/x.x.x, ...
+1. If there's a change in a package.json file, it will extract the version and check whether a tag already exists based on the package name: auth -> auth/x.x.x, utils -> utils/x.x.x, ...
 
 1. If no tag for that version exists, it will use GitHub's release notes API to auto-generate the notes for the relevant package. Please note that the release notes are filtered to only include entries that pertain to the package being released.
 

@@ -13,7 +13,6 @@ module.exports = {
   ],
 
   scopes: [
-    { name: "client" },
     { name: "dev-config" },
     { name: "ds" },
     { name: "monitoring" },
