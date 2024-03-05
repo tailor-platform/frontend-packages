@@ -1,0 +1,36 @@
+name: create tag from package.json
+
+on:
+  workflow_call:
+    inputs:
+      package_name:
+        type: string
+        required: true
+        description: the name of the package
+
+permissions:
+  contents: write
+
+jobs:
+  create-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+
+      - name: Extract version
+        id: extract-version
+        uses: Saionaro/extract-package-version@v1.2.1
+        with:
+          path: "packages/${{ inputs.package_name }}"
+
+      - name: package-version-to-git-tag
+        uses: pkgdeps/git-tag-action@v2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_repo: ${{ github.repository }}
+          git_commit_sha: ${{ github.sha }}
+          git_tag_prefix: "${{ inputs.package_name }}/"
+          version: ${{ steps.extract-version.outputs.version }}
