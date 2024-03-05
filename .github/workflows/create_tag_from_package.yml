@@ -26,6 +26,8 @@ jobs:
         with:
           path: "packages/${{ inputs.package_name }}"
 
+      # Attempt to create a new tag if not.
+      # This action does nothing if the same tag is already created on Github.
       - name: package-version-to-git-tag
         uses: pkgdeps/git-tag-action@v2
         with:
