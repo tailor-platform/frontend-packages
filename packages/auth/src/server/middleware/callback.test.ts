@@ -99,7 +99,18 @@ describe("callback", () => {
 });
 
 describe("decideStrategy", () => {
-  it("decides strategy by pathname", () => {
+  it.each(["saml", "oidc", "minitailor"])(
+    "decides strategy by name (%s)",
+    (name) => {
+      const strategy = decideStrategy(
+        `/login/callback/${name}`,
+        mockAuthConfig,
+      );
+      expect(strategy.name()).toBe(name);
+    },
+  );
+
+  it("fallbacks into default if no applicable strategy decided", () => {
     const strategy = decideStrategy("/login/callback", mockAuthConfig);
 
     expect(strategy.name()).toBe("default");
