@@ -86,6 +86,6 @@ export class Config {
   }
 
   secure() {
-    return this.params.secure !== false;
+    return this.params.secure;
   }
 }
