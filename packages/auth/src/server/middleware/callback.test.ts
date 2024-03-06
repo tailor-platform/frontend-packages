@@ -2,6 +2,7 @@ import { beforeAll, afterAll, afterEach, describe, expect, it } from "vitest";
 import { NextResponse } from "next/server";
 import { HttpResponse, http } from "msw";
 import {
+  EmptyStrategyError,
   callbackHandler,
   decideStrategy,
   exchangeError,
@@ -110,9 +111,9 @@ describe("decideStrategy", () => {
     },
   );
 
-  it("fallbacks into default if no applicable strategy decided", () => {
-    const strategy = decideStrategy("/login/callback", mockAuthConfig);
-
-    expect(strategy.name()).toBe("default");
+  it("raises an error if no strategy specified", () => {
+    expect(() =>
+      decideStrategy("/login/callback", mockAuthConfig),
+    ).toThrowError(EmptyStrategyError);
   });
 });
