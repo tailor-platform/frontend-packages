@@ -8,7 +8,7 @@ type CallbackResult = {
   redirectUri: string;
 };
 
-export type AuthenticateResult =
+type AuthenticateResult =
   | {
       // Redirection-base authentication flow (eg. OIDC/SAML/...)
       mode: "redirection";
