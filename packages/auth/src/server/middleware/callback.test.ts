@@ -1,7 +1,12 @@
 import { beforeAll, afterAll, afterEach, describe, expect, it } from "vitest";
 import { NextResponse } from "next/server";
 import { HttpResponse, http } from "msw";
-import { callbackHandler, exchangeError, paramsError } from "./callback";
+import {
+  callbackHandler,
+  decideStrategy,
+  exchangeError,
+  paramsError,
+} from "./callback";
 import {
   buildMockServer,
   mockAuthConfig,
@@ -90,5 +95,13 @@ describe("callback", () => {
     await expect(
       callbackHandler({ request, config: authConfig }),
     ).rejects.toThrow(exchangeError(invalidTokenError));
+  });
+});
+
+describe("decideStrategy", () => {
+  it("decides strategy by pathname", () => {
+    const strategy = decideStrategy("/login/callback", mockAuthConfig);
+
+    expect(strategy.name()).toBe("default");
   });
 });
