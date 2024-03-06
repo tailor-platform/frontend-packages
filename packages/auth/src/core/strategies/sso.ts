@@ -32,7 +32,9 @@ export const ssoStrategyBuilder = (name: string, paramName: string) => {
         throw paramsError();
       }
 
-      const redirectUri = encodeURI(config.appUrl(config.loginCallbackPath()));
+      const redirectUri = encodeURI(
+        config.appUrl(config.loginCallbackPath(this.name())),
+      );
       const payload = new FormData();
       payload.append(paramName, param);
       payload.append("redirect_uri", redirectUri);
