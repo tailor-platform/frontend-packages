@@ -82,35 +82,35 @@ export const DataGrid = <TData extends Record<string, unknown>>({
   return (
     <Stack gap={4}>
       <HStack gap={4}>
-      {table.enableHiding && (
-        <HStack>
-          <Button
-            variant="secondary"
-            size="md"
-            onClick={() => {
-              setColumnsHideShowOpen(!columnsHideShowOpen);
-            }}
-          >
-            <ColumnsIcon />
-            <Text marginLeft={"4px"}>{localization.filter.columnLabel}</Text>
-          </Button>
-        </HStack>
-      )}
+        {table.enableHiding && (
+          <HStack>
+            <Button
+              variant="secondary"
+              size="md"
+              onClick={() => {
+                setColumnsHideShowOpen(!columnsHideShowOpen);
+              }}
+            >
+              <ColumnsIcon />
+              <Text marginLeft={"4px"}>{localization.filter.columnLabel}</Text>
+            </Button>
+          </HStack>
+        )}
 
-      {table.enableColumnFilters && (
-        <HStack>
-          <Button
-            variant="secondary"
-            size="md"
-            onClick={() => {
-              setFilterOpen(!filterOpen);
-            }}
-          >
-            <FilterIcon />
-            <Text marginLeft={"4px"}>{localization.filter.filterLabel}</Text>
-          </Button>
-        </HStack>
-      )}
+        {table.enableColumnFilters && (
+          <HStack>
+            <Button
+              variant="secondary"
+              size="md"
+              onClick={() => {
+                setFilterOpen(!filterOpen);
+              }}
+            >
+              <FilterIcon />
+              <Text marginLeft={"4px"}>{localization.filter.filterLabel}</Text>
+            </Button>
+          </HStack>
+        )}
       </HStack>
 
       <Table className={datagridClasses.table}>
