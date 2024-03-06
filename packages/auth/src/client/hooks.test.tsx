@@ -24,7 +24,7 @@ afterAll(() => mockServer.close());
 
 describe("useAuth", () => {
   describe("login", () => {
-    it("correctly redirects to the login URL", async () => {
+    it("works as default strategy if no strategy specified", async () => {
       const replaceMock = vi.fn();
       await withMockReplace(replaceMock, async () => {
         const { result } = renderHook(() => useAuth(), {

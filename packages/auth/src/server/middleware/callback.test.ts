@@ -17,7 +17,9 @@ afterEach(() => mockServer.resetHandlers());
 afterAll(() => mockServer.close());
 
 describe("callback", () => {
-  const baseURL = mockAuthConfig.appUrl(mockAuthConfig.loginCallbackPath());
+  const baseURL = mockAuthConfig.appUrl(
+    mockAuthConfig.loginCallbackPath("default"),
+  );
 
   it("obtains a token and stores it in the cookies", async () => {
     const request = buildRequestWithParams(
