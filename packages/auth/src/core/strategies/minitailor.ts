@@ -39,7 +39,9 @@ export class MinitailorStrategy implements AbstractStrategy<Options> {
       throw paramsError();
     }
 
-    const redirectUri = encodeURI(config.appUrl(config.loginCallbackPath()));
+    const redirectUri = encodeURI(
+      config.appUrl(config.loginCallbackPath(this.name())),
+    );
     const payload = new FormData();
     payload.append("id_token", idToken);
     payload.append("redirect_uri", redirectUri);
