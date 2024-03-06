@@ -10,6 +10,7 @@ export const datagrid = defineSlotRecipe({
       width: "100%",
       borderWidth: "0.5px",
       borderColor: "border.default",
+      tableLayout: "fixed",
     },
     tableRow: {
       fontSize: "12px",

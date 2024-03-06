@@ -121,7 +121,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
                   colSpan={header.colSpan}
                   className={datagridClasses.tableHead}
                   style={{
-                    width: header.id === "select" ? "40px" : header.getSize(), //First column with checkboxes
+                    width: header.id === "select" ? "54px" : header.getSize(), //First column with checkboxes
                   }}
                   draggable={
                     !table.getState().columnSizingInfo.isResizingColumn
