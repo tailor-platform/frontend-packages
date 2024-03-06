@@ -40,6 +40,7 @@ export const HideShow = <TData extends Record<string, unknown>>({
       </Button>
       <Flex
         h="324px"
+        w="full"
         overflowY="scroll"
         flexDirection="column"
         gap="4"
