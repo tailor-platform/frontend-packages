@@ -131,9 +131,9 @@ describe("<HideShow />", () => {
   it("renders correctly", () => {
     render(<HideShowTest />);
 
-    expect(screen.getByText("status")).toBeVisible();
-    expect(screen.getByText("email")).toBeVisible();
-    expect(screen.getByText("amount")).toBeVisible();
+    expect(screen.getByText("Status")).toBeVisible();
+    expect(screen.getByText("Email")).toBeVisible();
+    expect(screen.getByText("Amount")).toBeVisible();
   });
 
   it("hides the 'Status' column", async () => {
@@ -141,7 +141,8 @@ describe("<HideShow />", () => {
     expect(screen.getByText("Status")).toBeVisible();
     const user = userEvent.setup();
     await user.click(screen.getByText("Column"));
-    await user.click(screen.getByText("status"));
+    // Because we need to click "Status" in "HideShow" instead of "Status" in the header.
+    await user.click(screen.getAllByText("Status")[1]);
     await user.click(screen.getByText("Column"));
     await vi.waitFor(() => {
       expect(screen.queryByText("Status")).not.toBeInTheDocument();
