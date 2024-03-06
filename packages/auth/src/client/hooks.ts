@@ -14,7 +14,7 @@ export type UserInfo = {
   email: string;
 };
 
-const NoCorrespondingStrategyError = new Error(
+export const NoCorrespondingStrategyError = new Error(
   "no corresponding authentication strategy available",
 );
 const NoWindowError = new Error(
@@ -28,7 +28,7 @@ const assertWindowIsAvailable = () => {
 
 type LoginParams = {
   name?: string;
-  options: Record<string, unknown>;
+  options?: Record<string, unknown>;
 };
 
 // useAuth is a hook that abstracts out provider-agnostic interface functions related to authorization
