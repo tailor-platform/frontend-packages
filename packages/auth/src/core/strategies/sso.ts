@@ -14,7 +14,7 @@ export const ssoStrategyBuilder = (name: string, paramName: string) => {
 
     authenticate(config: Config, options: Options) {
       const apiLoginUrl = config.apiUrl(config.loginPath());
-      const callbackPath = config.loginCallbackPath();
+      const callbackPath = config.loginCallbackPath(this.name());
       const redirectUrl = encodeURI(
         `${config.appUrl(callbackPath)}?redirect_uri=${options.redirectPath ?? "/"}`,
       );

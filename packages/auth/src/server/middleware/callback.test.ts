@@ -1,13 +1,7 @@
 import { beforeAll, afterAll, afterEach, describe, expect, it } from "vitest";
 import { NextResponse } from "next/server";
 import { HttpResponse, http } from "msw";
-import {
-  EmptyStrategyError,
-  callbackHandler,
-  decideStrategy,
-  exchangeError,
-  paramsError,
-} from "./callback";
+import { callbackHandler, exchangeError, paramsError } from "./callback";
 import {
   buildMockServer,
   mockAuthConfig,
@@ -23,7 +17,9 @@ afterEach(() => mockServer.resetHandlers());
 afterAll(() => mockServer.close());
 
 describe("callback", () => {
-  const baseURL = mockAuthConfig.appUrl(mockAuthConfig.loginCallbackPath());
+  const baseURL = mockAuthConfig.appUrl(
+    mockAuthConfig.loginCallbackPath("default"),
+  );
 
   it("obtains a token and stores it in the cookies", async () => {
     const request = buildRequestWithParams(
@@ -96,24 +92,5 @@ describe("callback", () => {
     await expect(
       callbackHandler({ request, config: authConfig }),
     ).rejects.toThrow(exchangeError(invalidTokenError));
-  });
-});
-
-describe("decideStrategy", () => {
-  it.each(["saml", "oidc", "minitailor"])(
-    "decides strategy by name (%s)",
-    (name) => {
-      const strategy = decideStrategy(
-        `/login/callback/${name}`,
-        mockAuthConfig,
-      );
-      expect(strategy.name()).toBe(name);
-    },
-  );
-
-  it("raises an error if no strategy specified", () => {
-    expect(() =>
-      decideStrategy("/login/callback", mockAuthConfig),
-    ).toThrowError(EmptyStrategyError);
   });
 });

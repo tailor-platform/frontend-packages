@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { RouteHandler } from "@server/middleware";
 import { ErrorResponse, Session } from "@core/types";
-import { Config } from "@core/config";
 
 export class CallbackError extends Error {
   constructor(
@@ -16,29 +15,14 @@ export const paramsError = () =>
   new CallbackError("invalid-params", "code and redirectURI should be filled");
 export const exchangeError = (reason: string) =>
   new CallbackError("failed-exchange", reason);
-export const noCorrespondingStrategyError = (name: string) =>
-  new CallbackError("no-corresponding-strategy", name);
-export const EmptyStrategyError = noCorrespondingStrategyError("<empty>");
-
-export const decideStrategy = (pathname: string, config: Config) => {
-  const strategyName = pathname.split("/").pop();
-  if (!strategyName || strategyName === "callback") {
-    throw EmptyStrategyError;
-  }
-
-  const strategy = config.getStrategy(strategyName);
-  if (!strategy) {
-    throw noCorrespondingStrategyError(strategyName);
-  }
-  return strategy;
-};
 
 export const callbackHandler: RouteHandler = async ({
   request,
   config,
   options,
 }) => {
-  const strategy = decideStrategy(request.nextUrl.pathname, config);
+  const strategyName = request.nextUrl.pathname.split("/").pop();
+  const strategy = config.getStrategy(strategyName);
   const { payload, redirectUri } = strategy.callback(
     config,
     request.nextUrl.searchParams,

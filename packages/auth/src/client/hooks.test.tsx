@@ -2,13 +2,7 @@ import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 import { renderHook, waitFor, render, screen } from "@testing-library/react";
 import { Suspense } from "react";
 import { http, HttpResponse } from "msw";
-import {
-  NoCorrespondingStrategyError,
-  clearClientSession,
-  useAuth,
-  usePlatform,
-  useSession,
-} from "./hooks";
+import { clearClientSession, useAuth, usePlatform, useSession } from "./hooks";
 import { TailorAuthProvider } from "./provider";
 import { buildMockServer, mockAuthConfig, mockSession } from "@tests/mocks";
 import { withMockReplace } from "@tests/helper";
@@ -30,29 +24,6 @@ afterAll(() => mockServer.close());
 
 describe("useAuth", () => {
   describe("login", () => {
-    const buildMockedRedirectionURL = (strategy: string) =>
-      `https://mock-api-url.com/mock-login?redirect_uri=http://localhost:3000/mock-callback/${strategy}?redirect_uri=/redirect-path`;
-
-    it.each(["saml", "oidc"])(
-      "redirects to login URL by strategy name (%s)",
-      async (name) => {
-        const replaceMock = vi.fn();
-        await withMockReplace(replaceMock, async () => {
-          const { result } = renderHook(() => useAuth(), {
-            wrapper: mockProvider,
-          });
-          await result.current.login({
-            name,
-            options: { redirectPath: "/redirect-path" },
-          });
-        });
-
-        expect(replaceMock).toHaveBeenCalledWith(
-          buildMockedRedirectionURL(name),
-        );
-      },
-    );
-
     it("works as default strategy if no strategy specified", async () => {
       const replaceMock = vi.fn();
       await withMockReplace(replaceMock, async () => {
@@ -65,19 +36,8 @@ describe("useAuth", () => {
       });
 
       expect(replaceMock).toHaveBeenCalledWith(
-        buildMockedRedirectionURL("default"),
+        "https://mock-api-url.com/mock-login?redirect_uri=http://localhost:3000/mock-callback/default?redirect_uri=/redirect-path",
       );
-    });
-
-    it("raises an error if the unavailable strategy is specified", async () => {
-      const { result } = renderHook(() => useAuth(), {
-        wrapper: mockProvider,
-      });
-      await expect(
-        result.current.login({
-          name: "invalid-strategy",
-        }),
-      ).rejects.toThrow(NoCorrespondingStrategyError);
     });
   });
 

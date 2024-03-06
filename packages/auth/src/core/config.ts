@@ -1,6 +1,7 @@
-import { OIDCStrategy, SAMLStrategy } from "./strategies/sso";
-import { MinitailorStrategy } from "./strategies/minitailor";
+import { OIDCStrategy, SAMLStrategy } from "@core/strategies/sso";
+import { MinitailorStrategy } from "@core/strategies/minitailor";
 import { AbstractStrategy } from "@core/strategies/abstract";
+import { defaultStrategy } from "@core/strategies/default";
 
 type ContextConfig = {
   apiHost: string;
@@ -13,13 +14,9 @@ type ContextConfig = {
   userInfoPath: string;
 };
 
-// `defaultStrategy` is a strategy used if users don't specify the strategy name in `login` function
-// Currently, the default is OIDC, but fine to be changed in need.
-export const defaultStrategy = new (class extends OIDCStrategy {
-  name() {
-    return "default";
-  }
-})();
+export const NoCorrespondingStrategyError = new Error(
+  "no corresponding authentication strategy available",
+);
 
 export class Config {
   private readonly strategyMap: Map<string, AbstractStrategy>;
@@ -41,8 +38,13 @@ export class Config {
     });
   }
 
-  getStrategy(name: string) {
-    return this.strategyMap.get(name);
+  getStrategy(name?: string) {
+    const strategyName = name || defaultStrategy.name();
+    const strategy = this.strategyMap.get(strategyName);
+    if (!strategy) {
+      throw NoCorrespondingStrategyError;
+    }
+    return strategy;
   }
 
   getStrategyNames() {

@@ -4,7 +4,6 @@ import {
   internalClientSessionPath,
   internalUnauthorizedPath,
 } from "@server/middleware/internal";
-import { defaultStrategy } from "@core/config";
 
 export type UserInfo = {
   sub: string;
@@ -14,9 +13,6 @@ export type UserInfo = {
   email: string;
 };
 
-export const NoCorrespondingStrategyError = new Error(
-  "no corresponding authentication strategy available",
-);
 const NoWindowError = new Error(
   "window object should be available to use this function",
 );
@@ -38,14 +34,8 @@ export const useAuth = () => {
   const login = async (params?: LoginParams) => {
     assertWindowIsAvailable();
 
-    const name = params?.name || defaultStrategy.name();
-    const strategy = config.getStrategy(name);
-    if (!strategy) {
-      throw NoCorrespondingStrategyError;
-    }
-
-    const options = params?.options || {};
-    const result = await strategy.authenticate(config, options);
+    const strategy = config.getStrategy(params?.name);
+    const result = await strategy.authenticate(config, params?.options || {});
     switch (result.mode) {
       case "redirection":
         window.location.replace(result.uri);
