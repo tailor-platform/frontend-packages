@@ -57,7 +57,7 @@ export const HideShow = <TData extends Record<string, unknown>>({
                 })
               }
             >
-              {column.id}
+              {column.columnDef.header?.toString() || column.id}
             </Checkbox>
           );
         })}
