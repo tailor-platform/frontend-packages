@@ -42,6 +42,7 @@ describe("useAuth", () => {
             wrapper: mockProvider,
           });
           await result.current.login({
+            name,
             options: { redirectPath: "/redirect-path" },
           });
         });
