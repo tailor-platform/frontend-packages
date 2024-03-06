@@ -81,6 +81,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
 
   return (
     <Stack gap={4}>
+      <HStack gap={4}>
       {table.enableHiding && (
         <HStack>
           <Button
@@ -110,6 +111,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
           </Button>
         </HStack>
       )}
+      </HStack>
 
       <Table className={datagridClasses.table}>
         <TableHeader>
