@@ -245,8 +245,11 @@ importers:
         specifier: 2.3.1
         version: 2.3.1(@internationalized/date@3.5.2)
       '@ark-ui/react':
-        specifier: 2.2.2
-        version: 2.2.2(@internationalized/date@3.5.2)(react-dom@18.2.0)(react@18.2.0)
+        specifier: 2.2.3
+        version: 2.2.3(@internationalized/date@3.5.2)(react-dom@18.2.0)(react@18.2.0)
+      '@pandacss/dev':
+        specifier: ^0.29.1
+        version: 0.29.1(typescript@5.3.3)
       '@pandacss/types':
         specifier: ^0.20.1
         version: 0.20.1
@@ -269,9 +272,6 @@ importers:
       '@hookform/resolvers':
         specifier: ^3.3.2
         version: 3.3.2(react-hook-form@7.48.2)
-      '@pandacss/dev':
-        specifier: ^0.29.1
-        version: 0.29.1(typescript@5.3.3)
       '@swc/core':
         specifier: ^1.3.100
         version: 1.3.100
@@ -690,8 +690,8 @@ packages:
       - '@internationalized/date'
     dev: false
 
-  /@ark-ui/react@2.2.2(@internationalized/date@3.5.2)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-M32c1gHrwOQE0Ku0gJtYfVLdyiBgjWIruLqQWUhrXdBeLkXY72eT1sWPT9VMGZIZJ0eZBfqnvBAbKvj+ZGduVQ==}
+  /@ark-ui/react@2.2.3(@internationalized/date@3.5.2)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-W43rbimG1f7v1jk8J+PG/3um8/PaL1lQZEnRPzaXtQjEoiBlXH4yFyJakoEldxoZEQGB8x7SUkjHxZ93cRceuQ==}
     peerDependencies:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
@@ -4596,6 +4596,7 @@ packages:
       - jsdom
       - supports-color
       - typescript
+    dev: false
 
   /@pandacss/extractor@0.29.1(typescript@5.3.2):
     resolution: {integrity: sha512-n1t+B4hFVSn6iliCbCJn6liDSYetY28J2fQ0gooGEFFQbb7l6lfmSYiuLkO/5BkxooODPkKG7x51zKvAaU0MeA==}
@@ -4617,6 +4618,7 @@ packages:
     transitivePeerDependencies:
       - jsdom
       - typescript
+    dev: false
 
   /@pandacss/generator@0.29.1:
     resolution: {integrity: sha512-pPZ28k7YGQBHzQIM0gtuFvLBfl/C6Or+qJ8poFfoIXkNQlXNrPojolN1bE4ubeO9FWR7B6qmdFjOY9cgbJGphA==}
@@ -4722,6 +4724,7 @@ packages:
       - jsdom
       - supports-color
       - typescript
+    dev: false
 
   /@pandacss/parser@0.29.1(typescript@5.3.2):
     resolution: {integrity: sha512-haRXKUwvLC5R4wIuywUDMrw05HZ3XRSwr8wi3nGfbV2RhezjgF+Eazou4SiwZyEIQQQlwz+LuCwXBRp9mwJ4lg==}
@@ -4757,6 +4760,7 @@ packages:
     transitivePeerDependencies:
       - jsdom
       - typescript
+    dev: false
 
   /@pandacss/postcss@0.29.1(typescript@5.3.2):
     resolution: {integrity: sha512-HRwL4LYS9mk1JQ2AtWxN3rF6CF11rQXTbvJ85u/M77zScHdG5Ztas0If+C2aZmFOdyuVO/6iyMOvUJ9gmP3Ozg==}
@@ -4782,6 +4786,7 @@ packages:
       - jsdom
       - supports-color
       - typescript
+    dev: false
 
   /@pandacss/preset-base@0.29.1:
     resolution: {integrity: sha512-mIvtrOF3z5v2rGloENxI3lKfG0CL+8rEgXP3Fu+bJoTIR6/caglo5V9NSI91XPusBV1xaXvPOsjhpwuhA9Bw5g==}
@@ -17883,6 +17888,7 @@ packages:
       crosspath: 2.0.0
       object-path: 0.11.8
       typescript: 5.3.3
+    dev: false
 
   /ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
@@ -17990,6 +17996,7 @@ packages:
         optional: true
     dependencies:
       typescript: 5.3.3
+    dev: false
 
   /tsconfck@3.0.1(typescript@5.3.3):
     resolution: {integrity: sha512-7ppiBlF3UEddCLeI1JRx5m2Ryq+xk4JrZuq4EuYXykipebaq1dV0Fhgr1hb7CkmHt32QSgOZlcqVLEtHBG4/mg==}
