@@ -12,6 +12,7 @@ type ContextConfig = {
   tokenPath: string;
   refreshTokenPath: string;
   userInfoPath: string;
+  secure: boolean;
 };
 
 export const NoCorrespondingStrategyError = new Error(
@@ -82,5 +83,9 @@ export class Config {
 
   userInfoPath() {
     return this.params.userInfoPath || "/auth/userinfo";
+  }
+
+  secure() {
+    return this.params.secure !== false;
   }
 }

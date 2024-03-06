@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { RouteHandler } from "@server/middleware";
 import { ErrorResponse, Session } from "@core/types";
+import { Config } from "@core/config";
 
 export class CallbackError extends Error {
   constructor(
@@ -45,7 +46,7 @@ export const callbackHandler: RouteHandler = async ({
 
   const redirection = NextResponse.redirect(config.appUrl(redirectUri));
   redirection.cookies.set(
-    buildCookieEntry(session, "tailor.token", "access_token"),
+    buildCookieEntry(session, "tailor.token", "access_token", config),
   );
   return redirection;
 };
@@ -54,6 +55,7 @@ const buildCookieEntry = <const T extends keyof Session>(
   session: Session,
   name: string,
   value: T,
+  config: Config,
 ) => {
   // Use the strictest cookie here
   // Here does not manually set `expires` in cookies because token expiration is handled on Tailor Plaform side
@@ -62,6 +64,6 @@ const buildCookieEntry = <const T extends keyof Session>(
     value: session[value],
     sameSite: "strict" as const,
     httpOnly: true,
-    secure: true,
+    secure: config.secure(),
   };
 };
