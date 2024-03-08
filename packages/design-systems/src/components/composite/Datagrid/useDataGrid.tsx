@@ -65,6 +65,7 @@ export const useDataGrid = <TData extends Record<string, unknown>>({
             }
           />
         ),
+        size: 54,
       });
   }
   const reactTableInstance = useReactTable({

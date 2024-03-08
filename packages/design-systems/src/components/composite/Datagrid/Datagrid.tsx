@@ -1,7 +1,4 @@
-import {
-  Column as ColumnTanstak,
-  flexRender,
-} from "@tanstack/react-table";
+import { Column as ColumnTanstak, flexRender } from "@tanstack/react-table";
 import { Columns as ColumnsIcon, Filter as FilterIcon } from "lucide-react";
 import { Pagination } from "@ark-ui/react/pagination";
 import {
@@ -74,9 +71,6 @@ export const DataGrid = <TData extends Record<string, unknown>>({
   const getCommonPinningStyles = (
     column: ColumnTanstak<TData>,
   ): CSSProperties => {
-    console.log(column);
-    console.log(column.getStart("left"));
-    console.log(column.getAfter("right"));
     const isPinned = column.getIsPinned();
     const isLastLeftPinnedColumn =
       isPinned === "left" && column.getIsLastColumn("left");
