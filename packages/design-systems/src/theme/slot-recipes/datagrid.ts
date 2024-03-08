@@ -2,7 +2,15 @@ import { defineSlotRecipe } from "@pandacss/dev";
 
 export const datagrid = defineSlotRecipe({
   className: "datagrid",
-  slots: ["table", "tableRow", "tableHead", "tableData", "tableHeadDivider"],
+  slots: [
+    "table",
+    "tableHeader",
+    "tableRow",
+    "tableHead",
+    "tableBody",
+    "tableData",
+    "tableHeadDivider",
+  ],
   description: "An datagrid style",
   base: {
     table: {
@@ -11,6 +19,10 @@ export const datagrid = defineSlotRecipe({
       borderWidth: "0.5px",
       borderColor: "border.default",
       tableLayout: "fixed",
+    },
+    tableHeader: {
+      position: "relative",
+      zIndex: 1,
     },
     tableRow: {
       fontSize: "12px",
@@ -22,9 +34,14 @@ export const datagrid = defineSlotRecipe({
       borderWidth: "0.5px",
       borderColor: "border.default",
     },
+    tableBody: {
+      position: "relative",
+      zIndex: 0,
+    },
     tableData: {
       borderWidth: "0.5px",
       borderColor: "border.default",
+      wordBreak: "break-word",
     },
     tableHeadDivider: {
       position: "absolute",

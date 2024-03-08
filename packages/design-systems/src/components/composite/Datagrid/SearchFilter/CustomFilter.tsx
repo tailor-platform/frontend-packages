@@ -229,6 +229,7 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
       boxShadow="lg"
       position={"absolute"}
       backgroundColor={"bg.default"}
+      zIndex={1}
     >
       <Button
         variant="tertiary"

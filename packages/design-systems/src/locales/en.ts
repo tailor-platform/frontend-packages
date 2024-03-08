@@ -10,6 +10,7 @@ export const LOCALIZATION_EN: Localization = {
     pinnedColumn: {
       pinnedRight: "Pinned Right",
       pinnedLeft: "Pinned Left",
+      unPin: "Unpin",
     },
   },
   filter: {

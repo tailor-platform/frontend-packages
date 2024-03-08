@@ -43,28 +43,43 @@ export const PinnedColumn = <TData extends Record<string, unknown>>({
           boxShadow="lg"
           position={"absolute"}
           backgroundColor={"bg.default"}
+          display={"flex"}
+          flexDirection={"column"}
+          alignItems={"start"}
         >
           <Button
             variant="link"
             size="xs"
             mb={4}
             onClick={() => {
-              column.pin("right");
+              if (column.getIsPinned() === "right") {
+                column.pin(false);
+              } else {
+                column.pin("right");
+              }
               setIsOpenedPinnedColumnModal(false);
             }}
           >
-            {localization.columnFeatures.pinnedColumn.pinnedRight}
+            {column.getIsPinned() === "right"
+              ? localization.columnFeatures.pinnedColumn.unPin
+              : localization.columnFeatures.pinnedColumn.pinnedRight}
           </Button>
           <Button
             variant="link"
             size="xs"
             mb={4}
             onClick={() => {
-              column.pin("left");
+              if (column.getIsPinned() === "left") {
+                column.pin(false);
+              } else {
+                column.pin("left");
+              }
               setIsOpenedPinnedColumnModal(false);
             }}
           >
-            {localization.columnFeatures.pinnedColumn.pinnedLeft}
+            {column.getIsPinned() === "left"
+              ? localization.columnFeatures.pinnedColumn.unPin
+              : localization.columnFeatures.pinnedColumn.pinnedLeft}
           </Button>
         </Box>
       )}

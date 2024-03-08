@@ -10,6 +10,7 @@ export const LOCALIZATION_JA: Localization = {
     pinnedColumn: {
       pinnedRight: "右に固定",
       pinnedLeft: "左に固定",
+      unPin: "元に戻す",
     },
   },
   filter: {
