@@ -33,6 +33,7 @@ export interface Localization {
     pinnedColumn: {
       pinnedRight: string;
       pinnedLeft: string;
+      unPin: string;
     };
   };
 }

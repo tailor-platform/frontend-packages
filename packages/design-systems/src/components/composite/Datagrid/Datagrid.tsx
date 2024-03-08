@@ -1,7 +1,16 @@
-import { flexRender } from "@tanstack/react-table";
+import {
+  Column as ColumnTanstak,
+  flexRender,
+} from "@tanstack/react-table";
 import { Columns as ColumnsIcon, Filter as FilterIcon } from "lucide-react";
 import { Pagination } from "@ark-ui/react/pagination";
-import { DragEvent, useCallback, useEffect, useState } from "react";
+import {
+  CSSProperties,
+  DragEvent,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { css } from "@tailor-platform/styled-system/css";
 import { pagination, datagrid } from "@tailor-platform/styled-system/recipes";
 import { LOCALIZATION_EN } from "../../../locales/en";
@@ -62,6 +71,33 @@ export const DataGrid = <TData extends Record<string, unknown>>({
     [columnBeingDragged, table],
   );
 
+  const getCommonPinningStyles = (
+    column: ColumnTanstak<TData>,
+  ): CSSProperties => {
+    console.log(column);
+    console.log(column.getStart("left"));
+    console.log(column.getAfter("right"));
+    const isPinned = column.getIsPinned();
+    const isLastLeftPinnedColumn =
+      isPinned === "left" && column.getIsLastColumn("left");
+    const isFirstRightPinnedColumn =
+      isPinned === "right" && column.getIsFirstColumn("right");
+
+    return {
+      boxShadow: isLastLeftPinnedColumn
+        ? "-4px 0 4px -4px gray inset"
+        : isFirstRightPinnedColumn
+          ? "4px 0 4px -4px gray inset"
+          : undefined,
+      left: isPinned === "left" ? `${column.getStart("left")}px` : undefined,
+      right: isPinned === "right" ? `${column.getAfter("right")}px` : undefined,
+      opacity: isPinned ? 0.95 : 1,
+      position: isPinned ? "sticky" : "relative",
+      zIndex: isPinned ? 1 : 0,
+      backgroundColor: isPinned ? "white" : "inherit",
+    };
+  };
+
   useEffect(() => {
     //Get header titles
     const columnHeaders: Column<TData>[] = [];
@@ -114,7 +150,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
       </HStack>
 
       <Table className={datagridClasses.table}>
-        <TableHeader>
+        <TableHeader className={datagridClasses.tableHeader}>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow className={datagridClasses.tableRow} key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
@@ -124,6 +160,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
                   className={datagridClasses.tableHead}
                   style={{
                     width: header.id === "select" ? "54px" : header.getSize(), //First column with checkboxes
+                    ...getCommonPinningStyles(header.column),
                   }}
                   draggable={
                     !table.getState().columnSizingInfo.isResizingColumn
@@ -180,7 +217,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
             localization={localization}
           />
         )}
-        <TableBody>
+        <TableBody className={datagridClasses.tableBody}>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
@@ -192,6 +229,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
                   <TableCell
                     key={cell.id}
                     className={datagridClasses.tableData}
+                    style={{ ...getCommonPinningStyles(cell.column) }}
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
