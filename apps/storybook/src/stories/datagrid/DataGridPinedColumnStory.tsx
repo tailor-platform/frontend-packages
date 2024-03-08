@@ -17,7 +17,7 @@ export type DataGridPinedColumnStoryProps = {
 
 export const DataGridPinedColumnStory = ({
   enableColumnFilters = false,
-  enableRowSelection = false,
+  enableRowSelection = true,
 }: DataGridPinedColumnStoryProps) => {
   const [rowSelection, setRowSelection] = useState({});
   const table = useDataGrid({
