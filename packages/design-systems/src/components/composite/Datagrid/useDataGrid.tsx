@@ -19,16 +19,18 @@ export const useDataGrid = <TData extends Record<string, unknown>>({
   onFilterChange,
   localization,
   columnVisibility,
+  columnPinning,
   onColumnVisibilityChange,
   enableRowSelection = false,
   onRowSelectionChange,
   rowSelection,
 }: UseDataGridProps<TData>): DataGridInstance<TData> => {
   const { pageIndex = 0, pageSize = 10 } = pagination || {};
-  const [columnPinning, setColumnPinning] = useState<ColumnPinningState>({
-    left: ["select"],
-    right: [],
-  });
+  const [columnPinningState, setColumnPinningState] =
+    useState<ColumnPinningState>({
+      left: ["select", ...(columnPinning?.left || [])],
+      right: [...(columnPinning?.right || [])],
+    });
 
   const initialState: Record<string, unknown> = {
     pagination: {
@@ -77,13 +79,13 @@ export const useDataGrid = <TData extends Record<string, unknown>>({
     onRowSelectionChange: enableRowSelection ? onRowSelectionChange : undefined,
     state: {
       columnVisibility,
-      columnPinning,
+      columnPinning: columnPinningState,
       rowSelection: enableRowSelection ? rowSelection : {},
     },
     onColumnVisibilityChange,
     enableColumnResizing: true,
     columnResizeMode: "onChange",
-    onColumnPinningChange: setColumnPinning,
+    onColumnPinningChange: setColumnPinningState,
   });
 
   return {
