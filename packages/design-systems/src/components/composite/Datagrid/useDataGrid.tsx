@@ -28,7 +28,7 @@ export const useDataGrid = <TData extends Record<string, unknown>>({
   const { pageIndex = 0, pageSize = 10 } = pagination || {};
   const [columnPinningState, setColumnPinningState] =
     useState<ColumnPinningState>({
-      left: [...(columnPinning?.left || []), "select"],
+      left: ["select", ...(columnPinning?.left || [])],
       right: [...(columnPinning?.right || [])],
     });
 
