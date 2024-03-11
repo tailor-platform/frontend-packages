@@ -7,7 +7,9 @@ import {
 import { Checkbox } from "../../Checkbox";
 import { type DataGridInstance, type UseDataGridProps } from "./types";
 
-export const useDataGrid = <TData extends Record<string, unknown>>({
+type RowLike = { id: string };
+
+export const useDataGrid = <TData extends RowLike>({
   data,
   columns,
   enablePagination = false,
@@ -32,7 +34,7 @@ export const useDataGrid = <TData extends Record<string, unknown>>({
       right: [...(columnPinning?.right || [])],
     });
 
-  const initialState: Record<string, unknown> = {
+  const initialState = {
     pagination: {
       pageIndex,
       pageSize,
@@ -86,6 +88,7 @@ export const useDataGrid = <TData extends Record<string, unknown>>({
     enableColumnResizing: true,
     columnResizeMode: "onChange",
     onColumnPinningChange: setColumnPinningState,
+    getRowId: (row) => row.id,
   });
 
   return {
