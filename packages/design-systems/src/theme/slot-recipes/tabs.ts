@@ -42,7 +42,7 @@ export const tabs = defineSlotRecipe({
       height: "2px",
       background: "primary.default",
       bottom: "-1px",
-      width: "var(--width)"
+      width: "var(--width)",
     },
     content: {
       background: "brown.700",
