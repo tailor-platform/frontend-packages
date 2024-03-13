@@ -24,15 +24,17 @@ export const segmentGroup = defineSlotRecipe({
       },
     },
     indicator: {
-      borderBottomWidth: {
-        _horizontal: "2px",
-      },
-      borderLeftWidth: {
-        _vertical: "2px",
-      },
       borderColor: "primary.default",
-      transform: {
+      transform: {},
+      _horizontal: {
+        bottom: "0",
+        borderBottomWidth: "2px",
+        width: "var(--width)",
         _horizontal: "translateY(1px)",
+      },
+      _vertical: {
+        borderLeftWidth: "2px",
+        height: "var(--height)",
         _vertical: "translateX(-1px)",
       },
     },
