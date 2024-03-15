@@ -26,6 +26,8 @@ export const internalUnauthroziedHandler: RouteHandler = ({ config }) =>
 // This function deletes the token from cookies and redirects to the login page.
 export const internalLogoutPath = "/__auth/logout" as const;
 export const internalLogoutHandler: RouteHandler = ({ request, config }) => {
+  const redirectPath =
+    request.nextUrl.searchParams.get("redirect_path") || config.loginPath();
   request.cookies.delete("tailor.token");
-  return NextResponse.redirect(config.appUrl(config.loginPath()));
+  return NextResponse.redirect(config.appUrl(redirectPath));
 };
