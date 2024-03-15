@@ -53,8 +53,8 @@ export const Dialog = (props: DialogProps) => {
         <ArkDialog.Backdrop className={classes.backdrop} />
         <ArkDialog.Positioner className={classes.positioner}>
           <ArkDialog.Content className={classes.content}>
-            <Stack gap="8" p="6">
-              <Stack gap="1">
+            <Stack gap={8} p={6}>
+              <Stack gap={1}>
                 {title && (
                   <ArkDialog.Title className={classes.title}>
                     {title}
@@ -64,7 +64,7 @@ export const Dialog = (props: DialogProps) => {
                   {description}
                 </ArkDialog.Description>
               </Stack>
-              <Stack gap="3" direction="row" width="full">
+              <Stack gap={3} direction="row" width="full">
                 <ArkDialog.CloseTrigger asChild>
                   <Button
                     onClick={() => close()}
