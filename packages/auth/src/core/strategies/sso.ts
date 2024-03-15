@@ -1,6 +1,7 @@
 import { AbstractStrategy } from "./abstract";
 import { Config } from "@core/config";
 import { paramsError } from "@server/middleware/callback";
+import { callbackByStrategy } from "@server/middleware/internal";
 
 export type Options = { redirectPath: string };
 
@@ -14,7 +15,7 @@ export const ssoStrategyBuilder = (name: string, paramName: string) => {
 
     authenticate(config: Config, options: Options) {
       const apiLoginUrl = config.apiUrl(config.loginPath());
-      const callbackPath = config.loginCallbackPath(this.name());
+      const callbackPath = callbackByStrategy(this.name());
       const redirectUrl = encodeURI(
         `${config.appUrl(callbackPath)}?redirect_uri=${options.redirectPath ?? "/"}`,
       );
@@ -33,7 +34,7 @@ export const ssoStrategyBuilder = (name: string, paramName: string) => {
       }
 
       const redirectUri = encodeURI(
-        config.appUrl(config.loginCallbackPath(this.name())),
+        config.appUrl(callbackByStrategy(this.name())),
       );
       const payload = new FormData();
       payload.append(paramName, param);

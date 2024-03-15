@@ -2,6 +2,7 @@ import { beforeAll, afterAll, afterEach, describe, expect, it } from "vitest";
 import { NextResponse } from "next/server";
 import { HttpResponse, http } from "msw";
 import { callbackHandler, exchangeError, paramsError } from "./callback";
+import { callbackByStrategy } from "./internal";
 import {
   buildMockServer,
   mockAuthConfig,
@@ -17,9 +18,7 @@ afterEach(() => mockServer.resetHandlers());
 afterAll(() => mockServer.close());
 
 describe("callback", () => {
-  const baseURL = mockAuthConfig.appUrl(
-    mockAuthConfig.loginCallbackPath("default"),
-  );
+  const baseURL = mockAuthConfig.appUrl(callbackByStrategy("default"));
 
   it("obtains a token and stores it in the cookies", async () => {
     const request = buildRequestWithParams(
