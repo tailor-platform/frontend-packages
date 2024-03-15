@@ -29,6 +29,9 @@ importers:
       eslint:
         specifier: ^8.56.0
         version: 8.56.0
+      git-cliff:
+        specifier: ^2.1.2
+        version: 2.1.2
       husky:
         specifier: ^8.0.3
         version: 8.0.3
@@ -13527,6 +13530,68 @@ packages:
       tar: 6.2.0
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /git-cliff-darwin-arm64@2.1.2:
+    resolution: {integrity: sha512-GHZ9Qli3zqCZPPAwcMWUQhAlU5uN21bS6VnVBGmQBJSDae4HaYSXDLkTG0u7fbPc4fFR8YBwFCFVzSX+0P9ySQ==}
+    cpu: [arm64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /git-cliff-darwin-x64@2.1.2:
+    resolution: {integrity: sha512-RPYqke3PwiGhpf35XyaafVG6ympsQWjxF4nxNYADkEbFetAUEVeoOJpKtRjUGzoY6V1BpdoC1XSy4mm6skRwAA==}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /git-cliff-linux-arm64@2.1.2:
+    resolution: {integrity: sha512-zYhgsCR0fto3L/WDxBouA5Df3f4cmvzaaaRovNoabvmuRKTI2zkeQCmAg9qXUlGSFOdAnnDKhl+Av/D91NiX1A==}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /git-cliff-linux-x64@2.1.2:
+    resolution: {integrity: sha512-YjsAuGPVctLA08rXWcpT+HQ3SYKDuu7jFp0V7l9CWzlEvWDTiYgE1vhT0ogkf0l6AXBBA/l8XmHnHgB3/H7GFw==}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /git-cliff-windows-arm64@2.1.2:
+    resolution: {integrity: sha512-gBeZga3DjCjBN+HjgST9RTYXU+cEmwMT6aXB+eGXjOMMLr10v7zhF6tHExbcnWr/1IGqdfD02PaXfbuaedjMMA==}
+    cpu: [arm64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /git-cliff-windows-x64@2.1.2:
+    resolution: {integrity: sha512-x2fftQu6zdbwiCcXxr9bwOZsMgL1KD53qPVBknprgxGRlP0shIDifKoGQdVYIMw3V63MgGxKqt/rYQxGguGJEA==}
+    cpu: [x64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /git-cliff@2.1.2:
+    resolution: {integrity: sha512-a+fdMaiUxilj4VBReuhNWiLZUzmgYVnf8RzoxMOmOkd8Xg2XsCToLTkMlpvSNmKxgIAxb1yUF90J0SgPTpmJTg==}
+    hasBin: true
+    dependencies:
+      execa: 8.0.1
+    optionalDependencies:
+      git-cliff-darwin-arm64: 2.1.2
+      git-cliff-darwin-x64: 2.1.2
+      git-cliff-linux-arm64: 2.1.2
+      git-cliff-linux-x64: 2.1.2
+      git-cliff-windows-arm64: 2.1.2
+      git-cliff-windows-x64: 2.1.2
     dev: true
 
   /git-raw-commits@2.0.11:
