@@ -3,6 +3,7 @@ import { useTailorAuth } from "@client/provider";
 import {
   callbackByStrategy,
   internalClientSessionPath,
+  internalLogoutPath,
   internalUnauthorizedPath,
 } from "@server/middleware/internal";
 
@@ -51,6 +52,11 @@ export const useAuth = () => {
     }
   };
 
+  const logout = () => {
+    assertWindowIsAvailable();
+    window.location.replace(config.appUrl(internalLogoutPath));
+  };
+
   const refreshToken = async (
     refreshToken: string,
   ): Promise<SessionResult | ErrorResponse> => {
@@ -68,6 +74,7 @@ export const useAuth = () => {
 
   return {
     login,
+    logout,
     refreshToken,
   };
 };

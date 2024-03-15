@@ -21,3 +21,11 @@ export const internalClientSessionHandler: RouteHandler = ({ request }) => {
 export const internalUnauthorizedPath = "/__auth/unauthorized" as const;
 export const internalUnauthroziedHandler: RouteHandler = ({ config }) =>
   NextResponse.redirect(config.appUrl(config.unauthorizedPath()));
+
+// Internal path to logout from client components
+// This function deletes the token from cookies and redirects to the login page.
+export const internalLogoutPath = "/__auth/logout" as const;
+export const internalLogoutHandler: RouteHandler = ({ request, config }) => {
+  request.cookies.delete("tailor.token");
+  return NextResponse.redirect(config.appUrl(config.loginPath()));
+};
