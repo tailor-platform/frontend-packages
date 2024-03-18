@@ -34,7 +34,10 @@ export const dialog = defineSlotRecipe({
       background: "bg.default",
       borderRadius: "l3",
       boxShadow: "lg",
+      display: "grid",
+      gap: "8",
       minW: "sm",
+      padding: "6",
       position: "relative",
       _open: {
         animation: "dialog-in",

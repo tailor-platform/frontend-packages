@@ -53,31 +53,29 @@ export const Dialog = (props: DialogProps) => {
         <ArkDialog.Backdrop className={classes.backdrop} />
         <ArkDialog.Positioner className={classes.positioner}>
           <ArkDialog.Content className={classes.content}>
-            <Stack gap={8} p={6}>
-              <Stack gap={1}>
-                {title && (
-                  <ArkDialog.Title className={classes.title}>
-                    {title}
-                  </ArkDialog.Title>
-                )}
-                <ArkDialog.Description className={classes.description}>
-                  {description}
-                </ArkDialog.Description>
-              </Stack>
-              <Stack gap={3} direction="row" width="full">
-                <ArkDialog.CloseTrigger asChild>
-                  <Button
-                    onClick={() => close()}
-                    variant="secondary"
-                    width="full"
-                  >
-                    {cancelText}
-                  </Button>
-                </ArkDialog.CloseTrigger>
-                <Button onClick={() => onConfirm({ close })} width="full">
-                  {confirmText}
+            <Stack gap={1}>
+              {title && (
+                <ArkDialog.Title className={classes.title}>
+                  {title}
+                </ArkDialog.Title>
+              )}
+              <ArkDialog.Description className={classes.description}>
+                {description}
+              </ArkDialog.Description>
+            </Stack>
+            <Stack gap={3} direction="row" width="full">
+              <ArkDialog.CloseTrigger asChild>
+                <Button
+                  onClick={() => close()}
+                  variant="secondary"
+                  width="full"
+                >
+                  {cancelText}
                 </Button>
-              </Stack>
+              </ArkDialog.CloseTrigger>
+              <Button onClick={() => onConfirm({ close })} width="full">
+                {confirmText}
+              </Button>
             </Stack>
             {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
             <ArkDialog.CloseTrigger
