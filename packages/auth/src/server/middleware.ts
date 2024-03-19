@@ -5,6 +5,8 @@ import {
   internalCallbackPath,
   internalClientSessionHandler,
   internalClientSessionPath,
+  internalLogoutHandler,
+  internalLogoutPath,
   internalUnauthorizedPath,
   internalUnauthroziedHandler,
 } from "./middleware/internal";
@@ -32,6 +34,7 @@ export const withAuth =
         [internalCallbackPath]: callbackHandler,
         [internalClientSessionPath]: internalClientSessionHandler,
         [internalUnauthorizedPath]: internalUnauthroziedHandler,
+        [internalLogoutPath]: internalLogoutHandler,
       },
       async () => {
         await middleware?.(request, event);
