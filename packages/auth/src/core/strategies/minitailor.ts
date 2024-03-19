@@ -1,6 +1,7 @@
 import { AbstractStrategy } from "./abstract";
 import { paramsError } from "@server/middleware/callback";
 import { Config } from "@core/config";
+import { callbackByStrategy } from "@server/middleware/internal";
 
 type Options = {
   email: string;
@@ -40,7 +41,7 @@ export class MinitailorStrategy implements AbstractStrategy<Options> {
     }
 
     const redirectUri = encodeURI(
-      config.appUrl(config.loginCallbackPath(this.name())),
+      config.appUrl(callbackByStrategy(this.name())),
     );
     const payload = new FormData();
     payload.append("id_token", idToken);

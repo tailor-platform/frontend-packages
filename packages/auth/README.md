@@ -3,6 +3,7 @@
 This package provides ways to handle Tailor authentication
 
 - [Configuration](#configuration)
+  - [Callback](#callback)
 - [Provider](#provider)
 - [Middlewares](#middlewares)
   - [`withAuth` middleware for Next.js](#withauth-middleware-for-nextjs)
@@ -31,18 +32,25 @@ export const config = new Config({
 });
 ```
 
-Each of these properties in `config` to specific environment variables or constants you need to define in your application's environment. Collectively, they form the configuration necessary for the client to handle user authentication in a standardized manner.
+Each of these properties in `config` to specific environment variables or constants you need to define in your application's environment.
 
-| Name              | Required | Description                                                       | Default               |
-| ----------------- | -------- | ----------------------------------------------------------------- | --------------------- |
-| apiHost           | Yes      | Tailor Platform host                                              |                       |
-| appHost           | Yes      | Frontend app host                                                 |                       |
-| loginPath         |          | Path the auth provider will redirect the user to after signing in | `/auth/login`         |
-| unauthorizedPath  |          | Path to be redirected if not authorized                           | `/unauthorized`       |
-| loginCallbackPath |          | Auth service login endpoint                                       | `/login/callback`     |
-| tokenPath         |          | Auth service token endpoint                                       | `/auth/token`         |
-| refreshTokenPath  |          | Auth service refresh token endpoint                               | `/auth/token/refresh` |
-| userInfoPath      |          | Auth service endpoint to fetch basic user information             | `/auth/userinfo`      |
+Collectively, they form the configuration necessary for the client to handle user authentication in a standardized manner.
+
+| Name             | Required | Description                                           | Default               |
+| ---------------- | -------- | ----------------------------------------------------- | --------------------- |
+| apiHost          | Yes      | Tailor Platform host                                  |                       |
+| appHost          | Yes      | Frontend app host                                     |                       |
+| unauthorizedPath |          | Path to be redirected if not authorized               | `/unauthorized`       |
+| loginPath        |          | Auth service endpoint to initiate login               | `/auth/login`         |
+| tokenPath        |          | Auth service endpoint to issue a session token        | `/auth/token`         |
+| refreshTokenPath |          | Auth service refresh token endpoint                   | `/auth/token/refresh` |
+| userInfoPath     |          | Auth service endpoint to fetch basic user information | `/auth/userinfo`      |
+
+### Callback
+
+This package automatically generates a callback handler with Next.js middleware to accept redirection from Identity Providers as `__auth/callback/{strategy}`.
+
+Thus, if you are using OIDC strategy, the path you have to add in the whitelist on IDP dashboard will be `__auth/callback/oidc`.
 
 ## Provider
 

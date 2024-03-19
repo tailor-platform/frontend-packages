@@ -1,6 +1,7 @@
 import { ErrorResponse, SessionOption, SessionResult } from "@core/types";
 import { useTailorAuth } from "@client/provider";
 import {
+  callbackByStrategy,
   internalClientSessionPath,
   internalUnauthorizedPath,
 } from "@server/middleware/internal";
@@ -42,7 +43,7 @@ export const useAuth = () => {
         break;
       case "manual-callback": {
         const params = new URLSearchParams(result.payload);
-        const callbackPath = config.loginCallbackPath(strategy.name());
+        const callbackPath = callbackByStrategy(strategy.name());
         window.location.replace(`${callbackPath}?${params.toString()}`);
         break;
       }

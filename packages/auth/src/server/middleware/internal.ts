@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
 import { RouteHandler } from "@server/middleware";
 
+// Internal path to handle callback from the identity provider
+export const internalCallbackPath = "/__auth/callback" as const;
+export const callbackByStrategy = (strategy: string = "default") =>
+  `/__auth/callback/${strategy}` as const;
+
 // Internal path to fetch token from client components
 // `useSession` hook fetches token from this endpoint by extracting it from cookies.
 export const internalClientSessionPath = "/__auth/session" as const;
