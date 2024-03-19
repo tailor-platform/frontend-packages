@@ -168,7 +168,7 @@ const Component = async () => {
 "use client";
 import { useAuth } from "@tailor-platform/auth/client";
 
-// Redirect to `/dashboard` after logging in
+// Redirect to login path after logged out
 const Component = async () => {
   const { logout } = useAuth();
 
