@@ -3,6 +3,7 @@
 This package provides ways to handle Tailor authentication
 
 - [Configuration](#configuration)
+  - [Callback](#callback)
 - [Provider](#provider)
 - [Middlewares](#middlewares)
   - [`withAuth` middleware for Next.js](#withauth-middleware-for-nextjs)
@@ -42,6 +43,12 @@ Each of these properties in `config` to specific environment variables or consta
 | tokenPath        |          | Auth service endpoint to issue a session token        | `/auth/token`         |
 | refreshTokenPath |          | Auth service refresh token endpoint                   | `/auth/token/refresh` |
 | userInfoPath     |          | Auth service endpoint to fetch basic user information | `/auth/userinfo`      |
+
+### Callback
+
+This package automatically adds a callback path by Next.js middleware to accept redirection from Identity Providers as `__auth/callback/{strategy}`.
+
+Thus, if you are using OIDC strategy, the path you have to add in the whitelist on IDP dashboard will be `__auth/callback/oidc`.
 
 ## Provider
 
