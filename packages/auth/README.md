@@ -46,7 +46,7 @@ Each of these properties in `config` to specific environment variables or consta
 
 ### Callback
 
-This package automatically adds a callback path by Next.js middleware to accept redirection from Identity Providers as `__auth/callback/{strategy}`.
+This package automatically generates a callback handler with Next.js middleware to accept redirection from Identity Providers as `__auth/callback/{strategy}`.
 
 Thus, if you are using OIDC strategy, the path you have to add in the whitelist on IDP dashboard will be `__auth/callback/oidc`.
 
