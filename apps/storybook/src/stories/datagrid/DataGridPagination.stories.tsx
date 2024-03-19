@@ -16,7 +16,7 @@ const meta: Meta<DataGridPaginationStoryProps> = {
   },
   tags: ["autodocs"],
   argTypes: {
-    pageSize: { control: "number"}
+    pageSize: { control: "number" },
   },
 };
 
@@ -25,7 +25,7 @@ type Story = StoryObj<DataGridPaginationStoryProps>;
 
 export const Default: Story = {
   args: {
-    pageSize: 5,    
+    pageSize: 5,
   },
   render: (args) => <DataGridPaginationStory {...args} />,
   parameters: {
