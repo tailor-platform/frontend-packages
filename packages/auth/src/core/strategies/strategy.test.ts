@@ -4,7 +4,7 @@ import { mockAuthConfig } from "@tests/mocks";
 
 describe("redirection", () => {
   const buildMockedRedirectionURL = (strategy: string) =>
-    `https://mock-api-url.com/mock-login?redirect_uri=http://localhost:3000/mock-callback/${strategy}?redirect_uri=/redirect-path`;
+    `https://mock-api-url.com/mock-login?redirect_uri=http://localhost:3000/__auth/callback/${strategy}?redirect_uri=/redirect-path`;
 
   const cases = {
     default: {

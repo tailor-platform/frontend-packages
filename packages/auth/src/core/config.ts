@@ -8,7 +8,6 @@ type ContextConfig = {
   appHost: string;
   loginPath: string;
   unauthorizedPath: string;
-  loginCallbackPath: string;
   tokenPath: string;
   refreshTokenPath: string;
   userInfoPath: string;
@@ -66,11 +65,6 @@ export class Config {
 
   unauthorizedPath() {
     return this.params.unauthorizedPath || "/unauthorized";
-  }
-
-  loginCallbackPath(strategy?: string) {
-    const basePath = this.params.loginCallbackPath || `/login/callback`;
-    return strategy ? `${basePath}/${strategy}` : basePath;
   }
 
   tokenPath() {
