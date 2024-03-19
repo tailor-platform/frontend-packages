@@ -71,8 +71,8 @@ describe("usePlatform", () => {
       });
 
       let userResult = {};
-      await waitFor(async () => {
-        userResult = await result.current.getCurrentUser("mockToken");
+      await waitFor(() => {
+        userResult = result.current.getCurrentUser();
       });
 
       expect(userResult).toHaveProperty("sub");
