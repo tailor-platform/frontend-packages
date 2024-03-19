@@ -28,7 +28,7 @@ export const useDataGrid = <TData extends RowLike>({
   onRowSelectionChange,
   rowSelection,
 }: UseDataGridProps<TData>): DataGridInstance<TData> => {
-  const { pageIndex = 0, pageSize = 10 } = pagination || {};
+  const { pageIndex = 0, pageSize = 50 } = pagination || {};
   const [columnPinningState, setColumnPinningState] =
     useState<ColumnPinningState>({
       left: ["select", ...(columnPinning?.left || [])],

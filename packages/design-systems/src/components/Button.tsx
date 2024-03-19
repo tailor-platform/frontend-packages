@@ -17,7 +17,6 @@ type ButtonContentProps = {
   leftIcon?: ReactElement;
   rightIcon?: ReactElement;
   href?: string;
-  "data-disabled"?: string;
 };
 
 export type ButtonProps = ButtonVariantProps &
@@ -28,7 +27,6 @@ export type ButtonProps = ButtonVariantProps &
 
 export const Button = (props: ButtonProps) => {
   const { variant, href, size, leftIcon, rightIcon, children, ...rest } = props;
-  delete rest?.["data-disabled"];
 
   if (href) {
     return (
