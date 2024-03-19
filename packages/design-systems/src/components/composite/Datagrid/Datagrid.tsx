@@ -287,8 +287,6 @@ export const DataGrid = <TData extends Record<string, unknown>>({
                     variant="secondary"
                     size="md"
                     onClick={() => {
-                      console.log("next");
-                      console.log(pages);
                       table.nextPage();
                     }}
                     disabled={!table.getCanNextPage()}
