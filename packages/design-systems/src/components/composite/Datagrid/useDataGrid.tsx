@@ -2,6 +2,7 @@ import { useState } from "react";
 import {
   ColumnPinningState,
   getCoreRowModel,
+  getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import { Checkbox } from "../../Checkbox";
@@ -76,6 +77,9 @@ export const useDataGrid = <TData extends RowLike>({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: enablePagination
+      ? getPaginationRowModel()
+      : undefined,
     initialState,
     enableRowSelection,
     onRowSelectionChange: enableRowSelection ? onRowSelectionChange : undefined,
