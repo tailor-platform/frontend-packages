@@ -28,6 +28,7 @@ export const internalLogoutPath = "/__auth/logout" as const;
 export const internalLogoutHandler: RouteHandler = ({ request, config }) => {
   const redirectPath =
     request.nextUrl.searchParams.get("redirect_path") || config.loginPath();
-  request.cookies.delete("tailor.token");
-  return NextResponse.redirect(config.appUrl(redirectPath));
+  const redirection = NextResponse.redirect(config.appUrl(redirectPath));
+  redirection.cookies.delete("tailor.token");
+  return redirection;
 };
