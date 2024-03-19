@@ -93,8 +93,7 @@ export const useAuth = () => {
 let internalClientSession: SessionResult | null = null;
 const loadSession = async (config: Config) => {
   const rawResp = await fetch(config.appUrl(internalClientSessionPath));
-  const session = (await rawResp.json()) as SessionResult;
-  internalClientSession = session;
+  internalClientSession = (await rawResp.json()) as SessionResult;
 };
 
 const loadSessionSuspense = (config: Config) => {
@@ -105,18 +104,27 @@ const loadSessionSuspense = (config: Config) => {
 };
 
 // usePlatform is a hook that contains Tailor Platform specific functions
+let internalUserinfo: UserInfo | null = null;
 export const usePlatform = () => {
   const config = useTailorAuth();
   const session = loadSessionSuspense(config);
 
-  const getCurrentUser = async (): Promise<UserInfo | ErrorResponse> => {
-    const userInfoPath = config.userInfoPath();
-    const res = await fetch(config.apiUrl(userInfoPath), {
-      headers: {
-        Authorization: `Bearer ${session.token}`,
-      },
-    });
-    return (await res.json()) as UserInfo;
+  const getCurrentUser = (): UserInfo => {
+    const getCurrentUserInternal = async () => {
+      const userInfoPath = config.userInfoPath();
+      const res = await fetch(config.apiUrl(userInfoPath), {
+        headers: {
+          Authorization: `Bearer ${session.token}`,
+        },
+      });
+      internalUserinfo = (await res.json()) as UserInfo;
+    };
+
+    if (!internalUserinfo) {
+      throw getCurrentUserInternal();
+    }
+
+    return internalUserinfo;
   };
 
   return {
