@@ -32,7 +32,9 @@ export const config = new Config({
 });
 ```
 
-Each of these properties in `config` to specific environment variables or constants you need to define in your application's environment. Collectively, they form the configuration necessary for the client to handle user authentication in a standardized manner.
+Each of these properties in `config` to specific environment variables or constants you need to define in your application's environment. 
+
+Collectively, they form the configuration necessary for the client to handle user authentication in a standardized manner.
 
 | Name             | Required | Description                                           | Default               |
 | ---------------- | -------- | ----------------------------------------------------- | --------------------- |
