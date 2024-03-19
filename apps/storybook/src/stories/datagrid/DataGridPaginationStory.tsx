@@ -1,0 +1,37 @@
+"use client";
+
+import { Box } from "@tailor-platform/design-systems";
+import {
+  DataGrid,
+  DataGridInstance,
+  useDataGrid,
+} from "@tailor-platform/design-systems/client";
+
+import { COLUMNS as columns, DATA as data } from "../../data/datagrid.ts";
+
+export type DataGridPaginationStoryProps = {
+  pageSize: number;
+  table?: DataGridInstance<Record<string, unknown>>;
+};
+
+export const DataGridPaginationStory = ({
+  pageSize = 5,
+}: DataGridPaginationStoryProps) => {
+  const table = useDataGrid({
+    data,
+    columns,
+    enablePagination: true,
+    pagination: {
+      pageIndex: 0,
+      pageSize,
+    },
+  });
+
+  return (
+    <Box w="full" style={{ marginTop: "50px" }}>
+      <DataGrid table={table} />
+    </Box>
+  );
+};
+
+DataGridPaginationStory.displayName = "PaginationDataGrid";

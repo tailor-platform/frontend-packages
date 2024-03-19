@@ -244,23 +244,17 @@ export const DataGrid = <TData extends Record<string, unknown>>({
           count={table.totalCount || 0}
           pageSize={table.initialState.pagination.pageSize}
           siblingCount={2}
-          onPageChange={(details) => {
-            if (table?.getState && table?.handlePageChange) {
-              const state = table.getState();
-              if (state.pagination) {
-                table.handlePageChange({
-                  page: details.page,
-                  pageSize: details.pageSize,
-                });
-              }
-            }
-          }}
         >
           {({ pages }) => (
             <>
               <HStack gap={1}>
                 <Pagination.PrevTrigger asChild>
-                  <Button variant="secondary" size="md">
+                  <Button
+                    variant="secondary"
+                    size="md"
+                    onClick={() => table.previousPage()}
+                    disabled={!table.getCanPreviousPage()}
+                  >
                     Previous
                   </Button>
                 </Pagination.PrevTrigger>
@@ -289,7 +283,14 @@ export const DataGrid = <TData extends Record<string, unknown>>({
                 )}
 
                 <Pagination.NextTrigger asChild>
-                  <Button variant="secondary" size="md">
+                  <Button
+                    variant="secondary"
+                    size="md"
+                    onClick={() => {
+                      table.nextPage();
+                    }}
+                    disabled={!table.getCanNextPage()}
+                  >
                     Next
                   </Button>
                 </Pagination.NextTrigger>
