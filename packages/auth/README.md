@@ -174,7 +174,7 @@ const Component = async () => {
 
   return (
     <div>
-      <button onClick={() => logout()}>Login</button>
+      <button onClick={() => logout()}>Logout</button>
     </div>
   );
 };
