@@ -6,6 +6,7 @@ import {
   internalLogoutPath,
   internalUnauthorizedPath,
 } from "@server/middleware/internal";
+import { Config } from "@core";
 
 export type UserInfo = {
   sub: string;
@@ -89,17 +90,30 @@ export const useAuth = () => {
   };
 };
 
+let internalClientSession: SessionResult | null = null;
+const loadSession = async (config: Config) => {
+  const rawResp = await fetch(config.appUrl(internalClientSessionPath));
+  const session = (await rawResp.json()) as SessionResult;
+  internalClientSession = session;
+};
+
+const loadSessionSuspense = (config: Config) => {
+  if (!internalClientSession) {
+    throw loadSession(config);
+  }
+  return internalClientSession;
+};
+
 // usePlatform is a hook that contains Tailor Platform specific functions
 export const usePlatform = () => {
   const config = useTailorAuth();
+  const session = loadSessionSuspense(config);
 
-  const getCurrentUser = async (
-    token: string,
-  ): Promise<UserInfo | ErrorResponse> => {
+  const getCurrentUser = async (): Promise<UserInfo | ErrorResponse> => {
     const userInfoPath = config.userInfoPath();
     const res = await fetch(config.apiUrl(userInfoPath), {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${session.token}`,
       },
     });
     return (await res.json()) as UserInfo;
@@ -110,7 +124,6 @@ export const usePlatform = () => {
   };
 };
 
-let internalClientSession: SessionResult | null = null;
 export const useSession = (options?: SessionOption): SessionResult => {
   const config = useTailorAuth();
 
@@ -120,17 +133,7 @@ export const useSession = (options?: SessionOption): SessionResult => {
     window.location.replace(config.appUrl(internalUnauthorizedPath));
   }
 
-  const getSession = async () => {
-    const rawResp = await fetch(config.appUrl(internalClientSessionPath));
-    const session = (await rawResp.json()) as SessionResult;
-    internalClientSession = session;
-  };
-
-  if (!internalClientSession) {
-    throw getSession();
-  }
-
-  return internalClientSession;
+  return loadSessionSuspense(config);
 };
 
 // Clear session internally stored on memory (this is only for test usage)
