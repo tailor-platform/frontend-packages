@@ -4,7 +4,7 @@ import { SessionResult } from "@core/types";
 
 // SingletonLoader is a class that abstracts out the logic of loading a resource from a remote server,
 // and caches the result for React Suspense support in client components.
-export class SingletonLoader<R> {
+class SingletonLoader<R> {
   private value: R | null;
 
   constructor(private readonly loader: (config: Config) => Promise<Response>) {
@@ -34,6 +34,10 @@ export class SingletonLoader<R> {
   }
 }
 
+export const internalClientSessionLoader = new SingletonLoader<SessionResult>(
+  (config) => fetch(config.appUrl(internalClientSessionPath)),
+);
+
 export const internalUserinfoLoader = new SingletonLoader<{
   sub: string;
   name: string;
@@ -48,7 +52,3 @@ export const internalUserinfoLoader = new SingletonLoader<{
     },
   });
 });
-
-export const internalClientSessionLoader = new SingletonLoader<SessionResult>(
-  (config) => fetch(config.appUrl(internalClientSessionPath)),
-);
