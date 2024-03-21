@@ -2,19 +2,16 @@ import { ErrorResponse, SessionOption, SessionResult } from "@core/types";
 import { useTailorAuth } from "@client/provider";
 import {
   callbackByStrategy,
-  internalClientSessionPath,
   internalLogoutPath,
   internalUnauthorizedPath,
 } from "@server/middleware/internal";
 import { Config } from "@core";
-
-export type UserInfo = {
-  sub: string;
-  name: string;
-  given_name: string;
-  family_name: string;
-  email: string;
-};
+import {
+  getInternalClientSession,
+  getInternalUserinfo,
+  loadSession,
+  loadUserinfo,
+} from "@core/loader";
 
 const NoWindowError = new Error(
   "window object should be available to use this function",
@@ -90,13 +87,8 @@ export const useAuth = () => {
   };
 };
 
-let internalClientSession: SessionResult | null = null;
-const loadSession = async (config: Config) => {
-  const rawResp = await fetch(config.appUrl(internalClientSessionPath));
-  internalClientSession = (await rawResp.json()) as SessionResult;
-};
-
 const loadSessionSuspense = (config: Config) => {
+  const internalClientSession = getInternalClientSession();
   if (!internalClientSession) {
     throw loadSession(config);
   }
@@ -104,26 +96,15 @@ const loadSessionSuspense = (config: Config) => {
 };
 
 // usePlatform is a hook that contains Tailor Platform specific functions
-let internalUserinfo: UserInfo | null = null;
 export const usePlatform = () => {
   const config = useTailorAuth();
   const session = loadSessionSuspense(config);
 
-  const getCurrentUser = (): UserInfo => {
-    const getCurrentUserInternal = async () => {
-      const userInfoPath = config.userInfoPath();
-      const res = await fetch(config.apiUrl(userInfoPath), {
-        headers: {
-          Authorization: `Bearer ${session.token}`,
-        },
-      });
-      internalUserinfo = (await res.json()) as UserInfo;
-    };
-
+  const getCurrentUser = () => {
+    const internalUserinfo = getInternalUserinfo();
     if (!internalUserinfo) {
-      throw getCurrentUserInternal();
+      throw loadUserinfo(config, session);
     }
-
     return internalUserinfo;
   };
 
@@ -137,14 +118,10 @@ export const useSession = (options?: SessionOption): SessionResult => {
 
   assertWindowIsAvailable();
 
+  const internalClientSession = getInternalClientSession();
   if (options?.required && internalClientSession?.token === undefined) {
     window.location.replace(config.appUrl(internalUnauthorizedPath));
   }
 
   return loadSessionSuspense(config);
-};
-
-// Clear session internally stored on memory (this is only for test usage)
-export const clearClientSession = () => {
-  internalClientSession = null;
 };
