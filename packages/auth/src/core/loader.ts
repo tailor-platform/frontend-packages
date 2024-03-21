@@ -2,17 +2,35 @@ import { internalClientSessionPath } from "@server/middleware/internal";
 import { Config } from "@core/config";
 import { SessionResult } from "@core/types";
 
-let internalClientSession: SessionResult | null = null;
-export const getInternalClientSession = () => internalClientSession;
-export const loadSession = async (config: Config) => {
-  const rawResp = await fetch(config.appUrl(internalClientSessionPath));
-  internalClientSession = (await rawResp.json()) as SessionResult;
-};
+export class SingletonLoader<R> {
+  private value: R | null;
 
-// Clear session internally stored on memory (this is only for test usage)
-export const clearClientSession = () => {
-  internalClientSession = null;
-};
+  constructor(private readonly loader: (config: Config) => Promise<Response>) {
+    this.value = null;
+  }
+
+  async load(config: Config) {
+    const resp = await this.loader(config);
+    this.value = (await resp.json()) as unknown as R;
+    return this.value;
+  }
+
+  get() {
+    return this.value;
+  }
+
+  getSuspense(config: Config) {
+    if (!this.value) {
+      throw this.load(config);
+    }
+    return this.value;
+  }
+
+  // Clear stored value (this is only for test usage)
+  clear() {
+    this.value = null;
+  }
+}
 
 export type UserInfo = {
   sub: string;
@@ -22,14 +40,17 @@ export type UserInfo = {
   email: string;
 };
 
-let internalUserinfo: UserInfo | null = null;
-export const getInternalUserinfo = () => internalUserinfo;
-export const loadUserinfo = async (config: Config, session: SessionResult) => {
-  const userInfoPath = config.userInfoPath();
-  const res = await fetch(config.apiUrl(userInfoPath), {
-    headers: {
-      Authorization: `Bearer ${session.token}`,
-    },
-  });
-  internalUserinfo = (await res.json()) as UserInfo;
-};
+export const internalUserinfoLoader = new SingletonLoader<UserInfo>(
+  async (config) => {
+    const session = await internalClientSessionLoader.load(config);
+    return await fetch(config.apiUrl(config.userInfoPath()), {
+      headers: {
+        Authorization: `Bearer ${session?.token}`,
+      },
+    });
+  },
+);
+
+export const internalClientSessionLoader = new SingletonLoader<SessionResult>(
+  (config) => fetch(config.appUrl(internalClientSessionPath)),
+);

@@ -7,10 +7,8 @@ import {
 } from "@server/middleware/internal";
 import { Config } from "@core";
 import {
-  getInternalClientSession,
-  getInternalUserinfo,
-  loadSession,
-  loadUserinfo,
+  internalClientSessionLoader,
+  internalUserinfoLoader,
 } from "@core/loader";
 
 const NoWindowError = new Error(
@@ -88,24 +86,14 @@ export const useAuth = () => {
 };
 
 const loadSessionSuspense = (config: Config) => {
-  const internalClientSession = getInternalClientSession();
-  if (!internalClientSession) {
-    throw loadSession(config);
-  }
-  return internalClientSession;
+  return internalClientSessionLoader.getSuspense(config);
 };
 
 // usePlatform is a hook that contains Tailor Platform specific functions
 export const usePlatform = () => {
   const config = useTailorAuth();
-  const session = loadSessionSuspense(config);
-
   const getCurrentUser = () => {
-    const internalUserinfo = getInternalUserinfo();
-    if (!internalUserinfo) {
-      throw loadUserinfo(config, session);
-    }
-    return internalUserinfo;
+    return internalUserinfoLoader.getSuspense(config);
   };
 
   return {
@@ -118,7 +106,7 @@ export const useSession = (options?: SessionOption): SessionResult => {
 
   assertWindowIsAvailable();
 
-  const internalClientSession = getInternalClientSession();
+  const internalClientSession = internalClientSessionLoader.get();
   if (options?.required && internalClientSession?.token === undefined) {
     window.location.replace(config.appUrl(internalUnauthorizedPath));
   }

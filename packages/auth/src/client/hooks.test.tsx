@@ -2,11 +2,12 @@ import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 import { renderHook, waitFor, render, screen } from "@testing-library/react";
 import { Suspense } from "react";
 import { http, HttpResponse } from "msw";
-import { clearClientSession, useAuth, usePlatform, useSession } from "./hooks";
+import { useAuth, usePlatform, useSession } from "./hooks";
 import { TailorAuthProvider } from "./provider";
 import { buildMockServer, mockAuthConfig, mockSession } from "@tests/mocks";
 import { withMockReplace } from "@tests/helper";
 import { internalClientSessionPath } from "@server/middleware/internal";
+import { internalClientSessionLoader } from "@core/loader";
 
 const mockProvider = (props: React.PropsWithChildren) => (
   <TailorAuthProvider config={mockAuthConfig}>
@@ -17,7 +18,7 @@ const mockProvider = (props: React.PropsWithChildren) => (
 const mockServer = buildMockServer();
 beforeAll(() => mockServer.listen());
 afterEach(() => {
-  clearClientSession();
+  internalClientSessionLoader.clear();
   mockServer.resetHandlers();
 });
 afterAll(() => mockServer.close());
