@@ -11,6 +11,7 @@ This package provides ways to handle Tailor authentication
   - [`useSession` hook](#usesession-hook)
   - [`useAuth` hook](#useauth-hook)
     - [Login](#login)
+    - [Logout](#logout)
   - [`usePlatform` hook](#useplatform-hook)
 - [Function (server)](#function-server)
   - [`getServerSession` hook](#getserversession-hook)
@@ -154,6 +155,26 @@ const Component = async () => {
   return (
     <div>
       <button onClick={doLogin}>Login</button>
+    </div>
+  );
+};
+```
+
+#### Logout
+
+`logout` is a function to delete a session token to get logged out.
+
+```tsx
+"use client";
+import { useAuth } from "@tailor-platform/auth/client";
+
+// Redirect to login path after logged out
+const Component = async () => {
+  const { logout } = useAuth();
+
+  return (
+    <div>
+      <button onClick={() => logout()}>Logout</button>
     </div>
   );
 };
