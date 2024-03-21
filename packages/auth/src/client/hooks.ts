@@ -5,7 +5,6 @@ import {
   internalLogoutPath,
   internalUnauthorizedPath,
 } from "@server/middleware/internal";
-import { Config } from "@core";
 import {
   internalClientSessionLoader,
   internalUserinfoLoader,
@@ -85,10 +84,6 @@ export const useAuth = () => {
   };
 };
 
-const loadSessionSuspense = (config: Config) => {
-  return internalClientSessionLoader.getSuspense(config);
-};
-
 // usePlatform is a hook that contains Tailor Platform specific functions
 export const usePlatform = () => {
   const config = useTailorAuth();
@@ -111,5 +106,5 @@ export const useSession = (options?: SessionOption): SessionResult => {
     window.location.replace(config.appUrl(internalUnauthorizedPath));
   }
 
-  return loadSessionSuspense(config);
+  return internalClientSessionLoader.getSuspense(config);
 };
