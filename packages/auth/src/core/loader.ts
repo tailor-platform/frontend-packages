@@ -2,6 +2,8 @@ import { internalClientSessionPath } from "@server/middleware/internal";
 import { Config } from "@core/config";
 import { SessionResult } from "@core/types";
 
+// SingletonLoader is a class that abstracts out the logic of loading a resource from a remote server,
+// and caches the result for React Suspense support in client components.
 export class SingletonLoader<R> {
   private value: R | null;
 
