@@ -70,12 +70,9 @@ describe("usePlatform", () => {
         wrapper: mockProvider,
       });
 
-      let userResult = {};
       await waitFor(() => {
-        userResult = result.current.getCurrentUser();
+        expect(result.current.getCurrentUser()).toHaveProperty("sub");
       });
-
-      expect(userResult).toHaveProperty("sub");
     });
   });
 });
