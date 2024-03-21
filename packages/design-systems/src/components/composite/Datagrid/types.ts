@@ -115,8 +115,7 @@ export const GraphQLFilterOperator = {
   LESS_THAN_OR_EQUAL: "lte",
   GREATER_THAN_OR_EQUAL: "gte",
   NOT_EQUAL: "neq",
-  LIKE: "like",
-  NOT_LIKE: "nlike",
+  CONTAINS: "contains",
 } as const;
 export type FilterCondition = {
   label: string;

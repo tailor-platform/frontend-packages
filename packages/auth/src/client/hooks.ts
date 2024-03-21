@@ -1,7 +1,9 @@
 import { ErrorResponse, SessionOption, SessionResult } from "@core/types";
 import { useTailorAuth } from "@client/provider";
 import {
+  callbackByStrategy,
   internalClientSessionPath,
+  internalLogoutPath,
   internalUnauthorizedPath,
 } from "@server/middleware/internal";
 
@@ -27,6 +29,10 @@ type LoginParams = {
   options?: Record<string, unknown>;
 };
 
+type LogoutParams = {
+  redirectPath?: string;
+};
+
 // useAuth is a hook that abstracts out provider-agnostic interface functions related to authorization
 export const useAuth = () => {
   const config = useTailorAuth();
@@ -42,12 +48,23 @@ export const useAuth = () => {
         break;
       case "manual-callback": {
         const params = new URLSearchParams(result.payload);
-        const callbackPath = config.loginCallbackPath(strategy.name());
+        const callbackPath = callbackByStrategy(strategy.name());
         window.location.replace(`${callbackPath}?${params.toString()}`);
         break;
       }
       default:
     }
+  };
+
+  const logout = (params?: LogoutParams) => {
+    assertWindowIsAvailable();
+
+    const searchParams = new URLSearchParams({
+      redirect_path: params?.redirectPath || config.loginPath(),
+    });
+    window.location.replace(
+      `${config.appUrl(internalLogoutPath)}?${searchParams.toString()}`,
+    );
   };
 
   const refreshToken = async (
@@ -67,6 +84,7 @@ export const useAuth = () => {
 
   return {
     login,
+    logout,
     refreshToken,
   };
 };

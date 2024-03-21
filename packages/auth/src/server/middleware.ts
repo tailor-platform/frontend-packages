@@ -2,8 +2,11 @@ import { NextMiddleware, NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { callbackHandler } from "./middleware/callback";
 import {
+  internalCallbackPath,
   internalClientSessionHandler,
   internalClientSessionPath,
+  internalLogoutHandler,
+  internalLogoutPath,
   internalUnauthorizedPath,
   internalUnauthroziedHandler,
 } from "./middleware/internal";
@@ -28,9 +31,10 @@ export const withAuth =
       { request, config, options },
       {
         // Add middleware routes here
-        [config.loginCallbackPath()]: callbackHandler,
+        [internalCallbackPath]: callbackHandler,
         [internalClientSessionPath]: internalClientSessionHandler,
         [internalUnauthorizedPath]: internalUnauthroziedHandler,
+        [internalLogoutPath]: internalLogoutHandler,
       },
       async () => {
         await middleware?.(request, event);

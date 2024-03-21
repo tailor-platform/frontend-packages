@@ -13,6 +13,7 @@ export {
   type DataGridInstance,
   type UseDataGridProps,
   type Localization,
+  type GraphQLQueryFilter,
   useDataGrid,
 } from "@components/composite/Datagrid";
 export {
