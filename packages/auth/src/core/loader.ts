@@ -32,24 +32,20 @@ export class SingletonLoader<R> {
   }
 }
 
-export type UserInfo = {
+export const internalUserinfoLoader = new SingletonLoader<{
   sub: string;
   name: string;
   given_name: string;
   family_name: string;
   email: string;
-};
-
-export const internalUserinfoLoader = new SingletonLoader<UserInfo>(
-  async (config) => {
-    const session = await internalClientSessionLoader.load(config);
-    return await fetch(config.apiUrl(config.userInfoPath()), {
-      headers: {
-        Authorization: `Bearer ${session?.token}`,
-      },
-    });
-  },
-);
+}>(async (config) => {
+  const session = await internalClientSessionLoader.load(config);
+  return await fetch(config.apiUrl(config.userInfoPath()), {
+    headers: {
+      Authorization: `Bearer ${session?.token}`,
+    },
+  });
+});
 
 export const internalClientSessionLoader = new SingletonLoader<SessionResult>(
   (config) => fetch(config.appUrl(internalClientSessionPath)),
