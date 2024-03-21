@@ -31,14 +31,8 @@ export const getLocalizedFilterConditions = (
     },
     {
       label: localization.filter.condition.operatorLabel.include,
-      value: GraphQLFilterOperator.LIKE,
+      value: GraphQLFilterOperator.CONTAINS,
       applicableTypeTypes: ["string"],
-      disabled: false,
-    },
-    {
-      label: localization.filter.condition.operatorLabel.notInclude,
-      value: GraphQLFilterOperator.NOT_LIKE,
-      applicableTypeTypes: [],
       disabled: false,
     },
     {
