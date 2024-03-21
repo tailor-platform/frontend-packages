@@ -36,12 +36,6 @@ export const getLocalizedFilterConditions = (
       disabled: false,
     },
     {
-      label: localization.filter.condition.operatorLabel.notInclude,
-      value: GraphQLFilterOperator.NOT_LIKE,
-      applicableTypeTypes: [],
-      disabled: false,
-    },
-    {
       label: localization.filter.condition.operatorLabel.greaterThan,
       value: GraphQLFilterOperator.GREATER_THAN,
       applicableTypeTypes: ["time", "dateTime", "date", "number"],
