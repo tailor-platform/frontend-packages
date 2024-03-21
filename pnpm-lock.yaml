@@ -118,8 +118,8 @@ importers:
         specifier: ^0.2.2
         version: 0.2.2
       '@storybook/theming':
-        specifier: ^7.5.3
-        version: 7.6.3(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^8.0.0
+        version: 8.0.0(react-dom@18.2.0)(react@18.2.0)
       '@tailor-platform/design-systems':
         specifier: workspace:*
         version: link:../../packages/design-systems
@@ -161,7 +161,7 @@ importers:
         version: 7.6.3
       storybook-version:
         specifier: ^0.1.1
-        version: 0.1.1(@storybook/addons@6.5.16)(@storybook/api@6.5.16)(@storybook/components@6.5.16)(@storybook/core-events@6.5.16)(@storybook/theming@7.6.3)(react-dom@18.2.0)(react@18.2.0)
+        version: 0.1.1(@storybook/addons@6.5.16)(@storybook/api@6.5.16)(@storybook/components@6.5.16)(@storybook/core-events@6.5.16)(@storybook/theming@8.0.0)(react-dom@18.2.0)(react@18.2.0)
       ts-node:
         specifier: ^10.9.1
         version: 10.9.1(@types/node@18.19.6)(typescript@5.3.2)
@@ -7343,6 +7343,34 @@ packages:
       memoizerific: 1.11.3
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
+    dev: true
+
+  /@storybook/theming@8.0.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-Yu6ybemarPN3RBdsljtvpEVNqnqG1YxDLOmkzl1MFtJ1uA5Zd5mTMjc37iD0WDvLOk8mc1HmEqB5+fDrX0U4Vw==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      '@emotion/use-insertion-effect-with-fallbacks': 1.0.1(react@18.2.0)
+      '@storybook/client-logger': 8.0.0
+      '@storybook/global': 5.0.0
+      memoizerific: 1.11.3
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: true
+
+  /@storybook/types@7.6.12:
+    resolution: {integrity: sha512-Wsbd+NS10/2yMHQ/26rXHflXam0hm2qufTFiHOX6VXZWxij3slRU88Fnwzp+1QSyjXb0qkEr8dOx7aG00+ItVw==}
+    dependencies:
+      '@storybook/channels': 7.6.12
+      '@types/babel__core': 7.20.5
+      '@types/express': 4.17.21
+      file-system-cache: 2.3.0
     dev: true
 
   /@storybook/types@7.6.17:
@@ -17345,7 +17373,7 @@ packages:
     resolution: {integrity: sha512-4QcZ+yx7nzEFiV4BMLnr/pRa5HYzNITX2ri0Zh6sT9EyQHbBHacC6YigllUPU9X3D0f/22QCgfokpKs52YRrUg==}
     dev: true
 
-  /storybook-version@0.1.1(@storybook/addons@6.5.16)(@storybook/api@6.5.16)(@storybook/components@6.5.16)(@storybook/core-events@6.5.16)(@storybook/theming@7.6.3)(react-dom@18.2.0)(react@18.2.0):
+  /storybook-version@0.1.1(@storybook/addons@6.5.16)(@storybook/api@6.5.16)(@storybook/components@6.5.16)(@storybook/core-events@6.5.16)(@storybook/theming@8.0.0)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-8xASloEZzXjEmT1vYpKQWppEONR1fwoUc4+POvAu/xUDKqKFVMSG0Y/7y1jP9e36WQM6fVWrGPcWwgeP6IdNnw==}
     peerDependencies:
       '@storybook/addons': ^6.4.0
@@ -17365,7 +17393,7 @@ packages:
       '@storybook/api': 6.5.16(react-dom@18.2.0)(react@18.2.0)
       '@storybook/components': 6.5.16(react-dom@18.2.0)(react@18.2.0)
       '@storybook/core-events': 6.5.16
-      '@storybook/theming': 7.6.3(react-dom@18.2.0)(react@18.2.0)
+      '@storybook/theming': 8.0.0(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: true
