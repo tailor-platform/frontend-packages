@@ -8,6 +8,7 @@ import {
 } from "@tailor-platform/styled-system/recipes";
 import {
   cloneElement,
+  forwardRef,
   isValidElement,
   type PropsWithChildren,
   type ReactElement,
@@ -25,38 +26,42 @@ export type ButtonProps = ButtonVariantProps &
   HTMLStyledProps<"button"> &
   HTMLStyledProps<"a">;
 
-export const Button = (props: ButtonProps) => {
-  const { variant, href, size, leftIcon, rightIcon, children, ...rest } = props;
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  (props: ButtonProps, ref) => {
+    const { variant, href, size, leftIcon, rightIcon, children, ...rest } =
+      props;
 
-  if (href) {
+    if (href) {
+      return (
+        <styled.a
+          {...rest}
+          className={button({ variant, size })}
+          href={href}
+          data-scope="button"
+          data-part="root"
+        >
+          <ButtonContent leftIcon={leftIcon} rightIcon={rightIcon}>
+            {children}
+          </ButtonContent>
+        </styled.a>
+      );
+    }
+
     return (
-      <styled.a
+      <styled.button
         {...rest}
         className={button({ variant, size })}
-        href={href}
         data-scope="button"
         data-part="root"
+        ref={ref}
       >
         <ButtonContent leftIcon={leftIcon} rightIcon={rightIcon}>
           {children}
         </ButtonContent>
-      </styled.a>
+      </styled.button>
     );
-  }
-
-  return (
-    <styled.button
-      {...rest}
-      className={button({ variant, size })}
-      data-scope="button"
-      data-part="root"
-    >
-      <ButtonContent leftIcon={leftIcon} rightIcon={rightIcon}>
-        {children}
-      </ButtonContent>
-    </styled.button>
-  );
-};
+  },
+);
 
 const ButtonContent = (props: PropsWithChildren<ButtonContentProps>) => {
   const { leftIcon, rightIcon, children } = props;

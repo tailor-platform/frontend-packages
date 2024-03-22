@@ -7,6 +7,7 @@ import {
   useCallback,
   useEffect,
   useState,
+  useRef,
 } from "react";
 import { css } from "@tailor-platform/styled-system/css";
 import { pagination, datagrid } from "@tailor-platform/styled-system/recipes";
@@ -27,6 +28,7 @@ import { HideShow } from "./ColumnFeature/HideShow";
 import { PinnedColumn } from "./ColumnFeature/PinnedColumn";
 import { CustomFilter } from "./SearchFilter/CustomFilter";
 import { Column, ColumnMetaWithTypeInfo, type DataGridInstance } from "./types";
+import { useHundleClickOutside } from "./hooks/useHundleClickOutside";
 
 const classes = pagination();
 const datagridClasses = datagrid();
@@ -47,6 +49,21 @@ export const DataGrid = <TData extends Record<string, unknown>>({
   const [columnBeingDragged, setColumnBeingDragged] = useState<
     number | undefined
   >();
+  const filterRef = useRef<HTMLDivElement>(null);
+  const filterButtonRef = useRef<HTMLButtonElement>(null);
+  useHundleClickOutside(
+    filterRef,
+    () => setFilterOpen(false),
+    filterButtonRef,
+    true,
+  );
+  const hideShowRef = useRef<HTMLDivElement>(null);
+  const hideShowButtonRef = useRef<HTMLButtonElement>(null);
+  useHundleClickOutside(
+    hideShowRef,
+    () => setColumnsHideShowOpen(false),
+    hideShowButtonRef,
+  );
 
   const onDragStart = useCallback(
     (event: DragEvent<HTMLTableCellElement>): void => {
@@ -120,6 +137,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
               onClick={() => {
                 setColumnsHideShowOpen(!columnsHideShowOpen);
               }}
+              ref={hideShowButtonRef}
             >
               <ColumnsIcon />
               <Text marginLeft={"4px"}>{localization.filter.columnLabel}</Text>
@@ -135,6 +153,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
               onClick={() => {
                 setFilterOpen(!filterOpen);
               }}
+              ref={filterButtonRef}
             >
               <FilterIcon />
               <Text marginLeft={"4px"}>{localization.filter.filterLabel}</Text>
@@ -202,13 +221,20 @@ export const DataGrid = <TData extends Record<string, unknown>>({
               table.onFilterChange && table.onFilterChange(filters);
             }}
             localization={localization}
+            ref={filterRef}
           />
         )}
         {columnsHideShowOpen && (
           <HideShow
             allColumnsHandler={table.getToggleAllColumnsVisibilityHandler}
-            columns={table.getAllLeafColumns()}
+            columns={
+              table.getAllLeafColumns() as ColumnTanstak<
+                Record<string, unknown>,
+                unknown
+              >[]
+            }
             localization={localization}
+            ref={hideShowRef}
           />
         )}
         <TableBody className={datagridClasses.tableBody}>

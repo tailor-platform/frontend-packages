@@ -108,8 +108,8 @@ const HideShowTest = () => {
   });
   return (
     <HideShow
-      columns={table.getAllLeafColumns()}
       allColumnsHandler={table.getToggleAllColumnsVisibilityHandler}
+      columns={table.getAllLeafColumns()}
       localization={LOCALIZATION_EN}
     />
   );

@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Box } from "@tailor-platform/styled-system/jsx";
 import type { Column } from "@tanstack/react-table";
 import { css } from "@tailor-platform/styled-system/css";
 import { MoreVertical as MoreVerticalIcon } from "lucide-react";
 import { Button } from "../../../Button";
 import type { Localization } from "../../../../locales/types";
+import { useHundleClickOutside } from "../hooks/useHundleClickOutside";
 
 type PinnedColumnProps<TData extends Record<string, unknown>> = {
   column: Column<TData>;
@@ -17,6 +18,13 @@ export const PinnedColumn = <TData extends Record<string, unknown>>({
 }: PinnedColumnProps<TData>) => {
   const [isOpenedPinnedColumnModal, setIsOpenedPinnedColumnModal] =
     useState<boolean>(false);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLDivElement>(null);
+  useHundleClickOutside(
+    modalRef,
+    () => setIsOpenedPinnedColumnModal(false),
+    buttonRef,
+  );
 
   return (
     <div
@@ -24,15 +32,17 @@ export const PinnedColumn = <TData extends Record<string, unknown>>({
         marginLeft: "auto",
       })}
     >
-      <MoreVerticalIcon
-        aria-label="Open Pinned Column Modal"
-        className={css({
-          cursor: "pointer",
-        })}
-        onClick={() => {
-          setIsOpenedPinnedColumnModal(!isOpenedPinnedColumnModal);
-        }}
-      />
+      <Box ref={buttonRef}>
+        <MoreVerticalIcon
+          aria-label="Open Pinned Column Modal"
+          className={css({
+            cursor: "pointer",
+          })}
+          onClick={() => {
+            setIsOpenedPinnedColumnModal(!isOpenedPinnedColumnModal);
+          }}
+        />
+      </Box>
       {isOpenedPinnedColumnModal && (
         <Box
           pl={4}
@@ -46,6 +56,8 @@ export const PinnedColumn = <TData extends Record<string, unknown>>({
           display={"flex"}
           flexDirection={"column"}
           alignItems={"start"}
+          right={0}
+          ref={modalRef}
         >
           <Button
             variant="link"
