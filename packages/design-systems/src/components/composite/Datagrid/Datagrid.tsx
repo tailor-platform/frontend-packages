@@ -28,7 +28,7 @@ import { HideShow } from "./ColumnFeature/HideShow";
 import { PinnedColumn } from "./ColumnFeature/PinnedColumn";
 import { CustomFilter } from "./SearchFilter/CustomFilter";
 import { Column, ColumnMetaWithTypeInfo, type DataGridInstance } from "./types";
-import { useHundleClickOutside } from "./hooks/useHundleClickOutside";
+import { useClickOutside } from "./hooks/useClickOutside";
 
 const classes = pagination();
 const datagridClasses = datagrid();
@@ -51,7 +51,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
   >();
   const filterRef = useRef<HTMLDivElement>(null);
   const filterButtonRef = useRef<HTMLButtonElement>(null);
-  useHundleClickOutside(
+  useClickOutside(
     filterRef,
     () => setFilterOpen(false),
     filterButtonRef,
@@ -59,7 +59,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
   );
   const hideShowRef = useRef<HTMLDivElement>(null);
   const hideShowButtonRef = useRef<HTMLButtonElement>(null);
-  useHundleClickOutside(
+  useClickOutside(
     hideShowRef,
     () => setColumnsHideShowOpen(false),
     hideShowButtonRef,

@@ -1,7 +1,7 @@
 import { useEffect, RefObject } from "react";
 
 type Event = MouseEvent | TouchEvent;
-export const useHundleClickOutside = <
+export const useClickOutside = <
   T extends HTMLElement = HTMLElement,
   U extends HTMLElement = HTMLElement,
 >(

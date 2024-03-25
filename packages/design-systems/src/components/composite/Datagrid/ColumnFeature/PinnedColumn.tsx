@@ -5,7 +5,7 @@ import { css } from "@tailor-platform/styled-system/css";
 import { MoreVertical as MoreVerticalIcon } from "lucide-react";
 import { Button } from "../../../Button";
 import type { Localization } from "../../../../locales/types";
-import { useHundleClickOutside } from "../hooks/useHundleClickOutside";
+import { useClickOutside } from "../hooks/useClickOutside";
 
 type PinnedColumnProps<TData extends Record<string, unknown>> = {
   column: Column<TData>;
@@ -20,7 +20,7 @@ export const PinnedColumn = <TData extends Record<string, unknown>>({
     useState<boolean>(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
-  useHundleClickOutside(
+  useClickOutside(
     modalRef,
     () => setIsOpenedPinnedColumnModal(false),
     buttonRef,
