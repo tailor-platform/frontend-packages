@@ -51,12 +51,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
   >();
   const filterRef = useRef<HTMLDivElement>(null);
   const filterButtonRef = useRef<HTMLButtonElement>(null);
-  useClickOutside(
-    filterRef,
-    () => setFilterOpen(false),
-    filterButtonRef,
-    true,
-  );
+  useClickOutside(filterRef, () => setFilterOpen(false), filterButtonRef, true);
   const hideShowRef = useRef<HTMLDivElement>(null);
   const hideShowButtonRef = useRef<HTMLButtonElement>(null);
   useClickOutside(
