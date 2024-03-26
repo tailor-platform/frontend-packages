@@ -2,18 +2,13 @@ import { ErrorResponse, SessionOption, SessionResult } from "@core/types";
 import { useTailorAuth } from "@client/provider";
 import {
   callbackByStrategy,
-  internalClientSessionPath,
   internalLogoutPath,
   internalUnauthorizedPath,
 } from "@server/middleware/internal";
-
-export type UserInfo = {
-  sub: string;
-  name: string;
-  given_name: string;
-  family_name: string;
-  email: string;
-};
+import {
+  internalClientSessionLoader,
+  internalUserinfoLoader,
+} from "@core/loader";
 
 const NoWindowError = new Error(
   "window object should be available to use this function",
@@ -92,17 +87,8 @@ export const useAuth = () => {
 // usePlatform is a hook that contains Tailor Platform specific functions
 export const usePlatform = () => {
   const config = useTailorAuth();
-
-  const getCurrentUser = async (
-    token: string,
-  ): Promise<UserInfo | ErrorResponse> => {
-    const userInfoPath = config.userInfoPath();
-    const res = await fetch(config.apiUrl(userInfoPath), {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return (await res.json()) as UserInfo;
+  const getCurrentUser = () => {
+    return internalUserinfoLoader.getSuspense(config);
   };
 
   return {
@@ -110,30 +96,15 @@ export const usePlatform = () => {
   };
 };
 
-let internalClientSession: SessionResult | null = null;
 export const useSession = (options?: SessionOption): SessionResult => {
   const config = useTailorAuth();
 
   assertWindowIsAvailable();
 
+  const internalClientSession = internalClientSessionLoader.get();
   if (options?.required && internalClientSession?.token === undefined) {
     window.location.replace(config.appUrl(internalUnauthorizedPath));
   }
 
-  const getSession = async () => {
-    const rawResp = await fetch(config.appUrl(internalClientSessionPath));
-    const session = (await rawResp.json()) as SessionResult;
-    internalClientSession = session;
-  };
-
-  if (!internalClientSession) {
-    throw getSession();
-  }
-
-  return internalClientSession;
-};
-
-// Clear session internally stored on memory (this is only for test usage)
-export const clearClientSession = () => {
-  internalClientSession = null;
+  return internalClientSessionLoader.getSuspense(config);
 };
