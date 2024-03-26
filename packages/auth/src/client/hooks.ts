@@ -87,15 +87,9 @@ export const useAuth = () => {
 // usePlatform is a hook that contains Tailor Platform specific functions
 export const usePlatform = () => {
   const config = useTailorAuth();
-  const getCurrentUser = () => {
-    const result = internalUserinfoLoader.getSuspense(config);
-    return "error" in result
-      ? { data: null, error: result.error }
-      : { data: result, error: null };
-  };
 
   return {
-    getCurrentUser,
+    getCurrentUser: () => internalUserinfoLoader.getSuspense(config),
   };
 };
 
