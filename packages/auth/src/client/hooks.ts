@@ -88,7 +88,10 @@ export const useAuth = () => {
 export const usePlatform = () => {
   const config = useTailorAuth();
   const getCurrentUser = () => {
-    return internalUserinfoLoader.getSuspense(config);
+    const result = internalUserinfoLoader.getSuspense(config);
+    return "error" in result
+      ? { data: null, error: result.error }
+      : { data: result, error: null };
   };
 
   return {

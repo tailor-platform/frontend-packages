@@ -38,13 +38,16 @@ export const internalClientSessionLoader = new SingletonLoader<SessionResult>(
   (config) => fetch(config.appUrl(internalClientSessionPath)),
 );
 
-export const internalUserinfoLoader = new SingletonLoader<{
-  sub: string;
-  name: string;
-  given_name: string;
-  family_name: string;
-  email: string;
-}>(async (config) => {
+export const internalUserinfoLoader = new SingletonLoader<
+  | {
+      sub: string;
+      name: string;
+      given_name: string;
+      family_name: string;
+      email: string;
+    }
+  | { error: string }
+>(async (config) => {
   const session = await internalClientSessionLoader.load(config);
   return await fetch(config.apiUrl(config.userInfoPath()), {
     headers: {

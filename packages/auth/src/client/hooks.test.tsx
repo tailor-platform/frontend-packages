@@ -71,9 +71,9 @@ describe("usePlatform", () => {
         wrapper: mockProvider,
       });
 
-      await waitFor(() => {
-        expect(result.current.getCurrentUser()).toHaveProperty("sub");
-      });
+      const r = await waitFor(() => result.current.getCurrentUser());
+      expect(r.data).toHaveProperty("sub");
+      expect(r.error).toBeNull();
     });
   });
 });
