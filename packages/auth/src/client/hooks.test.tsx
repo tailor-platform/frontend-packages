@@ -72,8 +72,7 @@ describe("usePlatform", () => {
       });
 
       const r = await waitFor(() => result.current.getCurrentUser());
-      expect(r.data).toHaveProperty("sub");
-      expect(r.error).toBeNull();
+      expect(r).toHaveProperty("sub");
     });
   });
 });
