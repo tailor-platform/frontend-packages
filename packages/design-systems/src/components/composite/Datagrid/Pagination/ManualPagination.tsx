@@ -12,7 +12,7 @@ import {
   ChevronDown,
   CheckIcon,
 } from "lucide-react";
-import { DataGridInstance } from "../types";
+import { DataGridInstance, PageChangeDetails } from "../types";
 import { HStack } from "../../../patterns/HStack";
 import { Text } from "../../../Text";
 import { Button } from "../../../Button";
@@ -40,11 +40,6 @@ const Select = {
   Trigger: styled(AS.Trigger),
   ValueText: styled(AS.ValueText),
 };
-
-interface PageChangeDetails {
-  page: number;
-  pageSize: number;
-}
 
 type Page = {
   index: number;
@@ -75,9 +70,9 @@ export const ManualPagination = <TData extends Record<string, unknown>>({
   );
 
   const pages: Page[] = useMemo(() => {
-    const list = table.totalCount ? Math.ceil(table.totalCount / pageSize) : 0;
-    const l = [...Array(list).keys()];
-    return l
+    const pageCount = table.totalCount ? Math.ceil(table.totalCount / pageSize) : 0;
+    const pageList = [...Array(pageCount).keys()];
+    return pageList
       .filter((i) => Math.abs(i - pageIndex) < ELLIPSIS_SIZE + 1)
       .map((p) => {
         return {
