@@ -9,7 +9,7 @@ import type {
 import type { Table, Updater } from "@tanstack/table-core/build/lib/types";
 import type { Localization } from "../../../locales/types";
 
-interface PageChangeDetails {
+export interface PageChangeDetails {
   page: number;
   pageSize: number;
 }
@@ -21,6 +21,7 @@ export interface DataGridInstance<
   totalCount?: number;
   pageSize?: number;
   enablePagination?: boolean;
+  manualPagination?: boolean;
   enableColumnFilters?: boolean;
   enableHiding?: boolean;
   onFilterChange?: (filters: GraphQLQueryFilter) => void;
@@ -30,6 +31,7 @@ export type UseDataGridProps<TData> = {
   data: TData[];
   columns: ColumnDef<TData>[];
   enablePagination?: boolean;
+  manualPagination?: boolean;
   enableColumnFilters?: boolean;
   enableHiding?: boolean;
   onFilterChange?: (filters: GraphQLQueryFilter) => void;

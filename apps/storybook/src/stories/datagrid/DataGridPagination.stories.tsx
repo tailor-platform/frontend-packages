@@ -9,7 +9,7 @@ import {
 import dataGridPaginationStorySource from "./DataGridPaginationStory.tsx?raw";
 
 const meta: Meta<DataGridPaginationStoryProps> = {
-  title: "Datagrid/Pagination Datagrid",
+  title: "Datagrid/Datagrid With Pagination Support",
   component: DataGridPaginationStory,
   parameters: {
     layout: "centered",

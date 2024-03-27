@@ -14,6 +14,7 @@ export const useDataGrid = <TData extends RowLike>({
   data,
   columns,
   enablePagination = false,
+  manualPagination = false,
   pagination,
   totalCount = 0,
   onPageChange,
@@ -77,9 +78,13 @@ export const useDataGrid = <TData extends RowLike>({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: enablePagination
-      ? getPaginationRowModel()
-      : undefined,
+    getPaginationRowModel:
+      enablePagination && !manualPagination
+        ? getPaginationRowModel()
+        : undefined,
+    manualPagination,
+    autoResetPageIndex: true,
+    rowCount: totalCount,
     initialState,
     enableRowSelection,
     onRowSelectionChange: enableRowSelection ? onRowSelectionChange : undefined,
@@ -100,6 +105,7 @@ export const useDataGrid = <TData extends RowLike>({
     handlePageChange: onPageChange,
     totalCount,
     enablePagination,
+    manualPagination,
     enableColumnFilters,
     enableHiding,
     onFilterChange,
