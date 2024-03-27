@@ -70,7 +70,9 @@ export const ManualPagination = <TData extends Record<string, unknown>>({
   );
 
   const pages: Page[] = useMemo(() => {
-    const pageCount = table.totalCount ? Math.ceil(table.totalCount / pageSize) : 0;
+    const pageCount = table.totalCount
+      ? Math.ceil(table.totalCount / pageSize)
+      : 0;
     const pageList = [...Array(pageCount).keys()];
     return pageList
       .filter((i) => Math.abs(i - pageIndex) < ELLIPSIS_SIZE + 1)
