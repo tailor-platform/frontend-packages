@@ -102,7 +102,7 @@ export default middleware;
 
 ### `useSession` hook
 
-A hook to get token in client components.
+A suspense hook to get token in client components.
 
 ```tsx
 "use client";
@@ -184,7 +184,7 @@ const Component = async () => {
 
 The hook that provides utility functions for Tailor Platform specific operation. It includes:
 
-- `getCurrentUser`: A function to retrieve the logged-in user's information using a valid session token.
+- `getCurrentUser`: A suspense function to retrieve the logged-in user's information.
 
 Here is an example of how to use these functions:
 
@@ -193,10 +193,9 @@ Here is an example of how to use these functions:
 import { usePlatform } from "@tailor-platform/auth/client";
 
 const Component = async () => {
-  const { token } = useSession();
   const { getCurrentUser } = usePlatform();
 
-  const user = await getCurrentUser(token);
+  const user = getCurrentUser();
 
   // utilize session and user data...
 };
