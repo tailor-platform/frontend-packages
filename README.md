@@ -1,6 +1,6 @@
 # frontend-packages
 
-![cover](assets/cover.png)
+![cover](https://raw.githubusercontent.com/tailor-platform/frontend-packages/main/assets/cover.png)
 
 This is the monorepo for Tailor npm packages.
 
