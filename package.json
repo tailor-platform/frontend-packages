@@ -46,6 +46,7 @@
     "prettier": "^3.2.4",
     "react": "^18.2.0",
     "turbo": "1.12.5",
+    "typedoc": "^0.25.12",
     "yalc": "1.0.0-pre.53"
   },
   "packageManager": "pnpm@8.14.0",
