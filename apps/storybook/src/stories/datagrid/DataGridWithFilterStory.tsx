@@ -22,7 +22,7 @@ export const DataGridWithFilterStory = ({
   const [currentFilter, setCurrentFilter] = useState({});
   const [data, setData] = useState<Payment[]>(originData);
   const table = useDataGrid({
-    data: data,
+    data,
     columns,
     enableColumnFilters,
     onFilterChange: (filter) => {
