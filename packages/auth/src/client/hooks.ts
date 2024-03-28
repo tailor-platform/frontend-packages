@@ -142,7 +142,7 @@ export const useAuth = () => {
 };
 
 /**
- * The hook that provides utility functions for Tailor Platform specific operation
+ * Hook that provides utility functions for Tailor Platform-specific operations.
  */
 export const usePlatform = () => {
   const config = useTailorAuth();
