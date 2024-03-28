@@ -4,7 +4,14 @@ import { AbstractStrategy } from "@core/strategies/abstract";
 import { defaultStrategy } from "@core/strategies/default";
 
 type ContextConfig = {
+  /**
+   * Your own Tailor Platform app host
+   */
   apiHost: string;
+
+  /**
+   * Your own frontend app host
+   */
   appHost: string;
 
   /**
@@ -42,6 +49,19 @@ export const NoCorrespondingStrategyError = new Error(
   "no corresponding authentication strategy available",
 );
 
+/**
+ * Config is a class that holds the configuration for the authentication functionality.
+ *
+ * @example
+ * ```
+ * import { Config } from "@tailor-platform/auth/core";
+ *
+ * export const config = new Config({
+ *  apiHost: "http://yourapp.mini.tailor.tech:8000",
+ *  appHost: "http://localhost:3000",
+ * });
+ * ```
+ */
 export class Config {
   private readonly strategyMap: Map<string, AbstractStrategy>;
 
