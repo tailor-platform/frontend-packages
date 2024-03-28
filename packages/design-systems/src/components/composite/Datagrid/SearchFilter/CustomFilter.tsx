@@ -184,7 +184,6 @@ export const CustomFilter = forwardRef(
   */
     const addToGraphQLQueryFilterRecursively = useCallback(
       (filter: FilterRowState, graphQLQueryObject: GraphQLQueryFilter) => {
-        console.log("filter", filter)
         const { column, condition, value, jointCondition } = filter;
         if (column && condition && value) {
           if (jointCondition) {
@@ -228,8 +227,6 @@ export const CustomFilter = forwardRef(
           }
         }
       });
-      console.log("filterRows", filterRows)
-      console.log("newFilterRowsState", newFilterRowsState)
       setFilterRowsState(newFilterRowsState);
     }, [addToGraphQLQueryFilterRecursively, filterRows]);
 
