@@ -1,13 +1,21 @@
 import { Config } from "@core/config";
 
 type CallbackResult = {
-  // Payload to be sent out to /auth/token endpoint on Tailor Platform to issue token
+  /**
+   * Payload to be sent out to /auth/token endpoint on Tailor Platform to issue token
+   */
   payload: FormData;
 
-  // An URI to be redirected after callback handler
+  /**
+   * An URI to be redirected after callback handler
+   */
   redirectUri: string;
 };
 
+/**
+ * `AuthenticateResult` is a type that is returned from `authenticate` function in `AbstractStrategy`
+ * to decide the authentication process that the strategy will take.
+ */
 type AuthenticateResult =
   | {
       /**
@@ -22,7 +30,7 @@ type AuthenticateResult =
     }
   | {
       /**
-       * This mode will manually send out the payload above to middleware callback handlers.
+       * Manually sending out the content in `payload` above to middleware callback handlers.
        */
       mode: "manual-callback";
 
@@ -40,13 +48,15 @@ export type AbstractStrategy<
 > = {
   /**
    * `name` function returns the name of strategy.
-   * The value returned from this will be used as identifier in middleware callback
+   *
+   * @returns an strategy identifier used in middleware callback
    */
   name(): string;
 
   /**
-   * `authenticate` is a function that runs when users trigger `login` function on client components
-   * The returned value tells if authentication flow is redirection or manual callback.
+   * `authenticate` is a function that is called when users initiate authentication process with `login` function on client components
+   *
+   * @returns `AuthenticationResult` object to tell if authentication flow is redirection or manual callback.
    */
   authenticate(
     config: Config,
@@ -55,6 +65,8 @@ export type AbstractStrategy<
 
   /**
    * `callback` is a function to be handled in a callback handler in middleware.
+   *
+   * @returns `CallbackResult` object that contains payload to be sent to /auth/token endpoint to issue token
    */
   callback(config: Config, params: URLSearchParams): CallbackResult;
 };
