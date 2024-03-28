@@ -10,7 +10,7 @@ import {
 import { COLUMNS as columns, DATA as data } from "../../data/datagrid.ts";
 
 export type DataGridPaginationStoryProps = {
-  pageSize: number;
+  pageSize?: number;
   table?: DataGridInstance<Record<string, unknown>>;
 };
 
@@ -21,9 +21,10 @@ export const DataGridPaginationStory = ({
     data,
     columns,
     enablePagination: true,
+    totalCount: 14,
     pagination: {
       pageIndex: 0,
-      pageSize,
+      pageSize: pageSize,
     },
   });
 

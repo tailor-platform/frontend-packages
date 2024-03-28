@@ -7,9 +7,10 @@ import type {
   RowSelectionState,
 } from "@tanstack/react-table";
 import type { Table, Updater } from "@tanstack/table-core/build/lib/types";
+import { CollectionItem } from "@ark-ui/react/select";
 import type { Localization } from "../../../locales/types";
 
-interface PageChangeDetails {
+export interface PageChangeDetails {
   page: number;
   pageSize: number;
 }
@@ -21,6 +22,7 @@ export interface DataGridInstance<
   totalCount?: number;
   pageSize?: number;
   enablePagination?: boolean;
+  manualPagination?: boolean;
   enableColumnFilters?: boolean;
   enableHiding?: boolean;
   onFilterChange?: (filters: GraphQLQueryFilter) => void;
@@ -30,6 +32,7 @@ export type UseDataGridProps<TData> = {
   data: TData[];
   columns: ColumnDef<TData>[];
   enablePagination?: boolean;
+  manualPagination?: boolean;
   enableColumnFilters?: boolean;
   enableHiding?: boolean;
   onFilterChange?: (filters: GraphQLQueryFilter) => void;
@@ -131,3 +134,13 @@ export type ApplicableType =
   | "date"
   | "number"
   | "boolean";
+
+export interface ValueChangeDetails<T extends CollectionItem = CollectionItem> {
+  value: string[];
+  items: T[];
+}
+
+export type Page = {
+  index: number;
+  type: "page" | "ellipsis";
+};

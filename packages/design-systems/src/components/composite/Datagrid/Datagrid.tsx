@@ -1,6 +1,5 @@
 import { Column as ColumnTanstak, flexRender } from "@tanstack/react-table";
 import { Columns as ColumnsIcon, Filter as FilterIcon } from "lucide-react";
-import { Pagination } from "@ark-ui/react/pagination";
 import {
   CSSProperties,
   DragEvent,
@@ -10,7 +9,7 @@ import {
   useRef,
 } from "react";
 import { css } from "@tailor-platform/styled-system/css";
-import { pagination, datagrid } from "@tailor-platform/styled-system/recipes";
+import { datagrid } from "@tailor-platform/styled-system/recipes";
 import { LOCALIZATION_EN } from "../../../locales/en";
 import { Button } from "../../Button";
 import {
@@ -27,10 +26,10 @@ import { Stack } from "../../patterns/Stack";
 import { HideShow } from "./ColumnFeature/HideShow";
 import { PinnedColumn } from "./ColumnFeature/PinnedColumn";
 import { CustomFilter } from "./SearchFilter/CustomFilter";
+import { ManualPagination, Pagination } from "./Pagination";
 import { Column, ColumnMetaWithTypeInfo, type DataGridInstance } from "./types";
 import { useClickOutside } from "./hooks/useClickOutside";
 
-const classes = pagination();
 const datagridClasses = datagrid();
 
 export const DataGrid = <TData extends Record<string, unknown>>({
@@ -258,67 +257,10 @@ export const DataGrid = <TData extends Record<string, unknown>>({
           )}
         </TableBody>
       </Table>
-
-      {table.enablePagination && (
-        <Pagination.Root
-          className={classes.root}
-          count={table.totalCount || 0}
-          pageSize={table.initialState.pagination.pageSize}
-          siblingCount={2}
-        >
-          {({ pages }) => (
-            <>
-              <HStack gap={1}>
-                <Pagination.PrevTrigger asChild>
-                  <Button
-                    variant="secondary"
-                    size="md"
-                    onClick={() => table.previousPage()}
-                    disabled={!table.getCanPreviousPage()}
-                  >
-                    Previous
-                  </Button>
-                </Pagination.PrevTrigger>
-
-                {pages.map((page, index) =>
-                  page.type === "page" ? (
-                    <Pagination.Item
-                      className={classes.item}
-                      {...page}
-                      key={index}
-                      asChild
-                    >
-                      <Button variant="tertiary" size="md">
-                        {page.value}
-                      </Button>
-                    </Pagination.Item>
-                  ) : (
-                    <Pagination.Ellipsis
-                      className={classes.ellipsis}
-                      key={index}
-                      index={index}
-                    >
-                      &#8230;
-                    </Pagination.Ellipsis>
-                  ),
-                )}
-
-                <Pagination.NextTrigger asChild>
-                  <Button
-                    variant="secondary"
-                    size="md"
-                    onClick={() => {
-                      table.nextPage();
-                    }}
-                    disabled={!table.getCanNextPage()}
-                  >
-                    Next
-                  </Button>
-                </Pagination.NextTrigger>
-              </HStack>
-            </>
-          )}
-        </Pagination.Root>
+      {table.enablePagination && table.manualPagination ? (
+        <ManualPagination table={table} />
+      ) : (
+        <Pagination table={table} />
       )}
     </Stack>
   );
