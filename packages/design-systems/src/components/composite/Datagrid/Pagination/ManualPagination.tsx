@@ -64,10 +64,12 @@ export const ManualPagination = <TData extends Record<string, unknown>>({
 
   const from = useMemo(() => pageIndex * pageSize + 1, [pageIndex, pageSize]);
   const to = useMemo(() => from + pageSize - 1, [from, pageSize]);
-  const isNextPage = useMemo(
-    () => pageIndex === table.getPageCount() - 1,
-    [pageIndex, table],
-  );
+  const isNextPage = useMemo(() => {
+    const pageCount = table.totalCount
+      ? Math.ceil(table.totalCount / pageSize)
+      : 0;
+    return pageIndex === pageCount - 1;
+  }, [pageIndex, pageSize, table]);
 
   const pages: Page[] = useMemo(() => {
     const pageCount = table.totalCount
