@@ -21,6 +21,9 @@ export const DataGridWithFilterStory = ({
     data,
     columns,
     enableColumnFilters,
+    onFilterChange: (filter) => {
+      console.log("Filter changed", filter);
+    }
   });
 
   return (
