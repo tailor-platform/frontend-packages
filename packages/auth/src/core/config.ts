@@ -50,7 +50,7 @@ export const NoCorrespondingStrategyError = new Error(
 );
 
 /**
- * Config is a class that holds the configuration for the authentication functionality.
+ * Class that encapsulates the configuration for the auth package.
  *
  * @example
  * ```
