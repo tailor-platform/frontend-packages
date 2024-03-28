@@ -7,6 +7,7 @@ import type {
   RowSelectionState,
 } from "@tanstack/react-table";
 import type { Table, Updater } from "@tanstack/table-core/build/lib/types";
+import { CollectionItem } from "@ark-ui/react/select";
 import type { Localization } from "../../../locales/types";
 
 export interface PageChangeDetails {
@@ -133,3 +134,13 @@ export type ApplicableType =
   | "date"
   | "number"
   | "boolean";
+
+export interface ValueChangeDetails<T extends CollectionItem = CollectionItem> {
+  value: string[];
+  items: T[];
+}
+
+export type Page = {
+  index: number;
+  type: "page" | "ellipsis";
+};

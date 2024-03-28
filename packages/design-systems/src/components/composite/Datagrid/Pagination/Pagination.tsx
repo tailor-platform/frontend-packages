@@ -1,8 +1,8 @@
 import { useMemo } from "react";
-import { Select as AS, CollectionItem } from "@ark-ui/react/select";
+import { CollectionItem } from "@ark-ui/react/select";
 import { Portal } from "@ark-ui/react/portal";
-import { styled } from "@tailor-platform/styled-system/jsx";
 import { select } from "@tailor-platform/styled-system/recipes";
+import { HStack } from "@tailor-platform/styled-system/jsx";
 import {
   ChevronLeftIcon,
   ChevronsLeftIcon,
@@ -11,41 +11,13 @@ import {
   ChevronDown,
   CheckIcon,
 } from "lucide-react";
-import { DataGridInstance } from "../types";
-import { HStack } from "../../../patterns/HStack";
+import { DataGridInstance, ValueChangeDetails } from "../types";
 import { Text } from "../../../Text";
 import { Button } from "../../../Button";
 import { IconButton } from "../../../IconButton";
+import { selectList, Select, usePagination } from "./utils";
 
 const classes = select();
-
-interface ValueChangeDetails<T extends CollectionItem = CollectionItem> {
-  value: string[];
-  items: T[];
-}
-
-const Select = {
-  Root: styled(AS.Root),
-  ClearTrigger: styled(AS.ClearTrigger),
-  Content: styled(AS.Content),
-  Control: styled(AS.Control),
-  Item: styled(AS.Item),
-  ItemGroup: styled(AS.ItemGroup),
-  ItemGroupLabel: styled(AS.ItemGroupLabel),
-  ItemIndicator: styled(AS.ItemIndicator),
-  ItemText: styled(AS.ItemText),
-  Label: styled(AS.Label),
-  Positioner: styled(AS.Positioner),
-  Trigger: styled(AS.Trigger),
-  ValueText: styled(AS.ValueText),
-};
-
-type Page = {
-  index: number;
-  type: "page" | "ellipsis";
-};
-
-const ELLIPSIS_SIZE = 4;
 
 export const Pagination = <TData extends Record<string, unknown>>({
   table,
@@ -57,25 +29,7 @@ export const Pagination = <TData extends Record<string, unknown>>({
     [table],
   );
   const pageSize = useMemo(() => table.getState().pagination.pageSize, [table]);
-  const from = useMemo(() => pageIndex * pageSize + 1, [pageIndex, pageSize]);
-  const to = useMemo(() => from + pageSize - 1, [from, pageSize]);
-
-  const pages: Page[] = useMemo(() => {
-    const pageCount = table.totalCount
-      ? Math.ceil(table.totalCount / pageSize)
-      : 0;
-    const pageList = [...Array(pageCount).keys()];
-    return pageList
-      .filter((i) => Math.abs(i - pageIndex) < ELLIPSIS_SIZE + 1)
-      .map((p) => {
-        return {
-          index: p,
-          type: Math.abs(p - pageIndex) === ELLIPSIS_SIZE ? "ellipsis" : "page",
-        };
-      });
-  }, [table, pageIndex, pageSize]);
-
-  const selectList = ["5", "20", "50", "100", "500", "1000"];
+  const { from, to, pages } = usePagination(table, pageIndex, pageSize);
 
   return (
     <HStack justifyContent={"flex-end"} gap={8}>

@@ -1,9 +1,9 @@
-import { useMemo, useState } from "react";
-import { type PaginationState } from "@tanstack/react-table";
-import { Select as AS, CollectionItem } from "@ark-ui/react/select";
+import { useState } from "react";
+import { CollectionItem } from "@ark-ui/react/select";
 import { Portal } from "@ark-ui/react/portal";
-import { styled } from "@tailor-platform/styled-system/jsx";
+import { type PaginationState } from "@tanstack/react-table";
 import { select } from "@tailor-platform/styled-system/recipes";
+import { HStack } from "@tailor-platform/styled-system/jsx";
 import {
   ChevronLeftIcon,
   ChevronsLeftIcon,
@@ -12,41 +12,17 @@ import {
   ChevronDown,
   CheckIcon,
 } from "lucide-react";
-import { DataGridInstance, PageChangeDetails } from "../types";
-import { HStack } from "../../../patterns/HStack";
+import {
+  DataGridInstance,
+  PageChangeDetails,
+  ValueChangeDetails,
+} from "../types";
 import { Text } from "../../../Text";
 import { Button } from "../../../Button";
 import { IconButton } from "../../../IconButton";
+import { selectList, Select, usePagination } from "./utils";
 
 const classes = select();
-
-interface ValueChangeDetails<T extends CollectionItem = CollectionItem> {
-  value: string[];
-  items: T[];
-}
-
-const Select = {
-  Root: styled(AS.Root),
-  ClearTrigger: styled(AS.ClearTrigger),
-  Content: styled(AS.Content),
-  Control: styled(AS.Control),
-  Item: styled(AS.Item),
-  ItemGroup: styled(AS.ItemGroup),
-  ItemGroupLabel: styled(AS.ItemGroupLabel),
-  ItemIndicator: styled(AS.ItemIndicator),
-  ItemText: styled(AS.ItemText),
-  Label: styled(AS.Label),
-  Positioner: styled(AS.Positioner),
-  Trigger: styled(AS.Trigger),
-  ValueText: styled(AS.ValueText),
-};
-
-type Page = {
-  index: number;
-  type: "page" | "ellipsis";
-};
-
-const ELLIPSIS_SIZE = 4;
 
 export const ManualPagination = <TData extends Record<string, unknown>>({
   table,
@@ -57,36 +33,14 @@ export const ManualPagination = <TData extends Record<string, unknown>>({
     pageIndex: 0,
     pageSize: table.initialState.pagination.pageSize,
   });
-
+  const { from, to, pages, isNextPage } = usePagination(
+    table,
+    pageIndex,
+    pageSize,
+  );
   const handlePageChange = (detail: PageChangeDetails) => {
     table.handlePageChange && table.handlePageChange(detail);
   };
-
-  const from = useMemo(() => pageIndex * pageSize + 1, [pageIndex, pageSize]);
-  const to = useMemo(() => from + pageSize - 1, [from, pageSize]);
-  const isNextPage = useMemo(() => {
-    const pageCount = table.totalCount
-      ? Math.ceil(table.totalCount / pageSize)
-      : 0;
-    return pageIndex === pageCount - 1;
-  }, [pageIndex, pageSize, table]);
-
-  const pages: Page[] = useMemo(() => {
-    const pageCount = table.totalCount
-      ? Math.ceil(table.totalCount / pageSize)
-      : 0;
-    const pageList = [...Array(pageCount).keys()];
-    return pageList
-      .filter((i) => Math.abs(i - pageIndex) < ELLIPSIS_SIZE + 1)
-      .map((p) => {
-        return {
-          index: p,
-          type: Math.abs(p - pageIndex) === ELLIPSIS_SIZE ? "ellipsis" : "page",
-        };
-      });
-  }, [table, pageIndex, pageSize]);
-
-  const selectList = ["5", "20", "50", "100", "500", "1000"];
 
   return (
     <HStack justifyContent={"flex-end"} gap={8}>
