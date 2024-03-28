@@ -63,8 +63,8 @@
     "vitest": "^1.0.2"
   },
   "peerDependencies": {
-    "next": "^v14",
-    "@apollo/client": "^3.9"
+    "@apollo/client": "^3.9",
+    "next": "^v14"
   },
   "prettier": "@tailor-platform/dev-config/prettier"
 }
