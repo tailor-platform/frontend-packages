@@ -1,5 +1,3 @@
-# dev-config
-
 Tailor's base configurations for ESLint, Prettier and Typescript.
 
 ## Installation

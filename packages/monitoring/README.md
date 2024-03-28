@@ -1,5 +1,3 @@
-# @tailor-platform/monitoring
-
 This package provides tools and utilities for integrating monitoring solutions in your application. While it currently leverages **Datadog** using `@datadog/browser-rum` as the monitoring provider, it's constructed to be adaptable for future monitoring
 solutions.
 
