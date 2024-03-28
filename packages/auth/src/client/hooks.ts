@@ -109,7 +109,7 @@ export const useAuth = () => {
     },
 
     /**
-     * A function to initiate logout process that deletes session token and redirecting to the specified page
+     * Signs out a user: deletes the session token and redirects to the specified page.
      *
      * @example
      * ```
