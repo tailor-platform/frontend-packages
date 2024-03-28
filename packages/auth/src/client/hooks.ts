@@ -64,7 +64,7 @@ export const useAuth = () => {
 
   return {
     /**
-     * A function to initiate authentication process.
+     * Initiates the authentication process.
      *
      * @example
      * ```
