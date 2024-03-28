@@ -13,7 +13,7 @@ import {
 import { Config } from "@core/config";
 
 export type MiddlewareHandlerOptions = {
-  /*!
+  /**
    * A callback handler to prepend you own logic just after the token is issued.
    * (eg. fetch user profile and store it in LocalStorage, ...)
    */
@@ -21,13 +21,13 @@ export type MiddlewareHandlerOptions = {
 };
 
 type WithAuthOptions = MiddlewareHandlerOptions & {
-  /*!
+  /**
    * An error handler to be called when an error occurs in the middleware.
    */
   onError?: (err: Error) => Promise<void> | void;
 };
 
-/*!
+/**
  * A middleware that mainly intercepts requests to login callback from IDP or login process
  * by automatically generating a callback handler to accept redirection from IDP as `__auth/callback/{strategy}` path.
  */

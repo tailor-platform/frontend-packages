@@ -7,32 +7,32 @@ type ContextConfig = {
   apiHost: string;
   appHost: string;
 
-  /*!
+  /**
    * A flag to enable secure cookies or not (default: true)
    */
   secure: boolean;
 
-  /*!
+  /**
    * Auth service endpoint to initiate login (default: /auth/login)
    */
   loginPath: string;
 
-  /*!
+  /**
    * Path to be redirected if not authorized (default: /unauthorized)
    */
   unauthorizedPath: string;
 
-  /*!
+  /**
    * Auth service endpoint to issue a session token (default: /auth/token)
    */
   tokenPath: string;
 
-  /*!
+  /**
    * Auth service refresh token endpoint (default: /auth/token/refresh)
    */
   refreshTokenPath: string;
 
-  /*!
+  /**
    * Auth service endpoint to fetch basic user information (default: /auth/userinfo)
    */
   userInfoPath: string;

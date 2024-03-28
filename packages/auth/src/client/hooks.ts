@@ -20,13 +20,13 @@ const assertWindowIsAvailable = () => {
 };
 
 type LoginParams = {
-  /*!
+  /**
    * The name of the strategy to use for login. Available strategies are: oidc, saml, minitailor.
    * If not provided, the default strategy (oidc) will be used.
    */
   name?: string;
 
-  /*!
+  /**
    * Options is the argument passed to the strategy's authenticate function.
    * The content of this object is strategy-specific.
    */
@@ -34,14 +34,14 @@ type LoginParams = {
 };
 
 type LogoutParams = {
-  /*!
+  /**
    * The path to redirect to after logout.
    * (default: the path set as `loginPath` in configuration)
    */
   redirectPath?: string;
 };
 
-/*!
+/**
  * A hook that provides authorization functionality for clients
  */
 export const useAuth = () => {
@@ -63,7 +63,7 @@ export const useAuth = () => {
   };
 
   return {
-    /*!
+    /**
      * A function to initiate authentication process.
      */
     login: async (params?: LoginParams) => {
@@ -85,7 +85,7 @@ export const useAuth = () => {
       }
     },
 
-    /*!
+    /**
      * A function to initiate logout process that deletes session token and redirecting to the specified page
      */
     logout: (params?: LogoutParams) => {
@@ -102,21 +102,21 @@ export const useAuth = () => {
   };
 };
 
-/*!
+/**
  * The hook that provides utility functions for Tailor Platform specific operation
  */
 export const usePlatform = () => {
   const config = useTailorAuth();
 
   return {
-    /*!
+    /**
      * A suspense function to retrieve the logged-in user's information.
      */
     getCurrentUser: () => internalUserinfoLoader.getSuspense(config),
   };
 };
 
-/*!
+/**
  * A suspense hook to get token in client components.
  */
 export const useSession = (options?: SessionOption): SessionResult => {
