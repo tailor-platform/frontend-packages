@@ -168,7 +168,7 @@ export const usePlatform = () => {
 };
 
 /**
- * A suspense hook to get token in client components.
+ * Hook to obtain a session token in client-side components.
  *
  * @example
  * ```
