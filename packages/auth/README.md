@@ -1,5 +1,3 @@
-# @tailor-platform/auth <!-- omit in toc -->
-
 This package provides ways to handle Tailor authentication
 
 - [Configuration](#configuration)

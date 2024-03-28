@@ -1,5 +1,3 @@
-# @tailor-platform/design-systems
-
 This package offers Design Systems for managing shared UI components across applications.
 
 ## Architecture
