@@ -36,7 +36,7 @@ type LoginParams = {
 type LogoutParams = {
   /**
    * The path to redirect to after logout.
-   * (default: the path set as `loginPath` in configuration)
+   * If not provided, the value of `loginPath` from the configuration will be used.
    */
   redirectPath?: string;
 };
