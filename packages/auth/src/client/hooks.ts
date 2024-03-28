@@ -20,47 +20,32 @@ const assertWindowIsAvailable = () => {
 };
 
 type LoginParams = {
+  /*!
+   * The name of the strategy to use for login. Available strategies are: oidc, saml, minitailor.
+   * If not provided, the default strategy (oidc) will be used.
+   */
   name?: string;
+
+  /*!
+   * Options is the argument passed to the strategy's authenticate function.
+   * The content of this object is strategy-specific.
+   */
   options?: Record<string, unknown>;
 };
 
 type LogoutParams = {
+  /*!
+   * The path to redirect to after logout.
+   * (default: the path set as `loginPath` in configuration)
+   */
   redirectPath?: string;
 };
 
-// useAuth is a hook that abstracts out provider-agnostic interface functions related to authorization
+/*!
+ * A hook that provides authorization functionality for clients
+ */
 export const useAuth = () => {
   const config = useTailorAuth();
-
-  const login = async (params?: LoginParams) => {
-    assertWindowIsAvailable();
-
-    const strategy = config.getStrategy(params?.name);
-    const result = await strategy.authenticate(config, params?.options || {});
-    switch (result.mode) {
-      case "redirection":
-        window.location.replace(result.uri);
-        break;
-      case "manual-callback": {
-        const params = new URLSearchParams(result.payload);
-        const callbackPath = callbackByStrategy(strategy.name());
-        window.location.replace(`${callbackPath}?${params.toString()}`);
-        break;
-      }
-      default:
-    }
-  };
-
-  const logout = (params?: LogoutParams) => {
-    assertWindowIsAvailable();
-
-    const searchParams = new URLSearchParams({
-      redirect_path: params?.redirectPath || config.loginPath(),
-    });
-    window.location.replace(
-      `${config.appUrl(internalLogoutPath)}?${searchParams.toString()}`,
-    );
-  };
 
   const refreshToken = async (
     refreshToken: string,
@@ -78,21 +63,62 @@ export const useAuth = () => {
   };
 
   return {
-    login,
-    logout,
+    /*!
+     * A function to initiate authentication process.
+     */
+    login: async (params?: LoginParams) => {
+      assertWindowIsAvailable();
+
+      const strategy = config.getStrategy(params?.name);
+      const result = await strategy.authenticate(config, params?.options || {});
+      switch (result.mode) {
+        case "redirection":
+          window.location.replace(result.uri);
+          break;
+        case "manual-callback": {
+          const params = new URLSearchParams(result.payload);
+          const callbackPath = callbackByStrategy(strategy.name());
+          window.location.replace(`${callbackPath}?${params.toString()}`);
+          break;
+        }
+        default:
+      }
+    },
+
+    /*!
+     * A function to initiate logout process that deletes session token and redirecting to the specified page
+     */
+    logout: (params?: LogoutParams) => {
+      assertWindowIsAvailable();
+
+      const searchParams = new URLSearchParams({
+        redirect_path: params?.redirectPath || config.loginPath(),
+      });
+      window.location.replace(
+        `${config.appUrl(internalLogoutPath)}?${searchParams.toString()}`,
+      );
+    },
     refreshToken,
   };
 };
 
-// usePlatform is a hook that contains Tailor Platform specific functions
+/*!
+ * The hook that provides utility functions for Tailor Platform specific operation
+ */
 export const usePlatform = () => {
   const config = useTailorAuth();
 
   return {
+    /*!
+     * A suspense function to retrieve the logged-in user's information.
+     */
     getCurrentUser: () => internalUserinfoLoader.getSuspense(config),
   };
 };
 
+/*!
+ * A suspense hook to get token in client components.
+ */
 export const useSession = (options?: SessionOption): SessionResult => {
   const config = useTailorAuth();
 

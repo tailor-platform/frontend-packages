@@ -3,6 +3,9 @@ import { redirect } from "next/navigation";
 import { internalUnauthorizedPath } from "./middleware/internal";
 import { SessionOption, SessionResult } from "@core/types";
 
+/*!
+ * A function to get token on server components
+ */
 export const getServerSession = (options?: SessionOption): SessionResult => {
   const cookieStore = cookies();
   const tailorToken = cookieStore.get("tailor.token");
