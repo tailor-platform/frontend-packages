@@ -16,6 +16,19 @@ type ConfigProviderProps = {
   children: ReactNode;
 };
 
+/**
+ * `TailorAuthProvider` is a React provider component that makes hooks functionality available to the children components.
+ *
+ * @example
+ * ```
+ * import { TailorAuthProvider } from "@tailor-platform/auth/client";
+ * import { config } from "@/libs/authConfig";
+ *
+ * export const Providers = ({ children }: { children: ReactNode }) => (
+ *  <TailorAuthProvider config={config}>{children}</TailorAuthProvider>
+ * );
+ * ```
+ */
 export const TailorAuthProvider = (props: ConfigProviderProps) => {
   return (
     <TailorAuthContext.Provider value={props.config}>

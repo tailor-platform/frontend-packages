@@ -65,6 +65,29 @@ export const useAuth = () => {
   return {
     /**
      * A function to initiate authentication process.
+     *
+     * @example
+     * ```
+     * "use client";
+     * import { useAuth } from "@tailor-platform/auth/client";
+     *
+     * const Component = async () => {
+     *   const { login } = useAuth();
+     *   const doLogin = useCallback(() => {
+     *     login({
+     *       options: {
+     *         redirectPath: "/dashboard",
+     *       },
+     *     });
+     *   }, [login]);
+     *
+     *   return (
+     *     <div>
+     *       <button onClick={doLogin}>Login</button>
+     *     </div>
+     *   );
+     * };
+     * ```
      */
     login: async (params?: LoginParams) => {
       assertWindowIsAvailable();
@@ -87,6 +110,22 @@ export const useAuth = () => {
 
     /**
      * A function to initiate logout process that deletes session token and redirecting to the specified page
+     *
+     * @example
+     * ```
+     * "use client";
+     * import { useAuth } from "@tailor-platform/auth/client";
+     *
+     * const Component = async () => {
+     *   const { logout } = useAuth();
+     *
+     *   return (
+     *     <div>
+     *       <button onClick={() => logout()}>Logout</button>
+     *     </div>
+     *   );
+     * };
+     * ```
      */
     logout: (params?: LogoutParams) => {
       assertWindowIsAvailable();
@@ -111,6 +150,18 @@ export const usePlatform = () => {
   return {
     /**
      * A suspense function to retrieve the logged-in user's information.
+     *
+     * @example
+     * ```
+     * "use client";
+     * import { usePlatform } from "@tailor-platform/auth/client";
+     *
+     * const Component = async () => {
+     *   const { getCurrentUser } = usePlatform();
+     *
+     *   const user = getCurrentUser();
+     * };
+     * ```
      */
     getCurrentUser: () => internalUserinfoLoader.getSuspense(config),
   };
@@ -118,6 +169,20 @@ export const usePlatform = () => {
 
 /**
  * A suspense hook to get token in client components.
+ *
+ * @example
+ * ```
+ * "use client";
+ * import { useSession } from "@tailor-platform/auth/client";
+ *
+ * const Page = () => {
+ *   const session = useSession({
+ *     required: true,
+ *   });
+ *
+ *   return <div>Token: {session.token}</div>;
+ * };
+ * ```
  */
 export const useSession = (options?: SessionOption): SessionResult => {
   const config = useTailorAuth();
