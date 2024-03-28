@@ -257,11 +257,12 @@ export const DataGrid = <TData extends Record<string, unknown>>({
           )}
         </TableBody>
       </Table>
-      {table.enablePagination && table.manualPagination ? (
-        <ManualPagination table={table} />
-      ) : (
-        <Pagination table={table} />
-      )}
+      {table.enablePagination &&
+        (table.manualPagination ? (
+          <ManualPagination table={table} />
+        ) : (
+          <Pagination table={table} />
+        ))}
     </Stack>
   );
 };
