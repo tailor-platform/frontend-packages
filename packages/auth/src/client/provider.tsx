@@ -17,7 +17,7 @@ type ConfigProviderProps = {
 };
 
 /**
- * `TailorAuthProvider` is a React provider component that makes hooks functionality available to the children components.
+ * React provider component that makes hooks functionality available to children components.
  *
  * @example
  * ```
