@@ -30,9 +30,9 @@ export const DataGridWithFilterStory = ({
         JSON.stringify(filter) === JSON.stringify(currentFilter);
       if (!isSameFilter) {
         setCurrentFilter(filter);
-        if(filter?.status?.eq){
+        if (filter?.status?.eq) {
           setData(originData.filter((row) => row.status === filter.status.eq));
-        } else if(filter?.status?.neq){
+        } else if (filter?.status?.neq) {
           setData(originData.filter((row) => row.status !== filter.status.neq));
         }
       }
