@@ -40,7 +40,7 @@ type ContextConfig = {
   refreshTokenPath: string;
 
   /**
-   * Auth service endpoint to fetch basic user information (default: /auth/userinfo)
+   * Auth service endpoint to fetch the user information (default: /auth/userinfo)
    */
   userInfoPath: string;
 };
