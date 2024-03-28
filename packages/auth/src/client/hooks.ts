@@ -22,7 +22,7 @@ const assertWindowIsAvailable = () => {
 type LoginParams = {
   /**
    * The name of the strategy to use for login. Available strategies are: "oidc", "saml", "minitailor".
-   * If not provided, the default strategy (oidc) will be used.
+   * If not provided, the "oidc" strategy will be used.
    */
   name?: string;
 
