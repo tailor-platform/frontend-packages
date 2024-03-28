@@ -149,7 +149,7 @@ export const usePlatform = () => {
 
   return {
     /**
-     * A suspense function to retrieve the logged-in user's information.
+     * Suspense function to retrieve the signed in user's information.
      *
      * @example
      * ```
