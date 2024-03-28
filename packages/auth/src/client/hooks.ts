@@ -27,7 +27,7 @@ type LoginParams = {
   name?: string;
 
   /**
-   * Options is the argument passed to the strategy's authenticate function.
+   * The argument passed to the strategy's authenticate function.
    * The content of this object is strategy-specific.
    */
   options?: Record<string, unknown>;
