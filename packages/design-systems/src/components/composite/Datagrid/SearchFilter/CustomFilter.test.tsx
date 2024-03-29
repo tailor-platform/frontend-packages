@@ -117,6 +117,7 @@ describe("<CustomFilter />", () => {
           currentFilters = currentState;
         }}
         localization={LOCALIZATION_EN}
+        isVisible={true}
       />,
     );
     expect(screen.getByText("Reset Filter")).toBeVisible();
@@ -145,6 +146,7 @@ describe("<CustomFilter />", () => {
           currentFilters = currentState;
         }}
         localization={LOCALIZATION_JA}
+        isVisible={true}
       />,
     );
     expect(screen.getByText("フィルタをリセット")).toBeVisible();
@@ -173,6 +175,7 @@ describe("<CustomFilter />", () => {
           currentFilters = currentState;
         }}
         localization={LOCALIZATION_JA}
+        isVisible={true}
       />,
     );
 
@@ -260,6 +263,7 @@ describe("<CustomFilter />", () => {
           currentFilters = currentState;
         }}
         localization={LOCALIZATION_JA}
+        isVisible={true}
       />,
     );
 
@@ -332,6 +336,7 @@ describe("<CustomFilter />", () => {
           currentFilters = currentState;
         }}
         localization={LOCALIZATION_JA}
+        isVisible={true}
       />,
     );
 
@@ -409,6 +414,7 @@ describe("<CustomFilter />", () => {
           currentFilters = currentState;
         }}
         localization={LOCALIZATION_JA}
+        isVisible={true}
       />,
     );
 
@@ -486,6 +492,7 @@ describe("<CustomFilter />", () => {
           currentFilters = currentState;
         }}
         localization={LOCALIZATION_JA}
+        isVisible={true}
       />,
     );
 
@@ -576,6 +583,7 @@ describe("<CustomFilter />", () => {
           currentFilters = currentState;
         }}
         localization={LOCALIZATION_JA}
+        isVisible={true}
       />,
     );
 
@@ -674,6 +682,7 @@ describe("<CustomFilter />", () => {
           currentFilters = currentState;
         }}
         localization={LOCALIZATION_JA}
+        isVisible={true}
       />,
     );
 
@@ -771,6 +780,7 @@ describe("<CustomFilter />", () => {
           currentFilters = currentState;
         }}
         localization={LOCALIZATION_JA}
+        isVisible={true}
       />,
     );
 
@@ -830,6 +840,7 @@ describe("<CustomFilter />", () => {
           currentFilters = currentState;
         }}
         localization={LOCALIZATION_JA}
+        isVisible={true}
       />,
     );
 

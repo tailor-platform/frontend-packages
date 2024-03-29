@@ -68,6 +68,7 @@ export type CustomFilterProps<TData> = {
   columns: Array<Column<TData>>;
   onChange: (currentState: GraphQLQueryFilter) => void;
   localization: Localization;
+  isVisible: boolean;
 };
 export type FilterRowState = {
   column: string;

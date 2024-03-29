@@ -5,6 +5,7 @@ import {
   useState,
   forwardRef,
   ForwardedRef,
+  useRef,
 } from "react";
 import { Box } from "../../../patterns/Box";
 import { Button } from "../../../Button";
@@ -23,7 +24,7 @@ export const CustomFilter = forwardRef(
     props: CustomFilterProps<TData>,
     ref: ForwardedRef<HTMLDivElement>,
   ) => {
-    const { columns, onChange, localization } = props;
+    const { columns, onChange, localization, isVisible } = props;
     const [filterRowsState, setFilterRowsState] = useState<GraphQLQueryFilter>(
       {},
     );
@@ -150,12 +151,16 @@ export const CustomFilter = forwardRef(
       });
     }, [activeJointConditions]);
 
+    const prevFilter = usePrevious(filterRowsState);
+
     /**
      * This will bubble up the GraphQLQueryFilter to the parent component.
      */
     useEffect(() => {
-      onChange(filterRowsState);
-    }, [filterRowsState, onChange]);
+      if (filterRowsState !== prevFilter.current) {
+        onChange(filterRowsState);
+      }
+    }, [filterRowsState, onChange, prevFilter]);
 
     /**
    *
@@ -237,9 +242,11 @@ export const CustomFilter = forwardRef(
         borderRadius={"4px"}
         boxShadow="lg"
         position={"absolute"}
+        top={"100px"}
         backgroundColor={"bg.default"}
-        zIndex={1}
+        zIndex={2}
         ref={ref}
+        display={isVisible ? "block" : "none"}
       >
         <Button
           variant="tertiary"
@@ -286,3 +293,11 @@ export const CustomFilter = forwardRef(
 );
 
 CustomFilter.displayName = "CustomFilter";
+
+const usePrevious = (value: GraphQLQueryFilter) => {
+  const ref = useRef(value);
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+};

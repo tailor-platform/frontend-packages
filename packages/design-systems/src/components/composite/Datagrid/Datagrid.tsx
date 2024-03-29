@@ -122,7 +122,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
 
   return (
     <Stack gap={4}>
-      <HStack gap={4}>
+      <HStack gap={4} position={"relative"}>
         {table.enableHiding && (
           <HStack>
             <Button
@@ -155,7 +155,15 @@ export const DataGrid = <TData extends Record<string, unknown>>({
           </HStack>
         )}
       </HStack>
-
+      <CustomFilter
+        columns={columnHeaders}
+        onChange={(filters) => {
+          table.onFilterChange && table.onFilterChange(filters);
+        }}
+        localization={localization}
+        ref={filterRef}
+        isVisible={filterOpen}
+      />
       <Table className={datagridClasses.table}>
         <TableHeader className={datagridClasses.tableHeader}>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -208,16 +216,6 @@ export const DataGrid = <TData extends Record<string, unknown>>({
             </TableRow>
           ))}
         </TableHeader>
-        {filterOpen && (
-          <CustomFilter
-            columns={columnHeaders}
-            onChange={(filters) => {
-              table.onFilterChange && table.onFilterChange(filters);
-            }}
-            localization={localization}
-            ref={filterRef}
-          />
-        )}
         {columnsHideShowOpen && (
           <HideShow
             allColumnsHandler={table.getToggleAllColumnsVisibilityHandler}
