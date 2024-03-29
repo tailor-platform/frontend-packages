@@ -151,7 +151,7 @@ describe("<HideShow />", () => {
     await user.click(screen.getByTestId("hide-show-Status"));
     await user.click(screen.getByTestId("datagrid-hide-show-button"));
     await vi.waitFor(() => {
-      expect(screen.queryByTestId("hide-show-Status")).not.toBeInTheDocument();
+      expect(screen.queryByTestId("datagrid-header-status")).not.toBeInTheDocument();
     });
   });
 });
