@@ -14,10 +14,11 @@ export const usePagination = <TData extends Record<string, unknown>>(
 ) => {
   const from = useMemo(() => pageIndex * pageSize + 1, [pageIndex, pageSize]);
   const to = useMemo(() => from + pageSize - 1, [from, pageSize]);
+  const pageCount = useMemo(
+    () => (table.totalCount ? Math.ceil(table.totalCount / pageSize) : 0),
+    [table, pageSize],
+  );
   const pages: Page[] = useMemo(() => {
-    const pageCount = table.totalCount
-      ? Math.ceil(table.totalCount / pageSize)
-      : 0;
     const pageList = [...Array(pageCount).keys()];
     return pageList
       .filter((i) => Math.abs(i - pageIndex) < ELLIPSIS_SIZE + 1)
@@ -27,15 +28,12 @@ export const usePagination = <TData extends Record<string, unknown>>(
           type: Math.abs(p - pageIndex) === ELLIPSIS_SIZE ? "ellipsis" : "page",
         };
       });
-  }, [table, pageIndex, pageSize]);
+  }, [pageIndex, pageCount]);
   const isNextPage = useMemo(() => {
-    const pageCount = table.totalCount
-      ? Math.ceil(table.totalCount / pageSize)
-      : 0;
     return pageIndex === pageCount - 1;
-  }, [pageIndex, pageSize, table]);
+  }, [pageIndex, pageCount]);
 
-  return { from, to, pages, isNextPage };
+  return { from, to, pages, pageCount, isNextPage };
 };
 
 export const Select = {
