@@ -138,7 +138,7 @@ describe("<HideShow />", () => {
 
   it("hides the 'Status' column", async () => {
     render(<DataGridWithHideShow />);
-    expect(screen.getByTestId("hide-show-Status")).toBeVisible();
+    expect(screen.getByText("Status")).toBeVisible();
     const user = userEvent.setup();
     await user.click(screen.getByTestId("datagrid-hide-show-button"));
     // Because we need to click "Status" in "HideShow" instead of "Status" in the header.
