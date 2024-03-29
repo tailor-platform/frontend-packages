@@ -131,7 +131,7 @@ describe("<HideShow />", () => {
   it("renders correctly", () => {
     render(<HideShowTest />);
 
-    expect(screen.getByText("Status")).toBeVisible();
+    expect(screen.getAllByText("Status")[1]).toBeVisible();
     expect(screen.getByText("Email")).toBeVisible();
     expect(screen.getByText("Amount")).toBeVisible();
   });
