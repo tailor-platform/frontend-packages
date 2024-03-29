@@ -131,21 +131,21 @@ describe("<HideShow />", () => {
   it("renders correctly", () => {
     render(<HideShowTest />);
 
-    expect(screen.getAllByText("Status")[0]).toBeVisible();
-    expect(screen.getByText("Email")).toBeVisible();
-    expect(screen.getByText("Amount")).toBeVisible();
+    expect(screen.getByTestId("hide-show-Status")).toBeVisible();
+    expect(screen.getByTestId("hide-show-Email")).toBeVisible();
+    expect(screen.getByTestId("hide-show-Amount")).toBeVisible();
   });
 
   it("hides the 'Status' column", async () => {
     render(<DataGridWithHideShow />);
-    expect(screen.getAllByText("Status")[1]).toBeVisible();
+    expect(screen.getByTestId("hide-show-Status")).toBeVisible();
     const user = userEvent.setup();
-    await user.click(screen.getAllByText("Column")[0]);
+    await user.click(screen.getByTestId("datagrid-hide-show-button"));
     // Because we need to click "Status" in "HideShow" instead of "Status" in the header.
-    await user.click(screen.getAllByText("Status")[1]);
-    await user.click(screen.getAllByText("Column")[0]);
+    await user.click(screen.getByTestId("hide-show-Status"));
+    await user.click(screen.getByTestId("datagrid-hide-show-button"));
     await vi.waitFor(() => {
-      expect(screen.queryAllByText("Status")[1]).not.toBeInTheDocument();
+      expect(screen.queryByTestId("hide-show-Status")).not.toBeInTheDocument();
     });
   });
 });

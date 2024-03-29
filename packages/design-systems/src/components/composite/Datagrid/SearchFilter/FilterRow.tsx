@@ -186,6 +186,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
                     className={classes.item}
                     key={item.value}
                     item={item}
+                    data-testid={`joint-condition-${item.value}`}
                   >
                     <Select.ItemText className={classes.itemText}>
                       {item.label}
@@ -241,6 +242,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
                     className={classes.item}
                     key={item.value}
                     item={item}
+                    data-testid={`filter-column-${item.value}`}
                   >
                     <Select.ItemText className={classes.itemText}>
                       {item.label}

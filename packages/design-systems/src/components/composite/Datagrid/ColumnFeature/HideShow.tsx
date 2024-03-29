@@ -61,6 +61,7 @@ export const HideShow = <TData extends Record<string, unknown>>(
                       target: { checked: e.checked },
                     })
                   }
+                  data-testid={`hide-show-${column.columnDef.header?.toString() || column.id}`}
                 >
                   {column.columnDef.header?.toString() || column.id}
                 </Checkbox>
