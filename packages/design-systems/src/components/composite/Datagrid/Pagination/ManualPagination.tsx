@@ -33,7 +33,7 @@ export const ManualPagination = <TData extends Record<string, unknown>>({
     pageIndex: 0,
     pageSize: table.initialState.pagination.pageSize,
   });
-  const { from, to, pages, isNextPage } = usePagination(
+  const { from, to, pages, pageCount, isNextPage } = usePagination(
     table,
     pageIndex,
     pageSize,
@@ -167,8 +167,8 @@ export const ManualPagination = <TData extends Record<string, unknown>>({
           variant="secondary"
           aria-label="Last Page"
           onClick={() => {
-            setPagination({ pageIndex: table.getPageCount() - 1, pageSize });
-            handlePageChange({ page: table.getPageCount() - 1, pageSize });
+            setPagination({ pageIndex: pageCount - 1, pageSize });
+            handlePageChange({ page: pageCount - 1, pageSize });
           }}
           disabled={isNextPage}
         >
