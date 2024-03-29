@@ -134,7 +134,7 @@ const conformPinnedThElementsIndex = async (
   pinnedText: string,
   afterThElementPosition: number,
 ) => {
-  const targetElement = screen.getByText(text);
+  const targetElement = screen.getAllByText(text)[1];
   const element = within(targetElement).getByLabelText(
     "Open Pinned Column Modal",
   );
