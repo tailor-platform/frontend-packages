@@ -157,6 +157,18 @@ export const DataGrid = <TData extends Record<string, unknown>>({
           </HStack>
         )}
       </HStack>
+      <HideShow
+        allColumnsHandler={table.getToggleAllColumnsVisibilityHandler}
+        columns={
+          table.getAllLeafColumns() as ColumnTanstak<
+            Record<string, unknown>,
+            unknown
+          >[]
+        }
+        localization={localization}
+        ref={hideShowRef}
+        isVisible={columnsHideShowOpen}
+      />
       <CustomFilter
         columns={columnHeaders}
         onChange={(filters) => {
@@ -188,7 +200,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
                     e.preventDefault();
                   }}
                   onDrop={onDrop}
-                  data-testid={`datagrid-header-${header.column.columnDef.header || header.id}`}
+                  data-testid={`datagrid-header-${header.id}`}
                 >
                   <div
                     className={css({
@@ -219,19 +231,6 @@ export const DataGrid = <TData extends Record<string, unknown>>({
             </TableRow>
           ))}
         </TableHeader>
-        {columnsHideShowOpen && (
-          <HideShow
-            allColumnsHandler={table.getToggleAllColumnsVisibilityHandler}
-            columns={
-              table.getAllLeafColumns() as ColumnTanstak<
-                Record<string, unknown>,
-                unknown
-              >[]
-            }
-            localization={localization}
-            ref={hideShowRef}
-          />
-        )}
         <TableBody className={datagridClasses.tableBody}>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (

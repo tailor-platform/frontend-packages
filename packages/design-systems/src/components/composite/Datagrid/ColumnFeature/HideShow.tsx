@@ -12,6 +12,7 @@ type HideShowProps<TData extends Record<string, unknown>> = {
   columns: Column<TData>[];
   localization: Localization;
   ref?: ForwardedRef<HTMLDivElement>;
+  isVisible: boolean;
 };
 
 export const HideShow = <TData extends Record<string, unknown>>(
@@ -19,7 +20,7 @@ export const HideShow = <TData extends Record<string, unknown>>(
 ) => {
   const HideShowComponent = forwardRef(
     (props: HideShowProps<TData>, ref: ForwardedRef<HTMLDivElement>) => {
-      const { allColumnsHandler, columns, localization } = props;
+      const { allColumnsHandler, columns, localization, isVisible } = props;
       return (
         <Box
           pl={4}
@@ -31,6 +32,7 @@ export const HideShow = <TData extends Record<string, unknown>>(
           backgroundColor={"bg.default"}
           zIndex={1}
           ref={ref}
+          display={isVisible ? "block" : "none"}
         >
           <Button
             variant="link"
