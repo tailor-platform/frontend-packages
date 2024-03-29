@@ -132,6 +132,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
                 setColumnsHideShowOpen(!columnsHideShowOpen);
               }}
               ref={hideShowButtonRef}
+              data-testid="datagrid-hide-show-button"
             >
               <ColumnsIcon />
               <Text marginLeft={"4px"}>{localization.filter.columnLabel}</Text>
@@ -148,6 +149,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
                 setFilterOpen(!filterOpen);
               }}
               ref={filterButtonRef}
+              data-testid="datagrid-filter-button"
             >
               <FilterIcon />
               <Text marginLeft={"4px"}>{localization.filter.filterLabel}</Text>
@@ -186,6 +188,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
                     e.preventDefault();
                   }}
                   onDrop={onDrop}
+                  data-testid={`datagrid-header-${header.column.columnDef.header || header.id}`}
                 >
                   <div
                     className={css({
