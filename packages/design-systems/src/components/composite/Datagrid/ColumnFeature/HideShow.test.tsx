@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { render, screen } from "@testing-library/react";
-import { ColumnDef } from "@tanstack/react-table";
+import { Column, ColumnDef } from "@tanstack/react-table";
 import { describe, expect, it, vi } from "vitest";
 import "@testing-library/jest-dom/vitest";
 import userEvent from "@testing-library/user-event";
@@ -109,7 +109,12 @@ const HideShowTest = () => {
   return (
     <HideShow
       allColumnsHandler={table.getToggleAllColumnsVisibilityHandler}
-      columns={table.getAllLeafColumns()}
+      columns={
+        table.getAllLeafColumns() as unknown as Column<
+          Record<string, unknown>,
+          unknown
+        >[]
+      }
       localization={LOCALIZATION_EN}
       isVisible={true}
     />

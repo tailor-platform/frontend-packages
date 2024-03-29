@@ -1,4 +1,5 @@
 import type {
+  Column as ColumnTanstak,
   ColumnDef,
   ColumnMeta,
   ColumnPinningState,
@@ -57,6 +58,13 @@ export type ColumnMetaWithTypeInfo<TData> = ColumnMeta<TData, unknown> & {
   enumType?: Record<string, unknown>;
   //https://github.com/TanStack/table/issues/4423
   accessorKey: string;
+};
+export type HideShowProps<TData extends Record<string, unknown>> = {
+  allColumnsHandler: () => (event: unknown) => void;
+  columns: Array<ColumnTanstak<TData>>;
+  // table: DataGridInstance<TData>
+  localization: Localization;
+  isVisible: boolean;
 };
 export type Column<TData> = {
   label: string;
