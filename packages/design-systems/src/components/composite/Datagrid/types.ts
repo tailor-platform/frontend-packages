@@ -62,7 +62,6 @@ export type ColumnMetaWithTypeInfo<TData> = ColumnMeta<TData, unknown> & {
 export type HideShowProps<TData extends Record<string, unknown>> = {
   allColumnsHandler: () => (event: unknown) => void;
   columns: Array<ColumnTanstak<TData>>;
-  // table: DataGridInstance<TData>
   localization: Localization;
   isVisible: boolean;
 };
