@@ -131,7 +131,7 @@ describe("<HideShow />", () => {
   it("renders correctly", () => {
     render(<HideShowTest />);
 
-    expect(screen.getAllByText("Status")[1]).toBeVisible();
+    expect(screen.queryAllByText("Status")[1]).toBeVisible();
     expect(screen.getByText("Email")).toBeVisible();
     expect(screen.getByText("Amount")).toBeVisible();
   });
@@ -140,10 +140,10 @@ describe("<HideShow />", () => {
     render(<DataGridWithHideShow />);
     expect(screen.getAllByText("Status")[1]).toBeVisible();
     const user = userEvent.setup();
-    await user.click(screen.getByText("Column"));
+    await user.click(screen.getAllByText("Column")[0]);
     // Because we need to click "Status" in "HideShow" instead of "Status" in the header.
     await user.click(screen.getAllByText("Status")[1]);
-    await user.click(screen.getByText("Column"));
+    await user.click(screen.getAllByText("Column")[0]);
     await vi.waitFor(() => {
       expect(screen.queryByText("Status")).not.toBeInTheDocument();
     });
