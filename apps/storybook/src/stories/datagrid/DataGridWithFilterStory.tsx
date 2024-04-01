@@ -7,7 +7,10 @@ import {
   useDataGrid,
 } from "@tailor-platform/design-systems/client";
 
-import { COLUMNS as columns, DATA as data } from "../../data/datagrid.ts";
+import { COLUMNS as columns, DATA as originData } from "../../data/datagrid.ts";
+import { useState } from "react";
+import { Payment } from "../../types/datagrid.ts";
+import { setFilterChange } from "./utils.ts";
 
 export type DataGridWithFilterStoryProps = {
   enableColumnFilters?: boolean;
@@ -17,10 +20,14 @@ export type DataGridWithFilterStoryProps = {
 export const DataGridWithFilterStory = ({
   enableColumnFilters = false,
 }: DataGridWithFilterStoryProps) => {
+  const [data, setData] = useState<Payment[]>(originData);
   const table = useDataGrid({
     data,
     columns,
     enableColumnFilters,
+    onFilterChange: (filter) => {
+      setFilterChange(filter, originData, setData);
+    },
   });
 
   return (

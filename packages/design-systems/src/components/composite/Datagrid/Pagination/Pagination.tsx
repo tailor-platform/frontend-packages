@@ -46,7 +46,7 @@ export const Pagination = <TData extends Record<string, unknown>>({
           }}
           defaultValue={[pageSize.toString()]}
           width={16}
-          data-testid="select-joint-condition"
+          data-testid="select-pagination-page-size"
         >
           <Select.Control className={classes.control}>
             <Select.Trigger className={classes.trigger}>
@@ -63,7 +63,7 @@ export const Pagination = <TData extends Record<string, unknown>>({
                 <Select.ItemGroup
                   className={classes.itemGroup}
                   id="jointConditions"
-                  data-testid="select-joint-condition-options"
+                  data-testid="select-page-size-options"
                 >
                   {selectList.map((item) => (
                     <Select.Item

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { render, screen } from "@testing-library/react";
-import { ColumnDef } from "@tanstack/react-table";
+import { Column, ColumnDef } from "@tanstack/react-table";
 import { describe, expect, it, vi } from "vitest";
 import "@testing-library/jest-dom/vitest";
 import userEvent from "@testing-library/user-event";
@@ -109,8 +109,14 @@ const HideShowTest = () => {
   return (
     <HideShow
       allColumnsHandler={table.getToggleAllColumnsVisibilityHandler}
-      columns={table.getAllLeafColumns()}
+      columns={
+        table.getAllLeafColumns() as unknown as Column<
+          Record<string, unknown>,
+          unknown
+        >[]
+      }
       localization={LOCALIZATION_EN}
+      isVisible={true}
     />
   );
 };
@@ -131,21 +137,23 @@ describe("<HideShow />", () => {
   it("renders correctly", () => {
     render(<HideShowTest />);
 
-    expect(screen.getByText("Status")).toBeVisible();
-    expect(screen.getByText("Email")).toBeVisible();
-    expect(screen.getByText("Amount")).toBeVisible();
+    expect(screen.getByTestId("hide-show-Status")).toBeVisible();
+    expect(screen.getByTestId("hide-show-Email")).toBeVisible();
+    expect(screen.getByTestId("hide-show-Amount")).toBeVisible();
   });
 
   it("hides the 'Status' column", async () => {
     render(<DataGridWithHideShow />);
-    expect(screen.getByText("Status")).toBeVisible();
+    expect(screen.getByTestId("datagrid-header-status")).toBeVisible();
     const user = userEvent.setup();
-    await user.click(screen.getByText("Column"));
+    await user.click(screen.getByTestId("datagrid-hide-show-button"));
     // Because we need to click "Status" in "HideShow" instead of "Status" in the header.
-    await user.click(screen.getAllByText("Status")[1]);
-    await user.click(screen.getByText("Column"));
+    await user.click(screen.getByTestId("hide-show-Status"));
+    await user.click(screen.getByTestId("datagrid-hide-show-button"));
     await vi.waitFor(() => {
-      expect(screen.queryByText("Status")).not.toBeInTheDocument();
+      expect(
+        screen.queryByTestId("datagrid-header-status"),
+      ).not.toBeInTheDocument();
     });
   });
 });

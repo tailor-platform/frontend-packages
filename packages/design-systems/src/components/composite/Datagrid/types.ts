@@ -1,4 +1,5 @@
 import type {
+  Column as ColumnTanstak,
   ColumnDef,
   ColumnMeta,
   ColumnPinningState,
@@ -58,6 +59,12 @@ export type ColumnMetaWithTypeInfo<TData> = ColumnMeta<TData, unknown> & {
   //https://github.com/TanStack/table/issues/4423
   accessorKey: string;
 };
+export type HideShowProps<TData extends Record<string, unknown>> = {
+  allColumnsHandler: () => (event: unknown) => void;
+  columns: Array<ColumnTanstak<TData>>;
+  localization: Localization;
+  isVisible: boolean;
+};
 export type Column<TData> = {
   label: string;
   value: string;
@@ -68,6 +75,7 @@ export type CustomFilterProps<TData> = {
   columns: Array<Column<TData>>;
   onChange: (currentState: GraphQLQueryFilter) => void;
   localization: Localization;
+  isVisible: boolean;
 };
 export type FilterRowState = {
   column: string;

@@ -122,7 +122,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
 
   return (
     <Stack gap={4}>
-      <HStack gap={4}>
+      <HStack gap={4} position={"relative"}>
         {table.enableHiding && (
           <HStack>
             <Button
@@ -132,6 +132,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
                 setColumnsHideShowOpen(!columnsHideShowOpen);
               }}
               ref={hideShowButtonRef}
+              data-testid="datagrid-hide-show-button"
             >
               <ColumnsIcon />
               <Text marginLeft={"4px"}>{localization.filter.columnLabel}</Text>
@@ -148,6 +149,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
                 setFilterOpen(!filterOpen);
               }}
               ref={filterButtonRef}
+              data-testid="datagrid-filter-button"
             >
               <FilterIcon />
               <Text marginLeft={"4px"}>{localization.filter.filterLabel}</Text>
@@ -155,7 +157,31 @@ export const DataGrid = <TData extends Record<string, unknown>>({
           </HStack>
         )}
       </HStack>
-
+      {table.enableHiding && (
+        <HideShow
+          allColumnsHandler={table.getToggleAllColumnsVisibilityHandler}
+          columns={
+            table.getAllLeafColumns() as ColumnTanstak<
+              Record<string, unknown>,
+              unknown
+            >[]
+          }
+          localization={localization}
+          isVisible={columnsHideShowOpen}
+          ref={hideShowRef}
+        />
+      )}
+      {table.enableColumnFilters && (
+        <CustomFilter
+          columns={columnHeaders}
+          onChange={(filters) => {
+            table.onFilterChange && table.onFilterChange(filters);
+          }}
+          localization={localization}
+          isVisible={filterOpen}
+          ref={filterRef}
+        />
+      )}
       <Table className={datagridClasses.table}>
         <TableHeader className={datagridClasses.tableHeader}>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -178,6 +204,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
                     e.preventDefault();
                   }}
                   onDrop={onDrop}
+                  data-testid={`datagrid-header-${header.id}`}
                 >
                   <div
                     className={css({
@@ -208,29 +235,6 @@ export const DataGrid = <TData extends Record<string, unknown>>({
             </TableRow>
           ))}
         </TableHeader>
-        {filterOpen && (
-          <CustomFilter
-            columns={columnHeaders}
-            onChange={(filters) => {
-              table.onFilterChange && table.onFilterChange(filters);
-            }}
-            localization={localization}
-            ref={filterRef}
-          />
-        )}
-        {columnsHideShowOpen && (
-          <HideShow
-            allColumnsHandler={table.getToggleAllColumnsVisibilityHandler}
-            columns={
-              table.getAllLeafColumns() as ColumnTanstak<
-                Record<string, unknown>,
-                unknown
-              >[]
-            }
-            localization={localization}
-            ref={hideShowRef}
-          />
-        )}
         <TableBody className={datagridClasses.tableBody}>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (

@@ -22,7 +22,7 @@ export const DataGridManualPaginationStory = ({
   const [data, setData] = useState<Payment[]>(originData.slice(0, pageSize));
 
   const table = useDataGrid({
-    data: data,
+    data,
     columns,
     enablePagination: true,
     manualPagination: true,
