@@ -9,7 +9,10 @@ import {
 import { LOCALIZATION_JA } from "@tailor-platform/design-systems/locales/ja";
 import { LOCALIZATION_EN } from "@tailor-platform/design-systems/locales/en";
 
-import { COLUMNS as columns, DATA as data } from "../../data/datagrid.ts";
+import { COLUMNS as columns, DATA as originData } from "../../data/datagrid.ts";
+import { setFilterChange } from "./utils.ts";
+import { Payment } from "../../types/datagrid.ts";
+import { useState } from "react";
 
 export type DataGridMultilingualStoryProps = {
   enableColumnFilters?: boolean;
@@ -21,10 +24,14 @@ export const DataGridMultilingualStory = ({
   enableColumnFilters = false,
   localization = "EN",
 }: DataGridMultilingualStoryProps) => {
+  const [data, setData] = useState<Payment[]>(originData);
   const table = useDataGrid({
     data,
     columns,
     enableColumnFilters,
+    onFilterChange: (filter) => {
+      setFilterChange(filter, originData, setData);
+    },
     localization: localization === "JA" ? LOCALIZATION_JA : LOCALIZATION_EN,
   });
 

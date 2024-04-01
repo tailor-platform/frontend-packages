@@ -157,10 +157,13 @@ export const CustomFilter = forwardRef(
      * This will bubble up the GraphQLQueryFilter to the parent component.
      */
     useEffect(() => {
-      if (filterRowsState !== prevFilter.current) {
-        onChange(filterRowsState);
-      }
-    }, [filterRowsState, onChange, prevFilter]);
+      const filterChange = () => {
+        if (filterRowsState !== prevFilter.current) {
+          onChange(filterRowsState);
+        }
+      };
+      filterChange();
+    }, [filterRowsState, prevFilter]);
 
     /**
    *
@@ -298,6 +301,6 @@ const usePrevious = (value: GraphQLQueryFilter) => {
   const ref = useRef(value);
   useEffect(() => {
     ref.current = value;
-  });
+  }, [value]);
   return ref.current;
 };
