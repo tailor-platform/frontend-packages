@@ -163,7 +163,9 @@ export const CustomFilter = forwardRef(
         }
       };
       filterChange();
-    }, [filterRowsState, prevFilter]);
+      // We have to run this function only when filterRowState changes, but this way of writing will cause an error due to lint rules, so we excluded it here.
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [filterRowsState]);
 
     /**
    *
