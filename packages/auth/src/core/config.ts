@@ -15,7 +15,7 @@ type ContextConfig = {
   appHost: string;
 
   /**
-   * A flag to enable secure cookies or not (default: true)
+   * Set the Secure attribute on cookies (default: true)
    */
   secure: boolean;
 
