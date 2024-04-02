@@ -31,7 +31,8 @@
     "publish:dev:watch:utils": "turbo run publish:dev:watch --filter='@tailor-platform/utils'",
     "publish:dev:watch:auth": "turbo run publish:dev:watch --filter='@tailor-platform/auth'",
     "type-check": "turbo run type-check",
-    "code-check:all:ci": "pnpm run lint && pnpm run type-check && pnpm run format:ci"
+    "code-check:all:ci": "pnpm run lint && pnpm run type-check && pnpm run format:ci",
+    "docsgen": "typedoc"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.4.4",
