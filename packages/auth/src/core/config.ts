@@ -10,7 +10,7 @@ type ContextConfig = {
   apiHost: string;
 
   /**
-   * Your own frontend app host
+   * Your own frontend app host (e.g. "http://localhost:3000")
    */
   appHost: string;
 
