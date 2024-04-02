@@ -19,7 +19,7 @@ const assertWindowIsAvailable = () => {
   }
 };
 
-type LoginParams = {
+export type LoginParams = {
   /**
    * The name of the strategy to use for login. Available strategies are: "oidc", "saml", "minitailor".
    * If not provided, the "oidc" strategy will be used.
@@ -33,7 +33,7 @@ type LoginParams = {
   options?: Record<string, unknown>;
 };
 
-type LogoutParams = {
+export type LogoutParams = {
   /**
    * The path to redirect to after logout.
    * If not provided, the value of `loginPath` from the configuration will be used.

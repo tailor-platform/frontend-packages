@@ -5,4 +5,10 @@
  * @packageDocumentation
  */
 export { TailorAuthProvider } from "@client/provider";
-export { useAuth, usePlatform, useSession } from "@client/hooks";
+export type {
+  LoginParams,
+  LogoutParams,
+  useAuth,
+  usePlatform,
+  useSession,
+} from "@client/hooks";

@@ -38,7 +38,7 @@ type WithAuthOptions = MiddlewareHandlerOptions & {
  * import { withAuth } from "@tailor-platform/auth/server";
  * import { config as authConfig } from "@/libs/authConfig";
  *
- * const middleware: unknown = withAuth(
+ * const middleware = withAuth(
  *   authConfig,
  *   {
  *     prepend: ({ token }) => {
