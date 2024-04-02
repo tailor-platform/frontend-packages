@@ -5,7 +5,7 @@ import { defaultStrategy } from "@core/strategies/default";
 
 type ContextConfig = {
   /**
-   * Your own Tailor Platform app host
+   * Your own Tailor Platform app host (e.g. "http://yourapp.mini.tailor.tech:8000")
    */
   apiHost: string;
 
