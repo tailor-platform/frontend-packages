@@ -28,6 +28,12 @@ export type ConfigContent = {
 
   // User-defined commands
   custom: Record<string, Omit<Command, "options">>;
+
+  // Application name
+  application: string;
+
+  // Machine username
+  machineUsername: string;
 };
 
 export type Config = rcConfigResult<ConfigContent>;

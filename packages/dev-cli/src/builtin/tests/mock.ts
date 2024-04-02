@@ -11,6 +11,8 @@ export const buildMockConfig = (
   target: ["tailordb.cue"],
   dockerCompose: defaultDockerComposeOptions,
   custom: {},
+  application: "",
+  machineUsername: "",
   ...overrides,
 });
 
