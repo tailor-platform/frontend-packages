@@ -4,20 +4,64 @@ import { AbstractStrategy } from "@core/strategies/abstract";
 import { defaultStrategy } from "@core/strategies/default";
 
 type ContextConfig = {
+  /**
+   * Your own Tailor Platform app host (e.g. "http://yourapp.mini.tailor.tech:8000")
+   */
   apiHost: string;
+
+  /**
+   * Your own frontend app host (e.g. "http://localhost:3000")
+   */
   appHost: string;
-  loginPath: string;
-  unauthorizedPath: string;
-  tokenPath: string;
-  refreshTokenPath: string;
-  userInfoPath: string;
+
+  /**
+   * Set the Secure attribute on cookies (default: true)
+   */
   secure: boolean;
+
+  /**
+   * Auth service endpoint to initiate login (default: /auth/login)
+   */
+  loginPath: string;
+
+  /**
+   * Path to be redirected if not authorized (default: /unauthorized)
+   */
+  unauthorizedPath: string;
+
+  /**
+   * Auth service endpoint to issue a session token (default: /auth/token)
+   */
+  tokenPath: string;
+
+  /**
+   * Auth service refresh token endpoint (default: /auth/token/refresh)
+   */
+  refreshTokenPath: string;
+
+  /**
+   * Auth service endpoint to fetch the user information (default: /auth/userinfo)
+   */
+  userInfoPath: string;
 };
 
 export const NoCorrespondingStrategyError = new Error(
   "no corresponding authentication strategy available",
 );
 
+/**
+ * Class that encapsulates the configuration for the auth package.
+ *
+ * @example
+ * ```
+ * import { Config } from "@tailor-platform/auth/core";
+ *
+ * export const config = new Config({
+ *  apiHost: "http://yourapp.mini.tailor.tech:8000",
+ *  appHost: "http://localhost:3000",
+ * });
+ * ```
+ */
 export class Config {
   private readonly strategyMap: Map<string, AbstractStrategy>;
 

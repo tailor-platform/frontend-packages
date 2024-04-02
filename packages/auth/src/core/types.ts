@@ -14,5 +14,8 @@ export type SessionResult = {
 };
 
 export type SessionOption = {
+  /**
+   * If true, the hook will redirect users to the unauthorized path.
+   */
   required: boolean;
 };
