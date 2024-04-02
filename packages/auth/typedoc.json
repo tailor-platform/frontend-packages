@@ -4,5 +4,6 @@
     "src/client/index.ts",
     "src/server/index.ts",
     "src/adapters/apollo/index.ts"
-  ]
+  ],
+  "excludeInternal": true
 }

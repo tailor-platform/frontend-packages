@@ -1,10 +1,6 @@
 This package provides ways to handle Tailor authentication
 
 - [Configuration](#configuration)
-  - [Callback](#callback)
-- [Provider](#provider)
-- [Middlewares](#middlewares)
-  - [`withAuth` middleware for Next.js](#withauth-middleware-for-nextjs)
 - [Hooks (client)](#hooks-client)
   - [`useSession` hook](#usesession-hook)
   - [`useAuth` hook](#useauth-hook)
@@ -15,8 +11,6 @@ This package provides ways to handle Tailor authentication
   - [`getServerSession` hook](#getserversession-hook)
 - [Adapters](#adapters)
   - [Apollo Client](#apollo-client)
-- [Strategies](#strategies)
-  - [Customization](#customization)
 
 ## Configuration
 
@@ -29,57 +23,6 @@ export const config = new Config({
   apiHost: "http://yourapp.mini.tailor.tech:8000",
   appHost: "http://localhost:3000",
 });
-```
-
-### Callback
-
-This package automatically generates a callback handler with Next.js middleware to accept redirection from Identity Providers as `__auth/callback/{strategy}`.
-
-Thus, if you are using OIDC strategy, the path you have to add in the whitelist on IDP dashboard will be `__auth/callback/oidc`.
-
-## Provider
-
-Use the `TailorAuthProvider` component to wrap your application layouts/pages, for instance:
-
-```tsx
-import { TailorAuthProvider } from "@tailor-platform/auth/client";
-import { config } from "@/libs/authConfig";
-
-export const Providers = ({ children }: { children: ReactNode }) => (
-  <TailorAuthProvider config={config}>{children}</TailorAuthProvider>
-);
-```
-
-## Middlewares
-
-### `withAuth` middleware for Next.js
-
-A middleware that mainly intercepts requests to login callback.
-
-This middlware is required to be used in your app to use the hooks introduced later.
-
-```tsx
-import { withAuth } from "@tailor-platform/auth/server";
-import { config as authConfig } from "@/libs/authConfig";
-
-const middleware: unknown = withAuth(
-  authConfig,
-  {
-    prepend: ({ token }) => {
-      // Do something you want with token here
-      // (eg. fetch user profile and store it in LocalStorage, ...)
-    },
-    onError: (e: Error) => {
-      // Handle an error in authorization callback here
-      // Use `NextResponse.redirect` to redirect your own error page or somewhere.
-    },
-  },
-  (request, event) => {
-    // Add middlewares here if you want to chain more of them
-  },
-);
-
-export default middleware;
 ```
 
 ## Hooks (client)
@@ -237,54 +180,4 @@ export const Providers = ({ children }: { children: ReactNode }) => {
     </TailorAuthProvider>
   );
 };
-```
-
-## Strategies
-
-Strategies are plugin mechanism to add authentication process.
-
-All built-in authentications are also implemented as a strategy. The default is `OIDCStrategy`.
-
-### Customization
-
-Users can implement their own custom authentication by writing custom strategies. See [src/strategies/abstract.ts](src/strategies/abstract.ts) to know interfaces expected to be implemented.
-
-```ts
-import { AbstractStrategy } from "@tailor-platform/auth/core";
-
-type Option = {
-  email: string;
-  password: string;
-};
-
-export class YourOwnAuthenticationStrategy
-  implements AbstractStrategy<Options>
-{
-  name() {
-    return "your-own-strategy";
-  }
-
-  authenticate(config: Config, options: Options) {
-    // Implement authentication here
-    // Here will be executed on client components by `login` function in useAuth hook
-    // (See `AuthenticateResult` type to know what this function is required to return)
-  }
-
-  callback(config: Config, params: URLSearchParams) {
-    // Implement callback process here
-    // Here will be executed in server side as a part of Next.js middleware
-    // (See `CallbackResult` type to know what this function is required to return)
-  }
-}
-```
-
-Custom strategies can be pluged-in from your configuration.
-
-```ts
-export const config = new Config(
-  {
-    // your configurations here...
-  },
-  [new YourOwnAuthenticationStrategy()],
-);
 ```

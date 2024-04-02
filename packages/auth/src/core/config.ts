@@ -96,6 +96,9 @@ export class Config {
     });
   }
 
+  /**
+   * @internal
+   */
   getStrategy(name?: string) {
     const strategyName = name || defaultStrategy.name();
     const strategy = this.strategyMap.get(strategyName);
@@ -105,38 +108,65 @@ export class Config {
     return strategy;
   }
 
+  /**
+   * @internal
+   */
   getStrategyNames() {
     return Array.from(this.strategyMap.keys());
   }
 
+  /**
+   * @internal
+   */
   apiUrl(path: string) {
     return this.params.apiHost + path;
   }
 
+  /**
+   * @internal
+   */
   appUrl(path: string) {
     return this.params.appHost + path;
   }
 
+  /**
+   * @internal
+   */
   loginPath() {
     return this.params.loginPath || "/auth/login";
   }
 
+  /**
+   * @internal
+   */
   unauthorizedPath() {
     return this.params.unauthorizedPath || "/unauthorized";
   }
 
+  /**
+   * @internal
+   */
   tokenPath() {
     return this.params.tokenPath || "/auth/token";
   }
 
+  /**
+   * @internal
+   */
   refreshTokenPath() {
     return this.params.refreshTokenPath || "/auth/token/refresh";
   }
 
+  /**
+   * @internal
+   */
   userInfoPath() {
     return this.params.userInfoPath || "/auth/userinfo";
   }
 
+  /**
+   * @internal
+   */
   secure() {
     return this.params.secure !== false;
   }

@@ -1,4 +1,4 @@
 {
   "entryPoints": ["packages/*"],
-  "entryPointStrategy": "packages"
+  "entryPointStrategy": "packages",
 }
