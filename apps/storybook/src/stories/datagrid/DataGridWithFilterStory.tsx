@@ -33,7 +33,11 @@ export const DataGridWithFilterStory = ({
     onFilterChange: (filter) => {
       setFilterChange(filter, originData, setData);
     },
+<<<<<<< Updated upstream
     defaultFilter: query,
+=======
+    // defaultFilter: { status: { eq: "pending" } },
+>>>>>>> Stashed changes
   });
 
   return (

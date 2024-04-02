@@ -53,6 +53,9 @@ export const FilterRow = <TData extends Record<string, unknown>>(
   const selectedColumnObject = columns.find((column) => {
     return column.meta?.accessorKey === currentFilter.column;
   });
+  console.log("selectedColumnObject", selectedColumnObject);
+  console.log("columns", columns);
+  console.log("currentFilter", currentFilter);
 
   const onChangeColumn = useCallback(
     (value: string[]) => {
@@ -347,6 +350,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
               onChangeValue(e.value)
             }
             data-testid="select-input-value"
+            disabled={!currentFilter.isChangeable}
           >
             <Select.Control className={classes.control}>
               <Select.Trigger className={classes.trigger}>
@@ -398,6 +402,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
               onChangeValue(e.value)
             }
             data-testid="select-input-value"
+            disabled={!currentFilter.isChangeable}
           >
             <Select.Control className={classes.control}>
               <Select.Trigger className={classes.trigger}>
@@ -457,6 +462,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
               value={[currentFilter.value]}
               type={selectedColumnObject?.meta?.type || "text"} //This input element is used for date, number and text type (for enum and boolean, we use select element above instead)
               maxLength={50}
+              // disabled={!currentFilter.isChangeable}
             />
           </Box>
         )}

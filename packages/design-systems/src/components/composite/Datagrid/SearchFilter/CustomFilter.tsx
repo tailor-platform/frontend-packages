@@ -126,6 +126,9 @@ export const CustomFilter = forwardRef(
         : [newEmptyRow({ index: 0, isFirstRow: true })],
     );
 
+    console.log("defaultFilter", defaultFilter);
+    console.log("filterRows", filterRows);
+
     /**
      * This will delete the filter row from filterRows.
      */
