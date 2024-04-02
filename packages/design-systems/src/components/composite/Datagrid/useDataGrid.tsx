@@ -21,6 +21,7 @@ export const useDataGrid = <TData extends RowLike>({
   enableColumnFilters = false,
   enableHiding = false,
   onFilterChange,
+  defaultFilter,
   localization,
   columnVisibility,
   columnPinning,
@@ -109,6 +110,7 @@ export const useDataGrid = <TData extends RowLike>({
     enableColumnFilters,
     enableHiding,
     onFilterChange,
+    defaultFilter,
     localization,
   };
 };

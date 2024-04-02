@@ -159,6 +159,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         data-testid="select-joint-condition"
         width={180}
         visibility={isFirstRow ? "hidden" : "visible"}
+        disabled={!currentFilter.isChangeable}
       >
         <Select.Label className={classes.label} fontWeight="bold">
           {localization.filter.jointConditionLabel}
@@ -212,6 +213,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         value={selectedColumnObject ? [selectedColumnObject.value] : []}
         width={180}
         data-testid="select-column"
+        disabled={!currentFilter.isChangeable}
       >
         <Select.Label
           className={classes.label}
@@ -268,6 +270,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         value={[currentFilter.condition]}
         width={180}
         data-testid="select-condition"
+        disabled={!currentFilter.isChangeable}
       >
         <Select.Label
           className={classes.label}
@@ -316,13 +319,30 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         <Text fontWeight="bold" marginBottom={"4px"} color="fg.default">
           {localization.filter.valueLabel}
         </Text>
-        {selectedColumnObject?.meta?.type === "enum" ? (
+        {!currentFilter.isChangeable ? (
+          <Box
+            width={180}
+            height={10}
+            px={3}
+            borderRadius={"l2"}
+            background={"bg.surface"}
+            borderColor={"border.emphasized"}
+            borderWidth={"1px"}
+            textAlign={"left"}
+            display={"flex"}
+            alignItems={"center"}
+            cursor={"not-allowed"}
+          >
+            <Text color="fg.placeholder">{currentFilter.value}</Text>
+          </Box>
+        ) : selectedColumnObject?.meta?.type === "enum" ? (
           <Select.Root
             className={classes.root}
             items={enumList}
             positioning={{ sameWidth: true }}
             closeOnSelect
             width={180}
+            value={[currentFilter.value]}
             onValueChange={(e: ValueChangeDetails<CollectionItem>) =>
               onChangeValue(e.value)
             }

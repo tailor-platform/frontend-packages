@@ -24,9 +24,9 @@ export const CustomFilter = forwardRef(
     props: CustomFilterProps<TData>,
     ref: ForwardedRef<HTMLDivElement>,
   ) => {
-    const { columns, onChange, localization, isVisible } = props;
+    const { columns, onChange, localization, isVisible, defaultFilter } = props;
     const [filterRowsState, setFilterRowsState] = useState<GraphQLQueryFilter>(
-      {},
+      defaultFilter || {},
     );
     /**
      * Always start with 1 filter row initially.
@@ -68,14 +68,63 @@ export const CustomFilter = forwardRef(
           condition: "",
           value: "",
           jointCondition: "",
+          isChangeable: true,
         },
       }),
       [localization, columns, activeJointConditions],
     );
 
-    const [filterRows, setFilterRows] = useState<FilterRowData<TData>[]>([
-      newEmptyRow({ index: 0, isFirstRow: true }),
-    ]);
+    const convertQueryToFilterRows = useCallback(
+      (filter: GraphQLQueryFilter): FilterRowData<TData>[] => {
+        const filterRows: FilterRowData<TData>[] = [];
+        const convertQueryToFilterRowsRecursively = (
+          filter: GraphQLQueryFilter,
+          jointCondition: string | undefined,
+          index: number,
+        ) => {
+          const keys = Object.keys(filter);
+          keys.forEach((key) => {
+            if (key === "and" || key === "or") {
+              const jointConditionValue = filter[key];
+              convertQueryToFilterRowsRecursively(
+                jointConditionValue as GraphQLQueryFilter,
+                key,
+                index + 1,
+              );
+            } else {
+              const column = key;
+              const condition = Object.keys(filter[key])[0];
+              const value: string = filter[key][condition] as string;
+              const isFirstRow = index === 0;
+              const currentState: FilterRowState = {
+                column: column,
+                condition: condition,
+                value: value,
+                jointCondition: jointCondition,
+                isChangeable: false,
+              };
+              filterRows.push({
+                columns: columns,
+                index: index,
+                localization: localization,
+                isFirstRow: isFirstRow,
+                jointConditions: activeJointConditions,
+                currentState: currentState,
+              });
+            }
+          });
+        };
+        convertQueryToFilterRowsRecursively(filter, undefined, 0);
+        return filterRows;
+      },
+      [localization, columns, activeJointConditions],
+    );
+
+    const [filterRows, setFilterRows] = useState<FilterRowData<TData>[]>(
+      defaultFilter
+        ? convertQueryToFilterRows(defaultFilter)
+        : [newEmptyRow({ index: 0, isFirstRow: true })],
+    );
 
     /**
      * This will delete the filter row from filterRows.
@@ -116,9 +165,9 @@ export const CustomFilter = forwardRef(
      */
     const resetFilterHandler = useCallback(() => {
       setFilterRows([newEmptyRow({ index: 0, isFirstRow: true })]);
-      setFilterRowsState({});
+      setFilterRowsState(defaultFilter || {});
       setSelectedJointCondition(undefined);
-    }, [newEmptyRow]);
+    }, [newEmptyRow, defaultFilter]);
 
     /**
      * This will add new item to filterRows data state.
