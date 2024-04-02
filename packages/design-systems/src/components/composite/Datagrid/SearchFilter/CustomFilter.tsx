@@ -57,7 +57,11 @@ export const CustomFilter = forwardRef(
     }, [selectedJointCondition]);
 
     const newEmptyRow = useCallback(
-      (props: { index: number; isFirstRow: boolean }) => ({
+      (props: {
+        index: number;
+        isFirstRow: boolean;
+        existDefaultFilter: boolean;
+      }): FilterRowData<TData> => ({
         columns: columns,
         index: props.index,
         localization: localization,
@@ -67,8 +71,9 @@ export const CustomFilter = forwardRef(
           column: "",
           condition: "",
           value: "",
-          jointCondition: "",
-          isChangeable: true,
+          jointCondition: props.existDefaultFilter ? "and" : "",
+          isDefault: false,
+          isChangeable: props.existDefaultFilter ? false : true,
         },
       }),
       [localization, columns, activeJointConditions],
@@ -101,6 +106,7 @@ export const CustomFilter = forwardRef(
                 condition: condition,
                 value: value,
                 jointCondition: jointCondition,
+                isDefault: true,
                 isChangeable: false,
               };
               filterRows.push({
@@ -122,20 +128,22 @@ export const CustomFilter = forwardRef(
 
     const defaultFilterRows: FilterRowData<TData>[] = useMemo(() => {
       const filterRows: FilterRowData<TData>[] = [];
-      if (!defaultFilter) {
-        filterRows.push(newEmptyRow({ index: 0, isFirstRow: true }));
-      } else {
+      if (defaultFilter) {
         filterRows.push(...convertQueryToFilterRows(defaultFilter));
       }
+      filterRows.push(
+        newEmptyRow({
+          index: filterRows.length,
+          isFirstRow: true,
+          existDefaultFilter: !!defaultFilter,
+        }),
+      );
       setNumberOfFilterRows(filterRows.length);
       return filterRows;
-    }, [defaultFilter]);
+    }, [defaultFilter, newEmptyRow, convertQueryToFilterRows]);
 
     const [filterRows, setFilterRows] =
       useState<FilterRowData<TData>[]>(defaultFilterRows);
-
-    console.log("defaultFilter", defaultFilter);
-    console.log("filterRows", filterRows);
 
     /**
      * This will delete the filter row from filterRows.
@@ -175,10 +183,10 @@ export const CustomFilter = forwardRef(
      * This will reset the filterRows data state.
      */
     const resetFilterHandler = useCallback(() => {
-      setFilterRows([newEmptyRow({ index: 0, isFirstRow: true })]);
+      setFilterRows(defaultFilterRows);
       setFilterRowsState(defaultFilter || {});
       setSelectedJointCondition(undefined);
-    }, [newEmptyRow, defaultFilter]);
+    }, [defaultFilter, defaultFilterRows]);
 
     /**
      * This will add new item to filterRows data state.
@@ -187,11 +195,17 @@ export const CustomFilter = forwardRef(
       (newRowIndex: number) => {
         setFilterRows((oldState) => {
           const newState = [...oldState];
-          newState.push(newEmptyRow({ index: newRowIndex, isFirstRow: false }));
+          newState.push(
+            newEmptyRow({
+              index: newRowIndex,
+              isFirstRow: false,
+              existDefaultFilter: !!defaultFilter,
+            }),
+          );
           return newState;
         });
       },
-      [newEmptyRow],
+      [newEmptyRow, defaultFilter],
     );
 
     /**
@@ -328,6 +342,9 @@ export const CustomFilter = forwardRef(
           alignItems={"flex-end"}
         >
           {filterRows.map((row) => {
+            if (row.currentState.isDefault === true) {
+              return null;
+            }
             return (
               <FilterRow
                 key={row.index}

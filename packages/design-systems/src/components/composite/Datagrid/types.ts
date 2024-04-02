@@ -85,6 +85,7 @@ export type FilterRowState = {
   value: string;
   condition: string;
   jointCondition?: string;
+  isDefault: boolean;
   isChangeable: boolean;
 };
 export type FilterRowProps<TData> = {

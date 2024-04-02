@@ -53,9 +53,6 @@ export const FilterRow = <TData extends Record<string, unknown>>(
   const selectedColumnObject = columns.find((column) => {
     return column.meta?.accessorKey === currentFilter.column;
   });
-  console.log("selectedColumnObject", selectedColumnObject);
-  console.log("columns", columns);
-  console.log("currentFilter", currentFilter);
 
   const onChangeColumn = useCallback(
     (value: string[]) => {
@@ -147,7 +144,6 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         alignSelf={"center"}
         visibility={isFirstRow ? "hidden" : "visible"}
         data-testid="delete-filter-row"
-        disabled={!currentFilter.isChangeable}
       />
       <Select.Root
         className={classes.root}
@@ -217,7 +213,6 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         value={selectedColumnObject ? [selectedColumnObject.value] : []}
         width={180}
         data-testid="select-column"
-        disabled={!currentFilter.isChangeable}
       >
         <Select.Label
           className={classes.label}
@@ -274,7 +269,6 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         value={[currentFilter.condition]}
         width={180}
         data-testid="select-condition"
-        disabled={!currentFilter.isChangeable}
       >
         <Select.Label
           className={classes.label}
@@ -323,23 +317,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         <Text fontWeight="bold" marginBottom={"4px"} color="fg.default">
           {localization.filter.valueLabel}
         </Text>
-        {!currentFilter.isChangeable ? (
-          <Box
-            width={180}
-            height={10}
-            px={3}
-            borderRadius={"l2"}
-            background={"bg.surface"}
-            borderColor={"border.emphasized"}
-            borderWidth={"1px"}
-            textAlign={"left"}
-            display={"flex"}
-            alignItems={"center"}
-            cursor={"not-allowed"}
-          >
-            <Text color="fg.placeholder">{currentFilter.value}</Text>
-          </Box>
-        ) : selectedColumnObject?.meta?.type === "enum" ? (
+        {selectedColumnObject?.meta?.type === "enum" ? (
           <Select.Root
             className={classes.root}
             items={enumList}
@@ -351,7 +329,6 @@ export const FilterRow = <TData extends Record<string, unknown>>(
               onChangeValue(e.value)
             }
             data-testid="select-input-value"
-            disabled={!currentFilter.isChangeable}
           >
             <Select.Control className={classes.control}>
               <Select.Trigger className={classes.trigger}>
@@ -403,7 +380,6 @@ export const FilterRow = <TData extends Record<string, unknown>>(
               onChangeValue(e.value)
             }
             data-testid="select-input-value"
-            disabled={!currentFilter.isChangeable}
           >
             <Select.Control className={classes.control}>
               <Select.Trigger className={classes.trigger}>
@@ -463,7 +439,6 @@ export const FilterRow = <TData extends Record<string, unknown>>(
               value={[currentFilter.value]}
               type={selectedColumnObject?.meta?.type || "text"} //This input element is used for date, number and text type (for enum and boolean, we use select element above instead)
               maxLength={50}
-              // disabled={!currentFilter.isChangeable}
             />
           </Box>
         )}
