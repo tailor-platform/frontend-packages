@@ -120,11 +120,19 @@ export const CustomFilter = forwardRef(
       [localization, columns, activeJointConditions],
     );
 
-    const [filterRows, setFilterRows] = useState<FilterRowData<TData>[]>(
-      defaultFilter
-        ? convertQueryToFilterRows(defaultFilter)
-        : [newEmptyRow({ index: 0, isFirstRow: true })],
-    );
+    const defaultFilterRows: FilterRowData<TData>[] = useMemo(() => {
+      const filterRows: FilterRowData<TData>[] = [];
+      if (!defaultFilter) {
+        filterRows.push(newEmptyRow({ index: 0, isFirstRow: true }));
+      } else {
+        filterRows.push(...convertQueryToFilterRows(defaultFilter));
+      }
+      setNumberOfFilterRows(filterRows.length);
+      return filterRows;
+    }, [defaultFilter]);
+
+    const [filterRows, setFilterRows] =
+      useState<FilterRowData<TData>[]>(defaultFilterRows);
 
     console.log("defaultFilter", defaultFilter);
     console.log("filterRows", filterRows);

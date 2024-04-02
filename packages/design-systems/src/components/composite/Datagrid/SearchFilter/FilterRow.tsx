@@ -147,6 +147,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         alignSelf={"center"}
         visibility={isFirstRow ? "hidden" : "visible"}
         data-testid="delete-filter-row"
+        disabled={!currentFilter.isChangeable}
       />
       <Select.Root
         className={classes.root}
