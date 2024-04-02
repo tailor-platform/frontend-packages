@@ -61,6 +61,20 @@ export const NoCorrespondingStrategyError = new Error(
  *  appHost: "http://localhost:3000",
  * });
  * ```
+ *
+ * Each of these properties in `config` to specific environment variables or constants you need to define in your application's environment.
+ *
+ * Collectively, they form the configuration necessary for the client to handle user authentication in a standardized manner.
+ *
+ * | Name             | Required | Description                                           | Default               |
+ * | ---------------- | -------- | ----------------------------------------------------- | --------------------- |
+ * | apiHost          | Yes      | Tailor Platform host                                  |                       |
+ * | appHost          | Yes      | Frontend app host                                     |                       |
+ * | unauthorizedPath |          | Path to be redirected if not authorized               | `/unauthorized`       |
+ * | loginPath        |          | Auth service endpoint to initiate login               | `/auth/login`         |
+ * | tokenPath        |          | Auth service endpoint to issue a session token        | `/auth/token`         |
+ * | refreshTokenPath |          | Auth service refresh token endpoint                   | `/auth/token/refresh` |
+ * | userInfoPath     |          | Auth service endpoint to fetch basic user information | `/auth/userinfo`      |
  */
 export class Config {
   private readonly strategyMap: Map<string, AbstractStrategy>;
