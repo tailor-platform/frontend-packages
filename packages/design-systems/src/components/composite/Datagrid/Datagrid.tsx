@@ -121,8 +121,8 @@ export const DataGrid = <TData extends Record<string, unknown>>({
   }, [table]);
 
   return (
-    <Stack gap={4}>
-      <HStack gap={4} position={"relative"}>
+    <Stack gap={4} position={"relative"}>
+      <HStack gap={4}>
         {table.enableHiding && (
           <HStack>
             <Button
@@ -180,6 +180,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
           localization={localization}
           isVisible={filterOpen}
           ref={filterRef}
+          defaultFilter={table.defaultFilter}
         />
       )}
       <Table className={datagridClasses.table}>

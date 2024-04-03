@@ -1,21 +1,20 @@
-import {
-  styled,
-  type HTMLStyledProps,
-} from "@tailor-platform/styled-system/jsx";
-import {
-  stack,
-  StackProperties,
-} from "@tailor-platform/styled-system/patterns";
+import { PropsWithChildren } from "react";
+import { css, cx } from "@tailor-platform/styled-system/css";
+import { styled, type StackProps } from "@tailor-platform/styled-system/jsx";
+import { stack } from "@tailor-platform/styled-system/patterns";
 
-export type StackProps = HTMLStyledProps<"div"> & StackProperties;
+export { type StackProps };
 
-export const Stack = (props: StackProps) => {
-  const { align, justify, direction, gap, ...rest } = props;
+export const Stack = (props: PropsWithChildren<StackProps>) => {
+  const { align, justify, direction, gap, children, ...rest } = props;
+  const className = cx(
+    stack({ align, justify, direction, gap }),
+    css({ ...rest }),
+  );
   return (
-    <styled.div
-      className={stack({ align, justify, direction, gap })}
-      {...rest}
-    />
+    <styled.div className={className} {...rest}>
+      {children}
+    </styled.div>
   );
 };
 

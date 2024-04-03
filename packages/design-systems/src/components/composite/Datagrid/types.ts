@@ -27,6 +27,7 @@ export interface DataGridInstance<
   enableColumnFilters?: boolean;
   enableHiding?: boolean;
   onFilterChange?: (filters: GraphQLQueryFilter) => void;
+  defaultFilter?: GraphQLQueryFilter;
   localization?: Localization;
 }
 export type UseDataGridProps<TData> = {
@@ -35,6 +36,7 @@ export type UseDataGridProps<TData> = {
   enablePagination?: boolean;
   manualPagination?: boolean;
   enableColumnFilters?: boolean;
+  defaultFilter?: GraphQLQueryFilter;
   enableHiding?: boolean;
   onFilterChange?: (filters: GraphQLQueryFilter) => void;
   pagination?: PaginationState;
@@ -76,12 +78,15 @@ export type CustomFilterProps<TData> = {
   onChange: (currentState: GraphQLQueryFilter) => void;
   localization: Localization;
   isVisible: boolean;
+  defaultFilter?: GraphQLQueryFilter;
 };
 export type FilterRowState = {
   column: string;
   value: string;
   condition: string;
   jointCondition?: string;
+  isDefault: boolean;
+  isChangeable: boolean;
 };
 export type FilterRowProps<TData> = {
   columns: Array<Column<TData>>;
@@ -106,18 +111,9 @@ export type JointCondition = {
   value: string;
   disabled: boolean;
 };
-export type GraphQLQueryFilter =
-  | {
-      [fieldName: string]: { [operator: string]: string };
-    }
-  | {
-      [jointCondition: string]: {
-        [fieldName: string]: { [operator: string]: string };
-      };
-    }
-  | {
-      [jointCondition: string]: GraphQLQueryFilter;
-    };
+export type GraphQLQueryFilter = {
+  [fieldName: string]: { [operator: string]: string } | GraphQLQueryFilter;
+};
 
 export const GraphQLFilterOperator = {
   EQUAL: "eq",

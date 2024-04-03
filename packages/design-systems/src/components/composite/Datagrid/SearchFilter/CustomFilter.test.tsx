@@ -619,7 +619,6 @@ describe("<CustomFilter />", () => {
 
     //Select joint condition
     await selectJointCondition(screen, user, 2, "AND");
-
     //Select column
     await selectColumn(screen, user, 2, "CreatedAt");
     //Select condition

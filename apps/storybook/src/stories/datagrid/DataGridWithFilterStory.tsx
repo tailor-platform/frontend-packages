@@ -4,6 +4,7 @@ import { Box } from "@tailor-platform/design-systems";
 import {
   DataGrid,
   DataGridInstance,
+  GraphQLQueryFilter,
   useDataGrid,
 } from "@tailor-platform/design-systems/client";
 
@@ -21,6 +22,9 @@ export const DataGridWithFilterStory = ({
   enableColumnFilters = false,
 }: DataGridWithFilterStoryProps) => {
   const [data, setData] = useState<Payment[]>(originData);
+  const query: GraphQLQueryFilter = {
+    status: { eq: "pending" },
+  };
   const table = useDataGrid({
     data,
     columns,
@@ -28,6 +32,7 @@ export const DataGridWithFilterStory = ({
     onFilterChange: (filter) => {
       setFilterChange(filter, originData, setData);
     },
+    defaultFilter: query,
   });
 
   return (

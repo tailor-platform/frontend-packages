@@ -1,17 +1,14 @@
-import {
-  styled,
-  type HTMLStyledProps,
-} from "@tailor-platform/styled-system/jsx";
-import {
-  hstack,
-  HstackProperties,
-} from "@tailor-platform/styled-system/patterns";
+import { PropsWithChildren } from "react";
+import { css, cx } from "@tailor-platform/styled-system/css";
+import { styled, type HstackProps } from "@tailor-platform/styled-system/jsx";
+import { hstack } from "@tailor-platform/styled-system/patterns";
 
-export type HstackProps = HTMLStyledProps<"div"> & HstackProperties;
+export { type HstackProps };
 
-export const HStack = (props: HstackProps) => {
-  const { justify, gap, ...rest } = props;
-  return <styled.div className={hstack({ justify, gap })} {...rest} />;
+export const HStack = (props: PropsWithChildren<HstackProps>) => {
+  const { justify, gap, children, ...rest } = props;
+  const className = cx(hstack({ justify, gap }), css({ ...rest }));
+  return <styled.div className={className}>{children}</styled.div>;
 };
 
 HStack.displayName = "HStack";
