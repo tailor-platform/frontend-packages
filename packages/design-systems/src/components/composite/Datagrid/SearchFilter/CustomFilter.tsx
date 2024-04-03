@@ -28,13 +28,6 @@ export const CustomFilter = forwardRef(
     const [filterRowsState, setFilterRowsState] = useState<GraphQLQueryFilter>(
       defaultFilter || {},
     );
-    /**
-     * Always start with 1 filter row initially.
-     * This will be incremented when user clicks on "Add new filter" button.
-     * This will be used to generate unique index for each filter row.
-     * We cant use filterRows.length as it will grow and shrink based on user actions and might not produce the unique keys.
-     */
-    const [numberOfFilterRows, setNumberOfFilterRows] = useState(1);
     const [selectedJointCondition, setSelectedJointCondition] = useState<
       string | undefined
     >(undefined);
@@ -138,9 +131,18 @@ export const CustomFilter = forwardRef(
           existDefaultFilter: !!defaultFilter,
         }),
       );
-      setNumberOfFilterRows(filterRows.length);
       return filterRows;
     }, [defaultFilter, newEmptyRow, convertQueryToFilterRows]);
+
+    /**
+     * In cases where there is no default filter, start with 1 filter row initially .
+     * This will be incremented when user clicks on "Add new filter" button.
+     * This will be used to generate unique index for each filter row.
+     * We cant use filterRows.length as it will grow and shrink based on user actions and might not produce the unique keys.
+     */
+    const [numberOfFilterRows, setNumberOfFilterRows] = useState(
+      defaultFilterRows.length,
+    );
 
     const [filterRows, setFilterRows] =
       useState<FilterRowData<TData>[]>(defaultFilterRows);
@@ -186,6 +188,7 @@ export const CustomFilter = forwardRef(
       setFilterRows(defaultFilterRows);
       setFilterRowsState(defaultFilter || {});
       setSelectedJointCondition(undefined);
+      setNumberOfFilterRows(defaultFilterRows.length);
     }, [defaultFilter, defaultFilterRows]);
 
     /**
@@ -347,7 +350,7 @@ export const CustomFilter = forwardRef(
             }
             return (
               <FilterRow
-                key={row.index}
+                key={"filterRow" + row.index}
                 currentFilter={row.currentState}
                 columns={columns}
                 jointConditions={activeJointConditions}

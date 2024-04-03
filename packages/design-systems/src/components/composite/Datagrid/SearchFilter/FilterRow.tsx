@@ -398,7 +398,11 @@ export const FilterRow = <TData extends Record<string, unknown>>(
                     className={classes.itemGroup}
                     id="filterByValue"
                   >
-                    <Select.Item className={classes.item} key={0} item={"true"}>
+                    <Select.Item
+                      className={classes.item}
+                      key={"selectInput" + 0}
+                      item={"true"}
+                    >
                       <Select.ItemText className={classes.itemText}>
                         {"true"}
                       </Select.ItemText>
@@ -408,7 +412,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
                     </Select.Item>
                     <Select.Item
                       className={classes.item}
-                      key={1}
+                      key={"selectInput" + 1}
                       item={"false"}
                     >
                       <Select.ItemText className={classes.itemText}>

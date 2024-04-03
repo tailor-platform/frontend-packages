@@ -1,4 +1,4 @@
-import { within, Screen } from "@testing-library/react";
+import { within, Screen, waitFor } from "@testing-library/react";
 import { UserEvent } from "@testing-library/user-event";
 
 /**
@@ -16,9 +16,9 @@ export const selectColumn = async (
 ) => {
   const selectColumn = screen.getAllByTestId("select-column")[columnIndex];
   const selectColumnButton = within(selectColumn).getByRole("button");
-  await user.click(selectColumnButton);
+  await waitFor(() => user.click(selectColumnButton));
   const option = screen.getByRole("option", { name: columnName });
-  await user.click(option);
+  await waitFor(() => user.click(option));
 };
 
 /**
@@ -37,14 +37,14 @@ export const selectCondition = async (
   const selectCondition =
     screen.getAllByTestId("select-condition")[conditionIndex];
   const selectConditionButton = within(selectCondition).getByRole("button");
-  await user.click(selectConditionButton);
+  await waitFor(() => user.click(selectConditionButton));
   const selectConditionOptions = screen.getAllByTestId(
     "select-condition-options",
   )[conditionIndex];
   const eqConditionOption2 = within(selectConditionOptions).getByText(
     conditionName,
   );
-  await user.click(eqConditionOption2);
+  await waitFor(() => user.click(eqConditionOption2));
 };
 
 /**
@@ -65,14 +65,14 @@ export const selectJointCondition = async (
   ];
   const selectJointConditionButton =
     within(selectJointCondition).getByRole("button");
-  await user.click(selectJointConditionButton);
+  await waitFor(() => user.click(selectJointConditionButton));
   const selectConditionOptions = screen.getAllByTestId(
     "select-joint-condition-options",
   )[jointConditionIndex];
   const conditionOption = within(selectConditionOptions).getByText(
     jointConditionName,
   );
-  await user.click(conditionOption);
+  await waitFor(() => user.click(conditionOption));
 };
 
 /**
@@ -91,9 +91,9 @@ export const selectValue = async (
 ) => {
   const selectValue = screen.getAllByTestId("select-input-value")[valueIndex];
   const selectValueButton = within(selectValue).getByRole("button");
-  await user.click(selectValueButton);
+  await waitFor(() => user.click(selectValueButton));
   const successOption = screen.getByRole("option", { name: value });
-  await user.click(successOption);
+  await waitFor(() => user.click(successOption));
 };
 
 /**
@@ -111,7 +111,7 @@ export const inputValue = async (
   value: string,
 ) => {
   const inputValue = screen.getAllByTestId("select-input-value")[valueIndex];
-  await user.click(inputValue);
+  await waitFor(() => user.click(inputValue));
   await user.type(inputValue, value);
 };
 
@@ -122,7 +122,7 @@ export const inputValue = async (
  */
 export const addFilter = async (screen: Screen, user: UserEvent) => {
   const addFilterButton = screen.getByRole("button", { name: "条件追加" });
-  await user.click(addFilterButton);
+  await waitFor(() => user.click(addFilterButton));
 };
 
 /**
@@ -132,7 +132,7 @@ export const addFilter = async (screen: Screen, user: UserEvent) => {
  */
 export const resetAllFilters = async (screen: Screen, user: UserEvent) => {
   const resetAllFiltersButton = screen.getByTestId("reset-filter-button");
-  await user.click(resetAllFiltersButton);
+  await waitFor(() => user.click(resetAllFiltersButton));
 };
 
 /**
@@ -147,5 +147,5 @@ export const deleteFilter = async (
   filterIndex: number,
 ) => {
   const deleteButton = screen.getAllByTestId("delete-filter-row")[filterIndex]; //First delete button is hidden
-  await user.click(deleteButton);
+  await waitFor(() => user.click(deleteButton));
 };
