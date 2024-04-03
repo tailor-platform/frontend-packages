@@ -7,6 +7,7 @@ import {
   useEffect,
   useState,
   useRef,
+  ReactNode,
 } from "react";
 import { css } from "@tailor-platform/styled-system/css";
 import { datagrid } from "@tailor-platform/styled-system/recipes";
@@ -244,15 +245,43 @@ export const DataGrid = <TData extends Record<string, unknown>>({
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
               >
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell
-                    key={cell.id}
-                    className={datagridClasses.tableData}
-                    style={{ ...getCommonPinningStyles(cell.column) }}
-                  >
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
+                {row.getVisibleCells().map((cell) => {
+                  if (
+                    (
+                      cell.column.columnDef
+                        .meta as ColumnMetaWithTypeInfo<TData>
+                    )?.type === "enum"
+                  ) {
+                    const enumValues = (
+                      cell.column.columnDef
+                        .meta as ColumnMetaWithTypeInfo<TData>
+                    ).enumType;
+                    const enumValue = enumValues?.[
+                      cell.getValue() as string
+                    ] as ReactNode;
+                    return (
+                      <TableCell
+                        key={cell.id}
+                        className={datagridClasses.tableData}
+                        style={{ ...getCommonPinningStyles(cell.column) }}
+                      >
+                        {enumValue}
+                      </TableCell>
+                    );
+                  }
+                  return (
+                    <TableCell
+                      key={cell.id}
+                      className={datagridClasses.tableData}
+                      style={{ ...getCommonPinningStyles(cell.column) }}
+                    >
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
+                    </TableCell>
+                  );
+                })}
               </TableRow>
             ))
           ) : (

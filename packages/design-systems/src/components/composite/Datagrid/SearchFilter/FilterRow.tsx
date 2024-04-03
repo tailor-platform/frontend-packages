@@ -336,7 +336,16 @@ export const FilterRow = <TData extends Record<string, unknown>>(
                   className={classes.valueText}
                   color="fg.subtle"
                   placeholder={inputValuePlaceHolder}
-                />
+                  asChild
+                >
+                  <span>
+                    {currentFilter.value !== ""
+                      ? selectedColumnObject?.meta?.enumType?.[
+                          currentFilter.value
+                        ]
+                      : inputValuePlaceHolder}
+                  </span>
+                </Select.ValueText>
                 <ChevronDown />
               </Select.Trigger>
             </Select.Control>
@@ -350,20 +359,26 @@ export const FilterRow = <TData extends Record<string, unknown>>(
                     className={classes.itemGroup}
                     id="filterByValue"
                   >
-                    {enumList.map((item) => (
-                      <Select.Item
-                        className={classes.item}
-                        key={item}
-                        item={item}
-                      >
-                        <Select.ItemText className={classes.itemText}>
-                          {item}
-                        </Select.ItemText>
-                        <Select.ItemIndicator className={classes.itemIndicator}>
-                          <CheckIcon />
-                        </Select.ItemIndicator>
-                      </Select.Item>
-                    ))}
+                    {enumList.map((item) => {
+                      const enumValue =
+                        selectedColumnObject?.meta?.enumType?.[item];
+                      return (
+                        <Select.Item
+                          className={classes.item}
+                          key={item}
+                          item={item}
+                        >
+                          <Select.ItemText className={classes.itemText}>
+                            {enumValue}
+                          </Select.ItemText>
+                          <Select.ItemIndicator
+                            className={classes.itemIndicator}
+                          >
+                            <CheckIcon />
+                          </Select.ItemIndicator>
+                        </Select.Item>
+                      );
+                    })}
                   </Select.ItemGroup>
                 </Select.Content>
               </Select.Positioner>

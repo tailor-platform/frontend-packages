@@ -32,7 +32,7 @@ export const setFilterChange = (
                     if (typeof filter?.and?.amount !== "string") {
                       return (
                         row.amount === Number(filter.and.amount.eq) &&
-                        row.status === filter.status.neq
+                        row.status !== filter.status.neq
                       );
                     }
                   }),
@@ -57,7 +57,7 @@ export const setFilterChange = (
                     if (typeof filter?.and?.amount !== "string") {
                       return (
                         row.amount > Number(filter.and.amount.gt) &&
-                        row.status === filter.status.neq
+                        row.status !== filter.status.neq
                       );
                     }
                   }),
@@ -82,7 +82,7 @@ export const setFilterChange = (
                     if (typeof filter?.and?.amount !== "string") {
                       return (
                         row.amount < Number(filter.and.amount.lt) &&
-                        row.status === filter.status.neq
+                        row.status !== filter.status.neq
                       );
                     }
                   }),
@@ -107,7 +107,7 @@ export const setFilterChange = (
                     if (typeof filter?.and?.amount !== "string") {
                       return (
                         row.amount >= Number(filter.and.amount.gte) &&
-                        row.status === filter.status.neq
+                        row.status !== filter.status.neq
                       );
                     }
                   }),
@@ -132,7 +132,7 @@ export const setFilterChange = (
                     if (typeof filter?.and?.amount !== "string") {
                       return (
                         row.amount <= Number(filter.and.amount.lte) &&
-                        row.status === filter.status.neq
+                        row.status !== filter.status.neq
                       );
                     }
                   }),
@@ -281,7 +281,7 @@ export const setFilterChange = (
       setData(data.filter((row) => row.status === filter.status.eq));
       break;
     case typeof filter?.status?.neq !== "undefined":
-      setData(data.filter((row) => row.status === filter.status.neq));
+      setData(data.filter((row) => row.status !== filter.status.neq));
       break;
     case typeof filter?.amount?.eq !== "undefined":
       setData(data.filter((row) => row.amount === Number(filter.amount.eq)));
