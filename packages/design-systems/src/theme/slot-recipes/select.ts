@@ -10,10 +10,6 @@ export const select = defineSlotRecipe({
       flexDirection: "column",
       gap: "1.5",
       width: "full",
-      _disabled: {
-        color: "fg.disabled",
-        cursor: "not-allowed",
-      },
     },
     content: {
       background: "bg.default",
