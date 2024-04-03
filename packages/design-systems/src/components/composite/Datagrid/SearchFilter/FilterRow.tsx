@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { CheckIcon, ChevronDown, X } from "lucide-react";
 import { Select as AS, CollectionItem } from "@ark-ui/react/select";
 import { Portal } from "@ark-ui/react/portal";
@@ -340,9 +340,9 @@ export const FilterRow = <TData extends Record<string, unknown>>(
                 >
                   <span>
                     {currentFilter.value !== ""
-                      ? (selectedColumnObject?.meta?.enumType?.[
+                      ? selectedColumnObject?.meta?.enumType?.[
                           currentFilter.value
-                        ] as ReactNode)
+                        ]
                       : inputValuePlaceHolder}
                   </span>
                 </Select.ValueText>
@@ -360,9 +360,8 @@ export const FilterRow = <TData extends Record<string, unknown>>(
                     id="filterByValue"
                   >
                     {enumList.map((item) => {
-                      const enumValue = selectedColumnObject?.meta?.enumType?.[
-                        item
-                      ] as ReactNode;
+                      const enumValue =
+                        selectedColumnObject?.meta?.enumType?.[item];
                       return (
                         <Select.Item
                           className={classes.item}

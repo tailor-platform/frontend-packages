@@ -57,7 +57,7 @@ export type UseDataGridProps<TData> = {
 };
 export type ColumnMetaWithTypeInfo<TData> = ColumnMeta<TData, unknown> & {
   type: string;
-  enumType?: Record<string, unknown>;
+  enumType?: Record<string, string>;
   //https://github.com/TanStack/table/issues/4423
   accessorKey: string;
 };
