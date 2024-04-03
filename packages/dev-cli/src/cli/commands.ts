@@ -56,6 +56,10 @@ export const commands: Commands = {
       },
     ],
   },
+  applications: {
+    description: "list applications",
+    path: "builtin/applications",
+  },
   "install:deps": {
     description: "install required dependencies (tailorctl, cuelang)",
     path: "builtin/install-deps",
