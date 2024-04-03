@@ -3,7 +3,7 @@
  */
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Payment } from "../types/datagrid";
+import { Payment, PaymentStatus } from "../types/datagrid";
 
 export const COLUMNS: ColumnDef<Payment>[] = [
   {
@@ -11,12 +11,7 @@ export const COLUMNS: ColumnDef<Payment>[] = [
     header: "Status",
     meta: {
       type: "enum",
-      enumType: {
-        pending: "Pending",
-        processing: "Processing",
-        success: "Success",
-        failed: "Failed",
-      },
+      enumType: PaymentStatus,
       //accessorKey is not provided at compile time inside ColumnDef https://github.com/TanStack/table/issues/4423
       accessorKey: "status",
     },
@@ -59,7 +54,7 @@ export const DATA: Payment[] = [
   {
     id: "728ed52f",
     amount: 100,
-    status: "pending",
+    status: PaymentStatus.pending,
     email: "m@example.com",
     createdAt: "2023-11-14",
     isCreditCard: true,
@@ -67,7 +62,7 @@ export const DATA: Payment[] = [
   {
     id: "a6b2c3d4",
     amount: 200,
-    status: "processing",
+    status: PaymentStatus.processing,
     email: "john@example.com",
     createdAt: "2023-11-13",
     isCreditCard: false,
@@ -75,7 +70,7 @@ export const DATA: Payment[] = [
   {
     id: "f8e7d6c5",
     amount: 150,
-    status: "success",
+    status: PaymentStatus.success,
     email: "sara@example.com",
     createdAt: "2023-11-12",
     isCreditCard: false,
@@ -83,7 +78,7 @@ export const DATA: Payment[] = [
   {
     id: "b5c4d3e2",
     amount: 50,
-    status: "failed",
+    status: PaymentStatus.failed,
     email: "fail@example.com",
     createdAt: "2023-11-11",
     isCreditCard: true,
@@ -91,7 +86,7 @@ export const DATA: Payment[] = [
   {
     id: "12345678",
     amount: 300,
-    status: "pending",
+    status: PaymentStatus.pending,
     email: "example1@example.com",
     createdAt: "2023-11-10",
     isCreditCard: true,
@@ -99,7 +94,7 @@ export const DATA: Payment[] = [
   {
     id: "23456789",
     amount: 400,
-    status: "processing",
+    status: PaymentStatus.processing,
     email: "example2@example.com",
     createdAt: "2023-11-09",
     isCreditCard: true,
@@ -107,7 +102,7 @@ export const DATA: Payment[] = [
   {
     id: "34567890",
     amount: 500,
-    status: "success",
+    status: PaymentStatus.success,
     email: "example3@example.com",
     createdAt: "2023-11-08",
     isCreditCard: false,
@@ -115,7 +110,7 @@ export const DATA: Payment[] = [
   {
     id: "718ed52f",
     amount: 100,
-    status: "pending",
+    status: PaymentStatus.pending,
     email: "m@example.com",
     createdAt: "2023-11-14",
     isCreditCard: true,
@@ -123,7 +118,7 @@ export const DATA: Payment[] = [
   {
     id: "a6b1c3d4",
     amount: 200,
-    status: "processing",
+    status: PaymentStatus.processing,
     email: "john@example.com",
     createdAt: "2023-11-13",
     isCreditCard: false,
@@ -131,7 +126,7 @@ export const DATA: Payment[] = [
   {
     id: "f8e7d6c1",
     amount: 150,
-    status: "success",
+    status: PaymentStatus.success,
     email: "sara@example.com",
     createdAt: "2023-11-12",
     isCreditCard: false,
@@ -139,7 +134,7 @@ export const DATA: Payment[] = [
   {
     id: "b5c4d3e1",
     amount: 50,
-    status: "failed",
+    status: PaymentStatus.failed,
     email: "fail@example.com",
     createdAt: "2023-11-11",
     isCreditCard: true,
@@ -147,7 +142,7 @@ export const DATA: Payment[] = [
   {
     id: "42345678",
     amount: 300,
-    status: "pending",
+    status: PaymentStatus.pending,
     email: "example1@example.com",
     createdAt: "2023-11-10",
     isCreditCard: true,
@@ -155,7 +150,7 @@ export const DATA: Payment[] = [
   {
     id: "53456789",
     amount: 400,
-    status: "processing",
+    status: PaymentStatus.processing,
     email: "example2@example.com",
     createdAt: "2023-11-09",
     isCreditCard: true,
@@ -163,7 +158,7 @@ export const DATA: Payment[] = [
   {
     id: "64567890",
     amount: 500,
-    status: "success",
+    status: PaymentStatus.success,
     email: "example3@example.com",
     createdAt: "2023-11-08",
     isCreditCard: false,

@@ -250,7 +250,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
                     (
                       cell.column.columnDef
                         .meta as ColumnMetaWithTypeInfo<TData>
-                    ).type === "enum"
+                    )?.type === "enum"
                   ) {
                     const enumValues = (
                       cell.column.columnDef
