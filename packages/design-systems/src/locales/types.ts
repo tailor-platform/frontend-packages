@@ -1,5 +1,5 @@
 export interface Localization {
-  language: "JA" | "EN";
+  language: string;
   filter: {
     filterLabel: string;
     filterResetLabel: string;
