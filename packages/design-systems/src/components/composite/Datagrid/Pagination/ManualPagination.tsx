@@ -101,18 +101,7 @@ export const ManualPagination = <TData extends Record<string, unknown>>({
         </Select.Root>
       </HStack>
       <HStack gap={2}>
-        {localization.pagination.of === "of" ? (
-          <>
-            <Text fontWeight={"bold"}>
-              {from}-
-              {table.totalCount && to > table.totalCount
-                ? table.totalCount
-                : to}
-            </Text>
-            {localization.pagination.of}
-            <Text fontWeight={"bold"}>{table.getRowCount()}</Text>
-          </>
-        ) : (
+        {localization.language === "JA" ? (
           <>
             <Text fontWeight={"bold"}>{table.getRowCount()}</Text>
             {localization.pagination.of}
@@ -123,6 +112,17 @@ export const ManualPagination = <TData extends Record<string, unknown>>({
                 : to}
             </Text>
             {localization.pagination.page}
+          </>
+        ) : (
+          <>
+            <Text fontWeight={"bold"}>
+              {from}-
+              {table.totalCount && to > table.totalCount
+                ? table.totalCount
+                : to}
+            </Text>
+            {localization.pagination.of}
+            <Text fontWeight={"bold"}>{table.getRowCount()}</Text>
           </>
         )}
       </HStack>

@@ -3,6 +3,7 @@ import { Localization } from "./types";
  * Japanese localization
  */
 export const LOCALIZATION_JA: Localization = {
+  language: "JA",
   columnFeatures: {
     hideShow: {
       showAll: "全て表示",

@@ -3,6 +3,7 @@ import { Localization } from "./types";
  * English localization
  */
 export const LOCALIZATION_EN: Localization = {
+  language: "EN",
   columnFeatures: {
     hideShow: {
       showAll: "Show All",
