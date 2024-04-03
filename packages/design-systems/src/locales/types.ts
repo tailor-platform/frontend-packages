@@ -1,4 +1,5 @@
 export interface Localization {
+  language: string;
   filter: {
     filterLabel: string;
     filterResetLabel: string;
@@ -35,5 +36,10 @@ export interface Localization {
       pinnedLeft: string;
       unPin: string;
     };
+  };
+  pagination: {
+    rowsPerPage: string;
+    of: string;
+    page: string;
   };
 }

@@ -21,13 +21,16 @@ import { Text } from "../../../Text";
 import { Button } from "../../../Button";
 import { IconButton } from "../../../IconButton";
 import { selectList, Select, usePagination } from "./utils";
+import { Localization } from "@locales/types";
 
 const classes = select();
 
 export const ManualPagination = <TData extends Record<string, unknown>>({
   table,
+  localization,
 }: {
   table: DataGridInstance<TData>;
+  localization: Localization;
 }) => {
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
     pageIndex: 0,
@@ -45,7 +48,7 @@ export const ManualPagination = <TData extends Record<string, unknown>>({
   return (
     <HStack justifyContent={"flex-end"} gap={8}>
       <HStack>
-        <Text>ページあたり行数</Text>
+        <Text>{localization.pagination.rowsPerPage}</Text>
         <Select.Root
           className={classes.root}
           items={selectList}
@@ -98,13 +101,30 @@ export const ManualPagination = <TData extends Record<string, unknown>>({
         </Select.Root>
       </HStack>
       <HStack gap={2}>
-        <Text fontWeight={"bold"}>{table.getRowCount()}</Text>
-        件中
-        <Text fontWeight={"bold"}>
-          {from}-
-          {table.totalCount && to > table.totalCount ? table.totalCount : to}
-        </Text>
-        件
+        {localization.language === "JA" ? (
+          <>
+            <Text fontWeight={"bold"}>{table.getRowCount()}</Text>
+            {localization.pagination.of}
+            <Text fontWeight={"bold"}>
+              {from}-
+              {table.totalCount && to > table.totalCount
+                ? table.totalCount
+                : to}
+            </Text>
+            {localization.pagination.page}
+          </>
+        ) : (
+          <>
+            <Text fontWeight={"bold"}>
+              {from}-
+              {table.totalCount && to > table.totalCount
+                ? table.totalCount
+                : to}
+            </Text>
+            {localization.pagination.of}
+            <Text fontWeight={"bold"}>{table.getRowCount()}</Text>
+          </>
+        )}
       </HStack>
       <HStack>
         <IconButton

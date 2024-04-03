@@ -3,6 +3,7 @@ import { Localization } from "./types";
  * Japanese localization
  */
 export const LOCALIZATION_JA: Localization = {
+  language: "JA",
   columnFeatures: {
     hideShow: {
       showAll: "全て表示",
@@ -39,5 +40,10 @@ export const LOCALIZATION_JA: Localization = {
     valuePlaceholder: "値を入力",
     valuePlaceholderEnum: "値を選択",
     validationErrorDate: "日付が不正です",
+  },
+  pagination: {
+    rowsPerPage: "ぺージあたりの行数",
+    of: "件中",
+    page: "件",
   },
 };
