@@ -30,7 +30,6 @@ import { CustomFilter } from "./SearchFilter/CustomFilter";
 import { ManualPagination, Pagination } from "./Pagination";
 import { Column, ColumnMetaWithTypeInfo, type DataGridInstance } from "./types";
 import { useClickOutside } from "./hooks/useClickOutside";
-import { as } from "vitest/dist/reporters-3OMQDZar";
 
 const datagridClasses = datagrid();
 
@@ -257,30 +256,16 @@ export const DataGrid = <TData extends Record<string, unknown>>({
                       cell.column.columnDef
                         .meta as ColumnMetaWithTypeInfo<TData>
                     ).enumType;
-                    if (enumValues) {
-                      const enumValue = enumValues?.[
-                        cell.getValue() as string
-                      ] as ReactNode;
-                      return (
-                        <TableCell
-                          key={cell.id}
-                          className={datagridClasses.tableData}
-                          style={{ ...getCommonPinningStyles(cell.column) }}
-                        >
-                          {enumValue}
-                        </TableCell>
-                      );
-                    }
+                    const enumValue = enumValues?.[
+                      cell.getValue() as string
+                    ] as ReactNode;
                     return (
                       <TableCell
                         key={cell.id}
                         className={datagridClasses.tableData}
                         style={{ ...getCommonPinningStyles(cell.column) }}
                       >
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext(),
-                        )}
+                        {enumValue}
                       </TableCell>
                     );
                   }

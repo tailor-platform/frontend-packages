@@ -132,8 +132,6 @@ export const FilterRow = <TData extends Record<string, unknown>>(
     return localization.filter.valuePlaceholder;
   }, [localization, selectedColumnObject]);
 
-  console.log("currentFilter", currentFilter);
-
   return (
     <Flex gridGap={2} marginTop={isFirstRow ? 0 : 4}>
       <IconButton
@@ -362,8 +360,6 @@ export const FilterRow = <TData extends Record<string, unknown>>(
                     id="filterByValue"
                   >
                     {enumList.map((item) => {
-                      console.log(item);
-                      console.log(selectedColumnObject?.meta);
                       const enumValue = selectedColumnObject?.meta?.enumType?.[
                         item
                       ] as ReactNode;
