@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react";
+import { ReactNode, useCallback, useMemo } from "react";
 import { CheckIcon, ChevronDown, X } from "lucide-react";
 import { Select as AS, CollectionItem } from "@ark-ui/react/select";
 import { Portal } from "@ark-ui/react/portal";
@@ -131,6 +131,8 @@ export const FilterRow = <TData extends Record<string, unknown>>(
     }
     return localization.filter.valuePlaceholder;
   }, [localization, selectedColumnObject]);
+
+  console.log("currentFilter", currentFilter);
 
   return (
     <Flex gridGap={2} marginTop={isFirstRow ? 0 : 4}>
@@ -336,7 +338,16 @@ export const FilterRow = <TData extends Record<string, unknown>>(
                   className={classes.valueText}
                   color="fg.subtle"
                   placeholder={inputValuePlaceHolder}
-                />
+                  asChild
+                >
+                  <span>
+                    {currentFilter.value !== ""
+                      ? (selectedColumnObject?.meta?.enumType?.[
+                          currentFilter.value
+                        ] as ReactNode)
+                      : inputValuePlaceHolder}
+                  </span>
+                </Select.ValueText>
                 <ChevronDown />
               </Select.Trigger>
             </Select.Control>
@@ -350,20 +361,29 @@ export const FilterRow = <TData extends Record<string, unknown>>(
                     className={classes.itemGroup}
                     id="filterByValue"
                   >
-                    {enumList.map((item) => (
-                      <Select.Item
-                        className={classes.item}
-                        key={item}
-                        item={item}
-                      >
-                        <Select.ItemText className={classes.itemText}>
-                          {item}
-                        </Select.ItemText>
-                        <Select.ItemIndicator className={classes.itemIndicator}>
-                          <CheckIcon />
-                        </Select.ItemIndicator>
-                      </Select.Item>
-                    ))}
+                    {enumList.map((item) => {
+                      console.log(item);
+                      console.log(selectedColumnObject?.meta);
+                      const enumValue = selectedColumnObject?.meta?.enumType?.[
+                        item
+                      ] as ReactNode;
+                      return (
+                        <Select.Item
+                          className={classes.item}
+                          key={item}
+                          item={item}
+                        >
+                          <Select.ItemText className={classes.itemText}>
+                            {enumValue}
+                          </Select.ItemText>
+                          <Select.ItemIndicator
+                            className={classes.itemIndicator}
+                          >
+                            <CheckIcon />
+                          </Select.ItemIndicator>
+                        </Select.Item>
+                      );
+                    })}
                   </Select.ItemGroup>
                 </Select.Content>
               </Select.Positioner>
