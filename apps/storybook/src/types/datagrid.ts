@@ -11,7 +11,7 @@ export enum PaymentStatus {
 export type Payment = {
   id: string;
   amount: number;
-  status: PaymentStatus;
+  status: string;
   email: string;
   createdAt: string;
   isCreditCard: boolean;
