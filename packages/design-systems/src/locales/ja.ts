@@ -40,4 +40,9 @@ export const LOCALIZATION_JA: Localization = {
     valuePlaceholderEnum: "値を選択",
     validationErrorDate: "日付が不正です",
   },
+  pagination: {
+    rowsPerPage: "ぺージあたりの行数",
+    of: "件中",
+    page: "件",
+  },
 };

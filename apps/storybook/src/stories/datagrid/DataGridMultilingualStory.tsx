@@ -29,8 +29,14 @@ export const DataGridMultilingualStory = ({
     data,
     columns,
     enableColumnFilters,
+    enablePagination: true,
     onFilterChange: (filter) => {
       setFilterChange(filter, originData, setData);
+    },
+    totalCount: 14,
+    pagination: {
+      pageIndex: 0,
+      pageSize: 5,
     },
     localization: localization === "JA" ? LOCALIZATION_JA : LOCALIZATION_EN,
   });

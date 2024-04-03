@@ -40,4 +40,9 @@ export const LOCALIZATION_EN: Localization = {
     valuePlaceholderEnum: "Select Value",
     validationErrorDate: "Invalid Date",
   },
+  pagination: {
+    rowsPerPage: "Rows per page:",
+    of: "of",
+    page: "",
+  },
 };

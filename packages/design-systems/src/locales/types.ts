@@ -36,4 +36,9 @@ export interface Localization {
       unPin: string;
     };
   };
+  pagination: {
+    rowsPerPage: string;
+    of: string;
+    page: string;
+  };
 }
