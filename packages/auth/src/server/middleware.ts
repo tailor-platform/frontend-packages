@@ -30,6 +30,33 @@ type WithAuthOptions = MiddlewareHandlerOptions & {
 /**
  * A middleware that mainly intercepts requests to login callback from IDP or login process
  * by automatically generating a callback handler to accept redirection from IDP as `__auth/callback/{strategy}` path.
+ *
+ * For instance, if you are using OIDC strategy, the path you have to add in the whitelist on IDP dashboard will be `__auth/callback/oidc`.
+ *
+ * @example
+ * ```
+ * import { withAuth } from "@tailor-platform/auth/server";
+ * import { config as authConfig } from "@/libs/authConfig";
+ *
+ * const middleware = withAuth(
+ *   authConfig,
+ *   {
+ *     prepend: ({ token }) => {
+ *       // Do something you want with token here
+ *       // (eg. fetch user profile and store it in LocalStorage, ...)
+ *     },
+ *     onError: (e: Error) => {
+ *       // Handle an error in authorization callback here
+ *       // Use `NextResponse.redirect` to redirect your own error page or somewhere.
+ *     },
+ *   },
+ *   (request, event) => {
+ *     // Add middlewares here if you want to chain more of them
+ *   },
+ * );
+ *
+ * export default middleware;
+ * ```
  */
 export const withAuth =
   (

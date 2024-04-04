@@ -31,7 +31,8 @@
     "publish:dev:watch:utils": "turbo run publish:dev:watch --filter='@tailor-platform/utils'",
     "publish:dev:watch:auth": "turbo run publish:dev:watch --filter='@tailor-platform/auth'",
     "type-check": "turbo run type-check",
-    "code-check:all:ci": "pnpm run lint && pnpm run type-check && pnpm run format:ci"
+    "code-check:all:ci": "pnpm run lint && pnpm run type-check && pnpm run format:ci",
+    "docsgen": "typedoc"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.4.4",
@@ -46,6 +47,7 @@
     "prettier": "^3.2.4",
     "react": "^18.2.0",
     "turbo": "1.12.5",
+    "typedoc": "^0.25.12",
     "yalc": "1.0.0-pre.53"
   },
   "packageManager": "pnpm@8.14.0",

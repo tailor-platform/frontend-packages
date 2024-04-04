@@ -1,3 +1,8 @@
+/**
+ * `@tailor-platform/auth/server` is a package that provides a set of functions for server components and middlewares
+ *
+ * @packageDocumentation
+ */
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { internalUnauthorizedPath } from "./middleware/internal";

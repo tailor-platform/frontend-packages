@@ -1,5 +1,3 @@
-# minitailorctl
-
 minitailorctl (mtctl) is a CLI tool that wraps [tailorctl](https://github.com/tailor-platform/tailorctl) to streamline the development of Tailor Platform applications.
 
 ## Install

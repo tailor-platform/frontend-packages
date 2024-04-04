@@ -5,6 +5,39 @@ import { Config } from "@core/config";
 import { SessionResult } from "@core/types";
 import { internalClientSessionPath } from "@server/middleware/internal";
 
+/**
+ * authenticatedHttpLink is a custom ApolloLink that automatically sets tokens in authorization header as a bearer token.
+ *
+ * @example
+ * ```
+ * "use client";
+ * import { ApolloClient, InMemoryCache } from "@apollo/client";
+ * import { authenticatedHttpLink } from "@tailor-platform/auth/adapters/apollo";
+ * import { TailorAuthProvider } from "@tailor-platform/auth/client";
+ * import dynamic from "next/dynamic";
+ * import { config } from "@/libs/authConfig";
+ *
+ * const ApolloProvider = dynamic(
+ *   () => import("@apollo/client").then((modules) => modules.ApolloProvider),
+ *   { ssr: false },
+ * );
+ *
+ * const client = new ApolloClient({
+ *   link: authenticatedHttpLink(config),
+ *   cache: new InMemoryCache(),
+ * });
+ *
+ * export const Providers = ({ children }: { children: ReactNode }) => {
+ *   return (
+ *     <TailorAuthProvider config={config}>
+ *       <ApolloProvider client={client}>
+ *         {children}
+ *       </ApolloProvider>
+ *     </TailorAuthProvider>
+ *   );
+ * };
+ * ```
+ */
 export const authenticatedHttpLink = (config: Config) =>
   from([
     setContext(async (_, { headers }) => {

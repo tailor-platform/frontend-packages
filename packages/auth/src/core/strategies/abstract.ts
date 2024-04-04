@@ -42,6 +42,48 @@ type AuthenticateResult =
 
 /**
  * AbstractStrategy is an interface that all authentication strategies are expected to implement
+ *
+ * @example
+ * Users can implement their own custom authentication by writing custom strategies. See [src/strategies/abstract.ts](src/strategies/abstract.ts) to know interfaces expected to be implemented.
+ * ```
+ * import { AbstractStrategy } from "@tailor-platform/auth/core";
+ *
+ * type Option = {
+ *   email: string;
+ *   password: string;
+ * };
+ *
+ * export class YourOwnAuthenticationStrategy
+ *   implements AbstractStrategy<Options>
+ * {
+ *   name() {
+ *     return "your-own-strategy";
+ *   }
+ *
+ *   authenticate(config: Config, options: Options) {
+ *     // Implement authentication here
+ *     // Here will be executed on client components by `login` function in useAuth hook
+ *     // (See `AuthenticateResult` type to know what this function is required to return)
+ *   }
+ *
+ *   callback(config: Config, params: URLSearchParams) {
+ *     // Implement callback process here
+ *     // Here will be executed in server side as a part of Next.js middleware
+ *     // (See `CallbackResult` type to know what this function is required to return)
+ *   }
+ * }
+ * ```
+ *
+ * @example
+ * Custom strategies can be plugged into your configuration.
+ * ```
+ * export const config = new Config(
+ *   {
+ *     // your configurations here...
+ *   },
+ *   [new YourOwnAuthenticationStrategy()],
+ * );
+ * ```
  */
 export type AbstractStrategy<
   T extends Record<string, unknown> = Record<string, unknown>,

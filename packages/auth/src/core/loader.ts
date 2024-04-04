@@ -1,6 +1,6 @@
 import { internalClientSessionPath } from "@server/middleware/internal";
 import { Config } from "@core/config";
-import { SessionResult } from "@core/types";
+import { SessionResult, UserInfo } from "@core/types";
 
 // SingletonLoader is a class that abstracts out the logic of loading a resource from a remote server,
 // and caches the result for React Suspense support in client components.
@@ -54,18 +54,14 @@ export const internalClientSessionLoader = new SingletonLoader<SessionResult>(
   fetchSession,
 );
 
-export const internalUserinfoLoader = new SingletonLoader<{
-  sub: string;
-  name: string;
-  given_name: string;
-  family_name: string;
-  email: string;
-}>(async (config) => {
-  const resp = await fetchSession(config);
-  const session = (await resp.json()) as unknown as SessionResult;
-  return await fetch(config.apiUrl(config.userInfoPath()), {
-    headers: {
-      Authorization: `Bearer ${session.token}`,
-    },
-  });
-});
+export const internalUserinfoLoader = new SingletonLoader<UserInfo>(
+  async (config) => {
+    const resp = await fetchSession(config);
+    const session = (await resp.json()) as unknown as SessionResult;
+    return await fetch(config.apiUrl(config.userInfoPath()), {
+      headers: {
+        Authorization: `Bearer ${session.token}`,
+      },
+    });
+  },
+);
