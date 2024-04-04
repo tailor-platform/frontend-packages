@@ -1,3 +1,9 @@
+/**
+ * Client-side components for the design system.
+ *
+ * @module client
+ * @packageDocumentation
+ */
 export { Code, type CodeProps } from "@/components/Code";
 export { Form } from "@/components/Form";
 export {

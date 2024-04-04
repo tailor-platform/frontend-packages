@@ -1,6 +1,7 @@
 {
   "entryPoints": [
     "src/index.tsx",
+    "src/client.tsx",
     "src/pandacss/index.ts",
     "src/pandacss/theme/index.ts",
   ],
