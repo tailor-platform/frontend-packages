@@ -1,4 +1,5 @@
 {
+  "name": "frontend-packages",
   "entryPoints": ["packages/*"],
   "entryPointStrategy": "packages"
 }
