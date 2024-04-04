@@ -12,8 +12,14 @@ export const usePagination = <TData extends Record<string, unknown>>(
   pageIndex: number,
   pageSize: number,
 ) => {
-  const from = useMemo(() => pageIndex * pageSize + 1, [pageIndex, pageSize]);
-  const to = useMemo(() => from + pageSize - 1, [from, pageSize]);
+  const from = useMemo(
+    () => (table.totalCount === 0 ? 0 : pageIndex * pageSize + 1),
+    [pageIndex, pageSize, table],
+  );
+  const to = useMemo(
+    () => (from === 0 ? 0 : from + pageSize - 1),
+    [from, pageSize],
+  );
   const pageCount = useMemo(
     () => (table.totalCount ? Math.ceil(table.totalCount / pageSize) : 0),
     [table, pageSize],
