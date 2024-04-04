@@ -1,11 +1,11 @@
 import { defineConfig } from "@pandacss/dev";
-import { globalCss } from "./src/theme/global-css";
-import { conditions } from "./src/theme/conditions";
-import { recipes } from "./src/theme/recipes";
-import { semanticTokens } from "./src/theme/semantic-tokens";
-import { slotRecipes } from "./src/theme/slot-recipes";
-import { textStyles } from "./src/theme/text-styles";
-import { tokens } from "./src/theme/tokens";
+import { globalCss } from "./src/pandacss/theme/global-css";
+import { conditions } from "./src/pandacss/theme/conditions";
+import { recipes } from "./src/pandacss/theme/recipes";
+import { semanticTokens } from "./src/pandacss/theme/semantic-tokens";
+import { slotRecipes } from "./src/pandacss/theme/slot-recipes";
+import { textStyles } from "./src/pandacss/theme/text-styles";
+import { tokens } from "./src/pandacss/theme/tokens";
 
 export default defineConfig({
   emitPackage: true,

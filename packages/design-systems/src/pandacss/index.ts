@@ -1,13 +1,45 @@
+/**
+ * PandaCSS configuration object
+ *
+ * @packageDocumentation
+ */
 import { defineConfig, type Config } from "@pandacss/dev";
 import { deepmerge } from "deepmerge-ts";
-import { globalCss } from "../theme/global-css";
-import { conditions } from "../theme/conditions";
-import { recipes } from "../theme/recipes";
-import { semanticTokens } from "../theme/semantic-tokens";
-import { slotRecipes } from "../theme/slot-recipes";
-import { textStyles } from "../theme/text-styles";
-import { tokens } from "../theme/tokens";
+import { globalCss } from "./theme/global-css";
+import {
+  conditions,
+  recipes,
+  slotRecipes,
+  semanticTokens,
+  textStyles,
+  tokens,
+} from "./theme";
 
+/**
+ * Build the PandaCSS configuration object
+ *
+ * @category Builder
+ * @example
+ * ```
+ * import { defineConfig } from "@pandacss/dev";
+ * import { buildPandaConfig } from "@tailor-platform/design-systems/pandacss";
+ *
+ * export default buildPandaConfig(
+ *  defineConfig({
+ *    include: [
+ *      "./src/**\/*.{js,jsx,ts,tsx}",
+ *      "./pages/**\/*.{js,jsx,ts,tsx}",
+ *      "./node_modules/@tailor-platform/design-systems/dist/panda.buildinfo.json",
+ *    ],
+ *    exclude: [],
+ *    theme: {
+ *      extend: {
+ *        // Add your custom theme tokens here
+ *      },
+ *    },
+ * })
+ * ```
+ */
 export const buildPandaConfig = (config: Config): Config => {
   const mergedConfig: Config = deepmerge(defaultPandaConfig, config);
 
@@ -16,7 +48,7 @@ export const buildPandaConfig = (config: Config): Config => {
   });
 };
 
-export const defaultPandaConfig = defineConfig({
+const defaultPandaConfig = defineConfig({
   preflight: true,
   include: [],
   exclude: [],
