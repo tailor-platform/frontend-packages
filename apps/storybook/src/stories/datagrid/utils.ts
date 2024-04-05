@@ -12,267 +12,227 @@ export const setFilterChange = (
         typeof filter?.status?.eq !== "undefined" ||
         typeof filter?.status?.neq !== "undefined"
       ) {
-        if (typeof filter?.and?.amount !== "string") {
+        if (
+          typeof filter?.and?.amount === "object" &&
+          filter?.and?.amount !== null
+        ) {
           switch (true) {
-            case typeof filter?.and?.amount?.eq !== "undefined":
+            case "eq" in filter.and.amount: {
+              const eqValue = filter.and.amount.eq;
               if (filter?.status?.eq !== "undefined") {
                 setData(
-                  data.filter((row) => {
-                    if (typeof filter?.and?.amount !== "string") {
-                      return (
-                        row.amount === Number(filter.and.amount.eq) &&
-                        row.status === filter.status.eq
-                      );
-                    }
-                  }),
+                  data.filter(
+                    (row) =>
+                      row.amount === Number(eqValue) &&
+                      row.status === filter.status.eq,
+                  ),
                 );
               } else {
                 setData(
-                  data.filter((row) => {
-                    if (typeof filter?.and?.amount !== "string") {
-                      return (
-                        row.amount === Number(filter.and.amount.eq) &&
-                        row.status !== filter.status.neq
-                      );
-                    }
-                  }),
+                  data.filter(
+                    (row) =>
+                      row.amount === Number(eqValue) &&
+                      row.status !== filter.status.neq,
+                  ),
                 );
               }
               break;
-            case typeof filter?.and?.amount?.gt !== "undefined":
+            }
+            case "gt" in filter.and.amount: {
+              const gtValue = filter.and.amount.gt;
               if (filter?.status?.eq !== "undefined") {
                 setData(
-                  data.filter((row) => {
-                    if (typeof filter?.and?.amount !== "string") {
-                      return (
-                        row.amount > Number(filter.and.amount.gt) &&
-                        row.status === filter.status.eq
-                      );
-                    }
-                  }),
+                  data.filter(
+                    (row) =>
+                      row.amount > Number(gtValue) &&
+                      row.status === filter.status.eq,
+                  ),
                 );
               } else {
                 setData(
-                  data.filter((row) => {
-                    if (typeof filter?.and?.amount !== "string") {
-                      return (
-                        row.amount > Number(filter.and.amount.gt) &&
-                        row.status !== filter.status.neq
-                      );
-                    }
-                  }),
+                  data.filter(
+                    (row) =>
+                      row.amount > Number(gtValue) &&
+                      row.status !== filter.status.neq,
+                  ),
                 );
               }
               break;
-            case typeof filter?.and?.amount?.lt !== "undefined":
+            }
+            case "lt" in filter.and.amount: {
+              const ltValue = filter.and.amount.lt;
               if (filter?.status?.eq !== "undefined") {
                 setData(
-                  data.filter((row) => {
-                    if (typeof filter?.and?.amount !== "string") {
-                      return (
-                        row.amount < Number(filter.and.amount.lt) &&
-                        row.status === filter.status.eq
-                      );
-                    }
-                  }),
+                  data.filter(
+                    (row) =>
+                      row.amount < Number(ltValue) &&
+                      row.status === filter.status.eq,
+                  ),
                 );
               } else {
                 setData(
-                  data.filter((row) => {
-                    if (typeof filter?.and?.amount !== "string") {
-                      return (
-                        row.amount < Number(filter.and.amount.lt) &&
-                        row.status !== filter.status.neq
-                      );
-                    }
-                  }),
+                  data.filter(
+                    (row) =>
+                      row.amount < Number(ltValue) &&
+                      row.status !== filter.status.neq,
+                  ),
                 );
               }
               break;
-            case typeof filter?.and?.amount?.gte !== "undefined":
+            }
+            case "gte" in filter.and.amount: {
+              const gteValue = filter.and.amount.gte;
               if (filter?.status?.eq !== "undefined") {
                 setData(
-                  data.filter((row) => {
-                    if (typeof filter?.and?.amount !== "string") {
-                      return (
-                        row.amount >= Number(filter.and.amount.gte) &&
-                        row.status === filter.status.eq
-                      );
-                    }
-                  }),
+                  data.filter(
+                    (row) =>
+                      row.amount >= Number(gteValue) &&
+                      row.status === filter.status.eq,
+                  ),
                 );
               } else {
                 setData(
-                  data.filter((row) => {
-                    if (typeof filter?.and?.amount !== "string") {
-                      return (
-                        row.amount >= Number(filter.and.amount.gte) &&
-                        row.status !== filter.status.neq
-                      );
-                    }
-                  }),
+                  data.filter(
+                    (row) =>
+                      row.amount >= Number(gteValue) &&
+                      row.status !== filter.status.neq,
+                  ),
                 );
               }
               break;
-            case typeof filter?.and?.amount?.lte !== "undefined":
+            }
+            case "lte" in filter.and.amount: {
+              const lteValue = filter.and.amount.lte;
               if (filter?.status?.eq !== "undefined") {
                 setData(
-                  data.filter((row) => {
-                    if (typeof filter?.and?.amount !== "string") {
-                      return (
-                        row.amount <= Number(filter.and.amount.lte) &&
-                        row.status === filter.status.eq
-                      );
-                    }
-                  }),
+                  data.filter(
+                    (row) =>
+                      row.amount <= Number(lteValue) &&
+                      row.status === filter.status.eq,
+                  ),
                 );
               } else {
                 setData(
-                  data.filter((row) => {
-                    if (typeof filter?.and?.amount !== "string") {
-                      return (
-                        row.amount <= Number(filter.and.amount.lte) &&
-                        row.status !== filter.status.neq
-                      );
-                    }
-                  }),
+                  data.filter(
+                    (row) =>
+                      row.amount <= Number(lteValue) &&
+                      row.status !== filter.status.neq,
+                  ),
                 );
               }
               break;
+            }
           }
           break;
         }
       } else {
-        if (typeof filter?.and?.status !== "string") {
+        if (
+          typeof filter?.and?.status === "object" &&
+          filter?.and?.status !== null
+        ) {
           switch (true) {
-            case typeof filter?.and?.status?.eq !== "undefined":
+            case "eq" in filter.and.status: {
+              const eqValue = filter.and.status.eq;
               switch (true) {
                 case typeof filter?.amount?.eq !== "undefined":
                   setData(
-                    data.filter((row) => {
-                      if (typeof filter?.and?.status !== "string") {
-                        return (
-                          row.amount === Number(filter.amount.eq) &&
-                          row.status === filter.and.status.eq
-                        );
-                      }
-                    }),
+                    data.filter(
+                      (row) =>
+                        row.amount === Number(filter.amount.eq) &&
+                        row.status === eqValue,
+                    ),
                   );
                   break;
                 case typeof filter?.amount?.gt !== "undefined":
                   setData(
-                    data.filter((row) => {
-                      if (typeof filter?.and?.status !== "string") {
-                        return (
-                          row.amount > Number(filter.amount.gt) &&
-                          row.status === filter.and.status.eq
-                        );
-                      }
-                    }),
+                    data.filter(
+                      (row) =>
+                        row.amount > Number(filter.amount.gt) &&
+                        row.status === eqValue,
+                    ),
                   );
                   break;
                 case typeof filter?.amount?.lt !== "undefined":
                   setData(
-                    data.filter((row) => {
-                      if (typeof filter?.and?.status !== "string") {
-                        return (
-                          row.amount < Number(filter.amount.lt) &&
-                          row.status === filter.and.status.eq
-                        );
-                      }
-                    }),
+                    data.filter(
+                      (row) =>
+                        row.amount < Number(filter.amount.lt) &&
+                        row.status === eqValue,
+                    ),
                   );
                   break;
                 case typeof filter?.amount?.gte !== "undefined":
                   setData(
-                    data.filter((row) => {
-                      if (typeof filter?.and?.status !== "string") {
-                        return (
-                          row.amount >= Number(filter.amount.gte) &&
-                          row.status === filter.and.status.eq
-                        );
-                      }
-                    }),
+                    data.filter(
+                      (row) =>
+                        row.amount >= Number(filter.amount.gte) &&
+                        row.status === eqValue,
+                    ),
                   );
                   break;
                 case typeof filter?.amount?.lte !== "undefined":
                   setData(
-                    data.filter((row) => {
-                      if (typeof filter?.and?.status !== "string") {
-                        return (
-                          row.amount <= Number(filter.amount.lte) &&
-                          row.status === filter.and.status.eq
-                        );
-                      }
-                    }),
+                    data.filter(
+                      (row) =>
+                        row.amount <= Number(filter.amount.lte) &&
+                        row.status === eqValue,
+                    ),
                   );
                   break;
               }
               break;
-            case typeof filter?.and?.status?.neq !== "undefined":
+            }
+            case "neq" in filter.and.status: {
+              const neqValue = filter.and.status.neq;
               switch (true) {
                 case typeof filter?.amount?.eq !== "undefined":
                   setData(
-                    data.filter((row) => {
-                      if (typeof filter?.and?.status !== "string") {
-                        return (
-                          row.amount === Number(filter.amount.eq) &&
-                          row.status === filter.and.status.neq
-                        );
-                      }
-                    }),
+                    data.filter(
+                      (row) =>
+                        row.amount === Number(filter.amount.eq) &&
+                        row.status !== neqValue,
+                    ),
                   );
                   break;
                 case typeof filter?.amount?.gt !== "undefined":
                   setData(
-                    data.filter((row) => {
-                      if (typeof filter?.and?.status !== "string") {
-                        return (
-                          row.amount > Number(filter.amount.gt) &&
-                          row.status === filter.and.status.neq
-                        );
-                      }
-                    }),
+                    data.filter(
+                      (row) =>
+                        row.amount > Number(filter.amount.gt) &&
+                        row.status !== neqValue,
+                    ),
                   );
                   break;
                 case typeof filter?.amount?.lt !== "undefined":
                   setData(
-                    data.filter((row) => {
-                      if (typeof filter?.and?.status !== "string") {
-                        return (
-                          row.amount < Number(filter.amount.lt) &&
-                          row.status === filter.and.status.neq
-                        );
-                      }
-                    }),
+                    data.filter(
+                      (row) =>
+                        row.amount < Number(filter.amount.lt) &&
+                        row.status !== neqValue,
+                    ),
                   );
                   break;
                 case typeof filter?.amount?.gte !== "undefined":
                   setData(
-                    data.filter((row) => {
-                      if (typeof filter?.and?.status !== "string") {
-                        return (
-                          row.amount >= Number(filter.amount.gte) &&
-                          row.status === filter.and.status.neq
-                        );
-                      }
-                    }),
+                    data.filter(
+                      (row) =>
+                        row.amount >= Number(filter.amount.gte) &&
+                        row.status !== neqValue,
+                    ),
                   );
                   break;
                 case typeof filter?.amount?.lte !== "undefined":
                   setData(
-                    data.filter((row) => {
-                      if (typeof filter?.and?.status !== "string") {
-                        return (
-                          row.amount <= Number(filter.amount.lte) &&
-                          row.status === filter.and.status.neq
-                        );
-                      }
-                    }),
+                    data.filter(
+                      (row) =>
+                        row.amount <= Number(filter.amount.lte) &&
+                        row.status !== neqValue,
+                    ),
                   );
                   break;
               }
               break;
+            }
           }
         }
       }

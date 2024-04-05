@@ -112,7 +112,7 @@ export type JointCondition = {
   disabled: boolean;
 };
 export type GraphQLQueryFilter = {
-  [fieldName: string]: { [operator: string]: string } | GraphQLQueryFilter;
+  [fieldName: string]: { [operator: string]: unknown } | GraphQLQueryFilter;
 };
 
 export const GraphQLFilterOperator = {
