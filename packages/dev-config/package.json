@@ -21,7 +21,7 @@
     "@pandacss/dev": "^0.29.1",
     "@typescript-eslint/eslint-plugin": "^6.7.5",
     "@typescript-eslint/parser": "^6.2.1",
-    "eslint": "^8.55.0",
+    "eslint": "^9.0.0",
     "eslint-config-next": "^14.1.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-turbo": "^1.12.3",
@@ -34,6 +34,6 @@
   },
   "peerDependencies": {
     "@pandacss/dev": "^0.29.1",
-    "eslint": "^8.55.0"
+    "eslint": "^9.0.0"
   }
 }
