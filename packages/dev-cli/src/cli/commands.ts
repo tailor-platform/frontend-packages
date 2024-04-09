@@ -81,7 +81,7 @@ export const commands: Commands = {
     path: "builtin/uninstall-deps",
     options: [],
   },
-  "machineuser": {
+  machineuser: {
     description: "get machine user",
     path: "builtin/machine-user",
     options: [
@@ -99,8 +99,8 @@ export const commands: Commands = {
         usage: "-f, --format <format>",
         description: "format json or table",
         default: "",
-      }
-    ]
+      },
+    ],
   },
   "machineuser:token": {
     description: "get machine user token",
@@ -115,7 +115,7 @@ export const commands: Commands = {
         usage: "-f, --format <format>",
         description: "format json or table",
         default: "",
-      }
-    ]
-  }
+      },
+    ],
+  },
 } as const;

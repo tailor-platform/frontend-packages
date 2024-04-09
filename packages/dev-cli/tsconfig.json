@@ -9,8 +9,8 @@
     "paths": {
       "@cli/*": ["./src/cli/*"],
       "@script/*": ["./src/script/*"],
-      "@builtin/*": ["./src/builtin/*"]
-    }
+      "@builtin/*": ["./src/builtin/*"],
+    },
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts"],
 }
