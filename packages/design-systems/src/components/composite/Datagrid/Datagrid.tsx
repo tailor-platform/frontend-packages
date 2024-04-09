@@ -10,7 +10,11 @@ import {
   ReactNode,
 } from "react";
 import { css } from "@tailor-platform/styled-system/css";
-import { datagrid } from "@tailor-platform/styled-system/recipes";
+import {
+  datagrid,
+  type DatagridVariantProps,
+} from "@tailor-platform/styled-system/recipes";
+import { styled } from "@tailor-platform/styled-system/jsx";
 import { LOCALIZATION_EN } from "../../../locales/en";
 import { Button } from "../../Button";
 import {
@@ -31,13 +35,14 @@ import { ManualPagination, Pagination } from "./Pagination";
 import { Column, ColumnMetaWithTypeInfo, type DataGridInstance } from "./types";
 import { useClickOutside } from "./hooks/useClickOutside";
 
-const datagridClasses = datagrid();
-
-export const DataGrid = <TData extends Record<string, unknown>>({
-  table,
-}: {
+type DataGridProps<TData extends Record<string, unknown>> = {
   table: DataGridInstance<TData>;
-}) => {
+} & DatagridVariantProps;
+
+export const DataGrid = <TData extends Record<string, unknown>>(
+  props: DataGridProps<TData>,
+) => {
+  const { table, size } = props;
   const colSpan = table
     .getHeaderGroups()
     .reduce((acc, headerGroup) => acc + headerGroup.headers.length, 0);
@@ -45,6 +50,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
   const [columnsHideShowOpen, setColumnsHideShowOpen] = useState(false);
   const [columnHeaders, setColumnHeaders] = useState<Column<TData>[]>([]);
   const localization = table.localization || LOCALIZATION_EN;
+  const datagridClasses = datagrid({ size });
 
   const [columnBeingDragged, setColumnBeingDragged] = useState<
     number | undefined
@@ -98,9 +104,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
       left: isPinned === "left" ? `${column.getStart("left")}px` : undefined,
       right: isPinned === "right" ? `${column.getAfter("right")}px` : undefined,
       opacity: isPinned ? 0.95 : 1,
-      position: isPinned ? "sticky" : "relative",
       zIndex: isPinned ? 1 : 0,
-      backgroundColor: isPinned ? "white" : "inherit",
     };
   };
 
@@ -184,113 +188,119 @@ export const DataGrid = <TData extends Record<string, unknown>>({
           defaultFilter={table.defaultFilter}
         />
       )}
-      <Table className={datagridClasses.table}>
-        <TableHeader className={datagridClasses.tableHeader}>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow className={datagridClasses.tableRow} key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <TableHead
-                  key={header.id}
-                  colSpan={header.colSpan}
-                  className={datagridClasses.tableHead}
-                  style={{
-                    width: header.id === "select" ? "54px" : header.getSize(), //First column with checkboxes
-                    ...getCommonPinningStyles(header.column),
-                  }}
-                  draggable={
-                    !table.getState().columnSizingInfo.isResizingColumn
-                  }
-                  data-column-index={header.index}
-                  onDragStart={onDragStart}
-                  onDragOver={(e: DragEvent<HTMLDivElement>): void => {
-                    e.preventDefault();
-                  }}
-                  onDrop={onDrop}
-                  data-testid={`datagrid-header-${header.id}`}
-                >
-                  <div
-                    className={css({
-                      display: "flex",
-                    })}
-                  >
-                    {!header.isPlaceholder &&
-                      flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
-                    {header.column.getCanResize() && (
-                      <div
-                        onMouseDown={header.getResizeHandler()}
-                        onTouchStart={header.getResizeHandler()}
-                        className={datagridClasses.tableHeadDivider}
-                      ></div>
-                    )}
-                    {header.id !== "select" && (
-                      <PinnedColumn
-                        column={header.column}
-                        localization={localization}
-                      />
-                    )}
-                  </div>
-                </TableHead>
-              ))}
-            </TableRow>
-          ))}
-        </TableHeader>
-        <TableBody className={datagridClasses.tableBody}>
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
+      <styled.div className={datagridClasses.wrapper}>
+        <Table className={datagridClasses.table} overflow={"visible"}>
+          <TableHeader className={datagridClasses.tableHeader}>
+            {table.getHeaderGroups().map((headerGroup) => (
               <TableRow
                 className={datagridClasses.tableRow}
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
+                key={headerGroup.id}
               >
-                {row.getVisibleCells().map((cell) => {
-                  if (
-                    (
-                      cell.column.columnDef
-                        .meta as ColumnMetaWithTypeInfo<TData>
-                    )?.type === "enum"
-                  ) {
-                    const enumValues = (
-                      cell.column.columnDef
-                        .meta as ColumnMetaWithTypeInfo<TData>
-                    ).enumType;
-                    const enumValue = enumValues?.[
-                      cell.getValue() as string
-                    ] as ReactNode;
+                {headerGroup.headers.map((header) => (
+                  <TableHead
+                    key={header.id}
+                    colSpan={header.colSpan}
+                    className={datagridClasses.tableHead}
+                    style={{
+                      minWidth:
+                        header.id === "select" ? "54px" : header.getSize(), //First column with checkboxes
+                      ...getCommonPinningStyles(header.column),
+                    }}
+                    draggable={
+                      !table.getState().columnSizingInfo.isResizingColumn
+                    }
+                    data-column-index={header.index}
+                    onDragStart={onDragStart}
+                    onDragOver={(e: DragEvent<HTMLDivElement>): void => {
+                      e.preventDefault();
+                    }}
+                    onDrop={onDrop}
+                    data-testid={`datagrid-header-${header.id}`}
+                  >
+                    <div
+                      className={css({
+                        display: "flex",
+                      })}
+                    >
+                      {!header.isPlaceholder &&
+                        flexRender(
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
+                      {header.column.getCanResize() && (
+                        <div
+                          onMouseDown={header.getResizeHandler()}
+                          onTouchStart={header.getResizeHandler()}
+                          className={datagridClasses.tableHeadDivider}
+                        ></div>
+                      )}
+                      {header.id !== "select" && (
+                        <PinnedColumn
+                          column={header.column}
+                          localization={localization}
+                        />
+                      )}
+                    </div>
+                  </TableHead>
+                ))}
+              </TableRow>
+            ))}
+          </TableHeader>
+          <TableBody className={datagridClasses.tableBody}>
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow
+                  className={datagridClasses.tableRow}
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                >
+                  {row.getVisibleCells().map((cell) => {
+                    if (
+                      (
+                        cell.column.columnDef
+                          .meta as ColumnMetaWithTypeInfo<TData>
+                      )?.type === "enum"
+                    ) {
+                      const enumValues = (
+                        cell.column.columnDef
+                          .meta as ColumnMetaWithTypeInfo<TData>
+                      ).enumType;
+                      const enumValue = enumValues?.[
+                        cell.getValue() as string
+                      ] as ReactNode;
+                      return (
+                        <TableCell
+                          key={cell.id}
+                          className={datagridClasses.tableData}
+                          style={{ ...getCommonPinningStyles(cell.column) }}
+                        >
+                          {enumValue}
+                        </TableCell>
+                      );
+                    }
                     return (
                       <TableCell
                         key={cell.id}
                         className={datagridClasses.tableData}
                         style={{ ...getCommonPinningStyles(cell.column) }}
                       >
-                        {enumValue}
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
                       </TableCell>
                     );
-                  }
-                  return (
-                    <TableCell
-                      key={cell.id}
-                      className={datagridClasses.tableData}
-                      style={{ ...getCommonPinningStyles(cell.column) }}
-                    >
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  );
-                })}
+                  })}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={colSpan}>No results.</TableCell>
               </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={colSpan}>No results.</TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+            )}
+          </TableBody>
+        </Table>
+      </styled.div>
       {table.enablePagination &&
         (table.manualPagination ? (
           <ManualPagination table={table} localization={localization} />

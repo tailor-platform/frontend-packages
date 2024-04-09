@@ -26,7 +26,7 @@ export const DataGridManualPaginationStory = ({
     columns,
     enablePagination: true,
     manualPagination: true,
-    totalCount: 14,
+    totalCount: originData.length,
     pagination: {
       pageIndex: 0,
       pageSize,
