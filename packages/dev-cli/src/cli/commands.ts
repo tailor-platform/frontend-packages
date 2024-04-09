@@ -25,11 +25,6 @@ export const commands: Commands = {
         default: "local",
       },
       {
-        usage: "--default-vault",
-        description: "add a default vault",
-        default: false,
-      },
-      {
         usage: "--apply",
         description: "apply after starting up environment",
         default: false,
@@ -48,6 +43,11 @@ export const commands: Commands = {
         usage: "--env <value>",
         description: "environment to apply",
         default: "local",
+      },
+      {
+        usage: "--default-vault",
+        description: "add a default vault",
+        default: false,
       },
       {
         usage: "--only-eval",
