@@ -10,7 +10,7 @@ export type Session = {
 };
 
 export type SessionResult = {
-  token: string;
+  token: string | null;
 };
 
 export type SessionOption = {
