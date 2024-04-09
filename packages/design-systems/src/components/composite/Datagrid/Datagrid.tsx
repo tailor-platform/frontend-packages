@@ -113,6 +113,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
     const columnHeaders: Column<TData>[] = [];
     table.getHeaderGroups().map((headerGroup) => {
       headerGroup.headers.map((header) => {
+        console.log("header.column.columnDef", header.column.columnDef);
         columnHeaders.push({
           //This is temporary structure, we will change this logic in coming days as required
           label: header.column.columnDef.header as string,

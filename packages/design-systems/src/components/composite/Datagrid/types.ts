@@ -6,6 +6,7 @@ import type {
   OnChangeFn,
   PaginationState,
   RowSelectionState,
+  TableMeta,
 } from "@tanstack/react-table";
 import type { Table, Updater } from "@tanstack/table-core/build/lib/types";
 import { CollectionItem } from "@ark-ui/react/select";
@@ -54,6 +55,7 @@ export type UseDataGridProps<TData> = {
   enablePinning?: boolean;
   columnPinning?: ColumnPinningState;
   setColumnPinning?: (updater: Updater<ColumnPinningState>) => void;
+  meta?: TableMeta<TData>;
 };
 export type ColumnMetaWithTypeInfo<TData> = ColumnMeta<TData, unknown> & {
   type: string;
