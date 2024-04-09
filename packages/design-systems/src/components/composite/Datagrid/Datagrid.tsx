@@ -98,9 +98,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
       left: isPinned === "left" ? `${column.getStart("left")}px` : undefined,
       right: isPinned === "right" ? `${column.getAfter("right")}px` : undefined,
       opacity: isPinned ? 0.95 : 1,
-      // position: isPinned ? "sticky" : "relative",
       zIndex: isPinned ? 1 : 0,
-      // backgroundColor: isPinned ? "white" : "inherit",
     };
   };
 
