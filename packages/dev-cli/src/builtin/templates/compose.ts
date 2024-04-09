@@ -67,6 +67,11 @@ services:
       - ./manifest:/root/backend/manifest
     working_dir: /root/backend
     entrypoint: minitailor start
+    healthcheck:
+      test: "nc -z localhost 18090"
+      interval: 1s
+      timeout: 5s
+      retries: 3
 
   db:
     image: postgres:13.5
