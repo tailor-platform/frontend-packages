@@ -172,4 +172,5 @@ export const datagrid = defineSlotRecipe({
       },
     },
   },
+  jsx: ["DataGrid"],
 });

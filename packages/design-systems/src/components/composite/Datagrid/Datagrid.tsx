@@ -10,7 +10,10 @@ import {
   ReactNode,
 } from "react";
 import { css } from "@tailor-platform/styled-system/css";
-import { datagrid } from "@tailor-platform/styled-system/recipes";
+import {
+  datagrid,
+  type DatagridVariantProps,
+} from "@tailor-platform/styled-system/recipes";
 import { styled } from "@tailor-platform/styled-system/jsx";
 import { LOCALIZATION_EN } from "../../../locales/en";
 import { Button } from "../../Button";
@@ -32,11 +35,14 @@ import { ManualPagination, Pagination } from "./Pagination";
 import { Column, ColumnMetaWithTypeInfo, type DataGridInstance } from "./types";
 import { useClickOutside } from "./hooks/useClickOutside";
 
-export const DataGrid = <TData extends Record<string, unknown>>({
-  table,
-}: {
+type DataGridProps<TData extends Record<string, unknown>> = {
   table: DataGridInstance<TData>;
-}) => {
+} & DatagridVariantProps;
+
+export const DataGrid = <TData extends Record<string, unknown>>(
+  props: DataGridProps<TData>,
+) => {
+  const { table, size } = props;
   const colSpan = table
     .getHeaderGroups()
     .reduce((acc, headerGroup) => acc + headerGroup.headers.length, 0);
@@ -44,7 +50,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
   const [columnsHideShowOpen, setColumnsHideShowOpen] = useState(false);
   const [columnHeaders, setColumnHeaders] = useState<Column<TData>[]>([]);
   const localization = table.localization || LOCALIZATION_EN;
-  const datagridClasses = datagrid({ size: table.size });
+  const datagridClasses = datagrid({ size });
 
   const [columnBeingDragged, setColumnBeingDragged] = useState<
     number | undefined

@@ -26,12 +26,11 @@ export const DataGridPaginationStory = ({
       pageIndex: 0,
       pageSize: pageSize,
     },
-    size: "xs",
   });
 
   return (
     <Box w="full" style={{ marginTop: "50px" }}>
-      <DataGrid table={table} />
+      <DataGrid table={table} size="2xl" />
     </Box>
   );
 };
