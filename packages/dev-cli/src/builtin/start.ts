@@ -26,7 +26,7 @@ await log.group("dev environment", "launch", async () => {
 });
 
 await log.group("apply", "creating workspace", async () => {
-  await $$`${tailorctl} alpha workspace create --name ${config?.name || ""} --region asia-northeast`;
+  await $$`${tailorctl} alpha workspace create --name ${config?.name || ""} --region local`;
   if (process.env.__CMDOPTS_DEFAULT_VAULT === "true") {
     await $$`${tailorctl} alpha workspace vault create --name default`;
   }
