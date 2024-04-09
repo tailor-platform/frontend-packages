@@ -1,15 +1,19 @@
-import { forwardRef } from "react";
-import {
-  styled,
-  type HTMLStyledProps,
-} from "@tailor-platform/styled-system/jsx";
-import { box, BoxProperties } from "@tailor-platform/styled-system/patterns";
+import { forwardRef, PropsWithChildren } from "react";
+import { css, cx } from "@tailor-platform/styled-system/css";
+import { styled, type BoxProps } from "@tailor-platform/styled-system/jsx";
+import { box } from "@tailor-platform/styled-system/patterns";
 
-export type BoxProps = HTMLStyledProps<"div"> & BoxProperties;
+export { type BoxProps };
 
-export const Box = forwardRef<HTMLDivElement, BoxProps>(
-  (props: BoxProps, ref) => {
-    return <styled.div ref={ref} className={box({})} {...props} />;
+export const Box = forwardRef<HTMLDivElement, PropsWithChildren<BoxProps>>(
+  (props: PropsWithChildren<BoxProps>, ref) => {
+    const { children, ...rest } = props;
+    const className = cx(box({}), css({ ...rest }));
+    return (
+      <styled.div ref={ref} className={className}>
+        {children}
+      </styled.div>
+    );
   },
 );
 Box.displayName = "Box";

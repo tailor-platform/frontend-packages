@@ -10,6 +10,8 @@ import type {
 import type { Table, Updater } from "@tanstack/table-core/build/lib/types";
 import { CollectionItem } from "@ark-ui/react/select";
 import type { Localization } from "../../../locales/types";
+import { type DatagridVariantProps } from "@tailor-platform/styled-system/recipes";
+import { ConditionalValue } from "@pandacss/types/dist/conditions";
 
 export interface PageChangeDetails {
   page: number;
@@ -29,6 +31,21 @@ export interface DataGridInstance<
   onFilterChange?: (filters: GraphQLQueryFilter) => void;
   defaultFilter?: GraphQLQueryFilter;
   localization?: Localization;
+  size: ConditionalValue<
+    | "xs"
+    | "sm"
+    | "md"
+    | "lg"
+    | "xl"
+    | "2xl"
+    | "3xl"
+    | "full"
+    | "4xl"
+    | "5xl"
+    | "6xl"
+    | "7xl"
+    | "8xl"
+  >;
 }
 export type UseDataGridProps<TData> = {
   data: TData[];
@@ -54,7 +71,7 @@ export type UseDataGridProps<TData> = {
   enablePinning?: boolean;
   columnPinning?: ColumnPinningState;
   setColumnPinning?: (updater: Updater<ColumnPinningState>) => void;
-};
+} & DatagridVariantProps;
 export type ColumnMetaWithTypeInfo<TData> = ColumnMeta<TData, unknown> & {
   type: string;
   enumType?: Record<string, string>;

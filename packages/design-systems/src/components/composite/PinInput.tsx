@@ -13,9 +13,9 @@ export type PinInputProps = PinInputVariantProps &
   };
 
 export const PinInput = (props: PinInputProps) => {
-  const { placeholder = "0", digits = 4, ...rest } = props;
+  const { placeholder = "0", digits = 4, variant, size, ...rest } = props;
 
-  const classes = pinInput();
+  const classes = pinInput({ variant, size });
   return (
     <ArkPinInput.Root
       placeholder={placeholder}
@@ -23,9 +23,9 @@ export const PinInput = (props: PinInputProps) => {
       {...rest}
     >
       <ArkPinInput.Control className={classes.control}>
-        {[...(Array(digits) as number[])].map((id, index) => (
+        {[...(Array(digits) as number[])].map((_, index) => (
           <ArkPinInput.Input
-            key={"pininput" + id}
+            key={"pininput" + index}
             index={index}
             className={classes.input}
           />

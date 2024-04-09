@@ -20,6 +20,7 @@ export const Default: Story = {
     <PinInput
       digits={4}
       onValueComplete={(e) => alert(e.valueAsString)}
+      size={"2xl"}
       {...props}
     />
   ),

@@ -29,6 +29,7 @@ export const useDataGrid = <TData extends RowLike>({
   enableRowSelection = false,
   onRowSelectionChange,
   rowSelection,
+  size = "md",
 }: UseDataGridProps<TData>): DataGridInstance<TData> => {
   const { pageIndex = 0, pageSize = 50 } = pagination || {};
   const [columnPinningState, setColumnPinningState] =
@@ -112,5 +113,6 @@ export const useDataGrid = <TData extends RowLike>({
     onFilterChange,
     defaultFilter,
     localization,
+    size,
   };
 };
