@@ -112,11 +112,11 @@ export const DataGrid = <TData extends Record<string, unknown>>(
 
   useEffect(() => {
     //Get header titles from table columns
-    //This is temporary structure, we will change this logic in coming days as required
     const cusotmFilterFields: Column<TData>[] = table.columns
       .map((column) => {
         if ("accessorKey" in column) {
           return {
+            //This is temporary structure, we will change this logic in coming days as required
             label: column.header as string,
             value: column.header as string,
             accessorKey: column.accessorKey as string,
