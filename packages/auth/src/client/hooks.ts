@@ -190,7 +190,7 @@ export const useSession = (options?: SessionOption) => {
   assertWindowIsAvailable();
 
   const session = internalClientSessionLoader.getSuspense(config);
-  if (options?.required && session?.token === null) {
+  if (options?.required && !session?.token) {
     window.location.replace(config.appUrl(internalUnauthorizedPath));
   }
 

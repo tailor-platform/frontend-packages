@@ -109,9 +109,9 @@ describe("useSession", () => {
 
   it("redirects users to the unauthorized route if session is empty", async () => {
     mockServer.use(
-      http.post(mockAuthConfig.appUrl(internalClientSessionPath), () => {
+      http.get(mockAuthConfig.appUrl(internalClientSessionPath), () => {
         return HttpResponse.json({
-          token: undefined,
+          token: null,
         });
       }),
     );
@@ -124,12 +124,14 @@ describe("useSession", () => {
     };
 
     const replaceMock = vi.fn();
-    await withMockReplace(replaceMock, () => {
+    await withMockReplace(replaceMock, async () => {
       render(<TestComponent />, {
         wrapper: SuspendingWrapper,
       });
-    });
 
-    expect(replaceMock).toHaveBeenCalled();
+      await waitFor(() => {
+        expect(replaceMock).toHaveBeenCalled();
+      });
+    });
   });
 });
