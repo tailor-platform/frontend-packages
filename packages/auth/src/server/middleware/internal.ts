@@ -11,7 +11,7 @@ export const callbackByStrategy = (strategy: string = "default") =>
 export const internalClientSessionPath = "/__auth/session" as const;
 export const internalClientSessionHandler: RouteHandler = ({ request }) => {
   const tailorToken = request.cookies.get("tailor.token");
-  return NextResponse.json({ token: tailorToken?.value });
+  return NextResponse.json({ token: tailorToken?.value || null });
 };
 
 // Internal path redirecting (through middleware) to `unauthorizedPath` set in ContextConfig
