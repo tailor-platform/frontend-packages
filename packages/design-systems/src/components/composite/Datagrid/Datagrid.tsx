@@ -90,6 +90,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
 
   const getCommonPinningStyles = (
     column: ColumnTanstak<TData>,
+    isHeader?: boolean,
   ): CSSProperties => {
     const isPinned = column.getIsPinned();
     const isLastLeftPinnedColumn =
@@ -105,8 +106,10 @@ export const DataGrid = <TData extends Record<string, unknown>>(
           : undefined,
       left: isPinned === "left" ? `${column.getStart("left")}px` : undefined,
       right: isPinned === "right" ? `${column.getAfter("right")}px` : undefined,
+      position: isHeader || isPinned ? "sticky" : "relative",
       opacity: isPinned ? 0.95 : 1,
       zIndex: isPinned ? 1 : 0,
+      backgroundColor: isHeader || isPinned ? "white" : "inherit",
     };
   };
 
@@ -213,7 +216,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
                     style={{
                       minWidth:
                         header.id === "select" ? "54px" : header.getSize(), //First column with checkboxes
-                      ...getCommonPinningStyles(header.column),
+                      ...getCommonPinningStyles(header.column, true),
                     }}
                     draggable={
                       !table.getState().columnSizingInfo.isResizingColumn
