@@ -16,12 +16,14 @@ export const applyV2 = async () => {
     return;
   }
 
-  await log.group("apply", "creating workspace", async () => {
-    await $$`${tailorctl} alpha workspace create --name ${config?.name || ""} --region local`;
-    if (process.env.__CMDOPTS_DEFAULT_VAULT === "true") {
-      await $$`${tailorctl} alpha workspace vault create --name default`;
-    }
-  });
+  if (process.env.__CMDOPTS_INIT === "true") {
+    await log.group("apply", "creating workspace", async () => {
+      await $$`${tailorctl} alpha workspace create --name ${config?.name || ""} --region local`;
+      if (process.env.__CMDOPTS_DEFAULT_VAULT === "true") {
+        await $$`${tailorctl} alpha workspace vault create --name default`;
+      }
+    });
+  }
 
   await log.group("apply", "applying manifest", async () => {
     const appEnv = process.env.__CMDOPTS_ENV || "";

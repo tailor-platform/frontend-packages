@@ -46,12 +46,18 @@ export const commands: Commands = {
       },
       {
         usage: "--default-vault",
-        description: "add a default vault",
+        description:
+          "add a default vault (effective only when --init-workspace is set)",
         default: false,
       },
       {
         usage: "--only-eval",
         description: "only evaluate manifests",
+        default: false,
+      },
+      {
+        usage: "--init",
+        description: "initialize pre-requisites (workspace, vault)",
         default: false,
       },
     ],
