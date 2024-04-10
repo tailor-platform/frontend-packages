@@ -26,10 +26,6 @@ class SingletonLoader<R> {
       });
   }
 
-  get() {
-    return this.value;
-  }
-
   getSuspense(config: Config) {
     if (this.error) {
       throw this.error;
