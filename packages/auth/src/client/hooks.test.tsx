@@ -7,7 +7,7 @@ import { TailorAuthProvider } from "./provider";
 import { buildMockServer, mockAuthConfig, mockSession } from "@tests/mocks";
 import { withMockReplace } from "@tests/helper";
 import { internalClientSessionPath } from "@server/middleware/internal";
-import { internalClientSessionLoader } from "@core/loader";
+import { internalSessionLoader } from "@core/loader";
 
 const mockProvider = (props: React.PropsWithChildren) => (
   <TailorAuthProvider config={mockAuthConfig}>
@@ -18,7 +18,7 @@ const mockProvider = (props: React.PropsWithChildren) => (
 const mockServer = buildMockServer();
 beforeAll(() => mockServer.listen());
 afterEach(() => {
-  internalClientSessionLoader.clear();
+  internalSessionLoader.clear();
   mockServer.resetHandlers();
 });
 afterAll(() => mockServer.close());

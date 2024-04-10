@@ -5,10 +5,7 @@ import {
   internalLogoutPath,
   internalUnauthorizedPath,
 } from "@server/middleware/internal";
-import {
-  internalClientSessionLoader,
-  internalUserinfoLoader,
-} from "@core/loader";
+import { internalSessionLoader, internalUserinfoLoader } from "@core/loader";
 
 const NoWindowError = new Error(
   "window object should be available to use this function",
@@ -189,7 +186,7 @@ export const useSession = (options?: SessionOption) => {
 
   assertWindowIsAvailable();
 
-  const session = internalClientSessionLoader.getSuspense(config);
+  const session = internalSessionLoader.getSuspense(config);
   if (options?.required && !session?.token) {
     window.location.replace(config.appUrl(internalUnauthorizedPath));
   }
