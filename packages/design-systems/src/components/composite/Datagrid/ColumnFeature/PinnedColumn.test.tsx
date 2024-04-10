@@ -29,8 +29,6 @@ const columns: ColumnDef<Payment>[] = [
     meta: {
       type: "enum",
       enumType: PaymentStatus,
-      //accessorKey is not provided at compile time inside ColumnDef https://github.com/TanStack/table/issues/4423
-      accessorKey: "status",
     },
   },
   {
@@ -38,7 +36,6 @@ const columns: ColumnDef<Payment>[] = [
     header: "Email",
     meta: {
       type: "string",
-      accessorKey: "email",
     },
   },
   {
@@ -46,7 +43,6 @@ const columns: ColumnDef<Payment>[] = [
     header: "Amount",
     meta: {
       type: "number",
-      accessorKey: "amount",
     },
   },
 ];

@@ -33,7 +33,7 @@ export const DataGridMultilingualStory = ({
     onFilterChange: (filter) => {
       setFilterChange(filter, originData, setData);
     },
-    totalCount: 14,
+    totalCount: data.length,
     pagination: {
       pageIndex: 0,
       pageSize: 5,
