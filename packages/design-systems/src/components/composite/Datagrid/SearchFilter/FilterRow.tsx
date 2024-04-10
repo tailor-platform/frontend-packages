@@ -51,7 +51,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
   const DATE_INPUT_PLACEHOLDER = "YYYY-MM-DD";
   const filterConditions = getLocalizedFilterConditions(localization);
   const selectedColumnObject = columns.find((column) => {
-    return column.meta?.accessorKey === currentFilter.column;
+    return column.accessorKey === currentFilter.column;
   });
 
   const onChangeColumn = useCallback(
@@ -59,7 +59,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
       const column = columns.find((column) => column.label === value[0]);
       const nextFilter = {
         ...currentFilter,
-        column: column?.meta?.accessorKey || "",
+        column: column?.accessorKey || "",
         condition: "",
         value: "",
       };

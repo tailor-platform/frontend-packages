@@ -60,48 +60,48 @@ type Payment = {
 
 const columns: Column<Payment>[] = [
   {
+    accessorKey: "status",
     label: "Status",
     value: "Status",
     meta: {
       type: "enum",
       enumType: PaymentStatus,
-      accessorKey: "status",
     },
     disabled: false,
   },
   {
+    accessorKey: "email",
     label: "Email",
     value: "Email",
     meta: {
       type: "string",
-      accessorKey: "email",
     },
     disabled: false,
   },
   {
+    accessorKey: "amount",
     label: "Amount",
     value: "Amount",
     meta: {
       type: "number",
-      accessorKey: "amount",
     },
     disabled: false,
   },
   {
+    accessorKey: "createdAt",
     label: "CreatedAt",
     value: "CreatedAt",
     meta: {
       type: "date",
-      accessorKey: "createdAt",
     },
     disabled: false,
   },
   {
+    accessorKey: "isCreditCard",
     label: "CreditCardUsed",
     value: "CreditCardUsed",
     meta: {
       type: "boolean",
-      accessorKey: "isCreditCard",
     },
     disabled: false,
   },

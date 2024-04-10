@@ -112,5 +112,6 @@ export const useDataGrid = <TData extends RowLike>({
     onFilterChange,
     defaultFilter,
     localization,
+    columns,
   };
 };

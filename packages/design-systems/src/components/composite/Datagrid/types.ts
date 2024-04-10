@@ -29,6 +29,7 @@ export interface DataGridInstance<
   onFilterChange?: (filters: GraphQLQueryFilter) => void;
   defaultFilter?: GraphQLQueryFilter;
   localization?: Localization;
+  columns: ColumnDef<TData>[];
 }
 export type UseDataGridProps<TData> = {
   data: TData[];
@@ -55,12 +56,6 @@ export type UseDataGridProps<TData> = {
   columnPinning?: ColumnPinningState;
   setColumnPinning?: (updater: Updater<ColumnPinningState>) => void;
 };
-export type ColumnMetaWithTypeInfo<TData> = ColumnMeta<TData, unknown> & {
-  type: string;
-  enumType?: Record<string, string>;
-  //https://github.com/TanStack/table/issues/4423
-  accessorKey: string;
-};
 export type HideShowProps<TData extends Record<string, unknown>> = {
   allColumnsHandler: () => (event: unknown) => void;
   columns: Array<ColumnTanstak<TData>>;
@@ -70,8 +65,9 @@ export type HideShowProps<TData extends Record<string, unknown>> = {
 export type Column<TData> = {
   label: string;
   value: string;
+  accessorKey: string;
   disabled?: boolean;
-  meta?: ColumnMetaWithTypeInfo<TData>;
+  meta?: ColumnMeta<TData, unknown>;
 };
 export type CustomFilterProps<TData> = {
   columns: Array<Column<TData>>;
@@ -91,7 +87,7 @@ export type FilterRowState = {
 export type FilterRowProps<TData> = {
   columns: Array<Column<TData>>;
   onDelete: () => void;
-  meta?: ColumnMetaWithTypeInfo<TData>;
+  meta?: ColumnMeta<TData, unknown>;
   onChange: (currentState: FilterRowState) => void;
   localization: Localization;
   isFirstRow: boolean;

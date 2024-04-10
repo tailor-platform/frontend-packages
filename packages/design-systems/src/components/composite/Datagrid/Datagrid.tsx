@@ -32,7 +32,7 @@ import { HideShow } from "./ColumnFeature/HideShow";
 import { PinnedColumn } from "./ColumnFeature/PinnedColumn";
 import { CustomFilter } from "./SearchFilter/CustomFilter";
 import { ManualPagination, Pagination } from "./Pagination";
-import { Column, ColumnMetaWithTypeInfo, type DataGridInstance } from "./types";
+import { Column, type DataGridInstance } from "./types";
 import { useClickOutside } from "./hooks/useClickOutside";
 
 type DataGridProps<TData extends Record<string, unknown>> = {
@@ -48,7 +48,9 @@ export const DataGrid = <TData extends Record<string, unknown>>(
     .reduce((acc, headerGroup) => acc + headerGroup.headers.length, 0);
   const [filterOpen, setFilterOpen] = useState(false);
   const [columnsHideShowOpen, setColumnsHideShowOpen] = useState(false);
-  const [columnHeaders, setColumnHeaders] = useState<Column<TData>[]>([]);
+  const [cusotmFilterFields, setCustomFilterFields] = useState<Column<TData>[]>(
+    [],
+  );
   const localization = table.localization || LOCALIZATION_EN;
   const datagridClasses = datagrid({ size });
 
@@ -109,20 +111,27 @@ export const DataGrid = <TData extends Record<string, unknown>>(
   };
 
   useEffect(() => {
-    //Get header titles
-    const columnHeaders: Column<TData>[] = [];
-    table.getHeaderGroups().map((headerGroup) => {
-      headerGroup.headers.map((header) => {
-        columnHeaders.push({
-          //This is temporary structure, we will change this logic in coming days as required
-          label: header.column.columnDef.header as string,
-          value: header.column.columnDef.header as string,
-          meta: header.column.columnDef.meta as ColumnMetaWithTypeInfo<TData>,
-          disabled: false,
-        });
-      });
-    });
-    setColumnHeaders(columnHeaders);
+    //Get header titles from table columns
+    const cusotmFilterFields: Column<TData>[] = table.columns.flatMap(
+      (column) => {
+        if ("accessorKey" in column) {
+          return [
+            {
+              //This is temporary structure, we will change this logic in coming days as required
+              label: column.header as string,
+              value: column.header as string,
+              accessorKey: column.accessorKey as string,
+              disabled: false,
+              meta: column.meta,
+            },
+          ];
+        } else {
+          return [];
+        }
+      },
+    );
+
+    setCustomFilterFields(cusotmFilterFields);
   }, [table]);
 
   return (
@@ -178,7 +187,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
       )}
       {table.enableColumnFilters && (
         <CustomFilter
-          columns={columnHeaders}
+          columns={cusotmFilterFields}
           onChange={(filters) => {
             table.onFilterChange && table.onFilterChange(filters);
           }}
@@ -256,15 +265,10 @@ export const DataGrid = <TData extends Record<string, unknown>>(
                 >
                   {row.getVisibleCells().map((cell) => {
                     if (
-                      (
-                        cell.column.columnDef
-                          .meta as ColumnMetaWithTypeInfo<TData>
-                      )?.type === "enum"
+                      cell.column.columnDef.meta &&
+                      cell.column.columnDef.meta.type === "enum"
                     ) {
-                      const enumValues = (
-                        cell.column.columnDef
-                          .meta as ColumnMetaWithTypeInfo<TData>
-                      ).enumType;
+                      const enumValues = cell.column.columnDef.meta.enumType;
                       const enumValue = enumValues?.[
                         cell.getValue() as string
                       ] as ReactNode;
