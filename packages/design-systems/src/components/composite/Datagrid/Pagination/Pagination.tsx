@@ -32,7 +32,7 @@ export const Pagination = <TData extends Record<string, unknown>>({
     [table],
   );
   const pageSize = useMemo(() => table.getState().pagination.pageSize, [table]);
-  const { from, to, pages, selectList } = usePagination(
+  const { from, to, pages, pageSizeOptions } = usePagination(
     table,
     pageIndex,
     pageSize,
@@ -44,7 +44,7 @@ export const Pagination = <TData extends Record<string, unknown>>({
         <Text>{localization.pagination.rowsPerPage}</Text>
         <Select.Root
           className={classes.root}
-          items={selectList}
+          items={pageSizeOptions}
           positioning={{ sameWidth: true }}
           closeOnSelect
           onValueChange={(e: ValueChangeDetails<CollectionItem>) => {
@@ -72,7 +72,7 @@ export const Pagination = <TData extends Record<string, unknown>>({
                   id="jointConditions"
                   data-testid="select-page-size-options"
                 >
-                  {selectList.map((item) => (
+                  {pageSizeOptions.map((item) => (
                     <Select.Item
                       className={classes.item}
                       key={"pageSize" + item}

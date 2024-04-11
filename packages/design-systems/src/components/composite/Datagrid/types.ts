@@ -30,7 +30,7 @@ export interface DataGridInstance<
   defaultFilter?: GraphQLQueryFilter;
   localization?: Localization;
   columns: ColumnDef<TData>[];
-  selectList?: number[];
+  pageSizeOptions?: number[];
 }
 export type UseDataGridProps<TData> = {
   data: TData[];
@@ -56,7 +56,7 @@ export type UseDataGridProps<TData> = {
   enablePinning?: boolean;
   columnPinning?: ColumnPinningState;
   setColumnPinning?: (updater: Updater<ColumnPinningState>) => void;
-  selectList?: number[];
+  pageSizeOptions?: number[];
 };
 export type HideShowProps<TData extends Record<string, unknown>> = {
   allColumnsHandler: () => (event: unknown) => void;

@@ -39,11 +39,11 @@ export const usePagination = <TData extends Record<string, unknown>>(
     return pageIndex === pageCount - 1;
   }, [pageIndex, pageCount]);
 
-  const selectList = useMemo(
+  const pageSizeOptions = useMemo(
     () => {
       const tmpSelectList =
-        table.selectList && table.selectList.length > 0
-          ? table.selectList.map((s) => s.toString())
+        table.pageSizeOptions && table.pageSizeOptions.length > 0
+          ? table.pageSizeOptions.map((s) => s.toString())
           : defaultSelectList;
       return [...new Set([...tmpSelectList, pageSize.toString()])].sort(
         (a, b) => Number(a) - Number(b),
@@ -54,7 +54,7 @@ export const usePagination = <TData extends Record<string, unknown>>(
     [],
   );
 
-  return { from, to, pages, pageCount, isNextPage, selectList };
+  return { from, to, pages, pageCount, isNextPage, pageSizeOptions };
 };
 
 export const Select = {
