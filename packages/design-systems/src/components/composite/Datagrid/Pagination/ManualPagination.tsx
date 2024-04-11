@@ -20,7 +20,7 @@ import {
 import { Text } from "../../../Text";
 import { Button } from "../../../Button";
 import { IconButton } from "../../../IconButton";
-import { selectList, Select, usePagination } from "./utils";
+import { Select, usePagination } from "./utils";
 import { Localization } from "@locales/types";
 
 const classes = select();
@@ -36,7 +36,7 @@ export const ManualPagination = <TData extends Record<string, unknown>>({
     pageIndex: 0,
     pageSize: table.initialState.pagination.pageSize,
   });
-  const { from, to, pages, pageCount, isNextPage } = usePagination(
+  const { from, to, pages, pageCount, isNextPage, selectList } = usePagination(
     table,
     pageIndex,
     pageSize,

@@ -5,7 +5,7 @@ import { DataGridInstance, Page } from "../types";
 
 const ELLIPSIS_SIZE = 4;
 
-export const selectList = ["5", "20", "50", "100", "500", "1000"];
+export const defaultSelectList = ["5", "20", "50", "100", "500", "1000"];
 
 export const usePagination = <TData extends Record<string, unknown>>(
   table: DataGridInstance<TData>,
@@ -39,7 +39,22 @@ export const usePagination = <TData extends Record<string, unknown>>(
     return pageIndex === pageCount - 1;
   }, [pageIndex, pageCount]);
 
-  return { from, to, pages, pageCount, isNextPage };
+  const selectList = useMemo(
+    () => {
+      const tmpSelectList =
+        table.selectList && table.selectList.length > 0
+          ? table.selectList.map((s) => s.toString())
+          : defaultSelectList;
+      return [...new Set([...tmpSelectList, pageSize.toString()])].sort(
+        (a, b) => Number(a) - Number(b),
+      );
+    },
+    // We have to run this function only when first time, but this way of writing will cause an error due to lint rules, so we excluded it here.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
+
+  return { from, to, pages, pageCount, isNextPage, selectList };
 };
 
 export const Select = {

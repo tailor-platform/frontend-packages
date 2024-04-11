@@ -15,7 +15,7 @@ import { DataGridInstance, ValueChangeDetails } from "../types";
 import { Text } from "../../../Text";
 import { Button } from "../../../Button";
 import { IconButton } from "../../../IconButton";
-import { selectList, Select, usePagination } from "./utils";
+import { Select, usePagination } from "./utils";
 import { Localization } from "@locales/types";
 
 const classes = select();
@@ -32,7 +32,11 @@ export const Pagination = <TData extends Record<string, unknown>>({
     [table],
   );
   const pageSize = useMemo(() => table.getState().pagination.pageSize, [table]);
-  const { from, to, pages } = usePagination(table, pageIndex, pageSize);
+  const { from, to, pages, selectList } = usePagination(
+    table,
+    pageIndex,
+    pageSize,
+  );
 
   return (
     <HStack justifyContent={"flex-end"} gap={8}>
