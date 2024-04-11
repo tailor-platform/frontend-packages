@@ -25,7 +25,7 @@ type Story = StoryObj<DataGridPaginationStoryProps>;
 
 export const Default: Story = {
   args: {
-    pageSize: 5,
+    pageSize: 20,
   },
   render: (args) => <DataGridPaginationStory {...args} />,
   parameters: {

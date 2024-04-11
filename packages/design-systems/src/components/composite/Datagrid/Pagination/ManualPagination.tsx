@@ -20,7 +20,7 @@ import {
 import { Text } from "../../../Text";
 import { Button } from "../../../Button";
 import { IconButton } from "../../../IconButton";
-import { selectList, Select, usePagination } from "./utils";
+import { Select, usePagination } from "./utils";
 import { Localization } from "@locales/types";
 
 const classes = select();
@@ -36,11 +36,8 @@ export const ManualPagination = <TData extends Record<string, unknown>>({
     pageIndex: 0,
     pageSize: table.initialState.pagination.pageSize,
   });
-  const { from, to, pages, pageCount, isNextPage } = usePagination(
-    table,
-    pageIndex,
-    pageSize,
-  );
+  const { from, to, pages, pageCount, isNextPage, pageSizeOptions } =
+    usePagination(table, pageIndex, pageSize);
   const handlePageChange = (detail: PageChangeDetails) => {
     table.handlePageChange && table.handlePageChange(detail);
   };
@@ -51,7 +48,7 @@ export const ManualPagination = <TData extends Record<string, unknown>>({
         <Text>{localization.pagination.rowsPerPage}</Text>
         <Select.Root
           className={classes.root}
-          items={selectList}
+          items={pageSizeOptions}
           positioning={{ sameWidth: true }}
           closeOnSelect
           onValueChange={(e: ValueChangeDetails<CollectionItem>) => {
@@ -80,7 +77,7 @@ export const ManualPagination = <TData extends Record<string, unknown>>({
                   id="jointConditions"
                   data-testid="select-page-size-options"
                 >
-                  {selectList.map((item) => (
+                  {pageSizeOptions.map((item) => (
                     <Select.Item
                       className={classes.item}
                       key={"pageSize" + item}
