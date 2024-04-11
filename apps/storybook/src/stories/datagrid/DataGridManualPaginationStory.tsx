@@ -17,7 +17,7 @@ export type DataGridManualPaginationStoryProps = {
 };
 
 export const DataGridManualPaginationStory = ({
-  pageSize = 5,
+  pageSize = 8,
 }: DataGridManualPaginationStoryProps) => {
   const [data, setData] = useState<Payment[]>(originData.slice(0, pageSize));
 

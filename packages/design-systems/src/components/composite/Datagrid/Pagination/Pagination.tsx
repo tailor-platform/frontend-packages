@@ -15,7 +15,7 @@ import { DataGridInstance, ValueChangeDetails } from "../types";
 import { Text } from "../../../Text";
 import { Button } from "../../../Button";
 import { IconButton } from "../../../IconButton";
-import { selectList, Select, usePagination } from "./utils";
+import { Select, usePagination } from "./utils";
 import { Localization } from "@locales/types";
 
 const classes = select();
@@ -32,7 +32,11 @@ export const Pagination = <TData extends Record<string, unknown>>({
     [table],
   );
   const pageSize = useMemo(() => table.getState().pagination.pageSize, [table]);
-  const { from, to, pages } = usePagination(table, pageIndex, pageSize);
+  const { from, to, pages, pageSizeOptions } = usePagination(
+    table,
+    pageIndex,
+    pageSize,
+  );
 
   return (
     <HStack justifyContent={"flex-end"} gap={8}>
@@ -40,7 +44,7 @@ export const Pagination = <TData extends Record<string, unknown>>({
         <Text>{localization.pagination.rowsPerPage}</Text>
         <Select.Root
           className={classes.root}
-          items={selectList}
+          items={pageSizeOptions}
           positioning={{ sameWidth: true }}
           closeOnSelect
           onValueChange={(e: ValueChangeDetails<CollectionItem>) => {
@@ -68,7 +72,7 @@ export const Pagination = <TData extends Record<string, unknown>>({
                   id="jointConditions"
                   data-testid="select-page-size-options"
                 >
-                  {selectList.map((item) => (
+                  {pageSizeOptions.map((item) => (
                     <Select.Item
                       className={classes.item}
                       key={"pageSize" + item}

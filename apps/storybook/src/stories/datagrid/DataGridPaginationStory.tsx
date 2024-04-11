@@ -26,6 +26,7 @@ export const DataGridPaginationStory = ({
       pageIndex: 0,
       pageSize: pageSize,
     },
+    pageSizeOptions: [5, 10, 15, 20],
   });
 
   return (
