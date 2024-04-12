@@ -56,7 +56,7 @@ export const PinnedColumn = <TData extends Record<string, unknown>>({
           display={"flex"}
           flexDirection={"column"}
           alignItems={"start"}
-          right={0}
+          right={column.getIsPinned() === "left" ? "auto" : 0}
           ref={modalRef}
         >
           <Button
