@@ -46,4 +46,10 @@ export const LOCALIZATION_EN: Localization = {
     of: "of",
     page: "",
   },
+  density: {
+    densityLabel: "Density",
+    compact: "Compact",
+    standard: "Standard",
+    comfortable: "Comfortable",
+  },
 };

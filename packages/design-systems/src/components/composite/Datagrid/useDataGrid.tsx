@@ -7,6 +7,7 @@ import {
 } from "@tanstack/react-table";
 import { Checkbox } from "../../Checkbox";
 import { type DataGridInstance, type UseDataGridProps } from "./types";
+import { DensityFeature } from "./Density/Density";
 
 type RowLike = { id: string };
 
@@ -30,6 +31,7 @@ export const useDataGrid = <TData extends RowLike>({
   onRowSelectionChange,
   rowSelection,
   pageSizeOptions = [],
+  enableDensity = false,
 }: UseDataGridProps<TData>): DataGridInstance<TData> => {
   const { pageIndex = 0, pageSize = 50 } = pagination || {};
   const [columnPinningState, setColumnPinningState] =
@@ -77,6 +79,7 @@ export const useDataGrid = <TData extends RowLike>({
       });
   }
   const reactTableInstance = useReactTable({
+    _features: [DensityFeature],
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
@@ -100,6 +103,7 @@ export const useDataGrid = <TData extends RowLike>({
     columnResizeMode: "onChange",
     onColumnPinningChange: setColumnPinningState,
     getRowId: (row) => row.id,
+    enableDensity,
   });
 
   return {
@@ -115,5 +119,6 @@ export const useDataGrid = <TData extends RowLike>({
     localization,
     columns,
     pageSizeOptions,
+    enableDensity,
   };
 };

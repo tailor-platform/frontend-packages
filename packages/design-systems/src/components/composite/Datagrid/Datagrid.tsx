@@ -1,5 +1,9 @@
 import { Column as ColumnTanstak, flexRender } from "@tanstack/react-table";
-import { Columns as ColumnsIcon, Filter as FilterIcon } from "lucide-react";
+import {
+  Columns as ColumnsIcon,
+  Filter as FilterIcon,
+  Rows as RowsIcon,
+} from "lucide-react";
 import {
   CSSProperties,
   DragEvent,
@@ -31,6 +35,7 @@ import { Stack } from "../../patterns/Stack";
 import { HideShow } from "./ColumnFeature/HideShow";
 import { PinnedColumn } from "./ColumnFeature/PinnedColumn";
 import { CustomFilter } from "./SearchFilter/CustomFilter";
+import { Density } from "./Density/Density";
 import { ManualPagination, Pagination } from "./Pagination";
 import { Column, type DataGridInstance } from "./types";
 import { useClickOutside } from "./hooks/useClickOutside";
@@ -51,6 +56,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
   const [cusotmFilterFields, setCustomFilterFields] = useState<Column<TData>[]>(
     [],
   );
+  const [densityOpen, setDensityOpen] = useState(false);
   const localization = table.localization || LOCALIZATION_EN;
   const datagridClasses = datagrid({ size });
 
@@ -67,6 +73,9 @@ export const DataGrid = <TData extends Record<string, unknown>>(
     () => setColumnsHideShowOpen(false),
     hideShowButtonRef,
   );
+  const densityRef = useRef<HTMLDivElement>(null);
+  const densityButtonRef = useRef<HTMLButtonElement>(null);
+  useClickOutside(densityRef, () => setDensityOpen(false), densityButtonRef);
 
   const onDragStart = useCallback(
     (event: DragEvent<HTMLTableCellElement>): void => {
@@ -137,6 +146,8 @@ export const DataGrid = <TData extends Record<string, unknown>>(
     setCustomFilterFields(cusotmFilterFields);
   }, [table]);
 
+  const { density } = table.getState();
+
   return (
     <Stack gap={4} position={"relative"}>
       <HStack gap={4}>
@@ -173,6 +184,24 @@ export const DataGrid = <TData extends Record<string, unknown>>(
             </Button>
           </HStack>
         )}
+        {table.enableDensity && (
+          <HStack>
+            <Button
+              variant="secondary"
+              size="md"
+              onClick={() => {
+                setDensityOpen(!densityOpen);
+              }}
+              ref={densityButtonRef}
+              data-testid="datagrid-filter-button"
+            >
+              <RowsIcon />
+              <Text marginLeft={"4px"}>
+                {localization.density.densityLabel}
+              </Text>
+            </Button>
+          </HStack>
+        )}
       </HStack>
       {table.enableHiding && (
         <HideShow
@@ -200,6 +229,14 @@ export const DataGrid = <TData extends Record<string, unknown>>(
           defaultFilter={table.defaultFilter}
         />
       )}
+      {table.enableDensity && (
+        <Density
+          setDensity={table.setDensity}
+          localization={localization}
+          isVisible={densityOpen}
+          ref={densityRef}
+        />
+      )}
       <styled.div className={datagridClasses.wrapper}>
         <Table className={datagridClasses.table} overflow={"visible"}>
           <TableHeader className={datagridClasses.tableHeader}>
@@ -217,6 +254,19 @@ export const DataGrid = <TData extends Record<string, unknown>>(
                       minWidth:
                         header.id === "select" ? "54px" : header.getSize(), //First column with checkboxes
                       ...getCommonPinningStyles(header.column, true),
+                      height: density === "sm" ? "auto" : "initial",
+                      paddingTop:
+                        density === "sm"
+                          ? "0.5rem"
+                          : density === "md"
+                            ? "1rem"
+                            : "1.5rem",
+                      paddingBottom:
+                        density === "sm"
+                          ? "0.5rem"
+                          : density === "md"
+                            ? "1rem"
+                            : "1.5rem",
                     }}
                     draggable={
                       !table.getState().columnSizingInfo.isResizingColumn
@@ -232,6 +282,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
                     <div
                       className={css({
                         display: "flex",
+                        alignItems: "center",
                       })}
                     >
                       {!header.isPlaceholder &&
@@ -279,7 +330,21 @@ export const DataGrid = <TData extends Record<string, unknown>>(
                         <TableCell
                           key={cell.id}
                           className={datagridClasses.tableData}
-                          style={{ ...getCommonPinningStyles(cell.column) }}
+                          style={{
+                            ...getCommonPinningStyles(cell.column),
+                            paddingTop:
+                              density === "sm"
+                                ? "0.5rem"
+                                : density === "md"
+                                  ? "1rem"
+                                  : "1.5rem",
+                            paddingBottom:
+                              density === "sm"
+                                ? "0.5rem"
+                                : density === "md"
+                                  ? "1rem"
+                                  : "1.5rem",
+                          }}
                         >
                           {enumValue}
                         </TableCell>
@@ -289,7 +354,21 @@ export const DataGrid = <TData extends Record<string, unknown>>(
                       <TableCell
                         key={cell.id}
                         className={datagridClasses.tableData}
-                        style={{ ...getCommonPinningStyles(cell.column) }}
+                        style={{
+                          ...getCommonPinningStyles(cell.column),
+                          paddingTop:
+                            density === "sm"
+                              ? "0.5rem"
+                              : density === "md"
+                                ? "1rem"
+                                : "1.5rem",
+                          paddingBottom:
+                            density === "sm"
+                              ? "0.5rem"
+                              : density === "md"
+                                ? "1rem"
+                                : "1.5rem",
+                        }}
                       >
                         {flexRender(
                           cell.column.columnDef.cell,

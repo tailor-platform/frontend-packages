@@ -42,4 +42,10 @@ export interface Localization {
     of: string;
     page: string;
   };
+  density: {
+    densityLabel: string;
+    compact: string;
+    standard: string;
+    comfortable: string;
+  };
 }
