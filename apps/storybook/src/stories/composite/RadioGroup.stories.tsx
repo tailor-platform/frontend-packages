@@ -1,4 +1,3 @@
-// import { RadioGroup, type RadioGroupRootProps } from "@ark-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
 import {
   RadioGroup,
