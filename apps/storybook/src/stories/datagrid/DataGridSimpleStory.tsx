@@ -21,6 +21,7 @@ export const DataGridSimpleStory = ({
     data,
     columns,
     enableColumnFilters,
+    enableExport: true,
   });
 
   return (

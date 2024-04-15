@@ -32,6 +32,8 @@ export const useDataGrid = <TData extends RowLike>({
   rowSelection,
   pageSizeOptions = [],
   enableDensity = false,
+  enableExport = false,
+  exportOptions = { enableCsvExport: true },
 }: UseDataGridProps<TData>): DataGridInstance<TData> => {
   const { pageIndex = 0, pageSize = 50 } = pagination || {};
   const [columnPinningState, setColumnPinningState] =
@@ -120,5 +122,7 @@ export const useDataGrid = <TData extends RowLike>({
     columns,
     pageSizeOptions,
     enableDensity,
+    enableExport,
+    exportOptions,
   };
 };

@@ -55,4 +55,8 @@ export const LOCALIZATION_EN: Localization = {
     standard: "Standard",
     comfortable: "Comfortable",
   },
+  export: {
+    exportLabel: "Export",
+    exportCSV: "Download as CSV",
+  },
 };

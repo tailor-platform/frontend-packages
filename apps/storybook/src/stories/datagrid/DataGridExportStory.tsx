@@ -6,41 +6,29 @@ import {
   DataGridInstance,
   useDataGrid,
 } from "@tailor-platform/design-systems/client";
-import { LOCALIZATION_JA } from "@tailor-platform/design-systems/locales/ja";
-import { LOCALIZATION_EN } from "@tailor-platform/design-systems/locales/en";
 
 import { COLUMNS as columns, DATA as originData } from "../../data/datagrid.ts";
-import { setFilterChange } from "./utils.ts";
-import { Payment } from "../../types/datagrid.ts";
 import { useState } from "react";
+import { Payment } from "../../types/datagrid.ts";
+import { setFilterChange } from "./utils.ts";
 
-export type DataGridMultilingualStoryProps = {
+export type DataGridExportStoryProps = {
   enableColumnFilters?: boolean;
   table?: DataGridInstance<Record<string, unknown>>;
-  localization?: "EN" | "JA";
 };
 
-export const DataGridMultilingualStory = ({
+export const DataGridExportStory = ({
   enableColumnFilters = false,
-  localization = "EN",
-}: DataGridMultilingualStoryProps) => {
+}: DataGridExportStoryProps) => {
   const [data, setData] = useState<Payment[]>(originData);
   const table = useDataGrid({
     data,
     columns,
     enableColumnFilters,
-    enablePagination: true,
     onFilterChange: (filter) => {
       setFilterChange(filter, originData, setData);
     },
-    totalCount: data.length,
-    pagination: {
-      pageIndex: 0,
-      pageSize: 5,
-    },
-    enableDensity: true,
     enableExport: true,
-    localization: localization === "JA" ? LOCALIZATION_JA : LOCALIZATION_EN,
   });
 
   return (
@@ -50,4 +38,4 @@ export const DataGridMultilingualStory = ({
   );
 };
 
-DataGridMultilingualStory.displayName = "DataGridMultilingual";
+DataGridExportStory.displayName = "DataGridExport";

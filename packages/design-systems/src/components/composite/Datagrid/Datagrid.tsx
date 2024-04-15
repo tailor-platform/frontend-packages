@@ -1,8 +1,13 @@
-import { Column as ColumnTanstak, flexRender } from "@tanstack/react-table";
+import {
+  Column as ColumnTanstak,
+  Row,
+  flexRender,
+} from "@tanstack/react-table";
 import {
   Columns as ColumnsIcon,
   Filter as FilterIcon,
   Rows as RowsIcon,
+  Download as DownloadIcon,
 } from "lucide-react";
 import {
   CSSProperties,
@@ -36,9 +41,11 @@ import { HideShow } from "./ColumnFeature/HideShow";
 import { PinnedColumn } from "./ColumnFeature/PinnedColumn";
 import { CustomFilter } from "./SearchFilter/CustomFilter";
 import { Density } from "./Density/Density";
+import { Export } from "./Export/Export";
 import { ManualPagination, Pagination } from "./Pagination";
 import { Column, type DataGridInstance } from "./types";
 import { useClickOutside } from "./hooks/useClickOutside";
+import { T } from "vitest/dist/reporters-3OMQDZar";
 
 type DataGridProps<TData extends Record<string, unknown>> = {
   table: DataGridInstance<TData>;
@@ -56,6 +63,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
   const [cusotmFilterFields, setCustomFilterFields] = useState<Column<TData>[]>(
     [],
   );
+  const [exportOpen, setExportOpen] = useState(false);
   const localization = table.localization || LOCALIZATION_EN;
   const datagridClasses = datagrid({ size });
 
@@ -79,6 +87,9 @@ export const DataGrid = <TData extends Record<string, unknown>>(
     () => table.setDensityOpen(false),
     densityButtonRef,
   );
+  const exportRef = useRef<HTMLDivElement>(null);
+  const exportButtonRef = useRef<HTMLButtonElement>(null);
+  useClickOutside(exportRef, () => setExportOpen(false), exportButtonRef);
 
   const onDragStart = useCallback(
     (event: DragEvent<HTMLTableCellElement>): void => {
@@ -151,6 +162,9 @@ export const DataGrid = <TData extends Record<string, unknown>>(
 
   const { density, densityOpen } = table.getState();
 
+  table.getFilteredRowModel();
+  table.getVisibleLeafColumns();
+
   return (
     <Stack gap={4} position={"relative"}>
       <HStack gap={4}>
@@ -196,12 +210,28 @@ export const DataGrid = <TData extends Record<string, unknown>>(
                 table.setDensityOpen(!densityOpen);
               }}
               ref={densityButtonRef}
-              data-testid="datagrid-filter-button"
+              data-testid="datagrid-density-button"
             >
               <RowsIcon />
               <Text marginLeft={"4px"}>
                 {localization.density.densityLabel}
               </Text>
+            </Button>
+          </HStack>
+        )}
+        {table.enableExport && (
+          <HStack>
+            <Button
+              variant="secondary"
+              size="md"
+              onClick={() => {
+                setExportOpen(!exportOpen);
+              }}
+              ref={exportButtonRef}
+              data-testid="datagrid-export-button"
+            >
+              <DownloadIcon />
+              <Text marginLeft={"4px"}>{localization.export.exportLabel}</Text>
             </Button>
           </HStack>
         )}
@@ -238,6 +268,21 @@ export const DataGrid = <TData extends Record<string, unknown>>(
           localization={localization}
           isVisible={densityOpen}
           ref={densityRef}
+        />
+      )}
+      {table.enableExport && (
+        <Export
+          rows={table.getFilteredRowModel().rows as Row<TData>[]}
+          columns={
+            table.getVisibleLeafColumns() as ColumnTanstak<
+              Record<string, unknown>,
+              unknown
+            >[]
+          }
+          exportOptions={table.exportOptions}
+          localization={localization}
+          isVisible={exportOpen}
+          ref={exportRef}
         />
       )}
       <styled.div className={datagridClasses.wrapper}>
