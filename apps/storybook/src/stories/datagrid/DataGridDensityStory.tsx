@@ -10,14 +10,15 @@ import {
 import { COLUMNS as columns, DATA as data } from "../../data/datagrid.ts";
 
 export type DataGridDensityStoryProps = {
+  enableDensity?: boolean;
   table?: DataGridInstance<Record<string, unknown>>;
 };
 
-export const DataGridDensityStory = ({}: DataGridDensityStoryProps) => {
+export const DataGridDensityStory = ({enableDensity = true}: DataGridDensityStoryProps) => {
   const table = useDataGrid({
     data,
     columns,
-    enableDensity: true,
+    enableDensity,
   });
 
   return (

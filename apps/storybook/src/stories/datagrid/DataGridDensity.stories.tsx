@@ -15,7 +15,13 @@ const meta: Meta<DataGridDensityStoryProps> = {
     layout: "centered",
   },
   tags: ["autodocs"],
-  argTypes: {},
+  argTypes: {
+    enableDensity: {
+      control: {
+        type: "boolean",
+      },
+    },
+  },
 };
 
 export default meta;
