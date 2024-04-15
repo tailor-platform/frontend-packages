@@ -152,6 +152,7 @@ export type Page = {
 export type DensityState = "sm" | "md" | "lg";
 export interface DensityTableState {
   density: DensityState;
+  densityOpen: boolean;
 }
 
 export interface DensityOptions {
@@ -161,6 +162,7 @@ export interface DensityOptions {
 
 export interface DensityInstance {
   setDensity: (updater: Updater<DensityState>) => void;
+  setDensityOpen: (updater: Updater<boolean>) => void;
 }
 
 export type DensityProps = {

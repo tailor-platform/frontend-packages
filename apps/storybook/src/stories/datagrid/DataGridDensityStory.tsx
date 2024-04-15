@@ -9,31 +9,22 @@ import {
 
 import { COLUMNS as columns, DATA as data } from "../../data/datagrid.ts";
 
-export type DataGridPaginationStoryProps = {
-  pageSize?: number;
+export type DataGridDensityStoryProps = {
   table?: DataGridInstance<Record<string, unknown>>;
 };
 
-export const DataGridPaginationStory = ({
-  pageSize = 5,
-}: DataGridPaginationStoryProps) => {
+export const DataGridDensityStory = ({}: DataGridDensityStoryProps) => {
   const table = useDataGrid({
     data,
     columns,
-    enablePagination: true,
-    totalCount: 14,
-    pagination: {
-      pageIndex: 0,
-      pageSize: pageSize,
-    },
-    pageSizeOptions: [5, 10, 15, 20],
+    enableDensity: true,
   });
 
   return (
     <Box w="full" style={{ marginTop: "50px" }}>
-      <DataGrid table={table} size="2xl" />
+      <DataGrid table={table} />
     </Box>
   );
 };
 
-DataGridPaginationStory.displayName = "PaginationDataGrid";
+DataGridDensityStory.displayName = "DataGridDensity";

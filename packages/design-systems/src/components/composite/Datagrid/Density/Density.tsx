@@ -65,6 +65,7 @@ export const DensityFeature: TableFeature = {
   getInitialState: (state): DensityTableState => {
     return {
       density: "md",
+      densityOpen: false,
       ...state,
     };
   },
@@ -85,5 +86,6 @@ export const DensityFeature: TableFeature = {
       };
       return table.options.onDensityChange?.(safeUpdater);
     };
+    table.setDensityOpen = makeStateUpdater("densityOpen", table);
   },
 };

@@ -56,7 +56,6 @@ export const DataGrid = <TData extends Record<string, unknown>>(
   const [cusotmFilterFields, setCustomFilterFields] = useState<Column<TData>[]>(
     [],
   );
-  const [densityOpen, setDensityOpen] = useState(false);
   const localization = table.localization || LOCALIZATION_EN;
   const datagridClasses = datagrid({ size });
 
@@ -75,7 +74,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
   );
   const densityRef = useRef<HTMLDivElement>(null);
   const densityButtonRef = useRef<HTMLButtonElement>(null);
-  useClickOutside(densityRef, () => setDensityOpen(false), densityButtonRef);
+  useClickOutside(densityRef, () => table.setDensityOpen(false), densityButtonRef);
 
   const onDragStart = useCallback(
     (event: DragEvent<HTMLTableCellElement>): void => {
@@ -146,7 +145,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
     setCustomFilterFields(cusotmFilterFields);
   }, [table]);
 
-  const { density } = table.getState();
+  const { density, densityOpen} = table.getState();
 
   return (
     <Stack gap={4} position={"relative"}>
@@ -190,7 +189,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
               variant="secondary"
               size="md"
               onClick={() => {
-                setDensityOpen(!densityOpen);
+                table.setDensityOpen(!densityOpen);
               }}
               ref={densityButtonRef}
               data-testid="datagrid-filter-button"
