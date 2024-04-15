@@ -1,7 +1,6 @@
-import { AbstractStrategy } from "./abstract";
+import { AbstractStrategy, paramsError } from "@core/strategies/abstract";
 import { Config } from "@core/config";
 import { callbackByStrategy } from "@core/path";
-import { paramsError } from "@server/middleware/callback";
 
 export type Options = { redirectPath: string };
 

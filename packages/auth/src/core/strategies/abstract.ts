@@ -112,3 +112,17 @@ export type AbstractStrategy<
    */
   callback(config: Config, params: URLSearchParams): CallbackResult;
 };
+
+export class CallbackError extends Error {
+  constructor(
+    readonly name: string,
+    readonly message: string,
+  ) {
+    super(message);
+  }
+}
+
+export const paramsError = () =>
+  new CallbackError("invalid-params", "code and redirectURI should be filled");
+export const exchangeError = (reason: string) =>
+  new CallbackError("failed-exchange", reason);
