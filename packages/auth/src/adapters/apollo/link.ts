@@ -2,8 +2,8 @@ import { from, HttpLink, ServerError } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { onError } from "@apollo/client/link/error";
 import { Config } from "@core/config";
+import { internalClientSessionPath } from "@core/path";
 import { SessionResult } from "@core/types";
-import { internalClientSessionPath } from "@server/middleware/internal";
 
 /**
  * authenticatedHttpLink is a custom ApolloLink that automatically sets tokens in authorization header as a bearer token.
