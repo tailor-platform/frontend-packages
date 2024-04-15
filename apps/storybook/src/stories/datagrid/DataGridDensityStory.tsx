@@ -14,7 +14,9 @@ export type DataGridDensityStoryProps = {
   table?: DataGridInstance<Record<string, unknown>>;
 };
 
-export const DataGridDensityStory = ({enableDensity = true}: DataGridDensityStoryProps) => {
+export const DataGridDensityStory = ({
+  enableDensity = true,
+}: DataGridDensityStoryProps) => {
   const table = useDataGrid({
     data,
     columns,
