@@ -1,5 +1,8 @@
 export interface Localization {
   language: string;
+  datagrid: {
+    noResults: string;
+  },
   filter: {
     filterLabel: string;
     filterResetLabel: string;

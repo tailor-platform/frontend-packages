@@ -384,7 +384,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={colSpan}>No results.</TableCell>
+                <TableCell colSpan={colSpan}>{localization.datagrid.noResults}</TableCell>
               </TableRow>
             )}
           </TableBody>

@@ -4,6 +4,9 @@ import { Localization } from "./types";
  */
 export const LOCALIZATION_JA: Localization = {
   language: "JA",
+  datagrid: {
+    noResults: "表示可能なデータがありません",
+  },
   columnFeatures: {
     hideShow: {
       showAll: "全て表示",
