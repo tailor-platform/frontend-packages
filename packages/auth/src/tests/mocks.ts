@@ -2,7 +2,7 @@ import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
 import { Config } from "@core/config";
 import { Session } from "@core/types";
-import { internalClientSessionPath } from "@server/middleware/internal";
+import { internalClientSessionPath } from "@core/path";
 
 export const mockSession: Session = {
   access_token: "mockAccessToken",

@@ -5,8 +5,8 @@
  */
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { internalUnauthorizedPath } from "./middleware/internal";
 import { SessionOption, SessionResult } from "@core/types";
+import { internalUnauthorizedPath } from "@core/path";
 
 /**
  * A function to get token on server components

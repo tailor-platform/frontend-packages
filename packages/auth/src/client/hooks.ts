@@ -1,11 +1,11 @@
 import { ErrorResponse, SessionOption, SessionResult } from "@core/types";
 import { useTailorAuth } from "@client/provider";
+import { internalSessionLoader, internalUserinfoLoader } from "@core/loader";
 import {
   callbackByStrategy,
   internalLogoutPath,
   internalUnauthorizedPath,
-} from "@server/middleware/internal";
-import { internalSessionLoader, internalUserinfoLoader } from "@core/loader";
+} from "@core/path";
 
 const NoWindowError = new Error(
   "window object should be available to use this function",
