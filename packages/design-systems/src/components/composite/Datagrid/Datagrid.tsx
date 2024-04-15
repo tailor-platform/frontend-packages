@@ -56,7 +56,6 @@ export const DataGrid = <TData extends Record<string, unknown>>(
   const [cusotmFilterFields, setCustomFilterFields] = useState<Column<TData>[]>(
     [],
   );
-  const [densityOpen, setDensityOpen] = useState(false);
   const localization = table.localization || LOCALIZATION_EN;
   const datagridClasses = datagrid({ size });
 
