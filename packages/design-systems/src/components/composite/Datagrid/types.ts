@@ -31,6 +31,7 @@ export interface DataGridInstance<
   localization?: Localization;
   columns: ColumnDef<TData>[];
   pageSizeOptions?: number[];
+  enableDensity?: boolean;
 }
 export type UseDataGridProps<TData> = {
   data: TData[];
@@ -57,6 +58,7 @@ export type UseDataGridProps<TData> = {
   columnPinning?: ColumnPinningState;
   setColumnPinning?: (updater: Updater<ColumnPinningState>) => void;
   pageSizeOptions?: number[];
+  enableDensity?: boolean;
 };
 export type HideShowProps<TData extends Record<string, unknown>> = {
   allColumnsHandler: () => (event: unknown) => void;
@@ -145,4 +147,26 @@ export interface ValueChangeDetails<T extends CollectionItem = CollectionItem> {
 export type Page = {
   index: number;
   type: "page" | "ellipsis";
+};
+
+export type DensityState = "sm" | "md" | "lg";
+export interface DensityTableState {
+  density: DensityState;
+  densityOpen: boolean;
+}
+
+export interface DensityOptions {
+  enableDensity?: boolean;
+  onDensityChange?: OnChangeFn<DensityState>;
+}
+
+export interface DensityInstance {
+  setDensity: (updater: Updater<DensityState>) => void;
+  setDensityOpen: (updater: Updater<boolean>) => void;
+}
+
+export type DensityProps = {
+  setDensity: (updater: Updater<DensityState>) => void;
+  localization: Localization;
+  isVisible: boolean;
 };

@@ -46,4 +46,10 @@ export const LOCALIZATION_JA: Localization = {
     of: "件中",
     page: "件",
   },
+  density: {
+    densityLabel: "行間隔",
+    compact: "狭い",
+    standard: "標準",
+    comfortable: "広い",
+  },
 };
