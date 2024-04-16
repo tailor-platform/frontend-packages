@@ -4,6 +4,9 @@ import { Localization } from "./types";
  */
 export const LOCALIZATION_EN: Localization = {
   language: "EN",
+  datagrid: {
+    noResults: "No Results.",
+  },
   columnFeatures: {
     hideShow: {
       showAll: "Show All",
