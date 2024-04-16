@@ -130,5 +130,5 @@ export const ExportFeature: TableFeature = {
       const csv = generateCsv(csvConfig)(rowData);
       download(csvConfig)(csv);
     }
-  };
+  }
 }

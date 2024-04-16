@@ -9,5 +9,6 @@ declare module "@tanstack/react-table" {
   }
   interface TableState extends DensityTableState, ExportTableState {} 
   interface TableOptionsResolved extends DensityOptions, ExportOptions {}
-  interface Table<TData extends RowData> extends DensityInstance, ExportInstance {}
+  interface Table<TData extends RowData> extends DensityInstance, ExportInstance<TData> {}
+  // interface Table<TData extends RowData> extends ExportInstance {}
 }
