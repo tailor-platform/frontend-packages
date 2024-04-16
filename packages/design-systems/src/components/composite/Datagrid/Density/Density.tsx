@@ -13,8 +13,11 @@ import {
   DensityTableState,
   DensityProps,
 } from "../types";
-import { RadioGroup, type RadioGroupOption } from "../../RadioGroup";
-import { Box } from "../../../patterns/Box";
+import {
+  RadioGroup,
+  type RadioGroupOption,
+} from "@components/composite/RadioGroup";
+import { Box } from "@components/patterns/Box";
 
 export const Density = forwardRef(
   (props: DensityProps, ref: ForwardedRef<HTMLDivElement>) => {
