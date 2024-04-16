@@ -14,7 +14,7 @@ describe("<Code />", () => {
     const user = userEvent.setup();
     const codeElement = screen.getByText("Hello, tailor!");
     await act(() => user.hover(codeElement));
-    await waitFor(() => expect(screen.getByText("Copy")).not.toBeNull());
+    expect(screen.getByText("Copy")).not.toBeNull();
   });
 
   it("hides the copy button when disableCopy is true", async () => {

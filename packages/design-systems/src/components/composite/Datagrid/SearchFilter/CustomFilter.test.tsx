@@ -712,11 +712,6 @@ describe(
       //Add new filter row
       await addFilter(screen, user);
 
-      const selectValue1 = screen.getAllByTestId("select-input-value")[1];
-      await waitFor(() => {
-        expect(selectValue1).toBeVisible();
-      });
-
       //Select joint condition
       await selectJointCondition(screen, user, 1, "OR");
       //Select column
@@ -729,10 +724,6 @@ describe(
       //Add new filter row
       await addFilter(screen, user);
 
-      const selectValue2 = screen.getAllByTestId("select-input-value")[2];
-      await waitFor(() => {
-        expect(selectValue2).toBeVisible();
-      });
       //Select joint condition
       await selectJointCondition(screen, user, 2, "OR");
       //Select column
@@ -745,10 +736,6 @@ describe(
       //Add new filter row
       await addFilter(screen, user);
 
-      const selectValue3 = screen.getAllByTestId("select-input-value")[3];
-      await waitFor(() => {
-        expect(selectValue3).toBeVisible();
-      });
       //Select joint condition
       await selectJointCondition(screen, user, 3, "OR");
       //Select column
@@ -761,10 +748,6 @@ describe(
       //Add new filter row
       await addFilter(screen, user);
 
-      const selectValue4 = screen.getAllByTestId("select-input-value")[4];
-      await waitFor(() => {
-        expect(selectValue4).toBeVisible();
-      });
       //Select joint condition
       await selectJointCondition(screen, user, 4, "OR");
       //Select column

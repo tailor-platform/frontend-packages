@@ -50,6 +50,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
   props: DataGridProps<TData>,
 ) => {
   const { table, size } = props;
+  const { density, densityOpen, exportOptions } = table.getState();
   const colSpan = table
     .getHeaderGroups()
     .reduce((acc, headerGroup) => acc + headerGroup.headers.length, 0);
@@ -154,11 +155,6 @@ export const DataGrid = <TData extends Record<string, unknown>>(
 
     setCustomFilterFields(cusotmFilterFields);
   }, [table]);
-
-  const { density, densityOpen, exportOptions } = table.getState();
-
-  table.getFilteredRowModel();
-  table.getVisibleLeafColumns();
 
   return (
     <Stack gap={4} position={"relative"}>
@@ -267,13 +263,6 @@ export const DataGrid = <TData extends Record<string, unknown>>(
       )}
       {table.getEnableExport() && (
         <Export
-          // rows={table.getFilteredRowModel().rows as Row<TData>[]}
-          // columns={
-          //   table.getVisibleLeafColumns() as ColumnTanstak<
-          //     Record<string, unknown>,
-          //     unknown
-          //   >[]
-          // }
           exportOptions={exportOptions}
           localization={localization}
           isVisible={exportOpen}

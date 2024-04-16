@@ -32,8 +32,6 @@ export interface DataGridInstance<
   columns: ColumnDef<TData>[];
   pageSizeOptions?: number[];
   enableDensity?: boolean;
-  // enableExport?: boolean;
-  // exportOptions?: ExportState;
 }
 export type UseDataGridProps<TData> = {
   data: TData[];
@@ -61,7 +59,6 @@ export type UseDataGridProps<TData> = {
   setColumnPinning?: (updater: Updater<ColumnPinningState>) => void;
   pageSizeOptions?: number[];
   enableDensity?: boolean;
-  // enableExport?: boolean;
   exportOptions?: ExportState;
 };
 export type HideShowProps<TData extends Record<string, unknown>> = {
