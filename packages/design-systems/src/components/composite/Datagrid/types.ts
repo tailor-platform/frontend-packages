@@ -27,6 +27,7 @@ export interface DataGridInstance<
   enableColumnFilters?: boolean;
   enableHiding?: boolean;
   onFilterChange?: (filters: GraphQLQueryFilter) => void;
+  systemFilter?: GraphQLQueryFilter;
   defaultFilter?: GraphQLQueryFilter;
   localization?: Localization;
   columns: ColumnDef<TData>[];
@@ -39,6 +40,7 @@ export type UseDataGridProps<TData> = {
   enablePagination?: boolean;
   manualPagination?: boolean;
   enableColumnFilters?: boolean;
+  systemFilter?: GraphQLQueryFilter;
   defaultFilter?: GraphQLQueryFilter;
   enableHiding?: boolean;
   onFilterChange?: (filters: GraphQLQueryFilter) => void;
@@ -85,6 +87,7 @@ export type CustomFilterProps<TData> = {
   columns: Array<Column<TData>>;
   onChange: (currentState: GraphQLQueryFilter) => void;
   localization: Localization;
+  systemFilter?: GraphQLQueryFilter;
   defaultFilter?: GraphQLQueryFilter;
   customFilterOpen: boolean;
   setCustomFilterOpen: (updater: Updater<boolean>) => void;
@@ -94,7 +97,7 @@ export type FilterRowState = {
   value: string;
   condition: string;
   jointCondition?: string;
-  isDefault: boolean;
+  isSystem: boolean;
   isChangeable: boolean;
 };
 export type FilterRowProps<TData> = {

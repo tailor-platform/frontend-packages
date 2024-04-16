@@ -155,6 +155,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
               table.onFilterChange && table.onFilterChange(filters);
             }}
             localization={localization}
+            systemFilter={table.systemFilter}
             defaultFilter={table.defaultFilter}
             customFilterOpen={customFilterOpen}
             setCustomFilterOpen={table.setCustomFilterOpen}

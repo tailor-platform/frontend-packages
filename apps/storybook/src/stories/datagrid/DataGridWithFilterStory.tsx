@@ -25,14 +25,19 @@ export const DataGridWithFilterStory = ({
   const query: GraphQLQueryFilter = {
     status: { eq: "pending" },
   };
+  const querya: GraphQLQueryFilter = {
+    amount: { gt: 200 },
+  };
   const table = useDataGrid({
     data,
     columns,
     enableColumnFilters,
     onFilterChange: (filter) => {
+      console.log("filter", filter);
       setFilterChange(filter, originData, setData);
     },
-    defaultFilter: query,
+    systemFilter: query,
+    defaultFilter: querya,
   });
 
   return (
