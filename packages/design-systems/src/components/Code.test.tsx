@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { Code } from "./Code";
@@ -13,16 +13,16 @@ describe("<Code />", () => {
     render(<Code>Hello, tailor!</Code>);
     const user = userEvent.setup();
     const codeElement = screen.getByText("Hello, tailor!");
-    await user.hover(codeElement);
-    expect(screen.getByText("Copy")).not.toBeNull();
+    await act(() => user.hover(codeElement));
+    await waitFor(() => expect(screen.getByText("Copy")).not.toBeNull());
   });
 
   it("hides the copy button when disableCopy is true", async () => {
     render(<Code disableCopy>Hello, tailor!</Code>);
     const user = userEvent.setup();
     const codeElement = screen.getByText("Hello, tailor!");
-    await user.hover(codeElement);
-    expect(screen.queryByText("Copy")).toBeNull();
+    await act(() => user.hover(codeElement));
+    await waitFor(() => expect(screen.queryByText("Copy")).toBeNull());
   });
 
   it("handles copy button click correctly", async () => {
@@ -30,9 +30,11 @@ describe("<Code />", () => {
     const clipboardSpy = vi.spyOn(navigator.clipboard, "writeText");
     render(<Code>Hello, tailor!</Code>);
     const codeElement = screen.getByText("Hello, tailor!");
-    await user.hover(codeElement);
+    await act(() => user.hover(codeElement));
     const copyButton = screen.getByText("Copy");
-    await user.click(copyButton);
-    expect(clipboardSpy).toHaveBeenCalledWith("Hello, tailor!");
+    await act(() => user.click(copyButton));
+    await waitFor(() =>
+      expect(clipboardSpy).toHaveBeenCalledWith("Hello, tailor!"),
+    );
   });
 });
