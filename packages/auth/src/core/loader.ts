@@ -1,4 +1,4 @@
-import { internalClientSessionPath } from "@server/middleware/internal";
+import { internalClientSessionPath } from "@core/path";
 import { Config } from "@core/config";
 import { SessionResult, UserInfo } from "@core/types";
 

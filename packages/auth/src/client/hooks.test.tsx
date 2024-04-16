@@ -6,8 +6,8 @@ import { useAuth, usePlatform, useSession } from "./hooks";
 import { TailorAuthProvider } from "./provider";
 import { buildMockServer, mockAuthConfig, mockSession } from "@tests/mocks";
 import { withMockReplace } from "@tests/helper";
-import { internalClientSessionPath } from "@server/middleware/internal";
 import { internalSessionLoader } from "@core/loader";
+import { internalClientSessionPath } from "@core/path";
 
 const mockProvider = (props: React.PropsWithChildren) => (
   <TailorAuthProvider config={mockAuthConfig}>

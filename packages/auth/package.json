@@ -1,6 +1,6 @@
 {
   "name": "@tailor-platform/auth",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "private": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
