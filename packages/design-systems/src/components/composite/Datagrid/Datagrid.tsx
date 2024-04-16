@@ -1,8 +1,4 @@
-import {
-  Column as ColumnTanstak,
-  Row,
-  flexRender,
-} from "@tanstack/react-table";
+import { Column as ColumnTanstak, flexRender } from "@tanstack/react-table";
 import {
   Columns as ColumnsIcon,
   Filter as FilterIcon,
@@ -45,7 +41,6 @@ import { Export } from "./Export/Export";
 import { ManualPagination, Pagination } from "./Pagination";
 import { Column, type DataGridInstance } from "./types";
 import { useClickOutside } from "./hooks/useClickOutside";
-import { T } from "vitest/dist/reporters-3OMQDZar";
 
 type DataGridProps<TData extends Record<string, unknown>> = {
   table: DataGridInstance<TData>;
@@ -160,7 +155,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
     setCustomFilterFields(cusotmFilterFields);
   }, [table]);
 
-  const { density, densityOpen } = table.getState();
+  const { density, densityOpen, exportOptions } = table.getState();
 
   table.getFilteredRowModel();
   table.getVisibleLeafColumns();
@@ -219,7 +214,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
             </Button>
           </HStack>
         )}
-        {table.enableExport && (
+        {table.getEnableExport() && (
           <HStack>
             <Button
               variant="secondary"
@@ -270,18 +265,19 @@ export const DataGrid = <TData extends Record<string, unknown>>(
           ref={densityRef}
         />
       )}
-      {table.enableExport && (
+      {table.getEnableExport() && (
         <Export
-          rows={table.getFilteredRowModel().rows as Row<TData>[]}
-          columns={
-            table.getVisibleLeafColumns() as ColumnTanstak<
-              Record<string, unknown>,
-              unknown
-            >[]
-          }
-          exportOptions={table.exportOptions}
+          // rows={table.getFilteredRowModel().rows as Row<TData>[]}
+          // columns={
+          //   table.getVisibleLeafColumns() as ColumnTanstak<
+          //     Record<string, unknown>,
+          //     unknown
+          //   >[]
+          // }
+          exportOptions={exportOptions}
           localization={localization}
           isVisible={exportOpen}
+          exportCsv={table.exportCsv}
           ref={exportRef}
         />
       )}

@@ -17,6 +17,7 @@ const meta: Meta<DataGridExportStoryProps> = {
   tags: ["autodocs"],
   argTypes: {
     enableColumnFilters: { control: "boolean" },
+    enableCsvExport: { control: "boolean" },
   },
 };
 
@@ -26,6 +27,7 @@ type Story = StoryObj<DataGridExportStoryProps>;
 export const Default: Story = {
   args: {
     enableColumnFilters: true,
+    enableCsvExport: true,
   },
   render: (args) => <DataGridExportStory {...args} />,
   parameters: {

@@ -7,7 +7,7 @@ import type {
   PaginationState,
   RowSelectionState,
 } from "@tanstack/react-table";
-import type { Row, Table, Updater } from "@tanstack/table-core/build/lib/types";
+import type { Table, Updater } from "@tanstack/table-core/build/lib/types";
 import { CollectionItem } from "@ark-ui/react/select";
 import type { Localization } from "../../../locales/types";
 
@@ -32,8 +32,8 @@ export interface DataGridInstance<
   columns: ColumnDef<TData>[];
   pageSizeOptions?: number[];
   enableDensity?: boolean;
-  enableExport?: boolean;
-  exportOptions?: ExportOptions;
+  // enableExport?: boolean;
+  // exportOptions?: ExportState;
 }
 export type UseDataGridProps<TData> = {
   data: TData[];
@@ -61,8 +61,8 @@ export type UseDataGridProps<TData> = {
   setColumnPinning?: (updater: Updater<ColumnPinningState>) => void;
   pageSizeOptions?: number[];
   enableDensity?: boolean;
-  enableExport?: boolean;
-  exportOptions?: ExportOptions;
+  // enableExport?: boolean;
+  exportOptions?: ExportState;
 };
 export type HideShowProps<TData extends Record<string, unknown>> = {
   allColumnsHandler: () => (event: unknown) => void;
@@ -184,20 +184,17 @@ export interface ExportTableState {
   exportOpen: boolean;
 }
 
-export interface ExportOptions {
-  enableExportOptions?: ExportState;
-}
+export interface ExportOptions {}
 
-export interface ExportInstance<TData> {
+export interface ExportInstance {
   setExportOpen: (updater: Updater<boolean>) => void;
   getEnableExport: () => boolean;
-  exportCsv: (rows: Row<TData>[], columns: ColumnTanstak<TData>[]) => void;
+  exportCsv: () => void;
 }
 
-export type ExportProps<TData> = {
-  rows: Row<TData>[];
-  columns: ColumnTanstak<TData>[];
-  exportOptions?: ExportOptions;
+export type ExportProps = {
+  exportOptions?: ExportState;
   localization: Localization;
   isVisible: boolean;
+  exportCsv: () => void;
 };

@@ -1,46 +1,17 @@
 import { ForwardedRef, forwardRef } from "react";
+import { mkConfig, generateCsv, download } from "export-to-csv";
+import { Table, TableFeature, makeStateUpdater } from "@tanstack/react-table";
 import { ExportOptions, ExportProps, ExportTableState } from "../types";
 import { Box } from "@components/patterns/Box";
-import { Button } from "../../../Button";
-import { mkConfig, generateCsv, download } from "export-to-csv";
-import { Column, Row, RowData, Table, TableFeature, makeStateUpdater } from "@tanstack/react-table";
+import { Button } from "@components/Button";
 
 export const Export = forwardRef(
-  <TData extends Record<string, unknown>>(
-    props: ExportProps<TData>,
-    ref: ForwardedRef<HTMLDivElement>,
-  ) => {
-    const { rows, columns, exportOptions, localization, isVisible } = props;
+  (props: ExportProps, ref: ForwardedRef<HTMLDivElement>) => {
+    const { exportOptions, localization, isVisible, exportCsv } = props;
 
     if (!exportOptions) {
       return null;
     }
-
-    const csvConfig = mkConfig({
-      fieldSeparator: ",",
-      filename: "sample", // export file name (without .csv)
-      decimalSeparator: ".",
-      useKeysAsHeaders: true,
-    });
-
-    const exportCsv = (rows: Row<TData>[]) => {
-      const rowData = rows.map((row) => {
-        const original = row.original;
-        let visibleColumnRow: VisibleColumnRow = {};
-        columns.forEach((column) => {
-          if ("accessorKey" in column.columnDef) {
-            visibleColumnRow[column.columnDef.accessorKey as string] =
-              original[column.columnDef.accessorKey];
-          } else {
-            visibleColumnRow[column.id] = original[column.id];
-          }
-        });
-        return visibleColumnRow;
-      });
-      const csv = generateCsv(csvConfig)(rowData);
-      download(csvConfig)(csv);
-    };
-
     return (
       <Box
         p={4}
@@ -54,13 +25,13 @@ export const Export = forwardRef(
         ref={ref}
         display={isVisible ? "block" : "none"}
       >
-        {exportOptions.enableCsvExport && (
+        {exportOptions?.enableCsvExport && (
           <Button
             variant="link"
             size="md"
             mb={2}
             onClick={() => {
-              exportCsv(rows);
+              exportCsv();
             }}
           >
             {localization.export.exportCSV}
@@ -77,7 +48,6 @@ type VisibleColumnRow = {
   [key: string]: unknown;
 };
 
-
 export const ExportFeature: TableFeature = {
   getInitialState: (state): ExportTableState => {
     return {
@@ -88,35 +58,35 @@ export const ExportFeature: TableFeature = {
       ...state,
     };
   },
-  getDefaultOptions: 
-  // <TData extends RowData>
-  (
-    // table: Table<TData>,
-  ): ExportOptions => {
+  getDefaultOptions: (): ExportOptions => {
     return {
       enableCsvExport: true,
     } as ExportOptions;
   },
 
-  createTable: <TData extends Record<string, unknown>>(table: Table<TData>): void => {
+  createTable: <TData extends Record<string, unknown>>(
+    table: Table<TData>,
+  ): void => {
     table.setExportOpen = makeStateUpdater("exportOpen", table);
     table.getEnableExport = () => {
-      const exportOptions = table.getState().exportOptions
-      if(exportOptions.enableCsvExport) {
-        return true
+      const exportOptions = table.getState().exportOptions;
+      if (exportOptions.enableCsvExport) {
+        return true;
       }
-      return false
+      return false;
     };
-    table.exportCsv = (rows: Row<TData>[], columns: Column<TData, unknown>[]) => {
-        const csvConfig = mkConfig({
-          fieldSeparator: ",",
-          filename: "sample", // export file name (without .csv)
-          decimalSeparator: ".",
-          useKeysAsHeaders: true,
-        });
+    table.exportCsv = () => {
+      const csvConfig = mkConfig({
+        fieldSeparator: ",",
+        filename: "sample", // export file name (without .csv)
+        decimalSeparator: ".",
+        useKeysAsHeaders: true,
+      });
+      const rows = table.getFilteredRowModel().rows;
+      const columns = table.getVisibleLeafColumns();
       const rowData = rows.map((row) => {
         const original = row.original;
-        let visibleColumnRow: VisibleColumnRow = {};
+        const visibleColumnRow: VisibleColumnRow = {};
         columns.forEach((column) => {
           if ("accessorKey" in column.columnDef) {
             visibleColumnRow[column.columnDef.accessorKey as string] =
@@ -129,6 +99,6 @@ export const ExportFeature: TableFeature = {
       });
       const csv = generateCsv(csvConfig)(rowData);
       download(csvConfig)(csv);
-    }
-  }
-}
+    };
+  },
+};

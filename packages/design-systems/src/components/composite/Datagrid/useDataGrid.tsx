@@ -8,6 +8,7 @@ import {
 import { Checkbox } from "../../Checkbox";
 import { type DataGridInstance, type UseDataGridProps } from "./types";
 import { DensityFeature } from "./Density/Density";
+import { ExportFeature } from "./Export/Export";
 
 type RowLike = { id: string };
 
@@ -32,7 +33,6 @@ export const useDataGrid = <TData extends RowLike>({
   rowSelection,
   pageSizeOptions = [],
   enableDensity = false,
-  enableExport = false,
   exportOptions = { enableCsvExport: true },
 }: UseDataGridProps<TData>): DataGridInstance<TData> => {
   const { pageIndex = 0, pageSize = 50 } = pagination || {};
@@ -81,7 +81,7 @@ export const useDataGrid = <TData extends RowLike>({
       });
   }
   const reactTableInstance = useReactTable({
-    _features: [DensityFeature],
+    _features: [DensityFeature, ExportFeature],
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
@@ -99,6 +99,7 @@ export const useDataGrid = <TData extends RowLike>({
       columnVisibility,
       columnPinning: columnPinningState,
       rowSelection: enableRowSelection ? rowSelection : {},
+      exportOptions,
     },
     onColumnVisibilityChange,
     enableColumnResizing: true,
@@ -122,7 +123,5 @@ export const useDataGrid = <TData extends RowLike>({
     columns,
     pageSizeOptions,
     enableDensity,
-    enableExport,
-    exportOptions,
   };
 };

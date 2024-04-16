@@ -14,11 +14,13 @@ import { setFilterChange } from "./utils.ts";
 
 export type DataGridExportStoryProps = {
   enableColumnFilters?: boolean;
+  enableCsvExport?: boolean;
   table?: DataGridInstance<Record<string, unknown>>;
 };
 
 export const DataGridExportStory = ({
   enableColumnFilters = false,
+  enableCsvExport = true,
 }: DataGridExportStoryProps) => {
   const [data, setData] = useState<Payment[]>(originData);
   const table = useDataGrid({
@@ -28,7 +30,7 @@ export const DataGridExportStory = ({
     onFilterChange: (filter) => {
       setFilterChange(filter, originData, setData);
     },
-    enableExport: true,
+    exportOptions: { enableCsvExport },
   });
 
   return (
