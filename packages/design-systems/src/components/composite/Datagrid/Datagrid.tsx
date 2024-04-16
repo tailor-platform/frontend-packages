@@ -171,7 +171,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
               data-testid="datagrid-hide-show-button"
             >
               <ColumnsIcon />
-              <Text marginLeft={"8px"}>{localization.filter.columnLabel}</Text>
+              <Text marginLeft={2}>{localization.filter.columnLabel}</Text>
             </Button>
           </HStack>
         )}
@@ -188,7 +188,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
               data-testid="datagrid-filter-button"
             >
               <FilterIcon />
-              <Text marginLeft={"8px"}>{localization.filter.filterLabel}</Text>
+              <Text marginLeft={2}>{localization.filter.filterLabel}</Text>
             </Button>
           </HStack>
         )}
@@ -204,9 +204,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
               data-testid="datagrid-density-button"
             >
               <RowsIcon />
-              <Text marginLeft={"8px"}>
-                {localization.density.densityLabel}
-              </Text>
+              <Text marginLeft={2}>{localization.density.densityLabel}</Text>
             </Button>
           </HStack>
         )}
@@ -222,7 +220,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
               data-testid="datagrid-export-button"
             >
               <DownloadIcon />
-              <Text marginLeft={"8px"}>{localization.export.exportLabel}</Text>
+              <Text marginLeft={2}>{localization.export.exportLabel}</Text>
             </Button>
           </HStack>
         )}

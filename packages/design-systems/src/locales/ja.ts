@@ -57,6 +57,6 @@ export const LOCALIZATION_JA: Localization = {
   },
   export: {
     exportLabel: "エクスポート",
-    exportCSV: "カンマ区切り形式(.csv)で保存",
+    exportCSV: "CSVをダウンロード",
   },
 };

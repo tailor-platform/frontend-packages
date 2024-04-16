@@ -88,11 +88,11 @@ export const ExportFeature: TableFeature = {
         const original = row.original;
         const visibleColumnRow: VisibleColumnRow = {};
         columns.forEach((column) => {
+          const header = (column.columnDef?.header as string) || column.id;
           if ("accessorKey" in column.columnDef) {
-            visibleColumnRow[column.columnDef.accessorKey as string] =
-              original[column.columnDef.accessorKey];
+            visibleColumnRow[header] = original[column.columnDef.accessorKey];
           } else {
-            visibleColumnRow[column.id] = original[column.id];
+            visibleColumnRow[header] = original[column.id];
           }
         });
         return visibleColumnRow;
