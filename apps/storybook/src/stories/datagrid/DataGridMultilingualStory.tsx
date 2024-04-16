@@ -39,6 +39,7 @@ export const DataGridMultilingualStory = ({
       pageSize: 5,
     },
     enableDensity: true,
+    exportOptions: { enableCsvExport: true },
     localization: localization === "JA" ? LOCALIZATION_JA : LOCALIZATION_EN,
   });
 

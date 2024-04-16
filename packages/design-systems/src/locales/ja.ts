@@ -55,4 +55,8 @@ export const LOCALIZATION_JA: Localization = {
     standard: "標準",
     comfortable: "広い",
   },
+  export: {
+    exportLabel: "エクスポート",
+    exportCSV: "CSVをダウンロード",
+  },
 };

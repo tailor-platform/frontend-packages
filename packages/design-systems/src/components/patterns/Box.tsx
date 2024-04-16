@@ -10,7 +10,7 @@ export const Box = forwardRef<HTMLDivElement, PropsWithChildren<BoxProps>>(
     const { children, ...rest } = props;
     const className = cx(box({}), css({ ...rest }));
     return (
-      <styled.div ref={ref} className={className}>
+      <styled.div ref={ref} className={className} {...rest}>
         {children}
       </styled.div>
     );

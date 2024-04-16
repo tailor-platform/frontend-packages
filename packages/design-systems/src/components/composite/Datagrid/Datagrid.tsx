@@ -3,6 +3,7 @@ import {
   Columns as ColumnsIcon,
   Filter as FilterIcon,
   Rows as RowsIcon,
+  Download as DownloadIcon,
 } from "lucide-react";
 import {
   CSSProperties,
@@ -36,6 +37,7 @@ import { HideShow } from "./ColumnFeature/HideShow";
 import { PinnedColumn } from "./ColumnFeature/PinnedColumn";
 import { CustomFilter } from "./SearchFilter/CustomFilter";
 import { Density } from "./Density/Density";
+import { Export } from "./Export/Export";
 import { ManualPagination, Pagination } from "./Pagination";
 import { Column, type DataGridInstance } from "./types";
 import { useClickOutside } from "./hooks/useClickOutside";
@@ -48,6 +50,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
   props: DataGridProps<TData>,
 ) => {
   const { table, size } = props;
+  const { density, densityOpen, exportOptions } = table.getState();
   const colSpan = table
     .getHeaderGroups()
     .reduce((acc, headerGroup) => acc + headerGroup.headers.length, 0);
@@ -56,6 +59,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
   const [cusotmFilterFields, setCustomFilterFields] = useState<Column<TData>[]>(
     [],
   );
+  const [exportOpen, setExportOpen] = useState(false);
   const localization = table.localization || LOCALIZATION_EN;
   const datagridClasses = datagrid({ size });
 
@@ -79,6 +83,9 @@ export const DataGrid = <TData extends Record<string, unknown>>(
     () => table.setDensityOpen(false),
     densityButtonRef,
   );
+  const exportRef = useRef<HTMLDivElement>(null);
+  const exportButtonRef = useRef<HTMLButtonElement>(null);
+  useClickOutside(exportRef, () => setExportOpen(false), exportButtonRef);
 
   const onDragStart = useCallback(
     (event: DragEvent<HTMLTableCellElement>): void => {
@@ -149,8 +156,6 @@ export const DataGrid = <TData extends Record<string, unknown>>(
     setCustomFilterFields(cusotmFilterFields);
   }, [table]);
 
-  const { density, densityOpen } = table.getState();
-
   return (
     <Stack gap={4} position={"relative"}>
       <HStack gap={4}>
@@ -166,7 +171,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
               data-testid="datagrid-hide-show-button"
             >
               <ColumnsIcon />
-              <Text marginLeft={"4px"}>{localization.filter.columnLabel}</Text>
+              <Text marginLeft={2}>{localization.filter.columnLabel}</Text>
             </Button>
           </HStack>
         )}
@@ -183,7 +188,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
               data-testid="datagrid-filter-button"
             >
               <FilterIcon />
-              <Text marginLeft={"4px"}>{localization.filter.filterLabel}</Text>
+              <Text marginLeft={2}>{localization.filter.filterLabel}</Text>
             </Button>
           </HStack>
         )}
@@ -196,12 +201,26 @@ export const DataGrid = <TData extends Record<string, unknown>>(
                 table.setDensityOpen(!densityOpen);
               }}
               ref={densityButtonRef}
-              data-testid="datagrid-filter-button"
+              data-testid="datagrid-density-button"
             >
               <RowsIcon />
-              <Text marginLeft={"4px"}>
-                {localization.density.densityLabel}
-              </Text>
+              <Text marginLeft={2}>{localization.density.densityLabel}</Text>
+            </Button>
+          </HStack>
+        )}
+        {table.getEnableExport() && (
+          <HStack>
+            <Button
+              variant="secondary"
+              size="md"
+              onClick={() => {
+                setExportOpen(!exportOpen);
+              }}
+              ref={exportButtonRef}
+              data-testid="datagrid-export-button"
+            >
+              <DownloadIcon />
+              <Text marginLeft={2}>{localization.export.exportLabel}</Text>
             </Button>
           </HStack>
         )}
@@ -238,6 +257,15 @@ export const DataGrid = <TData extends Record<string, unknown>>(
           localization={localization}
           isVisible={densityOpen}
           ref={densityRef}
+        />
+      )}
+      {table.getEnableExport() && (
+        <Export
+          exportOptions={exportOptions}
+          localization={localization}
+          isVisible={exportOpen}
+          exportCsv={table.exportCsv}
+          ref={exportRef}
         />
       )}
       <styled.div className={datagridClasses.wrapper}>

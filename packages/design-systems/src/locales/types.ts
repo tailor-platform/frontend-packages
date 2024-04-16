@@ -51,4 +51,8 @@ export interface Localization {
     standard: string;
     comfortable: string;
   };
+  export: {
+    exportLabel: string;
+    exportCSV: string;
+  };
 }

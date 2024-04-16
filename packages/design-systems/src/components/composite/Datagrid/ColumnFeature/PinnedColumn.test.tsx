@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { act, render, screen, waitFor, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import "@testing-library/jest-dom/vitest";
 import userEvent from "@testing-library/user-event";
@@ -137,21 +137,21 @@ const conformPinnedThElementsIndex = async (
   expect(element).toBeInTheDocument();
 
   const user = userEvent.setup();
-  await user.click(element);
+  await act(() => user.click(element));
 
   const pinnedElement = screen.getByText(pinnedText);
-  expect(pinnedElement).toBeVisible();
+  await waitFor(() => expect(pinnedElement).toBeVisible());
 
   let indexOfThWithText = -1;
-  await user.click(pinnedElement);
+  await act(() => user.click(pinnedElement));
   const thElements = screen.getAllByRole("columnheader");
   thElements.forEach((thElement, index) => {
     if (thElement.textContent === text) {
       indexOfThWithText = index;
     }
   });
-  expect(indexOfThWithText).toBeGreaterThan(-1);
-  expect(indexOfThWithText).toBe(afterThElementPosition);
+  await waitFor(() => expect(indexOfThWithText).toBeGreaterThan(-1));
+  await waitFor(() => expect(indexOfThWithText).toBe(afterThElementPosition));
 };
 
 describe("<PinnedColumn />", () => {
@@ -164,10 +164,10 @@ describe("<PinnedColumn />", () => {
     )[0];
 
     expect(openPinnedColumnModal).toBeInTheDocument();
-    await user.click(openPinnedColumnModal);
+    await act(() => user.click(openPinnedColumnModal));
 
-    expect(screen.getByText("Pinned Right")).toBeVisible();
-    expect(screen.getByText("Pinned Left")).toBeVisible();
+    await waitFor(() => expect(screen.getByText("Pinned Right")).toBeVisible());
+    await waitFor(() => expect(screen.getByText("Pinned Left")).toBeVisible());
   });
 
   it("pinned the 'Status' column to right and pinned the 'Amount' column to left", async () => {

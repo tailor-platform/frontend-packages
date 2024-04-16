@@ -1,6 +1,6 @@
 {
   "name": "@tailor-platform/design-systems",
-  "version": "0.24.2",
+  "version": "0.25.0",
   "private": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -76,6 +76,7 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@tanstack/react-table": "^8.15.3",
     "deepmerge-ts": "^5.1.0",
+    "export-to-csv": "^1.2.4",
     "react-hook-form": "^7.48.2"
   },
   "peerDependencies": {

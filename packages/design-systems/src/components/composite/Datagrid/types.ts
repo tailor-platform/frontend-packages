@@ -59,6 +59,7 @@ export type UseDataGridProps<TData> = {
   setColumnPinning?: (updater: Updater<ColumnPinningState>) => void;
   pageSizeOptions?: number[];
   enableDensity?: boolean;
+  exportOptions?: ExportState;
 };
 export type HideShowProps<TData extends Record<string, unknown>> = {
   allColumnsHandler: () => (event: unknown) => void;
@@ -169,4 +170,28 @@ export type DensityProps = {
   setDensity: (updater: Updater<DensityState>) => void;
   localization: Localization;
   isVisible: boolean;
+};
+
+export type ExportState = {
+  enableCsvExport?: boolean;
+};
+
+export interface ExportTableState {
+  exportOptions: ExportState;
+  exportOpen: boolean;
+}
+
+export interface ExportOptions {}
+
+export interface ExportInstance {
+  setExportOpen: (updater: Updater<boolean>) => void;
+  getEnableExport: () => boolean;
+  exportCsv: () => void;
+}
+
+export type ExportProps = {
+  exportOptions?: ExportState;
+  localization: Localization;
+  isVisible: boolean;
+  exportCsv: () => void;
 };
