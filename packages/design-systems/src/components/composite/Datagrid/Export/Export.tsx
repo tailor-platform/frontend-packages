@@ -52,7 +52,7 @@ export const ExportFeature: TableFeature = {
   getInitialState: (state): ExportTableState => {
     return {
       exportOptions: {
-        enableCsvExport: true,
+        enableCsvExport: false,
       },
       exportOpen: false,
       ...state,
@@ -60,7 +60,7 @@ export const ExportFeature: TableFeature = {
   },
   getDefaultOptions: (): ExportOptions => {
     return {
-      enableCsvExport: true,
+      enableCsvExport: false,
     } as ExportOptions;
   },
 
