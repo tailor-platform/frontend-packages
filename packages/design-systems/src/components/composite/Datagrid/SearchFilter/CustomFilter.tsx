@@ -7,10 +7,19 @@ import {
   ForwardedRef,
   useRef,
 } from "react";
+import {
+  RowData,
+  Table,
+  TableFeature,
+  makeStateUpdater,
+} from "@tanstack/react-table";
+import { FilterIcon } from "lucide-react";
 import { Box } from "../../../patterns/Box";
 import { Button } from "../../../Button";
 import {
+  CustomFilterOptions,
   CustomFilterProps,
+  CustomFilterTableState,
   FilterRowData,
   FilterRowState,
   GraphQLQueryFilter,
@@ -18,13 +27,33 @@ import {
 } from "../types";
 import { jointConditions } from "../data/filter";
 import { FilterRow } from "./FilterRow";
+import { HStack } from "@components/patterns/HStack";
+import { Text } from "@components/Text";
+import { useClickOutside } from "../hooks/useClickOutside";
 
 export const CustomFilter = forwardRef(
   <TData extends Record<string, unknown>>(
     props: CustomFilterProps<TData>,
     ref: ForwardedRef<HTMLDivElement>,
   ) => {
-    const { columns, onChange, localization, isVisible, defaultFilter } = props;
+    const {
+      columns,
+      onChange,
+      localization,
+      defaultFilter,
+      customFilterOpen,
+      setCustomFilterOpen,
+    } = props;
+
+    const filterRef = useRef<HTMLDivElement>(null);
+    const filterButtonRef = useRef<HTMLButtonElement>(null);
+    useClickOutside(
+      filterRef,
+      () => setCustomFilterOpen(false),
+      filterButtonRef,
+      true,
+    );
+
     const [filterRowsState, setFilterRowsState] = useState<GraphQLQueryFilter>(
       defaultFilter || {},
     );
@@ -318,61 +347,78 @@ export const CustomFilter = forwardRef(
     }, [addToGraphQLQueryFilterRecursively, filterRows]);
 
     return (
-      <Box
-        px={4}
-        pb={4}
-        borderRadius={"4px"}
-        boxShadow="lg"
-        position={"absolute"}
-        top={"100px"}
-        backgroundColor={"bg.default"}
-        zIndex={2}
-        ref={ref}
-        display={isVisible ? "block" : "none"}
-      >
-        <Button
-          variant="tertiary"
-          onClick={resetFilterHandler}
-          color={"error.default"}
-          data-testid={"reset-filter-button"}
-        >
-          {localization.filter.filterResetLabel}
-        </Button>
+      <>
+        <HStack>
+          <Button
+            key="filterButton"
+            variant="secondary"
+            size="md"
+            onClick={() => {
+              setCustomFilterOpen(!customFilterOpen);
+            }}
+            ref={filterButtonRef}
+            data-testid="datagrid-filter-button"
+          >
+            <FilterIcon />
+            <Text marginLeft={2}>{localization.filter.filterLabel}</Text>
+          </Button>
+        </HStack>
         <Box
-          flex={1}
-          display={"flex"}
-          flexDirection={"column"}
-          alignItems={"flex-end"}
+          px={4}
+          pb={4}
+          borderRadius={"4px"}
+          boxShadow="lg"
+          position={"absolute"}
+          top={"100px"}
+          backgroundColor={"bg.default"}
+          zIndex={2}
+          ref={ref}
+          display={customFilterOpen ? "block" : "none"}
         >
-          {filterRows.map((row) => {
-            if (row.currentState.isDefault === true) {
-              return null;
-            }
-            return (
-              <FilterRow
-                key={"filterRow" + row.index}
-                currentFilter={row.currentState}
-                columns={columns}
-                jointConditions={activeJointConditions}
-                onDelete={deleteFilterRowHandler(row.index)}
-                isFirstRow={row.isFirstRow}
-                onChange={filterChangedHandler(row.index)}
-                localization={localization}
-              />
-            );
-          })}
+          <Button
+            variant="tertiary"
+            onClick={resetFilterHandler}
+            color={"error.default"}
+            data-testid={"reset-filter-button"}
+          >
+            {localization.filter.filterResetLabel}
+          </Button>
+          <Box
+            flex={1}
+            display={"flex"}
+            flexDirection={"column"}
+            alignItems={"flex-end"}
+          >
+            {filterRows.map((row) => {
+              if (row.currentState.isDefault === true) {
+                return null;
+              }
+              return (
+                <FilterRow
+                  key={"filterRow" + row.index}
+                  currentFilter={row.currentState}
+                  columns={columns}
+                  jointConditions={activeJointConditions}
+                  onDelete={deleteFilterRowHandler(row.index)}
+                  isFirstRow={row.isFirstRow}
+                  onChange={filterChangedHandler(row.index)}
+                  localization={localization}
+                />
+              );
+            })}
+          </Box>
+          <Button
+            backgroundColor="primary.default"
+            marginTop={4}
+            onClick={() => {
+              addNewFilterRowHandler(numberOfFilterRows);
+              setNumberOfFilterRows((prev) => prev + 1);
+            }}
+          >
+            {localization.filter.addNewFilterLabel}
+          </Button>
         </Box>
-        <Button
-          backgroundColor="primary.default"
-          marginTop={4}
-          onClick={() => {
-            addNewFilterRowHandler(numberOfFilterRows);
-            setNumberOfFilterRows((prev) => prev + 1);
-          }}
-        >
-          {localization.filter.addNewFilterLabel}
-        </Button>
-      </Box>
+      </>
     );
   },
 );
@@ -385,4 +431,22 @@ const usePrevious = (value: GraphQLQueryFilter) => {
     ref.current = value;
   }, [value]);
   return ref.current;
+};
+
+export const CustomFilterFeature: TableFeature = {
+  getInitialState: (state): CustomFilterTableState => {
+    return {
+      customFilterOpen: false,
+      ...state,
+    };
+  },
+  getDefaultOptions: (): CustomFilterOptions => {
+    return {
+      enableCustomFilter: true,
+    } as CustomFilterOptions;
+  },
+
+  createTable: <TData extends RowData>(table: Table<TData>): void => {
+    table.setCustomFilterOpen = makeStateUpdater("customFilterOpen", table);
+  },
 };

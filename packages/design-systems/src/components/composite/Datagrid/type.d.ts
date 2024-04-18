@@ -6,6 +6,12 @@ import {
   ExportTableState,
   ExportOptions,
   ExportInstance,
+  HideShowTableState,
+  HideShowOptions,
+  HideShowInstance,
+  CustomFilterTableState,
+  CustomFilterOptions,
+  CustomFilterInstance,
 } from "./types";
 
 declare module "@tanstack/react-table" {
@@ -13,7 +19,19 @@ declare module "@tanstack/react-table" {
     type: string;
     enumType?: Record<string, string>;
   }
-  interface TableState extends DensityTableState, ExportTableState {}
-  interface TableOptionsResolved extends DensityOptions, ExportOptions {}
-  interface Table extends DensityInstance, ExportInstance {}
+  interface TableState
+    extends CustomFilterTableState,
+      HideShowTableState,
+      DensityTableState,
+      ExportTableState {}
+  interface TableOptionsResolved
+    extends CustomFilterOptions,
+      HideShowOptions,
+      DensityOptions,
+      ExportOptions {}
+  interface Table
+    extends CustomFilterInstance,
+      HideShowInstance,
+      DensityInstance,
+      ExportInstance {}
 }

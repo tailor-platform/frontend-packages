@@ -50,42 +50,26 @@ export const DataGrid = <TData extends Record<string, unknown>>(
   props: DataGridProps<TData>,
 ) => {
   const { table, size } = props;
-  const { density, densityOpen, exportOptions } = table.getState();
+  const {
+    customFilterOpen,
+    hideShowOpen,
+    density,
+    densityOpen,
+    exportOptions,
+    exportOpen,
+  } = table.getState();
   const colSpan = table
     .getHeaderGroups()
     .reduce((acc, headerGroup) => acc + headerGroup.headers.length, 0);
-  const [filterOpen, setFilterOpen] = useState(false);
-  const [columnsHideShowOpen, setColumnsHideShowOpen] = useState(false);
   const [cusotmFilterFields, setCustomFilterFields] = useState<Column<TData>[]>(
     [],
   );
-  const [exportOpen, setExportOpen] = useState(false);
   const localization = table.localization || LOCALIZATION_EN;
   const datagridClasses = datagrid({ size });
 
   const [columnBeingDragged, setColumnBeingDragged] = useState<
     number | undefined
   >();
-  const filterRef = useRef<HTMLDivElement>(null);
-  const filterButtonRef = useRef<HTMLButtonElement>(null);
-  useClickOutside(filterRef, () => setFilterOpen(false), filterButtonRef, true);
-  const hideShowRef = useRef<HTMLDivElement>(null);
-  const hideShowButtonRef = useRef<HTMLButtonElement>(null);
-  useClickOutside(
-    hideShowRef,
-    () => setColumnsHideShowOpen(false),
-    hideShowButtonRef,
-  );
-  const densityRef = useRef<HTMLDivElement>(null);
-  const densityButtonRef = useRef<HTMLButtonElement>(null);
-  useClickOutside(
-    densityRef,
-    () => table.setDensityOpen(false),
-    densityButtonRef,
-  );
-  const exportRef = useRef<HTMLDivElement>(null);
-  const exportButtonRef = useRef<HTMLButtonElement>(null);
-  useClickOutside(exportRef, () => setExportOpen(false), exportButtonRef);
 
   const onDragStart = useCallback(
     (event: DragEvent<HTMLTableCellElement>): void => {
@@ -160,114 +144,50 @@ export const DataGrid = <TData extends Record<string, unknown>>(
     <Stack gap={4} position={"relative"}>
       <HStack gap={4}>
         {table.enableHiding && (
-          <HStack>
-            <Button
-              variant="secondary"
-              size="md"
-              onClick={() => {
-                setColumnsHideShowOpen(!columnsHideShowOpen);
-              }}
-              ref={hideShowButtonRef}
-              data-testid="datagrid-hide-show-button"
-            >
-              <ColumnsIcon />
-              <Text marginLeft={2}>{localization.filter.columnLabel}</Text>
-            </Button>
-          </HStack>
+          <HideShow
+            allColumnsHandler={table.getToggleAllColumnsVisibilityHandler}
+            columns={
+              table.getAllLeafColumns() as ColumnTanstak<
+                Record<string, unknown>,
+                unknown
+              >[]
+            }
+            localization={localization}
+            hideShowOpen={hideShowOpen}
+            setHideShowOpen={table.setHideShowOpen}
+          />
         )}
 
         {table.enableColumnFilters && (
-          <HStack>
-            <Button
-              variant="secondary"
-              size="md"
-              onClick={() => {
-                setFilterOpen(!filterOpen);
-              }}
-              ref={filterButtonRef}
-              data-testid="datagrid-filter-button"
-            >
-              <FilterIcon />
-              <Text marginLeft={2}>{localization.filter.filterLabel}</Text>
-            </Button>
-          </HStack>
+          <CustomFilter
+            columns={cusotmFilterFields}
+            onChange={(filters) => {
+              table.onFilterChange && table.onFilterChange(filters);
+            }}
+            localization={localization}
+            defaultFilter={table.defaultFilter}
+            customFilterOpen={customFilterOpen}
+            setCustomFilterOpen={table.setCustomFilterOpen}
+          />
         )}
         {table.enableDensity && (
-          <HStack>
-            <Button
-              variant="secondary"
-              size="md"
-              onClick={() => {
-                table.setDensityOpen(!densityOpen);
-              }}
-              ref={densityButtonRef}
-              data-testid="datagrid-density-button"
-            >
-              <RowsIcon />
-              <Text marginLeft={2}>{localization.density.densityLabel}</Text>
-            </Button>
-          </HStack>
+          <Density
+            setDensity={table.setDensity}
+            localization={localization}
+            densityOpen={densityOpen}
+            setDensityOpen={table.setDensityOpen}
+          />
         )}
         {table.getEnableExport() && (
-          <HStack>
-            <Button
-              variant="secondary"
-              size="md"
-              onClick={() => {
-                setExportOpen(!exportOpen);
-              }}
-              ref={exportButtonRef}
-              data-testid="datagrid-export-button"
-            >
-              <DownloadIcon />
-              <Text marginLeft={2}>{localization.export.exportLabel}</Text>
-            </Button>
-          </HStack>
+          <Export
+            exportOptions={exportOptions}
+            localization={localization}
+            exportCsv={table.exportCsv}
+            exportOpen={exportOpen}
+            setExportOpen={table.setExportOpen}
+          />
         )}
       </HStack>
-      {table.enableHiding && (
-        <HideShow
-          allColumnsHandler={table.getToggleAllColumnsVisibilityHandler}
-          columns={
-            table.getAllLeafColumns() as ColumnTanstak<
-              Record<string, unknown>,
-              unknown
-            >[]
-          }
-          localization={localization}
-          isVisible={columnsHideShowOpen}
-          ref={hideShowRef}
-        />
-      )}
-      {table.enableColumnFilters && (
-        <CustomFilter
-          columns={cusotmFilterFields}
-          onChange={(filters) => {
-            table.onFilterChange && table.onFilterChange(filters);
-          }}
-          localization={localization}
-          isVisible={filterOpen}
-          ref={filterRef}
-          defaultFilter={table.defaultFilter}
-        />
-      )}
-      {table.enableDensity && (
-        <Density
-          setDensity={table.setDensity}
-          localization={localization}
-          isVisible={densityOpen}
-          ref={densityRef}
-        />
-      )}
-      {table.getEnableExport() && (
-        <Export
-          exportOptions={exportOptions}
-          localization={localization}
-          isVisible={exportOpen}
-          exportCsv={table.exportCsv}
-          ref={exportRef}
-        />
-      )}
       <styled.div className={datagridClasses.wrapper}>
         <Table className={datagridClasses.table} overflow={"visible"}>
           <TableHeader className={datagridClasses.tableHeader}>

@@ -61,12 +61,6 @@ export type UseDataGridProps<TData> = {
   enableDensity?: boolean;
   exportOptions?: ExportState;
 };
-export type HideShowProps<TData extends Record<string, unknown>> = {
-  allColumnsHandler: () => (event: unknown) => void;
-  columns: Array<ColumnTanstak<TData>>;
-  localization: Localization;
-  isVisible: boolean;
-};
 export type Column<TData> = {
   label: string;
   value: string;
@@ -74,12 +68,26 @@ export type Column<TData> = {
   disabled?: boolean;
   meta?: ColumnMeta<TData, unknown>;
 };
+
+export interface CustomFilterTableState {
+  customFilterOpen: boolean;
+}
+
+export interface CustomFilterOptions {
+  enableCustomFilter?: boolean;
+}
+
+export interface CustomFilterInstance {
+  setCustomFilterOpen: (updater: Updater<boolean>) => void;
+}
+
 export type CustomFilterProps<TData> = {
   columns: Array<Column<TData>>;
   onChange: (currentState: GraphQLQueryFilter) => void;
   localization: Localization;
-  isVisible: boolean;
   defaultFilter?: GraphQLQueryFilter;
+  customFilterOpen: boolean;
+  setCustomFilterOpen: (updater: Updater<boolean>) => void;
 };
 export type FilterRowState = {
   column: string;
@@ -150,6 +158,26 @@ export type Page = {
   type: "page" | "ellipsis";
 };
 
+export interface HideShowTableState {
+  hideShowOpen: boolean;
+}
+
+export interface HideShowOptions {
+  enableHideShow?: boolean;
+}
+
+export interface HideShowInstance {
+  setHideShowOpen: (updater: Updater<boolean>) => void;
+}
+
+export type HideShowProps<TData extends Record<string, unknown>> = {
+  allColumnsHandler: () => (event: unknown) => void;
+  columns: Array<ColumnTanstak<TData>>;
+  localization: Localization;
+  hideShowOpen: boolean;
+  setHideShowOpen: (updater: Updater<boolean>) => void;
+};
+
 export type DensityState = "sm" | "md" | "lg";
 export interface DensityTableState {
   density: DensityState;
@@ -169,7 +197,8 @@ export interface DensityInstance {
 export type DensityProps = {
   setDensity: (updater: Updater<DensityState>) => void;
   localization: Localization;
-  isVisible: boolean;
+  densityOpen: boolean;
+  setDensityOpen: (updater: Updater<boolean>) => void;
 };
 
 export type ExportState = {
@@ -192,6 +221,7 @@ export interface ExportInstance {
 export type ExportProps = {
   exportOptions?: ExportState;
   localization: Localization;
-  isVisible: boolean;
   exportCsv: () => void;
+  exportOpen: boolean;
+  setExportOpen: (updater: Updater<boolean>) => void;
 };

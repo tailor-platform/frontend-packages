@@ -1,4 +1,4 @@
-import { ForwardedRef, forwardRef } from "react";
+import { ForwardedRef, forwardRef, useRef } from "react";
 import {
   RowData,
   Table,
@@ -7,6 +7,7 @@ import {
   functionalUpdate,
   makeStateUpdater,
 } from "@tanstack/react-table";
+import { RowsIcon } from "lucide-react";
 import {
   DensityOptions,
   DensityState,
@@ -18,25 +19,48 @@ import {
   type RadioGroupOption,
 } from "@components/composite/RadioGroup";
 import { Box } from "@components/patterns/Box";
+import { useClickOutside } from "../hooks/useClickOutside";
+import { HStack } from "@components/patterns/HStack";
+import { Button } from "@components/Button";
+import { Text } from "@components/Text";
 
-export const Density = forwardRef(
-  (props: DensityProps, ref: ForwardedRef<HTMLDivElement>) => {
-    const { setDensity, localization, isVisible } = props;
-    const options: RadioGroupOption[] = [
-      {
-        label: localization.density.compact,
-        value: "sm",
-      },
-      {
-        label: localization.density.standard,
-        value: "md",
-      },
-      {
-        label: localization.density.comfortable,
-        value: "lg",
-      },
-    ];
-    return (
+export const Density = (props: DensityProps) => {
+  const { setDensity, localization, densityOpen, setDensityOpen } = props;
+
+  const densityRef = useRef<HTMLDivElement>(null);
+  const densityButtonRef = useRef<HTMLButtonElement>(null);
+  useClickOutside(densityRef, () => setDensityOpen(false), densityButtonRef);
+  const options: RadioGroupOption[] = [
+    {
+      label: localization.density.compact,
+      value: "sm",
+    },
+    {
+      label: localization.density.standard,
+      value: "md",
+    },
+    {
+      label: localization.density.comfortable,
+      value: "lg",
+    },
+  ];
+  return (
+    <>
+      <HStack>
+        <Button
+          key="densityButton"
+          variant="secondary"
+          size="md"
+          onClick={() => {
+            setDensityOpen(!densityOpen);
+          }}
+          ref={densityButtonRef}
+          data-testid="datagrid-density-button"
+        >
+          <RowsIcon />
+          <Text marginLeft={2}>{localization.density.densityLabel}</Text>
+        </Button>
+      </HStack>
       <Box
         p={4}
         w={"xs"}
@@ -46,8 +70,8 @@ export const Density = forwardRef(
         top={"100px"}
         backgroundColor={"bg.default"}
         zIndex={2}
-        ref={ref}
-        display={isVisible ? "block" : "none"}
+        ref={densityRef}
+        display={densityOpen ? "block" : "none"}
       >
         <RadioGroup
           options={options}
@@ -55,9 +79,9 @@ export const Density = forwardRef(
           onValueChange={(details) => setDensity(details.value as DensityState)}
         />
       </Box>
-    );
-  },
-);
+    </>
+  );
+};
 
 Density.displayName = "Density";
 

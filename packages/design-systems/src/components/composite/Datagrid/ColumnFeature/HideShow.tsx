@@ -1,18 +1,50 @@
-import { ForwardedRef, forwardRef } from "react";
+import { ForwardedRef, forwardRef, useRef } from "react";
+import {
+  RowData,
+  Table,
+  TableFeature,
+  makeStateUpdater,
+} from "@tanstack/react-table";
+import { ColumnsIcon } from "lucide-react";
 import { scrollBar } from "@tailor-platform/styled-system/recipes";
 import { Button } from "../../../Button";
 import { Checkbox } from "../../../Checkbox";
 import { Box } from "../../../patterns/Box";
 import { Flex } from "../../../patterns/Flex";
-import { HideShowProps } from "../types";
+import { HideShowOptions, HideShowProps, HideShowTableState } from "../types";
+import { useClickOutside } from "../hooks/useClickOutside";
+import { HStack } from "@components/patterns/HStack";
+import { Text } from "@components/Text";
 
-export const HideShow = forwardRef(
-  <TData extends Record<string, unknown>>(
-    props: HideShowProps<TData>,
-    ref: ForwardedRef<HTMLDivElement>,
-  ) => {
-    const { allColumnsHandler, columns, localization, isVisible } = props;
-    return (
+export const HideShow = <TData extends Record<string, unknown>>(
+  props: HideShowProps<TData>,
+) => {
+  const {
+    allColumnsHandler,
+    columns,
+    localization,
+    hideShowOpen,
+    setHideShowOpen,
+  } = props;
+  const hideShowRef = useRef<HTMLDivElement>(null);
+  const hideShowButtonRef = useRef<HTMLButtonElement>(null);
+  useClickOutside(hideShowRef, () => setHideShowOpen(false), hideShowButtonRef);
+  return (
+    <>
+      <HStack>
+        <Button
+          variant="secondary"
+          size="md"
+          onClick={() => {
+            setHideShowOpen(!hideShowOpen);
+          }}
+          ref={hideShowButtonRef}
+          data-testid="datagrid-hide-show-button"
+        >
+          <ColumnsIcon />
+          <Text marginLeft={2}>{localization.filter.columnLabel}</Text>
+        </Button>
+      </HStack>
       <Box
         pl={4}
         pt={4}
@@ -23,8 +55,8 @@ export const HideShow = forwardRef(
         top={"100px"}
         backgroundColor={"bg.default"}
         zIndex={2}
-        ref={ref}
-        display={isVisible ? "block" : "none"}
+        ref={hideShowRef}
+        display={hideShowOpen ? "block" : "none"}
       >
         <Button
           variant="link"
@@ -63,8 +95,26 @@ export const HideShow = forwardRef(
           })}
         </Flex>
       </Box>
-    );
-  },
-);
+    </>
+  );
+};
 
 HideShow.displayName = "HideShow";
+
+export const HideShowFeature: TableFeature = {
+  getInitialState: (state): HideShowTableState => {
+    return {
+      hideShowOpen: false,
+      ...state,
+    };
+  },
+  getDefaultOptions: (): HideShowOptions => {
+    return {
+      enableHideShow: true,
+    } as HideShowOptions;
+  },
+
+  createTable: <TData extends RowData>(table: Table<TData>): void => {
+    table.setHideShowOpen = makeStateUpdater("hideShowOpen", table);
+  },
+};

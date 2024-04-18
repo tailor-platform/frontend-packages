@@ -35,7 +35,7 @@ export const useClickOutside = <
           return;
         }
       }
-      if (!el || el.contains((event?.target as Node) || null)) {
+      if (!el || el.contains(event?.target as Node)) {
         return;
       }
       handler(event);

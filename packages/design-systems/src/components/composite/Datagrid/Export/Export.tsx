@@ -1,18 +1,47 @@
-import { ForwardedRef, forwardRef } from "react";
+import { ForwardedRef, forwardRef, useRef } from "react";
 import { mkConfig, generateCsv, download } from "export-to-csv";
+import { DownloadIcon } from "lucide-react";
 import { Table, TableFeature, makeStateUpdater } from "@tanstack/react-table";
 import { ExportOptions, ExportProps, ExportTableState } from "../types";
+import { useClickOutside } from "../hooks/useClickOutside";
 import { Box } from "@components/patterns/Box";
+import { HStack } from "@components/patterns/HStack";
 import { Button } from "@components/Button";
+import { Text } from "@components/Text";
 
-export const Export = forwardRef(
-  (props: ExportProps, ref: ForwardedRef<HTMLDivElement>) => {
-    const { exportOptions, localization, isVisible, exportCsv } = props;
+export const Export = (props: ExportProps) => {
+  const { exportOptions, localization, exportCsv, exportOpen, setExportOpen } =
+    props;
 
-    if (!exportOptions) {
-      return null;
-    }
-    return (
+  if (!exportOptions) {
+    return null;
+  }
+
+  const exportRef = useRef<HTMLDivElement>(null);
+  const exportButtonRef = useRef<HTMLButtonElement>(null);
+  useClickOutside(
+    exportRef,
+    () => setExportOpen(false),
+    exportButtonRef,
+    false,
+  );
+  return (
+    <>
+      <HStack>
+        <Button
+          key="exportButton"
+          variant="secondary"
+          size="md"
+          onClick={() => {
+            setExportOpen(!exportOpen);
+          }}
+          ref={exportButtonRef}
+          data-testid="datagrid-export-button"
+        >
+          <DownloadIcon />
+          <Text marginLeft={2}>{localization.export.exportLabel}</Text>
+        </Button>
+      </HStack>
       <Box
         p={4}
         w={"xs"}
@@ -22,8 +51,8 @@ export const Export = forwardRef(
         top={"100px"}
         backgroundColor={"bg.default"}
         zIndex={2}
-        ref={ref}
-        display={isVisible ? "block" : "none"}
+        ref={exportRef}
+        display={exportOpen ? "block" : "none"}
       >
         {exportOptions?.enableCsvExport && (
           <Button
@@ -38,10 +67,9 @@ export const Export = forwardRef(
           </Button>
         )}
       </Box>
-    );
-  },
-);
-
+    </>
+  );
+};
 Export.displayName = "Export";
 
 type VisibleColumnRow = {
