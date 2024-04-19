@@ -153,7 +153,7 @@ describe(
           setCustomFilterOpen={() => void 0}
         />,
       );
-      expect(screen.getByText("フィルタをリセット")).toBeVisible();
+      expect(screen.getByText("追加したフィルタを削除")).toBeVisible();
       expect(screen.getByText("列")).toBeVisible();
       expect(screen.getByText("列を選択")).toBeVisible();
       expect(screen.getByText("条件")).toBeVisible();
