@@ -25,6 +25,7 @@ export const DataGridMultilingualStory = ({
   localization = "EN",
 }: DataGridMultilingualStoryProps) => {
   const [data, setData] = useState<Payment[]>(originData);
+  const [columnVisibility, setColumnVisibility] = useState({ status: false });
   const table = useDataGrid({
     data,
     columns,
@@ -38,6 +39,9 @@ export const DataGridMultilingualStory = ({
       pageIndex: 0,
       pageSize: 5,
     },
+    enableHiding: true,
+    columnVisibility,
+    onColumnVisibilityChange: setColumnVisibility,
     enableDensity: true,
     exportOptions: { enableCsvExport: true },
     localization: localization === "JA" ? LOCALIZATION_JA : LOCALIZATION_EN,

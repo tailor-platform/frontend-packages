@@ -9,6 +9,8 @@ import { Checkbox } from "../../Checkbox";
 import { type DataGridInstance, type UseDataGridProps } from "./types";
 import { DensityFeature } from "./Density/Density";
 import { ExportFeature } from "./Export/Export";
+import { HideShowFeature } from "./ColumnFeature/HideShow";
+import { CustomFilterFeature } from "./SearchFilter/CustomFilter";
 
 type RowLike = { id: string };
 
@@ -81,7 +83,12 @@ export const useDataGrid = <TData extends RowLike>({
       });
   }
   const reactTableInstance = useReactTable({
-    _features: [DensityFeature, ExportFeature],
+    _features: [
+      CustomFilterFeature,
+      HideShowFeature,
+      DensityFeature,
+      ExportFeature,
+    ],
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),

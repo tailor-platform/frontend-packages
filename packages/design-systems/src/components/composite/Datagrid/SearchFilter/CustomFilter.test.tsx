@@ -119,7 +119,8 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_EN}
-          isVisible={true}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
         />,
       );
       expect(screen.getByText("Reset Filter")).toBeVisible();
@@ -148,7 +149,8 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
         />,
       );
       expect(screen.getByText("フィルタをリセット")).toBeVisible();
@@ -177,7 +179,8 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
         />,
       );
 
@@ -268,7 +271,8 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
         />,
       );
 
@@ -341,7 +345,8 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
         />,
       );
 
@@ -419,7 +424,8 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
         />,
       );
 
@@ -501,7 +507,8 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
         />,
       );
 
@@ -592,7 +599,8 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
         />,
       );
 
@@ -690,7 +698,8 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
         />,
       );
 
@@ -788,7 +797,8 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
         />,
       );
 
@@ -848,7 +858,8 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
         />,
       );
 
