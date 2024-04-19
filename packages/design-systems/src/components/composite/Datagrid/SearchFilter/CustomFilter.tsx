@@ -186,6 +186,21 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
     [localization, columns, activeJointConditions],
   );
 
+  const systemFilterRows: FilterRowData<TData>[] = useMemo(() => {
+    const filterRows: FilterRowData<TData>[] = [];
+    if (systemFilter) {
+      filterRows.push(...convertQueryToFilterRows(systemFilter, true, 0));
+    }
+    filterRows.push(
+      newEmptyRow({
+        index: filterRows.length,
+        isFirstRow: true,
+        existSystemFilter: !!systemFilter,
+      }),
+    );
+    return filterRows;
+  }, [systemFilter, newEmptyRow, convertQueryToFilterRows]);
+
   const initialFilterRows: FilterRowData<TData>[] = useMemo(() => {
     const filterRows: FilterRowData<TData>[] = [];
     if (systemFilter) {
@@ -242,6 +257,16 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
     setSelectedJointCondition(undefined);
     setNumberOfFilterRows(initialFilterRows.length);
   }, [initialFilter, initialFilterRows]);
+
+  /**
+   * This will reset the filterRows data state.
+   */
+  const clearFilterHandler = useCallback(() => {
+    setFilterRows(systemFilterRows);
+    setFilterRowsState(systemFilter || {});
+    setSelectedJointCondition(undefined);
+    setNumberOfFilterRows(systemFilterRows.length);
+  }, [systemFilter, systemFilterRows]);
 
   /**
    * This will add new item to filterRows data state.
@@ -432,6 +457,16 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
         >
           {localization.filter.filterResetLabel}
         </Button>
+        {!!defaultFilter && (
+          <Button
+            variant="tertiary"
+            onClick={clearFilterHandler}
+            color={"error.default"}
+            data-testid={"reset-clear-button"}
+          >
+            {localization.filter.filterClearLabel}
+          </Button>
+        )}
         <Box
           flex={1}
           display={"flex"}

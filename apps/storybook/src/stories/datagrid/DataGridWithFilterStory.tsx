@@ -36,7 +36,7 @@ export const DataGridWithFilterStory = ({
       console.log("filter", filter);
       setFilterChange(filter, originData, setData);
     },
-    systemFilter: query,
+    // systemFilter: query,
     defaultFilter: querya,
   });
 

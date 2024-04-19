@@ -20,6 +20,7 @@ export const LOCALIZATION_JA: Localization = {
   filter: {
     filterLabel: "フィルタ",
     filterResetLabel: "フィルタをリセット",
+    filterClearLabel: "フィルタをクリア",
     addNewFilterLabel: "条件追加",
     jointConditionLabel: "合致条件",
     jointConditionPlaceholder: "合致条件を選択",

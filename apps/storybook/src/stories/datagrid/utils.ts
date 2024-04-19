@@ -258,5 +258,8 @@ export const setFilterChange = (
     case typeof filter?.amount?.lte !== "undefined":
       setData(data.filter((row) => row.amount <= Number(filter.amount.lte)));
       break;
+    default: {
+      setData(data);
+    }
   }
 };
