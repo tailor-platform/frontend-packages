@@ -1,4 +1,4 @@
-import { ForwardedRef, forwardRef, useRef } from "react";
+import { useRef } from "react";
 import {
   RowData,
   Table,
@@ -12,7 +12,7 @@ import { Checkbox } from "../../../Checkbox";
 import { Box } from "../../../patterns/Box";
 import { Flex } from "../../../patterns/Flex";
 import { HideShowOptions, HideShowProps, HideShowTableState } from "../types";
-import { useClickOutside } from "../hooks/useClickOutside";
+import { addEventOutside } from "../addEventOutside";
 import { HStack } from "@components/patterns/HStack";
 import { Text } from "@components/Text";
 
@@ -28,7 +28,6 @@ export const HideShow = <TData extends Record<string, unknown>>(
   } = props;
   const hideShowRef = useRef<HTMLDivElement>(null);
   const hideShowButtonRef = useRef<HTMLButtonElement>(null);
-  useClickOutside(hideShowRef, () => setHideShowOpen(false), hideShowButtonRef);
   return (
     <>
       <HStack>
@@ -37,6 +36,11 @@ export const HideShow = <TData extends Record<string, unknown>>(
           size="md"
           onClick={() => {
             setHideShowOpen(!hideShowOpen);
+            addEventOutside(
+              hideShowRef,
+              () => setHideShowOpen(false),
+              hideShowButtonRef,
+            );
           }}
           ref={hideShowButtonRef}
           data-testid="datagrid-hide-show-button"

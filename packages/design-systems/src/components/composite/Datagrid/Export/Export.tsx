@@ -1,9 +1,9 @@
-import { ForwardedRef, forwardRef, useRef } from "react";
+import { useRef } from "react";
 import { mkConfig, generateCsv, download } from "export-to-csv";
 import { DownloadIcon } from "lucide-react";
 import { Table, TableFeature, makeStateUpdater } from "@tanstack/react-table";
 import { ExportOptions, ExportProps, ExportTableState } from "../types";
-import { useClickOutside } from "../hooks/useClickOutside";
+import { addEventOutside } from "../addEventOutside";
 import { Box } from "@components/patterns/Box";
 import { HStack } from "@components/patterns/HStack";
 import { Button } from "@components/Button";
@@ -13,18 +13,12 @@ export const Export = (props: ExportProps) => {
   const { exportOptions, localization, exportCsv, exportOpen, setExportOpen } =
     props;
 
+  const exportRef = useRef<HTMLDivElement>(null);
+  const exportButtonRef = useRef<HTMLButtonElement>(null);
+
   if (!exportOptions) {
     return null;
   }
-
-  const exportRef = useRef<HTMLDivElement>(null);
-  const exportButtonRef = useRef<HTMLButtonElement>(null);
-  useClickOutside(
-    exportRef,
-    () => setExportOpen(false),
-    exportButtonRef,
-    false,
-  );
   return (
     <>
       <HStack>
@@ -34,6 +28,12 @@ export const Export = (props: ExportProps) => {
           size="md"
           onClick={() => {
             setExportOpen(!exportOpen);
+            addEventOutside(
+              exportRef,
+              () => setExportOpen(false),
+              exportButtonRef,
+              false,
+            );
           }}
           ref={exportButtonRef}
           data-testid="datagrid-export-button"

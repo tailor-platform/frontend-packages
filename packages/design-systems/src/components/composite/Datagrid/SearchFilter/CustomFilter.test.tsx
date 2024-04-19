@@ -119,7 +119,9 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_EN}
-          isVisible={true}
+          customFilterOpen={true}
+          /* eslint-disable-next-line @typescript-eslint/no-empty-function */
+          setCustomFilterOpen={() => {}}
         />,
       );
       expect(screen.getByText("Reset Filter")).toBeVisible();
@@ -148,7 +150,9 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          /* eslint-disable-next-line @typescript-eslint/no-empty-function */
+          setCustomFilterOpen={() => {}}
         />,
       );
       expect(screen.getByText("フィルタをリセット")).toBeVisible();
@@ -177,7 +181,9 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          /* eslint-disable-next-line @typescript-eslint/no-empty-function */
+          setCustomFilterOpen={() => {}}
         />,
       );
 
@@ -268,7 +274,9 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          /* eslint-disable-next-line @typescript-eslint/no-empty-function */
+          setCustomFilterOpen={() => {}}
         />,
       );
 
@@ -341,7 +349,9 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          /* eslint-disable-next-line @typescript-eslint/no-empty-function */
+          setCustomFilterOpen={() => {}}
         />,
       );
 
@@ -419,7 +429,9 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          /* eslint-disable-next-line @typescript-eslint/no-empty-function */
+          setCustomFilterOpen={() => {}}
         />,
       );
 
@@ -501,7 +513,9 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          /* eslint-disable-next-line @typescript-eslint/no-empty-function */
+          setCustomFilterOpen={() => {}}
         />,
       );
 
@@ -592,7 +606,9 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          /* eslint-disable-next-line @typescript-eslint/no-empty-function */
+          setCustomFilterOpen={() => {}}
         />,
       );
 
@@ -690,7 +706,9 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          /* eslint-disable-next-line @typescript-eslint/no-empty-function */
+          setCustomFilterOpen={() => {}}
         />,
       );
 
@@ -788,7 +806,9 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          /* eslint-disable-next-line @typescript-eslint/no-empty-function */
+          setCustomFilterOpen={() => {}}
         />,
       );
 
@@ -848,7 +868,9 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          /* eslint-disable-next-line @typescript-eslint/no-empty-function */
+          setCustomFilterOpen={() => {}}
         />,
       );
 

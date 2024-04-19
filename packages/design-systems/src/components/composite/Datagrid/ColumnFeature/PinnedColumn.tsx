@@ -5,7 +5,7 @@ import { css } from "@tailor-platform/styled-system/css";
 import { MoreVertical as MoreVerticalIcon } from "lucide-react";
 import { Button } from "../../../Button";
 import type { Localization } from "../../../../locales/types";
-import { useClickOutside } from "../hooks/useClickOutside";
+import { addEventOutside } from "../addEventOutside";
 
 type PinnedColumnProps<TData extends Record<string, unknown>> = {
   column: Column<TData>;
@@ -20,11 +20,6 @@ export const PinnedColumn = <TData extends Record<string, unknown>>({
     useState<boolean>(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
-  useClickOutside(
-    modalRef,
-    () => setIsOpenedPinnedColumnModal(false),
-    buttonRef,
-  );
 
   return (
     <div
@@ -40,6 +35,11 @@ export const PinnedColumn = <TData extends Record<string, unknown>>({
           })}
           onClick={() => {
             setIsOpenedPinnedColumnModal(!isOpenedPinnedColumnModal);
+            addEventOutside(
+              modalRef,
+              () => setIsOpenedPinnedColumnModal(false),
+              buttonRef,
+            );
           }}
         />
       </Box>

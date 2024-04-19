@@ -1,4 +1,4 @@
-import { ForwardedRef, forwardRef, useRef } from "react";
+import { useRef } from "react";
 import {
   RowData,
   Table,
@@ -14,12 +14,12 @@ import {
   DensityTableState,
   DensityProps,
 } from "../types";
+import { addEventOutside } from "../addEventOutside";
 import {
   RadioGroup,
   type RadioGroupOption,
 } from "@components/composite/RadioGroup";
 import { Box } from "@components/patterns/Box";
-import { useClickOutside } from "../hooks/useClickOutside";
 import { HStack } from "@components/patterns/HStack";
 import { Button } from "@components/Button";
 import { Text } from "@components/Text";
@@ -29,7 +29,6 @@ export const Density = (props: DensityProps) => {
 
   const densityRef = useRef<HTMLDivElement>(null);
   const densityButtonRef = useRef<HTMLButtonElement>(null);
-  useClickOutside(densityRef, () => setDensityOpen(false), densityButtonRef);
   const options: RadioGroupOption[] = [
     {
       label: localization.density.compact,
@@ -53,6 +52,11 @@ export const Density = (props: DensityProps) => {
           size="md"
           onClick={() => {
             setDensityOpen(!densityOpen);
+            addEventOutside(
+              densityRef,
+              () => setDensityOpen(false),
+              densityButtonRef,
+            );
           }}
           ref={densityButtonRef}
           data-testid="datagrid-density-button"

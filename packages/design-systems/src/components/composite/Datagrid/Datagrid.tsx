@@ -1,17 +1,10 @@
 import { Column as ColumnTanstak, flexRender } from "@tanstack/react-table";
 import {
-  Columns as ColumnsIcon,
-  Filter as FilterIcon,
-  Rows as RowsIcon,
-  Download as DownloadIcon,
-} from "lucide-react";
-import {
   CSSProperties,
   DragEvent,
   useCallback,
   useEffect,
   useState,
-  useRef,
   ReactNode,
 } from "react";
 import { css } from "@tailor-platform/styled-system/css";
@@ -21,7 +14,6 @@ import {
 } from "@tailor-platform/styled-system/recipes";
 import { styled } from "@tailor-platform/styled-system/jsx";
 import { LOCALIZATION_EN } from "../../../locales/en";
-import { Button } from "../../Button";
 import {
   Table,
   TableBody,
@@ -30,7 +22,6 @@ import {
   TableHeader,
   TableRow,
 } from "../../Table";
-import { Text } from "../../Text";
 import { HStack } from "../../patterns/HStack";
 import { Stack } from "../../patterns/Stack";
 import { HideShow } from "./ColumnFeature/HideShow";
@@ -40,7 +31,6 @@ import { Density } from "./Density/Density";
 import { Export } from "./Export/Export";
 import { ManualPagination, Pagination } from "./Pagination";
 import { Column, type DataGridInstance } from "./types";
-import { useClickOutside } from "./hooks/useClickOutside";
 
 type DataGridProps<TData extends Record<string, unknown>> = {
   table: DataGridInstance<TData>;

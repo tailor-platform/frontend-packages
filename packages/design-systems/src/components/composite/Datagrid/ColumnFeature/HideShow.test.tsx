@@ -102,6 +102,7 @@ const HideShowTest = () => {
     columnVisibility,
     onColumnVisibilityChange: setColumnVisibility,
   });
+  const { hideShowOpen } = table.getState();
   return (
     <HideShow
       allColumnsHandler={table.getToggleAllColumnsVisibilityHandler}
@@ -112,7 +113,8 @@ const HideShowTest = () => {
         >[]
       }
       localization={LOCALIZATION_EN}
-      isVisible={true}
+      hideShowOpen={hideShowOpen}
+      setHideShowOpen={table.setHideShowOpen}
     />
   );
 };
