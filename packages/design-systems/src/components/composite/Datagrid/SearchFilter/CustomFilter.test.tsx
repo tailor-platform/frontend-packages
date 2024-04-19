@@ -120,8 +120,7 @@ describe(
           }}
           localization={LOCALIZATION_EN}
           customFilterOpen={true}
-          /* eslint-disable-next-line @typescript-eslint/no-empty-function */
-          setCustomFilterOpen={() => {}}
+          setCustomFilterOpen={() => void 0}
         />,
       );
       expect(screen.getByText("Reset Filter")).toBeVisible();
@@ -151,8 +150,7 @@ describe(
           }}
           localization={LOCALIZATION_JA}
           customFilterOpen={true}
-          /* eslint-disable-next-line @typescript-eslint/no-empty-function */
-          setCustomFilterOpen={() => {}}
+          setCustomFilterOpen={() => void 0}
         />,
       );
       expect(screen.getByText("フィルタをリセット")).toBeVisible();
@@ -182,8 +180,7 @@ describe(
           }}
           localization={LOCALIZATION_JA}
           customFilterOpen={true}
-          /* eslint-disable-next-line @typescript-eslint/no-empty-function */
-          setCustomFilterOpen={() => {}}
+          setCustomFilterOpen={() => void 0}
         />,
       );
 
@@ -275,8 +272,7 @@ describe(
           }}
           localization={LOCALIZATION_JA}
           customFilterOpen={true}
-          /* eslint-disable-next-line @typescript-eslint/no-empty-function */
-          setCustomFilterOpen={() => {}}
+          setCustomFilterOpen={() => void 0}
         />,
       );
 
@@ -350,8 +346,7 @@ describe(
           }}
           localization={LOCALIZATION_JA}
           customFilterOpen={true}
-          /* eslint-disable-next-line @typescript-eslint/no-empty-function */
-          setCustomFilterOpen={() => {}}
+          setCustomFilterOpen={() => void 0}
         />,
       );
 
@@ -430,8 +425,7 @@ describe(
           }}
           localization={LOCALIZATION_JA}
           customFilterOpen={true}
-          /* eslint-disable-next-line @typescript-eslint/no-empty-function */
-          setCustomFilterOpen={() => {}}
+          setCustomFilterOpen={() => void 0}
         />,
       );
 
@@ -514,8 +508,7 @@ describe(
           }}
           localization={LOCALIZATION_JA}
           customFilterOpen={true}
-          /* eslint-disable-next-line @typescript-eslint/no-empty-function */
-          setCustomFilterOpen={() => {}}
+          setCustomFilterOpen={() => void 0}
         />,
       );
 
@@ -607,8 +600,7 @@ describe(
           }}
           localization={LOCALIZATION_JA}
           customFilterOpen={true}
-          /* eslint-disable-next-line @typescript-eslint/no-empty-function */
-          setCustomFilterOpen={() => {}}
+          setCustomFilterOpen={() => void 0}
         />,
       );
 
@@ -707,8 +699,7 @@ describe(
           }}
           localization={LOCALIZATION_JA}
           customFilterOpen={true}
-          /* eslint-disable-next-line @typescript-eslint/no-empty-function */
-          setCustomFilterOpen={() => {}}
+          setCustomFilterOpen={() => void 0}
         />,
       );
 
@@ -807,8 +798,7 @@ describe(
           }}
           localization={LOCALIZATION_JA}
           customFilterOpen={true}
-          /* eslint-disable-next-line @typescript-eslint/no-empty-function */
-          setCustomFilterOpen={() => {}}
+          setCustomFilterOpen={() => void 0}
         />,
       );
 
@@ -869,8 +859,7 @@ describe(
           }}
           localization={LOCALIZATION_JA}
           customFilterOpen={true}
-          /* eslint-disable-next-line @typescript-eslint/no-empty-function */
-          setCustomFilterOpen={() => {}}
+          setCustomFilterOpen={() => void 0}
         />,
       );
 
