@@ -22,7 +22,6 @@ import { jointConditions } from "../data/filter";
 import { FilterRow } from "./FilterRow";
 import { HStack } from "@components/patterns/HStack";
 import { Text } from "@components/Text";
-// import { addToGraphQLQueryFilterRecursively, convertQueryToFilterRows } from "./utils";
 
 export const CustomFilter = <TData extends Record<string, unknown>>(
   props: CustomFilterProps<TData>,
