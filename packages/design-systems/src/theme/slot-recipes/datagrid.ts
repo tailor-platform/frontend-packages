@@ -44,10 +44,7 @@ export const datagrid = defineSlotRecipe({
       p: 1,
     },
     tableHead: {
-      backgroundColor: {
-        base: "white",
-        _dark: "rgb(10, 10, 10)",
-      },
+      backgroundColor: "bg.default",
       borderTop: "none",
       borderLeft: "none",
       borderWidth: "0.5px",
