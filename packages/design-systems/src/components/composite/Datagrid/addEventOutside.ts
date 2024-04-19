@@ -38,6 +38,8 @@ export const addEventOutside = <
       return;
     }
     handler(event);
+    document.removeEventListener(`mousedown`, listener);
+    document.removeEventListener(`touchstart`, listener);
   };
   document.addEventListener(`mousedown`, listener);
   document.addEventListener(`touchstart`, listener);
