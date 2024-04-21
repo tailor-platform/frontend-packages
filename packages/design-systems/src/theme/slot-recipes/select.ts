@@ -97,6 +97,9 @@ export const select = defineSlotRecipe({
         color: "fg.subtle",
       },
     },
+    valueText: {
+      color: "fg.default",
+    }
   },
   defaultVariants: {
     size: "md",

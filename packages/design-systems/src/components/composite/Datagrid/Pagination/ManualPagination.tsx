@@ -57,14 +57,13 @@ export const ManualPagination = <TData extends Record<string, unknown>>({
             handlePageChange({ page: 0, pageSize: selectedPageSize });
           }}
           defaultValue={[pageSize.toString()]}
-          width={16}
+          width={"auto"}
           data-testid="select-manual-pagination-page-size"
         >
           <Select.Control className={classes.control}>
             <Select.Trigger className={classes.trigger}>
               <Select.ValueText
                 className={classes.valueText}
-                color="fg.subtle"
               />
               <ChevronDown />
             </Select.Trigger>
