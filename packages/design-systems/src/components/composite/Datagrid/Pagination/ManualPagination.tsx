@@ -62,9 +62,7 @@ export const ManualPagination = <TData extends Record<string, unknown>>({
         >
           <Select.Control className={classes.control}>
             <Select.Trigger className={classes.trigger}>
-              <Select.ValueText
-                className={classes.valueText}
-              />
+              <Select.ValueText className={classes.valueText} />
               <ChevronDown />
             </Select.Trigger>
           </Select.Control>
