@@ -472,13 +472,13 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
           flexDirection={"column"}
           alignItems={"flex-end"}
         >
-          {filterRows.map((row) => {
+          {filterRows.map((row, i) => {
             if (row.currentState.isSystem === true) {
               return null;
             }
             return (
               <FilterRow
-                key={"filterRow" + row.index}
+                key={"filterRow" + i}
                 currentFilter={row.currentState}
                 columns={columns}
                 jointConditions={activeJointConditions}

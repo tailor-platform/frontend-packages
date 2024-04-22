@@ -4,6 +4,7 @@ import { Box } from "@tailor-platform/design-systems";
 import {
   DataGrid,
   DataGridInstance,
+  GraphQLQueryFilter,
   useDataGrid,
 } from "@tailor-platform/design-systems/client";
 import { LOCALIZATION_JA } from "@tailor-platform/design-systems/locales/ja";

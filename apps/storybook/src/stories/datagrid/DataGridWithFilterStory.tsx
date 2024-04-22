@@ -33,7 +33,6 @@ export const DataGridWithFilterStory = ({
     columns,
     enableColumnFilters,
     onFilterChange: (filter) => {
-      console.log("filter", filter);
       setFilterChange(filter, originData, setData);
     },
     systemFilter: query,

@@ -258,6 +258,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
                   className={datagridClasses.tableRow}
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  data-testid={`datagrid-row`}
                 >
                   {row.getVisibleCells().map((cell) => {
                     if (
