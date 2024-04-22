@@ -23,7 +23,6 @@ export const composeYaml = (opts?: DockerComposeOptions) => {
   log.debug("compose", `options: ${JSON.stringify(options)}`);
 
   return `
-version: "3.7"
 services:
   migration:
     image: asia-northeast1-docker.pkg.dev/tailor-professional-service/cmd/minitailor:${options.minitailorImage}
