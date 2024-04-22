@@ -9,19 +9,29 @@ import { FilterIcon } from "lucide-react";
 import { addEventOutside } from "../addEventOutside";
 import { Box } from "../../../patterns/Box";
 import { Button } from "../../../Button";
-import {
+import { Localization } from "..";
+import type { Column } from "../types";
+import type {
   CustomFilterOptions,
   CustomFilterProps,
   CustomFilterTableState,
-  FilterRowData,
   FilterRowState,
-  GraphQLQueryFilter,
   JointCondition,
-} from "../types";
-import { jointConditions } from "../data/filter";
+  GraphQLQueryFilter,
+} from "./types";
+import { jointConditions } from "./filter";
 import { FilterRow } from "./FilterRow";
 import { HStack } from "@components/patterns/HStack";
 import { Text } from "@components/Text";
+
+type FilterRowData<TData> = {
+  columns: Array<Column<TData>>;
+  index: number; //Row number
+  localization: Localization;
+  isFirstRow: boolean;
+  jointConditions: JointCondition[];
+  currentState: FilterRowState;
+};
 
 export const CustomFilter = <TData extends Record<string, unknown>>(
   props: CustomFilterProps<TData>,

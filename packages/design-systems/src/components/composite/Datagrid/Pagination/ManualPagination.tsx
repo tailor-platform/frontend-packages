@@ -12,16 +12,18 @@ import {
   ChevronDown,
   CheckIcon,
 } from "lucide-react";
-import {
-  DataGridInstance,
-  PageChangeDetails,
-  ValueChangeDetails,
-} from "../types";
+import { DataGridInstance } from "../types";
 import { Text } from "../../../Text";
 import { Button } from "../../../Button";
 import { IconButton } from "../../../IconButton";
+import type { ValueChangeDetails } from "../SearchFilter/types";
 import { Select, usePagination } from "./utils";
-import { Localization } from "@locales/types";
+import type { Localization } from "@locales/types";
+
+export type PageChangeDetails = {
+  page: number;
+  pageSize: number;
+};
 
 const classes = select();
 
