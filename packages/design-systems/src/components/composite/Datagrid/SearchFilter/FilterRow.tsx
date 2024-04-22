@@ -4,18 +4,21 @@ import { Select as AS, CollectionItem } from "@ark-ui/react/select";
 import { Portal } from "@ark-ui/react/portal";
 import { styled } from "@tailor-platform/styled-system/jsx";
 import { select } from "@tailor-platform/styled-system/recipes";
+import { ColumnMeta } from "@tanstack/table-core";
+import type { Column } from "../types";
 import { Box } from "../../../patterns/Box";
 import { Flex } from "../../../patterns/Flex";
 import { IconButton } from "../../../IconButton";
 import { Input } from "../../../Input";
 import { Text } from "../../../Text";
-import { getLocalizedFilterConditions } from "../data/filter";
-import { ApplicableType, FilterRowProps } from "./../types";
-
-interface ValueChangeDetails<T extends CollectionItem = CollectionItem> {
-  value: string[];
-  items: T[];
-}
+import type { Localization } from "..";
+import { getLocalizedFilterConditions } from "./filter";
+import type {
+  ApplicableType,
+  FilterRowState,
+  JointCondition,
+  ValueChangeDetails,
+} from "./types";
 
 const Select = {
   Root: styled(AS.Root),
@@ -31,6 +34,17 @@ const Select = {
   Positioner: styled(AS.Positioner),
   Trigger: styled(AS.Trigger),
   ValueText: styled(AS.ValueText),
+};
+
+type FilterRowProps<TData> = {
+  columns: Array<Column<TData>>;
+  onDelete: () => void;
+  meta?: ColumnMeta<TData, unknown>;
+  onChange: (currentState: FilterRowState) => void;
+  localization: Localization;
+  isFirstRow: boolean;
+  jointConditions: JointCondition[];
+  currentFilter: FilterRowState;
 };
 
 export const FilterRow = <TData extends Record<string, unknown>>(

@@ -1,9 +1,22 @@
-import {
-  FilterCondition,
-  GraphQLFilterOperator,
-  JointCondition,
-} from "../types";
-import type { Localization } from "../../../../locales/types";
+import type { ApplicableType, JointCondition } from "./types";
+import type { Localization } from "@locales/types";
+
+const GraphQLFilterOperator = {
+  EQUAL: "eq",
+  LESS_THAN: "lt",
+  GREATER_THAN: "gt",
+  LESS_THAN_OR_EQUAL: "lte",
+  GREATER_THAN_OR_EQUAL: "gte",
+  NOT_EQUAL: "neq",
+  CONTAINS: "contains",
+} as const;
+
+type FilterCondition = {
+  label: string;
+  value: (typeof GraphQLFilterOperator)[keyof typeof GraphQLFilterOperator];
+  applicableTypeTypes: ApplicableType[];
+  disabled: boolean;
+};
 
 export const getLocalizedFilterConditions = (
   localization: Localization,
