@@ -12,7 +12,11 @@ import { Checkbox } from "../../../Checkbox";
 import { Box } from "../../../patterns/Box";
 import { Flex } from "../../../patterns/Flex";
 import { addEventOutside } from "../addEventOutside";
-import { HideShowOptions, HideShowProps, HideShowTableState } from "./types";
+import type {
+  HideShowOptions,
+  HideShowProps,
+  HideShowTableState,
+} from "./types";
 import { HStack } from "@components/patterns/HStack";
 import { Text } from "@components/Text";
 

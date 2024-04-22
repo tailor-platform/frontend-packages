@@ -9,7 +9,7 @@ import { FilterIcon } from "lucide-react";
 import { addEventOutside } from "../addEventOutside";
 import { Box } from "../../../patterns/Box";
 import { Button } from "../../../Button";
-import { Localization } from "..";
+import type { Localization } from "..";
 import type { Column } from "../types";
 import type {
   CustomFilterOptions,

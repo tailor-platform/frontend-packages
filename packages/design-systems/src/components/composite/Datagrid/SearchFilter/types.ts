@@ -1,7 +1,7 @@
-import { Updater } from "@tanstack/table-core";
-import { CollectionItem } from "@ark-ui/react";
-import { Localization } from "..";
-import { Column } from "../types";
+import type { Updater } from "@tanstack/table-core";
+import type { CollectionItem } from "@ark-ui/react";
+import type { Localization } from "..";
+import type { Column } from "../types";
 
 export type ValueChangeDetails<T extends CollectionItem = CollectionItem> = {
   value: string[];

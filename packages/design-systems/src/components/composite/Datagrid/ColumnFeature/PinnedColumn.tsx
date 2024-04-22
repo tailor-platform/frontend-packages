@@ -4,8 +4,8 @@ import type { Column } from "@tanstack/react-table";
 import { css } from "@tailor-platform/styled-system/css";
 import { MoreVertical as MoreVerticalIcon } from "lucide-react";
 import { Button } from "../../../Button";
-import type { Localization } from "../../../../locales/types";
 import { addEventOutside } from "../addEventOutside";
+import type { Localization } from "@locales/types";
 
 type PinnedColumnProps<TData extends Record<string, unknown>> = {
   column: Column<TData>;

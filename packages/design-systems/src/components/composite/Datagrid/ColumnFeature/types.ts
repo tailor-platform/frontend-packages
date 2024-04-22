@@ -1,5 +1,5 @@
-import { Column, Updater } from "@tanstack/table-core";
-import { Localization } from "..";
+import type { Column, Updater } from "@tanstack/table-core";
+import type { Localization } from "..";
 
 export interface HideShowTableState {
   hideShowOpen: boolean;

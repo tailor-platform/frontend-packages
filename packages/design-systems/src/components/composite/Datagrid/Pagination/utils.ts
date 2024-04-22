@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Select as AS } from "@ark-ui/react/select";
 import { styled } from "@tailor-platform/styled-system/jsx";
-import { DataGridInstance } from "../types";
+import type { DataGridInstance } from "../types";
 
 type Page = {
   index: number;

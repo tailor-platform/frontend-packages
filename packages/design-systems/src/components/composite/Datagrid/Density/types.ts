@@ -1,5 +1,5 @@
-import { OnChangeFn, Updater } from "@tanstack/table-core";
-import { Localization } from "..";
+import type { OnChangeFn, Updater } from "@tanstack/table-core";
+import type { Localization } from "..";
 
 export type DensityState = "sm" | "md" | "lg";
 export interface DensityTableState {

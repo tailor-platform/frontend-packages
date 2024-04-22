@@ -1,5 +1,5 @@
-import { Updater } from "@tanstack/table-core";
-import { Localization } from "..";
+import type { Updater } from "@tanstack/table-core";
+import type { Localization } from "..";
 
 export type ExportState = {
   enableCsvExport?: boolean;
