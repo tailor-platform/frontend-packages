@@ -134,9 +134,7 @@ const columnDefs: ColumnDef<Payment>[] = [
 ];
 
 const useDataGridWithFilter = (
-  customizeDatagrid?: Partial<
-    Pick<UseDataGridProps<Payment>, "systemFilter" | "defaultFilter">
-  >,
+  customizeDatagrid?: Partial<UseDataGridProps<Payment>>,
 ): DataGridInstance<Payment> => {
   const [data, setData] = useState<Payment[]>(originData);
   const table = useDataGrid({
