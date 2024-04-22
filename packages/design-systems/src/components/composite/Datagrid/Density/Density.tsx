@@ -9,7 +9,7 @@ import {
 } from "@tanstack/react-table";
 import { RowsIcon } from "lucide-react";
 import { addEventOutside } from "../addEventOutside";
-import {
+import type {
   DensityOptions,
   DensityState,
   DensityTableState,
