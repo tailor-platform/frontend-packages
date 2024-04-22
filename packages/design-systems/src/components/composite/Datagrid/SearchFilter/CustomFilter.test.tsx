@@ -11,7 +11,12 @@ import { ColumnDef } from "@tanstack/react-table";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import "@testing-library/jest-dom/vitest"; //For userEvent used for clicks etc. DONT use fireEvent for clicks etc. as it might not work properly with select elements
-import { Column, GraphQLQueryFilter } from "../types";
+import {
+  Column,
+  DataGridInstance,
+  GraphQLQueryFilter,
+  UseDataGridProps,
+} from "../types";
 import { LOCALIZATION_JA } from "../../../../locales/ja";
 import { LOCALIZATION_EN } from "../../../../locales/en";
 import {
@@ -128,7 +133,11 @@ const columnDefs: ColumnDef<Payment>[] = [
   },
 ];
 
-const DataGridWithFilter = () => {
+const useDataGridWithFilter = (
+  customizeDatagrid?: Partial<
+    Pick<UseDataGridProps<Payment>, "systemFilter" | "defaultFilter">
+  >,
+): DataGridInstance<Payment> => {
   const [data, setData] = useState<Payment[]>(originData);
   const table = useDataGrid({
     data,
@@ -138,64 +147,34 @@ const DataGridWithFilter = () => {
       setFilterChange(filter, originData, setData);
     },
     localization: LOCALIZATION_JA,
+    ...customizeDatagrid,
   });
+  return table;
+};
+
+const DataGridWithFilter = () => {
+  const table = useDataGridWithFilter();
   return <DataGrid table={table} />;
 };
 
 const DataGridWithFilterWithSystemFilter = () => {
-  const [data, setData] = useState<Payment[]>(originData);
-  const query: GraphQLQueryFilter = {
-    status: { eq: "pending" },
-  };
-  const table = useDataGrid({
-    data,
-    columns: columnDefs,
-    enableColumnFilters: true,
-    onFilterChange: (filter) => {
-      setFilterChange(filter, originData, setData);
-    },
-    systemFilter: query,
-    localization: LOCALIZATION_JA,
+  const table = useDataGridWithFilter({
+    systemFilter: { status: { eq: "pending" } },
   });
   return <DataGrid table={table} />;
 };
 
 const DataGridWithFilterWithDefaultFilter = () => {
-  const [data, setData] = useState<Payment[]>(originData);
-  const defaultQuery: GraphQLQueryFilter = {
-    amount: { gt: 200 },
-  };
-  const table = useDataGrid({
-    data,
-    columns: columnDefs,
-    enableColumnFilters: true,
-    onFilterChange: (filter) => {
-      setFilterChange(filter, originData, setData);
-    },
-    defaultFilter: defaultQuery,
-    localization: LOCALIZATION_JA,
+  const table = useDataGridWithFilter({
+    defaultFilter: { amount: { gt: 200 } },
   });
   return <DataGrid table={table} />;
 };
 
 const DataGridWithFilterWithSystemAndDefaultFilter = () => {
-  const [data, setData] = useState<Payment[]>(originData);
-  const query: GraphQLQueryFilter = {
-    status: { eq: "pending" },
-  };
-  const defaultQuery: GraphQLQueryFilter = {
-    amount: { gt: 200 },
-  };
-  const table = useDataGrid({
-    data,
-    columns: columnDefs,
-    enableColumnFilters: true,
-    onFilterChange: (filter) => {
-      setFilterChange(filter, originData, setData);
-    },
-    systemFilter: query,
-    defaultFilter: defaultQuery,
-    localization: LOCALIZATION_JA,
+  const table = useDataGridWithFilter({
+    systemFilter: { status: { eq: "pending" } },
+    defaultFilter: { amount: { gt: 200 } },
   });
   return <DataGrid table={table} />;
 };
