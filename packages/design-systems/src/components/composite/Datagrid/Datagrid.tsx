@@ -155,6 +155,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
               table.onFilterChange && table.onFilterChange(filters);
             }}
             localization={localization}
+            systemFilter={table.systemFilter}
             defaultFilter={table.defaultFilter}
             customFilterOpen={customFilterOpen}
             setCustomFilterOpen={table.setCustomFilterOpen}
@@ -257,6 +258,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
                   className={datagridClasses.tableRow}
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  data-testid={`datagrid-row`}
                 >
                   {row.getVisibleCells().map((cell) => {
                     if (

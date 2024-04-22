@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   act,
   fireEvent,
@@ -6,10 +7,16 @@ import {
   within,
   waitFor,
 } from "@testing-library/react";
+import { ColumnDef } from "@tanstack/react-table";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
-import { Column, GraphQLQueryFilter } from "../types";
 import "@testing-library/jest-dom/vitest"; //For userEvent used for clicks etc. DONT use fireEvent for clicks etc. as it might not work properly with select elements
+import {
+  Column,
+  DataGridInstance,
+  GraphQLQueryFilter,
+  UseDataGridProps,
+} from "../types";
 import { LOCALIZATION_JA } from "../../../../locales/ja";
 import { LOCALIZATION_EN } from "../../../../locales/en";
 import {
@@ -22,6 +29,9 @@ import {
   selectJointCondition,
   selectValue,
 } from "../utils/test/customFilter";
+import { useDataGrid } from "../useDataGrid";
+import { Payment, originData, setFilterChange } from "../utils/test";
+import { DataGrid } from "../Datagrid";
 import { CustomFilter } from "./CustomFilter";
 
 /* eslint-disable-next-line @typescript-eslint/no-empty-function */
@@ -48,15 +58,6 @@ enum PaymentStatus {
   success = "success",
   failed = "failed",
 }
-
-type Payment = {
-  id: string;
-  amount: number;
-  status: PaymentStatus;
-  email: string;
-  createdAt: string;
-  isCreditCard: boolean;
-};
 
 const columns: Column<Payment>[] = [
   {
@@ -107,6 +108,75 @@ const columns: Column<Payment>[] = [
   },
 ];
 
+const columnDefs: ColumnDef<Payment>[] = [
+  {
+    accessorKey: "status",
+    header: "Status",
+    meta: {
+      type: "enum",
+      enumType: PaymentStatus,
+    },
+  },
+  {
+    accessorKey: "email",
+    header: "Email",
+    meta: {
+      type: "string",
+    },
+  },
+  {
+    accessorKey: "amount",
+    header: "Amount",
+    meta: {
+      type: "number",
+    },
+  },
+];
+
+const useDataGridWithFilter = (
+  customizeDatagrid?: Partial<UseDataGridProps<Payment>>,
+): DataGridInstance<Payment> => {
+  const [data, setData] = useState<Payment[]>(originData);
+  const table = useDataGrid({
+    data,
+    columns: columnDefs,
+    enableColumnFilters: true,
+    onFilterChange: (filter) => {
+      setFilterChange(filter, originData, setData);
+    },
+    localization: LOCALIZATION_JA,
+    ...customizeDatagrid,
+  });
+  return table;
+};
+
+const DataGridWithFilter = () => {
+  const table = useDataGridWithFilter();
+  return <DataGrid table={table} />;
+};
+
+const DataGridWithFilterWithSystemFilter = () => {
+  const table = useDataGridWithFilter({
+    systemFilter: { status: { eq: "pending" } },
+  });
+  return <DataGrid table={table} />;
+};
+
+const DataGridWithFilterWithDefaultFilter = () => {
+  const table = useDataGridWithFilter({
+    defaultFilter: { amount: { gt: 200 } },
+  });
+  return <DataGrid table={table} />;
+};
+
+const DataGridWithFilterWithSystemAndDefaultFilter = () => {
+  const table = useDataGridWithFilter({
+    systemFilter: { status: { eq: "pending" } },
+    defaultFilter: { amount: { gt: 200 } },
+  });
+  return <DataGrid table={table} />;
+};
+
 describe(
   "<CustomFilter />",
   () => {
@@ -153,7 +223,7 @@ describe(
           setCustomFilterOpen={() => void 0}
         />,
       );
-      expect(screen.getByText("フィルタをリセット")).toBeVisible();
+      expect(screen.getByText("追加したフィルタを削除")).toBeVisible();
       expect(screen.getByText("列")).toBeVisible();
       expect(screen.getByText("列を選択")).toBeVisible();
       expect(screen.getByText("条件")).toBeVisible();
@@ -906,6 +976,115 @@ describe(
       await waitFor(() => {
         //Wait for the useEffect to update the filters
         expect(currentFilters).toEqual({}); //GraphQLQueryFilter is reset
+      });
+    });
+    it("Can works correctly without system and default filter", async () => {
+      render(<DataGridWithFilter />);
+
+      const user = userEvent.setup();
+      // Number of data displayed is 14 items
+      await waitFor(() => {
+        expect(screen.getAllByTestId("datagrid-row")).toHaveLength(14);
+      });
+      // Open filter
+      await waitFor(() =>
+        user.click(screen.getByTestId("datagrid-filter-button")),
+      );
+
+      //Select column
+      await selectColumn(screen, user, 0, "Status");
+      //Select condition
+      await selectCondition(screen, user, 0, "に等しい");
+      //Select value
+      await selectValue(screen, user, 0, "pending");
+      // Number of data displayed is 4 items
+      await waitFor(() => {
+        expect(screen.getAllByTestId("datagrid-row")).toHaveLength(4);
+      });
+    });
+    it("System filter works correctly", async () => {
+      render(<DataGridWithFilterWithSystemFilter />);
+
+      const user = userEvent.setup();
+      // Number of data displayed is 4 items
+      await waitFor(() => {
+        expect(screen.getAllByTestId("datagrid-row")).toHaveLength(4);
+      });
+      // Open filter
+      await waitFor(() =>
+        user.click(screen.getByTestId("datagrid-filter-button")),
+      );
+
+      //Select column
+      await selectColumn(screen, user, 0, "Amount");
+      //Select condition
+      await selectCondition(screen, user, 0, "より大きい");
+      //Select value
+      await inputValue(screen, user, 0, "200");
+
+      // Number of data displayed is 2 items
+      await waitFor(() => {
+        expect(screen.getAllByTestId("datagrid-row")).toHaveLength(2);
+      });
+    });
+    it("Default filter works correctly", async () => {
+      render(<DataGridWithFilterWithDefaultFilter />);
+
+      const user = userEvent.setup();
+      // Number of data displayed is 6 items
+      await waitFor(() => {
+        expect(screen.getAllByTestId("datagrid-row")).toHaveLength(6);
+      });
+      // Open filter
+      await waitFor(() =>
+        user.click(screen.getByTestId("datagrid-filter-button")),
+      );
+      // Filter is set to defaultFilter
+
+      //Select joint condition
+      await selectJointCondition(screen, user, 1, "AND");
+      //Select column
+      await selectColumn(screen, user, 1, "Status");
+      //Select condition
+      await selectCondition(screen, user, 1, "に等しい");
+      //Select value
+      await selectValue(screen, user, 1, "pending");
+
+      // Number of data displayed is 2 items
+      await waitFor(() => {
+        expect(screen.getAllByTestId("datagrid-row")).toHaveLength(2);
+      });
+
+      // Reset filter
+      await waitFor(() =>
+        user.click(screen.getByTestId("reset-filter-button")),
+      );
+
+      // Number of data displayed is 6 items
+      await waitFor(() => {
+        expect(screen.getAllByTestId("datagrid-row")).toHaveLength(6);
+      });
+    });
+    it("System filter and Deafult filter work correctly at the same time", async () => {
+      render(<DataGridWithFilterWithSystemAndDefaultFilter />);
+
+      const user = userEvent.setup();
+      // Number of data displayed is 2 items
+      await waitFor(() => {
+        expect(screen.getAllByTestId("datagrid-row")).toHaveLength(2);
+      });
+      // Open filter
+      await waitFor(() =>
+        user.click(screen.getByTestId("datagrid-filter-button")),
+      );
+      // Filter is set to defaultFilter
+
+      // Clear filter
+      await waitFor(() => user.click(screen.getByTestId("reset-clear-button")));
+
+      // Number of data displayed is 4 items
+      await waitFor(() => {
+        expect(screen.getAllByTestId("datagrid-row")).toHaveLength(4);
       });
     });
   },

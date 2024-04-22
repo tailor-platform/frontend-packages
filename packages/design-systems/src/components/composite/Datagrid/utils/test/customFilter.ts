@@ -16,7 +16,7 @@ export const selectColumn = async (
 ) => {
   const selectColumn = screen.getAllByTestId("select-column")[columnIndex];
   const selectColumnButton = within(selectColumn).getByRole("button");
-  await waitFor(() => user.click(selectColumnButton));
+  await act(() => user.click(selectColumnButton));
   const option = screen.getByRole("option", { name: columnName });
   await waitFor(() => user.click(option));
 };

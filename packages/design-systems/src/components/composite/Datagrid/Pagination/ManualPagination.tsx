@@ -119,7 +119,9 @@ export const ManualPagination = <TData extends Record<string, unknown>>({
                 : to}
             </Text>
             {localization.pagination.of}
-            <Text fontWeight={"bold"}>{table.getRowCount()}</Text>
+            <Text fontWeight={"bold"} data-testid="pagination-total-count">
+              {table.getRowCount()}
+            </Text>
           </>
         )}
       </HStack>

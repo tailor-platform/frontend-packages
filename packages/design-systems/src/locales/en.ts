@@ -20,6 +20,7 @@ export const LOCALIZATION_EN: Localization = {
   filter: {
     filterLabel: "Filter",
     filterResetLabel: "Reset Filter",
+    filterClearLabel: "Clear Filter",
     addNewFilterLabel: "Add Filter",
     jointConditionLabel: "Joint Condition",
     jointConditionPlaceholder: "Select Joint Condition",

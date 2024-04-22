@@ -30,6 +30,7 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
     columns,
     onChange,
     localization,
+    systemFilter,
     defaultFilter,
     customFilterOpen,
     setCustomFilterOpen,
@@ -38,8 +39,52 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
   const filterRef = useRef<HTMLDivElement>(null);
   const filterButtonRef = useRef<HTMLButtonElement>(null);
 
+  const combineGlaphQLQueryFilter = useCallback(
+    ({
+      systemFilter,
+      defaultFilter,
+    }: {
+      systemFilter?: GraphQLQueryFilter;
+      defaultFilter?: GraphQLQueryFilter;
+    }): GraphQLQueryFilter => {
+      if (systemFilter && defaultFilter) {
+        const combineGlaphQLQueryFilterRecursively = (
+          systemFilter: GraphQLQueryFilter,
+          defaultFilter: GraphQLQueryFilter,
+        ): GraphQLQueryFilter => {
+          const keys = Object.keys(systemFilter);
+          const newFilter: GraphQLQueryFilter = { ...systemFilter };
+          keys.forEach((key) => {
+            if (key === "and" || key === "or") {
+              newFilter[key] = combineGlaphQLQueryFilterRecursively(
+                systemFilter[key] as GraphQLQueryFilter,
+                defaultFilter,
+              );
+            } else {
+              newFilter["and"] = defaultFilter;
+            }
+          });
+          return newFilter;
+        };
+        const newQuery = combineGlaphQLQueryFilterRecursively(
+          systemFilter,
+          defaultFilter,
+        );
+        return newQuery;
+      } else {
+        return systemFilter || defaultFilter || {};
+      }
+    },
+    [],
+  );
+
+  const initialFilter = useMemo(
+    () => combineGlaphQLQueryFilter({ systemFilter, defaultFilter }),
+    [combineGlaphQLQueryFilter, systemFilter, defaultFilter],
+  );
+
   const [filterRowsState, setFilterRowsState] = useState<GraphQLQueryFilter>(
-    defaultFilter || {},
+    initialFilter || {},
   );
   const [selectedJointCondition, setSelectedJointCondition] = useState<
     string | undefined
@@ -66,7 +111,7 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
     (props: {
       index: number;
       isFirstRow: boolean;
-      existDefaultFilter: boolean;
+      existSystemFilter: boolean;
     }): FilterRowData<TData> => ({
       columns: columns,
       index: props.index,
@@ -77,16 +122,20 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
         column: "",
         condition: "",
         value: "",
-        jointCondition: props.existDefaultFilter ? "and" : "",
-        isDefault: false,
-        isChangeable: props.existDefaultFilter ? false : true,
+        jointCondition: props.existSystemFilter ? "and" : "",
+        isSystem: false,
+        isChangeable: props.existSystemFilter ? false : true,
       },
     }),
     [localization, columns, activeJointConditions],
   );
 
   const convertQueryToFilterRows = useCallback(
-    (filter: GraphQLQueryFilter): FilterRowData<TData>[] => {
+    (
+      filter: GraphQLQueryFilter,
+      isSystem: boolean,
+      filterRowIndex: number,
+    ): FilterRowData<TData>[] => {
       const filterRows: FilterRowData<TData>[] = [];
       const convertQueryToFilterRowsRecursively = (
         filter: GraphQLQueryFilter,
@@ -106,13 +155,13 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
             const column = key;
             const condition = Object.keys(filter[key])[0];
             const value: string = filter[key][condition] as string;
-            const isFirstRow = index === 0;
+            const isFirstRow = index === filterRowIndex;
             const currentState: FilterRowState = {
               column: column,
               condition: condition,
               value: value,
               jointCondition: jointCondition,
-              isDefault: true,
+              isSystem: isSystem,
               isChangeable: false,
             };
             filterRows.push({
@@ -126,26 +175,50 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
           }
         });
       };
-      convertQueryToFilterRowsRecursively(filter, undefined, 0);
+      convertQueryToFilterRowsRecursively(
+        filter,
+        filterRowIndex === 0 ? undefined : "and",
+        filterRowIndex,
+      );
       return filterRows;
     },
     [localization, columns, activeJointConditions],
   );
 
-  const defaultFilterRows: FilterRowData<TData>[] = useMemo(() => {
+  const systemFilterRows: FilterRowData<TData>[] = useMemo(() => {
     const filterRows: FilterRowData<TData>[] = [];
-    if (defaultFilter) {
-      filterRows.push(...convertQueryToFilterRows(defaultFilter));
+    if (systemFilter) {
+      filterRows.push(...convertQueryToFilterRows(systemFilter, true, 0));
     }
     filterRows.push(
       newEmptyRow({
         index: filterRows.length,
         isFirstRow: true,
-        existDefaultFilter: !!defaultFilter,
+        existSystemFilter: !!systemFilter,
       }),
     );
     return filterRows;
-  }, [defaultFilter, newEmptyRow, convertQueryToFilterRows]);
+  }, [systemFilter, newEmptyRow, convertQueryToFilterRows]);
+
+  const initialFilterRows: FilterRowData<TData>[] = useMemo(() => {
+    const filterRows: FilterRowData<TData>[] = [];
+    if (systemFilter) {
+      filterRows.push(...convertQueryToFilterRows(systemFilter, true, 0));
+    }
+    if (defaultFilter) {
+      filterRows.push(
+        ...convertQueryToFilterRows(defaultFilter, false, filterRows.length),
+      );
+    }
+    filterRows.push(
+      newEmptyRow({
+        index: filterRows.length,
+        isFirstRow: !defaultFilter,
+        existSystemFilter: !!systemFilter,
+      }),
+    );
+    return filterRows;
+  }, [systemFilter, defaultFilter, newEmptyRow, convertQueryToFilterRows]);
 
   /**
    * In cases where there is no default filter, start with 1 filter row initially .
@@ -154,11 +227,11 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
    * We cant use filterRows.length as it will grow and shrink based on user actions and might not produce the unique keys.
    */
   const [numberOfFilterRows, setNumberOfFilterRows] = useState(
-    defaultFilterRows.length,
+    initialFilterRows.length,
   );
 
   const [filterRows, setFilterRows] =
-    useState<FilterRowData<TData>[]>(defaultFilterRows);
+    useState<FilterRowData<TData>[]>(initialFilterRows);
 
   /**
    * This will delete the filter row from filterRows.
@@ -172,6 +245,46 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
       });
     },
     [],
+  );
+
+  /**
+   * This will reset the filterRows data state.
+   */
+  const resetFilterHandler = useCallback(() => {
+    setFilterRows(initialFilterRows);
+    setFilterRowsState(initialFilter || {});
+    setSelectedJointCondition(undefined);
+    setNumberOfFilterRows(initialFilterRows.length);
+  }, [initialFilter, initialFilterRows]);
+
+  /**
+   * This will reset the filterRows data state.
+   */
+  const clearFilterHandler = useCallback(() => {
+    setFilterRows(systemFilterRows);
+    setFilterRowsState(systemFilter || {});
+    setSelectedJointCondition(undefined);
+    setNumberOfFilterRows(systemFilterRows.length);
+  }, [systemFilter, systemFilterRows]);
+
+  /**
+   * This will add new item to filterRows data state.
+   */
+  const addNewFilterRowHandler = useCallback(
+    (newRowIndex: number) => {
+      setFilterRows((oldState) => {
+        const newState = [...oldState];
+        newState.push(
+          newEmptyRow({
+            index: newRowIndex,
+            isFirstRow: false,
+            existSystemFilter: !!systemFilter,
+          }),
+        );
+        return newState;
+      });
+    },
+    [newEmptyRow, systemFilter],
   );
 
   /**
@@ -192,36 +305,6 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
       });
     },
     [],
-  );
-
-  /**
-   * This will reset the filterRows data state.
-   */
-  const resetFilterHandler = useCallback(() => {
-    setFilterRows(defaultFilterRows);
-    setFilterRowsState(defaultFilter || {});
-    setSelectedJointCondition(undefined);
-    setNumberOfFilterRows(defaultFilterRows.length);
-  }, [defaultFilter, defaultFilterRows]);
-
-  /**
-   * This will add new item to filterRows data state.
-   */
-  const addNewFilterRowHandler = useCallback(
-    (newRowIndex: number) => {
-      setFilterRows((oldState) => {
-        const newState = [...oldState];
-        newState.push(
-          newEmptyRow({
-            index: newRowIndex,
-            isFirstRow: false,
-            existDefaultFilter: !!defaultFilter,
-          }),
-        );
-        return newState;
-      });
-    },
-    [newEmptyRow, defaultFilter],
   );
 
   /**
@@ -373,19 +456,29 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
         >
           {localization.filter.filterResetLabel}
         </Button>
+        {!!defaultFilter && (
+          <Button
+            variant="tertiary"
+            onClick={clearFilterHandler}
+            color={"error.default"}
+            data-testid={"reset-clear-button"}
+          >
+            {localization.filter.filterClearLabel}
+          </Button>
+        )}
         <Box
           flex={1}
           display={"flex"}
           flexDirection={"column"}
           alignItems={"flex-end"}
         >
-          {filterRows.map((row) => {
-            if (row.currentState.isDefault === true) {
+          {filterRows.map((row, i) => {
+            if (row.currentState.isSystem === true) {
               return null;
             }
             return (
               <FilterRow
-                key={"filterRow" + row.index}
+                key={"filterRow" + i}
                 currentFilter={row.currentState}
                 columns={columns}
                 jointConditions={activeJointConditions}
