@@ -408,6 +408,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
             onValueChange={(e: ValueChangeDetails<CollectionItem>) =>
               onChangeValue(e.value)
             }
+            value={[`${currentFilter.value}`]}
             data-testid="select-input-value"
           >
             <Select.Control className={classes.control}>
