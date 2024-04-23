@@ -1,4 +1,4 @@
-import { GraphQLQueryFilter } from "../../types";
+import type { GraphQLQueryFilter } from "../../SearchFilter/types";
 
 export type Payment = {
   id: string;

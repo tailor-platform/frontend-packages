@@ -8,13 +8,13 @@ import {
   makeStateUpdater,
 } from "@tanstack/react-table";
 import { RowsIcon } from "lucide-react";
-import {
+import { addEventOutside } from "../addEventOutside";
+import type {
   DensityOptions,
   DensityState,
   DensityTableState,
   DensityProps,
-} from "../types";
-import { addEventOutside } from "../addEventOutside";
+} from "./types";
 import {
   RadioGroup,
   type RadioGroupOption,

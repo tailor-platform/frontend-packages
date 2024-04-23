@@ -1,18 +1,24 @@
 import "@tanstack/react-table";
 import {
-  DensityTableState,
-  DensityOptions,
-  DensityInstance,
-  ExportTableState,
-  ExportOptions,
-  ExportInstance,
-  HideShowTableState,
-  HideShowOptions,
-  HideShowInstance,
   CustomFilterTableState,
   CustomFilterOptions,
   CustomFilterInstance,
-} from "./types";
+} from "./SearchFilter/types";
+import type {
+  DensityTableState,
+  DensityOptions,
+  DensityInstance,
+} from "./Density/types";
+import type {
+  ExportTableState,
+  ExportOptions,
+  ExportInstance,
+} from "./Export/types";
+import type {
+  HideShowTableState,
+  HideShowOptions,
+  HideShowInstance,
+} from "./ColumnFeature/types";
 
 declare module "@tanstack/react-table" {
   interface ColumnMeta {
