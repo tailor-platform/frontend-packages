@@ -53,15 +53,12 @@ export const Pagination = <TData extends Record<string, unknown>>({
             table.setPageSize(selectedPageSize);
           }}
           defaultValue={[pageSize.toString()]}
-          width={16}
+          width={"auto"}
           data-testid="select-pagination-page-size"
         >
           <Select.Control className={classes.control}>
             <Select.Trigger className={classes.trigger}>
-              <Select.ValueText
-                className={classes.valueText}
-                color="fg.subtle"
-              />
+              <Select.ValueText className={classes.valueText} />
               <ChevronDown />
             </Select.Trigger>
           </Select.Control>
