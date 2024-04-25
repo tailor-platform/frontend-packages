@@ -651,7 +651,7 @@ describe(
       //Check filters
       await waitFor(() => {
         //Wait for the useEffect to update the filters
-        expect(currentFilters).toEqual({ isCreditCard: { eq: "true" } });
+        expect(currentFilters).toEqual({ isCreditCard: { eq: true } });
       });
     });
 
@@ -682,7 +682,7 @@ describe(
       //Check filters
       await waitFor(() => {
         //Wait for the useEffect to update the filters
-        expect(currentFilters).toEqual({ isCreditCard: { eq: "true" } });
+        expect(currentFilters).toEqual({ isCreditCard: { eq: true } });
       });
 
       //Add new filter row
@@ -737,7 +737,7 @@ describe(
       await waitFor(() => {
         //Wait for the useEffect to update the filters
         expect(currentFilters).toEqual({
-          isCreditCard: { eq: "true" },
+          isCreditCard: { eq: true },
           and: {
             status: { eq: "success" },
             and: {
@@ -781,7 +781,7 @@ describe(
       //Check filters
       await waitFor(() => {
         //Wait for the useEffect to update the filters
-        expect(currentFilters).toEqual({ isCreditCard: { eq: "true" } });
+        expect(currentFilters).toEqual({ isCreditCard: { eq: true } });
       });
 
       //Add new filter row
@@ -836,7 +836,7 @@ describe(
       await waitFor(() => {
         //Wait for the useEffect to update the filters
         expect(currentFilters).toEqual({
-          isCreditCard: { eq: "true" },
+          isCreditCard: { eq: true },
           or: {
             status: { eq: "success" },
             or: {
@@ -880,7 +880,7 @@ describe(
       //Check filters
       await waitFor(() => {
         //Wait for the useEffect to update the filters
-        expect(currentFilters).toEqual({ isCreditCard: { eq: "true" } });
+        expect(currentFilters).toEqual({ isCreditCard: { eq: true } });
       });
 
       //Add new filter row
@@ -899,7 +899,7 @@ describe(
       await waitFor(() => {
         //Wait for the useEffect to update the filters
         expect(currentFilters).toEqual({
-          isCreditCard: { eq: "true" },
+          isCreditCard: { eq: true },
           and: { status: { eq: "success" } },
         });
       });
@@ -910,7 +910,7 @@ describe(
       //Check filters
       await waitFor(() => {
         //Wait for the useEffect to update the filters
-        expect(currentFilters).toEqual({ isCreditCard: { eq: "true" } });
+        expect(currentFilters).toEqual({ isCreditCard: { eq: true } });
       });
     });
 
@@ -941,7 +941,7 @@ describe(
       //Check filters
       await waitFor(() => {
         //Wait for the useEffect to update the filters
-        expect(currentFilters).toEqual({ isCreditCard: { eq: "true" } });
+        expect(currentFilters).toEqual({ isCreditCard: { eq: true } });
       });
 
       //Add new filter row
@@ -960,7 +960,7 @@ describe(
       await waitFor(() => {
         //Wait for the useEffect to update the filters
         expect(currentFilters).toEqual({
-          isCreditCard: { eq: "true" },
+          isCreditCard: { eq: true },
           and: { status: { eq: "success" } },
         });
       });

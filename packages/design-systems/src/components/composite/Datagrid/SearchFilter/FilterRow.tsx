@@ -338,7 +338,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
             positioning={{ sameWidth: true }}
             closeOnSelect
             width={180}
-            value={[currentFilter.value]}
+            value={[currentFilter.value.toString()]}
             onValueChange={(e: ValueChangeDetails<CollectionItem>) =>
               onChangeValue(e.value)
             }
@@ -355,7 +355,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
                   <span>
                     {currentFilter.value !== ""
                       ? selectedColumnObject?.meta?.enumType?.[
-                          currentFilter.value
+                          currentFilter.value.toString()
                         ]
                       : inputValuePlaceHolder}
                   </span>
@@ -408,7 +408,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
             onValueChange={(e: ValueChangeDetails<CollectionItem>) =>
               onChangeValue(e.value)
             }
-            value={[`${currentFilter.value}`]}
+            value={[currentFilter.value.toString()]}
             data-testid="select-input-value"
           >
             <Select.Control className={classes.control}>
@@ -470,7 +470,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 onChangeValue(e.target.value);
               }}
-              value={[currentFilter.value]}
+              value={[currentFilter.value.toString()]}
               type={selectedColumnObject?.meta?.type || "text"} //This input element is used for date, number and text type (for enum and boolean, we use select element above instead)
               maxLength={50}
             />
