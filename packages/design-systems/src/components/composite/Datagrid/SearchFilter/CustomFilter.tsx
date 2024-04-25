@@ -378,13 +378,19 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
   const addToGraphQLQueryFilterRecursively = useCallback(
     (filter: FilterRowState, graphQLQueryObject: GraphQLQueryFilter) => {
       const { column, condition, value, jointCondition } = filter;
-      if (column && condition && value) {
-        if (jointCondition) {
-          if (graphQLQueryObject[jointCondition]) {
-            addToGraphQLQueryFilterRecursively(
-              filter,
-              graphQLQueryObject[jointCondition] as GraphQLQueryFilter,
-            );
+      if (jointCondition) {
+        if (graphQLQueryObject[jointCondition]) {
+          addToGraphQLQueryFilterRecursively(
+            filter,
+            graphQLQueryObject[jointCondition] as GraphQLQueryFilter,
+          );
+        } else {
+          if (value === "true" || value === "false") {
+            graphQLQueryObject[jointCondition] = {
+              [column]: {
+                [condition]: value.toLowerCase() === "true",
+              },
+            };
           } else {
             graphQLQueryObject[jointCondition] = {
               [column]: {
@@ -392,8 +398,14 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
               },
             };
           }
+        }
+      } else {
+        //First row will not have joint condition
+        if (value === "true" || value === "false") {
+          graphQLQueryObject[column] = {
+            [condition]: value.toLowerCase() === "true",
+          };
         } else {
-          //First row will not have joint condition
           graphQLQueryObject[column] = {
             [condition]: value,
           };
@@ -412,7 +424,10 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
     filterRows.forEach((row) => {
       if (row.currentState) {
         const { column, condition, value } = row.currentState;
-        if (column && condition && value) {
+        const isExistCurrentState: boolean =
+          (!!column && !!condition && !!value) ||
+          (typeof value === "boolean" && value === false);
+        if (isExistCurrentState) {
           addToGraphQLQueryFilterRecursively(
             row.currentState,
             newFilterRowsState,
