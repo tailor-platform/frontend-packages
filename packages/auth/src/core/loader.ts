@@ -5,18 +5,17 @@ import { SessionResult, UserInfo } from "@core/types";
 // SuspenseLoader is a class that abstracts out the logic of loading a resource from a remote server,
 // and caches the result for React Suspense support in client components.
 class SuspenseLoader<R> {
-  private value: R | null;
   private error: Error | null;
 
   constructor(private readonly loader: (config: Config) => Promise<Response>) {
-    this.value = null;
     this.error = null;
   }
 
-  async load(config: Config) {
+  async load(config: Config, onLoaded: (value: R) => Promise<void> | void) {
     return this.loader(config)
       .then(async (resp) => {
-        this.value = (await resp.json()) as unknown as R;
+        // this.value = (await resp.json()) as unknown as R;
+        await onLoaded((await resp.json()) as unknown as R);
       })
       .catch((error) => {
         if (error instanceof Error) {
@@ -26,19 +25,23 @@ class SuspenseLoader<R> {
       });
   }
 
-  getSuspense(config: Config) {
+  getSuspense(
+    config: Config,
+    defaultValue: R | null,
+    onLoaded: (value: R) => Promise<void> | void,
+  ) {
     if (this.error) {
       throw this.error;
-    } else if (!this.value) {
-      throw this.load(config);
+    } else if (!defaultValue) {
+      throw this.load(config, onLoaded);
     } else {
-      return this.value;
+      return defaultValue; // this.value;
     }
   }
 
   // Clear stored value (this is only for test usage)
   clear() {
-    this.value = null;
+    // this.value = null;
     this.error = null;
   }
 }

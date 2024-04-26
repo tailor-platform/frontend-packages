@@ -42,7 +42,7 @@ export type LogoutParams = {
  * A hook that provides authorization functionality for clients
  */
 export const useAuth = () => {
-  const config = useTailorAuth();
+  const { config } = useTailorAuth();
 
   const refreshToken = async (
     refreshToken: string,
@@ -142,7 +142,7 @@ export const useAuth = () => {
  * Hook that provides utility functions for Tailor Platform-specific operations.
  */
 export const usePlatform = () => {
-  const config = useTailorAuth();
+  const { config, currentUser, updateCurrentUser } = useTailorAuth();
 
   return {
     /**
@@ -160,7 +160,13 @@ export const usePlatform = () => {
      * };
      * ```
      */
-    getCurrentUser: () => internalUserinfoLoader.getSuspense(config),
+    getCurrentUser: () => {
+      return internalUserinfoLoader.getSuspense(
+        config,
+        currentUser,
+        updateCurrentUser,
+      );
+    },
   };
 };
 
@@ -182,14 +188,18 @@ export const usePlatform = () => {
  * ```
  */
 export const useSession = (options?: SessionOption) => {
-  const config = useTailorAuth();
+  const { config, session, updateSession } = useTailorAuth();
 
   assertWindowIsAvailable();
 
-  const session = internalSessionLoader.getSuspense(config);
+  const loadedSession = internalSessionLoader.getSuspense(
+    config,
+    session,
+    updateSession,
+  );
   if (options?.required && !session?.token) {
     window.location.replace(config.appUrl(internalUnauthorizedPath));
   }
 
-  return { token: session.token };
+  return { token: loadedSession.token };
 };
