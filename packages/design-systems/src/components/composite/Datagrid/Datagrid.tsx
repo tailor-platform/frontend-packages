@@ -102,7 +102,6 @@ export const DataGrid = <TData extends Record<string, unknown>>(
       position: isHeader || isPinned ? "sticky" : "relative",
       opacity: isPinned ? 0.95 : 1,
       zIndex: isPinned ? 1 : 0,
-      backgroundColor: isHeader || isPinned ? "bg.default" : "inherit",
     };
   };
 
