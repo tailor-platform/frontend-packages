@@ -72,6 +72,7 @@ export const datagrid = defineSlotRecipe({
       zIndex: 0,
     },
     tableData: {
+      backgroundColor: "bg.default",
       borderLeft: "none",
       borderBottom: "none",
       borderWidth: "0.5px",
