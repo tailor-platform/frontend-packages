@@ -1,4 +1,8 @@
-import { Column as ColumnTanstak, flexRender } from "@tanstack/react-table";
+import {
+  Column as ColumnTanstak,
+  Header,
+  flexRender,
+} from "@tanstack/react-table";
 import {
   CSSProperties,
   DragEvent,
@@ -7,7 +11,6 @@ import {
   useState,
   ReactNode,
 } from "react";
-import { css } from "@tailor-platform/styled-system/css";
 import {
   datagrid,
   type DatagridVariantProps,
@@ -18,19 +21,18 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableHead,
   TableHeader,
   TableRow,
 } from "../../Table";
 import { HStack } from "../../patterns/HStack";
 import { Stack } from "../../patterns/Stack";
 import { HideShow } from "./ColumnFeature/HideShow";
-import { PinnedColumn } from "./ColumnFeature/PinnedColumn";
 import { CustomFilter } from "./SearchFilter/CustomFilter";
 import { Density } from "./Density/Density";
 import { Export } from "./Export/Export";
 import { ManualPagination, Pagination } from "./Pagination";
 import { Column, type DataGridInstance } from "./types";
+import { TableHead } from "./ColumnFeature/TableHead";
 
 type DataGridProps<TData extends Record<string, unknown>> = {
   table: DataGridInstance<TData>;
@@ -146,7 +148,6 @@ export const DataGrid = <TData extends Record<string, unknown>>(
             setHideShowOpen={table.setHideShowOpen}
           />
         )}
-
         {table.enableColumnFilters && (
           <CustomFilter
             columns={cusotmFilterFields}
@@ -189,63 +190,17 @@ export const DataGrid = <TData extends Record<string, unknown>>(
                 {headerGroup.headers.map((header) => (
                   <TableHead
                     key={header.id}
-                    colSpan={header.colSpan}
-                    className={datagridClasses.tableHead}
-                    style={{
-                      minWidth:
-                        header.id === "select" ? "54px" : header.getSize(), //First column with checkboxes
-                      ...getCommonPinningStyles(header.column, true),
-                      height: density === "sm" ? "auto" : "initial",
-                      paddingTop:
-                        density === "sm"
-                          ? "0.5rem"
-                          : density === "md"
-                            ? "1rem"
-                            : "1.5rem",
-                      paddingBottom:
-                        density === "sm"
-                          ? "0.5rem"
-                          : density === "md"
-                            ? "1rem"
-                            : "1.5rem",
-                    }}
-                    draggable={
-                      !table.getState().columnSizingInfo.isResizingColumn
-                    }
-                    data-column-index={header.index}
+                    header={header as Header<Record<string, unknown>, unknown>}
+                    table={table}
+                    columnPiningStyles={getCommonPinningStyles(
+                      header.column,
+                      true,
+                    )}
+                    size={size}
+                    localization={localization}
                     onDragStart={onDragStart}
-                    onDragOver={(e: DragEvent<HTMLDivElement>): void => {
-                      e.preventDefault();
-                    }}
                     onDrop={onDrop}
-                    data-testid={`datagrid-header-${header.id}`}
-                  >
-                    <div
-                      className={css({
-                        display: "flex",
-                        alignItems: "center",
-                      })}
-                    >
-                      {!header.isPlaceholder &&
-                        flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
-                      {header.column.getCanResize() && (
-                        <div
-                          onMouseDown={header.getResizeHandler()}
-                          onTouchStart={header.getResizeHandler()}
-                          className={datagridClasses.tableHeadDivider}
-                        ></div>
-                      )}
-                      {header.id !== "select" && (
-                        <PinnedColumn
-                          column={header.column}
-                          localization={localization}
-                        />
-                      )}
-                    </div>
-                  </TableHead>
+                  />
                 ))}
               </TableRow>
             ))}

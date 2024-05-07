@@ -11,6 +11,8 @@ export const datagrid = defineSlotRecipe({
     "tableBody",
     "tableData",
     "tableHeadDivider",
+    "sortingWrapper",
+    "sortingIcon",
   ],
   description: "An datagrid style",
   base: {
@@ -63,6 +65,7 @@ export const datagrid = defineSlotRecipe({
       _last: {
         borderRight: "none",
       },
+      _hover: {},
     },
     tableBody: {
       position: "relative",
