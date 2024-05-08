@@ -9,7 +9,7 @@ type InternalOptions = {
 type Options = DockerComposeOptions & InternalOptions;
 export const defaultDockerComposeOptions: Options = {
   // Specify "latest" here to use the latest minitailor image
-  minitailorImage: "2024.01.29-1",
+  minitailorImage: "latest",
   pullPolicy: "missing",
   profile: "app",
 };
@@ -37,6 +37,18 @@ services:
     profiles:
       - ${options.profile}
 
+  console:
+    image: asia-northeast1-docker.pkg.dev/tailor-professional-service/cmd/docker-console:latest
+    pull_policy: always
+    ports:
+      - 3030:3030
+    profiles:
+      - app
+    networks:
+      default:
+        aliases:
+          - desktop.tailor.tech
+
   minitailor:
     image: asia-northeast1-docker.pkg.dev/tailor-professional-service/cmd/minitailor:${options.minitailorImage}
     pull_policy: ${options.pullPolicy}
@@ -51,9 +63,15 @@ services:
       DB_HOST: db
       DB_PORT: 5432
       MONGO_URI: mongodb://mongodb:27017
+      MINITAILOR_LOG_FILE: STDOUT
       MINITAILOR_PORT: 8000
       APP_HTTP_SCHEMA: http
       PLATFORM_URL: http://mini.tailor.tech:18090
+      AUTH_PLATFORM_URL: http://mini.tailor.tech:18009/auth/platform
+    networks:
+      default:
+        aliases:
+          - mini.tailor.tech
     ports:
       - 8000:8000
       - 18009:18009
@@ -83,7 +101,7 @@ services:
       POSTGRES_PASSWORD: postgres
     command: postgres -c listen_addresses='*'
     ports:
-      - "35432:5432"
+      - 35432:5432
     profiles:
       - ${options.profile}
       - middleware
@@ -98,7 +116,7 @@ services:
     volumes:
       - mongodb:/data/db
     ports:
-      - "27017:27017"
+      - 27017:27017
     profiles:
       - ${options.profile}
       - middleware
