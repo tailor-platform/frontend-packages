@@ -65,6 +65,7 @@
     "eslint": "^8.55.0",
     "postcss-cli": "^11.0.0",
     "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3",
     "vite-tsconfig-paths": "^4.3.1",
