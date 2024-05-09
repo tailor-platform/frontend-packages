@@ -1,4 +1,3 @@
-// export type { SortingState } from "@tanstack/react-table";
 export { DataGrid } from "./Datagrid";
 export { useDataGrid } from "./useDataGrid";
 export type { DataGridInstance, UseDataGridProps, Order } from "./types";

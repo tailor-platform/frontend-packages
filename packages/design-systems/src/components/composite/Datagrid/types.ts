@@ -63,8 +63,6 @@ export type UseDataGridProps<TData> = {
   exportOptions?: ExportState;
   enableSorting?: boolean;
   onSortChange?: (sorting: Order | undefined) => void;
-  sorting?: SortingState;
-  setSorting?: React.Dispatch<React.SetStateAction<SortingState>>;
 };
 
 export type Column<TData> = {
