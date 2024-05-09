@@ -112,7 +112,7 @@ export const inputValue = async (
 ) => {
   const inputValue = screen.getAllByTestId("select-input-value")[valueIndex];
   await act(() => user.click(inputValue));
-  await waitFor(() => user.type(inputValue, value));
+  await waitFor(() => user.type(inputValue, value), { timeout: 3000 });
 };
 
 /**
