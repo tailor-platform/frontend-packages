@@ -12,7 +12,7 @@ const devOpts: Options =
 
 const commonOpts: Options = {
   format: ["cjs", "esm"],
-  external: ["react"],
+  external: ["react", "react-dom"],
   dts: true,
   clean: true,
   ...devOpts,
