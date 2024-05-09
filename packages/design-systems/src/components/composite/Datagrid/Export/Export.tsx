@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { mkConfig, generateCsv, download } from "export-to-csv";
 import { DownloadIcon } from "lucide-react";
 import { Table, TableFeature, makeStateUpdater } from "@tanstack/react-table";
+import { AcceptedData } from "export-to-csv/output/lib/types";
 import { addEventOutside } from "../addEventOutside";
 import type { ExportOptions, ExportProps, ExportTableState } from "./types";
 import { Box } from "@components/patterns/Box";
@@ -73,7 +74,7 @@ export const Export = (props: ExportProps) => {
 Export.displayName = "Export";
 
 type VisibleColumnRow = {
-  [key: string]: unknown;
+  [key: string]: AcceptedData;
 };
 
 export const ExportFeature: TableFeature = {
@@ -118,9 +119,11 @@ export const ExportFeature: TableFeature = {
         columns.forEach((column) => {
           const header = (column.columnDef?.header as string) || column.id;
           if ("accessorKey" in column.columnDef) {
-            visibleColumnRow[header] = original[column.columnDef.accessorKey];
+            visibleColumnRow[header] = original[
+              column.columnDef.accessorKey
+            ] as AcceptedData;
           } else {
-            visibleColumnRow[header] = original[column.id];
+            visibleColumnRow[header] = original[column.id] as AcceptedData;
           }
         });
         return visibleColumnRow;
