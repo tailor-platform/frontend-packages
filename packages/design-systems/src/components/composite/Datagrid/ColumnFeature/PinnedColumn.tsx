@@ -1,18 +1,24 @@
-import { useState, useRef, CSSProperties } from "react";
+import { useState, useRef, CSSProperties, useEffect } from "react";
 import { Box } from "@tailor-platform/styled-system/jsx";
 import type { Column } from "@tanstack/react-table";
 import { css } from "@tailor-platform/styled-system/css";
 import { MoreVertical as MoreVerticalIcon } from "lucide-react";
 import { createPortal } from "react-dom";
-import type { Localization } from "@locales/types";
 import { Button } from "../../../Button";
 import { addEventOutside } from "../addEventOutside";
+import type { Localization } from "@locales/types";
 
 const ModalPortal = ({ children }: { children: React.ReactNode }) => {
-  const el = document.getElementById("pinned-column-modal");
-  if (!el) {
-    return null;
-  }
+  const el = document.createElement("div");
+  el.id = "pinned-column-modal";
+  document.body.appendChild(el);
+
+  useEffect(() => {
+    return () => {
+      document.body.removeChild(el);
+    };
+  }, [el]);
+
   return createPortal(children, el);
 };
 
@@ -37,8 +43,8 @@ export const PinnedColumn = <TData extends Record<string, unknown>>({
       return {};
     }
     return {
-      top: Math.ceil(box.bottom),
-      left: Math.ceil(window.scrollX + box.left - 100), // adjustment to be exactly in the middle
+      top: Math.ceil(window.scrollY + box.bottom),
+      left: Math.ceil(window.scrollX + box.left - 100), // adjusted to display just below the MoreVerticalIcon
     };
   };
 
