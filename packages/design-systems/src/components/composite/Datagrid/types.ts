@@ -5,7 +5,6 @@ import type {
   OnChangeFn,
   PaginationState,
   RowSelectionState,
-  SortingState,
 } from "@tanstack/react-table";
 import type { Table, Updater } from "@tanstack/table-core/build/lib/types";
 import type { Localization } from "../../../locales/types";
