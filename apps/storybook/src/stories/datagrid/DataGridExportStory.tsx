@@ -31,6 +31,7 @@ export const DataGridExportStory = ({
       setFilterChange(filter, originData, setData);
     },
     exportOptions: { enableCsvExport },
+    exportRejectColumns: ["updatedAt"]
   });
 
   return (

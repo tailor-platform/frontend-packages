@@ -41,6 +41,7 @@ export const useDataGrid = <TData extends RowLike>({
   exportOptions = { enableCsvExport: false },
   enableSorting = false,
   onSortChange,
+  exportRejectColumns,
 }: UseDataGridProps<TData>): DataGridInstance<TData> => {
   const { pageIndex = 0, pageSize = 50 } = pagination || {};
   const [columnPinningState, setColumnPinningState] =
@@ -143,6 +144,7 @@ export const useDataGrid = <TData extends RowLike>({
     getSortedRowModel:
       enableSorting && !manualPagination ? getSortedRowModel() : undefined,
     sortDescFirst: true,
+    exportRejectColumns,
     ...sortingConfigs,
   });
 

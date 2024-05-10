@@ -10,7 +10,9 @@ export interface ExportTableState {
   exportOpen: boolean;
 }
 
-export interface ExportOptions {}
+export interface ExportOptions {
+  exportRejectColumns?: string[];
+}
 
 export interface ExportInstance {
   setExportOpen: (updater: Updater<boolean>) => void;
