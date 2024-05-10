@@ -146,6 +146,13 @@ export const FilterRow = <TData extends Record<string, unknown>>(
     return localization.filter.valuePlaceholder;
   }, [localization, selectedColumnObject]);
 
+  const inputType = useMemo(() => {
+    if (selectedColumnObject?.meta?.type === "dateTime") {
+      return "datetime-local";
+    }
+    return selectedColumnObject?.meta?.type || "text";
+  }, [selectedColumnObject?.meta?.type]);
+
   return (
     <Flex gridGap={2} marginTop={isFirstRow ? 0 : 4}>
       <IconButton
@@ -471,7 +478,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
                 onChangeValue(e.target.value);
               }}
               value={[currentFilter.value.toString()]}
-              type={selectedColumnObject?.meta?.type || "text"} //This input element is used for date, number and text type (for enum and boolean, we use select element above instead)
+              type={inputType} //This input element is used for date, dateTime, number and text type (for enum and boolean, we use select element above instead)
               maxLength={50}
             />
           </Box>

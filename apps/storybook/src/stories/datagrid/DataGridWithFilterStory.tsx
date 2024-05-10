@@ -23,7 +23,7 @@ export const DataGridWithFilterStory = ({
 }: DataGridWithFilterStoryProps) => {
   const [data, setData] = useState<Payment[]>(originData);
   const query: GraphQLQueryFilter = {
-    status: { eq: "pending" },
+    updatedAt: { eq: "2024-05-10 12:00:00" },
   };
   const defaultQuery: GraphQLQueryFilter = {
     amount: { gt: 200 },
