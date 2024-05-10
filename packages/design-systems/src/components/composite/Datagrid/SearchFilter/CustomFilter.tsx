@@ -401,6 +401,7 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
                 [condition]: date.toISOString(),
               },
             };
+            return;
           }
           if (value === "true" || value === "false") {
             graphQLQueryObject[jointCondition] = {
@@ -419,9 +420,14 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
       } else {
         //First row will not have joint condition
         if (typeof value === "string" && metaType === "dateTime") {
+          const date = dayjs(value);
+          if (!date.isValid()) {
+            throw new Error("Invalid date format.");
+          }
           graphQLQueryObject[column] = {
-            [condition]: new Date(value).toISOString(),
+            [condition]: date.toISOString(),
           };
+          return;
         }
         if (value === "true" || value === "false") {
           graphQLQueryObject[column] = {
