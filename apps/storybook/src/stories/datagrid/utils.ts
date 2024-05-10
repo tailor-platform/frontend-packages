@@ -258,6 +258,13 @@ export const setFilterChange = (
     case typeof filter?.amount?.lte !== "undefined":
       setData(data.filter((row) => row.amount <= Number(filter.amount.lte)));
       break;
+    case typeof filter?.updatedAt?.eq !== "undefined":
+      setData(
+        data.filter((row) => {
+          return row.updatedAt === filter.updatedAt.eq;
+        }),
+      );
+      break;
     default: {
       setData(data);
     }

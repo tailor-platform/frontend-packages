@@ -185,4 +185,13 @@ export const DATA: Payment[] = [
     isCreditCard: false,
     updatedAt: "2023-11-08 12:00:00",
   },
+  {
+    id: "8269362",
+    amount: 500,
+    status: "success",
+    email: "example3@example.com",
+    createdAt: "2023-11-08",
+    isCreditCard: false,
+    updatedAt: "2024-05-10 12:00:00",
+  },
 ];
