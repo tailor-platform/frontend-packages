@@ -14,5 +14,6 @@ export type Payment = {
   status: string;
   email: string;
   createdAt: string;
+  updatedAt: string;
   isCreditCard: boolean;
 };
