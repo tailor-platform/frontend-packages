@@ -12,6 +12,7 @@ import { radioGroup } from "./radio-group";
 import { segmentGroup } from "./segment-group";
 import { select } from "./select";
 import { slider } from "./slider";
+import { sorting } from "./sorting";
 import { switchRecipe } from "./switch";
 import { table } from "./table";
 import { tabs } from "./tabs";
@@ -34,6 +35,7 @@ export const slotRecipes = {
   segmentGroup,
   select,
   slider,
+  sorting,
   switchRecipe,
   table,
   tabs,

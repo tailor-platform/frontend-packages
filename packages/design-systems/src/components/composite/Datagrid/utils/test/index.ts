@@ -1,4 +1,5 @@
 import type { GraphQLQueryFilter } from "../../SearchFilter/types";
+import { Order } from "../../types";
 
 export type Payment = {
   id: string;
@@ -384,4 +385,49 @@ export const setFilterChange = (
       setData(data);
     }
   }
+};
+
+export const setSortChange = (
+  data: Payment[],
+  sorting: Order | undefined,
+): Payment[] => {
+  if (!sorting) return data;
+  return [...data].sort((a, b) => {
+    sorting.field;
+    switch (sorting.field) {
+      case "amount":
+        return sorting.direction === "Asc"
+          ? a.amount - b.amount
+          : b.amount - a.amount;
+      case "status":
+        return sorting.direction === "Asc"
+          ? a.status.localeCompare(b.status)
+          : b.status.localeCompare(a.status);
+      case "email":
+        return sorting.direction === "Asc"
+          ? a.email.localeCompare(b.email)
+          : b.email.localeCompare(a.email);
+      case "createdAt": {
+        const dateA = new Date(a.createdAt);
+        const dateB = new Date(b.createdAt);
+        return sorting.direction === "Asc"
+          ? dateA.getTime() - dateB.getTime()
+          : dateB.getTime() - dateA.getTime();
+      }
+      case "isCreditCard":
+        return sorting.direction === "Asc"
+          ? a.isCreditCard && !b.isCreditCard
+            ? 1
+            : !a.isCreditCard && b.isCreditCard
+              ? -1
+              : 0
+          : a.isCreditCard && !b.isCreditCard
+            ? -1
+            : !a.isCreditCard && b.isCreditCard
+              ? 1
+              : 0;
+      default:
+        return 0;
+    }
+  });
 };

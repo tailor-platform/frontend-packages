@@ -60,7 +60,8 @@ export const PinnedColumn = <TData extends Record<string, unknown>>({
           className={css({
             cursor: "pointer",
           })}
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
             setIsOpenedPinnedColumnModal(!isOpenedPinnedColumnModal);
             addEventOutside(
               modalRef,

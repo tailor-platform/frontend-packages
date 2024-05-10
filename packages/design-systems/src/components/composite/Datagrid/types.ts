@@ -29,6 +29,8 @@ export interface DataGridInstance<
   columns: ColumnDef<TData>[];
   pageSizeOptions?: number[];
   enableDensity?: boolean;
+  enableSorting?: boolean;
+  onSortChange?: (sorting: Order | undefined) => void;
 }
 
 export type UseDataGridProps<TData> = {
@@ -58,6 +60,8 @@ export type UseDataGridProps<TData> = {
   pageSizeOptions?: number[];
   enableDensity?: boolean;
   exportOptions?: ExportState;
+  enableSorting?: boolean;
+  onSortChange?: (sorting: Order | undefined) => void;
 };
 
 export type Column<TData> = {
@@ -66,4 +70,9 @@ export type Column<TData> = {
   accessorKey: string;
   disabled?: boolean;
   meta?: ColumnMeta<TData, unknown>;
+};
+
+export type Order = {
+  field: string;
+  direction: "Asc" | "Desc";
 };
