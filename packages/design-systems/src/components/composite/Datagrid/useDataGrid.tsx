@@ -88,26 +88,29 @@ export const useDataGrid = <TData extends RowLike>({
         size: 54,
       });
   }
-  const state = manualPagination
+  const { state, sortingConfigs } = manualPagination
     ? {
-        columnVisibility,
-        columnPinning: columnPinningState,
-        rowSelection: enableRowSelection ? rowSelection : {},
-        exportOptions,
-        sorting: sorting,
+        state: {
+          columnVisibility,
+          columnPinning: columnPinningState,
+          rowSelection: enableRowSelection ? rowSelection : {},
+          exportOptions,
+          sorting: sorting,
+        },
+        sortingConfigs: {
+          manualSorting: manualPagination,
+          onSortingChange: setSorting,
+        },
       }
     : {
-        columnVisibility,
-        columnPinning: columnPinningState,
-        rowSelection: enableRowSelection ? rowSelection : {},
-        exportOptions,
+        state: {
+          columnVisibility,
+          columnPinning: columnPinningState,
+          rowSelection: enableRowSelection ? rowSelection : {},
+          exportOptions,
+        },
+        sortingConfigs: {},
       };
-  const sortingConfigs = manualPagination
-    ? {
-        manualSorting: manualPagination,
-        onSortingChange: setSorting,
-      }
-    : {};
 
   const reactTableInstance = useReactTable({
     _features: [
