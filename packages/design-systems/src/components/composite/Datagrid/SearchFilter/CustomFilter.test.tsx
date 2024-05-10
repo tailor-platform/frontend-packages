@@ -102,6 +102,15 @@ const columns: Column<Payment>[] = [
     },
     disabled: false,
   },
+  {
+    accessorKey: "updatedAt",
+    label: "UpdatedAt",
+    value: "UpdatedAt",
+    meta: {
+      type: "dateTime",
+    },
+    disabled: false,
+  },
 ];
 
 const columnDefs: ColumnDef<Payment>[] = [
@@ -1107,12 +1116,12 @@ describe(
         await user.click(selectColumnButton);
       });
 
-      const createdAtOption = screen.getByRole("option", { name: "UpdatedAt" });
-      expect(createdAtOption).toBeVisible();
+      const updatedAtOption = screen.getByRole("option", { name: "UpdatedAt" });
+      expect(updatedAtOption).toBeVisible();
       await act(async () => {
-        await user.click(createdAtOption);
+        await user.click(updatedAtOption);
       });
-      expect(createdAtOption).not.toBeVisible();
+      expect(updatedAtOption).not.toBeVisible();
       expect(selectColumn).toHaveTextContent("UpdatedAt");
 
       //Select condition
