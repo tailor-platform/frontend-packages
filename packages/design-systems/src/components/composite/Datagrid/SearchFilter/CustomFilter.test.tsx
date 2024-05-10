@@ -1164,7 +1164,7 @@ describe(
         await user.click(inputValue);
         await user.type(inputValue, "2023-11-14 23:00");
       });
-      expect(inputValue).toHaveValue("2023-11-14 23:00");
+      expect(inputValue).toHaveValue("2023-11-14T23:00");
 
       //Check filters
       await waitFor(() => {
