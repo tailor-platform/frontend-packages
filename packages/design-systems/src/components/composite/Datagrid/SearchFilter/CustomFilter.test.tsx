@@ -1161,7 +1161,7 @@ describe(
       await waitFor(() => {
         //Wait for the useEffect to update the filters
         expect(currentFilters).toEqual(
-          { createdAt: { lte: "2023-11-14" } }, //Returned dateTime is in toISOString
+          { updatedAt: { lte: "2023-11-14T14:00:00.000Z" } }, //Returned dateTime is in toISOString
         );
       });
     });
