@@ -62,7 +62,6 @@ export type UseDataGridProps<TData> = {
   exportOptions?: ExportState;
   enableSorting?: boolean;
   onSortChange?: (sorting: Order | undefined) => void;
-  exportRejectColumns?: string[];
 };
 
 export type Column<TData> = {

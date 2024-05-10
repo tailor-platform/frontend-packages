@@ -88,7 +88,10 @@ export const ExportFeature: TableFeature = {
   },
   getDefaultOptions: (): ExportOptions => {
     return {
-      exportRejectColumns: [],
+      exportOptions: {
+        enableCsvExport: false,
+        omit: [],
+      },
     } as ExportOptions;
   },
 
@@ -104,7 +107,7 @@ export const ExportFeature: TableFeature = {
       return false;
     };
     table.exportCsv = () => {
-      const reject = table.options.exportRejectColumns;
+      const reject = table.options.exportOptions?.omit;
       const csvConfig = mkConfig({
         fieldSeparator: ",",
         filename: "sample", // export file name (without .csv)

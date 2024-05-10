@@ -3,6 +3,7 @@ import type { Localization } from "..";
 
 export type ExportState = {
   enableCsvExport?: boolean;
+  omit?: string[];
 };
 
 export interface ExportTableState {
@@ -11,7 +12,7 @@ export interface ExportTableState {
 }
 
 export interface ExportOptions {
-  exportRejectColumns?: string[];
+  exportOptions: ExportState;
 }
 
 export interface ExportInstance {
