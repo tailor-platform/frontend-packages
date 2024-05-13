@@ -77,7 +77,7 @@ export type Column<TData> = {
   value: string;
   accessorKey: string;
   disabled?: boolean;
-  meta?: ColumnMeta<TData, unknown, MetaType>;
+  meta?: ColumnMeta<TData, unknown>;
 };
 
 export type Order = {

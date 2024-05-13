@@ -21,8 +21,8 @@ import type {
 } from "./ColumnFeature/types";
 
 declare module "@tanstack/react-table" {
-  interface ColumnMeta<T> {
-    type: T;
+  interface ColumnMeta {
+    type: string;
     enumType?: Record<string, string>;
   }
   interface TableState
