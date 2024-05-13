@@ -63,7 +63,6 @@ services:
       DB_HOST: db
       DB_PORT: 5432
       MONGO_URI: mongodb://mongodb:27017
-      MINITAILOR_LOG_FILE: STDOUT
       MINITAILOR_PORT: 8000
       APP_HTTP_SCHEMA: http
       PLATFORM_URL: http://mini.tailor.tech:18090
