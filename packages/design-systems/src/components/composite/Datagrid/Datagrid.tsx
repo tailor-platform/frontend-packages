@@ -137,12 +137,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
         {table.enableHiding && (
           <HideShow
             allColumnsHandler={table.getToggleAllColumnsVisibilityHandler}
-            columns={
-              table.getAllLeafColumns() as ColumnTanstak<
-                Record<string, unknown>,
-                unknown
-              >[]
-            }
+            columns={table.getAllLeafColumns()}
             localization={localization}
             hideShowOpen={hideShowOpen}
             setHideShowOpen={table.setHideShowOpen}

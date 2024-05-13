@@ -33,7 +33,7 @@ export interface DataGridInstance<
   onSortChange?: (sorting: Order | undefined) => void;
 }
 
-export type UseDataGridProps<TData> = {
+export type UseDataGridProps<TData extends Record<string, unknown>> = {
   data: TData[];
   columns: ColumnDef<TData>[];
   enablePagination?: boolean;
@@ -59,7 +59,7 @@ export type UseDataGridProps<TData> = {
   setColumnPinning?: (updater: Updater<ColumnPinningState>) => void;
   pageSizeOptions?: number[];
   enableDensity?: boolean;
-  exportOptions?: ExportState;
+  exportOptions?: ExportState<TData>;
   enableSorting?: boolean;
   onSortChange?: (sorting: Order | undefined) => void;
 };
