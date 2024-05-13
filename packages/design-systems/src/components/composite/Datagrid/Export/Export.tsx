@@ -109,7 +109,6 @@ export const ExportFeature: TableFeature = {
   createTable: <TData extends Record<string, unknown>>(
     table: Table<TData>,
   ): void => {
-    table.initialState;
     table.setExportOpen = makeStateUpdater("exportOpen", table);
     table.getEnableExport = () => {
       const exportOptions = table.getState().exportOptions;
@@ -119,7 +118,7 @@ export const ExportFeature: TableFeature = {
       return false;
     };
     table.exportCsv = () => {
-      const reject = table.getState().exportOptions?.omit;
+      const omit = table.getState().exportOptions?.omit;
       const csvConfig = mkConfig({
         fieldSeparator: ",",
         filename: "sample", // export file name (without .csv)
@@ -132,7 +131,7 @@ export const ExportFeature: TableFeature = {
         const original = row.original;
         const visibleColumnRow: VisibleColumnRow = {};
         columns.forEach((column) => {
-          if (reject?.includes(column.id)) return;
+          if (omit?.includes(column.id)) return;
           const header = (column.columnDef?.header as string) || column.id;
           if ("accessorKey" in column.columnDef) {
             visibleColumnRow[header] = original[column.columnDef.accessorKey];
