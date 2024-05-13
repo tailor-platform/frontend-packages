@@ -423,15 +423,6 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
             if (!date.isValid()) {
               throw new Error("Invalid date format.");
             }
-            console.log("------date.toISOString()", date.toISOString());
-            console.log(
-              "------date.toISOString()",
-              new Date(value).getTimezoneOffset(),
-            );
-            console.log(
-              "------date.toISOString()",
-              new Date(value).toISOString(),
-            );
             graphQLQueryObject[key] = generateGraphQLQueryObject(
               isExitJointCondition,
               new Date(value).toISOString(),
