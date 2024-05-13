@@ -425,7 +425,7 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
             }
             graphQLQueryObject[key] = generateGraphQLQueryObject(
               isExitJointCondition,
-              date.toISOString(),
+              new Date(value).toISOString(),
             );
             break;
           }
