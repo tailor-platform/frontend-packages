@@ -5,7 +5,7 @@ import { Portal } from "@ark-ui/react/portal";
 import { styled } from "@tailor-platform/styled-system/jsx";
 import { select } from "@tailor-platform/styled-system/recipes";
 import { ColumnMeta } from "@tanstack/table-core";
-import type { Column } from "../types";
+import type { Column, MetaType } from "../types";
 import { Box } from "../../../patterns/Box";
 import { Flex } from "../../../patterns/Flex";
 import { IconButton } from "../../../IconButton";
@@ -39,7 +39,7 @@ const Select = {
 type FilterRowProps<TData> = {
   columns: Array<Column<TData>>;
   onDelete: () => void;
-  meta?: ColumnMeta<TData, unknown>;
+  meta?: ColumnMeta<TData, unknown, MetaType>;
   onChange: (currentState: FilterRowState) => void;
   localization: Localization;
   isFirstRow: boolean;

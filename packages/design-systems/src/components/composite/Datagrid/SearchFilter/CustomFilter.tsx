@@ -6,11 +6,12 @@ import {
   makeStateUpdater,
 } from "@tanstack/react-table";
 import { FilterIcon } from "lucide-react";
+import dayjs from "dayjs";
 import { addEventOutside } from "../addEventOutside";
 import { Box } from "../../../patterns/Box";
 import { Button } from "../../../Button";
 import type { Localization } from "..";
-import type { Column } from "../types";
+import type { Column, MetaType } from "../types";
 import type {
   CustomFilterOptions,
   CustomFilterProps,
@@ -376,40 +377,83 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
       }
   */
   const addToGraphQLQueryFilterRecursively = useCallback(
-    (filter: FilterRowState, graphQLQueryObject: GraphQLQueryFilter) => {
+    (
+      filter: FilterRowState,
+      graphQLQueryObject: GraphQLQueryFilter,
+      metaType: MetaType | undefined,
+    ) => {
       const { column, condition, value, jointCondition } = filter;
+
+      const generateGraphQLQueryObject = (
+        isExitJointCondition: boolean,
+        value: string | boolean,
+      ) => {
+        if (isExitJointCondition) {
+          return {
+            [column]: {
+              [condition]: value,
+            },
+          };
+        }
+        return {
+          [condition]: value,
+        };
+      };
+
+      const assignValueToQueryObject = (
+        key: string,
+        isExitJointCondition: boolean,
+      ) => {
+        if (typeof value === "boolean") {
+          graphQLQueryObject[key] = generateGraphQLQueryObject(
+            isExitJointCondition,
+            value,
+          );
+          return;
+        }
+        switch (metaType) {
+          case "boolean":
+            graphQLQueryObject[key] = generateGraphQLQueryObject(
+              isExitJointCondition,
+              value.toLowerCase() === "true",
+            );
+            break;
+          case "dateTime": {
+            const date = dayjs(value);
+            if (!date.isValid()) {
+              throw new Error("Invalid date format.");
+            }
+            graphQLQueryObject[key] = generateGraphQLQueryObject(
+              isExitJointCondition,
+              date.toISOString(),
+            );
+            break;
+          }
+          case "enum":
+          case "string":
+          case "number":
+          default:
+            graphQLQueryObject[key] = generateGraphQLQueryObject(
+              isExitJointCondition,
+              value,
+            );
+            break;
+        }
+      };
+
       if (jointCondition) {
         if (graphQLQueryObject[jointCondition]) {
           addToGraphQLQueryFilterRecursively(
             filter,
             graphQLQueryObject[jointCondition] as GraphQLQueryFilter,
+            metaType,
           );
         } else {
-          if (value === "true" || value === "false") {
-            graphQLQueryObject[jointCondition] = {
-              [column]: {
-                [condition]: value.toLowerCase() === "true",
-              },
-            };
-          } else {
-            graphQLQueryObject[jointCondition] = {
-              [column]: {
-                [condition]: value,
-              },
-            };
-          }
+          assignValueToQueryObject(jointCondition, true);
         }
       } else {
         //First row will not have joint condition
-        if (value === "true" || value === "false") {
-          graphQLQueryObject[column] = {
-            [condition]: value.toLowerCase() === "true",
-          };
-        } else {
-          graphQLQueryObject[column] = {
-            [condition]: value,
-          };
-        }
+        assignValueToQueryObject(column, false);
       }
     },
     [],
@@ -424,6 +468,8 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
     filterRows.forEach((row) => {
       if (row.currentState) {
         const { column, condition, value } = row.currentState;
+        const metaType = columns.find((c) => c.accessorKey === column)?.meta
+          ?.type;
         const isExistCurrentState: boolean =
           (!!column && !!condition && !!value) ||
           (typeof value === "boolean" && value === false);
@@ -431,11 +477,13 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
           addToGraphQLQueryFilterRecursively(
             row.currentState,
             newFilterRowsState,
+            metaType,
           );
         }
       }
     });
     setFilterRowsState(newFilterRowsState);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addToGraphQLQueryFilterRecursively, filterRows]);
 
   return (

@@ -64,12 +64,20 @@ export type UseDataGridProps<TData> = {
   onSortChange?: (sorting: Order | undefined) => void;
 };
 
+export type MetaType =
+  | "enum"
+  | "date"
+  | "number"
+  | "string"
+  | "boolean"
+  | "dateTime";
+
 export type Column<TData> = {
   label: string;
   value: string;
   accessorKey: string;
   disabled?: boolean;
-  meta?: ColumnMeta<TData, unknown>;
+  meta?: ColumnMeta<TData, unknown, MetaType>;
 };
 
 export type Order = {
