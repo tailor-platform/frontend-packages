@@ -1,7 +1,12 @@
 import { useRef } from "react";
 import { mkConfig, generateCsv, download } from "export-to-csv";
 import { DownloadIcon } from "lucide-react";
-import { Table, TableFeature, makeStateUpdater } from "@tanstack/react-table";
+import {
+  InitialTableState,
+  Table,
+  TableFeature,
+  makeStateUpdater,
+} from "@tanstack/react-table";
 import { addEventOutside } from "../addEventOutside";
 import type { ExportOptions, ExportProps, ExportTableState } from "./types";
 import { Box } from "@components/patterns/Box";
@@ -9,7 +14,9 @@ import { HStack } from "@components/patterns/HStack";
 import { Button } from "@components/Button";
 import { Text } from "@components/Text";
 
-export const Export = (props: ExportProps) => {
+export const Export = <TData extends Record<string, string>>(
+  props: ExportProps<TData>,
+) => {
   const { exportOptions, localization, exportCsv, exportOpen, setExportOpen } =
     props;
 
@@ -77,27 +84,33 @@ type VisibleColumnRow = {
 };
 
 export const ExportFeature: TableFeature = {
-  getInitialState: (state): ExportTableState => {
+  getInitialState: <TData extends Record<string, string>>(
+    state: InitialTableState | undefined,
+  ): ExportTableState<TData> => {
     return {
       exportOptions: {
         enableCsvExport: false,
+        omit: undefined,
       },
       exportOpen: false,
       ...state,
     };
   },
-  getDefaultOptions: (): ExportOptions => {
+  getDefaultOptions: <
+    TData extends Record<string, string>,
+  >(): ExportOptions<TData> => {
     return {
       exportOptions: {
         enableCsvExport: false,
-        omit: [],
+        omit: undefined,
       },
-    } as ExportOptions;
+    } as ExportOptions<TData>;
   },
 
   createTable: <TData extends Record<string, unknown>>(
     table: Table<TData>,
   ): void => {
+    table.initialState;
     table.setExportOpen = makeStateUpdater("exportOpen", table);
     table.getEnableExport = () => {
       const exportOptions = table.getState().exportOptions;
@@ -107,7 +120,7 @@ export const ExportFeature: TableFeature = {
       return false;
     };
     table.exportCsv = () => {
-      const reject = table.options.exportOptions?.omit;
+      const reject = table.getState().exportOptions?.omit;
       const csvConfig = mkConfig({
         fieldSeparator: ",",
         filename: "sample", // export file name (without .csv)

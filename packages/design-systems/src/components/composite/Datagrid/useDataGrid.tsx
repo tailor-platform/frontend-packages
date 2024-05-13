@@ -38,7 +38,7 @@ export const useDataGrid = <TData extends RowLike>({
   rowSelection,
   pageSizeOptions = [],
   enableDensity = false,
-  exportOptions = { enableCsvExport: false, omit: [] },
+  exportOptions = { enableCsvExport: false, omit: undefined },
   enableSorting = false,
   onSortChange,
 }: UseDataGridProps<TData>): DataGridInstance<TData> => {
