@@ -384,45 +384,59 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
     ) => {
       const { column, condition, value, jointCondition } = filter;
 
-      const assignValueToQueryObject = (key: string) => {
-        if (typeof value === "boolean") {
-          graphQLQueryObject[key] = {
+      const generateGraphQLQueryObject = (
+        isExitJointCondition: boolean,
+        value: string | boolean,
+      ) => {
+        if (isExitJointCondition) {
+          return {
             [column]: {
               [condition]: value,
             },
           };
+        }
+        return {
+          [condition]: value,
+        };
+      };
+
+      const assignValueToQueryObject = (
+        key: string,
+        isExitJointCondition: boolean,
+      ) => {
+        if (typeof value === "boolean") {
+          graphQLQueryObject[key] = generateGraphQLQueryObject(
+            isExitJointCondition,
+            value,
+          );
           return;
         }
         switch (metaType) {
           case "boolean":
-            graphQLQueryObject[key] = {
-              [column]: {
-                [condition]: value.toLowerCase() === "true",
-              },
-            };
+            graphQLQueryObject[key] = generateGraphQLQueryObject(
+              isExitJointCondition,
+              value.toLowerCase() === "true",
+            );
             break;
           case "dateTime": {
             const date = dayjs(value);
             if (!date.isValid()) {
               throw new Error("Invalid date format.");
             }
-            graphQLQueryObject[key] = {
-              [column]: {
-                [condition]: date.toISOString(),
-              },
-            };
+            graphQLQueryObject[key] = generateGraphQLQueryObject(
+              isExitJointCondition,
+              date.toISOString(),
+            );
             break;
           }
           case "enum":
-          case "date":
-          case "number":
           case "string":
+          case "number":
           default:
-            graphQLQueryObject[key] = {
-              [column]: {
-                [condition]: value,
-              },
-            };
+            graphQLQueryObject[key] = generateGraphQLQueryObject(
+              isExitJointCondition,
+              value,
+            );
             break;
         }
       };
@@ -435,11 +449,11 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
             metaType,
           );
         } else {
-          assignValueToQueryObject(jointCondition);
+          assignValueToQueryObject(jointCondition, true);
         }
       } else {
         //First row will not have joint condition
-        assignValueToQueryObject(column);
+        assignValueToQueryObject(column, false);
       }
     },
     [],
