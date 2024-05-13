@@ -10,7 +10,7 @@ import {
 import { Checkbox } from "../../Checkbox";
 import { type DataGridInstance, type UseDataGridProps } from "./types";
 import { DensityFeature } from "./Density/Density";
-import { ExportFeature } from "./Export/Export";
+import { ExportFeature, defaultExportOptions } from "./Export/Export";
 import { HideShowFeature } from "./ColumnFeature/HideShow";
 import { CustomFilterFeature } from "./SearchFilter/CustomFilter";
 
@@ -38,7 +38,7 @@ export const useDataGrid = <TData extends RowLike>({
   rowSelection,
   pageSizeOptions = [],
   enableDensity = false,
-  exportOptions = { enableCsvExport: false, omit: undefined },
+  exportOptions = defaultExportOptions,
   enableSorting = false,
   onSortChange,
 }: UseDataGridProps<TData>): DataGridInstance<TData> => {

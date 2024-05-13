@@ -83,15 +83,17 @@ type VisibleColumnRow = {
   [key: string]: unknown;
 };
 
+export const defaultExportOptions = {
+  enableCsvExport: false,
+  omit: undefined,
+};
+
 export const ExportFeature: TableFeature = {
   getInitialState: <TData extends Record<string, string>>(
     state: InitialTableState | undefined,
   ): ExportTableState<TData> => {
     return {
-      exportOptions: {
-        enableCsvExport: false,
-        omit: undefined,
-      },
+      exportOptions: defaultExportOptions,
       exportOpen: false,
       ...state,
     };
@@ -100,10 +102,7 @@ export const ExportFeature: TableFeature = {
     TData extends Record<string, string>,
   >(): ExportOptions<TData> => {
     return {
-      exportOptions: {
-        enableCsvExport: false,
-        omit: undefined,
-      },
+      exportOptions: defaultExportOptions,
     } as ExportOptions<TData>;
   },
 
