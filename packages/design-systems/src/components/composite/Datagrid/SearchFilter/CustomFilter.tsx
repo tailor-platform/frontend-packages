@@ -11,7 +11,7 @@ import { addEventOutside } from "../addEventOutside";
 import { Box } from "../../../patterns/Box";
 import { Button } from "../../../Button";
 import type { Localization } from "..";
-import type { Column } from "../types";
+import type { Column, MetaType } from "../types";
 import type {
   CustomFilterOptions,
   CustomFilterProps,
@@ -380,9 +380,53 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
     (
       filter: FilterRowState,
       graphQLQueryObject: GraphQLQueryFilter,
-      metaType: string | undefined,
+      metaType: MetaType | undefined,
     ) => {
       const { column, condition, value, jointCondition } = filter;
+
+      const assignValueToQueryObject = (key: string) => {
+        if (typeof value === "boolean") {
+          graphQLQueryObject[key] = {
+            [column]: {
+              [condition]: value,
+            },
+          };
+          return;
+        }
+        switch (metaType) {
+          case "boolean":
+            graphQLQueryObject[key] = {
+              [column]: {
+                [condition]: value.toLowerCase() === "true",
+              },
+            };
+            break;
+          case "dateTime": {
+            const date = dayjs(value);
+            if (!date.isValid()) {
+              throw new Error("Invalid date format.");
+            }
+            graphQLQueryObject[key] = {
+              [column]: {
+                [condition]: date.toISOString(),
+              },
+            };
+            break;
+          }
+          case "enum":
+          case "date":
+          case "number":
+          case "string":
+          default:
+            graphQLQueryObject[key] = {
+              [column]: {
+                [condition]: value,
+              },
+            };
+            break;
+        }
+      };
+
       if (jointCondition) {
         if (graphQLQueryObject[jointCondition]) {
           addToGraphQLQueryFilterRecursively(
@@ -391,53 +435,11 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
             metaType,
           );
         } else {
-          if (typeof value === "string" && metaType === "dateTime") {
-            const date = dayjs(value);
-            if (!date.isValid()) {
-              throw new Error("Invalid date format.");
-            }
-            graphQLQueryObject[jointCondition] = {
-              [column]: {
-                [condition]: date.toISOString(),
-              },
-            };
-            return;
-          }
-          if (value === "true" || value === "false") {
-            graphQLQueryObject[jointCondition] = {
-              [column]: {
-                [condition]: value.toLowerCase() === "true",
-              },
-            };
-          } else {
-            graphQLQueryObject[jointCondition] = {
-              [column]: {
-                [condition]: value,
-              },
-            };
-          }
+          assignValueToQueryObject(jointCondition);
         }
       } else {
         //First row will not have joint condition
-        if (typeof value === "string" && metaType === "dateTime") {
-          const date = dayjs(value);
-          if (!date.isValid()) {
-            throw new Error("Invalid date format.");
-          }
-          graphQLQueryObject[column] = {
-            [condition]: date.toISOString(),
-          };
-          return;
-        }
-        if (value === "true" || value === "false") {
-          graphQLQueryObject[column] = {
-            [condition]: value.toLowerCase() === "true",
-          };
-        } else {
-          graphQLQueryObject[column] = {
-            [condition]: value,
-          };
-        }
+        assignValueToQueryObject(column);
       }
     },
     [],
