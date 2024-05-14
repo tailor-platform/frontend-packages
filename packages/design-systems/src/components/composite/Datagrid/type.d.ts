@@ -1,4 +1,5 @@
 import "@tanstack/react-table";
+import type { MetaType } from "../Datagrid/types";
 import {
   CustomFilterTableState,
   CustomFilterOptions,
@@ -22,7 +23,7 @@ import type {
 
 declare module "@tanstack/react-table" {
   interface ColumnMeta {
-    type: string;
+    type: MetaType;
     enumType?: Record<string, string>;
   }
   interface TableState

@@ -102,6 +102,15 @@ const columns: Column<Payment>[] = [
     },
     disabled: false,
   },
+  {
+    accessorKey: "updatedAt",
+    label: "UpdatedAt",
+    value: "UpdatedAt",
+    meta: {
+      type: "dateTime",
+    },
+    disabled: false,
+  },
 ];
 
 const columnDefs: ColumnDef<Payment>[] = [
@@ -477,7 +486,7 @@ describe(
       expect(inputValue).toHaveValue(800);
 
       // Check filters
-      expect(currentFilters).toEqual({ amount: { eq: "800" } });
+      expect(currentFilters).toEqual({ amount: { eq: 800 } });
     });
 
     it("Renders Date type correctly", async () => {
@@ -745,7 +754,7 @@ describe(
               and: {
                 email: { eq: "test@test.com" },
                 and: {
-                  amount: { gte: "800" },
+                  amount: { gte: 800 },
                 },
               },
             },
@@ -844,7 +853,7 @@ describe(
               or: {
                 email: { eq: "test@test.com" },
                 or: {
-                  amount: { gte: "800" },
+                  amount: { gte: 800 },
                 },
               },
             },
@@ -1081,6 +1090,88 @@ describe(
       // Number of data displayed is 4 items
       await waitFor(() => {
         expect(screen.getAllByTestId("datagrid-row")).toHaveLength(4);
+      });
+    });
+    it("dateTime filter convert correctly toISOString", async () => {
+      let currentFilters: GraphQLQueryFilter = {};
+
+      render(
+        <CustomFilter
+          columns={columns}
+          onChange={(currentState: GraphQLQueryFilter) => {
+            currentFilters = currentState;
+          }}
+          localization={LOCALIZATION_JA}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
+        />,
+      );
+
+      const user = userEvent.setup();
+
+      //Select column
+      const selectColumn = screen.getByTestId("select-column");
+      const selectColumnButton = within(selectColumn).getByRole("button");
+      await act(async () => {
+        await user.click(selectColumnButton);
+      });
+
+      const createdAtOption = screen.getByRole("option", { name: "UpdatedAt" });
+      expect(createdAtOption).toBeVisible();
+      await act(async () => {
+        await user.click(createdAtOption);
+      });
+      expect(createdAtOption).not.toBeVisible();
+      expect(selectColumn).toHaveTextContent("UpdatedAt");
+
+      //Select condition
+      const selectCondition = screen.getByTestId("select-condition");
+      const selectConditionOptions = screen.getByTestId(
+        "select-condition-options",
+      );
+      const selectConditionButton = within(selectCondition).getByRole("button");
+      await act(async () => {
+        await user.click(selectConditionButton);
+      });
+
+      const lteConditionOption = within(selectConditionOptions).getByText(
+        "以下",
+      );
+      expect(lteConditionOption).toBeVisible();
+      expect(
+        within(selectConditionOptions).getByText("に等しい"),
+      ).toBeVisible();
+      expect(
+        within(selectConditionOptions).getByText("より大きい"),
+      ).toBeVisible();
+      expect(
+        within(selectConditionOptions).getByText("より小さい"),
+      ).toBeVisible();
+      expect(within(selectConditionOptions).getByText("以上")).toBeVisible();
+
+      expect(within(selectConditionOptions).queryByText("を含む")).toBeNull();
+
+      await act(async () => {
+        await user.click(lteConditionOption);
+      });
+
+      expect(lteConditionOption).not.toBeVisible();
+      expect(selectCondition).toHaveTextContent("以下");
+
+      //Input value
+      const inputValue = screen.getByTestId("select-input-value");
+      await act(async () => {
+        await user.click(inputValue);
+        await user.type(inputValue, "2023-11-14 23:00");
+      });
+      expect(inputValue).toHaveValue("2023-11-14T23:00");
+
+      //Check filters
+      await waitFor(() => {
+        //Wait for the useEffect to update the filters
+        expect(currentFilters).toEqual(
+          { updatedAt: { lte: "2023-11-14T14:00:00.000Z" } }, //Returned dateTime is in toISOString
+        );
       });
     });
   },

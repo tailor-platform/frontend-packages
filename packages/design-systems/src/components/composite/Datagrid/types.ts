@@ -64,6 +64,14 @@ export type UseDataGridProps<TData extends Record<string, unknown>> = {
   onSortChange?: (sorting: Order | undefined) => void;
 };
 
+export type MetaType =
+  | "enum"
+  | "date"
+  | "number"
+  | "string"
+  | "boolean"
+  | "dateTime";
+
 export type Column<TData> = {
   label: string;
   value: string;
