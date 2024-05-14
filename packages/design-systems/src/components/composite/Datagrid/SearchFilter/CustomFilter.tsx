@@ -474,7 +474,7 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
       if (row.currentState) {
         const { column, condition, value } = row.currentState;
         const metaType = columns.find((c) => c.accessorKey === column)?.meta
-          ?.type as MetaType | undefined;
+          ?.type;
         const isExistCurrentState: boolean =
           (!!column && !!condition && !!value) ||
           (typeof value === "boolean" && value === false);
