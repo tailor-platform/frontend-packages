@@ -30,7 +30,7 @@ export const DataGridExportStory = ({
     onFilterChange: (filter) => {
       setFilterChange(filter, originData, setData);
     },
-    exportOptions: { enableCsvExport },
+    exportOptions: { enableCsvExport, omit: ["updatedAt"] },
   });
 
   return (
