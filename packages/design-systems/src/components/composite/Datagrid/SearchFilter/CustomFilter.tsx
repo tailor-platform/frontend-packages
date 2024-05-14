@@ -386,7 +386,7 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
 
       const generateGraphQLQueryObject = (
         isExitJointCondition: boolean,
-        value: string | boolean,
+        value: string | boolean | number,
       ) => {
         if (isExitJointCondition) {
           return {
@@ -429,9 +429,14 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
             );
             break;
           }
+          case "number":
+            graphQLQueryObject[key] = generateGraphQLQueryObject(
+              isExitJointCondition,
+              Number(value),
+            );
+            break;
           case "enum":
           case "string":
-          case "number":
           default:
             graphQLQueryObject[key] = generateGraphQLQueryObject(
               isExitJointCondition,

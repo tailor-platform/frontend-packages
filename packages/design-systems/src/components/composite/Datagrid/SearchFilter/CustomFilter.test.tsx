@@ -486,7 +486,7 @@ describe(
       expect(inputValue).toHaveValue(800);
 
       // Check filters
-      expect(currentFilters).toEqual({ amount: { eq: "800" } });
+      expect(currentFilters).toEqual({ amount: { eq: 800 } });
     });
 
     it("Renders Date type correctly", async () => {
@@ -754,7 +754,7 @@ describe(
               and: {
                 email: { eq: "test@test.com" },
                 and: {
-                  amount: { gte: "800" },
+                  amount: { gte: 800 },
                 },
               },
             },
@@ -853,7 +853,7 @@ describe(
               or: {
                 email: { eq: "test@test.com" },
                 or: {
-                  amount: { gte: "800" },
+                  amount: { gte: 800 },
                 },
               },
             },
