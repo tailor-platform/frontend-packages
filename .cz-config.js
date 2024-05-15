@@ -20,6 +20,7 @@ module.exports = {
     { name: "storybook" },
     { name: "utils" },
     { name: "mtctl" },
+    { name: "dev-cli" },
   ],
 
   usePreparedCommit: false,

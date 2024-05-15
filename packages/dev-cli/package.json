@@ -1,0 +1,47 @@
+{
+  "name": "@tailor-platform/dev-cli",
+  "description": "Tailor Platform CLI for frontend devs",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "bin": {
+    "tailordev": "dist/cli.js"
+  },
+  "exports": {
+    "./script": {
+      "types": "./dist/script.d.ts",
+      "default": "./dist/script.js"
+    }
+  },
+  "scripts": {
+    "build": "pnpm run type-check && tsup",
+    "release:preview": "NODE_ENV=production pnpm run build && pnpm publish --tag preview",
+    "test": "vitest run --reporter verbose",
+    "clean": "rm -rf dist",
+    "type-check": "tsc --noEmit --incremental --pretty"
+  },
+  "devDependencies": {
+    "@tailor-platform/dev-config": "workspace:*",
+    "@types/node": "^20.10.8",
+    "memfs": "^4.6.0",
+    "prettier": "^3.1.1",
+    "ts-node": "^10.9.1",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.1",
+    "vite-tsconfig-paths": "^4.2.1"
+  },
+  "dependencies": {
+    "@commander-js/extra-typings": "^11.1.0",
+    "chalk": "^5.3.0",
+    "change-case": "^5.4.2",
+    "execa": "^8.0.1",
+    "gh-release-fetch": "^4.0.3",
+    "rc-config-loader": "^4.1.3",
+    "zod": "^3.22.4"
+  },
+  "prettier": "@tailor-platform/dev-config/prettier"
+}
