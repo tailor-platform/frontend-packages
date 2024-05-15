@@ -1,26 +1,12 @@
-import { useState, useRef, useEffect, CSSProperties } from "react";
+import { useState, useRef, CSSProperties } from "react";
 import { Box } from "@tailor-platform/styled-system/jsx";
 import type { Column } from "@tanstack/react-table";
 import { css } from "@tailor-platform/styled-system/css";
 import { MoreVertical as MoreVerticalIcon } from "lucide-react";
-import { createPortal } from "react-dom";
 import { Button } from "../../../Button";
 import { addEventOutside } from "../addEventOutside";
+import { ModalPortal } from "../modalPortal";
 import type { Localization } from "@locales/types";
-
-const ModalPortal = ({ children }: { children: React.ReactNode }) => {
-  const el = document.createElement("div");
-  el.id = "pinned-column-modal";
-  document.body.appendChild(el);
-
-  useEffect(() => {
-    return () => {
-      document.body.removeChild(el);
-    };
-  }, [el]);
-
-  return createPortal(children, el);
-};
 
 type PinnedColumnProps<TData extends Record<string, unknown>> = {
   column: Column<TData>;
@@ -72,7 +58,7 @@ export const PinnedColumn = <TData extends Record<string, unknown>>({
         />
       </Box>
       {isOpenedPinnedColumnModal && (
-        <ModalPortal>
+        <ModalPortal mountDomId="pinned-column-modal">
           <Box
             pl={4}
             pt={4}
