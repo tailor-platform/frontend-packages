@@ -5,7 +5,7 @@ import { css } from "@tailor-platform/styled-system/css";
 import { MoreVertical as MoreVerticalIcon } from "lucide-react";
 import { Button } from "../../../Button";
 import { addEventOutside } from "../addEventOutside";
-import { ModalPortal } from "../modalPortal";
+import { ModalPortal } from "../../ModalPortal";
 import type { Localization } from "@locales/types";
 
 type PinnedColumnProps<TData extends Record<string, unknown>> = {
