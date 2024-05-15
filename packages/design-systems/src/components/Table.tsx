@@ -10,12 +10,13 @@ const classes = table();
 
 type TableContentProps = {
   className?: string;
+  overflow?: "auto" | "hidden" | "visible" | "scroll";
 };
 type TableProps = TableContentProps & HTMLStyledProps<"table">;
 const Table = (props: TableProps) => {
-  const { className, ...rest } = props;
+  const { className, overflow = "auto", ...rest } = props;
   return (
-    <Box w="full" overflow="auto">
+    <Box w="full" overflow={overflow}>
       <styled.table
         className={cx("group", classes.table, className)}
         {...rest}

@@ -1,10 +1,10 @@
-import { internalClientSessionPath } from "@server/middleware/internal";
+import { internalClientSessionPath } from "@core/path";
 import { Config } from "@core/config";
 import { SessionResult, UserInfo } from "@core/types";
 
-// SingletonLoader is a class that abstracts out the logic of loading a resource from a remote server,
+// SuspenseLoader is a class that abstracts out the logic of loading a resource from a remote server,
 // and caches the result for React Suspense support in client components.
-class SingletonLoader<R> {
+class SuspenseLoader<R> {
   private value: R | null;
   private error: Error | null;
 
@@ -24,10 +24,6 @@ class SingletonLoader<R> {
           throw error;
         }
       });
-  }
-
-  get() {
-    return this.value;
   }
 
   getSuspense(config: Config) {
@@ -50,11 +46,11 @@ class SingletonLoader<R> {
 const fetchSession = async (config: Config) =>
   fetch(config.appUrl(internalClientSessionPath));
 
-export const internalClientSessionLoader = new SingletonLoader<SessionResult>(
+export const internalSessionLoader = new SuspenseLoader<SessionResult>(
   fetchSession,
 );
 
-export const internalUserinfoLoader = new SingletonLoader<UserInfo>(
+export const internalUserinfoLoader = new SuspenseLoader<UserInfo>(
   async (config) => {
     const resp = await fetchSession(config);
     const session = (await resp.json()) as unknown as SessionResult;

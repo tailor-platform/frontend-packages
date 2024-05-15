@@ -75,3 +75,8 @@ export {
   type PaginationProps,
 } from "@/components/composite/Pagination";
 export { PinInput, type PinInputProps } from "@/components/composite/PinInput";
+export {
+  RadioGroup,
+  type RadioGroupProps,
+  type RadioGroupOption,
+} from "@/components/composite/RadioGroup";

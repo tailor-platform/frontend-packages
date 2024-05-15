@@ -19,7 +19,7 @@
     "@ark-ui/anatomy": "^2.3.1",
     "@ark-ui/react": "~2.2.3",
     "@hookform/resolvers": "^3.3.2",
-    "@tanstack/react-table": "^8.12.0",
+    "@tanstack/react-table": "^8.15.3",
     "@theme-toggles/react": "^4.1.0",
     "lucide-react": "^0.292.0",
     "react": "^18.2.0",
@@ -28,7 +28,7 @@
     "usehooks-ts": "^2.15.1"
   },
   "devDependencies": {
-    "@pandacss/dev": "^0.29.1",
+    "@pandacss/dev": "0.36.0",
     "@storybook/addon-essentials": "^7.5.2",
     "@storybook/addon-interactions": "^7.5.2",
     "@storybook/addon-links": "^7.5.2",

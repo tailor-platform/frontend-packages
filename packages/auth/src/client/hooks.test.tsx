@@ -6,8 +6,8 @@ import { useAuth, usePlatform, useSession } from "./hooks";
 import { TailorAuthProvider } from "./provider";
 import { buildMockServer, mockAuthConfig, mockSession } from "@tests/mocks";
 import { withMockReplace } from "@tests/helper";
-import { internalClientSessionPath } from "@server/middleware/internal";
-import { internalClientSessionLoader } from "@core/loader";
+import { internalSessionLoader } from "@core/loader";
+import { internalClientSessionPath } from "@core/path";
 
 const mockProvider = (props: React.PropsWithChildren) => (
   <TailorAuthProvider config={mockAuthConfig}>
@@ -18,7 +18,7 @@ const mockProvider = (props: React.PropsWithChildren) => (
 const mockServer = buildMockServer();
 beforeAll(() => mockServer.listen());
 afterEach(() => {
-  internalClientSessionLoader.clear();
+  internalSessionLoader.clear();
   mockServer.resetHandlers();
 });
 afterAll(() => mockServer.close());
@@ -109,9 +109,9 @@ describe("useSession", () => {
 
   it("redirects users to the unauthorized route if session is empty", async () => {
     mockServer.use(
-      http.post(mockAuthConfig.appUrl(internalClientSessionPath), () => {
+      http.get(mockAuthConfig.appUrl(internalClientSessionPath), () => {
         return HttpResponse.json({
-          token: undefined,
+          token: null,
         });
       }),
     );
@@ -124,12 +124,14 @@ describe("useSession", () => {
     };
 
     const replaceMock = vi.fn();
-    await withMockReplace(replaceMock, () => {
+    await withMockReplace(replaceMock, async () => {
       render(<TestComponent />, {
         wrapper: SuspendingWrapper,
       });
-    });
 
-    expect(replaceMock).toHaveBeenCalled();
+      await waitFor(() => {
+        expect(replaceMock).toHaveBeenCalled();
+      });
+    });
   });
 });

@@ -1,64 +1,67 @@
-import { Column as ColumnTanstak, flexRender } from "@tanstack/react-table";
-import { Columns as ColumnsIcon, Filter as FilterIcon } from "lucide-react";
+import {
+  Column as ColumnTanstak,
+  Header,
+  flexRender,
+} from "@tanstack/react-table";
 import {
   CSSProperties,
   DragEvent,
   useCallback,
   useEffect,
   useState,
-  useRef,
   ReactNode,
 } from "react";
-import { css } from "@tailor-platform/styled-system/css";
-import { datagrid } from "@tailor-platform/styled-system/recipes";
+import {
+  datagrid,
+  type DatagridVariantProps,
+} from "@tailor-platform/styled-system/recipes";
+import { styled } from "@tailor-platform/styled-system/jsx";
 import { LOCALIZATION_EN } from "../../../locales/en";
-import { Button } from "../../Button";
 import {
   Table,
   TableBody,
   TableCell,
-  TableHead,
   TableHeader,
   TableRow,
 } from "../../Table";
-import { Text } from "../../Text";
 import { HStack } from "../../patterns/HStack";
 import { Stack } from "../../patterns/Stack";
 import { HideShow } from "./ColumnFeature/HideShow";
-import { PinnedColumn } from "./ColumnFeature/PinnedColumn";
 import { CustomFilter } from "./SearchFilter/CustomFilter";
+import { Density } from "./Density/Density";
+import { Export } from "./Export/Export";
 import { ManualPagination, Pagination } from "./Pagination";
-import { Column, ColumnMetaWithTypeInfo, type DataGridInstance } from "./types";
-import { useClickOutside } from "./hooks/useClickOutside";
+import { Column, type DataGridInstance } from "./types";
+import { TableHead } from "./ColumnFeature/TableHead";
 
-const datagridClasses = datagrid();
-
-export const DataGrid = <TData extends Record<string, unknown>>({
-  table,
-}: {
+type DataGridProps<TData extends Record<string, unknown>> = {
   table: DataGridInstance<TData>;
-}) => {
+} & DatagridVariantProps;
+
+export const DataGrid = <TData extends Record<string, unknown>>(
+  props: DataGridProps<TData>,
+) => {
+  const { table, size } = props;
+  const {
+    customFilterOpen,
+    hideShowOpen,
+    density,
+    densityOpen,
+    exportOptions,
+    exportOpen,
+  } = table.getState();
   const colSpan = table
     .getHeaderGroups()
     .reduce((acc, headerGroup) => acc + headerGroup.headers.length, 0);
-  const [filterOpen, setFilterOpen] = useState(false);
-  const [columnsHideShowOpen, setColumnsHideShowOpen] = useState(false);
-  const [columnHeaders, setColumnHeaders] = useState<Column<TData>[]>([]);
+  const [cusotmFilterFields, setCustomFilterFields] = useState<Column<TData>[]>(
+    [],
+  );
   const localization = table.localization || LOCALIZATION_EN;
+  const datagridClasses = datagrid({ size });
 
   const [columnBeingDragged, setColumnBeingDragged] = useState<
     number | undefined
   >();
-  const filterRef = useRef<HTMLDivElement>(null);
-  const filterButtonRef = useRef<HTMLButtonElement>(null);
-  useClickOutside(filterRef, () => setFilterOpen(false), filterButtonRef, true);
-  const hideShowRef = useRef<HTMLDivElement>(null);
-  const hideShowButtonRef = useRef<HTMLButtonElement>(null);
-  useClickOutside(
-    hideShowRef,
-    () => setColumnsHideShowOpen(false),
-    hideShowButtonRef,
-  );
 
   const onDragStart = useCallback(
     (event: DragEvent<HTMLTableCellElement>): void => {
@@ -82,6 +85,7 @@ export const DataGrid = <TData extends Record<string, unknown>>({
 
   const getCommonPinningStyles = (
     column: ColumnTanstak<TData>,
+    isHeader?: boolean,
   ): CSSProperties => {
     const isPinned = column.getIsPinned();
     const isLastLeftPinnedColumn =
@@ -97,200 +101,186 @@ export const DataGrid = <TData extends Record<string, unknown>>({
           : undefined,
       left: isPinned === "left" ? `${column.getStart("left")}px` : undefined,
       right: isPinned === "right" ? `${column.getAfter("right")}px` : undefined,
+      position: isHeader || isPinned ? "sticky" : "relative",
       opacity: isPinned ? 0.95 : 1,
-      position: isPinned ? "sticky" : "relative",
       zIndex: isPinned ? 1 : 0,
-      backgroundColor: isPinned ? "white" : "inherit",
     };
   };
 
   useEffect(() => {
-    //Get header titles
-    const columnHeaders: Column<TData>[] = [];
-    table.getHeaderGroups().map((headerGroup) => {
-      headerGroup.headers.map((header) => {
-        columnHeaders.push({
-          //This is temporary structure, we will change this logic in coming days as required
-          label: header.column.columnDef.header as string,
-          value: header.column.columnDef.header as string,
-          meta: header.column.columnDef.meta as ColumnMetaWithTypeInfo<TData>,
-          disabled: false,
-        });
-      });
-    });
-    setColumnHeaders(columnHeaders);
+    //Get header titles from table columns
+    const cusotmFilterFields: Column<TData>[] = table.columns.flatMap(
+      (column) => {
+        if ("accessorKey" in column) {
+          return [
+            {
+              //This is temporary structure, we will change this logic in coming days as required
+              label: column.header as string,
+              value: column.header as string,
+              accessorKey: column.accessorKey as string,
+              disabled: false,
+              meta: column.meta,
+            },
+          ];
+        } else {
+          return [];
+        }
+      },
+    );
+
+    setCustomFilterFields(cusotmFilterFields);
   }, [table]);
 
   return (
     <Stack gap={4} position={"relative"}>
       <HStack gap={4}>
         {table.enableHiding && (
-          <HStack>
-            <Button
-              variant="secondary"
-              size="md"
-              onClick={() => {
-                setColumnsHideShowOpen(!columnsHideShowOpen);
-              }}
-              ref={hideShowButtonRef}
-              data-testid="datagrid-hide-show-button"
-            >
-              <ColumnsIcon />
-              <Text marginLeft={"4px"}>{localization.filter.columnLabel}</Text>
-            </Button>
-          </HStack>
+          <HideShow
+            allColumnsHandler={table.getToggleAllColumnsVisibilityHandler}
+            columns={table.getAllLeafColumns()}
+            localization={localization}
+            hideShowOpen={hideShowOpen}
+            setHideShowOpen={table.setHideShowOpen}
+          />
         )}
-
         {table.enableColumnFilters && (
-          <HStack>
-            <Button
-              variant="secondary"
-              size="md"
-              onClick={() => {
-                setFilterOpen(!filterOpen);
-              }}
-              ref={filterButtonRef}
-              data-testid="datagrid-filter-button"
-            >
-              <FilterIcon />
-              <Text marginLeft={"4px"}>{localization.filter.filterLabel}</Text>
-            </Button>
-          </HStack>
+          <CustomFilter
+            columns={cusotmFilterFields}
+            onChange={(filters) => {
+              table.onFilterChange && table.onFilterChange(filters);
+            }}
+            localization={localization}
+            systemFilter={table.systemFilter}
+            defaultFilter={table.defaultFilter}
+            customFilterOpen={customFilterOpen}
+            setCustomFilterOpen={table.setCustomFilterOpen}
+          />
+        )}
+        {table.enableDensity && (
+          <Density
+            setDensity={table.setDensity}
+            localization={localization}
+            densityOpen={densityOpen}
+            setDensityOpen={table.setDensityOpen}
+          />
+        )}
+        {table.getEnableExport() && (
+          <Export
+            exportOptions={exportOptions}
+            localization={localization}
+            exportCsv={table.exportCsv}
+            exportOpen={exportOpen}
+            setExportOpen={table.setExportOpen}
+          />
         )}
       </HStack>
-      {table.enableHiding && (
-        <HideShow
-          allColumnsHandler={table.getToggleAllColumnsVisibilityHandler}
-          columns={
-            table.getAllLeafColumns() as ColumnTanstak<
-              Record<string, unknown>,
-              unknown
-            >[]
-          }
-          localization={localization}
-          isVisible={columnsHideShowOpen}
-          ref={hideShowRef}
-        />
-      )}
-      {table.enableColumnFilters && (
-        <CustomFilter
-          columns={columnHeaders}
-          onChange={(filters) => {
-            table.onFilterChange && table.onFilterChange(filters);
-          }}
-          localization={localization}
-          isVisible={filterOpen}
-          ref={filterRef}
-          defaultFilter={table.defaultFilter}
-        />
-      )}
-      <Table className={datagridClasses.table}>
-        <TableHeader className={datagridClasses.tableHeader}>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow className={datagridClasses.tableRow} key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <TableHead
-                  key={header.id}
-                  colSpan={header.colSpan}
-                  className={datagridClasses.tableHead}
-                  style={{
-                    width: header.id === "select" ? "54px" : header.getSize(), //First column with checkboxes
-                    ...getCommonPinningStyles(header.column),
-                  }}
-                  draggable={
-                    !table.getState().columnSizingInfo.isResizingColumn
-                  }
-                  data-column-index={header.index}
-                  onDragStart={onDragStart}
-                  onDragOver={(e: DragEvent<HTMLDivElement>): void => {
-                    e.preventDefault();
-                  }}
-                  onDrop={onDrop}
-                  data-testid={`datagrid-header-${header.id}`}
-                >
-                  <div
-                    className={css({
-                      display: "flex",
-                    })}
-                  >
-                    {!header.isPlaceholder &&
-                      flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
-                    {header.column.getCanResize() && (
-                      <div
-                        onMouseDown={header.getResizeHandler()}
-                        onTouchStart={header.getResizeHandler()}
-                        className={datagridClasses.tableHeadDivider}
-                      ></div>
-                    )}
-                    {header.id !== "select" && (
-                      <PinnedColumn
-                        column={header.column}
-                        localization={localization}
-                      />
-                    )}
-                  </div>
-                </TableHead>
-              ))}
-            </TableRow>
-          ))}
-        </TableHeader>
-        <TableBody className={datagridClasses.tableBody}>
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
+      <styled.div className={datagridClasses.wrapper}>
+        <Table className={datagridClasses.table} overflow={"visible"}>
+          <TableHeader className={datagridClasses.tableHeader}>
+            {table.getHeaderGroups().map((headerGroup) => (
               <TableRow
                 className={datagridClasses.tableRow}
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
+                key={headerGroup.id}
               >
-                {row.getVisibleCells().map((cell) => {
-                  if (
-                    (
-                      cell.column.columnDef
-                        .meta as ColumnMetaWithTypeInfo<TData>
-                    )?.type === "enum"
-                  ) {
-                    const enumValues = (
-                      cell.column.columnDef
-                        .meta as ColumnMetaWithTypeInfo<TData>
-                    ).enumType;
-                    const enumValue = enumValues?.[
-                      cell.getValue() as string
-                    ] as ReactNode;
+                {headerGroup.headers.map((header) => (
+                  <TableHead
+                    key={header.id}
+                    header={header as Header<Record<string, unknown>, unknown>}
+                    table={table}
+                    columnPiningStyles={getCommonPinningStyles(
+                      header.column,
+                      true,
+                    )}
+                    size={size}
+                    localization={localization}
+                    onDragStart={onDragStart}
+                    onDrop={onDrop}
+                  />
+                ))}
+              </TableRow>
+            ))}
+          </TableHeader>
+          <TableBody className={datagridClasses.tableBody}>
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow
+                  className={datagridClasses.tableRow}
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                  data-testid={`datagrid-row`}
+                >
+                  {row.getVisibleCells().map((cell) => {
+                    if (
+                      cell.column.columnDef.meta &&
+                      cell.column.columnDef.meta.type === "enum"
+                    ) {
+                      const enumValues = cell.column.columnDef.meta.enumType;
+                      const enumValue = enumValues?.[
+                        cell.getValue() as string
+                      ] as ReactNode;
+                      return (
+                        <TableCell
+                          key={cell.id}
+                          className={datagridClasses.tableData}
+                          style={{
+                            ...getCommonPinningStyles(cell.column),
+                            paddingTop:
+                              density === "sm"
+                                ? "0.5rem"
+                                : density === "md"
+                                  ? "1rem"
+                                  : "1.5rem",
+                            paddingBottom:
+                              density === "sm"
+                                ? "0.5rem"
+                                : density === "md"
+                                  ? "1rem"
+                                  : "1.5rem",
+                          }}
+                        >
+                          {enumValue}
+                        </TableCell>
+                      );
+                    }
                     return (
                       <TableCell
                         key={cell.id}
                         className={datagridClasses.tableData}
-                        style={{ ...getCommonPinningStyles(cell.column) }}
+                        style={{
+                          ...getCommonPinningStyles(cell.column),
+                          paddingTop:
+                            density === "sm"
+                              ? "0.5rem"
+                              : density === "md"
+                                ? "1rem"
+                                : "1.5rem",
+                          paddingBottom:
+                            density === "sm"
+                              ? "0.5rem"
+                              : density === "md"
+                                ? "1rem"
+                                : "1.5rem",
+                        }}
                       >
-                        {enumValue}
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
                       </TableCell>
                     );
-                  }
-                  return (
-                    <TableCell
-                      key={cell.id}
-                      className={datagridClasses.tableData}
-                      style={{ ...getCommonPinningStyles(cell.column) }}
-                    >
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  );
-                })}
+                  })}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={colSpan}>
+                  {localization.datagrid.noResults}
+                </TableCell>
               </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={colSpan}>No results.</TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+            )}
+          </TableBody>
+        </Table>
+      </styled.div>
       {table.enablePagination &&
         (table.manualPagination ? (
           <ManualPagination table={table} localization={localization} />

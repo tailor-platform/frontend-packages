@@ -12,16 +12,18 @@ import {
   ChevronDown,
   CheckIcon,
 } from "lucide-react";
-import {
-  DataGridInstance,
-  PageChangeDetails,
-  ValueChangeDetails,
-} from "../types";
+import { DataGridInstance } from "../types";
 import { Text } from "../../../Text";
 import { Button } from "../../../Button";
 import { IconButton } from "../../../IconButton";
-import { selectList, Select, usePagination } from "./utils";
-import { Localization } from "@locales/types";
+import type { ValueChangeDetails } from "../SearchFilter/types";
+import { Select, usePagination } from "./utils";
+import type { Localization } from "@locales/types";
+
+export type PageChangeDetails = {
+  page: number;
+  pageSize: number;
+};
 
 const classes = select();
 
@@ -36,11 +38,8 @@ export const ManualPagination = <TData extends Record<string, unknown>>({
     pageIndex: 0,
     pageSize: table.initialState.pagination.pageSize,
   });
-  const { from, to, pages, pageCount, isNextPage } = usePagination(
-    table,
-    pageIndex,
-    pageSize,
-  );
+  const { from, to, pages, pageCount, isNextPage, pageSizeOptions } =
+    usePagination(table, pageIndex, pageSize);
   const handlePageChange = (detail: PageChangeDetails) => {
     table.handlePageChange && table.handlePageChange(detail);
   };
@@ -51,7 +50,7 @@ export const ManualPagination = <TData extends Record<string, unknown>>({
         <Text>{localization.pagination.rowsPerPage}</Text>
         <Select.Root
           className={classes.root}
-          items={selectList}
+          items={pageSizeOptions}
           positioning={{ sameWidth: true }}
           closeOnSelect
           onValueChange={(e: ValueChangeDetails<CollectionItem>) => {
@@ -60,15 +59,12 @@ export const ManualPagination = <TData extends Record<string, unknown>>({
             handlePageChange({ page: 0, pageSize: selectedPageSize });
           }}
           defaultValue={[pageSize.toString()]}
-          width={16}
+          width={"auto"}
           data-testid="select-manual-pagination-page-size"
         >
           <Select.Control className={classes.control}>
             <Select.Trigger className={classes.trigger}>
-              <Select.ValueText
-                className={classes.valueText}
-                color="fg.subtle"
-              />
+              <Select.ValueText className={classes.valueText} />
               <ChevronDown />
             </Select.Trigger>
           </Select.Control>
@@ -80,7 +76,7 @@ export const ManualPagination = <TData extends Record<string, unknown>>({
                   id="jointConditions"
                   data-testid="select-page-size-options"
                 >
-                  {selectList.map((item) => (
+                  {pageSizeOptions.map((item) => (
                     <Select.Item
                       className={classes.item}
                       key={"pageSize" + item}
@@ -122,7 +118,9 @@ export const ManualPagination = <TData extends Record<string, unknown>>({
                 : to}
             </Text>
             {localization.pagination.of}
-            <Text fontWeight={"bold"}>{table.getRowCount()}</Text>
+            <Text fontWeight={"bold"} data-testid="pagination-total-count">
+              {table.getRowCount()}
+            </Text>
           </>
         )}
       </HStack>

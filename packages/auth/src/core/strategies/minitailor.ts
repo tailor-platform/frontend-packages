@@ -1,7 +1,6 @@
-import { AbstractStrategy } from "./abstract";
-import { paramsError } from "@server/middleware/callback";
+import { AbstractStrategy, paramsError } from "@core/strategies/abstract";
 import { Config } from "@core/config";
-import { callbackByStrategy } from "@server/middleware/internal";
+import { callbackByStrategy } from "@core/path";
 
 type Options = {
   email: string;

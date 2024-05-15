@@ -1,9 +1,9 @@
-import { from, HttpLink, ServerError } from "@apollo/client";
+import { from, HttpLink, makeVar, ServerError } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { onError } from "@apollo/client/link/error";
 import { Config } from "@core/config";
+import { internalClientSessionPath } from "@core/path";
 import { SessionResult } from "@core/types";
-import { internalClientSessionPath } from "@server/middleware/internal";
 
 /**
  * authenticatedHttpLink is a custom ApolloLink that automatically sets tokens in authorization header as a bearer token.
@@ -48,10 +48,9 @@ export const authenticatedHttpLink = (config: Config) =>
           return { authorization: headers.authorization };
         }
 
-        const rawResp = await fetch(config.appUrl(internalClientSessionPath));
-        const session = (await rawResp.json()) as SessionResult;
-        if (session.token) {
-          return { authorization: `Bearer ${session.token}` };
+        const sessionToken = await fetchSessionToken(config);
+        if (sessionToken) {
+          return { authorization: `Bearer ${sessionToken}` };
         }
 
         return {};
@@ -82,3 +81,22 @@ export const authenticatedHttpLink = (config: Config) =>
       uri: config.apiUrl("/query"),
     }),
   ]);
+
+/**
+ * fetchSessionToken fetches the session token from the server.
+ * If the token is already stored in the cache, it returns the token on memory to avoid unnecessary fetch.
+ */
+const fetchSessionToken = async (config: Config) => {
+  const currentSeessionToken = sessionToken();
+  if (currentSeessionToken.token) {
+    return currentSeessionToken.token;
+  }
+
+  const rawResp = await fetch(config.appUrl(internalClientSessionPath));
+  const session = (await rawResp.json()) as SessionResult;
+  const { token } = sessionToken(session);
+  return token;
+};
+const sessionToken = makeVar<SessionResult>({
+  token: null,
+});

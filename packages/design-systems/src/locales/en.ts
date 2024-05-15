@@ -4,6 +4,9 @@ import { Localization } from "./types";
  */
 export const LOCALIZATION_EN: Localization = {
   language: "EN",
+  datagrid: {
+    noResults: "No Results.",
+  },
   columnFeatures: {
     hideShow: {
       showAll: "Show All",
@@ -17,6 +20,7 @@ export const LOCALIZATION_EN: Localization = {
   filter: {
     filterLabel: "Filter",
     filterResetLabel: "Reset Filter",
+    filterClearLabel: "Clear Filter",
     addNewFilterLabel: "Add Filter",
     jointConditionLabel: "Joint Condition",
     jointConditionPlaceholder: "Select Joint Condition",
@@ -45,5 +49,15 @@ export const LOCALIZATION_EN: Localization = {
     rowsPerPage: "Rows per page:",
     of: "of",
     page: "",
+  },
+  density: {
+    densityLabel: "Density",
+    compact: "Compact",
+    standard: "Standard",
+    comfortable: "Comfortable",
+  },
+  export: {
+    exportLabel: "Export",
+    exportCSV: "Download as CSV",
   },
 };

@@ -1,8 +1,12 @@
 export interface Localization {
   language: string;
+  datagrid: {
+    noResults: string;
+  };
   filter: {
     filterLabel: string;
     filterResetLabel: string;
+    filterClearLabel: string;
     addNewFilterLabel: string;
     jointConditionLabel: string;
     jointConditionPlaceholder: string;
@@ -41,5 +45,15 @@ export interface Localization {
     rowsPerPage: string;
     of: string;
     page: string;
+  };
+  density: {
+    densityLabel: string;
+    compact: string;
+    standard: string;
+    comfortable: string;
+  };
+  export: {
+    exportLabel: string;
+    exportCSV: string;
   };
 }

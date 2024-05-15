@@ -1,12 +1,18 @@
 import { useState } from "react";
 import {
   ColumnPinningState,
+  SortingState,
   getCoreRowModel,
   getPaginationRowModel,
+  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import { Checkbox } from "../../Checkbox";
 import { type DataGridInstance, type UseDataGridProps } from "./types";
+import { DensityFeature } from "./Density/Density";
+import { ExportFeature, defaultExportOptions } from "./Export/Export";
+import { HideShowFeature } from "./ColumnFeature/HideShow";
+import { CustomFilterFeature } from "./SearchFilter/CustomFilter";
 
 type RowLike = { id: string };
 
@@ -21,6 +27,7 @@ export const useDataGrid = <TData extends RowLike>({
   enableColumnFilters = false,
   enableHiding = false,
   onFilterChange,
+  systemFilter,
   defaultFilter,
   localization,
   columnVisibility,
@@ -29,6 +36,11 @@ export const useDataGrid = <TData extends RowLike>({
   enableRowSelection = false,
   onRowSelectionChange,
   rowSelection,
+  pageSizeOptions = [],
+  enableDensity = false,
+  exportOptions = defaultExportOptions,
+  enableSorting = false,
+  onSortChange,
 }: UseDataGridProps<TData>): DataGridInstance<TData> => {
   const { pageIndex = 0, pageSize = 50 } = pagination || {};
   const [columnPinningState, setColumnPinningState] =
@@ -36,6 +48,7 @@ export const useDataGrid = <TData extends RowLike>({
       left: ["select", ...(columnPinning?.left || [])],
       right: [...(columnPinning?.right || [])],
     });
+  const [sorting, setSorting] = useState<SortingState>([]);
 
   const initialState = {
     pagination: {
@@ -75,7 +88,37 @@ export const useDataGrid = <TData extends RowLike>({
         size: 54,
       });
   }
+  const { state, sortingConfigs } = manualPagination
+    ? {
+        state: {
+          columnVisibility,
+          columnPinning: columnPinningState,
+          rowSelection: enableRowSelection ? rowSelection : {},
+          exportOptions,
+          sorting: sorting,
+        },
+        sortingConfigs: {
+          manualSorting: manualPagination,
+          onSortingChange: setSorting,
+        },
+      }
+    : {
+        state: {
+          columnVisibility,
+          columnPinning: columnPinningState,
+          rowSelection: enableRowSelection ? rowSelection : {},
+          exportOptions,
+        },
+        sortingConfigs: {},
+      };
+
   const reactTableInstance = useReactTable({
+    _features: [
+      CustomFilterFeature,
+      HideShowFeature,
+      DensityFeature,
+      ExportFeature,
+    ],
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
@@ -89,16 +132,19 @@ export const useDataGrid = <TData extends RowLike>({
     initialState,
     enableRowSelection,
     onRowSelectionChange: enableRowSelection ? onRowSelectionChange : undefined,
-    state: {
-      columnVisibility,
-      columnPinning: columnPinningState,
-      rowSelection: enableRowSelection ? rowSelection : {},
-    },
+    state,
     onColumnVisibilityChange,
     enableColumnResizing: true,
     columnResizeMode: "onChange",
     onColumnPinningChange: setColumnPinningState,
     getRowId: (row) => row.id,
+    enableDensity,
+    enableSorting,
+    getSortedRowModel:
+      enableSorting && !manualPagination ? getSortedRowModel() : undefined,
+    sortDescFirst: true,
+    exportOptions,
+    ...sortingConfigs,
   });
 
   return {
@@ -110,7 +156,13 @@ export const useDataGrid = <TData extends RowLike>({
     enableColumnFilters,
     enableHiding,
     onFilterChange,
+    systemFilter,
     defaultFilter,
     localization,
+    columns,
+    pageSizeOptions,
+    enableDensity,
+    enableSorting,
+    onSortChange,
   };
 };

@@ -2,15 +2,17 @@ import { NextMiddleware, NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { callbackHandler } from "./middleware/callback";
 import {
-  internalCallbackPath,
   internalClientSessionHandler,
-  internalClientSessionPath,
   internalLogoutHandler,
-  internalLogoutPath,
-  internalUnauthorizedPath,
   internalUnauthroziedHandler,
 } from "./middleware/internal";
 import { Config } from "@core/config";
+import {
+  internalCallbackPath,
+  internalClientSessionPath,
+  internalUnauthorizedPath,
+  internalLogoutPath,
+} from "@core/path";
 
 export type MiddlewareHandlerOptions = {
   /**

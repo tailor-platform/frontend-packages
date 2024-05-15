@@ -20,6 +20,7 @@ export const sizes = {
   ...spacing,
   ...largeSizes,
   full: { value: "100%" },
+  auto: { value: "auto" },
   min: { value: "min-content" },
   max: { value: "max-content" },
   fit: { value: "fit-content" },

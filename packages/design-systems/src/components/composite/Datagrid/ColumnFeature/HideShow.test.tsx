@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import { Column, ColumnDef } from "@tanstack/react-table";
 import { describe, expect, it, vi } from "vitest";
 import "@testing-library/jest-dom/vitest";
@@ -30,8 +30,6 @@ const columns: ColumnDef<Payment>[] = [
     meta: {
       type: "enum",
       enumType: PaymentStatus,
-      //accessorKey is not provided at compile time inside ColumnDef https://github.com/TanStack/table/issues/4423
-      accessorKey: "status",
     },
   },
   {
@@ -39,7 +37,6 @@ const columns: ColumnDef<Payment>[] = [
     header: "Email",
     meta: {
       type: "string",
-      accessorKey: "email",
     },
   },
   {
@@ -47,7 +44,6 @@ const columns: ColumnDef<Payment>[] = [
     header: "Amount",
     meta: {
       type: "number",
-      accessorKey: "amount",
     },
   },
 ];
@@ -106,6 +102,7 @@ const HideShowTest = () => {
     columnVisibility,
     onColumnVisibilityChange: setColumnVisibility,
   });
+  const { hideShowOpen } = table.getState();
   return (
     <HideShow
       allColumnsHandler={table.getToggleAllColumnsVisibilityHandler}
@@ -116,7 +113,8 @@ const HideShowTest = () => {
         >[]
       }
       localization={LOCALIZATION_EN}
-      isVisible={true}
+      hideShowOpen={hideShowOpen}
+      setHideShowOpen={table.setHideShowOpen}
     />
   );
 };
@@ -146,10 +144,14 @@ describe("<HideShow />", () => {
     render(<DataGridWithHideShow />);
     expect(screen.getByTestId("datagrid-header-status")).toBeVisible();
     const user = userEvent.setup();
-    await user.click(screen.getByTestId("datagrid-hide-show-button"));
+    await act(() =>
+      user.click(screen.getByTestId("datagrid-hide-show-button")),
+    );
     // Because we need to click "Status" in "HideShow" instead of "Status" in the header.
-    await user.click(screen.getByTestId("hide-show-Status"));
-    await user.click(screen.getByTestId("datagrid-hide-show-button"));
+    await act(() => user.click(screen.getByTestId("hide-show-Status")));
+    await act(() =>
+      user.click(screen.getByTestId("datagrid-hide-show-button")),
+    );
     await vi.waitFor(() => {
       expect(
         screen.queryByTestId("datagrid-header-status"),

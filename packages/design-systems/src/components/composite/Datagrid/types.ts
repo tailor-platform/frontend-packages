@@ -1,5 +1,4 @@
 import type {
-  Column as ColumnTanstak,
   ColumnDef,
   ColumnMeta,
   ColumnPinningState,
@@ -8,17 +7,14 @@ import type {
   RowSelectionState,
 } from "@tanstack/react-table";
 import type { Table, Updater } from "@tanstack/table-core/build/lib/types";
-import { CollectionItem } from "@ark-ui/react/select";
 import type { Localization } from "../../../locales/types";
+import type { ExportState } from "./Export/types";
+import type { GraphQLQueryFilter } from "./SearchFilter/types";
+import type { PageChangeDetails } from "./Pagination/ManualPagination";
 
-export interface PageChangeDetails {
-  page: number;
-  pageSize: number;
-}
 export interface DataGridInstance<
   TData extends Record<string, unknown> = Record<string, unknown>,
 > extends Table<TData> {
-  // eslint-disable-next-line no-unused-vars
   handlePageChange?: (details: PageChangeDetails) => void;
   totalCount?: number;
   pageSize?: number;
@@ -27,21 +23,28 @@ export interface DataGridInstance<
   enableColumnFilters?: boolean;
   enableHiding?: boolean;
   onFilterChange?: (filters: GraphQLQueryFilter) => void;
+  systemFilter?: GraphQLQueryFilter;
   defaultFilter?: GraphQLQueryFilter;
   localization?: Localization;
+  columns: ColumnDef<TData>[];
+  pageSizeOptions?: number[];
+  enableDensity?: boolean;
+  enableSorting?: boolean;
+  onSortChange?: (sorting: Order<TData> | undefined) => void;
 }
-export type UseDataGridProps<TData> = {
+
+export type UseDataGridProps<TData extends Record<string, unknown>> = {
   data: TData[];
   columns: ColumnDef<TData>[];
   enablePagination?: boolean;
   manualPagination?: boolean;
   enableColumnFilters?: boolean;
+  systemFilter?: GraphQLQueryFilter;
   defaultFilter?: GraphQLQueryFilter;
   enableHiding?: boolean;
   onFilterChange?: (filters: GraphQLQueryFilter) => void;
   pagination?: PaginationState;
   totalCount?: number;
-  // eslint-disable-next-line no-unused-vars
   onPageChange?: (details: PageChangeDetails) => void;
   localization?: Localization;
   columnVisibility?: { [key: string]: boolean };
@@ -54,97 +57,30 @@ export type UseDataGridProps<TData> = {
   enablePinning?: boolean;
   columnPinning?: ColumnPinningState;
   setColumnPinning?: (updater: Updater<ColumnPinningState>) => void;
+  pageSizeOptions?: number[];
+  enableDensity?: boolean;
+  exportOptions?: ExportState<TData>;
+  enableSorting?: boolean;
+  onSortChange?: (sorting: Order<TData> | undefined) => void;
 };
-export type ColumnMetaWithTypeInfo<TData> = ColumnMeta<TData, unknown> & {
-  type: string;
-  enumType?: Record<string, string>;
-  //https://github.com/TanStack/table/issues/4423
-  accessorKey: string;
-};
-export type HideShowProps<TData extends Record<string, unknown>> = {
-  allColumnsHandler: () => (event: unknown) => void;
-  columns: Array<ColumnTanstak<TData>>;
-  localization: Localization;
-  isVisible: boolean;
-};
+
+export type MetaType =
+  | "enum"
+  | "date"
+  | "number"
+  | "string"
+  | "boolean"
+  | "dateTime";
+
 export type Column<TData> = {
   label: string;
   value: string;
+  accessorKey: string;
   disabled?: boolean;
-  meta?: ColumnMetaWithTypeInfo<TData>;
-};
-export type CustomFilterProps<TData> = {
-  columns: Array<Column<TData>>;
-  onChange: (currentState: GraphQLQueryFilter) => void;
-  localization: Localization;
-  isVisible: boolean;
-  defaultFilter?: GraphQLQueryFilter;
-};
-export type FilterRowState = {
-  column: string;
-  value: string;
-  condition: string;
-  jointCondition?: string;
-  isDefault: boolean;
-  isChangeable: boolean;
-};
-export type FilterRowProps<TData> = {
-  columns: Array<Column<TData>>;
-  onDelete: () => void;
-  meta?: ColumnMetaWithTypeInfo<TData>;
-  onChange: (currentState: FilterRowState) => void;
-  localization: Localization;
-  isFirstRow: boolean;
-  jointConditions: JointCondition[];
-  currentFilter: FilterRowState;
-};
-export type FilterRowData<TData> = {
-  columns: Array<Column<TData>>;
-  index: number; //Row number
-  localization: Localization;
-  isFirstRow: boolean;
-  jointConditions: JointCondition[];
-  currentState: FilterRowState;
-};
-export type JointCondition = {
-  label: string;
-  value: string;
-  disabled: boolean;
-};
-export type GraphQLQueryFilter = {
-  [fieldName: string]: { [operator: string]: unknown } | GraphQLQueryFilter;
+  meta?: ColumnMeta<TData, unknown>;
 };
 
-export const GraphQLFilterOperator = {
-  EQUAL: "eq",
-  LESS_THAN: "lt",
-  GREATER_THAN: "gt",
-  LESS_THAN_OR_EQUAL: "lte",
-  GREATER_THAN_OR_EQUAL: "gte",
-  NOT_EQUAL: "neq",
-  CONTAINS: "contains",
-} as const;
-export type FilterCondition = {
-  label: string;
-  value: (typeof GraphQLFilterOperator)[keyof typeof GraphQLFilterOperator];
-  applicableTypeTypes: ApplicableType[];
-  disabled: boolean;
-};
-export type ApplicableType =
-  | "string"
-  | "enum"
-  | "time"
-  | "dateTime"
-  | "date"
-  | "number"
-  | "boolean";
-
-export interface ValueChangeDetails<T extends CollectionItem = CollectionItem> {
-  value: string[];
-  items: T[];
-}
-
-export type Page = {
-  index: number;
-  type: "page" | "ellipsis";
+export type Order<TData> = {
+  field: keyof TData;
+  direction: "Asc" | "Desc";
 };

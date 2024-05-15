@@ -1,14 +1,11 @@
 import { ErrorResponse, SessionOption, SessionResult } from "@core/types";
 import { useTailorAuth } from "@client/provider";
+import { internalSessionLoader, internalUserinfoLoader } from "@core/loader";
 import {
   callbackByStrategy,
   internalLogoutPath,
   internalUnauthorizedPath,
-} from "@server/middleware/internal";
-import {
-  internalClientSessionLoader,
-  internalUserinfoLoader,
-} from "@core/loader";
+} from "@core/path";
 
 const NoWindowError = new Error(
   "window object should be available to use this function",
@@ -184,15 +181,15 @@ export const usePlatform = () => {
  * };
  * ```
  */
-export const useSession = (options?: SessionOption): SessionResult => {
+export const useSession = (options?: SessionOption) => {
   const config = useTailorAuth();
 
   assertWindowIsAvailable();
 
-  const internalClientSession = internalClientSessionLoader.get();
-  if (options?.required && internalClientSession?.token === undefined) {
+  const session = internalSessionLoader.getSuspense(config);
+  if (options?.required && !session?.token) {
     window.location.replace(config.appUrl(internalUnauthorizedPath));
   }
 
-  return internalClientSessionLoader.getSuspense(config);
+  return { token: session.token };
 };

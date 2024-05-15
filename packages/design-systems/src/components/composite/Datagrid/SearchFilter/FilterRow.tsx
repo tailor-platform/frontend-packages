@@ -4,18 +4,21 @@ import { Select as AS, CollectionItem } from "@ark-ui/react/select";
 import { Portal } from "@ark-ui/react/portal";
 import { styled } from "@tailor-platform/styled-system/jsx";
 import { select } from "@tailor-platform/styled-system/recipes";
+import { ColumnMeta } from "@tanstack/table-core";
+import type { Column } from "../types";
 import { Box } from "../../../patterns/Box";
 import { Flex } from "../../../patterns/Flex";
 import { IconButton } from "../../../IconButton";
 import { Input } from "../../../Input";
 import { Text } from "../../../Text";
-import { getLocalizedFilterConditions } from "../data/filter";
-import { ApplicableType, FilterRowProps } from "./../types";
-
-interface ValueChangeDetails<T extends CollectionItem = CollectionItem> {
-  value: string[];
-  items: T[];
-}
+import type { Localization } from "..";
+import { getLocalizedFilterConditions } from "./filter";
+import type {
+  ApplicableType,
+  FilterRowState,
+  JointCondition,
+  ValueChangeDetails,
+} from "./types";
 
 const Select = {
   Root: styled(AS.Root),
@@ -31,6 +34,17 @@ const Select = {
   Positioner: styled(AS.Positioner),
   Trigger: styled(AS.Trigger),
   ValueText: styled(AS.ValueText),
+};
+
+type FilterRowProps<TData> = {
+  columns: Array<Column<TData>>;
+  onDelete: () => void;
+  meta?: ColumnMeta<TData, unknown>;
+  onChange: (currentState: FilterRowState) => void;
+  localization: Localization;
+  isFirstRow: boolean;
+  jointConditions: JointCondition[];
+  currentFilter: FilterRowState;
 };
 
 export const FilterRow = <TData extends Record<string, unknown>>(
@@ -51,7 +65,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
   const DATE_INPUT_PLACEHOLDER = "YYYY-MM-DD";
   const filterConditions = getLocalizedFilterConditions(localization);
   const selectedColumnObject = columns.find((column) => {
-    return column.meta?.accessorKey === currentFilter.column;
+    return column.accessorKey === currentFilter.column;
   });
 
   const onChangeColumn = useCallback(
@@ -59,7 +73,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
       const column = columns.find((column) => column.label === value[0]);
       const nextFilter = {
         ...currentFilter,
-        column: column?.meta?.accessorKey || "",
+        column: column?.accessorKey || "",
         condition: "",
         value: "",
       };
@@ -131,6 +145,13 @@ export const FilterRow = <TData extends Record<string, unknown>>(
     }
     return localization.filter.valuePlaceholder;
   }, [localization, selectedColumnObject]);
+
+  const inputType = useMemo(() => {
+    if (selectedColumnObject?.meta?.type === "dateTime") {
+      return "datetime-local";
+    }
+    return selectedColumnObject?.meta?.type || "text";
+  }, [selectedColumnObject?.meta?.type]);
 
   return (
     <Flex gridGap={2} marginTop={isFirstRow ? 0 : 4}>
@@ -324,7 +345,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
             positioning={{ sameWidth: true }}
             closeOnSelect
             width={180}
-            value={[currentFilter.value]}
+            value={[currentFilter.value.toString()]}
             onValueChange={(e: ValueChangeDetails<CollectionItem>) =>
               onChangeValue(e.value)
             }
@@ -341,7 +362,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
                   <span>
                     {currentFilter.value !== ""
                       ? selectedColumnObject?.meta?.enumType?.[
-                          currentFilter.value
+                          currentFilter.value.toString()
                         ]
                       : inputValuePlaceHolder}
                   </span>
@@ -394,6 +415,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
             onValueChange={(e: ValueChangeDetails<CollectionItem>) =>
               onChangeValue(e.value)
             }
+            value={[currentFilter.value.toString()]}
             data-testid="select-input-value"
           >
             <Select.Control className={classes.control}>
@@ -455,8 +477,8 @@ export const FilterRow = <TData extends Record<string, unknown>>(
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 onChangeValue(e.target.value);
               }}
-              value={[currentFilter.value]}
-              type={selectedColumnObject?.meta?.type || "text"} //This input element is used for date, number and text type (for enum and boolean, we use select element above instead)
+              value={[currentFilter.value.toString()]}
+              type={inputType} //This input element is used for date, dateTime, number and text type (for enum and boolean, we use select element above instead)
               maxLength={50}
             />
           </Box>

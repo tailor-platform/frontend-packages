@@ -4,6 +4,9 @@ import { Localization } from "./types";
  */
 export const LOCALIZATION_JA: Localization = {
   language: "JA",
+  datagrid: {
+    noResults: "表示可能なデータがありません",
+  },
   columnFeatures: {
     hideShow: {
       showAll: "全て表示",
@@ -16,7 +19,8 @@ export const LOCALIZATION_JA: Localization = {
   },
   filter: {
     filterLabel: "フィルタ",
-    filterResetLabel: "フィルタをリセット",
+    filterResetLabel: "追加したフィルタを削除",
+    filterClearLabel: "全てのフィルタを削除",
     addNewFilterLabel: "条件追加",
     jointConditionLabel: "合致条件",
     jointConditionPlaceholder: "合致条件を選択",
@@ -45,5 +49,15 @@ export const LOCALIZATION_JA: Localization = {
     rowsPerPage: "ぺージあたりの行数",
     of: "件中",
     page: "件",
+  },
+  density: {
+    densityLabel: "行間隔",
+    compact: "狭い",
+    standard: "標準",
+    comfortable: "広い",
+  },
+  export: {
+    exportLabel: "エクスポート",
+    exportCSV: "CSVをダウンロード",
   },
 };

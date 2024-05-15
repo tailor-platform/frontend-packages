@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   act,
   fireEvent,
@@ -6,10 +7,11 @@ import {
   within,
   waitFor,
 } from "@testing-library/react";
+import { ColumnDef } from "@tanstack/react-table";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
-import { Column, GraphQLQueryFilter } from "../types";
 import "@testing-library/jest-dom/vitest"; //For userEvent used for clicks etc. DONT use fireEvent for clicks etc. as it might not work properly with select elements
+import { Column, DataGridInstance, UseDataGridProps } from "../types";
 import { LOCALIZATION_JA } from "../../../../locales/ja";
 import { LOCALIZATION_EN } from "../../../../locales/en";
 import {
@@ -22,7 +24,11 @@ import {
   selectJointCondition,
   selectValue,
 } from "../utils/test/customFilter";
+import { useDataGrid } from "../useDataGrid";
+import { Payment, originData, setFilterChange } from "../utils/test";
+import { DataGrid } from "../Datagrid";
 import { CustomFilter } from "./CustomFilter";
+import type { GraphQLQueryFilter } from "./types";
 
 /* eslint-disable-next-line @typescript-eslint/no-empty-function */
 window.HTMLElement.prototype.scrollTo = function () {}; //(https://github.com/jsdom/jsdom/issues/1695)
@@ -49,63 +55,132 @@ enum PaymentStatus {
   failed = "failed",
 }
 
-type Payment = {
-  id: string;
-  amount: number;
-  status: PaymentStatus;
-  email: string;
-  createdAt: string;
-  isCreditCard: boolean;
-};
-
 const columns: Column<Payment>[] = [
   {
+    accessorKey: "status",
     label: "Status",
     value: "Status",
     meta: {
       type: "enum",
       enumType: PaymentStatus,
-      accessorKey: "status",
     },
     disabled: false,
   },
   {
+    accessorKey: "email",
     label: "Email",
     value: "Email",
     meta: {
       type: "string",
-      accessorKey: "email",
     },
     disabled: false,
   },
   {
+    accessorKey: "amount",
     label: "Amount",
     value: "Amount",
     meta: {
       type: "number",
-      accessorKey: "amount",
     },
     disabled: false,
   },
   {
+    accessorKey: "createdAt",
     label: "CreatedAt",
     value: "CreatedAt",
     meta: {
       type: "date",
-      accessorKey: "createdAt",
     },
     disabled: false,
   },
   {
+    accessorKey: "isCreditCard",
     label: "CreditCardUsed",
     value: "CreditCardUsed",
     meta: {
       type: "boolean",
-      accessorKey: "isCreditCard",
+    },
+    disabled: false,
+  },
+  {
+    accessorKey: "updatedAt",
+    label: "UpdatedAt",
+    value: "UpdatedAt",
+    meta: {
+      type: "dateTime",
     },
     disabled: false,
   },
 ];
+
+const columnDefs: ColumnDef<Payment>[] = [
+  {
+    accessorKey: "status",
+    header: "Status",
+    meta: {
+      type: "enum",
+      enumType: PaymentStatus,
+    },
+  },
+  {
+    accessorKey: "email",
+    header: "Email",
+    meta: {
+      type: "string",
+    },
+  },
+  {
+    accessorKey: "amount",
+    header: "Amount",
+    meta: {
+      type: "number",
+    },
+  },
+];
+
+const useDataGridWithFilter = (
+  customizeDatagrid?: Partial<UseDataGridProps<Payment>>,
+): DataGridInstance<Payment> => {
+  const [data, setData] = useState<Payment[]>(originData);
+  const table = useDataGrid({
+    data,
+    columns: columnDefs,
+    enableColumnFilters: true,
+    onFilterChange: (filter) => {
+      setFilterChange(filter, originData, setData);
+    },
+    localization: LOCALIZATION_JA,
+    ...customizeDatagrid,
+  });
+  return table;
+};
+
+const DataGridWithFilter = () => {
+  const table = useDataGridWithFilter();
+  return <DataGrid table={table} />;
+};
+
+const DataGridWithFilterWithSystemFilter = () => {
+  const table = useDataGridWithFilter({
+    systemFilter: { status: { eq: "pending" } },
+  });
+  return <DataGrid table={table} />;
+};
+
+const DataGridWithFilterWithDefaultFilter = () => {
+  const table = useDataGridWithFilter({
+    defaultFilter: { amount: { gt: 200 } },
+  });
+  return <DataGrid table={table} />;
+};
+
+const DataGridWithFilterWithSystemAndDefaultFilter = () => {
+  const table = useDataGridWithFilter({
+    systemFilter: { status: { eq: "pending" } },
+    defaultFilter: { amount: { gt: 200 } },
+  });
+  return <DataGrid table={table} />;
+};
 
 describe(
   "<CustomFilter />",
@@ -119,7 +194,8 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_EN}
-          isVisible={true}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
         />,
       );
       expect(screen.getByText("Reset Filter")).toBeVisible();
@@ -148,10 +224,11 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
         />,
       );
-      expect(screen.getByText("フィルタをリセット")).toBeVisible();
+      expect(screen.getByText("追加したフィルタを削除")).toBeVisible();
       expect(screen.getByText("列")).toBeVisible();
       expect(screen.getByText("列を選択")).toBeVisible();
       expect(screen.getByText("条件")).toBeVisible();
@@ -177,7 +254,8 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
         />,
       );
 
@@ -268,7 +346,8 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
         />,
       );
 
@@ -341,7 +420,8 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
         />,
       );
 
@@ -406,7 +486,7 @@ describe(
       expect(inputValue).toHaveValue(800);
 
       // Check filters
-      expect(currentFilters).toEqual({ amount: { eq: "800" } });
+      expect(currentFilters).toEqual({ amount: { eq: 800 } });
     });
 
     it("Renders Date type correctly", async () => {
@@ -419,7 +499,8 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
         />,
       );
 
@@ -501,7 +582,8 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
         />,
       );
 
@@ -578,7 +660,7 @@ describe(
       //Check filters
       await waitFor(() => {
         //Wait for the useEffect to update the filters
-        expect(currentFilters).toEqual({ isCreditCard: { eq: "true" } });
+        expect(currentFilters).toEqual({ isCreditCard: { eq: true } });
       });
     });
 
@@ -592,7 +674,8 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
         />,
       );
 
@@ -608,7 +691,7 @@ describe(
       //Check filters
       await waitFor(() => {
         //Wait for the useEffect to update the filters
-        expect(currentFilters).toEqual({ isCreditCard: { eq: "true" } });
+        expect(currentFilters).toEqual({ isCreditCard: { eq: true } });
       });
 
       //Add new filter row
@@ -663,7 +746,7 @@ describe(
       await waitFor(() => {
         //Wait for the useEffect to update the filters
         expect(currentFilters).toEqual({
-          isCreditCard: { eq: "true" },
+          isCreditCard: { eq: true },
           and: {
             status: { eq: "success" },
             and: {
@@ -671,7 +754,7 @@ describe(
               and: {
                 email: { eq: "test@test.com" },
                 and: {
-                  amount: { gte: "800" },
+                  amount: { gte: 800 },
                 },
               },
             },
@@ -690,7 +773,8 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
         />,
       );
 
@@ -706,7 +790,7 @@ describe(
       //Check filters
       await waitFor(() => {
         //Wait for the useEffect to update the filters
-        expect(currentFilters).toEqual({ isCreditCard: { eq: "true" } });
+        expect(currentFilters).toEqual({ isCreditCard: { eq: true } });
       });
 
       //Add new filter row
@@ -761,7 +845,7 @@ describe(
       await waitFor(() => {
         //Wait for the useEffect to update the filters
         expect(currentFilters).toEqual({
-          isCreditCard: { eq: "true" },
+          isCreditCard: { eq: true },
           or: {
             status: { eq: "success" },
             or: {
@@ -769,7 +853,7 @@ describe(
               or: {
                 email: { eq: "test@test.com" },
                 or: {
-                  amount: { gte: "800" },
+                  amount: { gte: 800 },
                 },
               },
             },
@@ -788,7 +872,8 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
         />,
       );
 
@@ -804,7 +889,7 @@ describe(
       //Check filters
       await waitFor(() => {
         //Wait for the useEffect to update the filters
-        expect(currentFilters).toEqual({ isCreditCard: { eq: "true" } });
+        expect(currentFilters).toEqual({ isCreditCard: { eq: true } });
       });
 
       //Add new filter row
@@ -823,7 +908,7 @@ describe(
       await waitFor(() => {
         //Wait for the useEffect to update the filters
         expect(currentFilters).toEqual({
-          isCreditCard: { eq: "true" },
+          isCreditCard: { eq: true },
           and: { status: { eq: "success" } },
         });
       });
@@ -834,7 +919,7 @@ describe(
       //Check filters
       await waitFor(() => {
         //Wait for the useEffect to update the filters
-        expect(currentFilters).toEqual({ isCreditCard: { eq: "true" } });
+        expect(currentFilters).toEqual({ isCreditCard: { eq: true } });
       });
     });
 
@@ -848,7 +933,8 @@ describe(
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
-          isVisible={true}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
         />,
       );
 
@@ -864,7 +950,7 @@ describe(
       //Check filters
       await waitFor(() => {
         //Wait for the useEffect to update the filters
-        expect(currentFilters).toEqual({ isCreditCard: { eq: "true" } });
+        expect(currentFilters).toEqual({ isCreditCard: { eq: true } });
       });
 
       //Add new filter row
@@ -883,7 +969,7 @@ describe(
       await waitFor(() => {
         //Wait for the useEffect to update the filters
         expect(currentFilters).toEqual({
-          isCreditCard: { eq: "true" },
+          isCreditCard: { eq: true },
           and: { status: { eq: "success" } },
         });
       });
@@ -895,6 +981,197 @@ describe(
       await waitFor(() => {
         //Wait for the useEffect to update the filters
         expect(currentFilters).toEqual({}); //GraphQLQueryFilter is reset
+      });
+    });
+    it("Can works correctly without system and default filter", async () => {
+      render(<DataGridWithFilter />);
+
+      const user = userEvent.setup();
+      // Number of data displayed is 14 items
+      await waitFor(() => {
+        expect(screen.getAllByTestId("datagrid-row")).toHaveLength(14);
+      });
+      // Open filter
+      await waitFor(() =>
+        user.click(screen.getByTestId("datagrid-filter-button")),
+      );
+
+      //Select column
+      await selectColumn(screen, user, 0, "Status");
+      //Select condition
+      await selectCondition(screen, user, 0, "に等しい");
+      //Select value
+      await selectValue(screen, user, 0, "pending");
+      // Number of data displayed is 4 items
+      await waitFor(() => {
+        expect(screen.getAllByTestId("datagrid-row")).toHaveLength(4);
+      });
+    });
+    it("System filter works correctly", async () => {
+      render(<DataGridWithFilterWithSystemFilter />);
+
+      const user = userEvent.setup();
+      // Number of data displayed is 4 items
+      await waitFor(() => {
+        expect(screen.getAllByTestId("datagrid-row")).toHaveLength(4);
+      });
+      // Open filter
+      await waitFor(() =>
+        user.click(screen.getByTestId("datagrid-filter-button")),
+      );
+
+      //Select column
+      await selectColumn(screen, user, 0, "Amount");
+      //Select condition
+      await selectCondition(screen, user, 0, "より大きい");
+      //Select value
+      await inputValue(screen, user, 0, "200");
+
+      // Number of data displayed is 2 items
+      await waitFor(() => {
+        expect(screen.getAllByTestId("datagrid-row")).toHaveLength(2);
+      });
+    });
+    it("Default filter works correctly", async () => {
+      render(<DataGridWithFilterWithDefaultFilter />);
+
+      const user = userEvent.setup();
+      // Number of data displayed is 6 items
+      await waitFor(() => {
+        expect(screen.getAllByTestId("datagrid-row")).toHaveLength(6);
+      });
+      // Open filter
+      await waitFor(() =>
+        user.click(screen.getByTestId("datagrid-filter-button")),
+      );
+      // Filter is set to defaultFilter
+
+      //Select joint condition
+      await selectJointCondition(screen, user, 1, "AND");
+      //Select column
+      await selectColumn(screen, user, 1, "Status");
+      //Select condition
+      await selectCondition(screen, user, 1, "に等しい");
+      //Select value
+      await selectValue(screen, user, 1, "pending");
+
+      // Number of data displayed is 2 items
+      await waitFor(() => {
+        expect(screen.getAllByTestId("datagrid-row")).toHaveLength(2);
+      });
+
+      // Reset filter
+      await waitFor(() =>
+        user.click(screen.getByTestId("reset-filter-button")),
+      );
+
+      // Number of data displayed is 6 items
+      await waitFor(() => {
+        expect(screen.getAllByTestId("datagrid-row")).toHaveLength(6);
+      });
+    });
+    it("System filter and Deafult filter work correctly at the same time", async () => {
+      render(<DataGridWithFilterWithSystemAndDefaultFilter />);
+
+      const user = userEvent.setup();
+      // Number of data displayed is 2 items
+      await waitFor(() => {
+        expect(screen.getAllByTestId("datagrid-row")).toHaveLength(2);
+      });
+      // Open filter
+      await waitFor(() =>
+        user.click(screen.getByTestId("datagrid-filter-button")),
+      );
+      // Filter is set to defaultFilter
+
+      // Clear filter
+      await waitFor(() => user.click(screen.getByTestId("reset-clear-button")));
+
+      // Number of data displayed is 4 items
+      await waitFor(() => {
+        expect(screen.getAllByTestId("datagrid-row")).toHaveLength(4);
+      });
+    });
+    it("dateTime filter convert correctly toISOString", async () => {
+      let currentFilters: GraphQLQueryFilter = {};
+
+      render(
+        <CustomFilter
+          columns={columns}
+          onChange={(currentState: GraphQLQueryFilter) => {
+            currentFilters = currentState;
+          }}
+          localization={LOCALIZATION_JA}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
+        />,
+      );
+
+      const user = userEvent.setup();
+
+      //Select column
+      const selectColumn = screen.getByTestId("select-column");
+      const selectColumnButton = within(selectColumn).getByRole("button");
+      await act(async () => {
+        await user.click(selectColumnButton);
+      });
+
+      const createdAtOption = screen.getByRole("option", { name: "UpdatedAt" });
+      expect(createdAtOption).toBeVisible();
+      await act(async () => {
+        await user.click(createdAtOption);
+      });
+      expect(createdAtOption).not.toBeVisible();
+      expect(selectColumn).toHaveTextContent("UpdatedAt");
+
+      //Select condition
+      const selectCondition = screen.getByTestId("select-condition");
+      const selectConditionOptions = screen.getByTestId(
+        "select-condition-options",
+      );
+      const selectConditionButton = within(selectCondition).getByRole("button");
+      await act(async () => {
+        await user.click(selectConditionButton);
+      });
+
+      const lteConditionOption = within(selectConditionOptions).getByText(
+        "以下",
+      );
+      expect(lteConditionOption).toBeVisible();
+      expect(
+        within(selectConditionOptions).getByText("に等しい"),
+      ).toBeVisible();
+      expect(
+        within(selectConditionOptions).getByText("より大きい"),
+      ).toBeVisible();
+      expect(
+        within(selectConditionOptions).getByText("より小さい"),
+      ).toBeVisible();
+      expect(within(selectConditionOptions).getByText("以上")).toBeVisible();
+
+      expect(within(selectConditionOptions).queryByText("を含む")).toBeNull();
+
+      await act(async () => {
+        await user.click(lteConditionOption);
+      });
+
+      expect(lteConditionOption).not.toBeVisible();
+      expect(selectCondition).toHaveTextContent("以下");
+
+      //Input value
+      const inputValue = screen.getByTestId("select-input-value");
+      await act(async () => {
+        await user.click(inputValue);
+        await user.type(inputValue, "2023-11-14 23:00");
+      });
+      expect(inputValue).toHaveValue("2023-11-14T23:00");
+
+      //Check filters
+      await waitFor(() => {
+        //Wait for the useEffect to update the filters
+        expect(currentFilters).toEqual(
+          { updatedAt: { lte: "2023-11-14T14:00:00.000Z" } }, //Returned dateTime is in toISOString
+        );
       });
     });
   },
