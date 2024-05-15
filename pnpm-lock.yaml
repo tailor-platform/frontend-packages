@@ -234,7 +234,7 @@ importers:
         version: 18.2.0
       tsup:
         specifier: ^8.0.1
-        version: 8.0.1(@swc/core@1.4.12)(postcss@8.4.35)(typescript@5.3.3)
+        version: 8.0.1(@swc/core@1.4.12)(typescript@5.3.3)
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
@@ -386,7 +386,7 @@ importers:
         version: 5.3.3
       vite-tsconfig-paths:
         specifier: ^4.2.1
-        version: 4.3.1(typescript@5.3.3)
+        version: 4.3.1(typescript@5.3.3)(vite@5.1.4)
       vitest:
         specifier: ^1.2.1
         version: 1.4.0(@types/node@20.11.30)
@@ -462,7 +462,7 @@ importers:
         version: 8.56.0
       tsup:
         specifier: ^8.0.1
-        version: 8.0.1(@swc/core@1.4.12)(postcss@8.4.35)(typescript@5.3.3)
+        version: 8.0.1(@swc/core@1.4.12)(typescript@5.3.3)
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
@@ -493,7 +493,7 @@ importers:
         version: 8.56.0
       tsup:
         specifier: ^8.0.1
-        version: 8.0.1(@swc/core@1.4.12)(postcss@8.4.35)(typescript@5.3.3)
+        version: 8.0.1(@swc/core@1.4.12)(typescript@5.3.3)
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
@@ -521,7 +521,7 @@ importers:
         version: 8.55.0
       tsup:
         specifier: ^8.0.1
-        version: 8.0.1(@swc/core@1.4.12)(postcss@8.4.35)(typescript@5.3.3)
+        version: 8.0.1(@swc/core@1.4.12)(typescript@5.3.3)
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
@@ -4921,7 +4921,7 @@ packages:
       '@pandacss/token-dictionary': 0.29.1
       '@pandacss/types': 0.29.1
       browserslist: 4.22.2
-      chokidar: 3.5.3
+      chokidar: 3.6.0
       fast-glob: 3.3.2
       file-size: 1.0.0
       filesize: 10.1.0
@@ -8038,6 +8038,13 @@ packages:
     resolution: {integrity: sha512-myfUej5naTBWnqOCc/MdVOLVjXUXtIA+NpDrDBKJtLLg2shUjBu3cZmB/85RyitKc55+lUUyl7oRfLOvkr2hsw==}
     dev: true
 
+  /@szmarczak/http-timer@5.0.1:
+    resolution: {integrity: sha512-+PmQX0PiAYPMeVYe237LJAYvOMYW1j2rH5YROyS3b4CTVJum34HfRvKvAzozHAQG0TnHNdUfY9nCeUyRAs//cw==}
+    engines: {node: '>=14.16'}
+    dependencies:
+      defer-to-connect: 2.0.1
+    dev: false
+
   /@tanstack/react-table@8.15.3(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-aocQ4WpWiAh7R+yxNp+DGQYXeVACh5lv2kk96DjYgFiHDCB0cOFoYMT/pM6eDOzeMXR9AvPoLeumTgq8/0qX+w==}
     engines: {node: '>=12'}
@@ -8988,7 +8995,7 @@ packages:
       vite: ^4 || ^5
     dependencies:
       '@swc/core': 1.4.2
-      vite: 5.0.12(@types/node@18.19.6)
+      vite: 5.0.12(@types/node@20.11.30)
     transitivePeerDependencies:
       - '@swc/helpers'
     dev: true
@@ -9221,6 +9228,7 @@ packages:
       '@vue/shared': 3.3.4
       estree-walker: 2.0.2
       magic-string: 0.30.8
+    dev: false
 
   /@vue/shared@3.3.4:
     resolution: {integrity: sha512-7OjdcV8vQ74eiz1TZLzZP4JwqM5fA94K6yntPS5Z25r9HDuGNzaGdgvwKYq6S+MxwF0TFRwe50fIR/MYnakdkQ==}
@@ -10891,6 +10899,7 @@ packages:
       readdirp: 3.6.0
     optionalDependencies:
       fsevents: 2.3.3
+    dev: true
 
   /chokidar@3.6.0:
     resolution: {integrity: sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==}
@@ -18046,19 +18055,6 @@ packages:
       typescript: 5.3.3
     dev: false
 
-  /tsconfck@3.0.1(typescript@5.3.3):
-    resolution: {integrity: sha512-7ppiBlF3UEddCLeI1JRx5m2Ryq+xk4JrZuq4EuYXykipebaq1dV0Fhgr1hb7CkmHt32QSgOZlcqVLEtHBG4/mg==}
-    engines: {node: ^18 || >=20}
-    hasBin: true
-    peerDependencies:
-      typescript: ^5.0.0
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      typescript: 5.3.3
-    dev: true
-
   /tsconfck@3.0.2(typescript@5.3.2):
     resolution: {integrity: sha512-6lWtFjwuhS3XI4HsX4Zg0izOI3FU/AI9EGVlPEUMDIhvLPMD4wkiof0WCoDgW7qY+Dy198g4d9miAqUHWHFH6Q==}
     engines: {node: ^18 || >=20}
@@ -18129,6 +18125,85 @@ packages:
       joycon: 3.1.1
       postcss: 8.4.35
       postcss-load-config: 4.0.2(postcss@8.4.35)
+      resolve-from: 5.0.0
+      rollup: 4.12.0
+      source-map: 0.8.0-beta.0
+      sucrase: 3.35.0
+      tree-kill: 1.2.2
+      typescript: 5.3.3
+    transitivePeerDependencies:
+      - supports-color
+      - ts-node
+    dev: true
+
+  /tsup@8.0.1(@swc/core@1.4.12)(typescript@5.3.3):
+    resolution: {integrity: sha512-hvW7gUSG96j53ZTSlT4j/KL0q1Q2l6TqGBFc6/mu/L46IoNWqLLUzLRLP1R8Q7xrJTmkDxxDoojV5uCVs1sVOg==}
+    engines: {node: '>=18'}
+    hasBin: true
+    peerDependencies:
+      '@microsoft/api-extractor': ^7.36.0
+      '@swc/core': ^1
+      postcss: ^8.4.12
+      typescript: '>=4.5.0'
+    peerDependenciesMeta:
+      '@microsoft/api-extractor':
+        optional: true
+      '@swc/core':
+        optional: true
+      postcss:
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      '@swc/core': 1.4.12
+      bundle-require: 4.0.2(esbuild@0.19.12)
+      cac: 6.7.14
+      chokidar: 3.6.0
+      debug: 4.3.4(supports-color@5.5.0)
+      esbuild: 0.19.12
+      execa: 5.1.1
+      globby: 11.1.0
+      joycon: 3.1.1
+      postcss-load-config: 4.0.2(ts-node@10.9.2)
+      resolve-from: 5.0.0
+      rollup: 4.12.0
+      source-map: 0.8.0-beta.0
+      sucrase: 3.35.0
+      tree-kill: 1.2.2
+      typescript: 5.3.3
+    transitivePeerDependencies:
+      - supports-color
+      - ts-node
+    dev: true
+
+  /tsup@8.0.1(ts-node@10.9.2)(typescript@5.3.3):
+    resolution: {integrity: sha512-hvW7gUSG96j53ZTSlT4j/KL0q1Q2l6TqGBFc6/mu/L46IoNWqLLUzLRLP1R8Q7xrJTmkDxxDoojV5uCVs1sVOg==}
+    engines: {node: '>=18'}
+    hasBin: true
+    peerDependencies:
+      '@microsoft/api-extractor': ^7.36.0
+      '@swc/core': ^1
+      postcss: ^8.4.12
+      typescript: '>=4.5.0'
+    peerDependenciesMeta:
+      '@microsoft/api-extractor':
+        optional: true
+      '@swc/core':
+        optional: true
+      postcss:
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      bundle-require: 4.0.2(esbuild@0.19.12)
+      cac: 6.7.14
+      chokidar: 3.6.0
+      debug: 4.3.4(supports-color@5.5.0)
+      esbuild: 0.19.12
+      execa: 5.1.1
+      globby: 11.1.0
+      joycon: 3.1.1
+      postcss-load-config: 4.0.2(ts-node@10.9.2)
       resolve-from: 5.0.0
       rollup: 4.12.0
       source-map: 0.8.0-beta.0
@@ -18475,7 +18550,7 @@ packages:
     resolution: {integrity: sha512-BfJEpWBu3aE/AyHx8VaNE/WgouoQxgH9baAiH82JjX8cqVyi3uJQstqwD5J+SZxIK326SZIhsSZlALXVBCknTQ==}
     dependencies:
       acorn: 8.11.3
-      chokidar: 3.5.3
+      chokidar: 3.6.0
       webpack-sources: 3.2.3
       webpack-virtual-modules: 0.6.1
     dev: true
@@ -18714,22 +18789,6 @@ packages:
       - terser
     dev: true
 
-  /vite-tsconfig-paths@4.3.1(typescript@5.3.3):
-    resolution: {integrity: sha512-cfgJwcGOsIxXOLU/nELPny2/LUD/lcf1IbfyeKTv2bsupVbTH/xpFtdQlBmIP1GEK2CjjLxYhFfB+QODFAx5aw==}
-    peerDependencies:
-      vite: '*'
-    peerDependenciesMeta:
-      vite:
-        optional: true
-    dependencies:
-      debug: 4.3.4(supports-color@5.5.0)
-      globrex: 0.1.2
-      tsconfck: 3.0.2(typescript@5.3.3)
-    transitivePeerDependencies:
-      - supports-color
-      - typescript
-    dev: true
-
   /vite-tsconfig-paths@4.3.1(typescript@5.3.3)(vite@5.1.4):
     resolution: {integrity: sha512-cfgJwcGOsIxXOLU/nELPny2/LUD/lcf1IbfyeKTv2bsupVbTH/xpFtdQlBmIP1GEK2CjjLxYhFfB+QODFAx5aw==}
     peerDependencies:
@@ -18740,7 +18799,7 @@ packages:
     dependencies:
       debug: 4.3.4(supports-color@5.5.0)
       globrex: 0.1.2
-      tsconfck: 3.0.1(typescript@5.3.3)
+      tsconfck: 3.0.2(typescript@5.3.3)
       vite: 5.1.4(@types/node@18.19.2)
     transitivePeerDependencies:
       - supports-color
@@ -18778,7 +18837,7 @@ packages:
       '@types/node': 18.19.2
       esbuild: 0.19.12
       postcss: 8.4.33
-      rollup: 4.9.4
+      rollup: 4.12.0
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
