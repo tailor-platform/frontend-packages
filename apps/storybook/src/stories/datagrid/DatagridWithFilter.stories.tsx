@@ -7,6 +7,8 @@ import {
 } from "./DataGridWithFilterStory.tsx";
 
 import dataGridWithFilterStorySource from "./DataGridWithFilterStory.tsx?raw";
+import { DataGridOnModalWithFilterStory } from "./DataGridOnModalWithFilterStory.tsx";
+import dataGridOnModalWithFilterStorySource from "./DataGridOnModalWithFilterStory.tsx?raw";
 
 const meta: Meta<DataGridWithFilterStoryProps> = {
   title: "DataGrid/ DataGrid With Filter",
@@ -35,6 +37,23 @@ export const Default: Story = {
       },
       source: {
         code: dataGridWithFilterStorySource,
+      },
+    },
+  },
+};
+
+export const OnModal: Story = {
+  args: {
+    enableColumnFilters: true,
+  },
+  render: (args) => <DataGridOnModalWithFilterStory {...args} />,
+  parameters: {
+    docs: {
+      canvas: {
+        sourceState: "hidden",
+      },
+      source: {
+        code: dataGridOnModalWithFilterStorySource,
       },
     },
   },
