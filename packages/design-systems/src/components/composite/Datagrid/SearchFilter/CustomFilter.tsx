@@ -477,10 +477,10 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
    */
   useEffect(() => {
     //Create GraphQLQueryFilter from filterRows
-    const newFilterRowsState: GraphQLQueryFilter = {};
+    let newFilterRowsState: GraphQLQueryFilter = {};
     filterRows.forEach((row) => {
       if (row.currentState) {
-        const { column, condition, value } = row.currentState;
+        const { column, condition, value, jointCondition } = row.currentState;
         const metaType = columns.find((c) => c.accessorKey === column)?.meta
           ?.type;
         const isExistCurrentState: boolean =
@@ -492,6 +492,11 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
             newFilterRowsState,
             metaType,
           );
+          if (jointCondition === "or") {
+            newFilterRowsState = {
+              or: newFilterRowsState,
+            };
+          }
         }
       }
     });
