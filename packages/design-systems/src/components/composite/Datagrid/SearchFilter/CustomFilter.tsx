@@ -1,4 +1,11 @@
-import { useCallback, useEffect, useMemo, useState, useRef } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  useRef,
+  CSSProperties,
+} from "react";
 import {
   RowData,
   Table,
@@ -491,6 +498,19 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addToGraphQLQueryFilterRecursively, filterRows]);
 
+  const getBoxPosition = (): CSSProperties => {
+    const box = filterButtonRef.current?.getBoundingClientRect();
+
+    if (!box) {
+      return {};
+    }
+    return {
+      zIndex: 1500, // ark-ui modal has z-index of 1400. So, we need to set it higher than that.
+      position: "fixed",
+      top: Math.ceil(box.bottom),
+    };
+  };
+
   return (
     <>
       <HStack>
@@ -519,12 +539,12 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
         pb={4}
         borderRadius={"4px"}
         boxShadow="lg"
-        position={"absolute"}
-        top={"100px"}
         backgroundColor={"bg.default"}
-        zIndex={2}
         ref={filterRef}
         display={customFilterOpen ? "block" : "none"}
+        style={{
+          ...getBoxPosition(),
+        }}
       >
         <Button
           variant="tertiary"
