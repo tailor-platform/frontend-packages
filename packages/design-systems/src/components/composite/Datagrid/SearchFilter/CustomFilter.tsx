@@ -495,93 +495,95 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
   return (
     <>
       {enableColumnFilters && (
-        <HStack>
-          <Button
-            key="filterButton"
-            variant="secondary"
-            size="md"
-            onClick={() => {
-              setCustomFilterOpen(!customFilterOpen);
-              addEventOutside(
-                filterRef,
-                () => setCustomFilterOpen(false),
-                filterButtonRef,
-                true,
-              );
-            }}
-            ref={filterButtonRef}
-            data-testid="datagrid-filter-button"
+        <>
+          <HStack>
+            <Button
+              key="filterButton"
+              variant="secondary"
+              size="md"
+              onClick={() => {
+                setCustomFilterOpen(!customFilterOpen);
+                addEventOutside(
+                  filterRef,
+                  () => setCustomFilterOpen(false),
+                  filterButtonRef,
+                  true,
+                );
+              }}
+              ref={filterButtonRef}
+              data-testid="datagrid-filter-button"
+            >
+              <FilterIcon />
+              <Text marginLeft={2}>{localization.filter.filterLabel}</Text>
+            </Button>
+          </HStack>
+          <Box
+            px={4}
+            pb={4}
+            borderRadius={"4px"}
+            boxShadow="lg"
+            position={"absolute"}
+            top={"100px"}
+            backgroundColor={"bg.default"}
+            zIndex={2}
+            ref={filterRef}
+            display={customFilterOpen ? "block" : "none"}
           >
-            <FilterIcon />
-            <Text marginLeft={2}>{localization.filter.filterLabel}</Text>
-          </Button>
-        </HStack>
+            <Button
+              variant="tertiary"
+              onClick={resetFilterHandler}
+              color={"error.default"}
+              data-testid={"reset-filter-button"}
+            >
+              {localization.filter.filterResetLabel}
+            </Button>
+            {!!defaultFilter && (
+              <Button
+                variant="tertiary"
+                onClick={clearFilterHandler}
+                color={"error.default"}
+                data-testid={"reset-clear-button"}
+              >
+                {localization.filter.filterClearLabel}
+              </Button>
+            )}
+            <Box
+              flex={1}
+              display={"flex"}
+              flexDirection={"column"}
+              alignItems={"flex-end"}
+            >
+              {filterRows.map((row, i) => {
+                if (row.currentState.isSystem === true) {
+                  return null;
+                }
+                return (
+                  <FilterRow
+                    key={"filterRow" + i}
+                    currentFilter={row.currentState}
+                    columns={columns}
+                    jointConditions={activeJointConditions}
+                    onDelete={deleteFilterRowHandler(row.index)}
+                    isFirstRow={row.isFirstRow}
+                    onChange={filterChangedHandler(row.index)}
+                    localization={localization}
+                  />
+                );
+              })}
+            </Box>
+            <Button
+              backgroundColor="primary.default"
+              marginTop={4}
+              onClick={() => {
+                addNewFilterRowHandler(numberOfFilterRows);
+                setNumberOfFilterRows((prev) => prev + 1);
+              }}
+            >
+              {localization.filter.addNewFilterLabel}
+            </Button>
+          </Box>
+        </>
       )}
-      <Box
-        px={4}
-        pb={4}
-        borderRadius={"4px"}
-        boxShadow="lg"
-        position={"absolute"}
-        top={"100px"}
-        backgroundColor={"bg.default"}
-        zIndex={2}
-        ref={filterRef}
-        display={customFilterOpen ? "block" : "none"}
-      >
-        <Button
-          variant="tertiary"
-          onClick={resetFilterHandler}
-          color={"error.default"}
-          data-testid={"reset-filter-button"}
-        >
-          {localization.filter.filterResetLabel}
-        </Button>
-        {!!defaultFilter && (
-          <Button
-            variant="tertiary"
-            onClick={clearFilterHandler}
-            color={"error.default"}
-            data-testid={"reset-clear-button"}
-          >
-            {localization.filter.filterClearLabel}
-          </Button>
-        )}
-        <Box
-          flex={1}
-          display={"flex"}
-          flexDirection={"column"}
-          alignItems={"flex-end"}
-        >
-          {filterRows.map((row, i) => {
-            if (row.currentState.isSystem === true) {
-              return null;
-            }
-            return (
-              <FilterRow
-                key={"filterRow" + i}
-                currentFilter={row.currentState}
-                columns={columns}
-                jointConditions={activeJointConditions}
-                onDelete={deleteFilterRowHandler(row.index)}
-                isFirstRow={row.isFirstRow}
-                onChange={filterChangedHandler(row.index)}
-                localization={localization}
-              />
-            );
-          })}
-        </Box>
-        <Button
-          backgroundColor="primary.default"
-          marginTop={4}
-          onClick={() => {
-            addNewFilterRowHandler(numberOfFilterRows);
-            setNumberOfFilterRows((prev) => prev + 1);
-          }}
-        >
-          {localization.filter.addNewFilterLabel}
-        </Button>
-      </Box>
     </>
   );
 };

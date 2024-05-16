@@ -196,6 +196,7 @@ describe(
           localization={LOCALIZATION_EN}
           customFilterOpen={true}
           setCustomFilterOpen={() => void 0}
+          enableColumnFilters={true}
         />,
       );
       expect(screen.getByText("Reset Filter")).toBeVisible();
@@ -226,6 +227,7 @@ describe(
           localization={LOCALIZATION_JA}
           customFilterOpen={true}
           setCustomFilterOpen={() => void 0}
+          enableColumnFilters={true}
         />,
       );
       expect(screen.getByText("追加したフィルタを削除")).toBeVisible();
@@ -256,6 +258,7 @@ describe(
           localization={LOCALIZATION_JA}
           customFilterOpen={true}
           setCustomFilterOpen={() => void 0}
+          enableColumnFilters={true}
         />,
       );
 
@@ -348,6 +351,7 @@ describe(
           localization={LOCALIZATION_JA}
           customFilterOpen={true}
           setCustomFilterOpen={() => void 0}
+          enableColumnFilters={true}
         />,
       );
 
@@ -422,6 +426,7 @@ describe(
           localization={LOCALIZATION_JA}
           customFilterOpen={true}
           setCustomFilterOpen={() => void 0}
+          enableColumnFilters={true}
         />,
       );
 
@@ -501,6 +506,7 @@ describe(
           localization={LOCALIZATION_JA}
           customFilterOpen={true}
           setCustomFilterOpen={() => void 0}
+          enableColumnFilters={true}
         />,
       );
 
@@ -584,6 +590,7 @@ describe(
           localization={LOCALIZATION_JA}
           customFilterOpen={true}
           setCustomFilterOpen={() => void 0}
+          enableColumnFilters={true}
         />,
       );
 
@@ -676,6 +683,7 @@ describe(
           localization={LOCALIZATION_JA}
           customFilterOpen={true}
           setCustomFilterOpen={() => void 0}
+          enableColumnFilters={true}
         />,
       );
 
@@ -775,6 +783,7 @@ describe(
           localization={LOCALIZATION_JA}
           customFilterOpen={true}
           setCustomFilterOpen={() => void 0}
+          enableColumnFilters={true}
         />,
       );
 
@@ -874,6 +883,7 @@ describe(
           localization={LOCALIZATION_JA}
           customFilterOpen={true}
           setCustomFilterOpen={() => void 0}
+          enableColumnFilters={true}
         />,
       );
 
@@ -935,6 +945,7 @@ describe(
           localization={LOCALIZATION_JA}
           customFilterOpen={true}
           setCustomFilterOpen={() => void 0}
+          enableColumnFilters={true}
         />,
       );
 
@@ -1104,6 +1115,7 @@ describe(
           localization={LOCALIZATION_JA}
           customFilterOpen={true}
           setCustomFilterOpen={() => void 0}
+          enableColumnFilters={true}
         />,
       );
 
