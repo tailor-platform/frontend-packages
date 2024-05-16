@@ -31,7 +31,7 @@ export type DataGridWithFilterStoryProps = {
 export const DataGridOnModalWithFilterStory = ({
   enableColumnFilters = false,
 }: DataGridWithFilterStoryProps) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState<Payment[]>(originData);
   const query: GraphQLQueryFilter = {
     updatedAt: { eq: "2024-05-10 12:00:00" },
