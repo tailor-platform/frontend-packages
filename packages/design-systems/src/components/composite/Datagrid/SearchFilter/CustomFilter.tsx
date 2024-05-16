@@ -478,6 +478,7 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
   useEffect(() => {
     //Create GraphQLQueryFilter from filterRows
     let newFilterRowsState: GraphQLQueryFilter = {};
+    let isOrJointCondition: boolean = false;
     filterRows.forEach((row) => {
       if (row.currentState) {
         const { column, condition, value, jointCondition } = row.currentState;
@@ -492,14 +493,17 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
             newFilterRowsState,
             metaType,
           );
-          if (jointCondition === "or") {
-            newFilterRowsState = {
-              or: newFilterRowsState,
-            };
-          }
+        }
+        if (jointCondition) {
+          isOrJointCondition = jointCondition === "or";
         }
       }
     });
+    if (isOrJointCondition) {
+      newFilterRowsState = {
+        or: newFilterRowsState,
+      };
+    }
     setFilterRowsState(newFilterRowsState);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addToGraphQLQueryFilterRecursively, filterRows]);

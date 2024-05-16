@@ -854,19 +854,21 @@ describe(
       await waitFor(() => {
         //Wait for the useEffect to update the filters
         expect(currentFilters).toEqual({
-          isCreditCard: { eq: true },
           or: {
-            status: { eq: "success" },
+            isCreditCard: { eq: true },
             or: {
-              createdAt: { lte: "2023-11-14" },
+              status: { eq: "success" },
               or: {
-                email: { eq: "test@test.com" },
+                createdAt: { lte: "2023-11-14" },
                 or: {
-                  amount: { gte: 800 },
+                  email: { eq: "test@test.com" },
+                  or: {
+                    amount: { gte: 800 },
+                  },
                 },
               },
             },
-          },
+          }
         });
       });
     });
