@@ -73,7 +73,7 @@ const DataGridWithSorting = () => {
 const DataGridWithManualSorting = () => {
   const pageSize = 8;
   const [data, setData] = useState<Payment[]>(originData.slice(0, pageSize));
-  const [sorting, setSorting] = useState<Order | undefined>(undefined);
+  const [sorting, setSorting] = useState<Order<Payment> | undefined>(undefined);
   const [ps, setPs] = useState(pageSize);
 
   const table = useDataGrid({

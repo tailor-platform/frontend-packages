@@ -389,7 +389,7 @@ export const setFilterChange = (
 
 export const setSortChange = (
   data: Payment[],
-  sorting: Order | undefined,
+  sorting: Order<Payment> | undefined,
 ): Payment[] => {
   if (!sorting) return data;
   return [...data].sort((a, b) => {

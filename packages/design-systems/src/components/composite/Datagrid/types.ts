@@ -30,7 +30,7 @@ export interface DataGridInstance<
   pageSizeOptions?: number[];
   enableDensity?: boolean;
   enableSorting?: boolean;
-  onSortChange?: (sorting: Order | undefined) => void;
+  onSortChange?: (sorting: Order<TData> | undefined) => void;
 }
 
 export type UseDataGridProps<TData extends Record<string, unknown>> = {
@@ -61,7 +61,7 @@ export type UseDataGridProps<TData extends Record<string, unknown>> = {
   enableDensity?: boolean;
   exportOptions?: ExportState<TData>;
   enableSorting?: boolean;
-  onSortChange?: (sorting: Order | undefined) => void;
+  onSortChange?: (sorting: Order<TData> | undefined) => void;
 };
 
 export type MetaType =
@@ -80,7 +80,7 @@ export type Column<TData> = {
   meta?: ColumnMeta<TData, unknown>;
 };
 
-export type Order = {
-  field: string;
+export type Order<TData> = {
+  field: keyof TData;
   direction: "Asc" | "Desc";
 };
