@@ -56,4 +56,5 @@ export type CustomFilterProps<TData> = {
   defaultFilter?: GraphQLQueryFilter;
   customFilterOpen: boolean;
   setCustomFilterOpen: (updater: Updater<boolean>) => void;
+  enableColumnFilters?: boolean;
 };

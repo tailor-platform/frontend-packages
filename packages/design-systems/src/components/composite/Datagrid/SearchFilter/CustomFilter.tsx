@@ -52,6 +52,7 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
     defaultFilter,
     customFilterOpen,
     setCustomFilterOpen,
+    enableColumnFilters,
   } = props;
 
   const filterRef = useRef<HTMLDivElement>(null);
@@ -510,6 +511,10 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
       top: Math.ceil(box.bottom),
     };
   };
+
+  if (!enableColumnFilters) {
+    return null;
+  }
 
   return (
     <>

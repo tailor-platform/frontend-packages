@@ -143,19 +143,18 @@ export const DataGrid = <TData extends Record<string, unknown>>(
             setHideShowOpen={table.setHideShowOpen}
           />
         )}
-        {table.enableColumnFilters && (
-          <CustomFilter
-            columns={cusotmFilterFields}
-            onChange={(filters) => {
-              table.onFilterChange && table.onFilterChange(filters);
-            }}
-            localization={localization}
-            systemFilter={table.systemFilter}
-            defaultFilter={table.defaultFilter}
-            customFilterOpen={customFilterOpen}
-            setCustomFilterOpen={table.setCustomFilterOpen}
-          />
-        )}
+        <CustomFilter
+          columns={cusotmFilterFields}
+          onChange={(filters) => {
+            table.onFilterChange && table.onFilterChange(filters);
+          }}
+          localization={localization}
+          systemFilter={table.systemFilter}
+          defaultFilter={table.defaultFilter}
+          customFilterOpen={customFilterOpen}
+          setCustomFilterOpen={table.setCustomFilterOpen}
+          enableColumnFilters={table.enableColumnFilters}
+        />
         {table.enableDensity && (
           <Density
             setDensity={table.setDensity}
