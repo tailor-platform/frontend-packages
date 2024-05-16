@@ -20,7 +20,7 @@ export const select = defineSlotRecipe({
       maxHeight: "220px",
       overflow: "scroll",
       overflowX: "hidden",
-      zIndex: "dropdown",
+      zIndex: "popover",
       _hidden: {
         display: "none",
       },
