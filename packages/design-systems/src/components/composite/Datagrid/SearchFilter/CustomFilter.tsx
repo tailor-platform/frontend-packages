@@ -45,6 +45,7 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
     defaultFilter,
     customFilterOpen,
     setCustomFilterOpen,
+    enableColumnFilters,
   } = props;
 
   const filterRef = useRef<HTMLDivElement>(null);
@@ -493,27 +494,29 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
 
   return (
     <>
-      <HStack>
-        <Button
-          key="filterButton"
-          variant="secondary"
-          size="md"
-          onClick={() => {
-            setCustomFilterOpen(!customFilterOpen);
-            addEventOutside(
-              filterRef,
-              () => setCustomFilterOpen(false),
-              filterButtonRef,
-              true,
-            );
-          }}
-          ref={filterButtonRef}
-          data-testid="datagrid-filter-button"
-        >
-          <FilterIcon />
-          <Text marginLeft={2}>{localization.filter.filterLabel}</Text>
-        </Button>
-      </HStack>
+      {enableColumnFilters && (
+        <HStack>
+          <Button
+            key="filterButton"
+            variant="secondary"
+            size="md"
+            onClick={() => {
+              setCustomFilterOpen(!customFilterOpen);
+              addEventOutside(
+                filterRef,
+                () => setCustomFilterOpen(false),
+                filterButtonRef,
+                true,
+              );
+            }}
+            ref={filterButtonRef}
+            data-testid="datagrid-filter-button"
+          >
+            <FilterIcon />
+            <Text marginLeft={2}>{localization.filter.filterLabel}</Text>
+          </Button>
+        </HStack>
+      )}
       <Box
         px={4}
         pb={4}
