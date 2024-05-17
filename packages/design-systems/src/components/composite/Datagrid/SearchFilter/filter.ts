@@ -9,6 +9,7 @@ const GraphQLFilterOperator = {
   GREATER_THAN_OR_EQUAL: "gte",
   NOT_EQUAL: "ne",
   CONTAINS: "contains",
+  IN: "in",
 } as const;
 
 type FilterCondition = {
@@ -70,6 +71,19 @@ export const getLocalizedFilterConditions = (
       label: localization.filter.condition.operatorLabel.lessThanOrEqual,
       value: GraphQLFilterOperator.LESS_THAN_OR_EQUAL,
       applicableTypeTypes: ["time", "dateTime", "date", "number"],
+      disabled: false,
+    },
+    {
+      label: localization.filter.condition.operatorLabel.in,
+      value: GraphQLFilterOperator.IN,
+      applicableTypeTypes: [
+        "string",
+        "enum",
+        "time",
+        "dateTime",
+        "date",
+        "number",
+      ],
       disabled: false,
     },
   ];
