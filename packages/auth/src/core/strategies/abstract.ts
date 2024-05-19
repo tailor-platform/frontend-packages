@@ -1,6 +1,7 @@
+import { NextRequest } from "next/server";
 import { Config } from "@core/config";
 
-type CallbackResult = {
+export type CallbackResult = {
   /**
    * Payload to be sent out to /auth/token endpoint on Tailor Platform to issue token
    */
@@ -110,7 +111,10 @@ export type AbstractStrategy<
    *
    * @returns `CallbackResult` object that contains payload to be sent to /auth/token endpoint to issue token
    */
-  callback(config: Config, params: URLSearchParams): CallbackResult;
+  callback(
+    config: Config,
+    request: NextRequest,
+  ): CallbackResult | Promise<CallbackResult>;
 };
 
 export class CallbackError extends Error {

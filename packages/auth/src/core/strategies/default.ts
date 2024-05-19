@@ -1,4 +1,4 @@
-import { OIDCStrategy } from "./sso";
+import { OIDCStrategy } from "./oidc";
 
 // `defaultStrategy` is a strategy used if users don't specify the strategy name in `login` function
 // Currently, the default is OIDC, but fine to be changed in need.
