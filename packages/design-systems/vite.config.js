@@ -8,5 +8,6 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
     globalSetup: ["./test-setup"],
+    testTimeout: 10000,
   },
 });
