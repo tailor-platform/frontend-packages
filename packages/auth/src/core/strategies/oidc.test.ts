@@ -28,7 +28,7 @@ describe("oidc strategy", () => {
   it("oidc callback error", () => {
     expect(() =>
       strategy.callback(config, new Request("http://localhost:3000")),
-    ).toThrow("code and redirectURI should be filled");
+    ).toThrowError(paramsError());
     expect(() =>
       strategy.callback(config, new Request("http://localhost:3000?code=test")),
     ).toThrow("code and redirectURI should be filled");
