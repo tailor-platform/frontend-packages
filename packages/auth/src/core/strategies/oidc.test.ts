@@ -2,7 +2,7 @@ import { expect } from "vitest";
 import { OIDCStrategy } from "@core/strategies/oidc";
 import { Config } from "@core";
 
-describe("oidv strategy", () => {
+describe("oidc strategy", () => {
   const strategy = new OIDCStrategy();
   const config = new Config({
     apiHost: "http://yourapp.mini.tailor.tech:8000",
