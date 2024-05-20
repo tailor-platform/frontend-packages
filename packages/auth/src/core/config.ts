@@ -1,4 +1,5 @@
-import { OIDCStrategy, SAMLStrategy } from "@core/strategies/sso";
+import { OIDCStrategy } from "@core/strategies/oidc";
+import { SAMLStrategy } from "@core/strategies/saml";
 import { MinitailorStrategy } from "@core/strategies/minitailor";
 import { AbstractStrategy } from "@core/strategies/abstract";
 import { defaultStrategy } from "@core/strategies/default";

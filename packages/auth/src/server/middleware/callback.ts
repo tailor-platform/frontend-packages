@@ -11,10 +11,7 @@ export const callbackHandler: RouteHandler = async ({
 }) => {
   const strategyName = request.nextUrl.pathname.split("/").pop();
   const strategy = config.getStrategy(strategyName);
-  const { payload, redirectUri } = strategy.callback(
-    config,
-    request.nextUrl.searchParams,
-  );
+  const { payload, redirectUri } = await strategy.callback(config, request);
   const res = await fetch(config.apiUrl(config.tokenPath()), {
     method: "POST",
     body: payload,
@@ -31,7 +28,7 @@ export const callbackHandler: RouteHandler = async ({
       userID: session.user_id,
     }));
 
-  const redirection = NextResponse.redirect(config.appUrl(redirectUri));
+  const redirection = NextResponse.redirect(config.appUrl(redirectUri), 301);
   redirection.cookies.set(
     buildCookieEntry(session, "tailor.token", "access_token", config),
   );
