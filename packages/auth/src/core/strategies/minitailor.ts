@@ -33,7 +33,7 @@ export class MinitailorStrategy implements AbstractStrategy<Options> {
   }
 
   callback(config: Config, request: Request) {
-    const params = new URL(request.url).searchParams
+    const params = new URL(request.url).searchParams;
     const idToken = params.get("id_token");
     const redirectURI = params.get("redirect_path");
     if (!idToken || !redirectURI) {

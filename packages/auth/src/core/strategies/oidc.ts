@@ -23,7 +23,7 @@ export class OIDCStrategy implements AbstractStrategy<Options> {
   }
 
   callback(config: Config, request: Request) {
-    const searchParams = new URL(request.url).searchParams
+    const searchParams = new URL(request.url).searchParams;
     const param = searchParams.get("code");
     const redirectURI = searchParams.get("redirect_uri");
     if (!param || !redirectURI) {
