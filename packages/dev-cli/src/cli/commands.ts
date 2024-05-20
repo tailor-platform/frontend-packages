@@ -124,4 +124,57 @@ export const commands: Commands = {
       },
     ],
   },
+  "vault:list": {
+    description: "list secrets",
+    path: "builtin/vault-list",
+    options: [
+      {
+        usage: "--format <format>",
+        description: "format json or table",
+        default: "json",
+      },
+    ],
+  },
+  "vault:create": {
+    description: "create a secret",
+    path: "builtin/vault-create",
+    options: [
+      {
+        usage: "-n, --name <vaultName>",
+        description: "vault name",
+        default: "",
+      },
+      {
+        usage: "--format <format>",
+        description: "format json or table",
+        default: "json",
+      },
+    ],
+  },
+  "vault:secret:create": {
+    description: "create a secret",
+    path: "builtin/vault-secret-create",
+    options: [
+      {
+        usage: "-s, --secretName <secretName>",
+        description: "secret name",
+        default: "",
+      },
+      {
+        usage: "-v, --secretValue <secretValue>",
+        description: "secret value",
+        default: "",
+      },
+      {
+        usage: "-n, --vaultName <vaultName>",
+        description: "vault name",
+        default: "",
+      },
+      {
+        usage: "--format <format>",
+        description: "format json or table",
+        default: "json",
+      },
+    ],
+  },
 } as const;
