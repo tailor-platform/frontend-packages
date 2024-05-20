@@ -1,7 +1,7 @@
+import { NextRequest } from "next/server";
 import { AbstractStrategy, paramsError } from "@core/strategies/abstract";
 import { Config } from "@core/config";
 import { callbackByStrategy } from "@core/path";
-import { NextRequest } from "next/server";
 
 type Options = {
   email: string;
