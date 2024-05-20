@@ -1,6 +1,6 @@
+import {expect} from "vitest";
 import {OIDCStrategy} from "@core/strategies/oidc";
 import {Config} from "@core";
-import {expect} from "vitest";
 
 describe("oidv strategy",  () => {
   const strategy = new OIDCStrategy();

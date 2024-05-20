@@ -1,6 +1,6 @@
+import {expect} from "vitest";
 import {SAMLStrategy} from "@core/strategies/saml";
 import {Config} from "@core";
-import {expect} from "vitest";
 
 describe("saml strategy",  () => {
   const strategy = new SAMLStrategy();
@@ -13,14 +13,13 @@ describe("saml strategy",  () => {
     expect(payload.mode).toBe('redirection');
     expect(payload.uri).toBe('http://yourapp.mini.tailor.tech:8000/auth/login?redirect_uri=http://localhost:3000/__auth/callback/saml?redirect_uri=/&state=/')
   })
-  it("saml callback parameter error", () => {
+  it("saml callback parameter error", async () => {
     const req = new Request("http://localhost:3000?code=code&redirect_uri=/path");
     req.formData = async () => {
       const fd = new FormData();
       return Promise.resolve(fd);
     }
-    // eslint-disable-next-line vitest/valid-expect
-    expect(strategy.callback(config, req)).rejects.toThrow("code and redirectURI should be filled");
+    await expect(strategy.callback(config, req)).rejects.toThrow("code and redirectURI should be filled");
   })
   it("saml callback", async () => {
     const req = new Request("http://localhost:3000?code=code&redirect_uri=/path");
