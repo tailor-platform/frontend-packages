@@ -27,7 +27,8 @@ export const callbackHandler: RouteHandler = async ({
       token: session.access_token,
       userID: session.user_id,
     }));
-
+  // Next.js server redirection uses 307 and 308 to preserve the request method.
+  // However the auth package always has to redirect users to the destination pages, so here intentionally uses 301 to make it GET request.
   const redirection = NextResponse.redirect(config.appUrl(redirectUri), 301);
   redirection.cookies.set(
     buildCookieEntry(session, "tailor.token", "access_token", config),
