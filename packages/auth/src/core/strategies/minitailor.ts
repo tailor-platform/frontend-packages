@@ -1,4 +1,3 @@
-import { NextRequest } from "next/server";
 import { AbstractStrategy, paramsError } from "@core/strategies/abstract";
 import { Config } from "@core/config";
 import { callbackByStrategy } from "@core/path";
@@ -33,8 +32,8 @@ export class MinitailorStrategy implements AbstractStrategy<Options> {
     };
   }
 
-  callback(config: Config, request: NextRequest) {
-    const params = request.nextUrl.searchParams;
+  callback(config: Config, request: Request) {
+    const params = new URL(request.url).searchParams
     const idToken = params.get("id_token");
     const redirectURI = params.get("redirect_path");
     if (!idToken || !redirectURI) {
