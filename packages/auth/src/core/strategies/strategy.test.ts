@@ -3,7 +3,6 @@ import { defaultStrategy } from "./default";
 import { SAMLStrategy } from "./saml";
 import { OIDCStrategy } from "./oidc";
 import { mockAuthConfig } from "@tests/mocks";
-import { AbstractStrategy } from "@core";
 
 describe("redirection", () => {
   const buildMockedRedirectionURL = (strategy: string) =>
@@ -26,8 +25,8 @@ describe("redirection", () => {
 
   it.each(Object.keys(cases))("initializes authentication (%s)", async (k) => {
     const key = k as keyof typeof cases;
-    const strategy = cases[key].builder() as AbstractStrategy;
-    const result = await strategy.authenticate(mockAuthConfig, {
+    const strategy = cases[key].builder();
+    const result = strategy.authenticate(mockAuthConfig, {
       redirectPath: "/redirect-path",
     });
 
