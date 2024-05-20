@@ -35,17 +35,11 @@ describe("minitailor strategy", () => {
     expect(payload.payload.redirect_path).toBe("/");
   });
   it("minitailor authorize fail to fetch", async () => {
-    vi.spyOn(global, "fetch").mockImplementation(async (args) => {
-      const redirectPath = new URL(args as string).searchParams.get(
-        "redirectPath",
-      );
+    vi.spyOn(global, "fetch").mockImplementation(async () => {
       return Promise.resolve(
-        new Response(
-          `{ "id_token": "test", "redirect_path": "${redirectPath}" }`,
-          {
-            status: 500,
-          },
-        ),
+        new Response(null, {
+          status: 500,
+        }),
       );
     });
     const config = new Config({

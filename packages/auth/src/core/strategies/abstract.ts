@@ -145,5 +145,9 @@ export const minitailorTokenError = (code: number) =>
     "minitailor-token-error",
     `Failed to obtain token status=${code}`,
   );
+
+/** @deprecated for backward compatibility use **Error */
+export const paramsError = () =>
+  new CallbackError("invalid-params", "params should be filled");
 export const exchangeError = (reason: string) =>
   new CallbackError("failed-exchange", reason);
