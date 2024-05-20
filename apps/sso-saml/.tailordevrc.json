@@ -1,0 +1,15 @@
+{
+  "name": "sso-saml",
+  "version": "v2",
+  "manifest": "manifest",
+  "target": ["workspace.cue"],
+  "dockerCompose": {
+    "minitailorImage": "2024.05.09-2"
+  },
+  "custom": {
+    "seed:mock": {
+      "description": "import seed for mock",
+      "path": "./scripts/seed-mock.mjs"
+    }
+  }
+}
