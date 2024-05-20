@@ -1,4 +1,3 @@
-import { NextRequest } from "next/server";
 import {
   AbstractStrategy,
   CallbackResult,
@@ -27,7 +26,7 @@ export class SAMLStrategy implements AbstractStrategy<Options> {
     };
   }
 
-  async callback(config: Config, request: NextRequest) {
+  async callback(config: Config, request: Request) {
     const formData = await request.formData();
     const samlResponse = formData.get("SAMLResponse");
     const readyState = formData.get("RelayState");

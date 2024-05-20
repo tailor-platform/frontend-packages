@@ -1,4 +1,3 @@
-import { NextRequest } from "next/server";
 import { Config } from "@core/config";
 
 export type CallbackResult = {
@@ -113,7 +112,7 @@ export type AbstractStrategy<
    */
   callback(
     config: Config,
-    request: NextRequest,
+    request: Request,
   ): CallbackResult | Promise<CallbackResult>;
 };
 
