@@ -20,7 +20,7 @@ describe("redirection", () => {
     },
     saml: {
       builder: () => new SAMLStrategy(),
-      uri: buildMockedRedirectionURL("saml"),
+      uri: buildMockedRedirectionURL("saml") + "&state=/redirect-path",
     },
   } as const;
 
