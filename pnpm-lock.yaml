@@ -318,8 +318,8 @@ importers:
         specifier: ^1.0.2
         version: 1.0.2(@types/react@18.3.2)(react@18.3.1)
       '@tanstack/react-table':
-        specifier: ^8.15.3
-        version: 8.17.3(react-dom@18.3.1)(react@18.3.1)
+        specifier: 8.15.3
+        version: 8.15.3(react-dom@18.3.1)(react@18.3.1)
       dayjs:
         specifier: ^1.11.11
         version: 1.11.11
@@ -346,8 +346,8 @@ importers:
         specifier: workspace:*
         version: link:../dev-config
       '@tanstack/table-core':
-        specifier: ^8.15.3
-        version: 8.17.3
+        specifier: 8.15.3
+        version: 8.15.3
       '@testing-library/jest-dom':
         specifier: ^6.1.5
         version: 6.4.5(vitest@1.6.0)
@@ -5724,6 +5724,18 @@ packages:
       defer-to-connect: 2.0.1
     dev: false
 
+  /@tanstack/react-table@8.15.3(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-aocQ4WpWiAh7R+yxNp+DGQYXeVACh5lv2kk96DjYgFiHDCB0cOFoYMT/pM6eDOzeMXR9AvPoLeumTgq8/0qX+w==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      react: '>=16.8'
+      react-dom: '>=16.8'
+    dependencies:
+      '@tanstack/table-core': 8.15.3
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+    dev: false
+
   /@tanstack/react-table@8.17.3(react-dom@18.3.1)(react@18.3.1):
     resolution: {integrity: sha512-5gwg5SvPD3lNAXPuJJz1fOCEZYk9/GeBFH3w/hCgnfyszOIzwkwgp5I7Q4MJtn0WECp84b5STQUDdmvGi8m3nA==}
     engines: {node: '>=12'}
@@ -5736,9 +5748,14 @@ packages:
       react-dom: 18.3.1(react@18.3.1)
     dev: false
 
+  /@tanstack/table-core@8.15.3:
+    resolution: {integrity: sha512-wOgV0HfEvuMOv8RlqdR9MdNNqq0uyvQtP39QOvGlggHvIObOE4exS+D5LGO8LZ3LUXxId2IlUKcHDHaGujWhUg==}
+    engines: {node: '>=12'}
+
   /@tanstack/table-core@8.17.3:
     resolution: {integrity: sha512-mPBodDGVL+fl6d90wUREepHa/7lhsghg2A3vFpakEhrhtbIlgNAZiMr7ccTgak5qbHqF14Fwy+W1yFWQt+WmYQ==}
     engines: {node: '>=12'}
+    dev: false
 
   /@testing-library/dom@10.1.0:
     resolution: {integrity: sha512-wdsYKy5zupPyLCW2Je5DLHSxSfbIp6h80WoHOQc+RPtmPGA52O9x5MJEkv92Sjonpq+poOAtUKhh1kBGAXBrNA==}
