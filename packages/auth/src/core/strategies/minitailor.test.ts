@@ -1,7 +1,20 @@
+import { afterEach } from "vitest";
 import { MinitailorStrategy } from "@core/strategies/minitailor";
 import { Config } from "@core";
 
 describe("minitailor strategy", () => {
+  beforeEach(() => {
+    vi.spyOn(global, "fetch").mockImplementation(async () =>
+      Promise.resolve(
+        new Response('{ "id_token": "test", "redirect_path": "/" }', {
+          status: 500,
+        }),
+      ),
+    );
+  });
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
   const strategy = new MinitailorStrategy();
   it("minitailor authorize", async () => {
     const config = new Config({
@@ -13,7 +26,7 @@ describe("minitailor strategy", () => {
       redirectPath: "/",
     });
     expect(payload.mode).toBe("manual-callback");
-    expect(payload.payload.id_token).not.toBeNull();
+    expect(payload.payload.id_token).toBe("test");
     expect(payload.payload.redirect_path).toBe("/");
   });
   it("minitailor callback", () => {
