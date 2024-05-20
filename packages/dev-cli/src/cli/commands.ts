@@ -176,5 +176,5 @@ export const commands: Commands = {
         default: "json",
       },
     ],
-  }
+  },
 } as const;
