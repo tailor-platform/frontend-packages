@@ -1,4 +1,3 @@
-import { NextRequest } from "next/server";
 import { AbstractStrategy, paramsError } from "@core/strategies/abstract";
 import { Config } from "@core/config";
 import { callbackByStrategy } from "@core/path";
@@ -23,8 +22,8 @@ export class OIDCStrategy implements AbstractStrategy<Options> {
     };
   }
 
-  callback(config: Config, request: NextRequest) {
-    const searchParams = request.nextUrl.searchParams;
+  callback(config: Config, request: Request) {
+    const searchParams = new URL(request.url).searchParams
     const param = searchParams.get("code");
     const redirectURI = searchParams.get("redirect_uri");
     if (!param || !redirectURI) {
