@@ -133,7 +133,7 @@ export const setFilterChange = (
     case typeof filter?.and !== "undefined":
       if (
         typeof filter?.status?.eq !== "undefined" ||
-        typeof filter?.status?.neq !== "undefined"
+        typeof filter?.status?.ne !== "undefined"
       ) {
         if (
           typeof filter?.and?.amount === "object" &&
@@ -155,7 +155,7 @@ export const setFilterChange = (
                   data.filter(
                     (row) =>
                       row.amount === Number(eqValue) &&
-                      row.status !== filter.status.neq,
+                      row.status !== filter.status.ne,
                   ),
                 );
               }
@@ -176,7 +176,7 @@ export const setFilterChange = (
                   data.filter(
                     (row) =>
                       row.amount > Number(gtValue) &&
-                      row.status !== filter.status.neq,
+                      row.status !== filter.status.ne,
                   ),
                 );
               }
@@ -197,7 +197,7 @@ export const setFilterChange = (
                   data.filter(
                     (row) =>
                       row.amount < Number(ltValue) &&
-                      row.status !== filter.status.neq,
+                      row.status !== filter.status.ne,
                   ),
                 );
               }
@@ -218,7 +218,7 @@ export const setFilterChange = (
                   data.filter(
                     (row) =>
                       row.amount >= Number(gteValue) &&
-                      row.status !== filter.status.neq,
+                      row.status !== filter.status.ne,
                   ),
                 );
               }
@@ -239,7 +239,7 @@ export const setFilterChange = (
                   data.filter(
                     (row) =>
                       row.amount <= Number(lteValue) &&
-                      row.status !== filter.status.neq,
+                      row.status !== filter.status.ne,
                   ),
                 );
               }
@@ -305,15 +305,15 @@ export const setFilterChange = (
               }
               break;
             }
-            case "neq" in filter.and.status: {
-              const neqValue = filter.and.status.neq;
+            case "ne" in filter.and.status: {
+              const neValue = filter.and.status.ne;
               switch (true) {
                 case typeof filter?.amount?.eq !== "undefined":
                   setData(
                     data.filter(
                       (row) =>
                         row.amount === Number(filter.amount.eq) &&
-                        row.status !== neqValue,
+                        row.status !== neValue,
                     ),
                   );
                   break;
@@ -322,7 +322,7 @@ export const setFilterChange = (
                     data.filter(
                       (row) =>
                         row.amount > Number(filter.amount.gt) &&
-                        row.status !== neqValue,
+                        row.status !== neValue,
                     ),
                   );
                   break;
@@ -331,7 +331,7 @@ export const setFilterChange = (
                     data.filter(
                       (row) =>
                         row.amount < Number(filter.amount.lt) &&
-                        row.status !== neqValue,
+                        row.status !== neValue,
                     ),
                   );
                   break;
@@ -340,7 +340,7 @@ export const setFilterChange = (
                     data.filter(
                       (row) =>
                         row.amount >= Number(filter.amount.gte) &&
-                        row.status !== neqValue,
+                        row.status !== neValue,
                     ),
                   );
                   break;
@@ -349,7 +349,7 @@ export const setFilterChange = (
                     data.filter(
                       (row) =>
                         row.amount <= Number(filter.amount.lte) &&
-                        row.status !== neqValue,
+                        row.status !== neValue,
                     ),
                   );
                   break;
@@ -363,8 +363,8 @@ export const setFilterChange = (
     case typeof filter?.status?.eq !== "undefined":
       setData(data.filter((row) => row.status === filter.status.eq));
       break;
-    case typeof filter?.status?.neq !== "undefined":
-      setData(data.filter((row) => row.status !== filter.status.neq));
+    case typeof filter?.status?.ne !== "undefined":
+      setData(data.filter((row) => row.status !== filter.status.ne));
       break;
     case typeof filter?.amount?.eq !== "undefined":
       setData(data.filter((row) => row.amount === Number(filter.amount.eq)));

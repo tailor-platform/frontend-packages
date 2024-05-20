@@ -7,7 +7,7 @@ const GraphQLFilterOperator = {
   GREATER_THAN: "gt",
   LESS_THAN_OR_EQUAL: "lte",
   GREATER_THAN_OR_EQUAL: "gte",
-  NOT_EQUAL: "neq",
+  NOT_EQUAL: "ne",
   CONTAINS: "contains",
 } as const;
 
