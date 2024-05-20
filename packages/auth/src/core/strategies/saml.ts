@@ -1,7 +1,7 @@
 import {
   AbstractStrategy,
   CallbackResult,
-  paramsError,
+  samlParamsError,
 } from "@core/strategies/abstract";
 import { Config } from "@core/config";
 import { callbackByStrategy } from "@core/path";
@@ -31,7 +31,7 @@ export class SAMLStrategy implements AbstractStrategy<Options> {
     const samlResponse = formData.get("SAMLResponse");
     const readyState = formData.get("RelayState");
     if (!samlResponse || !readyState) {
-      throw paramsError();
+      throw samlParamsError();
     }
 
     const callbackUrl = callbackByStrategy(this.name());

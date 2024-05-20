@@ -1,6 +1,7 @@
 import { expect } from "vitest";
 import { OIDCStrategy } from "@core/strategies/oidc";
 import { Config } from "@core";
+import { oidcParamsError } from "@core/strategies/abstract";
 
 describe("oidc strategy", () => {
   const strategy = new OIDCStrategy();
@@ -28,15 +29,15 @@ describe("oidc strategy", () => {
   it("oidc callback error", () => {
     expect(() =>
       strategy.callback(config, new Request("http://localhost:3000")),
-    ).toThrowError(paramsError());
+    ).toThrowError(oidcParamsError());
     expect(() =>
       strategy.callback(config, new Request("http://localhost:3000?code=test")),
-    ).toThrow("code and redirectURI should be filled");
+    ).toThrow(oidcParamsError());
     expect(() =>
       strategy.callback(
         config,
         new Request("http://localhost:3000?redirect_uri=/path"),
       ),
-    ).toThrow("code and redirectURI should be filled");
+    ).toThrow(oidcParamsError());
   });
 });

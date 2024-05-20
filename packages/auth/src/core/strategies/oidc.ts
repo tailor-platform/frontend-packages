@@ -1,4 +1,4 @@
-import { AbstractStrategy, paramsError } from "@core/strategies/abstract";
+import { AbstractStrategy, oidcParamsError } from "@core/strategies/abstract";
 import { Config } from "@core/config";
 import { callbackByStrategy } from "@core/path";
 
@@ -27,7 +27,7 @@ export class OIDCStrategy implements AbstractStrategy<Options> {
     const param = searchParams.get("code");
     const redirectURI = searchParams.get("redirect_uri");
     if (!param || !redirectURI) {
-      throw paramsError();
+      throw oidcParamsError();
     }
 
     const redirectUri = encodeURI(

@@ -1,6 +1,7 @@
 import { expect } from "vitest";
 import { SAMLStrategy } from "@core/strategies/saml";
 import { Config } from "@core";
+import { samlParamsError } from "@core/strategies/abstract";
 
 describe("saml strategy", () => {
   const strategy = new SAMLStrategy();
@@ -23,8 +24,8 @@ describe("saml strategy", () => {
       const fd = new FormData();
       return Promise.resolve(fd);
     };
-    await expect(strategy.callback(config, req)).rejects.toThrow(
-      "code and redirectURI should be filled",
+    await expect(strategy.callback(config, req)).rejects.toThrowError(
+      samlParamsError(),
     );
   });
   it("saml callback", async () => {

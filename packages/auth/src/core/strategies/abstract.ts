@@ -125,7 +125,25 @@ export class CallbackError extends Error {
   }
 }
 
-export const paramsError = () =>
-  new CallbackError("invalid-params", "code and redirectURI should be filled");
+export const oidcParamsError = () =>
+  new CallbackError(
+    "oidc-invalid-params",
+    "code and redirectURI should be filled",
+  );
+export const samlParamsError = () =>
+  new CallbackError(
+    "saml-invalid-params",
+    "SAMLResponse and RelayState should be filled",
+  );
+export const minitailorParamsError = () =>
+  new CallbackError(
+    "minitailor-invalid-params",
+    "idToken and redirectURI should be filled",
+  );
+export const minitailorTokenError = (code: number) =>
+  new CallbackError(
+    "minitailor-token-error",
+    `Failed to obtain token status=${code}`,
+  );
 export const exchangeError = (reason: string) =>
   new CallbackError("failed-exchange", reason);
