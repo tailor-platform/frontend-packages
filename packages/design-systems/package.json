@@ -51,40 +51,40 @@
     ]
   },
   "devDependencies": {
-    "@hookform/resolvers": "^3.3.2",
-    "@swc/core": "^1.4.12",
+    "@hookform/resolvers": "3.3.2",
+    "@swc/core": "1.4.12",
     "@tailor-platform/dev-config": "workspace:*",
     "@tanstack/table-core": "8.15.3",
-    "@testing-library/jest-dom": "^6.1.5",
-    "@testing-library/react": "^14.1.2",
-    "@testing-library/user-event": "^14.5.1",
-    "@types/node": "^18.16.16",
-    "@types/react": "^18.2.38",
-    "@types/react-dom": "^18.2.16",
-    "@vitejs/plugin-react": "^4.2.1",
-    "eslint": "^8.55.0",
-    "postcss-cli": "^11.0.0",
-    "react": "^18.2.0",
-    "tsup": "^8.0.1",
-    "typescript": "^5.3.3",
-    "vite-tsconfig-paths": "^4.3.1",
-    "vitest": "^1.0.2",
-    "zod": "^3.22.4"
+    "@testing-library/jest-dom": "6.1.5",
+    "@testing-library/react": "14.1.2",
+    "@testing-library/user-event": "14.5.1",
+    "@types/node": "18.16.16",
+    "@types/react": "18.2.38",
+    "@types/react-dom": "18.2.16",
+    "@vitejs/plugin-react": "4.2.1",
+    "eslint": "8.55.0",
+    "postcss-cli": "11.0.0",
+    "react": "18.2.0",
+    "tsup": "8.0.1",
+    "typescript": "5.3.3",
+    "vite-tsconfig-paths": "4.3.1",
+    "vitest": "1.0.2",
+    "zod": "3.22.4"
   },
   "dependencies": {
-    "@pandacss/types": "^0.36.0",
-    "@radix-ui/react-slot": "^1.0.2",
+    "@pandacss/types": "0.36.0",
+    "@radix-ui/react-slot": "1.0.2",
     "@tanstack/react-table": "8.15.3",
-    "dayjs": "^1.11.11",
-    "deepmerge-ts": "^5.1.0",
-    "export-to-csv": "^1.2.4",
-    "react-hook-form": "^7.48.2"
+    "dayjs": "1.11.11",
+    "deepmerge-ts": "5.1.0",
+    "export-to-csv": "1.2.4",
+    "react-hook-form": "7.48.2"
   },
   "peerDependencies": {
     "@ark-ui/anatomy": "2.3.1",
     "@ark-ui/react": "2.2.3",
-    "@pandacss/dev": "^0.36.0",
-    "lucide-react": "^0.294.0"
+    "@pandacss/dev": "0.36.0",
+    "lucide-react": "0.294.0"
   },
   "prettier": "@tailor-platform/dev-config/prettier"
 }
