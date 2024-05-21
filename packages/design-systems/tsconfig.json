@@ -8,6 +8,9 @@
       "@*": ["./src/*"],
       "styled-systems": ["./node_modules/@tailor-platform/styled-system"],
     },
+    "types": [
+      "@testing-library/jest-dom",
+    ]
   },
   "include": ["."],
   "exclude": ["dist", "build", "node_modules"],
