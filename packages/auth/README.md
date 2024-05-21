@@ -61,6 +61,7 @@ const Component = async () => {
   const { login } = useAuth();
   const doLogin = useCallback(() => {
     login({
+      name: "saml", // strategy name
       options: {
         redirectPath: "/dashboard",
       },

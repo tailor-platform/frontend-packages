@@ -11,10 +11,7 @@ export const callbackHandler: RouteHandler = async ({
 }) => {
   const strategyName = request.nextUrl.pathname.split("/").pop();
   const strategy = config.getStrategy(strategyName);
-  const { payload, redirectUri } = strategy.callback(
-    config,
-    request.nextUrl.searchParams,
-  );
+  const { payload, redirectUri } = await strategy.callback(config, request);
   const res = await fetch(config.apiUrl(config.tokenPath()), {
     method: "POST",
     body: payload,
@@ -30,8 +27,9 @@ export const callbackHandler: RouteHandler = async ({
       token: session.access_token,
       userID: session.user_id,
     }));
-
-  const redirection = NextResponse.redirect(config.appUrl(redirectUri));
+  // Next.js server redirection uses 307 and 308 to preserve the request method.
+  // However the auth package always has to redirect users to the destination pages, so here intentionally uses 301 to make it GET request.
+  const redirection = NextResponse.redirect(config.appUrl(redirectUri), 301);
   redirection.cookies.set(
     buildCookieEntry(session, "tailor.token", "access_token", config),
   );
