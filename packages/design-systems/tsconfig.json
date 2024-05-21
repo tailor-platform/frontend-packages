@@ -2,7 +2,7 @@
   "extends": "@tailor-platform/dev-config/typescript/react-library",
   "compilerOptions": {
     "target": "es6",
-    "lib": ["es2017", "dom"],
+    "lib": ["es2019", "dom"],
     "paths": {
       "baseUrl": ["."],
       "@*": ["./src/*"],
