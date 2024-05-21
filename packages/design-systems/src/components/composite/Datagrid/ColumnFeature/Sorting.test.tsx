@@ -2,7 +2,6 @@ import { useState } from "react";
 import { act, render, screen, within } from "@testing-library/react";
 import { ColumnDef } from "@tanstack/react-table";
 import { describe, expect, it } from "vitest";
-import "@testing-library/jest-dom/vitest";
 import userEvent from "@testing-library/user-event";
 import { Payment, originData, setSortChange } from "../utils/test";
 import { useDataGrid } from "../useDataGrid";
