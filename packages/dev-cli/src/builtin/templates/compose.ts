@@ -38,7 +38,7 @@ services:
       - ${options.profile}
 
   console:
-    image: asia-northeast1-docker.pkg.dev/tailor-professional-service/cmd/docker-console:latest
+    image: asia-northeast1-docker.pkg.dev/tailor-professional-service/cmd/console:latest
     pull_policy: always
     ports:
       - 3030:3030
