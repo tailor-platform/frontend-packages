@@ -2,12 +2,13 @@
   "extends": "@tailor-platform/dev-config/typescript/react-library",
   "compilerOptions": {
     "target": "es6",
-    "lib": ["es2017", "dom"],
+    "lib": ["es2019", "dom"],
     "paths": {
       "baseUrl": ["."],
       "@*": ["./src/*"],
       "styled-systems": ["./node_modules/@tailor-platform/styled-system"],
     },
+    "types": ["@testing-library/jest-dom"],
   },
   "include": ["."],
   "exclude": ["dist", "build", "node_modules"],

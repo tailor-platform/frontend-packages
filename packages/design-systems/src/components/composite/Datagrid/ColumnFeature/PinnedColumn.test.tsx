@@ -1,6 +1,5 @@
 import { act, render, screen, waitFor, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import "@testing-library/jest-dom/vitest";
 import userEvent from "@testing-library/user-event";
 import { ColumnDef } from "@tanstack/react-table";
 import { LOCALIZATION_EN } from "../../../../locales/en";
