@@ -1,3 +1,5 @@
+import "@testing-library/jest-dom/vitest";
+
 const initialTimezone = process.env.TZ;
 let teardownHappened = false;
 

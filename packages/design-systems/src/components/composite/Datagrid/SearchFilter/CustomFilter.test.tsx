@@ -10,7 +10,6 @@ import {
 import { ColumnDef } from "@tanstack/react-table";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
-import "@testing-library/jest-dom/vitest"; //For userEvent used for clicks etc. DONT use fireEvent for clicks etc. as it might not work properly with select elements
 import { Column, DataGridInstance, UseDataGridProps } from "../types";
 import { LOCALIZATION_JA } from "../../../../locales/ja";
 import { LOCALIZATION_EN } from "../../../../locales/en";
