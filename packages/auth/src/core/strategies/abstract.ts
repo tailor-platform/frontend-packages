@@ -1,6 +1,6 @@
 import { Config } from "@core/config";
 
-type CallbackResult = {
+export type CallbackResult = {
   /**
    * Payload to be sent out to /auth/token endpoint on Tailor Platform to issue token
    */
@@ -110,7 +110,10 @@ export type AbstractStrategy<
    *
    * @returns `CallbackResult` object that contains payload to be sent to /auth/token endpoint to issue token
    */
-  callback(config: Config, params: URLSearchParams): CallbackResult;
+  callback(
+    config: Config,
+    request: Request,
+  ): CallbackResult | Promise<CallbackResult>;
 };
 
 export class CallbackError extends Error {
@@ -122,7 +125,29 @@ export class CallbackError extends Error {
   }
 }
 
+export const oidcParamsError = () =>
+  new CallbackError(
+    "oidc-invalid-params",
+    "code and redirectURI should be filled",
+  );
+export const samlParamsError = () =>
+  new CallbackError(
+    "saml-invalid-params",
+    "SAMLResponse and RelayState should be filled",
+  );
+export const minitailorParamsError = () =>
+  new CallbackError(
+    "minitailor-invalid-params",
+    "idToken and redirectURI should be filled",
+  );
+export const minitailorTokenError = (code: number) =>
+  new CallbackError(
+    "minitailor-token-error",
+    `Failed to obtain token status=${code}`,
+  );
+
+/** @deprecated for backward compatibility use **Error */
 export const paramsError = () =>
-  new CallbackError("invalid-params", "code and redirectURI should be filled");
+  new CallbackError("invalid-params", "params should be filled");
 export const exchangeError = (reason: string) =>
   new CallbackError("failed-exchange", reason);

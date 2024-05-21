@@ -11,7 +11,7 @@ import { mockSession } from "@tests/mocks";
 import { Config } from "@core/config";
 import { buildRequestWithParams } from "@tests/helper";
 import { callbackByStrategy } from "@core/path";
-import { paramsError, exchangeError } from "@core/strategies/abstract";
+import { oidcParamsError, exchangeError } from "@core/strategies/abstract";
 
 const mockServer = buildMockServer();
 beforeAll(() => mockServer.listen());
@@ -61,7 +61,7 @@ describe("callback", () => {
 
     await expect(
       callbackHandler({ request, config: mockAuthConfig }),
-    ).rejects.toThrow(paramsError());
+    ).rejects.toThrow(oidcParamsError());
   });
 
   it("calls onError when the token exchange isn't successful", async () => {

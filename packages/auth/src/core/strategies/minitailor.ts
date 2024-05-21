@@ -1,4 +1,8 @@
-import { AbstractStrategy, paramsError } from "@core/strategies/abstract";
+import {
+  AbstractStrategy,
+  minitailorParamsError,
+  minitailorTokenError,
+} from "@core/strategies/abstract";
 import { Config } from "@core/config";
 import { callbackByStrategy } from "@core/path";
 
@@ -12,7 +16,7 @@ export class MinitailorStrategy implements AbstractStrategy<Options> {
     return "minitailor";
   }
 
-  async authenticate(config: Config, options: Options) {
+  async authenticate(_config: Config, options: Options) {
     const tokenRawResult = await fetch("http://mini.tailor.tech:18888/token", {
       method: "POST",
       headers: {
@@ -22,6 +26,9 @@ export class MinitailorStrategy implements AbstractStrategy<Options> {
         email: options.email,
       }),
     });
+    if (tokenRawResult.status < 200 || tokenRawResult.status > 300) {
+      throw minitailorTokenError(tokenRawResult.status);
+    }
     const tokenResult = (await tokenRawResult.json()) as { id_token: string };
     return {
       mode: "manual-callback" as const,
@@ -32,11 +39,12 @@ export class MinitailorStrategy implements AbstractStrategy<Options> {
     };
   }
 
-  callback(config: Config, params: URLSearchParams) {
+  callback(config: Config, request: Request) {
+    const params = new URL(request.url).searchParams;
     const idToken = params.get("id_token");
     const redirectURI = params.get("redirect_path");
     if (!idToken || !redirectURI) {
-      throw paramsError();
+      throw minitailorParamsError();
     }
 
     const redirectUri = encodeURI(
