@@ -1,7 +1,7 @@
-'use client'
+"use client";
 import { usePlatform } from "@tailor-platform/auth/client";
-import {useCallback} from "react";
-import {useAuth} from "@tailor-platform/auth/client";
+import { useCallback } from "react";
+import { useAuth } from "@tailor-platform/auth/client";
 
 export default function Home() {
   const { getCurrentUser } = usePlatform();
@@ -17,7 +17,7 @@ export default function Home() {
   }, [login]);
   const doLogout = useCallback(() => {
     logout({
-        redirectPath: "/",
+      redirectPath: "/",
     });
   }, [logout]);
 
@@ -25,7 +25,10 @@ export default function Home() {
     <main>
       <div>
         <h1>SSO Saml Example</h1>
-        <p>This example shows how to use SAML SSO with Next.js and Tailor-platform.</p>
+        <p>
+          This example shows how to use SAML SSO with Next.js and
+          Tailor-platform.
+        </p>
         {user?.email && <button onClick={doLogout}>Logout</button>}
         {!user?.email && <button onClick={doLogin}>Login</button>}
         <pre>{user?.email && JSON.stringify(user, null, "  ")}</pre>

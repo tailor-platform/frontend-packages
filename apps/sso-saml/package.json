@@ -7,7 +7,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint '**/*.{ts,tsx}' --ignore-pattern 'dist/*' --max-warnings=0",
+    "test": "vitest run --reporter verbose",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "type-check": "tsc --noEmit --incremental --pretty",
     "tailordev": "tailordev",
     "apply": "tailordev apply",
     "minitialor:init": "tailordev reset && tailordev start && pnpm apply --init --default-vault && pnpm run secret:init:spKey && pnpm run secret:init:spCert && pnpm run apply",
@@ -32,6 +35,7 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@tailor-platform/dev-config": "workspace:*",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

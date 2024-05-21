@@ -1,10 +1,10 @@
-"use client"
+"use client";
 import { TailorAuthProvider } from "@tailor-platform/auth/client";
 import { config } from "./authConfig";
-import {ReactNode} from "react";
-import {ApolloClient, from, InMemoryCache} from "@apollo/client";
-import {removeTypenameFromVariables} from "@apollo/client/link/remove-typename";
-import {authenticatedHttpLink} from "@tailor-platform/auth/adapters/apollo";
+import { ReactNode } from "react";
+import { ApolloClient, from, InMemoryCache } from "@apollo/client";
+import { removeTypenameFromVariables } from "@apollo/client/link/remove-typename";
+import { authenticatedHttpLink } from "@tailor-platform/auth/adapters/apollo";
 import dynamic from "next/dynamic";
 
 export const ApolloProvider = dynamic(
@@ -23,8 +23,6 @@ const client = new ApolloClient({
 
 export const Providers = ({ children }: { children: ReactNode }) => (
   <TailorAuthProvider config={config}>
-    <ApolloProvider client={client}>
-      {children}
-    </ApolloProvider>
+    <ApolloProvider client={client}>{children}</ApolloProvider>
   </TailorAuthProvider>
 );
