@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { act, render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { Column, ColumnDef } from "@tanstack/react-table";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { useDataGrid } from "../useDataGrid";
 import { LOCALIZATION_EN } from "../../../../locales/en";
@@ -143,15 +143,14 @@ describe("<HideShow />", () => {
     render(<DataGridWithHideShow />);
     expect(screen.getByTestId("datagrid-header-status")).toBeVisible();
     const user = userEvent.setup();
-    await act(() =>
-      user.click(screen.getByTestId("datagrid-hide-show-button")),
-    );
+
+    await user.click(screen.getByTestId("datagrid-hide-show-button"));
+
     // Because we need to click "Status" in "HideShow" instead of "Status" in the header.
-    await act(() => user.click(screen.getByTestId("hide-show-Status")));
-    await act(() =>
-      user.click(screen.getByTestId("datagrid-hide-show-button")),
-    );
-    await vi.waitFor(() => {
+    await user.click(screen.getByTestId("hide-show-Status"));
+    await user.click(screen.getByTestId("datagrid-hide-show-button"));
+
+    await waitFor(() => {
       expect(
         screen.queryByTestId("datagrid-header-status"),
       ).not.toBeInTheDocument();
