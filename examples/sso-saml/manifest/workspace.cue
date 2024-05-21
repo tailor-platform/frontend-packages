@@ -87,7 +87,7 @@ a: auth.#Spec & {
 	  auth.#IDProviderConfig & {
 			Name: "saml"
 			Config: auth.#SAML & {
-				MetadataURL: "https://tailor.okta.com/app/exkeeis9gfN53Sj9l697/sso/saml/metadata"
+				MetadataURL: "<Metadata url>"
 				SpCertBase64: secretmanager.#SecretValue & {
 					VaultName: "default"
 					SecretKey: "saml-cert"
