@@ -152,7 +152,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
     setCustomFilterFields(cusotmFilterFields);
   }, [table]);
 
-  const calcCoumnWidth = (cell: Cell<TData, unknown>): number => {
+  const calcColumnWidth = (cell: Cell<TData, unknown>): number => {
     return cell.column.id === "select"
       ? 20
       : table.enableSorting
@@ -265,7 +265,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
                           <span
                             className={datagridClasses.tableDataText}
                             style={{
-                              width: calcCoumnWidth(cell),
+                              width: calcColumnWidth(cell),
                             }}
                           >
                             {enumValue}
@@ -284,7 +284,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
                         <span
                           className={datagridClasses.tableDataText}
                           style={{
-                            width: calcCoumnWidth(cell),
+                            width: calcColumnWidth(cell),
                           }}
                         >
                           {flexRender(
