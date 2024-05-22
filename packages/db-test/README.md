@@ -25,7 +25,7 @@ File names are in the format of {queryName}.gql, such as createPurchaseOrder.gql
 Runs tailor tests. To do this it follows these steps:
 1. **Creates** all the test data in the data folder
 2. Loads test data into the **context.env**
-3. **Runs** all **XXX.test.js** files in the chosen folder
+3. **Runs** all **XYZ.test.js** files in the chosen folder
 4. After each test **automatically re-fetch** everything in **context.env**
 5. After all tests run, **deletes** every record loaded to **context.env**
 
