@@ -1,4 +1,4 @@
-import { act, render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { useForm } from "react-hook-form";
@@ -78,13 +78,11 @@ describe("TestForm", () => {
     const alertSpy = vi.spyOn(window, "alert");
     render(<TestForm />);
     const user = userEvent.setup();
-    await act(() =>
-      user.type(screen.getByPlaceholderText("Username"), "testUser"),
-    );
-    await act(() =>
-      user.type(screen.getByPlaceholderText("Email"), "test@example.com"),
-    );
-    await act(() => user.click(screen.getByRole("button", { name: "Submit" })));
+
+    await user.type(screen.getByPlaceholderText("Username"), "testUser");
+    await user.type(screen.getByPlaceholderText("Email"), "test@example.com");
+    await user.click(screen.getByRole("button", { name: "Submit" }));
+
     await waitFor(() =>
       expect(alertSpy).toHaveBeenCalledWith("testUser, test@example.com"),
     );
@@ -94,9 +92,7 @@ describe("TestForm", () => {
     it("shows an error message for empty username", async () => {
       render(<TestForm />);
       const user = userEvent.setup();
-      await act(() =>
-        user.click(screen.getByRole("button", { name: "Submit" })),
-      );
+      await user.click(screen.getByRole("button", { name: "Submit" }));
       await waitFor(() => {
         expect(screen.getByText("Username is required.")).not.toBeNull();
       });

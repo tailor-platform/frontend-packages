@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  act,
   fireEvent,
   render,
   screen,
@@ -10,7 +9,6 @@ import {
 import { ColumnDef } from "@tanstack/react-table";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
-import "@testing-library/jest-dom/vitest"; //For userEvent used for clicks etc. DONT use fireEvent for clicks etc. as it might not work properly with select elements
 import { Column, DataGridInstance, UseDataGridProps } from "../types";
 import { LOCALIZATION_JA } from "../../../../locales/ja";
 import { LOCALIZATION_EN } from "../../../../locales/en";
@@ -266,16 +264,12 @@ describe(
       const selectColumn = screen.getByTestId("select-column");
       const selectColumnOptions = screen.getByTestId("select-column-options");
       const selectColumnButton = within(selectColumn).getByRole("button");
-      await act(async () => {
-        await user.click(selectColumnButton);
-      });
+      await user.click(selectColumnButton);
 
       const statusOption = within(selectColumnOptions).getByText("Status");
       expect(statusOption).toBeVisible();
 
-      await act(async () => {
-        await user.click(statusOption);
-      });
+      await user.click(statusOption);
 
       expect(statusOption).not.toBeVisible();
       expect(selectColumn).toHaveTextContent("Status");
@@ -286,9 +280,7 @@ describe(
         "select-condition-options",
       );
       const selectConditionButton = within(selectCondition).getByRole("button");
-      await act(async () => {
-        await user.click(selectConditionButton);
-      });
+      await user.click(selectConditionButton);
 
       const equalConditionOption = within(selectConditionOptions).getByText(
         "に等しい",
@@ -299,9 +291,7 @@ describe(
       ).toBeVisible();
       expect(within(selectConditionOptions).queryByText("を含む")).toBeNull();
 
-      await act(async () => {
-        await user.click(equalConditionOption);
-      });
+      await user.click(equalConditionOption);
 
       expect(equalConditionOption).not.toBeVisible();
       expect(selectCondition).toHaveTextContent("に等しい");
@@ -312,9 +302,7 @@ describe(
         "select-input-value-options",
       );
       const selectValueButton = within(selectValue).getByRole("button");
-      await act(async () => {
-        await user.click(selectValueButton);
-      });
+      await user.click(selectValueButton);
 
       const pendingValueOption =
         within(selectValueOptions).getByText("pending");
@@ -323,9 +311,7 @@ describe(
       expect(within(selectValueOptions).getByText("success")).toBeVisible();
       expect(within(selectValueOptions).getByText("failed")).toBeVisible();
 
-      await act(async () => {
-        await user.click(pendingValueOption);
-      });
+      await user.click(pendingValueOption);
 
       expect(pendingValueOption).not.toBeVisible();
       expect(selectValue).toHaveTextContent("pending");
@@ -359,16 +345,12 @@ describe(
       const selectColumn = screen.getByTestId("select-column");
       const selectColumnOptions = screen.getByTestId("select-column-options");
       const selectColumnButton = within(selectColumn).getByRole("button");
-      await act(async () => {
-        await user.click(selectColumnButton);
-      });
+      await user.click(selectColumnButton);
 
       const emailOption = within(selectColumnOptions).getByText("Email");
       expect(emailOption).toBeVisible();
 
-      await act(async () => {
-        await user.click(emailOption);
-      });
+      await user.click(emailOption);
 
       expect(emailOption).not.toBeVisible();
       expect(selectColumn).toHaveTextContent("Email");
@@ -379,9 +361,7 @@ describe(
         "select-condition-options",
       );
       const selectConditionButton = within(selectCondition).getByRole("button");
-      await act(async () => {
-        await user.click(selectConditionButton);
-      });
+      await user.click(selectConditionButton);
 
       const equalConditionOption = within(selectConditionOptions).getByText(
         "に等しい",
@@ -392,19 +372,15 @@ describe(
         within(selectConditionOptions).queryByText("に等しくない"),
       ).toBeNull();
 
-      await act(async () => {
-        await user.click(equalConditionOption);
-      });
+      await user.click(equalConditionOption);
 
       expect(equalConditionOption).not.toBeVisible();
       expect(selectCondition).toHaveTextContent("に等しい");
 
       // Input value
       const inputValue = screen.getByTestId("select-input-value");
-      await act(async () => {
-        await user.click(inputValue);
-        await user.type(inputValue, "test@test.com");
-      });
+      await user.click(inputValue);
+      await user.type(inputValue, "test@test.com");
 
       expect(inputValue).toHaveValue("test@test.com");
 
@@ -434,16 +410,12 @@ describe(
       const selectColumn = screen.getByTestId("select-column");
       const selectColumnOptions = screen.getByTestId("select-column-options");
       const selectColumnButton = within(selectColumn).getByRole("button");
-      await act(async () => {
-        await user.click(selectColumnButton);
-      });
+      await user.click(selectColumnButton);
 
       const amountOption = within(selectColumnOptions).getByText("Amount");
       expect(amountOption).toBeVisible();
 
-      await act(async () => {
-        await user.click(amountOption);
-      });
+      await user.click(amountOption);
 
       expect(amountOption).not.toBeVisible();
       expect(selectColumn).toHaveTextContent("Amount");
@@ -454,9 +426,7 @@ describe(
         "select-condition-options",
       );
       const selectConditionButton = within(selectCondition).getByRole("button");
-      await act(async () => {
-        await user.click(selectConditionButton);
-      });
+      await user.click(selectConditionButton);
 
       const equalConditionOption = within(selectConditionOptions).getByText(
         "に等しい",
@@ -473,18 +443,14 @@ describe(
 
       expect(within(selectConditionOptions).queryByText("を含む")).toBeNull();
 
-      await act(async () => {
-        await user.click(equalConditionOption);
-      });
+      await user.click(equalConditionOption);
 
       expect(equalConditionOption).not.toBeVisible();
       expect(selectCondition).toHaveTextContent("に等しい");
 
       // Input value
       const inputValue = await screen.findByTestId("select-input-value");
-      await act(async () => {
-        fireEvent.change(inputValue, { target: { value: "800" } });
-      });
+      fireEvent.change(inputValue, { target: { value: "800" } });
 
       expect(inputValue).toHaveValue(800);
 
@@ -513,15 +479,11 @@ describe(
       //Select column
       const selectColumn = screen.getByTestId("select-column");
       const selectColumnButton = within(selectColumn).getByRole("button");
-      await act(async () => {
-        await user.click(selectColumnButton);
-      });
+      await user.click(selectColumnButton);
 
       const createdAtOption = screen.getByRole("option", { name: "CreatedAt" });
       expect(createdAtOption).toBeVisible();
-      await act(async () => {
-        await user.click(createdAtOption);
-      });
+      await user.click(createdAtOption);
       expect(createdAtOption).not.toBeVisible();
       expect(selectColumn).toHaveTextContent("CreatedAt");
 
@@ -531,9 +493,7 @@ describe(
         "select-condition-options",
       );
       const selectConditionButton = within(selectCondition).getByRole("button");
-      await act(async () => {
-        await user.click(selectConditionButton);
-      });
+      await user.click(selectConditionButton);
 
       const lteConditionOption = within(selectConditionOptions).getByText(
         "以下",
@@ -552,19 +512,15 @@ describe(
 
       expect(within(selectConditionOptions).queryByText("を含む")).toBeNull();
 
-      await act(async () => {
-        await user.click(lteConditionOption);
-      });
+      await user.click(lteConditionOption);
 
       expect(lteConditionOption).not.toBeVisible();
       expect(selectCondition).toHaveTextContent("以下");
 
       //Input value
       const inputValue = screen.getByTestId("select-input-value");
-      await act(async () => {
-        await user.click(inputValue);
-        await user.type(inputValue, "2023-11-14");
-      });
+      await user.click(inputValue);
+      await user.type(inputValue, "2023-11-14");
       expect(inputValue).toHaveValue("2023-11-14");
 
       //Check filters
@@ -597,17 +553,13 @@ describe(
       //Select column
       const selectColumn = screen.getByTestId("select-column");
       const selectColumnButton = within(selectColumn).getByRole("button");
-      await act(async () => {
-        await user.click(selectColumnButton);
-      });
+      await user.click(selectColumnButton);
 
       const creditCardUsedOption = screen.getByRole("option", {
         name: "CreditCardUsed",
       });
       expect(creditCardUsedOption).toBeVisible();
-      await act(async () => {
-        await user.click(creditCardUsedOption);
-      });
+      await user.click(creditCardUsedOption);
       expect(creditCardUsedOption).not.toBeVisible();
       expect(selectColumn).toHaveTextContent("CreditCardUsed");
 
@@ -617,9 +569,7 @@ describe(
         "select-condition-options",
       );
       const selectConditionButton = within(selectCondition).getByRole("button");
-      await act(async () => {
-        await user.click(selectConditionButton);
-      });
+      await user.click(selectConditionButton);
 
       const eqConditionOption = within(selectConditionOptions).getByText(
         "に等しい",
@@ -637,9 +587,7 @@ describe(
 
       expect(screen.queryByText("を含む")).toBeNull();
 
-      await act(async () => {
-        await user.click(eqConditionOption);
-      });
+      await user.click(eqConditionOption);
 
       expect(eqConditionOption).not.toBeVisible();
       expect(selectCondition).toHaveTextContent("に等しい");
@@ -647,17 +595,13 @@ describe(
       //Select value
       const selectValue = screen.getByTestId("select-input-value");
       const selectValueButton = within(selectValue).getByRole("button");
-      await act(async () => {
-        await user.click(selectValueButton);
-      });
+      await user.click(selectValueButton);
 
       const trueOption = screen.getByRole("option", { name: "true" });
       expect(trueOption).toBeVisible();
       expect(screen.getByRole("option", { name: "false" })).toBeVisible();
 
-      await act(async () => {
-        await user.click(trueOption);
-      });
+      await user.click(trueOption);
 
       expect(trueOption).not.toBeVisible();
       expect(selectValue).toHaveTextContent("true");
@@ -996,14 +940,12 @@ describe(
       render(<DataGridWithFilter />);
 
       const user = userEvent.setup();
+
       // Number of data displayed is 14 items
-      await waitFor(() => {
-        expect(screen.getAllByTestId("datagrid-row")).toHaveLength(14);
-      });
+      expect(await screen.findAllByTestId("datagrid-row")).toHaveLength(14);
+
       // Open filter
-      await waitFor(() =>
-        user.click(screen.getByTestId("datagrid-filter-button")),
-      );
+      await user.click(await screen.findByTestId("datagrid-filter-button"));
 
       //Select column
       await selectColumn(screen, user, 0, "Status");
@@ -1011,24 +953,20 @@ describe(
       await selectCondition(screen, user, 0, "に等しい");
       //Select value
       await selectValue(screen, user, 0, "pending");
+
       // Number of data displayed is 4 items
-      await waitFor(() => {
-        expect(screen.getAllByTestId("datagrid-row")).toHaveLength(4);
-      });
+      expect(await screen.findAllByTestId("datagrid-row")).toHaveLength(4);
     });
+
     it("System filter works correctly", async () => {
       render(<DataGridWithFilterWithSystemFilter />);
 
       const user = userEvent.setup();
-      // Number of data displayed is 4 items
-      await waitFor(() => {
-        expect(screen.getAllByTestId("datagrid-row")).toHaveLength(4);
-      });
-      // Open filter
-      await waitFor(() =>
-        user.click(screen.getByTestId("datagrid-filter-button")),
-      );
 
+      // Number of data displayed is 4 items
+      expect(await screen.findAllByTestId("datagrid-row")).toHaveLength(4);
+      // Open filter
+      await user.click(screen.getByTestId("datagrid-filter-button"));
       //Select column
       await selectColumn(screen, user, 0, "Amount");
       //Select condition
@@ -1037,22 +975,18 @@ describe(
       await inputValue(screen, user, 0, "200");
 
       // Number of data displayed is 2 items
-      await waitFor(() => {
-        expect(screen.getAllByTestId("datagrid-row")).toHaveLength(2);
-      });
+      expect(await screen.findAllByTestId("datagrid-row")).toHaveLength(2);
     });
+
     it("Default filter works correctly", async () => {
       render(<DataGridWithFilterWithDefaultFilter />);
 
       const user = userEvent.setup();
       // Number of data displayed is 6 items
-      await waitFor(() => {
-        expect(screen.getAllByTestId("datagrid-row")).toHaveLength(6);
-      });
+      expect(await screen.findAllByTestId("datagrid-row")).toHaveLength(6);
+
       // Open filter
-      await waitFor(() =>
-        user.click(screen.getByTestId("datagrid-filter-button")),
-      );
+      await user.click(await screen.findByTestId("datagrid-filter-button"));
       // Filter is set to defaultFilter
 
       //Select joint condition
@@ -1065,42 +999,33 @@ describe(
       await selectValue(screen, user, 1, "pending");
 
       // Number of data displayed is 2 items
-      await waitFor(() => {
-        expect(screen.getAllByTestId("datagrid-row")).toHaveLength(2);
-      });
+      expect(await screen.findAllByTestId("datagrid-row")).toHaveLength(2);
 
       // Reset filter
-      await waitFor(() =>
-        user.click(screen.getByTestId("reset-filter-button")),
-      );
-
+      await user.click(await screen.findByTestId("reset-filter-button"));
       // Number of data displayed is 6 items
-      await waitFor(() => {
-        expect(screen.getAllByTestId("datagrid-row")).toHaveLength(6);
-      });
+
+      expect(await screen.findAllByTestId("datagrid-row")).toHaveLength(6);
     });
+
     it("System filter and Deafult filter work correctly at the same time", async () => {
       render(<DataGridWithFilterWithSystemAndDefaultFilter />);
 
       const user = userEvent.setup();
       // Number of data displayed is 2 items
-      await waitFor(() => {
-        expect(screen.getAllByTestId("datagrid-row")).toHaveLength(2);
-      });
+      expect(await screen.findAllByTestId("datagrid-row")).toHaveLength(2);
+
       // Open filter
-      await waitFor(() =>
-        user.click(screen.getByTestId("datagrid-filter-button")),
-      );
+      await user.click(await screen.findByTestId("datagrid-filter-button"));
       // Filter is set to defaultFilter
 
       // Clear filter
-      await waitFor(() => user.click(screen.getByTestId("reset-clear-button")));
+      await user.click(screen.getByTestId("reset-clear-button"));
 
       // Number of data displayed is 4 items
-      await waitFor(() => {
-        expect(screen.getAllByTestId("datagrid-row")).toHaveLength(4);
-      });
+      expect(await screen.findAllByTestId("datagrid-row")).toHaveLength(4);
     });
+
     it("dateTime filter convert correctly toISOString", async () => {
       let currentFilters: GraphQLQueryFilter = {};
 
@@ -1122,15 +1047,11 @@ describe(
       //Select column
       const selectColumn = screen.getByTestId("select-column");
       const selectColumnButton = within(selectColumn).getByRole("button");
-      await act(async () => {
-        await user.click(selectColumnButton);
-      });
+      await user.click(selectColumnButton);
 
       const createdAtOption = screen.getByRole("option", { name: "UpdatedAt" });
       expect(createdAtOption).toBeVisible();
-      await act(async () => {
-        await user.click(createdAtOption);
-      });
+      await user.click(createdAtOption);
       expect(createdAtOption).not.toBeVisible();
       expect(selectColumn).toHaveTextContent("UpdatedAt");
 
@@ -1140,9 +1061,7 @@ describe(
         "select-condition-options",
       );
       const selectConditionButton = within(selectCondition).getByRole("button");
-      await act(async () => {
-        await user.click(selectConditionButton);
-      });
+      await user.click(selectConditionButton);
 
       const lteConditionOption = within(selectConditionOptions).getByText(
         "以下",
@@ -1161,19 +1080,15 @@ describe(
 
       expect(within(selectConditionOptions).queryByText("を含む")).toBeNull();
 
-      await act(async () => {
-        await user.click(lteConditionOption);
-      });
+      await user.click(lteConditionOption);
 
       expect(lteConditionOption).not.toBeVisible();
       expect(selectCondition).toHaveTextContent("以下");
 
       //Input value
       const inputValue = screen.getByTestId("select-input-value");
-      await act(async () => {
-        await user.click(inputValue);
-        await user.type(inputValue, "2023-11-14 23:00");
-      });
+      await user.click(inputValue);
+      await user.type(inputValue, "2023-11-14 23:00");
       expect(inputValue).toHaveValue("2023-11-14T23:00");
 
       //Check filters
