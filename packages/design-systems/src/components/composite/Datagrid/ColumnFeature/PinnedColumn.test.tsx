@@ -129,7 +129,8 @@ const conformPinnedThElementsIndex = async (
   pinnedText: string,
   afterThElementPosition: number,
 ) => {
-  const targetElement = screen.getAllByText(text)[1];
+  const targetElement = screen.getAllByText(text)[1].closest("div");
+  if (!targetElement) throw new Error("Element not found");
   const element = within(targetElement).getByLabelText(
     "Open Pinned Column Modal",
   );
@@ -172,7 +173,8 @@ describe("<PinnedColumn />", () => {
   it("pinned the 'Status' column to right and pinned the 'Amount' column to left", async () => {
     render(<DataGridWithPinnedColumn />);
 
-    const targetElement = screen.getAllByText("Status")[1];
+    const targetElement = screen.getAllByText("Status")[1].closest("div");
+    if (!targetElement) throw new Error("Element not found");
     const element = within(targetElement).getByLabelText(
       "Open Pinned Column Modal",
     );

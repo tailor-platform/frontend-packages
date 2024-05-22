@@ -46,7 +46,12 @@ type DataGridProps<TData extends Record<string, unknown>> = {
 export const DataGrid = <TData extends Record<string, unknown>>(
   props: DataGridProps<TData>,
 ) => {
-  const { table, size = "screen-70", toolButtonSize, toolButtonVariant } = props;
+  const {
+    table,
+    size = "screen-70",
+    toolButtonSize,
+    toolButtonVariant,
+  } = props;
   const {
     customFilterOpen,
     hideShowOpen,

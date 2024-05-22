@@ -23,9 +23,9 @@ export default buildPandaConfig(
                 },
               },
             },
-          }
-        }
-      }
+          },
+        },
+      },
     },
     include: [
       "./src/stories/**/*.{js,jsx,ts,tsx}",
