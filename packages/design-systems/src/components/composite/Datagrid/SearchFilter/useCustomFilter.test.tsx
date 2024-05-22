@@ -5,6 +5,7 @@ import { Payment, PaymentStatus } from "../utils/test";
 import { Column } from "../types";
 import { FilterRowData, useCustomFilter } from "./useCustomFilter";
 import { jointConditions } from "./filter";
+import { FilterRowState, GraphQLQueryFilter } from "./types";
 
 const columns: Column<Payment>[] = [
   {
@@ -64,7 +65,7 @@ const columns: Column<Payment>[] = [
   },
 ];
 
-describe.only("useCustomFilter", () => {
+describe("useCustomFilter", () => {
   it("resetFilterHandler work as expected with systemFilter", () => {
     const { result } = renderHook(() =>
       useCustomFilter({
@@ -338,8 +339,210 @@ describe.only("useCustomFilter", () => {
       },
     ];
     await waitFor(() => {
-      console.log(result.current.filterRows);
       expect(result.current.filterRows).toStrictEqual(expectedValue);
+    });
+  });
+
+  it("addToGraphQLQueryFilterRecursively work as expected", async () => {
+    const { result } = renderHook(() =>
+      useCustomFilter({
+        columns,
+        onChange: () => {
+          return;
+        },
+        localization: LOCALIZATION_JA,
+        systemFilter: { status: { eq: "pending" } },
+        defaultFilter: { amount: { eq: 200 } },
+      }),
+    );
+    const graphQLQueryObject: GraphQLQueryFilter = {};
+    const filter: FilterRowState = {
+      column: "amount",
+      value: 200,
+      condition: "eq",
+      isSystem: false,
+      isChangeable: false,
+    };
+
+    act(() => {
+      result.current.addToGraphQLQueryFilterRecursively(
+        filter,
+        graphQLQueryObject,
+        "number",
+      );
+    });
+
+    await waitFor(() => {
+      expect(graphQLQueryObject).toStrictEqual({
+        amount: { eq: 200 },
+      });
+    });
+  });
+
+  it("addToGraphQLQueryFilterRecursively work as expected with jointCondition", async () => {
+    const { result } = renderHook(() =>
+      useCustomFilter({
+        columns,
+        onChange: () => {
+          return;
+        },
+        localization: LOCALIZATION_JA,
+        systemFilter: { status: { eq: "pending" } },
+        defaultFilter: { amount: { eq: 200 } },
+      }),
+    );
+    const graphQLQueryObject: GraphQLQueryFilter = {};
+    const filter: FilterRowState = {
+      column: "amount",
+      value: 200,
+      condition: "eq",
+      isSystem: false,
+      isChangeable: false,
+      jointCondition: "or",
+    };
+
+    act(() => {
+      result.current.addToGraphQLQueryFilterRecursively(
+        filter,
+        graphQLQueryObject,
+        "number",
+      );
+    });
+
+    await waitFor(() => {
+      expect(graphQLQueryObject).toStrictEqual({
+        or: {
+          amount: { eq: 200 },
+        },
+      });
+    });
+  });
+
+  it("addToGraphQLQueryFilterRecursively work as expected with initial graphQLQueryObject", async () => {
+    const { result } = renderHook(() =>
+      useCustomFilter({
+        columns,
+        onChange: () => {
+          return;
+        },
+        localization: LOCALIZATION_JA,
+        systemFilter: { status: { eq: "pending" } },
+        defaultFilter: { amount: { eq: 200 } },
+      }),
+    );
+    const graphQLQueryObject: GraphQLQueryFilter = {
+      or: {
+        status: { eq: "pending" },
+      },
+    };
+    const filter: FilterRowState = {
+      column: "amount",
+      value: 200,
+      condition: "eq",
+      isSystem: false,
+      isChangeable: false,
+      jointCondition: "or",
+    };
+
+    act(() => {
+      result.current.addToGraphQLQueryFilterRecursively(
+        filter,
+        graphQLQueryObject,
+        "number",
+      );
+    });
+
+    await waitFor(() => {
+      expect(graphQLQueryObject).toStrictEqual({
+        or: {
+          or: {
+            amount: { eq: 200 },
+          },
+          status: { eq: "pending" },
+        },
+      });
+    });
+  });
+
+  it("convertQueryToFilterRows work as expected with jointConditionValue", () => {
+    const { result } = renderHook(() =>
+      useCustomFilter({
+        columns,
+        onChange: () => {
+          return;
+        },
+        localization: LOCALIZATION_JA,
+        systemFilter: { status: { eq: "pending" } },
+        defaultFilter: { amount: { eq: 200 } },
+      }),
+    );
+
+    const filter: GraphQLQueryFilter = {
+      or: {
+        status: { eq: "pending" },
+      },
+    };
+    const expectedValue: FilterRowData<Payment>[] = [
+      {
+        index: 1,
+        isFirstRow: false,
+        jointConditions: jointConditions,
+        columns: columns,
+        currentState: {
+          column: "status",
+          value: "pending",
+          condition: "eq",
+          jointCondition: "or",
+          isSystem: true,
+          isChangeable: false,
+        },
+        localization: LOCALIZATION_JA,
+      },
+    ];
+    act(() => {
+      expect(
+        result.current.convertQueryToFilterRows(filter, true, 0),
+      ).toStrictEqual(expectedValue);
+    });
+  });
+
+  it("convertQueryToFilterRows work as expected without jointConditionValue", () => {
+    const { result } = renderHook(() =>
+      useCustomFilter({
+        columns,
+        onChange: () => {
+          return;
+        },
+        localization: LOCALIZATION_JA,
+        systemFilter: { status: { eq: "pending" } },
+        defaultFilter: { amount: { eq: 200 } },
+      }),
+    );
+
+    const filter: GraphQLQueryFilter = {
+      amount: { eq: 200 },
+    };
+    const expectedValue: FilterRowData<Payment>[] = [
+      {
+        index: 0,
+        isFirstRow: true,
+        jointConditions: jointConditions,
+        columns: columns,
+        currentState: {
+          column: "amount",
+          value: 200,
+          condition: "eq",
+          jointCondition: undefined,
+          isSystem: false,
+          isChangeable: false,
+        },
+        localization: LOCALIZATION_JA,
+      },
+    ];
+    act(() => {
+      expect(
+        result.current.convertQueryToFilterRows(filter, false, 0),
+      ).toStrictEqual(expectedValue);
     });
   });
 });

@@ -514,5 +514,7 @@ export const useCustomFilter = <TData>({
     getBoxPosition,
     numberOfFilterRows,
     setNumberOfFilterRows,
+    addToGraphQLQueryFilterRecursively, // For testing purpose
+    convertQueryToFilterRows, // For testing purpose
   };
 };
