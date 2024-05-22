@@ -35,11 +35,7 @@ export const PinnedColumn = <TData extends Record<string, unknown>>({
   };
 
   return (
-    <div
-      className={css({
-        marginLeft: "auto",
-      })}
-    >
+    <div>
       <Box ref={buttonRef}>
         <MoreVerticalIcon
           aria-label="Open Pinned Column Modal"

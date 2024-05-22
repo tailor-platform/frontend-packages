@@ -54,7 +54,7 @@ export const DataGridMultilingualStory = ({
 
   return (
     <Box w="full">
-      <DataGrid table={table} />
+      <DataGrid table={table} toolButtonSize="sm"/>
     </Box>
   );
 };

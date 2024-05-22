@@ -17,8 +17,15 @@ import { Text } from "@components/Text";
 export const Export = <TData extends Record<string, string>>(
   props: ExportProps<TData>,
 ) => {
-  const { exportOptions, localization, exportCsv, exportOpen, setExportOpen } =
-    props;
+  const {
+    exportOptions,
+    localization,
+    exportCsv,
+    exportOpen,
+    setExportOpen,
+    size = "md",
+    variant = "secondary",
+  } = props;
 
   const exportRef = useRef<HTMLDivElement>(null);
   const exportButtonRef = useRef<HTMLButtonElement>(null);
@@ -31,8 +38,8 @@ export const Export = <TData extends Record<string, string>>(
       <HStack>
         <Button
           key="exportButton"
-          variant="secondary"
-          size="md"
+          variant={variant}
+          size={size}
           onClick={() => {
             setExportOpen(!exportOpen);
             addEventOutside(
@@ -45,7 +52,7 @@ export const Export = <TData extends Record<string, string>>(
           ref={exportButtonRef}
           data-testid="datagrid-export-button"
         >
-          <DownloadIcon />
+          <DownloadIcon width={20} height={20} />
           <Text marginLeft={2}>{localization.export.exportLabel}</Text>
         </Button>
       </HStack>

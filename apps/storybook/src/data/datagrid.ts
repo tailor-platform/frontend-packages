@@ -35,6 +35,7 @@ export const COLUMNS: ColumnDef<Payment>[] = [
   {
     accessorKey: "createdAt",
     header: "CreatedAt",
+    size: 80,
     meta: {
       type: "date",
       accessorKey: "createdAt",
@@ -51,6 +52,7 @@ export const COLUMNS: ColumnDef<Payment>[] = [
   {
     accessorKey: "updatedAt",
     header: "UpdatedAt",
+    size: 40,
     meta: {
       type: "dateTime",
       accessorKey: "updatedAt",

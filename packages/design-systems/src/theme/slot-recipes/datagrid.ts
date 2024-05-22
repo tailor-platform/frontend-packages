@@ -8,8 +8,10 @@ export const datagrid = defineSlotRecipe({
     "tableHeader",
     "tableRow",
     "tableHead",
+    "tableHeadText",
     "tableBody",
     "tableData",
+    "tableDataText",
     "tableHeadDivider",
   ],
   description: "An datagrid style",
@@ -46,6 +48,7 @@ export const datagrid = defineSlotRecipe({
       borderLeft: "none",
       borderWidth: "0.5px",
       borderColor: "border.default",
+      paddingX: "8px",
       position: "sticky",
       top: "0",
       _before: {
@@ -64,6 +67,11 @@ export const datagrid = defineSlotRecipe({
         borderRight: "none",
       },
     },
+    tableHeadText: {
+      textWrap: "nowrap",
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+    },
     tableBody: {
       position: "relative",
       zIndex: 0,
@@ -74,10 +82,16 @@ export const datagrid = defineSlotRecipe({
       borderBottom: "none",
       borderWidth: "0.5px",
       borderColor: "border.default",
-      wordBreak: "break-word",
+      paddingX: "8px",
       _last: {
         borderRight: "none",
       },
+    },
+    tableDataText: {
+      display: "block",
+      textWrap: "nowrap",
+      overflow: "hidden",
+      textOverflow: "ellipsis",
     },
     tableHeadDivider: {
       position: "absolute",
@@ -96,7 +110,7 @@ export const datagrid = defineSlotRecipe({
     },
   },
   defaultVariants: {
-    size: "md",
+    size: "screen-70",
   },
   variants: {
     size: {
@@ -163,6 +177,21 @@ export const datagrid = defineSlotRecipe({
       full: {
         wrapper: {
           maxHeight: "full",
+        },
+      },
+      "screen-60": {
+        wrapper: {
+          maxHeight: "60vh",
+        },
+      },
+      "screen-70": {
+        wrapper: {
+          maxHeight: "70vh",
+        },
+      },
+      "screen-80": {
+        wrapper: {
+          maxHeight: "80vh",
         },
       },
     },
