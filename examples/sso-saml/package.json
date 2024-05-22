@@ -1,0 +1,45 @@
+{
+  "name": "sso-saml",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint '**/*.{ts,tsx}' --ignore-pattern 'dist/*' --max-warnings=0",
+    "test": "vitest run --reporter verbose",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "type-check": "tsc --noEmit --incremental --pretty",
+    "tailordev": "tailordev",
+    "apply": "tailordev apply",
+    "minitialor:init": "tailordev reset && tailordev start && pnpm apply --init --default-vault && pnpm run secret:init:spKey && pnpm run secret:init:spCert && pnpm run apply",
+    "secret:init:spKey": "tailordev vault:secret:create -n default -s saml-key -v `cat privatekey.pem | base64`",
+    "secret:init:spCert": "tailordev vault:secret:create -n default -s saml-cert -v `cat public.crt | base64`",
+    "minitialor:apply": "tailordev apply --init --default-vault",
+    "minitialor:start": "tailordev start",
+    "minitialor:reset": "tailordev reset",
+    "seed:mock": "tailordev custom seed:mock"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^8.4.1",
+    "@tailor-platform/auth": "workspace:*",
+    "@tailor-platform/dev-cli": "workspace:*",
+    "gql-query-builder": "^3.8.0",
+    "graphql": "^16.8.1",
+    "inflection": "^3.0.0",
+    "papaparse": "^5.4.1",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "@tailor-platform/dev-config": "workspace:*",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "typescript": "^5",
+    "@apollo/client": "~3.9",
+    "next": "^v14"
+  }
+}
