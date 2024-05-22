@@ -1,4 +1,4 @@
-import { act, within, Screen, waitFor } from "@testing-library/react";
+import { within, Screen, waitFor } from "@testing-library/react";
 import { UserEvent } from "@testing-library/user-event";
 
 /**
@@ -16,9 +16,9 @@ export const selectColumn = async (
 ) => {
   const selectColumn = screen.getAllByTestId("select-column")[columnIndex];
   const selectColumnButton = within(selectColumn).getByRole("button");
-  await act(() => user.click(selectColumnButton));
-  const option = screen.getByRole("option", { name: columnName });
-  await waitFor(() => user.click(option));
+  await user.click(selectColumnButton);
+  const option = await screen.findByRole("option", { name: columnName });
+  await user.click(option);
 };
 
 /**
@@ -65,7 +65,7 @@ export const selectJointCondition = async (
   ];
   const selectJointConditionButton =
     within(selectJointCondition).getByRole("button");
-  await act(() => user.click(selectJointConditionButton));
+  await user.click(selectJointConditionButton);
   const selectConditionOptions = screen.getAllByTestId(
     "select-joint-condition-options",
   )[jointConditionIndex];
@@ -91,7 +91,7 @@ export const selectValue = async (
 ) => {
   const selectValue = screen.getAllByTestId("select-input-value")[valueIndex];
   const selectValueButton = within(selectValue).getByRole("button");
-  await act(() => user.click(selectValueButton));
+  await user.click(selectValueButton);
   const successOption = screen.getByRole("option", { name: value });
   await waitFor(() => user.click(successOption));
 };
@@ -111,8 +111,8 @@ export const inputValue = async (
   value: string,
 ) => {
   const inputValue = screen.getAllByTestId("select-input-value")[valueIndex];
-  await act(() => user.click(inputValue));
-  await waitFor(() => user.type(inputValue, value));
+  await user.click(inputValue);
+  await user.type(inputValue, value);
 };
 
 /**
@@ -122,7 +122,7 @@ export const inputValue = async (
  */
 export const addFilter = async (screen: Screen, user: UserEvent) => {
   const addFilterButton = screen.getByRole("button", { name: "条件追加" });
-  await act(() => user.click(addFilterButton));
+  await user.click(addFilterButton);
 };
 
 /**
@@ -132,7 +132,7 @@ export const addFilter = async (screen: Screen, user: UserEvent) => {
  */
 export const resetAllFilters = async (screen: Screen, user: UserEvent) => {
   const resetAllFiltersButton = screen.getByTestId("reset-filter-button");
-  await act(() => user.click(resetAllFiltersButton));
+  await user.click(resetAllFiltersButton);
 };
 
 /**
@@ -147,5 +147,5 @@ export const deleteFilter = async (
   filterIndex: number,
 ) => {
   const deleteButton = screen.getAllByTestId("delete-filter-row")[filterIndex]; //First delete button is hidden
-  await act(() => user.click(deleteButton));
+  await user.click(deleteButton);
 };

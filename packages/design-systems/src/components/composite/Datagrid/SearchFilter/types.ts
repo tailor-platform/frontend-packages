@@ -57,4 +57,6 @@ export type CustomFilterProps<TData> = {
   customFilterOpen: boolean;
   setCustomFilterOpen: (updater: Updater<boolean>) => void;
   enableColumnFilters?: boolean;
+  size?: "sm" | "md" | "lg" | "xl" | "2xl" | "xs";
+  variant?: "primary" | "secondary" | "link" | "tertiary";
 };

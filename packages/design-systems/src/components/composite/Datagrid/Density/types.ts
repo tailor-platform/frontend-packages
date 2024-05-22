@@ -22,4 +22,6 @@ export type DensityProps = {
   localization: Localization;
   densityOpen: boolean;
   setDensityOpen: (updater: Updater<boolean>) => void;
+  size?: "sm" | "md" | "lg" | "xl" | "2xl" | "xs";
+  variant?: "primary" | "secondary" | "link" | "tertiary";
 };

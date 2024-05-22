@@ -1,6 +1,5 @@
 import { act, render, screen, waitFor, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import "@testing-library/jest-dom/vitest";
 import userEvent from "@testing-library/user-event";
 import { ColumnDef } from "@tanstack/react-table";
 import { LOCALIZATION_EN } from "../../../../locales/en";
@@ -130,7 +129,9 @@ const conformPinnedThElementsIndex = async (
   pinnedText: string,
   afterThElementPosition: number,
 ) => {
-  const targetElement = screen.getAllByText(text)[1];
+  const targetElement = screen.getByRole("columnheader", {
+    name: text + " Open Pinned Column Modal",
+  });
   const element = within(targetElement).getByLabelText(
     "Open Pinned Column Modal",
   );
@@ -173,7 +174,9 @@ describe("<PinnedColumn />", () => {
   it("pinned the 'Status' column to right and pinned the 'Amount' column to left", async () => {
     render(<DataGridWithPinnedColumn />);
 
-    const targetElement = screen.getAllByText("Status")[1];
+    const targetElement = screen.getByRole("columnheader", {
+      name: "Status Open Pinned Column Modal",
+    });
     const element = within(targetElement).getByLabelText(
       "Open Pinned Column Modal",
     );

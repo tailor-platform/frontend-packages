@@ -1,8 +1,10 @@
 import {
+  Cell,
   Column as ColumnTanstak,
   Header,
   flexRender,
 } from "@tanstack/react-table";
+import { cx } from "@tailor-platform/styled-system/css";
 import {
   CSSProperties,
   DragEvent,
@@ -13,6 +15,7 @@ import {
 } from "react";
 import {
   datagrid,
+  density as densityRecipe,
   type DatagridVariantProps,
 } from "@tailor-platform/styled-system/recipes";
 import { styled } from "@tailor-platform/styled-system/jsx";
@@ -36,12 +39,20 @@ import { TableHead } from "./ColumnFeature/TableHead";
 
 type DataGridProps<TData extends Record<string, unknown>> = {
   table: DataGridInstance<TData>;
-} & DatagridVariantProps;
+} & DatagridVariantProps & {
+    toolButtonSize?: "sm" | "md" | "lg" | "xl" | "2xl" | "xs";
+    toolButtonVariant?: "primary" | "secondary" | "link" | "tertiary";
+  };
 
 export const DataGrid = <TData extends Record<string, unknown>>(
   props: DataGridProps<TData>,
 ) => {
-  const { table, size } = props;
+  const {
+    table,
+    size = "screen-70",
+    toolButtonSize,
+    toolButtonVariant,
+  } = props;
   const {
     customFilterOpen,
     hideShowOpen,
@@ -58,6 +69,16 @@ export const DataGrid = <TData extends Record<string, unknown>>(
   );
   const localization = table.localization || LOCALIZATION_EN;
   const datagridClasses = datagrid({ size });
+  const densitySmClasses = densityRecipe({ size: "sm" });
+  const densityMdClasses = densityRecipe({ size: "md" });
+  const densityLgClasses = densityRecipe({ size: "lg" });
+
+  const tableDataClasses = cx(
+    datagridClasses.tableData,
+    density === "sm" && densitySmClasses,
+    density === "md" && densityMdClasses,
+    density === "lg" && densityLgClasses,
+  );
 
   const [columnBeingDragged, setColumnBeingDragged] = useState<
     number | undefined
@@ -131,6 +152,14 @@ export const DataGrid = <TData extends Record<string, unknown>>(
     setCustomFilterFields(cusotmFilterFields);
   }, [table]);
 
+  const calcColumnWidth = (cell: Cell<TData, unknown>): number => {
+    return cell.column.id === "select"
+      ? 20
+      : table.enableSorting
+        ? cell.column.getSize() + 48
+        : cell.column.getSize() + 28;
+  };
+
   return (
     <Stack gap={4} position={"relative"}>
       <HStack gap={4}>
@@ -141,6 +170,8 @@ export const DataGrid = <TData extends Record<string, unknown>>(
             localization={localization}
             hideShowOpen={hideShowOpen}
             setHideShowOpen={table.setHideShowOpen}
+            size={toolButtonSize}
+            variant={toolButtonVariant}
           />
         )}
         <CustomFilter
@@ -154,6 +185,8 @@ export const DataGrid = <TData extends Record<string, unknown>>(
           customFilterOpen={customFilterOpen}
           setCustomFilterOpen={table.setCustomFilterOpen}
           enableColumnFilters={table.enableColumnFilters}
+          size={toolButtonSize}
+          variant={toolButtonVariant}
         />
         {table.enableDensity && (
           <Density
@@ -161,6 +194,8 @@ export const DataGrid = <TData extends Record<string, unknown>>(
             localization={localization}
             densityOpen={densityOpen}
             setDensityOpen={table.setDensityOpen}
+            size={toolButtonSize}
+            variant={toolButtonVariant}
           />
         )}
         {table.getEnableExport() && (
@@ -170,6 +205,8 @@ export const DataGrid = <TData extends Record<string, unknown>>(
             exportCsv={table.exportCsv}
             exportOpen={exportOpen}
             setExportOpen={table.setExportOpen}
+            size={toolButtonSize}
+            variant={toolButtonVariant}
           />
         )}
       </HStack>
@@ -220,51 +257,41 @@ export const DataGrid = <TData extends Record<string, unknown>>(
                       return (
                         <TableCell
                           key={cell.id}
-                          className={datagridClasses.tableData}
+                          className={tableDataClasses}
                           style={{
                             ...getCommonPinningStyles(cell.column),
-                            paddingTop:
-                              density === "sm"
-                                ? "0.5rem"
-                                : density === "md"
-                                  ? "1rem"
-                                  : "1.5rem",
-                            paddingBottom:
-                              density === "sm"
-                                ? "0.5rem"
-                                : density === "md"
-                                  ? "1rem"
-                                  : "1.5rem",
                           }}
                         >
-                          {enumValue}
+                          <span
+                            className={datagridClasses.tableDataText}
+                            style={{
+                              width: calcColumnWidth(cell),
+                            }}
+                          >
+                            {enumValue}
+                          </span>
                         </TableCell>
                       );
                     }
                     return (
                       <TableCell
                         key={cell.id}
-                        className={datagridClasses.tableData}
+                        className={tableDataClasses}
                         style={{
                           ...getCommonPinningStyles(cell.column),
-                          paddingTop:
-                            density === "sm"
-                              ? "0.5rem"
-                              : density === "md"
-                                ? "1rem"
-                                : "1.5rem",
-                          paddingBottom:
-                            density === "sm"
-                              ? "0.5rem"
-                              : density === "md"
-                                ? "1rem"
-                                : "1.5rem",
                         }}
                       >
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext(),
-                        )}
+                        <span
+                          className={datagridClasses.tableDataText}
+                          style={{
+                            width: calcColumnWidth(cell),
+                          }}
+                        >
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext(),
+                          )}
+                        </span>
                       </TableCell>
                     );
                   })}
