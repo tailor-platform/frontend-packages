@@ -1,7 +1,6 @@
 import { useCallback, useMemo } from "react";
 import { CheckIcon, ChevronDown, X } from "lucide-react";
 import { Select as AS, CollectionItem } from "@ark-ui/react/select";
-import { Portal } from "@ark-ui/react/portal";
 import { styled } from "@tailor-platform/styled-system/jsx";
 import { select } from "@tailor-platform/styled-system/recipes";
 import { ColumnMeta } from "@tanstack/table-core";
@@ -195,33 +194,31 @@ export const FilterRow = <TData extends Record<string, unknown>>(
             <ChevronDown />
           </Select.Trigger>
         </Select.Control>
-        <Portal>
-          <Select.Positioner className={classes.positioner}>
-            <Select.Content className={classes.content}>
-              <Select.ItemGroup
-                className={classes.itemGroup}
-                id="jointConditions"
-                data-testid="select-joint-condition-options"
-              >
-                {jointConditions.map((item) => (
-                  <Select.Item
-                    className={classes.item}
-                    key={item.value}
-                    item={item}
-                    data-testid={`joint-condition-${item.value}`}
-                  >
-                    <Select.ItemText className={classes.itemText}>
-                      {item.label}
-                    </Select.ItemText>
-                    <Select.ItemIndicator className={classes.itemIndicator}>
-                      <CheckIcon />
-                    </Select.ItemIndicator>
-                  </Select.Item>
-                ))}
-              </Select.ItemGroup>
-            </Select.Content>
-          </Select.Positioner>
-        </Portal>
+        <Select.Positioner className={classes.positioner}>
+          <Select.Content className={classes.content}>
+            <Select.ItemGroup
+              className={classes.itemGroup}
+              id="jointConditions"
+              data-testid="select-joint-condition-options"
+            >
+              {jointConditions.map((item) => (
+                <Select.Item
+                  className={classes.item}
+                  key={item.value}
+                  item={item}
+                  data-testid={`joint-condition-${item.value}`}
+                >
+                  <Select.ItemText className={classes.itemText}>
+                    {item.label}
+                  </Select.ItemText>
+                  <Select.ItemIndicator className={classes.itemIndicator}>
+                    <CheckIcon />
+                  </Select.ItemIndicator>
+                </Select.Item>
+              ))}
+            </Select.ItemGroup>
+          </Select.Content>
+        </Select.Positioner>
       </Select.Root>
       <Select.Root
         className={classes.root}
@@ -252,32 +249,30 @@ export const FilterRow = <TData extends Record<string, unknown>>(
             <ChevronDown />
           </Select.Trigger>
         </Select.Control>
-        <Portal>
-          <Select.Positioner className={classes.positioner}>
-            <Select.Content
-              className={classes.content}
-              data-testid="select-column-options"
-            >
-              <Select.ItemGroup className={classes.itemGroup} id="column">
-                {columns.map((item) => (
-                  <Select.Item
-                    className={classes.item}
-                    key={item.value}
-                    item={item}
-                    data-testid={`filter-column-${item.value}`}
-                  >
-                    <Select.ItemText className={classes.itemText}>
-                      {item.label}
-                    </Select.ItemText>
-                    <Select.ItemIndicator className={classes.itemIndicator}>
-                      <CheckIcon />
-                    </Select.ItemIndicator>
-                  </Select.Item>
-                ))}
-              </Select.ItemGroup>
-            </Select.Content>
-          </Select.Positioner>
-        </Portal>
+        <Select.Positioner className={classes.positioner}>
+          <Select.Content
+            className={classes.content}
+            data-testid="select-column-options"
+          >
+            <Select.ItemGroup className={classes.itemGroup} id="column">
+              {columns.map((item) => (
+                <Select.Item
+                  className={classes.item}
+                  key={item.value}
+                  item={item}
+                  data-testid={`filter-column-${item.value}`}
+                >
+                  <Select.ItemText className={classes.itemText}>
+                    {item.label}
+                  </Select.ItemText>
+                  <Select.ItemIndicator className={classes.itemIndicator}>
+                    <CheckIcon />
+                  </Select.ItemIndicator>
+                </Select.Item>
+              ))}
+            </Select.ItemGroup>
+          </Select.Content>
+        </Select.Positioner>
       </Select.Root>
       <Select.Root
         className={classes.root}
@@ -308,31 +303,29 @@ export const FilterRow = <TData extends Record<string, unknown>>(
             <ChevronDown />
           </Select.Trigger>
         </Select.Control>
-        <Portal>
-          <Select.Positioner className={classes.positioner}>
-            <Select.Content
-              className={classes.content}
-              data-testid="select-condition-options"
-            >
-              <Select.ItemGroup className={classes.itemGroup} id="condition">
-                {filteredFilterConditions.map((item) => (
-                  <Select.Item
-                    className={classes.item}
-                    key={item.value}
-                    item={item}
-                  >
-                    <Select.ItemText className={classes.itemText}>
-                      {item.label}
-                    </Select.ItemText>
-                    <Select.ItemIndicator className={classes.itemIndicator}>
-                      <CheckIcon />
-                    </Select.ItemIndicator>
-                  </Select.Item>
-                ))}
-              </Select.ItemGroup>
-            </Select.Content>
-          </Select.Positioner>
-        </Portal>
+        <Select.Positioner className={classes.positioner}>
+          <Select.Content
+            className={classes.content}
+            data-testid="select-condition-options"
+          >
+            <Select.ItemGroup className={classes.itemGroup} id="condition">
+              {filteredFilterConditions.map((item) => (
+                <Select.Item
+                  className={classes.item}
+                  key={item.value}
+                  item={item}
+                >
+                  <Select.ItemText className={classes.itemText}>
+                    {item.label}
+                  </Select.ItemText>
+                  <Select.ItemIndicator className={classes.itemIndicator}>
+                    <CheckIcon />
+                  </Select.ItemIndicator>
+                </Select.Item>
+              ))}
+            </Select.ItemGroup>
+          </Select.Content>
+        </Select.Positioner>
       </Select.Root>
       <Box>
         <Text fontWeight="bold" marginBottom={"4px"} color="fg.default">
@@ -370,40 +363,36 @@ export const FilterRow = <TData extends Record<string, unknown>>(
                 <ChevronDown />
               </Select.Trigger>
             </Select.Control>
-            <Portal>
-              <Select.Positioner className={classes.positioner}>
-                <Select.Content
-                  className={classes.content}
-                  data-testid="select-input-value-options"
+            <Select.Positioner className={classes.positioner}>
+              <Select.Content
+                className={classes.content}
+                data-testid="select-input-value-options"
+              >
+                <Select.ItemGroup
+                  className={classes.itemGroup}
+                  id="filterByValue"
                 >
-                  <Select.ItemGroup
-                    className={classes.itemGroup}
-                    id="filterByValue"
-                  >
-                    {enumList.map((item) => {
-                      const enumValue =
-                        selectedColumnObject?.meta?.enumType?.[item];
-                      return (
-                        <Select.Item
-                          className={classes.item}
-                          key={item}
-                          item={item}
-                        >
-                          <Select.ItemText className={classes.itemText}>
-                            {enumValue}
-                          </Select.ItemText>
-                          <Select.ItemIndicator
-                            className={classes.itemIndicator}
-                          >
-                            <CheckIcon />
-                          </Select.ItemIndicator>
-                        </Select.Item>
-                      );
-                    })}
-                  </Select.ItemGroup>
-                </Select.Content>
-              </Select.Positioner>
-            </Portal>
+                  {enumList.map((item) => {
+                    const enumValue =
+                      selectedColumnObject?.meta?.enumType?.[item];
+                    return (
+                      <Select.Item
+                        className={classes.item}
+                        key={item}
+                        item={item}
+                      >
+                        <Select.ItemText className={classes.itemText}>
+                          {enumValue}
+                        </Select.ItemText>
+                        <Select.ItemIndicator className={classes.itemIndicator}>
+                          <CheckIcon />
+                        </Select.ItemIndicator>
+                      </Select.Item>
+                    );
+                  })}
+                </Select.ItemGroup>
+              </Select.Content>
+            </Select.Positioner>
           </Select.Root>
         ) : selectedColumnObject?.meta?.type === "boolean" ? (
           <Select.Root
@@ -428,41 +417,39 @@ export const FilterRow = <TData extends Record<string, unknown>>(
                 <ChevronDown />
               </Select.Trigger>
             </Select.Control>
-            <Portal>
-              <Select.Positioner className={classes.positioner}>
-                <Select.Content className={classes.content}>
-                  <Select.ItemGroup
-                    className={classes.itemGroup}
-                    id="filterByValue"
+            <Select.Positioner className={classes.positioner}>
+              <Select.Content className={classes.content}>
+                <Select.ItemGroup
+                  className={classes.itemGroup}
+                  id="filterByValue"
+                >
+                  <Select.Item
+                    className={classes.item}
+                    key={"selectInput" + 0}
+                    item={"true"}
                   >
-                    <Select.Item
-                      className={classes.item}
-                      key={"selectInput" + 0}
-                      item={"true"}
-                    >
-                      <Select.ItemText className={classes.itemText}>
-                        {"true"}
-                      </Select.ItemText>
-                      <Select.ItemIndicator className={classes.itemIndicator}>
-                        <CheckIcon />
-                      </Select.ItemIndicator>
-                    </Select.Item>
-                    <Select.Item
-                      className={classes.item}
-                      key={"selectInput" + 1}
-                      item={"false"}
-                    >
-                      <Select.ItemText className={classes.itemText}>
-                        {"false"}
-                      </Select.ItemText>
-                      <Select.ItemIndicator className={classes.itemIndicator}>
-                        <CheckIcon />
-                      </Select.ItemIndicator>
-                    </Select.Item>
-                  </Select.ItemGroup>
-                </Select.Content>
-              </Select.Positioner>
-            </Portal>
+                    <Select.ItemText className={classes.itemText}>
+                      {"true"}
+                    </Select.ItemText>
+                    <Select.ItemIndicator className={classes.itemIndicator}>
+                      <CheckIcon />
+                    </Select.ItemIndicator>
+                  </Select.Item>
+                  <Select.Item
+                    className={classes.item}
+                    key={"selectInput" + 1}
+                    item={"false"}
+                  >
+                    <Select.ItemText className={classes.itemText}>
+                      {"false"}
+                    </Select.ItemText>
+                    <Select.ItemIndicator className={classes.itemIndicator}>
+                      <CheckIcon />
+                    </Select.ItemIndicator>
+                  </Select.Item>
+                </Select.ItemGroup>
+              </Select.Content>
+            </Select.Positioner>
           </Select.Root>
         ) : (
           <Box>
