@@ -194,22 +194,107 @@ export default class QueryHelper {
             const tableFields = queryFields[name];
             if (!tableFields) return; // Handle cases where the table doesn't exist
 
+            const tabs = Array(currentDepth).fill("\t").join("");
+
             for (const field of tableFields) {
                 if (field.type && currentDepth + 1 > maxDepth) {
                     continue;
                 }
-                fields.push(field.name);
                 if (field.type) { // Nested field
-                    fields.push("{");
+                    fields.push(`${tabs}${field.name} {`);
                     traverseFields(field.type, currentDepth + 1, queryFields, depth);
-                    fields.push("}");
+                    fields.push(`${tabs}}`);
+                }
+                else{
+                    fields.push(`${tabs}${field.name}`);
                 }
             }
         }
 
         traverseFields(tableName, 1, this.queryFields, depth); // Start traversal
 
-        return `{\n${fields.join("\n")}\n}`;
+        return `{\n\t${fields.join("\n\t")}\n\t}`;
+    }
+
+    /**
+ * This method constructs a creation gql query based on the table name
+ * @param {string} tableName the name of the table to create a record in
+ */
+    constructCreateQuery(tableName) {
+        if (!this.pipelineArgs["Mutation"][`create${tableName}`]) 
+            throw new Error(`create${tableName} not found in the database`);
+
+        const query = `mutation ($input: ${tableName}CreateInput!) {
+    create${tableName} (input: $input) ${this.constructGQLResonse(tableName)}
+}`;
+        return query;
+    }
+
+    // do the same for update, delete and fetch:
+
+    /**
+     * This method constructs an update gql query based on the table name
+     * @param {string} tableName the name of the table to update a record in
+    */
+    constructUpdateQuery(tableName) {
+        if (!this.pipelineArgs["Mutation"][`update${tableName}`]) 
+            throw new Error(`update${tableName} not found in the database`);
+        
+        const query = `mutation ($id: ID!, $input: ${tableName}UpdateInput!) {
+    update${tableName} (id: $id, input: $input) ${this.constructGQLResonse(tableName)}
+}`;
+        return query;
+    }
+
+    /**
+     * This method constructs a delete gql query based on the table name
+     * @param {string} tableName the name of the table to delete a record in
+     * @returns the delete query
+    */
+    constructDeleteQuery(tableName) {
+        if (!this.pipelineArgs["Mutation"][`delete${tableName}`]) 
+            throw new Error(`delete${tableName} not found in the database`);
+
+        const query = `mutation ($id: ID!) {
+    delete${tableName} (id: $id)
+}`;
+        return query;
+    }
+
+    /**
+     * This method constructs a fetch gql query based on the table name
+     * @param {string} tableName the name of the table to fetch a record from
+     * @returns the fetch query
+    */
+    constructFetchQuery(tableName) {
+        const lowerCaseTableName = tableName.charAt(0).toLowerCase() + tableName.slice(1);
+
+        if (!this.pipelineArgs["Query"][lowerCaseTableName]) 
+            throw new Error(`${lowerCaseTableName} query not found in the database`);
+
+        const query = `query ($id: ID!) {
+    ${lowerCaseTableName} (id: $id) ${this.constructGQLResonse(tableName)}
+}`;
+        return query;
+    }
+
+    /**
+     * This method constructs a fetch all gql query based on the table name
+     * @param {string} tableName the name of the table to fetch all records from
+     * @returns the fetch all query
+    */
+    constructFetchAllQuery(tableName) {
+        const pluralTableName = pluralize(tableName.charAt(0).toLowerCase() + tableName.slice(1));
+        
+        if (!this.pipelineArgs["Query"][pluralTableName])
+            throw new Error(`${pluralTableName} query not found in the database`);
+
+        const query = `query {
+    ${pluralTableName} {
+        collection ${this.constructGQLResonse(tableName)}
+    }
+}`;
+        return query;
     }
 
     /**

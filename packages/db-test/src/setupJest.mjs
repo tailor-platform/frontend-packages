@@ -18,6 +18,8 @@ beforeAll(async () => {
     context = new TestContext(queryHelper);
     await queryHelper.loadQueryFields();
     await context.loadData(dataFolderPath);
+
+    
 }, 30000);
 
 beforeEach(async () => {
