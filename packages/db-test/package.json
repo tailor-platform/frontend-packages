@@ -1,0 +1,23 @@
+{
+  "name": "tailor-test",
+  "version": "1.0.0",
+  "description": "Unit testing library for the tailor platform",
+  "main": "src/index.js",
+  "author": "Daniel Alvarez",
+  "license": "ISC",
+  "bin": {
+    "tailor-test": "bin/tailor-test",
+    "gqlprint": "bin/gqlprint"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.10.4",
+    "@tailor-platform/dev-cli": "^0.1.0-preview.45",
+    "graphql": "^16.8.1",
+    "jest": "^29.7.0",
+    "minimist": "^1.2.8",
+    "pluralize": "^8.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "uuidv7": "^1.0.0"
+  }
+}
