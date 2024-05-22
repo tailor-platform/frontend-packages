@@ -56,7 +56,7 @@ export const DataGridManualSortingStory = ({
   });
   return (
     <Box w="full" style={{ marginTop: "50px" }}>
-      <DataGrid table={table} />
+      <DataGrid table={table} size="md" />
     </Box>
   );
 };

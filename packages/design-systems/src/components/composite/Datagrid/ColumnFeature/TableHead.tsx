@@ -1,8 +1,9 @@
 import { CSSProperties, DragEvent, useCallback, useState } from "react";
 import { Header, flexRender } from "@tanstack/react-table";
-import { css } from "@tailor-platform/styled-system/css";
+import { css, cx } from "@tailor-platform/styled-system/css";
 import {
   datagrid,
+  density as densityRecipe,
   type DatagridVariantProps,
 } from "@tailor-platform/styled-system/recipes";
 import { DataGridInstance } from "../types";
@@ -31,6 +32,9 @@ export const TableHead = <TData extends Record<string, unknown>>({
   onDrop,
 }: TableHeadProps<TData>) => {
   const datagridClasses = datagrid({ size });
+  const densitySmClasses = densityRecipe({ size: "sm" });
+  const densityMdClasses = densityRecipe({ size: "md" });
+  const densityLgClasses = densityRecipe({ size: "lg" });
   const { density } = table.getState();
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
@@ -41,15 +45,15 @@ export const TableHead = <TData extends Record<string, unknown>>({
   return (
     <Root
       colSpan={header.colSpan}
-      className={datagridClasses.tableHead}
+      className={cx(
+        datagridClasses.tableHead,
+        density === "sm" && densitySmClasses,
+        density === "md" && densityMdClasses,
+        density === "lg" && densityLgClasses,
+      )}
       style={{
-        minWidth: header.id === "select" ? "54px" : header.getSize(), //First column with checkboxes
         ...columnPiningStyles,
         height: density === "sm" ? "auto" : "initial",
-        paddingTop:
-          density === "sm" ? "0.5rem" : density === "md" ? "1rem" : "1.5rem",
-        paddingBottom:
-          density === "sm" ? "0.5rem" : density === "md" ? "1rem" : "1.5rem",
       }}
       draggable={!table.getState().columnSizingInfo.isResizingColumn}
       data-column-index={header.index}
@@ -83,27 +87,41 @@ export const TableHead = <TData extends Record<string, unknown>>({
       <div
         className={css({
           display: "flex",
+          justifyContent: "space-between",
           alignItems: "center",
           gap: "1",
         })}
       >
-        {!header.isPlaceholder &&
-          flexRender(header.column.columnDef.header, header.getContext())}
+        <span
+          className={datagridClasses.tableHeadText}
+          style={{
+            width: header.id === "select" ? 20 : header.getSize(), //First column with checkboxes
+          }}
+        >
+          {!header.isPlaceholder &&
+            flexRender(header.column.columnDef.header, header.getContext())}
+        </span>
+        <div
+          className={css({
+            display: "flex",
+          })}
+        >
+          {table.enableSorting && (
+            <SortingColumn
+              header={header}
+              isDisplaySortIcon={isDisplaySortIcon}
+            />
+          )}
+          {header.id !== "select" && (
+            <PinnedColumn column={header.column} localization={localization} />
+          )}
+        </div>
         {header.column.getCanResize() && (
           <div
             onMouseDown={header.getResizeHandler()}
             onTouchStart={header.getResizeHandler()}
             className={datagridClasses.tableHeadDivider}
           ></div>
-        )}
-        {table.enableSorting && (
-          <SortingColumn
-            header={header}
-            isDisplaySortIcon={isDisplaySortIcon}
-          />
-        )}
-        {header.id !== "select" && (
-          <PinnedColumn column={header.column} localization={localization} />
         )}
       </div>
     </Root>
