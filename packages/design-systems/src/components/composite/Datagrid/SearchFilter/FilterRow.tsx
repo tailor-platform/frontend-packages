@@ -306,31 +306,29 @@ export const FilterRow = <TData extends Record<string, unknown>>(
             <ChevronDown />
           </Select.Trigger>
         </Select.Control>
-        <Portal>
-          <Select.Positioner className={classes.positioner}>
-            <Select.Content
-              className={classes.content}
-              data-testid="select-condition-options"
-            >
-              <Select.ItemGroup className={classes.itemGroup} id="condition">
-                {filteredFilterConditions.map((item) => (
-                  <Select.Item
-                    className={classes.item}
-                    key={item.value}
-                    item={item}
-                  >
-                    <Select.ItemText className={classes.itemText}>
-                      {item.label}
-                    </Select.ItemText>
-                    <Select.ItemIndicator className={classes.itemIndicator}>
-                      <CheckIcon />
-                    </Select.ItemIndicator>
-                  </Select.Item>
-                ))}
-              </Select.ItemGroup>
-            </Select.Content>
-          </Select.Positioner>
-        </Portal>
+        <Select.Positioner className={classes.positioner}>
+          <Select.Content
+            className={classes.content}
+            data-testid="select-condition-options"
+          >
+            <Select.ItemGroup className={classes.itemGroup} id="condition">
+              {filteredFilterConditions.map((item) => (
+                <Select.Item
+                  className={classes.item}
+                  key={item.value}
+                  item={item}
+                >
+                  <Select.ItemText className={classes.itemText}>
+                    {item.label}
+                  </Select.ItemText>
+                  <Select.ItemIndicator className={classes.itemIndicator}>
+                    <CheckIcon />
+                  </Select.ItemIndicator>
+                </Select.Item>
+              ))}
+            </Select.ItemGroup>
+          </Select.Content>
+        </Select.Positioner>
       </Select.Root>
       <Box>
         <Text fontWeight="bold" marginBottom={"4px"} color="fg.default">
