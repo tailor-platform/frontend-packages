@@ -1,6 +1,5 @@
 import { renderHook, act, waitFor } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import { a } from "vitest/dist/suite-yBB1jXl9";
 import { LOCALIZATION_JA } from "../../../../locales/ja";
 import { Payment, PaymentStatus } from "../utils/test";
 import { Column } from "../types";

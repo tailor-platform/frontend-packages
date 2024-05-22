@@ -12,7 +12,7 @@ import type { Column, MetaType } from "../types";
 import { jointConditions } from "./filter";
 import { FilterRowState, JointCondition } from "./types";
 
-type FilterRowData<TData> = {
+export type FilterRowData<TData> = {
   columns: Array<Column<TData>>;
   index: number; //Row number
   localization: Localization;
@@ -401,7 +401,7 @@ export const useCustomFilter = <TData>({
         key: string,
         isExitJointCondition: boolean,
       ) => {
-        if (typeof value === "boolean") {
+        if (typeof value === "boolean" || typeof value === "number") {
           graphQLQueryObject[key] = generateGraphQLQueryObject(
             isExitJointCondition,
             value,

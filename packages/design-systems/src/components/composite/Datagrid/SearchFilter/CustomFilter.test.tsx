@@ -25,7 +25,12 @@ import {
   selectValue,
 } from "../utils/test/customFilter";
 import { useDataGrid } from "../useDataGrid";
-import { Payment, originData, setFilterChange } from "../utils/test";
+import {
+  Payment,
+  PaymentStatus,
+  originData,
+  setFilterChange,
+} from "../utils/test";
 import { DataGrid } from "../Datagrid";
 import { CustomFilter } from "./CustomFilter";
 import type { GraphQLQueryFilter } from "./types";
@@ -47,13 +52,6 @@ class MockResizeObserver {
   }
 }
 global.ResizeObserver = MockResizeObserver;
-
-enum PaymentStatus {
-  pending = "pending",
-  processing = "processing",
-  success = "success",
-  failed = "failed",
-}
 
 const columns: Column<Payment>[] = [
   {

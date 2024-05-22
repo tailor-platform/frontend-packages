@@ -1,6 +1,13 @@
 import type { GraphQLQueryFilter } from "../../SearchFilter/types";
 import { Order } from "../../types";
 
+export enum PaymentStatus {
+  pending = "pending",
+  processing = "processing",
+  success = "success",
+  failed = "failed",
+}
+
 export type Payment = {
   id: string;
   amount: number;
