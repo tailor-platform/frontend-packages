@@ -29,6 +29,8 @@ export const HideShow = <TData extends Record<string, unknown>>(
     localization,
     hideShowOpen,
     setHideShowOpen,
+    size = "md",
+    variant = "secondary",
   } = props;
   const hideShowRef = useRef<HTMLDivElement>(null);
   const hideShowButtonRef = useRef<HTMLButtonElement>(null);
@@ -36,8 +38,8 @@ export const HideShow = <TData extends Record<string, unknown>>(
     <>
       <HStack>
         <Button
-          variant="secondary"
-          size="md"
+          variant={variant}
+          size={size}
           onClick={() => {
             setHideShowOpen(!hideShowOpen);
             addEventOutside(
@@ -49,7 +51,7 @@ export const HideShow = <TData extends Record<string, unknown>>(
           ref={hideShowButtonRef}
           data-testid="datagrid-hide-show-button"
         >
-          <ColumnsIcon />
+          <ColumnsIcon width={20} height={20} />
           <Text marginLeft={2}>{localization.filter.columnLabel}</Text>
         </Button>
       </HStack>

@@ -30,6 +30,8 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
     customFilterOpen,
     setCustomFilterOpen,
     enableColumnFilters,
+    size = "md",
+    variant = "secondary",
   } = props;
 
   const {
@@ -62,8 +64,8 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
       <HStack>
         <Button
           key="filterButton"
-          variant="secondary"
-          size="md"
+          variant={variant}
+          size={size}
           onClick={() => {
             setCustomFilterOpen(!customFilterOpen);
             addEventOutside(
@@ -76,7 +78,7 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
           ref={filterButtonRef}
           data-testid="datagrid-filter-button"
         >
-          <FilterIcon />
+          <FilterIcon width={20} height={20} />
           <Text marginLeft={2}>{localization.filter.filterLabel}</Text>
         </Button>
       </HStack>

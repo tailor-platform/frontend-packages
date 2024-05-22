@@ -25,7 +25,14 @@ import { Button } from "@components/Button";
 import { Text } from "@components/Text";
 
 export const Density = (props: DensityProps) => {
-  const { setDensity, localization, densityOpen, setDensityOpen } = props;
+  const {
+    setDensity,
+    localization,
+    densityOpen,
+    setDensityOpen,
+    size = "md",
+    variant = "secondary",
+  } = props;
 
   const densityRef = useRef<HTMLDivElement>(null);
   const densityButtonRef = useRef<HTMLButtonElement>(null);
@@ -48,8 +55,8 @@ export const Density = (props: DensityProps) => {
       <HStack>
         <Button
           key="densityButton"
-          variant="secondary"
-          size="md"
+          variant={variant}
+          size={size}
           onClick={() => {
             setDensityOpen(!densityOpen);
             addEventOutside(
@@ -61,7 +68,7 @@ export const Density = (props: DensityProps) => {
           ref={densityButtonRef}
           data-testid="datagrid-density-button"
         >
-          <RowsIcon />
+          <RowsIcon width={20} height={20} />
           <Text marginLeft={2}>{localization.density.densityLabel}</Text>
         </Button>
       </HStack>

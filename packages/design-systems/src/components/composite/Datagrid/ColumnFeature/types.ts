@@ -19,4 +19,6 @@ export type HideShowProps<TData extends Record<string, unknown>> = {
   localization: Localization;
   hideShowOpen: boolean;
   setHideShowOpen: (updater: Updater<boolean>) => void;
+  size?: "sm" | "md" | "lg" | "xl" | "2xl" | "xs";
+  variant?: "primary" | "secondary" | "link" | "tertiary";
 };
