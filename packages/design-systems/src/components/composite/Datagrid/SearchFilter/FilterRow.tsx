@@ -252,32 +252,30 @@ export const FilterRow = <TData extends Record<string, unknown>>(
             <ChevronDown />
           </Select.Trigger>
         </Select.Control>
-        <Portal>
-          <Select.Positioner className={classes.positioner}>
-            <Select.Content
-              className={classes.content}
-              data-testid="select-column-options"
-            >
-              <Select.ItemGroup className={classes.itemGroup} id="column">
-                {columns.map((item) => (
-                  <Select.Item
-                    className={classes.item}
-                    key={item.value}
-                    item={item}
-                    data-testid={`filter-column-${item.value}`}
-                  >
-                    <Select.ItemText className={classes.itemText}>
-                      {item.label}
-                    </Select.ItemText>
-                    <Select.ItemIndicator className={classes.itemIndicator}>
-                      <CheckIcon />
-                    </Select.ItemIndicator>
-                  </Select.Item>
-                ))}
-              </Select.ItemGroup>
-            </Select.Content>
-          </Select.Positioner>
-        </Portal>
+        <Select.Positioner className={classes.positioner}>
+          <Select.Content
+            className={classes.content}
+            data-testid="select-column-options"
+          >
+            <Select.ItemGroup className={classes.itemGroup} id="column">
+              {columns.map((item) => (
+                <Select.Item
+                  className={classes.item}
+                  key={item.value}
+                  item={item}
+                  data-testid={`filter-column-${item.value}`}
+                >
+                  <Select.ItemText className={classes.itemText}>
+                    {item.label}
+                  </Select.ItemText>
+                  <Select.ItemIndicator className={classes.itemIndicator}>
+                    <CheckIcon />
+                  </Select.ItemIndicator>
+                </Select.Item>
+              ))}
+            </Select.ItemGroup>
+          </Select.Content>
+        </Select.Positioner>
       </Select.Root>
       <Select.Root
         className={classes.root}

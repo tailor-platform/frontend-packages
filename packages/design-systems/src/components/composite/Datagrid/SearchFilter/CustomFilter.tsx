@@ -525,12 +525,12 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
           size="md"
           onClick={() => {
             setCustomFilterOpen(!customFilterOpen);
-            // addEventOutside(
-            //   filterRef,
-            //   () => setCustomFilterOpen(false),
-            //   filterButtonRef,
-            //   true,
-            // );
+            addEventOutside(
+              filterRef,
+              () => setCustomFilterOpen(false),
+              filterButtonRef,
+              true,
+            );
           }}
           ref={filterButtonRef}
           data-testid="datagrid-filter-button"
