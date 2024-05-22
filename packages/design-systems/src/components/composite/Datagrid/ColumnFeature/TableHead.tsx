@@ -95,7 +95,7 @@ export const TableHead = <TData extends Record<string, unknown>>({
         <span
           className={datagridClasses.tableHeadText}
           style={{
-            width: header.id === "select" ? "54px" : header.getSize(), //First column with checkboxes
+            width: header.id === "select" ? 20 : header.getSize(), //First column with checkboxes
           }}
         >
           {!header.isPlaceholder &&

@@ -1,4 +1,5 @@
 import {
+  Cell,
   Column as ColumnTanstak,
   Header,
   flexRender,
@@ -72,6 +73,13 @@ export const DataGrid = <TData extends Record<string, unknown>>(
   const densityMdClasses = densityRecipe({ size: "md" });
   const densityLgClasses = densityRecipe({ size: "lg" });
 
+  const tableDataClasses = cx(
+    datagridClasses.tableData,
+    density === "sm" && densitySmClasses,
+    density === "md" && densityMdClasses,
+    density === "lg" && densityLgClasses,
+  );
+
   const [columnBeingDragged, setColumnBeingDragged] = useState<
     number | undefined
   >();
@@ -143,6 +151,14 @@ export const DataGrid = <TData extends Record<string, unknown>>(
 
     setCustomFilterFields(cusotmFilterFields);
   }, [table]);
+
+  const calcCoumnWidth = (cell: Cell<TData, unknown>): number => {
+    return cell.column.id === "select"
+      ? 20
+      : table.enableSorting
+        ? cell.column.getSize() + 48
+        : cell.column.getSize() + 28;
+  };
 
   return (
     <Stack gap={4} position={"relative"}>
@@ -241,12 +257,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
                       return (
                         <TableCell
                           key={cell.id}
-                          className={cx(
-                            datagridClasses.tableData,
-                            density === "sm" && densitySmClasses,
-                            density === "md" && densityMdClasses,
-                            density === "lg" && densityLgClasses,
-                          )}
+                          className={tableDataClasses}
                           style={{
                             ...getCommonPinningStyles(cell.column),
                           }}
@@ -254,14 +265,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
                           <span
                             className={datagridClasses.tableDataText}
                             style={{
-                              width:
-                                cell.column.id === "select"
-                                  ? table.enableSorting
-                                    ? "102px"
-                                    : "82px"
-                                  : table.enableSorting
-                                    ? cell.column.getSize() + 48
-                                    : cell.column.getSize() + 28, //First column with checkboxes
+                              width: calcCoumnWidth(cell),
                             }}
                           >
                             {enumValue}
@@ -272,12 +276,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
                     return (
                       <TableCell
                         key={cell.id}
-                        className={cx(
-                          datagridClasses.tableData,
-                          density === "sm" && densitySmClasses,
-                          density === "md" && densityMdClasses,
-                          density === "lg" && densityLgClasses,
-                        )}
+                        className={tableDataClasses}
                         style={{
                           ...getCommonPinningStyles(cell.column),
                         }}
@@ -285,14 +284,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
                         <span
                           className={datagridClasses.tableDataText}
                           style={{
-                            width:
-                              cell.column.id === "select"
-                                ? table.enableSorting
-                                  ? "102px"
-                                  : "82px"
-                                : table.enableSorting
-                                  ? cell.column.getSize() + 48
-                                  : cell.column.getSize() + 28, //First column with checkboxes
+                            width: calcCoumnWidth(cell),
                           }}
                         >
                           {flexRender(
