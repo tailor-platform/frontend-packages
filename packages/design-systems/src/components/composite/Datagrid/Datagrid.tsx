@@ -299,7 +299,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={colSpan}>
+                <TableCell className={tableDataClasses} colSpan={colSpan}>
                   {localization.datagrid.noResults}
                 </TableCell>
               </TableRow>
