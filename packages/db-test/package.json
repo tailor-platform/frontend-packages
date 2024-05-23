@@ -1,13 +1,17 @@
 {
-  "name": "tailor-test",
-  "version": "1.0.0",
+  "name": "@tailor-platform/tailor-test",
   "description": "Unit testing library for the tailor platform",
+  "version": "0.1.0",
+  "private": false,
   "main": "src/index.js",
   "author": "Daniel Alvarez",
   "license": "ISC",
   "bin": {
     "tailor-test": "bin/tailor-test",
     "gqlprint": "bin/gqlprint"
+  },
+  "scripts": {
+    "build": "exit 0"
   },
   "dependencies": {
     "@apollo/client": "^3.10.4",
