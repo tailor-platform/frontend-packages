@@ -96,6 +96,13 @@ export const select = defineSlotRecipe({
       "& :where(svg)": {
         color: "fg.subtle",
       },
+      _disabled: {
+        color: "fg.disabled",
+        cursor: "not-allowed",
+        _hover: {
+          background: "transparent",
+        },
+      },
     },
     valueText: {
       color: "fg.default",
