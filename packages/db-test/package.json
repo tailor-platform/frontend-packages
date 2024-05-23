@@ -1,5 +1,5 @@
 {
-  "name": "tailor-test",
+  "name": "@tailor-platform/tailor-test",
   "version": "1.0.0",
   "description": "Unit testing library for the tailor platform",
   "main": "src/index.js",
