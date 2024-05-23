@@ -1,5 +1,5 @@
 {
-  "name": "@tailor-platform/tailor-test",
+  "name": "@tailor-platform/db-test",
   "description": "Unit testing library for the tailor platform",
   "version": "0.1.0",
   "private": false,
