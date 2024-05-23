@@ -9,6 +9,9 @@
     "tailor-test": "bin/tailor-test",
     "gqlprint": "bin/gqlprint"
   },
+  "scripts": {
+    "build": "echo 'Building the project'"
+  },
   "dependencies": {
     "@apollo/client": "^3.10.4",
     "@tailor-platform/dev-cli": "^0.1.0-preview.45",
