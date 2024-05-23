@@ -1,0 +1,35 @@
+#!/usr/bin/env node
+const { execSync } = require('child_process');
+const path = require('path');
+
+
+const testFolderPath = process.argv[2]; // Get the path from command line argument
+
+if (!testFolderPath) {
+  console.error("Error: Please provide a test folder path.");
+  process.exit(1);
+}
+
+const dataFolderPath = testFolderPath + '/data'
+
+// check that the folder exists
+try {
+  require('fs').accessSync(dataFolderPath);
+} catch (error) {
+  console.warn(`\nWARNING: Test data folder not found: ${dataFolderPath}\n`);
+}
+
+process.env.TAILOR_TEST_DATA_FOLDER_PATH = dataFolderPath;
+
+const jestCommand = path.resolve('./node_modules/jest/bin/jest.js');
+const jestConfig = path.resolve('./node_modules/db-test/src/jest.config.mjs');
+const roots = path.resolve(testFolderPath);
+
+const fullJestCommand = `node --experimental-vm-modules ${jestCommand} --config=${jestConfig} --runInBand --passWithNoTests --detectOpenHandles --roots=${roots}`;
+
+try {
+  execSync(fullJestCommand, { stdio: 'inherit' });
+} catch (error) {
+  console.error(`Error running tests: ${error.message}`);
+  process.exit(1);
+}
