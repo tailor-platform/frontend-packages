@@ -11,9 +11,7 @@
     "gqlprint": "bin/gqlprint"
   },
   "scripts": {
-    "build": "exit 0",
-    "publish:dev": "pnpm run build && yalc push --sig",
-    "publish:dev:watch": "nodemon -e ts,tsx -w ./src -x 'rm -rf ./dist && pnpm run publish:dev'"
+    "build": "exit 0"
   },
   "dependencies": {
     "@apollo/client": "^3.10.4",
