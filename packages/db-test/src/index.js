@@ -1,1 +1,1 @@
-export * from './setupJest.mjs';;
+export * from "./setupJest.mjs";
