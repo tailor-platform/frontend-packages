@@ -1,8 +1,8 @@
 import { defineSlotRecipe } from "@pandacss/dev";
 
 export const table = defineSlotRecipe({
-  className: "checkbox",
-  description: "The styles for the Checkbox component",
+  className: "table",
+  description: "The styles for the Table component",
   slots: ["table", "thead", "tbody", "tfoot", "tr", "th", "td", "caption"],
   base: {
     table: {

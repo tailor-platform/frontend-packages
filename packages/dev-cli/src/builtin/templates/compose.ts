@@ -43,6 +43,7 @@ services:
     environment:
       NEXT_PUBLIC_API_URL: http://mini.tailor.tech:18090
       NEXT_PUBLIC_APP_HOST: http://desktop.tailor.tech:3030
+      NEXT_PUBLIC_MINITAILOR_PORT: 8000
     ports:
       - 3030:3000
     profiles:

@@ -47,7 +47,7 @@ export const Default: Story = {
         >
           <Select.Label className={classes.label}>Framework</Select.Label>
           <Select.Control>
-            <Select.Trigger className={classes.trigger}>
+            <Select.Trigger className={classes.trigger} disabled={false}>
               <Select.ValueText placeholder="Select a Framework" />
               <Select.Indicator>
                 <ChevronsUpDownIcon />
