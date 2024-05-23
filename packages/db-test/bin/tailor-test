@@ -22,7 +22,7 @@ try {
 process.env.TAILOR_TEST_DATA_FOLDER_PATH = dataFolderPath;
 
 const jestCommand = path.resolve('./node_modules/jest/bin/jest.js');
-const jestConfig = path.resolve('./node_modules/db-test/src/jest.config.mjs');
+const jestConfig = path.resolve('./node_modules/@tailor-platform/db-test/src/jest.config.mjs');
 const roots = path.resolve(testFolderPath);
 
 const fullJestCommand = `node --experimental-vm-modules ${jestCommand} --config=${jestConfig} --runInBand --passWithNoTests --detectOpenHandles --roots=${roots}`;
