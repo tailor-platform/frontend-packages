@@ -1,7 +1,7 @@
 {
   "name": "@tailor-platform/tailor-test",
   "description": "Unit testing library for the tailor platform",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": false,
   "main": "src/index.js",
   "author": "Daniel Alvarez",
