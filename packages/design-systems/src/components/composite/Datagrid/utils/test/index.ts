@@ -1,5 +1,5 @@
 import type { GraphQLQueryFilter } from "../../SearchFilter/types";
-import { Order } from "../../types";
+import { Column, Order } from "../../types";
 
 export enum PaymentStatus {
   pending = "pending",
@@ -16,6 +16,65 @@ export type Payment = {
   createdAt: string;
   isCreditCard: boolean;
 };
+
+export const columns: Column<Payment>[] = [
+  {
+    accessorKey: "status",
+    label: "Status",
+    value: "Status",
+    meta: {
+      type: "enum",
+      enumType: PaymentStatus,
+    },
+    disabled: false,
+  },
+  {
+    accessorKey: "email",
+    label: "Email",
+    value: "Email",
+    meta: {
+      type: "string",
+    },
+    disabled: false,
+  },
+  {
+    accessorKey: "amount",
+    label: "Amount",
+    value: "Amount",
+    meta: {
+      type: "number",
+    },
+    disabled: false,
+  },
+  {
+    accessorKey: "createdAt",
+    label: "CreatedAt",
+    value: "CreatedAt",
+    meta: {
+      type: "date",
+    },
+    disabled: false,
+  },
+  {
+    accessorKey: "isCreditCard",
+    label: "CreditCardUsed",
+    value: "CreditCardUsed",
+    meta: {
+      type: "boolean",
+    },
+    disabled: false,
+  },
+  {
+    accessorKey: "updatedAt",
+    label: "UpdatedAt",
+    value: "UpdatedAt",
+    meta: {
+      type: "dateTime",
+    },
+    disabled: false,
+  },
+];
+
 export const originData: Payment[] = [
   {
     id: "728ed52f",

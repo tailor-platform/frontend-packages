@@ -1,69 +1,10 @@
 import { renderHook, act, waitFor } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { LOCALIZATION_JA } from "../../../../locales/ja";
-import { Payment, PaymentStatus } from "../utils/test";
-import { Column } from "../types";
+import { Payment, columns } from "../utils/test";
 import { FilterRowData, useCustomFilter } from "./useCustomFilter";
 import { jointConditions } from "./filter";
 import { FilterRowState, GraphQLQueryFilter } from "./types";
-
-const columns: Column<Payment>[] = [
-  {
-    accessorKey: "status",
-    label: "Status",
-    value: "Status",
-    meta: {
-      type: "enum",
-      enumType: PaymentStatus,
-    },
-    disabled: false,
-  },
-  {
-    accessorKey: "email",
-    label: "Email",
-    value: "Email",
-    meta: {
-      type: "string",
-    },
-    disabled: false,
-  },
-  {
-    accessorKey: "amount",
-    label: "Amount",
-    value: "Amount",
-    meta: {
-      type: "number",
-    },
-    disabled: false,
-  },
-  {
-    accessorKey: "createdAt",
-    label: "CreatedAt",
-    value: "CreatedAt",
-    meta: {
-      type: "date",
-    },
-    disabled: false,
-  },
-  {
-    accessorKey: "isCreditCard",
-    label: "CreditCardUsed",
-    value: "CreditCardUsed",
-    meta: {
-      type: "boolean",
-    },
-    disabled: false,
-  },
-  {
-    accessorKey: "updatedAt",
-    label: "UpdatedAt",
-    value: "UpdatedAt",
-    meta: {
-      type: "dateTime",
-    },
-    disabled: false,
-  },
-];
 
 describe("useCustomFilter", () => {
   it("resetFilterHandler work as expected with systemFilter", () => {
@@ -543,6 +484,260 @@ describe("useCustomFilter", () => {
       expect(
         result.current.convertQueryToFilterRows(filter, false, 0),
       ).toStrictEqual(expectedValue);
+    });
+  });
+
+  it("dateTime filter convert correctly toISOString", () => {
+    const { result } = renderHook(() =>
+      useCustomFilter({
+        columns,
+        onChange: () => {
+          return;
+        },
+        localization: LOCALIZATION_JA,
+        systemFilter: undefined,
+        defaultFilter: undefined,
+      }),
+    );
+
+    const filter: FilterRowState = {
+      column: "updatedAt",
+      value: "2021-09-01T00:00:00.000Z",
+      condition: "eq",
+      isSystem: false,
+      isChangeable: false,
+    };
+
+    const graphQLQueryObject: GraphQLQueryFilter = {};
+
+    act(() => {
+      result.current.addToGraphQLQueryFilterRecursively(
+        filter,
+        graphQLQueryObject,
+        "dateTime",
+      );
+    });
+
+    expect(graphQLQueryObject).toStrictEqual({
+      updatedAt: { eq: "2021-09-01T00:00:00.000Z" },
+    });
+  });
+
+  it("Multiple filter types woks correctly (type AND)", async () => {
+    const { result } = renderHook(() =>
+      useCustomFilter({
+        columns,
+        onChange: () => {
+          return;
+        },
+        localization: LOCALIZATION_JA,
+        systemFilter: { status: { eq: "pending" } },
+        defaultFilter: { amount: { eq: 200 } },
+      }),
+    );
+    const graphQLQueryObject: GraphQLQueryFilter = {};
+    const filter: FilterRowState = {
+      column: "isCreditCard",
+      value: true,
+      condition: "eq",
+      isSystem: false,
+      isChangeable: false,
+    };
+
+    const filter2: FilterRowState = {
+      column: "status",
+      value: "success",
+      condition: "eq",
+      isSystem: false,
+      isChangeable: false,
+      jointCondition: "and",
+    };
+
+    const filter3: FilterRowState = {
+      column: "createdAt",
+      value: "2023-11-14",
+      condition: "lte",
+      isSystem: false,
+      isChangeable: false,
+      jointCondition: "and",
+    };
+
+    const filter4: FilterRowState = {
+      column: "email",
+      value: "test@test.com",
+      condition: "eq",
+      isSystem: false,
+      isChangeable: false,
+      jointCondition: "and",
+    };
+
+    const filter5: FilterRowState = {
+      column: "amount",
+      value: 800,
+      condition: "gte",
+      isSystem: false,
+      isChangeable: false,
+      jointCondition: "and",
+    };
+
+    act(() => {
+      result.current.addToGraphQLQueryFilterRecursively(
+        filter,
+        graphQLQueryObject,
+        "boolean",
+      );
+      result.current.addToGraphQLQueryFilterRecursively(
+        filter,
+        graphQLQueryObject,
+        "boolean",
+      );
+      result.current.addToGraphQLQueryFilterRecursively(
+        filter2,
+        graphQLQueryObject,
+        "string",
+      );
+      result.current.addToGraphQLQueryFilterRecursively(
+        filter3,
+        graphQLQueryObject,
+        "string",
+      );
+      result.current.addToGraphQLQueryFilterRecursively(
+        filter4,
+        graphQLQueryObject,
+        "string",
+      );
+      result.current.addToGraphQLQueryFilterRecursively(
+        filter5,
+        graphQLQueryObject,
+        "number",
+      );
+    });
+
+    await waitFor(() => {
+      expect(graphQLQueryObject).toEqual({
+        isCreditCard: { eq: true },
+        and: {
+          status: { eq: "success" },
+          and: {
+            createdAt: { lte: "2023-11-14" },
+            and: {
+              email: { eq: "test@test.com" },
+              and: {
+                amount: { gte: 800 },
+              },
+            },
+          },
+        },
+      });
+    });
+  });
+
+  it("Multiple filter types woks correctly (type OR)", async () => {
+    const { result } = renderHook(() =>
+      useCustomFilter({
+        columns,
+        onChange: () => {
+          return;
+        },
+        localization: LOCALIZATION_JA,
+        systemFilter: { status: { eq: "pending" } },
+        defaultFilter: { amount: { eq: 200 } },
+      }),
+    );
+    const graphQLQueryObject: GraphQLQueryFilter = {};
+    const filter: FilterRowState = {
+      column: "isCreditCard",
+      value: true,
+      condition: "eq",
+      isSystem: false,
+      isChangeable: false,
+    };
+
+    const filter2: FilterRowState = {
+      column: "status",
+      value: "success",
+      condition: "eq",
+      isSystem: false,
+      isChangeable: false,
+      jointCondition: "or",
+    };
+
+    const filter3: FilterRowState = {
+      column: "createdAt",
+      value: "2023-11-14",
+      condition: "lte",
+      isSystem: false,
+      isChangeable: false,
+      jointCondition: "or",
+    };
+
+    const filter4: FilterRowState = {
+      column: "email",
+      value: "test@test.com",
+      condition: "eq",
+      isSystem: false,
+      isChangeable: false,
+      jointCondition: "or",
+    };
+
+    const filter5: FilterRowState = {
+      column: "amount",
+      value: 800,
+      condition: "gte",
+      isSystem: false,
+      isChangeable: false,
+      jointCondition: "or",
+    };
+
+    act(() => {
+      result.current.addToGraphQLQueryFilterRecursively(
+        filter,
+        graphQLQueryObject,
+        "boolean",
+      );
+      result.current.addToGraphQLQueryFilterRecursively(
+        filter,
+        graphQLQueryObject,
+        "boolean",
+      );
+      result.current.addToGraphQLQueryFilterRecursively(
+        filter2,
+        graphQLQueryObject,
+        "string",
+      );
+      result.current.addToGraphQLQueryFilterRecursively(
+        filter3,
+        graphQLQueryObject,
+        "string",
+      );
+      result.current.addToGraphQLQueryFilterRecursively(
+        filter4,
+        graphQLQueryObject,
+        "string",
+      );
+      result.current.addToGraphQLQueryFilterRecursively(
+        filter5,
+        graphQLQueryObject,
+        "number",
+      );
+    });
+
+    await waitFor(() => {
+      expect(graphQLQueryObject).toEqual({
+        isCreditCard: { eq: true },
+        or: {
+          status: { eq: "success" },
+          or: {
+            createdAt: { lte: "2023-11-14" },
+            or: {
+              email: { eq: "test@test.com" },
+              or: {
+                amount: { gte: 800 },
+              },
+            },
+          },
+        },
+      });
     });
   });
 });
