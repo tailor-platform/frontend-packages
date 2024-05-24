@@ -37,4 +37,20 @@ export const toast = defineSlotRecipe({
       right: "3",
     },
   },
+  variants: {
+    type: {
+      error: {
+        root: {
+          bg: "status.error.default",
+          color: "white",
+        },
+        title: {
+          color: "white",
+        },
+        description: {
+          color: "white",
+        },
+      },
+    },
+  },
 });

@@ -27,4 +27,6 @@ export type ExportProps<TData extends Record<string, unknown>> = {
   exportCsv: () => void;
   exportOpen: boolean;
   setExportOpen: (updater: Updater<boolean>) => void;
+  size?: "sm" | "md" | "lg" | "xl" | "2xl" | "xs";
+  variant?: "primary" | "secondary" | "link" | "tertiary";
 };

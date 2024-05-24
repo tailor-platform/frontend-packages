@@ -4,6 +4,7 @@ import { avatar } from "./avatar";
 import { badge } from "./badge";
 import { button } from "./button";
 import { checkbox } from "./checkbox";
+import { density } from "./density";
 import { dividerStyle } from "./divider";
 import { drawer } from "./drawer";
 import { input } from "./input";
@@ -22,6 +23,7 @@ export const recipes = {
   badge,
   button,
   checkbox,
+  density,
   dividerStyle,
   drawer,
   input,

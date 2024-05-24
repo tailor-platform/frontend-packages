@@ -38,10 +38,13 @@ services:
       - ${options.profile}
 
   console:
-    image: asia-northeast1-docker.pkg.dev/tailor-professional-service/cmd/docker-console:latest
+    image: asia-northeast1-docker.pkg.dev/tailor-professional-service/cmd/console:latest
     pull_policy: always
+    environment:
+      NEXT_PUBLIC_API_URL: http://mini.tailor.tech:18090
+      NEXT_PUBLIC_APP_HOST: http://desktop.tailor.tech:3030
     ports:
-      - 3030:3030
+      - 3030:3000
     profiles:
       - app
     networks:
