@@ -30,9 +30,9 @@ export const LOCALIZATION_JA: Localization = {
       conditionLabel: "条件",
       conditionPlaceholder: "条件を選択",
       operatorLabel: {
-        equal: "に等しい",
-        notEqual: "に等しくない",
-        include: "を含む",
+        equal: "等しい",
+        notEqual: "等しくない",
+        include: "含む",
         notInclude: "含まない",
         greaterThan: "より大きい",
         lessThan: "より小さい",
