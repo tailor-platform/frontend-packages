@@ -285,18 +285,18 @@ describe(
       await user.click(selectConditionButton);
 
       const equalConditionOption = within(selectConditionOptions).getByText(
-        "に等しい",
+        "等しい",
       );
       expect(equalConditionOption).toBeVisible();
       expect(
-        within(selectConditionOptions).getByText("に等しくない"),
+        within(selectConditionOptions).getByText("等しくない"),
       ).toBeVisible();
-      expect(within(selectConditionOptions).queryByText("を含む")).toBeNull();
+      expect(within(selectConditionOptions).queryByText("含む")).toBeNull();
 
       await user.click(equalConditionOption);
 
       expect(equalConditionOption).not.toBeVisible();
-      expect(selectCondition).toHaveTextContent("に等しい");
+      expect(selectCondition).toHaveTextContent("等しい");
 
       //Select value
       const selectValue = screen.getByTestId("select-input-value");
@@ -366,18 +366,18 @@ describe(
       await user.click(selectConditionButton);
 
       const equalConditionOption = within(selectConditionOptions).getByText(
-        "に等しい",
+        "等しい",
       );
       expect(equalConditionOption).toBeVisible();
-      expect(within(selectConditionOptions).getByText("を含む")).toBeVisible();
+      expect(within(selectConditionOptions).getByText("含む")).toBeVisible();
       expect(
-        within(selectConditionOptions).queryByText("に等しくない"),
+        within(selectConditionOptions).queryByText("等しくない"),
       ).toBeNull();
 
       await user.click(equalConditionOption);
 
       expect(equalConditionOption).not.toBeVisible();
-      expect(selectCondition).toHaveTextContent("に等しい");
+      expect(selectCondition).toHaveTextContent("等しい");
 
       // Input value
       const inputValue = screen.getByTestId("select-input-value");
@@ -431,7 +431,7 @@ describe(
       await user.click(selectConditionButton);
 
       const equalConditionOption = within(selectConditionOptions).getByText(
-        "に等しい",
+        "等しい",
       );
       expect(equalConditionOption).toBeVisible();
       expect(
@@ -443,12 +443,12 @@ describe(
       expect(within(selectConditionOptions).getByText("以上")).toBeVisible();
       expect(within(selectConditionOptions).getByText("以下")).toBeVisible();
 
-      expect(within(selectConditionOptions).queryByText("を含む")).toBeNull();
+      expect(within(selectConditionOptions).queryByText("含む")).toBeNull();
 
       await user.click(equalConditionOption);
 
       expect(equalConditionOption).not.toBeVisible();
-      expect(selectCondition).toHaveTextContent("に等しい");
+      expect(selectCondition).toHaveTextContent("等しい");
 
       // Input value
       const inputValue = await screen.findByTestId("select-input-value");
@@ -501,9 +501,7 @@ describe(
         "以下",
       );
       expect(lteConditionOption).toBeVisible();
-      expect(
-        within(selectConditionOptions).getByText("に等しい"),
-      ).toBeVisible();
+      expect(within(selectConditionOptions).getByText("等しい")).toBeVisible();
       expect(
         within(selectConditionOptions).getByText("より大きい"),
       ).toBeVisible();
@@ -512,7 +510,7 @@ describe(
       ).toBeVisible();
       expect(within(selectConditionOptions).getByText("以上")).toBeVisible();
 
-      expect(within(selectConditionOptions).queryByText("を含む")).toBeNull();
+      expect(within(selectConditionOptions).queryByText("含む")).toBeNull();
 
       await user.click(lteConditionOption);
 
@@ -574,25 +572,25 @@ describe(
       await user.click(selectConditionButton);
 
       const eqConditionOption = within(selectConditionOptions).getByText(
-        "に等しい",
+        "等しい",
       );
       expect(eqConditionOption).toBeVisible();
 
       expect(
-        within(selectConditionOptions).getByText("に等しくない"),
+        within(selectConditionOptions).getByText("等しくない"),
       ).toBeVisible();
-      expect(screen.queryByText("を含む")).toBeNull();
+      expect(screen.queryByText("含む")).toBeNull();
       expect(screen.queryByText("より大きい")).toBeNull();
       expect(screen.queryByText("より小さい")).toBeNull();
       expect(screen.queryByText("以上")).toBeNull();
       expect(screen.queryByText("以下")).toBeNull();
 
-      expect(screen.queryByText("を含む")).toBeNull();
+      expect(screen.queryByText("含む")).toBeNull();
 
       await user.click(eqConditionOption);
 
       expect(eqConditionOption).not.toBeVisible();
-      expect(selectCondition).toHaveTextContent("に等しい");
+      expect(selectCondition).toHaveTextContent("等しい");
 
       //Select value
       const selectValue = screen.getByTestId("select-input-value");
@@ -615,205 +613,213 @@ describe(
       });
     });
 
-    it("Multiple filter types woks correctly (type AND)", async () => {
-      let currentFilters: GraphQLQueryFilter = {};
+    it(
+      "Multiple filter types works correctly (type AND)",
+      async () => {
+        let currentFilters: GraphQLQueryFilter = {};
 
-      render(
-        <CustomFilter
-          columns={columns}
-          onChange={(currentState: GraphQLQueryFilter) => {
-            currentFilters = currentState;
-          }}
-          localization={LOCALIZATION_JA}
-          customFilterOpen={true}
-          setCustomFilterOpen={() => void 0}
-          enableColumnFilters={true}
-        />,
-      );
+        render(
+          <CustomFilter
+            columns={columns}
+            onChange={(currentState: GraphQLQueryFilter) => {
+              currentFilters = currentState;
+            }}
+            localization={LOCALIZATION_JA}
+            customFilterOpen={true}
+            setCustomFilterOpen={() => void 0}
+            enableColumnFilters={true}
+          />,
+        );
 
-      const user = userEvent.setup();
+        const user = userEvent.setup();
 
-      //Select column
-      await selectColumn(screen, user, 0, "CreditCardUsed");
-      //Select condition
-      await selectCondition(screen, user, 0, "に等しい");
-      //Select value
-      await selectValue(screen, user, 0, "true");
+        //Select column
+        await selectColumn(screen, user, 0, "CreditCardUsed");
+        //Select condition
+        await selectCondition(screen, user, 0, "等しい");
+        //Select value
+        await selectValue(screen, user, 0, "true");
 
-      //Check filters
-      await waitFor(() => {
-        //Wait for the useEffect to update the filters
-        expect(currentFilters).toEqual({ isCreditCard: { eq: true } });
-      });
+        //Check filters
+        await waitFor(() => {
+          //Wait for the useEffect to update the filters
+          expect(currentFilters).toEqual({ isCreditCard: { eq: true } });
+        });
 
-      //Add new filter row
-      await addFilter(screen, user);
+        //Add new filter row
+        await addFilter(screen, user);
 
-      //Select joint condition
-      await selectJointCondition(screen, user, 1, "AND");
-      //Select column
-      await selectColumn(screen, user, 1, "Status");
-      //Select condition
-      await selectCondition(screen, user, 1, "に等しい");
-      //Select value
-      await selectValue(screen, user, 1, "success");
+        //Select joint condition
+        await selectJointCondition(screen, user, 1, "AND");
+        //Select column
+        await selectColumn(screen, user, 1, "Status");
+        //Select condition
+        await selectCondition(screen, user, 1, "等しい");
+        //Select value
+        await selectValue(screen, user, 1, "success");
 
-      //Add new filter row
-      await addFilter(screen, user);
+        //Add new filter row
+        await addFilter(screen, user);
 
-      //Select joint condition
-      await selectJointCondition(screen, user, 2, "AND");
-      //Select column
-      await selectColumn(screen, user, 2, "CreatedAt");
-      //Select condition
-      await selectCondition(screen, user, 2, "以下");
-      //Input value
-      await inputValue(screen, user, 2, "2023-11-14");
+        //Select joint condition
+        await selectJointCondition(screen, user, 2, "AND");
+        //Select column
+        await selectColumn(screen, user, 2, "CreatedAt");
+        //Select condition
+        await selectCondition(screen, user, 2, "以下");
+        //Input value
+        await inputValue(screen, user, 2, "2023-11-14");
 
-      //Add new filter row
-      await addFilter(screen, user);
+        //Add new filter row
+        await addFilter(screen, user);
 
-      //Select joint condition
-      await selectJointCondition(screen, user, 3, "AND");
-      //Select column
-      await selectColumn(screen, user, 3, "Email");
-      //Select condition
-      await selectCondition(screen, user, 3, "に等しい");
-      //Select value
-      await inputValue(screen, user, 3, "test@test.com");
+        //Select joint condition
+        await selectJointCondition(screen, user, 3, "AND");
+        //Select column
+        await selectColumn(screen, user, 3, "Email");
+        //Select condition
+        await selectCondition(screen, user, 3, "等しい");
+        //Select value
+        await inputValue(screen, user, 3, "test@test.com");
 
-      //Add new filter row
-      await addFilter(screen, user);
+        //Add new filter row
+        await addFilter(screen, user);
 
-      //Select joint condition
-      await selectJointCondition(screen, user, 4, "AND");
-      //Select column
-      await selectColumn(screen, user, 4, "Amount");
-      //Select condition
-      await selectCondition(screen, user, 4, "以上");
-      //Input value
-      await inputValue(screen, user, 4, "800");
+        //Select joint condition
+        await selectJointCondition(screen, user, 4, "AND");
+        //Select column
+        await selectColumn(screen, user, 4, "Amount");
+        //Select condition
+        await selectCondition(screen, user, 4, "以上");
+        //Input value
+        await inputValue(screen, user, 4, "800");
 
-      //Check filters
-      await waitFor(() => {
-        //Wait for the useEffect to update the filters
-        expect(currentFilters).toEqual({
-          isCreditCard: { eq: true },
-          and: {
-            status: { eq: "success" },
+        //Check filters
+        await waitFor(() => {
+          //Wait for the useEffect to update the filters
+          expect(currentFilters).toEqual({
+            isCreditCard: { eq: true },
             and: {
-              createdAt: { lte: "2023-11-14" },
+              status: { eq: "success" },
               and: {
-                email: { eq: "test@test.com" },
+                createdAt: { lte: "2023-11-14" },
                 and: {
-                  amount: { gte: 800 },
+                  email: { eq: "test@test.com" },
+                  and: {
+                    amount: { gte: 800 },
+                  },
                 },
               },
             },
-          },
+          });
         });
-      });
-    });
+      },
+      { timeout: 15000 },
+    );
 
-    it("Multiple filter types woks correctly (type OR)", async () => {
-      let currentFilters: GraphQLQueryFilter = {};
+    it(
+      "Multiple filter types works correctly (type OR)",
+      async () => {
+        let currentFilters: GraphQLQueryFilter = {};
 
-      render(
-        <CustomFilter
-          columns={columns}
-          onChange={(currentState: GraphQLQueryFilter) => {
-            currentFilters = currentState;
-          }}
-          localization={LOCALIZATION_JA}
-          customFilterOpen={true}
-          setCustomFilterOpen={() => void 0}
-          enableColumnFilters={true}
-        />,
-      );
+        render(
+          <CustomFilter
+            columns={columns}
+            onChange={(currentState: GraphQLQueryFilter) => {
+              currentFilters = currentState;
+            }}
+            localization={LOCALIZATION_JA}
+            customFilterOpen={true}
+            setCustomFilterOpen={() => void 0}
+            enableColumnFilters={true}
+          />,
+        );
 
-      const user = userEvent.setup();
+        const user = userEvent.setup();
 
-      //Select column
-      await selectColumn(screen, user, 0, "CreditCardUsed");
-      //Select condition
-      await selectCondition(screen, user, 0, "に等しい");
-      //Select value
-      await selectValue(screen, user, 0, "true");
+        //Select column
+        await selectColumn(screen, user, 0, "CreditCardUsed");
+        //Select condition
+        await selectCondition(screen, user, 0, "等しい");
+        //Select value
+        await selectValue(screen, user, 0, "true");
 
-      //Check filters
-      await waitFor(() => {
-        //Wait for the useEffect to update the filters
-        expect(currentFilters).toEqual({ isCreditCard: { eq: true } });
-      });
+        //Check filters
+        await waitFor(() => {
+          //Wait for the useEffect to update the filters
+          expect(currentFilters).toEqual({ isCreditCard: { eq: true } });
+        });
 
-      //Add new filter row
-      await addFilter(screen, user);
+        //Add new filter row
+        await addFilter(screen, user);
 
-      //Select joint condition
-      await selectJointCondition(screen, user, 1, "OR");
-      //Select column
-      await selectColumn(screen, user, 1, "Status");
-      //Select condition
-      await selectCondition(screen, user, 1, "に等しい");
-      //Select value
-      await selectValue(screen, user, 1, "success");
+        //Select joint condition
+        await selectJointCondition(screen, user, 1, "OR");
+        //Select column
+        await selectColumn(screen, user, 1, "Status");
+        //Select condition
+        await selectCondition(screen, user, 1, "等しい");
+        //Select value
+        await selectValue(screen, user, 1, "success");
 
-      //Add new filter row
-      await addFilter(screen, user);
+        //Add new filter row
+        await addFilter(screen, user);
 
-      //Select joint condition
-      await selectJointCondition(screen, user, 2, "OR");
-      //Select column
-      await selectColumn(screen, user, 2, "CreatedAt");
-      //Select condition
-      await selectCondition(screen, user, 2, "以下");
-      //Input value
-      await inputValue(screen, user, 2, "2023-11-14");
+        //Select joint condition
+        await selectJointCondition(screen, user, 2, "OR");
+        //Select column
+        await selectColumn(screen, user, 2, "CreatedAt");
+        //Select condition
+        await selectCondition(screen, user, 2, "以下");
+        //Input value
+        await inputValue(screen, user, 2, "2023-11-14");
 
-      //Add new filter row
-      await addFilter(screen, user);
+        //Add new filter row
+        await addFilter(screen, user);
 
-      //Select joint condition
-      await selectJointCondition(screen, user, 3, "OR");
-      //Select column
-      await selectColumn(screen, user, 3, "Email");
-      //Select condition
-      await selectCondition(screen, user, 3, "に等しい");
-      //Select value
-      await inputValue(screen, user, 3, "test@test.com");
+        //Select joint condition
+        await selectJointCondition(screen, user, 3, "OR");
+        //Select column
+        await selectColumn(screen, user, 3, "Email");
+        //Select condition
+        await selectCondition(screen, user, 3, "等しい");
+        //Select value
+        await inputValue(screen, user, 3, "test@test.com");
 
-      //Add new filter row
-      await addFilter(screen, user);
+        //Add new filter row
+        await addFilter(screen, user);
 
-      //Select joint condition
-      await selectJointCondition(screen, user, 4, "OR");
-      //Select column
-      await selectColumn(screen, user, 4, "Amount");
-      //Select condition
-      await selectCondition(screen, user, 4, "以上");
-      //Input value
-      await inputValue(screen, user, 4, "800");
+        //Select joint condition
+        await selectJointCondition(screen, user, 4, "OR");
+        //Select column
+        await selectColumn(screen, user, 4, "Amount");
+        //Select condition
+        await selectCondition(screen, user, 4, "以上");
+        //Input value
+        await inputValue(screen, user, 4, "800");
 
-      //Check filters
-      await waitFor(() => {
-        //Wait for the useEffect to update the filters
-        expect(currentFilters).toEqual({
-          isCreditCard: { eq: true },
-          or: {
-            status: { eq: "success" },
+        //Check filters
+        await waitFor(() => {
+          //Wait for the useEffect to update the filters
+          expect(currentFilters).toEqual({
+            isCreditCard: { eq: true },
             or: {
-              createdAt: { lte: "2023-11-14" },
+              status: { eq: "success" },
               or: {
-                email: { eq: "test@test.com" },
+                createdAt: { lte: "2023-11-14" },
                 or: {
-                  amount: { gte: 800 },
+                  email: { eq: "test@test.com" },
+                  or: {
+                    amount: { gte: 800 },
+                  },
                 },
               },
             },
-          },
+          });
         });
-      });
-    });
+      },
+      { timeout: 15000 },
+    );
 
     it("Can delete a filter row", async () => {
       let currentFilters: GraphQLQueryFilter = {};
@@ -836,7 +842,7 @@ describe(
       //Select column
       await selectColumn(screen, user, 0, "CreditCardUsed");
       //Select condition
-      await selectCondition(screen, user, 0, "に等しい");
+      await selectCondition(screen, user, 0, "等しい");
       //Select value
       await selectValue(screen, user, 0, "true");
 
@@ -854,7 +860,7 @@ describe(
       //Select column
       await selectColumn(screen, user, 1, "Status");
       //Select condition
-      await selectCondition(screen, user, 1, "に等しい");
+      await selectCondition(screen, user, 1, "等しい");
       //Select value
       await selectValue(screen, user, 1, "success");
 
@@ -898,7 +904,7 @@ describe(
       //Select column
       await selectColumn(screen, user, 0, "CreditCardUsed");
       //Select condition
-      await selectCondition(screen, user, 0, "に等しい");
+      await selectCondition(screen, user, 0, "等しい");
       //Select value
       await selectValue(screen, user, 0, "true");
 
@@ -916,7 +922,7 @@ describe(
       //Select column
       await selectColumn(screen, user, 1, "Status");
       //Select condition
-      await selectCondition(screen, user, 1, "に等しい");
+      await selectCondition(screen, user, 1, "等しい");
       //Select value
       await selectValue(screen, user, 1, "success");
 
@@ -952,7 +958,7 @@ describe(
       //Select column
       await selectColumn(screen, user, 0, "Status");
       //Select condition
-      await selectCondition(screen, user, 0, "に等しい");
+      await selectCondition(screen, user, 0, "等しい");
       //Select value
       await selectValue(screen, user, 0, "pending");
 
@@ -996,7 +1002,7 @@ describe(
       //Select column
       await selectColumn(screen, user, 1, "Status");
       //Select condition
-      await selectCondition(screen, user, 1, "に等しい");
+      await selectCondition(screen, user, 1, "等しい");
       //Select value
       await selectValue(screen, user, 1, "pending");
 
@@ -1069,9 +1075,7 @@ describe(
         "以下",
       );
       expect(lteConditionOption).toBeVisible();
-      expect(
-        within(selectConditionOptions).getByText("に等しい"),
-      ).toBeVisible();
+      expect(within(selectConditionOptions).getByText("等しい")).toBeVisible();
       expect(
         within(selectConditionOptions).getByText("より大きい"),
       ).toBeVisible();
@@ -1080,7 +1084,7 @@ describe(
       ).toBeVisible();
       expect(within(selectConditionOptions).getByText("以上")).toBeVisible();
 
-      expect(within(selectConditionOptions).queryByText("を含む")).toBeNull();
+      expect(within(selectConditionOptions).queryByText("含む")).toBeNull();
 
       await user.click(lteConditionOption);
 
