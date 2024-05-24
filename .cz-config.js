@@ -21,6 +21,7 @@ module.exports = {
     { name: "utils" },
     { name: "mtctl" },
     { name: "dev-cli" },
+    { name: "db-test" },
   ],
 
   usePreparedCommit: false,

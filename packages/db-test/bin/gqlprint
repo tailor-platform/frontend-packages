@@ -1,0 +1,110 @@
+#!/usr/bin/env bash
+":" //# comment; exec /usr/bin/env node --input-type=module - "$@" < "$0"
+
+import QueryHelper from './node_modules/@tailor-platform/db-test/src/queryHelper.mjs';
+import TestContext from './node_modules/@tailor-platform/db-test/src/testContext.mjs';
+import TailorHelper from './node_modules/@tailor-platform/db-test/src/tailorHelper.mjs';
+import pluralize from 'pluralize';
+import { join, resolve } from 'path';
+import { promises as fs } from 'fs';
+import readline from 'readline';
+import minimist from 'minimist';
+
+
+const argv = minimist(process.argv);
+
+if (argv.cue && argv.type) {
+    console.warn('Keep in mind that the cue json will overwrite the types provided');
+}
+
+
+if (!argv.pipeline && !argv.type && !argv.cue) {
+    console.error('Provide at least one type, pipeline or the cue json');
+    process.exit(1); 
+}
+
+
+let types;
+let pipelines;
+let outputPath;
+  
+function parseArg(arg) {
+    // An arg can be a string or an array string like [A,B,C]
+    if (arg.startsWith('[') && arg.endsWith(']')) {
+        return arg.substring(1, arg.length - 1).split(',').map((item) => item.trim());
+    } else {
+        return [arg];
+    }
+}
+
+// Access arguments
+if (argv.type) {
+    types = Array.isArray(argv.type) ? argv.type.map(parseArg) : parseArg(argv.type); 
+    console.log('Types:', types, '\n'); 
+} else {
+    types = [];
+}
+
+if (argv.pipeline) {
+    pipelines = Array.isArray(argv.pipeline) ? argv.pipeline : [argv.pipeline];
+    console.log('Pipeline:', pipelines, '\n');
+} else {
+    pipelines = [];
+}
+
+if (argv.output) {
+    outputPath = argv.output;
+} else {
+    outputPath = "./gql-output";
+}
+
+async function createTypeGQLFiles(type, queryHelper, outputPath) {
+    // fetch update delete create and fetcAll
+    const typeFetchGQLQuery = queryHelper.constructFetchQuery(type);
+    const typeFetchAllGQLQuery = queryHelper.constructFetchAllQuery(type);
+    const typeCreateGQLQuery = queryHelper.constructCreateQuery(type);
+    const typeUpdateGQLQuery = queryHelper.constructUpdateQuery(type);
+    const typeDeleteGQLQuery = queryHelper.constructDeleteQuery(type);
+
+    // save them to .gql files
+
+    const lowerCasetypeName = type.charAt(0).toLowerCase() + type.slice(1)
+    const pluraltypeName = pluralize(lowerCasetypeName);
+    await fs.writeFile(join(outputPath, `${pluraltypeName}.gql`), typeFetchAllGQLQuery);
+    await fs.writeFile(join(outputPath, `${lowerCasetypeName}.gql`), typeFetchGQLQuery);
+    await fs.writeFile(join(outputPath, `create${type}.gql`), typeCreateGQLQuery);
+    await fs.writeFile(join(outputPath, `update${type}.gql`), typeUpdateGQLQuery);
+    await fs.writeFile(join(outputPath, `delete${type}.gql`), typeDeleteGQLQuery);
+
+    console.info('\x1b[36m%s\x1b[0m', `✔️ Created GQL files for type ${type} in the ${outputPath} folder`);
+}
+
+async function main(types, pipelines, cueJsonFile, outputPath) {
+    if (cueJsonFile) {
+        const cueJson = JSON.parse(await fs.readFile(cueJsonFile, 'utf-8'));
+        types = cueJson.Types.map((type) => type.Name);
+        console.log('Types:', types, '\n');
+    }
+
+    const tailorHelper = new TailorHelper();
+    const tailorURL = await tailorHelper.getAppURL() + '/query';
+    const tailorMachineToken = await tailorHelper.generateMachineUserToken();
+
+    const queryHelper = new QueryHelper(tailorURL, tailorMachineToken);
+    await queryHelper.loadQueryFields();
+    await fs.mkdir(outputPath, { recursive: true });
+    
+    console.log("\n");
+
+    for (const type of types) {
+        await createTypeGQLFiles(type, queryHelper, outputPath);
+    }
+}
+
+
+main(types, pipelines, argv.cue, outputPath).then(() => {
+    console.info('\x1b[36m%s\x1b[0m',"\n✔️ GQL files created successfully\n");
+}).catch((err) => {
+    console.error(err);
+    process.exit(1);
+});
