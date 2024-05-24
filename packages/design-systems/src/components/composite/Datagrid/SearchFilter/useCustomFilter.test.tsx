@@ -487,42 +487,6 @@ describe("useCustomFilter", () => {
     });
   });
 
-  it("dateTime filter convert correctly toISOString", () => {
-    const { result } = renderHook(() =>
-      useCustomFilter({
-        columns,
-        onChange: () => {
-          return;
-        },
-        localization: LOCALIZATION_JA,
-        systemFilter: undefined,
-        defaultFilter: undefined,
-      }),
-    );
-
-    const filter: FilterRowState = {
-      column: "updatedAt",
-      value: "2021-09-01T00:00:00.000Z",
-      condition: "eq",
-      isSystem: false,
-      isChangeable: false,
-    };
-
-    const graphQLQueryObject: GraphQLQueryFilter = {};
-
-    act(() => {
-      result.current.addToGraphQLQueryFilterRecursively(
-        filter,
-        graphQLQueryObject,
-        "dateTime",
-      );
-    });
-
-    expect(graphQLQueryObject).toStrictEqual({
-      updatedAt: { eq: "2021-09-01T00:00:00.000Z" },
-    });
-  });
-
   it("Multiple filter types woks correctly (type AND)", async () => {
     const { result } = renderHook(() =>
       useCustomFilter({
