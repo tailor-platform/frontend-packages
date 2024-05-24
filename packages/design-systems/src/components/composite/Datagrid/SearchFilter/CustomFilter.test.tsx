@@ -9,21 +9,24 @@ import {
 import { ColumnDef } from "@tanstack/react-table";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
-import { Column, DataGridInstance, UseDataGridProps } from "../types";
+import { DataGridInstance, UseDataGridProps } from "../types";
 import { LOCALIZATION_JA } from "../../../../locales/ja";
 import { LOCALIZATION_EN } from "../../../../locales/en";
 import {
-  addFilter,
-  deleteFilter,
   inputValue,
-  resetAllFilters,
   selectColumn,
   selectCondition,
   selectJointCondition,
   selectValue,
 } from "../utils/test/customFilter";
 import { useDataGrid } from "../useDataGrid";
-import { Payment, originData, setFilterChange } from "../utils/test";
+import {
+  Payment,
+  PaymentStatus,
+  columns,
+  originData,
+  setFilterChange,
+} from "../utils/test";
 import { DataGrid } from "../Datagrid";
 import { CustomFilter } from "./CustomFilter";
 import type { GraphQLQueryFilter } from "./types";
@@ -45,71 +48,6 @@ class MockResizeObserver {
   }
 }
 global.ResizeObserver = MockResizeObserver;
-
-enum PaymentStatus {
-  pending = "pending",
-  processing = "processing",
-  success = "success",
-  failed = "failed",
-}
-
-const columns: Column<Payment>[] = [
-  {
-    accessorKey: "status",
-    label: "Status",
-    value: "Status",
-    meta: {
-      type: "enum",
-      enumType: PaymentStatus,
-    },
-    disabled: false,
-  },
-  {
-    accessorKey: "email",
-    label: "Email",
-    value: "Email",
-    meta: {
-      type: "string",
-    },
-    disabled: false,
-  },
-  {
-    accessorKey: "amount",
-    label: "Amount",
-    value: "Amount",
-    meta: {
-      type: "number",
-    },
-    disabled: false,
-  },
-  {
-    accessorKey: "createdAt",
-    label: "CreatedAt",
-    value: "CreatedAt",
-    meta: {
-      type: "date",
-    },
-    disabled: false,
-  },
-  {
-    accessorKey: "isCreditCard",
-    label: "CreditCardUsed",
-    value: "CreditCardUsed",
-    meta: {
-      type: "boolean",
-    },
-    disabled: false,
-  },
-  {
-    accessorKey: "updatedAt",
-    label: "UpdatedAt",
-    value: "UpdatedAt",
-    meta: {
-      type: "dateTime",
-    },
-    disabled: false,
-  },
-];
 
 const columnDefs: ColumnDef<Payment>[] = [
   {
@@ -615,329 +553,6 @@ describe(
       });
     });
 
-    it("Multiple filter types woks correctly (type AND)", async () => {
-      let currentFilters: GraphQLQueryFilter = {};
-
-      render(
-        <CustomFilter
-          columns={columns}
-          onChange={(currentState: GraphQLQueryFilter) => {
-            currentFilters = currentState;
-          }}
-          localization={LOCALIZATION_JA}
-          customFilterOpen={true}
-          setCustomFilterOpen={() => void 0}
-          enableColumnFilters={true}
-        />,
-      );
-
-      const user = userEvent.setup();
-
-      //Select column
-      await selectColumn(screen, user, 0, "CreditCardUsed");
-      //Select condition
-      await selectCondition(screen, user, 0, "に等しい");
-      //Select value
-      await selectValue(screen, user, 0, "true");
-
-      //Check filters
-      await waitFor(() => {
-        //Wait for the useEffect to update the filters
-        expect(currentFilters).toEqual({ isCreditCard: { eq: true } });
-      });
-
-      //Add new filter row
-      await addFilter(screen, user);
-
-      //Select joint condition
-      await selectJointCondition(screen, user, 1, "AND");
-      //Select column
-      await selectColumn(screen, user, 1, "Status");
-      //Select condition
-      await selectCondition(screen, user, 1, "に等しい");
-      //Select value
-      await selectValue(screen, user, 1, "success");
-
-      //Add new filter row
-      await addFilter(screen, user);
-
-      //Select joint condition
-      await selectJointCondition(screen, user, 2, "AND");
-      //Select column
-      await selectColumn(screen, user, 2, "CreatedAt");
-      //Select condition
-      await selectCondition(screen, user, 2, "以下");
-      //Input value
-      await inputValue(screen, user, 2, "2023-11-14");
-
-      //Add new filter row
-      await addFilter(screen, user);
-
-      //Select joint condition
-      await selectJointCondition(screen, user, 3, "AND");
-      //Select column
-      await selectColumn(screen, user, 3, "Email");
-      //Select condition
-      await selectCondition(screen, user, 3, "に等しい");
-      //Select value
-      await inputValue(screen, user, 3, "test@test.com");
-
-      //Add new filter row
-      await addFilter(screen, user);
-
-      //Select joint condition
-      await selectJointCondition(screen, user, 4, "AND");
-      //Select column
-      await selectColumn(screen, user, 4, "Amount");
-      //Select condition
-      await selectCondition(screen, user, 4, "以上");
-      //Input value
-      await inputValue(screen, user, 4, "800");
-
-      //Check filters
-      await waitFor(() => {
-        //Wait for the useEffect to update the filters
-        expect(currentFilters).toEqual({
-          isCreditCard: { eq: true },
-          and: {
-            status: { eq: "success" },
-            and: {
-              createdAt: { lte: "2023-11-14" },
-              and: {
-                email: { eq: "test@test.com" },
-                and: {
-                  amount: { gte: 800 },
-                },
-              },
-            },
-          },
-        });
-      });
-    });
-
-    it("Multiple filter types woks correctly (type OR)", async () => {
-      let currentFilters: GraphQLQueryFilter = {};
-
-      render(
-        <CustomFilter
-          columns={columns}
-          onChange={(currentState: GraphQLQueryFilter) => {
-            currentFilters = currentState;
-          }}
-          localization={LOCALIZATION_JA}
-          customFilterOpen={true}
-          setCustomFilterOpen={() => void 0}
-          enableColumnFilters={true}
-        />,
-      );
-
-      const user = userEvent.setup();
-
-      //Select column
-      await selectColumn(screen, user, 0, "CreditCardUsed");
-      //Select condition
-      await selectCondition(screen, user, 0, "に等しい");
-      //Select value
-      await selectValue(screen, user, 0, "true");
-
-      //Check filters
-      await waitFor(() => {
-        //Wait for the useEffect to update the filters
-        expect(currentFilters).toEqual({ isCreditCard: { eq: true } });
-      });
-
-      //Add new filter row
-      await addFilter(screen, user);
-
-      //Select joint condition
-      await selectJointCondition(screen, user, 1, "OR");
-      //Select column
-      await selectColumn(screen, user, 1, "Status");
-      //Select condition
-      await selectCondition(screen, user, 1, "に等しい");
-      //Select value
-      await selectValue(screen, user, 1, "success");
-
-      //Add new filter row
-      await addFilter(screen, user);
-
-      //Select joint condition
-      await selectJointCondition(screen, user, 2, "OR");
-      //Select column
-      await selectColumn(screen, user, 2, "CreatedAt");
-      //Select condition
-      await selectCondition(screen, user, 2, "以下");
-      //Input value
-      await inputValue(screen, user, 2, "2023-11-14");
-
-      //Add new filter row
-      await addFilter(screen, user);
-
-      //Select joint condition
-      await selectJointCondition(screen, user, 3, "OR");
-      //Select column
-      await selectColumn(screen, user, 3, "Email");
-      //Select condition
-      await selectCondition(screen, user, 3, "に等しい");
-      //Select value
-      await inputValue(screen, user, 3, "test@test.com");
-
-      //Add new filter row
-      await addFilter(screen, user);
-
-      //Select joint condition
-      await selectJointCondition(screen, user, 4, "OR");
-      //Select column
-      await selectColumn(screen, user, 4, "Amount");
-      //Select condition
-      await selectCondition(screen, user, 4, "以上");
-      //Input value
-      await inputValue(screen, user, 4, "800");
-
-      //Check filters
-      await waitFor(() => {
-        //Wait for the useEffect to update the filters
-        expect(currentFilters).toEqual({
-          isCreditCard: { eq: true },
-          or: {
-            status: { eq: "success" },
-            or: {
-              createdAt: { lte: "2023-11-14" },
-              or: {
-                email: { eq: "test@test.com" },
-                or: {
-                  amount: { gte: 800 },
-                },
-              },
-            },
-          },
-        });
-      });
-    });
-
-    it("Can delete a filter row", async () => {
-      let currentFilters: GraphQLQueryFilter = {};
-
-      render(
-        <CustomFilter
-          columns={columns}
-          onChange={(currentState: GraphQLQueryFilter) => {
-            currentFilters = currentState;
-          }}
-          localization={LOCALIZATION_JA}
-          customFilterOpen={true}
-          setCustomFilterOpen={() => void 0}
-          enableColumnFilters={true}
-        />,
-      );
-
-      const user = userEvent.setup();
-
-      //Select column
-      await selectColumn(screen, user, 0, "CreditCardUsed");
-      //Select condition
-      await selectCondition(screen, user, 0, "に等しい");
-      //Select value
-      await selectValue(screen, user, 0, "true");
-
-      //Check filters
-      await waitFor(() => {
-        //Wait for the useEffect to update the filters
-        expect(currentFilters).toEqual({ isCreditCard: { eq: true } });
-      });
-
-      //Add new filter row
-      await addFilter(screen, user);
-
-      //Select joint condition
-      await selectJointCondition(screen, user, 1, "AND");
-      //Select column
-      await selectColumn(screen, user, 1, "Status");
-      //Select condition
-      await selectCondition(screen, user, 1, "に等しい");
-      //Select value
-      await selectValue(screen, user, 1, "success");
-
-      //Check filters
-      await waitFor(() => {
-        //Wait for the useEffect to update the filters
-        expect(currentFilters).toEqual({
-          isCreditCard: { eq: true },
-          and: { status: { eq: "success" } },
-        });
-      });
-
-      //Delete filter row
-      await deleteFilter(screen, user, 1);
-
-      //Check filters
-      await waitFor(() => {
-        //Wait for the useEffect to update the filters
-        expect(currentFilters).toEqual({ isCreditCard: { eq: true } });
-      });
-    });
-
-    it("Can reset all filter rows", async () => {
-      let currentFilters: GraphQLQueryFilter = {};
-
-      render(
-        <CustomFilter
-          columns={columns}
-          onChange={(currentState: GraphQLQueryFilter) => {
-            currentFilters = currentState;
-          }}
-          localization={LOCALIZATION_JA}
-          customFilterOpen={true}
-          setCustomFilterOpen={() => void 0}
-          enableColumnFilters={true}
-        />,
-      );
-
-      const user = userEvent.setup();
-
-      //Select column
-      await selectColumn(screen, user, 0, "CreditCardUsed");
-      //Select condition
-      await selectCondition(screen, user, 0, "に等しい");
-      //Select value
-      await selectValue(screen, user, 0, "true");
-
-      //Check filters
-      await waitFor(() => {
-        //Wait for the useEffect to update the filters
-        expect(currentFilters).toEqual({ isCreditCard: { eq: true } });
-      });
-
-      //Add new filter row
-      await addFilter(screen, user);
-
-      //Select joint condition
-      await selectJointCondition(screen, user, 1, "AND");
-      //Select column
-      await selectColumn(screen, user, 1, "Status");
-      //Select condition
-      await selectCondition(screen, user, 1, "に等しい");
-      //Select value
-      await selectValue(screen, user, 1, "success");
-
-      //Check filters
-      await waitFor(() => {
-        //Wait for the useEffect to update the filters
-        expect(currentFilters).toEqual({
-          isCreditCard: { eq: true },
-          and: { status: { eq: "success" } },
-        });
-      });
-
-      //Reset all filter rows
-      await resetAllFilters(screen, user);
-
-      //Check filters
-      await waitFor(() => {
-        //Wait for the useEffect to update the filters
-        expect(currentFilters).toEqual({}); //GraphQLQueryFilter is reset
-      });
-    });
     it("Can works correctly without system and default filter", async () => {
       render(<DataGridWithFilter />);
 
@@ -1102,5 +717,6 @@ describe(
       });
     });
   },
+
   { timeout: 10000 },
 );
