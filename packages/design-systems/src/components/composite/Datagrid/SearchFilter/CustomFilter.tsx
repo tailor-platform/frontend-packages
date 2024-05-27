@@ -50,7 +50,6 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
   } = useCustomFilter({
     columns,
     onChange,
-    localization,
     systemFilter,
     defaultFilter,
   });

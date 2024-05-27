@@ -7,7 +7,7 @@ import {
   CSSProperties,
 } from "react";
 import dayjs from "dayjs";
-import type { GraphQLQueryFilter, Localization } from "..";
+import type { GraphQLQueryFilter } from "..";
 import type { Column, MetaType } from "../types";
 import { jointConditions } from "./filter";
 import { FilterRowState, JointCondition } from "./types";
@@ -15,7 +15,6 @@ import { FilterRowState, JointCondition } from "./types";
 export type FilterRowData<TData> = {
   columns: Array<Column<TData>>;
   index: number; //Row number
-  localization: Localization;
   isFirstRow: boolean;
   jointConditions: JointCondition[];
   currentState: FilterRowState;
@@ -32,7 +31,6 @@ const usePrevious = (value: GraphQLQueryFilter) => {
 type UseCustomFilterProps<TData> = {
   columns: Array<Column<TData>>;
   onChange: (currentState: GraphQLQueryFilter) => void;
-  localization: Localization;
   systemFilter?: GraphQLQueryFilter;
   defaultFilter?: GraphQLQueryFilter;
 };
@@ -40,7 +38,6 @@ type UseCustomFilterProps<TData> = {
 export const useCustomFilter = <TData>({
   columns,
   onChange,
-  localization,
   systemFilter,
   defaultFilter,
 }: UseCustomFilterProps<TData>) => {
@@ -123,7 +120,6 @@ export const useCustomFilter = <TData>({
     }): FilterRowData<TData> => ({
       columns: columns,
       index: props.index,
-      localization: localization,
       isFirstRow: props.isFirstRow,
       jointConditions: activeJointConditions,
       currentState: {
@@ -135,7 +131,7 @@ export const useCustomFilter = <TData>({
         isChangeable: props.existSystemFilter ? false : true,
       },
     }),
-    [localization, columns, activeJointConditions],
+    [columns, activeJointConditions],
   );
 
   const convertQueryToFilterRows = useCallback(
@@ -175,7 +171,6 @@ export const useCustomFilter = <TData>({
             filterRows.push({
               columns: columns,
               index: index,
-              localization: localization,
               isFirstRow: isFirstRow,
               jointConditions: activeJointConditions,
               currentState: currentState,
@@ -190,7 +185,7 @@ export const useCustomFilter = <TData>({
       );
       return filterRows;
     },
-    [localization, columns, activeJointConditions],
+    [columns, activeJointConditions],
   );
 
   const systemFilterRows: FilterRowData<TData>[] = useMemo(() => {

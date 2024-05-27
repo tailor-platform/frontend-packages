@@ -1,6 +1,5 @@
 import { renderHook, act, waitFor } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import { LOCALIZATION_JA } from "../../../../locales/ja";
 import { Payment, columns } from "../utils/test";
 import { FilterRowData, useCustomFilter } from "./useCustomFilter";
 import { jointConditions } from "./filter";
@@ -14,7 +13,6 @@ describe("useCustomFilter", () => {
         onChange: () => {
           return;
         },
-        localization: LOCALIZATION_JA,
         systemFilter: { status: { eq: "pending" } },
         defaultFilter: undefined,
       }),
@@ -38,7 +36,6 @@ describe("useCustomFilter", () => {
           isSystem: true,
           isChangeable: false,
         },
-        localization: LOCALIZATION_JA,
       },
       {
         index: 1,
@@ -53,7 +50,6 @@ describe("useCustomFilter", () => {
           isSystem: false,
           isChangeable: false,
         },
-        localization: LOCALIZATION_JA,
       },
     ];
     expect(result.current.filterRows).toStrictEqual(expectedValue);
@@ -66,7 +62,6 @@ describe("useCustomFilter", () => {
         onChange: () => {
           return;
         },
-        localization: LOCALIZATION_JA,
         systemFilter: undefined,
         defaultFilter: undefined,
       }),
@@ -90,7 +85,6 @@ describe("useCustomFilter", () => {
           isSystem: false,
           isChangeable: true,
         },
-        localization: LOCALIZATION_JA,
       },
     ];
     expect(result.current.filterRows).toStrictEqual(expectedValue);
@@ -103,7 +97,6 @@ describe("useCustomFilter", () => {
         onChange: () => {
           return;
         },
-        localization: LOCALIZATION_JA,
         systemFilter: undefined,
         defaultFilter: { status: { eq: "pending" } },
       }),
@@ -127,7 +120,6 @@ describe("useCustomFilter", () => {
           isSystem: false,
           isChangeable: false,
         },
-        localization: LOCALIZATION_JA,
       },
       {
         index: 1,
@@ -142,7 +134,6 @@ describe("useCustomFilter", () => {
           isSystem: false,
           isChangeable: true,
         },
-        localization: LOCALIZATION_JA,
       },
     ];
     expect(result.current.filterRows).toStrictEqual(expectedValue);
@@ -155,7 +146,6 @@ describe("useCustomFilter", () => {
         onChange: () => {
           return;
         },
-        localization: LOCALIZATION_JA,
         systemFilter: { status: { eq: "pending" } },
         defaultFilter: { amount: { eq: 200 } },
       }),
@@ -179,7 +169,6 @@ describe("useCustomFilter", () => {
           isSystem: true,
           isChangeable: false,
         },
-        localization: LOCALIZATION_JA,
       },
       {
         index: 1,
@@ -194,7 +183,6 @@ describe("useCustomFilter", () => {
           isSystem: false,
           isChangeable: false,
         },
-        localization: LOCALIZATION_JA,
       },
       {
         index: 2,
@@ -209,7 +197,6 @@ describe("useCustomFilter", () => {
           isSystem: false,
           isChangeable: false,
         },
-        localization: LOCALIZATION_JA,
       },
     ];
     expect(result.current.filterRows).toStrictEqual(expectedValue);
@@ -222,7 +209,6 @@ describe("useCustomFilter", () => {
         onChange: () => {
           return;
         },
-        localization: LOCALIZATION_JA,
         systemFilter: { status: { eq: "pending" } },
         defaultFilter: { amount: { eq: 200 } },
       }),
@@ -246,7 +232,6 @@ describe("useCustomFilter", () => {
           isSystem: true,
           isChangeable: false,
         },
-        localization: LOCALIZATION_JA,
       },
       {
         index: 1,
@@ -261,7 +246,6 @@ describe("useCustomFilter", () => {
           isSystem: false,
           isChangeable: false,
         },
-        localization: LOCALIZATION_JA,
       },
       {
         index: 2,
@@ -276,7 +260,6 @@ describe("useCustomFilter", () => {
           isSystem: false,
           isChangeable: false,
         },
-        localization: LOCALIZATION_JA,
       },
     ];
     await waitFor(() => {
@@ -291,7 +274,6 @@ describe("useCustomFilter", () => {
         onChange: () => {
           return;
         },
-        localization: LOCALIZATION_JA,
         systemFilter: { status: { eq: "pending" } },
         defaultFilter: { amount: { eq: 200 } },
       }),
@@ -327,7 +309,6 @@ describe("useCustomFilter", () => {
         onChange: () => {
           return;
         },
-        localization: LOCALIZATION_JA,
         systemFilter: { status: { eq: "pending" } },
         defaultFilter: { amount: { eq: 200 } },
       }),
@@ -366,7 +347,6 @@ describe("useCustomFilter", () => {
         onChange: () => {
           return;
         },
-        localization: LOCALIZATION_JA,
         systemFilter: { status: { eq: "pending" } },
         defaultFilter: { amount: { eq: 200 } },
       }),
@@ -412,7 +392,6 @@ describe("useCustomFilter", () => {
         onChange: () => {
           return;
         },
-        localization: LOCALIZATION_JA,
         systemFilter: { status: { eq: "pending" } },
         defaultFilter: { amount: { eq: 200 } },
       }),
@@ -437,7 +416,6 @@ describe("useCustomFilter", () => {
           isSystem: true,
           isChangeable: false,
         },
-        localization: LOCALIZATION_JA,
       },
     ];
     act(() => {
@@ -454,7 +432,6 @@ describe("useCustomFilter", () => {
         onChange: () => {
           return;
         },
-        localization: LOCALIZATION_JA,
         systemFilter: { status: { eq: "pending" } },
         defaultFilter: { amount: { eq: 200 } },
       }),
@@ -477,7 +454,6 @@ describe("useCustomFilter", () => {
           isSystem: false,
           isChangeable: false,
         },
-        localization: LOCALIZATION_JA,
       },
     ];
     act(() => {
@@ -494,7 +470,6 @@ describe("useCustomFilter", () => {
         onChange: () => {
           return;
         },
-        localization: LOCALIZATION_JA,
         systemFilter: { status: { eq: "pending" } },
         defaultFilter: { amount: { eq: 200 } },
       }),
@@ -603,7 +578,6 @@ describe("useCustomFilter", () => {
         onChange: () => {
           return;
         },
-        localization: LOCALIZATION_JA,
         systemFilter: { status: { eq: "pending" } },
         defaultFilter: { amount: { eq: 200 } },
       }),
