@@ -85,9 +85,8 @@ export const useCustomFilter = <TData>({
     [combineGlaphQLQueryFilter, systemFilter, defaultFilter],
   );
 
-  const [filterRowsState, setFilterRowsState] = useState<GraphQLQueryFilter>(
-    initialFilter || {},
-  );
+  const [graphQLQueryFilter, setGraphQLQueryFilter] =
+    useState<GraphQLQueryFilter>(initialFilter || {});
   const [selectedJointCondition, setSelectedJointCondition] = useState<
     string | undefined
   >(undefined);
@@ -229,7 +228,7 @@ export const useCustomFilter = <TData>({
    */
   const resetFilterHandler = useCallback(() => {
     setFilterRows(initialFilterRows);
-    setFilterRowsState(initialFilter || {});
+    setGraphQLQueryFilter(initialFilter || {});
     setSelectedJointCondition(undefined);
   }, [initialFilter, initialFilterRows]);
 
@@ -238,7 +237,7 @@ export const useCustomFilter = <TData>({
    */
   const clearFilterHandler = useCallback(() => {
     setFilterRows(systemFilterRows);
-    setFilterRowsState(systemFilter || {});
+    setGraphQLQueryFilter(systemFilter || {});
     setSelectedJointCondition(undefined);
   }, [systemFilter, systemFilterRows]);
 
@@ -278,21 +277,21 @@ export const useCustomFilter = <TData>({
     [],
   );
 
-  const prevFilter = usePrevious(filterRowsState);
+  const prevFilter = usePrevious(graphQLQueryFilter);
 
   /**
    * This will bubble up the GraphQLQueryFilter to the parent component.
    */
   useEffect(() => {
     const filterChange = () => {
-      if (filterRowsState !== prevFilter.current) {
-        onChange(filterRowsState);
+      if (graphQLQueryFilter !== prevFilter.current) {
+        onChange(graphQLQueryFilter);
       }
     };
     filterChange();
     // We have to run this function only when filterRowState changes, but this way of writing will cause an error due to lint rules, so we excluded it here.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filterRowsState]);
+  }, [graphQLQueryFilter]);
 
   /**
    *
@@ -412,7 +411,7 @@ export const useCustomFilter = <TData>({
    */
   useEffect(() => {
     //Create GraphQLQueryFilter from filterRows
-    const newFilterRowsState: GraphQLQueryFilter = {};
+    const newGraphQLQueryFilter: GraphQLQueryFilter = {};
     filterRows.forEach((row) => {
       if (row.currentState) {
         const { column, condition, value } = row.currentState;
@@ -424,13 +423,13 @@ export const useCustomFilter = <TData>({
         if (isExistCurrentState) {
           addToGraphQLQueryFilterRecursively(
             row.currentState,
-            newFilterRowsState,
+            newGraphQLQueryFilter,
             metaType,
           );
         }
       }
     });
-    setFilterRowsState(newFilterRowsState);
+    setGraphQLQueryFilter(newGraphQLQueryFilter);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addToGraphQLQueryFilterRecursively, filterRows]);
 
