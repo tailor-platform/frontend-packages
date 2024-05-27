@@ -45,8 +45,6 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
     addNewFilterRowHandler,
     filterChangedHandler,
     getBoxPosition,
-    numberOfFilterRows,
-    setNumberOfFilterRows,
   } = useCustomFilter({
     columns,
     onChange,
@@ -139,8 +137,7 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
           backgroundColor="primary.default"
           marginTop={4}
           onClick={() => {
-            addNewFilterRowHandler(numberOfFilterRows);
-            setNumberOfFilterRows((prev) => prev + 1);
+            addNewFilterRowHandler();
           }}
         >
           {localization.filter.addNewFilterLabel}

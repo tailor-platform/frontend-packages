@@ -207,16 +207,6 @@ export const useCustomFilter = <TData>({
     return filterRows;
   }, [systemFilter, defaultFilter, newEmptyRow, convertQueryToFilterRows]);
 
-  /**
-   * In cases where there is no default filter, start with 1 filter row initially .
-   * This will be incremented when user clicks on "Add new filter" button.
-   * This will be used to generate unique index for each filter row.
-   * We cant use filterRows.length as it will grow and shrink based on user actions and might not produce the unique keys.
-   */
-  const [numberOfFilterRows, setNumberOfFilterRows] = useState(
-    initialFilterRows.length,
-  );
-
   const [filterRows, setFilterRows] =
     useState<FilterRowData[]>(initialFilterRows);
 
@@ -241,7 +231,6 @@ export const useCustomFilter = <TData>({
     setFilterRows(initialFilterRows);
     setFilterRowsState(initialFilter || {});
     setSelectedJointCondition(undefined);
-    setNumberOfFilterRows(initialFilterRows.length);
   }, [initialFilter, initialFilterRows]);
 
   /**
@@ -251,27 +240,23 @@ export const useCustomFilter = <TData>({
     setFilterRows(systemFilterRows);
     setFilterRowsState(systemFilter || {});
     setSelectedJointCondition(undefined);
-    setNumberOfFilterRows(systemFilterRows.length);
   }, [systemFilter, systemFilterRows]);
 
   /**
    * This will add new item to filterRows data state.
    */
-  const addNewFilterRowHandler = useCallback(
-    (newRowIndex: number) => {
-      setFilterRows((oldState) => {
-        const newState = [...oldState];
-        newState.push(
-          newEmptyRow({
-            index: newRowIndex,
-            existSystemFilter: !!systemFilter,
-          }),
-        );
-        return newState;
-      });
-    },
-    [newEmptyRow, systemFilter],
-  );
+  const addNewFilterRowHandler = useCallback(() => {
+    setFilterRows((oldState) => {
+      const newState = [...oldState];
+      newState.push(
+        newEmptyRow({
+          index: oldState.length,
+          existSystemFilter: !!systemFilter,
+        }),
+      );
+      return newState;
+    });
+  }, [newEmptyRow, systemFilter]);
 
   /**
    * This will convert the FilterRowState object from the UI to GraphQLQueryFilter and add it to the GraphQLQueryFilter.
@@ -473,8 +458,6 @@ export const useCustomFilter = <TData>({
     addNewFilterRowHandler,
     filterChangedHandler,
     getBoxPosition,
-    numberOfFilterRows,
-    setNumberOfFilterRows,
     addToGraphQLQueryFilterRecursively, // For testing purpose
     convertQueryToFilterRows, // For testing purpose
   };
