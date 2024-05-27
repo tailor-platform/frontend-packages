@@ -2,7 +2,6 @@ import { renderHook, act, waitFor } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { Payment, columns } from "../utils/test";
 import { FilterRowData, useCustomFilter } from "./useCustomFilter";
-import { jointConditions } from "./filter";
 import { FilterRowState, GraphQLQueryFilter } from "./types";
 
 describe("useCustomFilter", () => {
@@ -25,7 +24,6 @@ describe("useCustomFilter", () => {
     const expectedValue: FilterRowData<Payment>[] = [
       {
         index: 0,
-        jointConditions: jointConditions,
         columns: columns,
         currentState: {
           column: "status",
@@ -38,7 +36,6 @@ describe("useCustomFilter", () => {
       },
       {
         index: 1,
-        jointConditions: jointConditions,
         columns: columns,
         currentState: {
           column: "",
@@ -72,7 +69,6 @@ describe("useCustomFilter", () => {
     const expectedValue: FilterRowData<Payment>[] = [
       {
         index: 0,
-        jointConditions: jointConditions,
         columns: columns,
         currentState: {
           column: "",
@@ -106,7 +102,6 @@ describe("useCustomFilter", () => {
     const expectedValue: FilterRowData<Payment>[] = [
       {
         index: 0,
-        jointConditions: jointConditions,
         columns: columns,
         currentState: {
           column: "status",
@@ -119,7 +114,6 @@ describe("useCustomFilter", () => {
       },
       {
         index: 1,
-        jointConditions: jointConditions,
         columns: columns,
         currentState: {
           column: "",
@@ -153,7 +147,6 @@ describe("useCustomFilter", () => {
     const expectedValue: FilterRowData<Payment>[] = [
       {
         index: 0,
-        jointConditions: jointConditions,
         columns: columns,
         currentState: {
           column: "status",
@@ -166,7 +159,6 @@ describe("useCustomFilter", () => {
       },
       {
         index: 1,
-        jointConditions: jointConditions,
         columns: columns,
         currentState: {
           column: "amount",
@@ -179,7 +171,6 @@ describe("useCustomFilter", () => {
       },
       {
         index: 2,
-        jointConditions: jointConditions,
         columns: columns,
         currentState: {
           column: "",
@@ -213,7 +204,6 @@ describe("useCustomFilter", () => {
     const expectedValue: FilterRowData<Payment>[] = [
       {
         index: 0,
-        jointConditions: jointConditions,
         columns: columns,
         currentState: {
           column: "status",
@@ -226,7 +216,6 @@ describe("useCustomFilter", () => {
       },
       {
         index: 1,
-        jointConditions: jointConditions,
         columns: columns,
         currentState: {
           column: "amount",
@@ -239,7 +228,6 @@ describe("useCustomFilter", () => {
       },
       {
         index: 2,
-        jointConditions: jointConditions,
         columns: columns,
         currentState: {
           column: "",
@@ -394,7 +382,6 @@ describe("useCustomFilter", () => {
     const expectedValue: FilterRowData<Payment>[] = [
       {
         index: 1,
-        jointConditions: jointConditions,
         columns: columns,
         currentState: {
           column: "status",
@@ -431,7 +418,6 @@ describe("useCustomFilter", () => {
     const expectedValue: FilterRowData<Payment>[] = [
       {
         index: 0,
-        jointConditions: jointConditions,
         columns: columns,
         currentState: {
           column: "amount",

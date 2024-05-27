@@ -15,7 +15,6 @@ import { FilterRowState, JointCondition } from "./types";
 export type FilterRowData<TData> = {
   columns: Array<Column<TData>>;
   index: number; //Row number
-  jointConditions: JointCondition[];
   currentState: FilterRowState;
 };
 
@@ -118,7 +117,6 @@ export const useCustomFilter = <TData>({
     }): FilterRowData<TData> => ({
       columns: columns,
       index: props.index,
-      jointConditions: activeJointConditions,
       currentState: {
         column: "",
         condition: "",
@@ -128,7 +126,7 @@ export const useCustomFilter = <TData>({
         isChangeable: props.existSystemFilter ? false : true,
       },
     }),
-    [columns, activeJointConditions],
+    [columns],
   );
 
   const convertQueryToFilterRows = useCallback(
@@ -167,7 +165,6 @@ export const useCustomFilter = <TData>({
             filterRows.push({
               columns: columns,
               index: index,
-              jointConditions: activeJointConditions,
               currentState: currentState,
             });
           }
@@ -180,7 +177,7 @@ export const useCustomFilter = <TData>({
       );
       return filterRows;
     },
-    [columns, activeJointConditions],
+    [columns],
   );
 
   const systemFilterRows: FilterRowData<TData>[] = useMemo(() => {
@@ -301,23 +298,6 @@ export const useCustomFilter = <TData>({
     },
     [],
   );
-
-  /**
-   * This will update the joint conditions of all FilterRows when the joint condition changes.
-   * Phase1: User can only select only all "and" or only all "or".
-   */
-  useEffect(() => {
-    if (!activeJointConditions) {
-      return;
-    }
-    setFilterRows((oldState) => {
-      const newState = [...oldState];
-      return newState.map((row) => {
-        row.jointConditions = activeJointConditions;
-        return row;
-      });
-    });
-  }, [activeJointConditions]);
 
   const prevFilter = usePrevious(filterRowsState);
 
