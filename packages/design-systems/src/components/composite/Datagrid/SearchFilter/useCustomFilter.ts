@@ -12,8 +12,7 @@ import type { Column, MetaType } from "../types";
 import { jointConditions } from "./filter";
 import { FilterRowState, JointCondition } from "./types";
 
-export type FilterRowData<TData> = {
-  columns: Array<Column<TData>>;
+export type FilterRowData = {
   index: number; //Row number
   currentState: FilterRowState;
 };
@@ -111,11 +110,7 @@ export const useCustomFilter = <TData>({
   }, [selectedJointCondition]);
 
   const newEmptyRow = useCallback(
-    (props: {
-      index: number;
-      existSystemFilter: boolean;
-    }): FilterRowData<TData> => ({
-      columns: columns,
+    (props: { index: number; existSystemFilter: boolean }): FilterRowData => ({
       index: props.index,
       currentState: {
         column: "",
@@ -126,7 +121,7 @@ export const useCustomFilter = <TData>({
         isChangeable: props.existSystemFilter ? false : true,
       },
     }),
-    [columns],
+    [],
   );
 
   const convertQueryToFilterRows = useCallback(
@@ -134,8 +129,8 @@ export const useCustomFilter = <TData>({
       filter: GraphQLQueryFilter,
       isSystem: boolean,
       filterRowIndex: number,
-    ): FilterRowData<TData>[] => {
-      const filterRows: FilterRowData<TData>[] = [];
+    ): FilterRowData[] => {
+      const filterRows: FilterRowData[] = [];
       const convertQueryToFilterRowsRecursively = (
         filter: GraphQLQueryFilter,
         jointCondition: string | undefined,
@@ -163,7 +158,6 @@ export const useCustomFilter = <TData>({
               isChangeable: false,
             };
             filterRows.push({
-              columns: columns,
               index: index,
               currentState: currentState,
             });
@@ -177,11 +171,11 @@ export const useCustomFilter = <TData>({
       );
       return filterRows;
     },
-    [columns],
+    [],
   );
 
-  const systemFilterRows: FilterRowData<TData>[] = useMemo(() => {
-    const filterRows: FilterRowData<TData>[] = [];
+  const systemFilterRows: FilterRowData[] = useMemo(() => {
+    const filterRows: FilterRowData[] = [];
     if (systemFilter) {
       filterRows.push(...convertQueryToFilterRows(systemFilter, true, 0));
     }
@@ -194,8 +188,8 @@ export const useCustomFilter = <TData>({
     return filterRows;
   }, [systemFilter, newEmptyRow, convertQueryToFilterRows]);
 
-  const initialFilterRows: FilterRowData<TData>[] = useMemo(() => {
-    const filterRows: FilterRowData<TData>[] = [];
+  const initialFilterRows: FilterRowData[] = useMemo(() => {
+    const filterRows: FilterRowData[] = [];
     if (systemFilter) {
       filterRows.push(...convertQueryToFilterRows(systemFilter, true, 0));
     }
@@ -224,7 +218,7 @@ export const useCustomFilter = <TData>({
   );
 
   const [filterRows, setFilterRows] =
-    useState<FilterRowData<TData>[]>(initialFilterRows);
+    useState<FilterRowData[]>(initialFilterRows);
 
   /**
    * This will delete the filter row from filterRows.

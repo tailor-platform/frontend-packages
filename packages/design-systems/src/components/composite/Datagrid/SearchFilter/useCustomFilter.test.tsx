@@ -1,6 +1,6 @@
 import { renderHook, act, waitFor } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import { Payment, columns } from "../utils/test";
+import { columns } from "../utils/test";
 import { FilterRowData, useCustomFilter } from "./useCustomFilter";
 import { FilterRowState, GraphQLQueryFilter } from "./types";
 
@@ -21,10 +21,9 @@ describe("useCustomFilter", () => {
       result.current.resetFilterHandler();
     });
 
-    const expectedValue: FilterRowData<Payment>[] = [
+    const expectedValue: FilterRowData[] = [
       {
         index: 0,
-        columns: columns,
         currentState: {
           column: "status",
           value: "pending",
@@ -36,7 +35,6 @@ describe("useCustomFilter", () => {
       },
       {
         index: 1,
-        columns: columns,
         currentState: {
           column: "",
           value: "",
@@ -66,10 +64,9 @@ describe("useCustomFilter", () => {
       result.current.resetFilterHandler();
     });
 
-    const expectedValue: FilterRowData<Payment>[] = [
+    const expectedValue: FilterRowData[] = [
       {
         index: 0,
-        columns: columns,
         currentState: {
           column: "",
           value: "",
@@ -99,10 +96,9 @@ describe("useCustomFilter", () => {
       result.current.resetFilterHandler();
     });
 
-    const expectedValue: FilterRowData<Payment>[] = [
+    const expectedValue: FilterRowData[] = [
       {
         index: 0,
-        columns: columns,
         currentState: {
           column: "status",
           value: "pending",
@@ -114,7 +110,6 @@ describe("useCustomFilter", () => {
       },
       {
         index: 1,
-        columns: columns,
         currentState: {
           column: "",
           value: "",
@@ -144,10 +139,9 @@ describe("useCustomFilter", () => {
       result.current.resetFilterHandler();
     });
 
-    const expectedValue: FilterRowData<Payment>[] = [
+    const expectedValue: FilterRowData[] = [
       {
         index: 0,
-        columns: columns,
         currentState: {
           column: "status",
           value: "pending",
@@ -159,7 +153,6 @@ describe("useCustomFilter", () => {
       },
       {
         index: 1,
-        columns: columns,
         currentState: {
           column: "amount",
           value: 200,
@@ -171,7 +164,6 @@ describe("useCustomFilter", () => {
       },
       {
         index: 2,
-        columns: columns,
         currentState: {
           column: "",
           value: "",
@@ -201,10 +193,9 @@ describe("useCustomFilter", () => {
       result.current.deleteFilterRowHandler(1);
     });
 
-    const expectedValue: FilterRowData<Payment>[] = [
+    const expectedValue: FilterRowData[] = [
       {
         index: 0,
-        columns: columns,
         currentState: {
           column: "status",
           value: "pending",
@@ -216,7 +207,6 @@ describe("useCustomFilter", () => {
       },
       {
         index: 1,
-        columns: columns,
         currentState: {
           column: "amount",
           value: 200,
@@ -228,7 +218,6 @@ describe("useCustomFilter", () => {
       },
       {
         index: 2,
-        columns: columns,
         currentState: {
           column: "",
           value: "",
@@ -379,10 +368,9 @@ describe("useCustomFilter", () => {
         status: { eq: "pending" },
       },
     };
-    const expectedValue: FilterRowData<Payment>[] = [
+    const expectedValue: FilterRowData[] = [
       {
         index: 1,
-        columns: columns,
         currentState: {
           column: "status",
           value: "pending",
@@ -415,10 +403,9 @@ describe("useCustomFilter", () => {
     const filter: GraphQLQueryFilter = {
       amount: { eq: 200 },
     };
-    const expectedValue: FilterRowData<Payment>[] = [
+    const expectedValue: FilterRowData[] = [
       {
         index: 0,
-        columns: columns,
         currentState: {
           column: "amount",
           value: 200,
