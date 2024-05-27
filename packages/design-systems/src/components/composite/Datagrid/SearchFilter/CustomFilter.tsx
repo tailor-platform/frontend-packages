@@ -128,7 +128,7 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
                 columns={columns}
                 jointConditions={activeJointConditions}
                 onDelete={deleteFilterRowHandler(row.index)}
-                isFirstRow={row.isFirstRow}
+                index={i}
                 onChange={filterChangedHandler(row.index)}
                 localization={localization}
               />

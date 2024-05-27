@@ -15,7 +15,6 @@ import { FilterRowState, JointCondition } from "./types";
 export type FilterRowData<TData> = {
   columns: Array<Column<TData>>;
   index: number; //Row number
-  isFirstRow: boolean;
   jointConditions: JointCondition[];
   currentState: FilterRowState;
 };
@@ -115,12 +114,10 @@ export const useCustomFilter = <TData>({
   const newEmptyRow = useCallback(
     (props: {
       index: number;
-      isFirstRow: boolean;
       existSystemFilter: boolean;
     }): FilterRowData<TData> => ({
       columns: columns,
       index: props.index,
-      isFirstRow: props.isFirstRow,
       jointConditions: activeJointConditions,
       currentState: {
         column: "",
@@ -159,7 +156,6 @@ export const useCustomFilter = <TData>({
             const column = key;
             const condition = Object.keys(filter[key])[0];
             const value: string = filter[key][condition] as string;
-            const isFirstRow = index === filterRowIndex;
             const currentState: FilterRowState = {
               column: column,
               condition: condition,
@@ -171,7 +167,6 @@ export const useCustomFilter = <TData>({
             filterRows.push({
               columns: columns,
               index: index,
-              isFirstRow: isFirstRow,
               jointConditions: activeJointConditions,
               currentState: currentState,
             });
@@ -196,7 +191,6 @@ export const useCustomFilter = <TData>({
     filterRows.push(
       newEmptyRow({
         index: filterRows.length,
-        isFirstRow: true,
         existSystemFilter: !!systemFilter,
       }),
     );
@@ -216,7 +210,6 @@ export const useCustomFilter = <TData>({
     filterRows.push(
       newEmptyRow({
         index: filterRows.length,
-        isFirstRow: !defaultFilter,
         existSystemFilter: !!systemFilter,
       }),
     );
@@ -280,7 +273,6 @@ export const useCustomFilter = <TData>({
         newState.push(
           newEmptyRow({
             index: newRowIndex,
-            isFirstRow: false,
             existSystemFilter: !!systemFilter,
           }),
         );

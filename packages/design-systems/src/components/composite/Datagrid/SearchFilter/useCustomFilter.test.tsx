@@ -25,7 +25,6 @@ describe("useCustomFilter", () => {
     const expectedValue: FilterRowData<Payment>[] = [
       {
         index: 0,
-        isFirstRow: true,
         jointConditions: jointConditions,
         columns: columns,
         currentState: {
@@ -39,7 +38,6 @@ describe("useCustomFilter", () => {
       },
       {
         index: 1,
-        isFirstRow: true,
         jointConditions: jointConditions,
         columns: columns,
         currentState: {
@@ -74,7 +72,6 @@ describe("useCustomFilter", () => {
     const expectedValue: FilterRowData<Payment>[] = [
       {
         index: 0,
-        isFirstRow: true,
         jointConditions: jointConditions,
         columns: columns,
         currentState: {
@@ -109,7 +106,6 @@ describe("useCustomFilter", () => {
     const expectedValue: FilterRowData<Payment>[] = [
       {
         index: 0,
-        isFirstRow: true,
         jointConditions: jointConditions,
         columns: columns,
         currentState: {
@@ -123,7 +119,6 @@ describe("useCustomFilter", () => {
       },
       {
         index: 1,
-        isFirstRow: false,
         jointConditions: jointConditions,
         columns: columns,
         currentState: {
@@ -158,7 +153,6 @@ describe("useCustomFilter", () => {
     const expectedValue: FilterRowData<Payment>[] = [
       {
         index: 0,
-        isFirstRow: true,
         jointConditions: jointConditions,
         columns: columns,
         currentState: {
@@ -172,7 +166,6 @@ describe("useCustomFilter", () => {
       },
       {
         index: 1,
-        isFirstRow: true,
         jointConditions: jointConditions,
         columns: columns,
         currentState: {
@@ -186,7 +179,6 @@ describe("useCustomFilter", () => {
       },
       {
         index: 2,
-        isFirstRow: false,
         jointConditions: jointConditions,
         columns: columns,
         currentState: {
@@ -221,7 +213,6 @@ describe("useCustomFilter", () => {
     const expectedValue: FilterRowData<Payment>[] = [
       {
         index: 0,
-        isFirstRow: true,
         jointConditions: jointConditions,
         columns: columns,
         currentState: {
@@ -235,7 +226,6 @@ describe("useCustomFilter", () => {
       },
       {
         index: 1,
-        isFirstRow: true,
         jointConditions: jointConditions,
         columns: columns,
         currentState: {
@@ -249,7 +239,6 @@ describe("useCustomFilter", () => {
       },
       {
         index: 2,
-        isFirstRow: false,
         jointConditions: jointConditions,
         columns: columns,
         currentState: {
@@ -405,7 +394,6 @@ describe("useCustomFilter", () => {
     const expectedValue: FilterRowData<Payment>[] = [
       {
         index: 1,
-        isFirstRow: false,
         jointConditions: jointConditions,
         columns: columns,
         currentState: {
@@ -443,7 +431,6 @@ describe("useCustomFilter", () => {
     const expectedValue: FilterRowData<Payment>[] = [
       {
         index: 0,
-        isFirstRow: true,
         jointConditions: jointConditions,
         columns: columns,
         currentState: {
