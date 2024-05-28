@@ -6,6 +6,7 @@ import {
   internalLogoutPath,
   internalUnauthorizedPath,
 } from "@core/path";
+import { Config } from "@core";
 
 const NoWindowError = new Error(
   "window object should be available to use this function",
@@ -126,13 +127,7 @@ export const useAuth = () => {
      */
     logout: (params?: LogoutParams) => {
       assertWindowIsAvailable();
-
-      const searchParams = new URLSearchParams({
-        redirect_path: params?.redirectPath || config.loginPath(),
-      });
-      window.location.replace(
-        `${config.appUrl(internalLogoutPath)}?${searchParams.toString()}`,
-      );
+      logoutInternal(config, params?.redirectPath);
     },
     refreshToken,
   };
@@ -192,4 +187,18 @@ export const useSession = (options?: SessionOption) => {
   }
 
   return { token: session.token };
+};
+
+/**
+ * Internal commonized procedure to logout the current user.
+ *
+ * @internal
+ */
+export const logoutInternal = (config: Config, redirectPath?: string) => {
+  const searchParams = new URLSearchParams({
+    redirect_path: redirectPath || config.loginPath(),
+  });
+  window.location.replace(
+    `${config.appUrl(internalLogoutPath)}?${searchParams.toString()}`,
+  );
 };

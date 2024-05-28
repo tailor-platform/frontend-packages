@@ -1,6 +1,7 @@
 import { from, HttpLink, makeVar, ServerError } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { onError } from "@apollo/client/link/error";
+import { logoutInternal } from "@client/hooks";
 import { Config } from "@core/config";
 import { internalClientSessionPath } from "@core/path";
 import { SessionResult } from "@core/types";
@@ -70,7 +71,7 @@ export const authenticatedHttpLink = (config: Config) =>
       if (networkError?.name === "ServerError") {
         const serverErrorStatusCode = (networkError as ServerError).statusCode;
         if (serverErrorStatusCode === 401) {
-          location.replace(config.unauthorizedPath());
+          logoutInternal(config, config.unauthorizedPath());
         }
       }
     }),
