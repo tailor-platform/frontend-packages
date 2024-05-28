@@ -337,16 +337,14 @@ export const useCustomFilter = <TData>({
     [addToGraphQLQueryFilterRecursively, columns],
   );
 
-  const [prevFilter, setPrevFilter] = useState<GraphQLQueryFilter>(
-    generateGraphQLQueryFilter(filterRows),
-  );
+  const [prevFilter, setPrevFilter] = useState<GraphQLQueryFilter>({});
 
   /**
    * This will bubble up the GraphQLQueryFilter to the parent component.
    */
   useEffect(() => {
     const filter = generateGraphQLQueryFilter(filterRows);
-    if (prevFilter !== filter) {
+    if (JSON.stringify(prevFilter) !== JSON.stringify(filter)) {
       onChange(filter);
       setPrevFilter(filter);
     }
@@ -400,5 +398,7 @@ export const useCustomFilter = <TData>({
     addToGraphQLQueryFilterRecursively, // For testing purpose
     convertQueryToFilterRows, // For testing purpose
     generateGraphQLQueryFilter, // For testing purpose
+    initialFilterRows, // For testing purpose
+    setPrevFilter, // For testing purpose
   };
 };

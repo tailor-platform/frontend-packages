@@ -1,5 +1,5 @@
 import { renderHook, act, waitFor } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { columns } from "../utils/test";
 import { FilterRowData, useCustomFilter } from "./useCustomFilter";
 import { FilterRowState, GraphQLQueryFilter } from "./types";
@@ -28,7 +28,7 @@ describe("useCustomFilter", () => {
           column: "status",
           value: "pending",
           condition: "eq",
-          jointCondition: undefined,
+          jointCondition: "and",
           isSystem: true,
           isChangeable: false,
         },
@@ -103,7 +103,7 @@ describe("useCustomFilter", () => {
           column: "status",
           value: "pending",
           condition: "eq",
-          jointCondition: undefined,
+          jointCondition: "and",
           isSystem: false,
           isChangeable: false,
         },
@@ -146,7 +146,7 @@ describe("useCustomFilter", () => {
           column: "status",
           value: "pending",
           condition: "eq",
-          jointCondition: undefined,
+          jointCondition: "and",
           isSystem: true,
           isChangeable: false,
         },
@@ -157,7 +157,7 @@ describe("useCustomFilter", () => {
           column: "amount",
           value: 200,
           condition: "eq",
-          jointCondition: "and",
+          jointCondition: undefined,
           isSystem: false,
           isChangeable: false,
         },
@@ -200,7 +200,7 @@ describe("useCustomFilter", () => {
           column: "status",
           value: "pending",
           condition: "eq",
-          jointCondition: undefined,
+          jointCondition: "and",
           isSystem: true,
           isChangeable: false,
         },
@@ -211,7 +211,7 @@ describe("useCustomFilter", () => {
           column: "amount",
           value: 200,
           condition: "eq",
-          jointCondition: "and",
+          jointCondition: undefined,
           isSystem: false,
           isChangeable: false,
         },
@@ -410,7 +410,7 @@ describe("useCustomFilter", () => {
           column: "amount",
           value: 200,
           condition: "eq",
-          jointCondition: undefined,
+          jointCondition: "and",
           isSystem: false,
           isChangeable: false,
         },
@@ -639,7 +639,7 @@ describe("useCustomFilter", () => {
     });
   });
 
-  it.only("generateGraphQLQueryFilter", async () => {
+  it("generateGraphQLQueryFilter woks correctly", async () => {
     const systemFilter = { status: { eq: "pending" } };
     const defaultFilter = { amount: { eq: 200 } };
 
@@ -655,12 +655,14 @@ describe("useCustomFilter", () => {
     );
 
     act(() => {
+      // It Represents a change made by the user
       result.current.filterRows[1].currentState.jointCondition = "and";
 
       result.current.filterRows[2].currentState.value = "success";
       result.current.filterRows[2].currentState.condition = "eq";
       result.current.filterRows[2].currentState.column = "status";
     });
+
     const expectedValue = {
       and: {
         status: { eq: "pending" },
@@ -677,6 +679,38 @@ describe("useCustomFilter", () => {
       expect(
         result.current.generateGraphQLQueryFilter(result.current.filterRows),
       ).toStrictEqual(expectedValue);
+    });
+  });
+
+  it("useEffect not called when prevFilter is same", async () => {
+    const systemFilter = { status: { eq: "pending" } };
+    const defaultFilter = { amount: { eq: 200 } };
+
+    const onChangeMock = vi.fn();
+    const { result } = renderHook(() =>
+      useCustomFilter({
+        columns,
+        onChange: onChangeMock,
+        systemFilter: systemFilter,
+        defaultFilter: defaultFilter,
+      }),
+    );
+
+    // incompletely add filter
+    act(() => {
+      result.current.filterChangedHandler(2)({
+        column: "",
+        value: "",
+        condition: "eq",
+        jointCondition: "and",
+        isSystem: false,
+        isChangeable: false,
+      });
+    });
+
+    // first render call.
+    await waitFor(() => {
+      expect(onChangeMock).toHaveBeenCalledTimes(1);
     });
   });
 });
