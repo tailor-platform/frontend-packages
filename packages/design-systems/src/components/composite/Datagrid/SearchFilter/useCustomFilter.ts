@@ -111,7 +111,7 @@ export const useCustomFilter = <TData>({
       };
       convertQueryToFilterRowsRecursively(
         filter,
-        filterRowIndex === 0 ? undefined : "and",
+        filterRowIndex === 0 ? "and" : undefined, // First row will have "and" as joint condition.
         filterRowIndex,
       );
       return filterRows;

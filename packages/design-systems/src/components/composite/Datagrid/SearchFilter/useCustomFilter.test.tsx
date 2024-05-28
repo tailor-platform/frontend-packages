@@ -654,41 +654,28 @@ describe("useCustomFilter", () => {
       }),
     );
 
-    const currentFilterRows: FilterRowData[] = [
-      {
-        index: 0,
-        currentState: {
-          column: "status",
-          value: "pending",
-          condition: "eq",
-          jointCondition: "",
-          isSystem: true,
-          isChangeable: false,
-        },
-      },
-      {
-        index: 1,
-        currentState: {
-          column: "amount",
-          value: 200,
-          condition: "eq",
-          jointCondition: "or",
-          isSystem: false,
-          isChangeable: false,
-        },
-      },
-    ];
+    act(() => {
+      result.current.filterRows[1].currentState.jointCondition = "and";
+
+      result.current.filterRows[2].currentState.value = "success";
+      result.current.filterRows[2].currentState.condition = "eq";
+      result.current.filterRows[2].currentState.column = "status";
+    });
     const expectedValue = {
       and: {
         status: { eq: "pending" },
-        or: {
+        and: {
           amount: { eq: 200 },
+          and: {
+            status: { eq: "success" },
+          },
         },
       },
     };
+
     act(() => {
       expect(
-        result.current.generateGraphQLQueryFilter(currentFilterRows),
+        result.current.generateGraphQLQueryFilter(result.current.filterRows),
       ).toStrictEqual(expectedValue);
     });
   });
