@@ -16,9 +16,7 @@ export class SAMLStrategy implements AbstractStrategy<Options> {
   authenticate(config: Config, options: Options) {
     const apiLoginUrl = config.apiUrl(config.loginPath());
     const callbackPath = callbackByStrategy(this.name());
-    const redirectUrl = encodeURI(
-      `${config.appUrl(callbackPath)}?redirect_uri=${options.redirectPath ?? "/"}`,
-    );
+    const redirectUrl = encodeURI(config.appUrl(callbackPath));
     const relayState = encodeURI(options.redirectPath ?? "/");
     return {
       mode: "redirection" as const,

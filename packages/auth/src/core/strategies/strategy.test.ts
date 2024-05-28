@@ -7,16 +7,17 @@ import { AbstractStrategy } from "@core";
 
 describe("redirection", () => {
   const buildMockedRedirectionURL = (strategy: string) =>
-    `https://mock-api-url.com/mock-login?redirect_uri=http://localhost:3000/__auth/callback/${strategy}?redirect_uri=/redirect-path`;
+    `https://mock-api-url.com/mock-login?redirect_uri=http://localhost:3000/__auth/callback/${strategy}`;
 
   const cases = {
     default: {
       builder: () => defaultStrategy,
-      uri: buildMockedRedirectionURL("default"),
+      uri:
+        buildMockedRedirectionURL("default") + "?redirect_uri=/redirect-path",
     },
     oidc: {
       builder: () => new OIDCStrategy(),
-      uri: buildMockedRedirectionURL("oidc"),
+      uri: buildMockedRedirectionURL("oidc") + "?redirect_uri=/redirect-path",
     },
     saml: {
       builder: () => new SAMLStrategy(),
