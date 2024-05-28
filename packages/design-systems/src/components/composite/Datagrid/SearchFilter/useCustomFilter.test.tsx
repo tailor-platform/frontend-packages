@@ -638,4 +638,58 @@ describe("useCustomFilter", () => {
       });
     });
   });
+
+  it.only("generateGraphQLQueryFilter", async () => {
+    const systemFilter = { status: { eq: "pending" } };
+    const defaultFilter = { amount: { eq: 200 } };
+
+    const { result } = renderHook(() =>
+      useCustomFilter({
+        columns,
+        onChange: () => {
+          return;
+        },
+        systemFilter: systemFilter,
+        defaultFilter: defaultFilter,
+      }),
+    );
+
+    const currentFilterRows: FilterRowData[] = [
+      {
+        index: 0,
+        currentState: {
+          column: "status",
+          value: "pending",
+          condition: "eq",
+          jointCondition: "",
+          isSystem: true,
+          isChangeable: false,
+        },
+      },
+      {
+        index: 1,
+        currentState: {
+          column: "amount",
+          value: 200,
+          condition: "eq",
+          jointCondition: "or",
+          isSystem: false,
+          isChangeable: false,
+        },
+      },
+    ];
+    const expectedValue = {
+      and: {
+        status: { eq: "pending" },
+        or: {
+          amount: { eq: 200 },
+        },
+      },
+    };
+    act(() => {
+      expect(
+        result.current.generateGraphQLQueryFilter(currentFilterRows),
+      ).toStrictEqual(expectedValue);
+    });
+  });
 });

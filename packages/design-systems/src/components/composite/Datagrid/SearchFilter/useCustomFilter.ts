@@ -17,14 +17,6 @@ export type FilterRowData = {
   currentState: FilterRowState;
 };
 
-const usePrevious = (value: GraphQLQueryFilter) => {
-  const ref = useRef(value);
-  useEffect(() => {
-    ref.current = value;
-  }, [value]);
-  return ref.current;
-};
-
 type UseCustomFilterProps<TData> = {
   columns: Array<Column<TData>>;
   onChange: (currentState: GraphQLQueryFilter) => void;
@@ -41,52 +33,6 @@ export const useCustomFilter = <TData>({
   const filterRef = useRef<HTMLDivElement>(null);
   const filterButtonRef = useRef<HTMLButtonElement>(null);
 
-  const combineGlaphQLQueryFilter = useCallback(
-    ({
-      systemFilter,
-      defaultFilter,
-    }: {
-      systemFilter?: GraphQLQueryFilter;
-      defaultFilter?: GraphQLQueryFilter;
-    }): GraphQLQueryFilter => {
-      if (systemFilter && defaultFilter) {
-        const combineGlaphQLQueryFilterRecursively = (
-          systemFilter: GraphQLQueryFilter,
-          defaultFilter: GraphQLQueryFilter,
-        ): GraphQLQueryFilter => {
-          const keys = Object.keys(systemFilter);
-          const newFilter: GraphQLQueryFilter = { ...systemFilter };
-          keys.forEach((key) => {
-            if (key === "and" || key === "or") {
-              newFilter[key] = combineGlaphQLQueryFilterRecursively(
-                systemFilter[key] as GraphQLQueryFilter,
-                defaultFilter,
-              );
-            } else {
-              newFilter["and"] = defaultFilter;
-            }
-          });
-          return newFilter;
-        };
-        const newQuery = combineGlaphQLQueryFilterRecursively(
-          systemFilter,
-          defaultFilter,
-        );
-        return newQuery;
-      } else {
-        return systemFilter || defaultFilter || {};
-      }
-    },
-    [],
-  );
-
-  const initialFilter = useMemo(
-    () => combineGlaphQLQueryFilter({ systemFilter, defaultFilter }),
-    [combineGlaphQLQueryFilter, systemFilter, defaultFilter],
-  );
-
-  const [graphQLQueryFilter, setGraphQLQueryFilter] =
-    useState<GraphQLQueryFilter>(initialFilter || {});
   const [selectedJointCondition, setSelectedJointCondition] = useState<
     string | undefined
   >(undefined);
@@ -228,18 +174,16 @@ export const useCustomFilter = <TData>({
    */
   const resetFilterHandler = useCallback(() => {
     setFilterRows(initialFilterRows);
-    setGraphQLQueryFilter(initialFilter || {});
     setSelectedJointCondition(undefined);
-  }, [initialFilter, initialFilterRows]);
+  }, [initialFilterRows]);
 
   /**
    * This will reset the filterRows data state.
    */
   const clearFilterHandler = useCallback(() => {
     setFilterRows(systemFilterRows);
-    setGraphQLQueryFilter(systemFilter || {});
     setSelectedJointCondition(undefined);
-  }, [systemFilter, systemFilterRows]);
+  }, [systemFilterRows]);
 
   /**
    * This will add new item to filterRows data state.
@@ -258,50 +202,11 @@ export const useCustomFilter = <TData>({
   }, [newEmptyRow, systemFilter]);
 
   /**
-   * This will convert the FilterRowState object from the UI to GraphQLQueryFilter and add it to the GraphQLQueryFilter.
-   */
-  const filterChangedHandler = useCallback(
-    (index: number) => (currentFilter: FilterRowState) => {
-      if (currentFilter.jointCondition) {
-        setSelectedJointCondition(currentFilter.jointCondition);
-      }
-      setFilterRows((oldState) => {
-        const newState = [...oldState];
-        const row = newState.find((row) => row.index === index);
-        if (row) {
-          row.currentState = currentFilter;
-        }
-        return newState;
-      });
-    },
-    [],
-  );
-
-  const prevFilter = usePrevious(graphQLQueryFilter);
-
-  /**
-   * This will bubble up the GraphQLQueryFilter to the parent component.
-   */
-  useEffect(() => {
-    const filterChange = () => {
-      if (graphQLQueryFilter !== prevFilter.current) {
-        onChange(graphQLQueryFilter);
-      }
-    };
-    filterChange();
-    // We have to run this function only when filterRowState changes, but this way of writing will cause an error due to lint rules, so we excluded it here.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [graphQLQueryFilter]);
-
-  /**
    *
    *  This will recursively add the filter to GraphQLQueryFilter to create objects like this:
    *
     {
-        "status": {
-            "eq": "pending"
-        },
-        "or": {
+        "and": {
             "status": {
                 "eq": "processing"
             },
@@ -406,32 +311,67 @@ export const useCustomFilter = <TData>({
     [],
   );
 
+  const generateGraphQLQueryFilter = useCallback(
+    (currentFilterRows: FilterRowData[]) => {
+      const newGraphQLQueryFilter: GraphQLQueryFilter = {};
+      currentFilterRows.forEach((row) => {
+        if (row.currentState) {
+          const { column, condition, value } = row.currentState;
+          const metaType = columns.find((c) => c.accessorKey === column)?.meta
+            ?.type;
+          const isExistCurrentState: boolean =
+            (!!column && !!condition && !!value) ||
+            (typeof value === "boolean" && value === false);
+          if (isExistCurrentState) {
+            addToGraphQLQueryFilterRecursively(
+              row.currentState,
+              newGraphQLQueryFilter,
+              metaType,
+            );
+          }
+        }
+      });
+      return newGraphQLQueryFilter;
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    },
+    [addToGraphQLQueryFilterRecursively, columns],
+  );
+
+  const [prevFilter, setPrevFilter] = useState<GraphQLQueryFilter>(
+    generateGraphQLQueryFilter(filterRows),
+  );
+
   /**
-   * This will update the GraphQLQueryFilter when filterRows data state changes.
+   * This will bubble up the GraphQLQueryFilter to the parent component.
    */
   useEffect(() => {
-    //Create GraphQLQueryFilter from filterRows
-    const newGraphQLQueryFilter: GraphQLQueryFilter = {};
-    filterRows.forEach((row) => {
-      if (row.currentState) {
-        const { column, condition, value } = row.currentState;
-        const metaType = columns.find((c) => c.accessorKey === column)?.meta
-          ?.type;
-        const isExistCurrentState: boolean =
-          (!!column && !!condition && !!value) ||
-          (typeof value === "boolean" && value === false);
-        if (isExistCurrentState) {
-          addToGraphQLQueryFilterRecursively(
-            row.currentState,
-            newGraphQLQueryFilter,
-            metaType,
-          );
-        }
-      }
-    });
-    setGraphQLQueryFilter(newGraphQLQueryFilter);
+    const filter = generateGraphQLQueryFilter(filterRows);
+    if (prevFilter !== filter) {
+      onChange(filter);
+      setPrevFilter(filter);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [addToGraphQLQueryFilterRecursively, filterRows]);
+  }, [filterRows]);
+
+  /**
+   * This will convert the FilterRowState object from the UI to GraphQLQueryFilter and add it to the GraphQLQueryFilter.
+   */
+  const filterChangedHandler = useCallback(
+    (index: number) => (currentFilter: FilterRowState) => {
+      if (currentFilter.jointCondition) {
+        setSelectedJointCondition(currentFilter.jointCondition);
+      }
+      setFilterRows((oldState) => {
+        const newState = [...oldState];
+        const row = newState.find((row) => row.index === index);
+        if (row) {
+          row.currentState = currentFilter;
+        }
+        return newState;
+      });
+    },
+    [],
+  );
 
   const getBoxPosition = (): CSSProperties => {
     const box = filterButtonRef.current?.getBoundingClientRect();
@@ -459,5 +399,6 @@ export const useCustomFilter = <TData>({
     getBoxPosition,
     addToGraphQLQueryFilterRecursively, // For testing purpose
     convertQueryToFilterRows, // For testing purpose
+    generateGraphQLQueryFilter, // For testing purpose
   };
 };
