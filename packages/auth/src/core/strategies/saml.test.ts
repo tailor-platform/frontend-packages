@@ -13,7 +13,7 @@ describe("saml strategy", () => {
     const payload = strategy.authenticate(config, { redirectPath: "/" });
     expect(payload.mode).toBe("redirection");
     expect(payload.uri).toBe(
-      "http://yourapp.mini.tailor.tech:8000/auth/login?redirect_uri=http://localhost:3000/__auth/callback/saml?redirect_uri=/&state=/",
+      "http://yourapp.mini.tailor.tech:8000/auth/login?redirect_uri=http://localhost:3000/__auth/callback/saml&state=/",
     );
   });
   it("saml callback parameter error", async () => {
