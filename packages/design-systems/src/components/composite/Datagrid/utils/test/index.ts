@@ -368,6 +368,21 @@ export const setFilterChange = (
                     ),
                   );
                   break;
+                default:
+                  if (typeof filter.and.and !== "undefined") {
+                    const gtValue = (
+                      filter?.and.and as { amount: { gt: number } }
+                    ).amount.gt;
+                    setData(
+                      data.filter(
+                        (row) =>
+                          row.status === eqValue &&
+                          row.amount >= Number(gtValue),
+                      ),
+                    );
+                    return;
+                  }
+                  setData(data.filter((row) => row.status === eqValue));
               }
               break;
             }
@@ -422,6 +437,49 @@ export const setFilterChange = (
               }
               break;
             }
+          }
+        }
+      }
+      if (
+        typeof filter?.and?.amount === "object" &&
+        filter?.and?.amount !== null
+      ) {
+        switch (true) {
+          case "eq" in filter.and.amount: {
+            const eqValue = filter.and.amount.eq;
+            setData(data.filter((row) => row.amount === Number(eqValue)));
+            break;
+          }
+          case "gt" in filter.and.amount: {
+            const gtValue = filter.and.amount.gt;
+            if (filter.and.and) {
+              const eqValue = (filter.and.and as { status: { eq: string } })
+                .status.eq;
+              setData(
+                data.filter(
+                  (row) =>
+                    row.amount > Number(gtValue) && row.status === eqValue,
+                ),
+              );
+              break;
+            }
+            setData(data.filter((row) => row.amount > Number(gtValue)));
+            break;
+          }
+          case "lt" in filter.and.amount: {
+            const ltValue = filter.and.amount.lt;
+            setData(data.filter((row) => row.amount < Number(ltValue)));
+            break;
+          }
+          case "gte" in filter.and.amount: {
+            const gteValue = filter.and.amount.gte;
+            setData(data.filter((row) => row.amount >= Number(gteValue)));
+            break;
+          }
+          case "lte" in filter.and.amount: {
+            const lteValue = filter.and.amount.lte;
+            setData(data.filter((row) => row.amount <= Number(lteValue)));
+            break;
           }
         }
       }

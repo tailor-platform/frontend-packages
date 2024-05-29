@@ -639,7 +639,7 @@ describe("useCustomFilter", () => {
     });
   });
 
-  it("generateGraphQLQueryFilter woks correctly", async () => {
+  it("generateGraphQLQueryFilter woks correctly with systemFilter and defaultFilter", async () => {
     const systemFilter = { status: { eq: "pending" } };
     const defaultFilter = { amount: { eq: 200 } };
 
@@ -672,6 +672,60 @@ describe("useCustomFilter", () => {
             status: { eq: "success" },
           },
         },
+      },
+    };
+
+    act(() => {
+      expect(
+        result.current.generateGraphQLQueryFilter(result.current.filterRows),
+      ).toStrictEqual(expectedValue);
+    });
+  });
+
+  it("generateGraphQLQueryFilter woks correctly with systemFilter", async () => {
+    const systemFilter = { status: { eq: "pending" } };
+
+    const { result } = renderHook(() =>
+      useCustomFilter({
+        columns,
+        onChange: () => {
+          return;
+        },
+        systemFilter: systemFilter,
+        defaultFilter: undefined,
+      }),
+    );
+
+    const expectedValue = {
+      and: {
+        status: { eq: "pending" },
+      },
+    };
+
+    act(() => {
+      expect(
+        result.current.generateGraphQLQueryFilter(result.current.filterRows),
+      ).toStrictEqual(expectedValue);
+    });
+  });
+
+  it("generateGraphQLQueryFilter woks correctly with defaultFilter", async () => {
+    const defaultFilter = { amount: { eq: 200 } };
+
+    const { result } = renderHook(() =>
+      useCustomFilter({
+        columns,
+        onChange: () => {
+          return;
+        },
+        systemFilter: undefined,
+        defaultFilter: defaultFilter,
+      }),
+    );
+
+    const expectedValue = {
+      and: {
+        amount: { eq: 200 },
       },
     };
 
