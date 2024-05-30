@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import { CollectionItem } from "@ark-ui/react/select";
-import { Portal } from "@ark-ui/react/portal";
 import { select } from "@tailor-platform/styled-system/recipes";
 import { HStack } from "@tailor-platform/styled-system/jsx";
 import {
@@ -62,32 +61,30 @@ export const Pagination = <TData extends Record<string, unknown>>({
               <ChevronDown />
             </Select.Trigger>
           </Select.Control>
-          <Portal>
-            <Select.Positioner className={classes.positioner}>
-              <Select.Content className={classes.content}>
-                <Select.ItemGroup
-                  className={classes.itemGroup}
-                  id="jointConditions"
-                  data-testid="select-page-size-options"
-                >
-                  {pageSizeOptions.map((item) => (
-                    <Select.Item
-                      className={classes.item}
-                      key={"pageSize" + item}
-                      item={item}
-                    >
-                      <Select.ItemText className={classes.itemText}>
-                        {item}
-                      </Select.ItemText>
-                      <Select.ItemIndicator className={classes.itemIndicator}>
-                        <CheckIcon />
-                      </Select.ItemIndicator>
-                    </Select.Item>
-                  ))}
-                </Select.ItemGroup>
-              </Select.Content>
-            </Select.Positioner>
-          </Portal>
+          <Select.Positioner className={classes.positioner}>
+            <Select.Content className={classes.content}>
+              <Select.ItemGroup
+                className={classes.itemGroup}
+                id="jointConditions"
+                data-testid="select-page-size-options"
+              >
+                {pageSizeOptions.map((item) => (
+                  <Select.Item
+                    className={classes.item}
+                    key={"pageSize" + item}
+                    item={item}
+                  >
+                    <Select.ItemText className={classes.itemText}>
+                      {item}
+                    </Select.ItemText>
+                    <Select.ItemIndicator className={classes.itemIndicator}>
+                      <CheckIcon />
+                    </Select.ItemIndicator>
+                  </Select.Item>
+                ))}
+              </Select.ItemGroup>
+            </Select.Content>
+          </Select.Positioner>
         </Select.Root>
       </HStack>
       <HStack gap={2}>
