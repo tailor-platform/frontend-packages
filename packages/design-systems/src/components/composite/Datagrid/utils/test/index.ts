@@ -218,15 +218,21 @@ export const setFilterChange = (
   const isSystemFilterExist = Object.keys(systemFilterValue).length > 1;
 
   if (customFilterValue && isSystemFilterExist) {
-    const eqValue = (systemFilterValue as unknown as { status: { eq: string } })
-      .status.eq;
-    const gtValue = (customFilterValue as unknown as { amount: { gt: string } })
-      .amount.gt;
-    setData(
-      data.filter(
-        (item) => item.amount > Number(gtValue) && item.status === eqValue,
-      ),
-    );
+    if (systemFilterValue.status && customFilterValue.amount) {
+      const eqValue = (
+        systemFilterValue as unknown as { status: { eq: string } }
+      ).status.eq;
+
+      const gtValue = (
+        customFilterValue as unknown as { amount: { gt: string } }
+      ).amount.gt;
+      setData(
+        data.filter(
+          (item) => item.amount > Number(gtValue) && item.status === eqValue,
+        ),
+      );
+    }
+
     return;
   }
 
