@@ -55,30 +55,24 @@ export const useCustomFilter = <TData>({
   }, [selectedJointCondition]);
 
   const newEmptyRow = useCallback(
-    (props: { index: number; existSystemFilter: boolean }): FilterRowData => ({
+    (props: { index: number; isChangeable: boolean }): FilterRowData => ({
       index: props.index,
       currentState: {
         column: "",
         condition: "",
         value: "",
-        jointCondition: props.existSystemFilter ? "and" : "",
-        isSystem: false,
-        isChangeable: props.existSystemFilter ? false : true,
+        jointCondition: selectedJointCondition,
+        isChangeable: props.isChangeable,
       },
     }),
-    [],
+    [selectedJointCondition],
   );
 
   const convertQueryToFilterRows = useCallback(
-    (
-      filter: GraphQLQueryFilter,
-      isSystem: boolean,
-      filterRowIndex: number,
-    ): FilterRowData[] => {
+    (filter: GraphQLQueryFilter, filterRowIndex: number): FilterRowData[] => {
       const filterRows: FilterRowData[] = [];
       const convertQueryToFilterRowsRecursively = (
         filter: GraphQLQueryFilter,
-        jointCondition: string | undefined,
         index: number,
       ) => {
         const keys = Object.keys(filter);
@@ -87,7 +81,6 @@ export const useCustomFilter = <TData>({
             const jointConditionValue = filter[key];
             convertQueryToFilterRowsRecursively(
               jointConditionValue as GraphQLQueryFilter,
-              key,
               index + 1,
             );
           } else {
@@ -98,8 +91,7 @@ export const useCustomFilter = <TData>({
               column: column,
               condition: condition,
               value: value,
-              jointCondition: jointCondition,
-              isSystem: isSystem,
+              jointCondition: "and",
               isChangeable: false,
             };
             filterRows.push({
@@ -109,48 +101,27 @@ export const useCustomFilter = <TData>({
           }
         });
       };
-      convertQueryToFilterRowsRecursively(
-        filter,
-        filterRowIndex === 0 ? "and" : undefined, // First row will have "and" as joint condition.
-        filterRowIndex,
-      );
+      convertQueryToFilterRowsRecursively(filter, filterRowIndex);
       return filterRows;
     },
     [],
   );
 
-  const systemFilterRows: FilterRowData[] = useMemo(() => {
-    const filterRows: FilterRowData[] = [];
-    if (systemFilter) {
-      filterRows.push(...convertQueryToFilterRows(systemFilter, true, 0));
-    }
-    filterRows.push(
-      newEmptyRow({
-        index: filterRows.length,
-        existSystemFilter: !!systemFilter,
-      }),
-    );
-    return filterRows;
-  }, [systemFilter, newEmptyRow, convertQueryToFilterRows]);
-
   const initialFilterRows: FilterRowData[] = useMemo(() => {
     const filterRows: FilterRowData[] = [];
-    if (systemFilter) {
-      filterRows.push(...convertQueryToFilterRows(systemFilter, true, 0));
-    }
     if (defaultFilter) {
       filterRows.push(
-        ...convertQueryToFilterRows(defaultFilter, false, filterRows.length),
+        ...convertQueryToFilterRows(defaultFilter, filterRows.length),
       );
     }
     filterRows.push(
       newEmptyRow({
         index: filterRows.length,
-        existSystemFilter: !!systemFilter,
+        isChangeable: true, // この時点でユーザーはjointConditionを指定していないので、変更可能
       }),
     );
     return filterRows;
-  }, [systemFilter, defaultFilter, newEmptyRow, convertQueryToFilterRows]);
+  }, [defaultFilter, newEmptyRow, convertQueryToFilterRows]);
 
   const [filterRows, setFilterRows] =
     useState<FilterRowData[]>(initialFilterRows);
@@ -181,9 +152,9 @@ export const useCustomFilter = <TData>({
    * This will reset the filterRows data state.
    */
   const clearFilterHandler = useCallback(() => {
-    setFilterRows(systemFilterRows);
+    setFilterRows([]);
     setSelectedJointCondition(undefined);
-  }, [systemFilterRows]);
+  }, []);
 
   /**
    * This will add new item to filterRows data state.
@@ -194,12 +165,12 @@ export const useCustomFilter = <TData>({
       newState.push(
         newEmptyRow({
           index: oldState.length,
-          existSystemFilter: !!systemFilter,
+          isChangeable: selectedJointCondition ? false : true,
         }),
       );
       return newState;
     });
-  }, [newEmptyRow, systemFilter]);
+  }, [newEmptyRow, selectedJointCondition]);
 
   /**
    *
@@ -304,7 +275,6 @@ export const useCustomFilter = <TData>({
           assignValueToQueryObject(jointCondition, true);
         }
       } else {
-        //First row will not have joint condition
         assignValueToQueryObject(column, false);
       }
     },
@@ -331,10 +301,17 @@ export const useCustomFilter = <TData>({
           }
         }
       });
-      return newGraphQLQueryFilter;
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+
+      const result = {
+        and: {
+          ...systemFilter,
+          ...newGraphQLQueryFilter,
+        },
+      };
+
+      return result;
     },
-    [addToGraphQLQueryFilterRecursively, columns],
+    [addToGraphQLQueryFilterRecursively, systemFilter, columns],
   );
 
   const [prevFilter, setPrevFilter] = useState<GraphQLQueryFilter>({});

@@ -152,7 +152,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
     return selectedColumnObject?.meta?.type || "text";
   }, [selectedColumnObject?.meta?.type]);
 
-  const isFirstRow = useMemo(() => index === 1, [index]);
+  const isFirstRow = useMemo(() => index === 0, [index]);
 
   return (
     <Flex gridGap={2} marginTop={isFirstRow ? 0 : 4}>

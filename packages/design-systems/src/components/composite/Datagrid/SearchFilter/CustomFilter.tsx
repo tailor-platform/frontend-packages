@@ -116,9 +116,6 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
           alignItems={"flex-end"}
         >
           {filterRows.map((row, i) => {
-            if (row.currentState.isSystem === true) {
-              return null;
-            }
             return (
               <FilterRow
                 key={"filterRow" + i}
