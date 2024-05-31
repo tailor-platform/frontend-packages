@@ -40,6 +40,10 @@ export const LOCALIZATION_JA: Localization = {
         lessThanOrEqual: "以下",
       },
     },
+    columnBoolean: {
+      true: "はい",
+      false: "いいえ",
+    },
     valueLabel: "値",
     valuePlaceholder: "値を入力",
     valuePlaceholderEnum: "値を選択",

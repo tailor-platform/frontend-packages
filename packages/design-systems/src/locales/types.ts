@@ -26,6 +26,10 @@ export interface Localization {
         lessThanOrEqual: string;
       };
     };
+    columnBoolean: {
+      true: string;
+      false: string;
+    };
     valueLabel: string;
     valuePlaceholder: string;
     valuePlaceholderEnum: string;
