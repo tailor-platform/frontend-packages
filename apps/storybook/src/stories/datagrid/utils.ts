@@ -17,40 +17,47 @@ export const setFilterChange = (
   const isSystemFilterExist = Object.keys(systemFilterValue).length > 1;
 
   if (customFilterValue && isSystemFilterExist) {
+    const eqValue = (systemFilterValue as unknown as { status: { eq: string } })
+      .status.eq;
+    const gtValue = (customFilterValue as unknown as { amount: { gt: string } })
+      .amount.gt;
     setData(
       data.filter(
-        (item) =>
-          item.amount > Number(customFilterValue.amount.gt) &&
-          item.status === systemFilterValue.status.eq,
+        (item) => item.amount > Number(gtValue) && item.status === eqValue,
       ),
     );
     return;
   }
 
   if (isSystemFilterExist) {
-    setData(data.filter((item) => item.status === systemFilterValue.status.eq));
+    const eqValue = systemFilterValue as unknown as { status: { eq: string } };
+    setData(data.filter((item) => item.status === eqValue.status.eq));
 
     if (topLevelAnd.amount) {
+      const gtValue = (topLevelAnd as unknown as { amount: { gt: string } })
+        .amount.gt;
+      const eqValue = (
+        systemFilterValue as unknown as { status: { eq: string } }
+      ).status.eq;
       setData(
         data.filter(
-          (item) =>
-            item.status === systemFilterValue.status.eq &&
-            item.amount > Number(topLevelAnd.amount.gt),
+          (item) => item.status === eqValue && item.amount > Number(gtValue),
         ),
       );
     }
     return;
   }
   if (customFilterValue) {
-    setData(
-      data.filter((item) => item.amount > Number(customFilterValue.amount.gt)),
-    );
+    const gtValue = (customFilterValue as unknown as { amount: { gt: string } })
+      .amount.gt;
+    setData(data.filter((item) => item.amount > Number(gtValue)));
     if (customFilterValue.and) {
+      const eqValue = (
+        customFilterValue.and as unknown as { status: { eq: string } }
+      ).status.eq;
       setData(
         data.filter(
-          (item) =>
-            item.amount > Number(customFilterValue.amount.gt) &&
-            item.status === customFilterValue.and.status.eq,
+          (item) => item.amount > Number(gtValue) && item.status === eqValue,
         ),
       );
     }
