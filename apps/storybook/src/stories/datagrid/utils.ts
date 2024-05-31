@@ -17,17 +17,16 @@ export const setFilterChange = (
   const isSystemFilterExist = Object.keys(systemFilterValue).length > 1;
 
   if (customFilterValue && isSystemFilterExist) {
-    if (systemFilterValue.status && customFilterValue.amount) {
-      const eqValue = (
-        systemFilterValue as unknown as { status: { eq: string } }
-      ).status.eq;
+    const eqValue = systemFilterValue as unknown as { status: { eq: string } };
 
+    if (eqValue.status && customFilterValue.amount) {
       const gtValue = (
         customFilterValue as unknown as { amount: { gt: string } }
       ).amount.gt;
       setData(
         data.filter(
-          (item) => item.amount > Number(gtValue) && item.status === eqValue,
+          (item) =>
+            item.amount > Number(gtValue) && item.status === eqValue.status.eq,
         ),
       );
     }
