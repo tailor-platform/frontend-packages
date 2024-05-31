@@ -722,6 +722,93 @@ describe(
         );
       });
     });
+
+    it("when systemFilter and undefined aren't provided, first row doesn't show Joint Condition", async () => {
+      render(
+        <CustomFilter
+          columns={columns}
+          onChange={() => void 0}
+          localization={LOCALIZATION_JA}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
+          enableColumnFilters={true}
+          defaultFilter={undefined}
+          systemFilter={undefined}
+        />,
+      );
+
+      // wait UI to update
+      setTimeout(() => {
+        expect(screen.queryByTestId("select-joint-condition")).toHaveStyle({
+          visibility: "hidden",
+        });
+      }, 5000);
+    });
+
+    it("when systemFilter isn't provided, first row doesn't show Joint Condition", async () => {
+      render(
+        <CustomFilter
+          columns={columns}
+          onChange={() => void 0}
+          localization={LOCALIZATION_JA}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
+          enableColumnFilters={true}
+          defaultFilter={{ amount: { gt: 200 } }}
+          systemFilter={undefined}
+        />,
+      );
+
+      // wait UI to update
+      setTimeout(() => {
+        const elements = screen.getAllByTestId("select-joint-condition");
+        elements.forEach((element, i) => {
+          // first row doesn't show Joint Condition
+          // other rows show Joint Condition
+          if (i === 0) {
+            expect(element).toHaveStyle({
+              visibility: "hidden",
+            });
+          } else {
+            expect(element).toHaveStyle({
+              visibility: "visible",
+            });
+          }
+        });
+      }, 5000);
+    });
+
+    it("when defaultFilter isn't provided, first row doesn't show Joint Condition", async () => {
+      render(
+        <CustomFilter
+          columns={columns}
+          onChange={() => void 0}
+          localization={LOCALIZATION_JA}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
+          enableColumnFilters={true}
+          defaultFilter={undefined}
+          systemFilter={{ amount: { gt: 200 } }}
+        />,
+      );
+
+      setTimeout(() => {
+        const elements = screen.getAllByTestId("select-joint-condition");
+        elements.forEach((element, i) => {
+          // first row doesn't show Joint Condition
+          // other rows show Joint Condition
+          if (i === 0) {
+            expect(element).toHaveStyle({
+              visibility: "hidden",
+            });
+          } else {
+            expect(element).toHaveStyle({
+              visibility: "visible",
+            });
+          }
+        });
+      }, 5000);
+    });
   },
 
   { timeout: 10000 },
