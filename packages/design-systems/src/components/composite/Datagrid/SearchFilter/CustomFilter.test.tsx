@@ -535,14 +535,14 @@ describe(
       const selectValueButton = within(selectValue).getByRole("button");
       await user.click(selectValueButton);
 
-      const trueOption = screen.getByRole("option", { name: "true" });
+      const trueOption = screen.getByRole("option", { name: "はい" });
       expect(trueOption).toBeVisible();
-      expect(screen.getByRole("option", { name: "false" })).toBeVisible();
+      expect(screen.getByRole("option", { name: "いいえ" })).toBeVisible();
 
       await user.click(trueOption);
 
       expect(trueOption).not.toBeVisible();
-      expect(selectValue).toHaveTextContent("true");
+      expect(selectValue).toHaveTextContent("はい");
 
       //Check filters
       await waitFor(() => {

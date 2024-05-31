@@ -1,7 +1,6 @@
 import { renderHook, act, waitFor } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { LOCALIZATION_JA } from "../../../../locales/ja";
-import { LOCALIZATION_EN } from "../../../../locales/en";
 import { Payment, columns } from "../utils/test";
 import { FilterRowData, useCustomFilter } from "./useCustomFilter";
 import { jointConditions } from "./filter";
@@ -311,7 +310,7 @@ describe("useCustomFilter", () => {
         filter,
         graphQLQueryObject,
         "number",
-        LOCALIZATION_EN,
+        LOCALIZATION_JA,
       );
     });
 
@@ -349,7 +348,7 @@ describe("useCustomFilter", () => {
         filter,
         graphQLQueryObject,
         "number",
-        LOCALIZATION_EN,
+        LOCALIZATION_JA,
       );
     });
 
@@ -393,7 +392,7 @@ describe("useCustomFilter", () => {
         filter,
         graphQLQueryObject,
         "number",
-        LOCALIZATION_EN,
+        LOCALIZATION_JA,
       );
     });
 
@@ -553,37 +552,37 @@ describe("useCustomFilter", () => {
         filter,
         graphQLQueryObject,
         "boolean",
-        LOCALIZATION_EN,
+        LOCALIZATION_JA,
       );
       result.current.addToGraphQLQueryFilterRecursively(
         filter,
         graphQLQueryObject,
         "boolean",
-        LOCALIZATION_EN,
+        LOCALIZATION_JA,
       );
       result.current.addToGraphQLQueryFilterRecursively(
         filter2,
         graphQLQueryObject,
         "string",
-        LOCALIZATION_EN,
+        LOCALIZATION_JA,
       );
       result.current.addToGraphQLQueryFilterRecursively(
         filter3,
         graphQLQueryObject,
         "string",
-        LOCALIZATION_EN,
+        LOCALIZATION_JA,
       );
       result.current.addToGraphQLQueryFilterRecursively(
         filter4,
         graphQLQueryObject,
         "string",
-        LOCALIZATION_EN,
+        LOCALIZATION_JA,
       );
       result.current.addToGraphQLQueryFilterRecursively(
         filter5,
         graphQLQueryObject,
         "number",
-        LOCALIZATION_EN,
+        LOCALIZATION_JA,
       );
     });
 
@@ -668,37 +667,37 @@ describe("useCustomFilter", () => {
         filter,
         graphQLQueryObject,
         "boolean",
-        LOCALIZATION_EN,
+        LOCALIZATION_JA,
       );
       result.current.addToGraphQLQueryFilterRecursively(
         filter,
         graphQLQueryObject,
         "boolean",
-        LOCALIZATION_EN,
+        LOCALIZATION_JA,
       );
       result.current.addToGraphQLQueryFilterRecursively(
         filter2,
         graphQLQueryObject,
         "string",
-        LOCALIZATION_EN,
+        LOCALIZATION_JA,
       );
       result.current.addToGraphQLQueryFilterRecursively(
         filter3,
         graphQLQueryObject,
         "string",
-        LOCALIZATION_EN,
+        LOCALIZATION_JA,
       );
       result.current.addToGraphQLQueryFilterRecursively(
         filter4,
         graphQLQueryObject,
         "string",
-        LOCALIZATION_EN,
+        LOCALIZATION_JA,
       );
       result.current.addToGraphQLQueryFilterRecursively(
         filter5,
         graphQLQueryObject,
         "number",
-        LOCALIZATION_EN,
+        LOCALIZATION_JA,
       );
     });
 
