@@ -310,6 +310,7 @@ describe("useCustomFilter", () => {
         filter,
         graphQLQueryObject,
         "number",
+        LOCALIZATION_JA,
       );
     });
 
@@ -347,6 +348,7 @@ describe("useCustomFilter", () => {
         filter,
         graphQLQueryObject,
         "number",
+        LOCALIZATION_JA,
       );
     });
 
@@ -390,6 +392,7 @@ describe("useCustomFilter", () => {
         filter,
         graphQLQueryObject,
         "number",
+        LOCALIZATION_JA,
       );
     });
 
@@ -549,31 +552,37 @@ describe("useCustomFilter", () => {
         filter,
         graphQLQueryObject,
         "boolean",
+        LOCALIZATION_JA,
       );
       result.current.addToGraphQLQueryFilterRecursively(
         filter,
         graphQLQueryObject,
         "boolean",
+        LOCALIZATION_JA,
       );
       result.current.addToGraphQLQueryFilterRecursively(
         filter2,
         graphQLQueryObject,
         "string",
+        LOCALIZATION_JA,
       );
       result.current.addToGraphQLQueryFilterRecursively(
         filter3,
         graphQLQueryObject,
         "string",
+        LOCALIZATION_JA,
       );
       result.current.addToGraphQLQueryFilterRecursively(
         filter4,
         graphQLQueryObject,
         "string",
+        LOCALIZATION_JA,
       );
       result.current.addToGraphQLQueryFilterRecursively(
         filter5,
         graphQLQueryObject,
         "number",
+        LOCALIZATION_JA,
       );
     });
 
@@ -658,31 +667,37 @@ describe("useCustomFilter", () => {
         filter,
         graphQLQueryObject,
         "boolean",
+        LOCALIZATION_JA,
       );
       result.current.addToGraphQLQueryFilterRecursively(
         filter,
         graphQLQueryObject,
         "boolean",
+        LOCALIZATION_JA,
       );
       result.current.addToGraphQLQueryFilterRecursively(
         filter2,
         graphQLQueryObject,
         "string",
+        LOCALIZATION_JA,
       );
       result.current.addToGraphQLQueryFilterRecursively(
         filter3,
         graphQLQueryObject,
         "string",
+        LOCALIZATION_JA,
       );
       result.current.addToGraphQLQueryFilterRecursively(
         filter4,
         graphQLQueryObject,
         "string",
+        LOCALIZATION_JA,
       );
       result.current.addToGraphQLQueryFilterRecursively(
         filter5,
         graphQLQueryObject,
         "number",
+        LOCALIZATION_JA,
       );
     });
 

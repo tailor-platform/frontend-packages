@@ -378,6 +378,7 @@ export const useCustomFilter = <TData>({
       filter: FilterRowState,
       graphQLQueryObject: GraphQLQueryFilter,
       metaType: MetaType | undefined,
+      localization: Localization,
     ) => {
       const { column, condition, value, jointCondition } = filter;
 
@@ -412,7 +413,7 @@ export const useCustomFilter = <TData>({
           case "boolean":
             graphQLQueryObject[key] = generateGraphQLQueryObject(
               isExitJointCondition,
-              value.toLowerCase() === "true",
+              value.toLowerCase() === localization.filter.columnBoolean.true,
             );
             break;
           case "dateTime": {
@@ -449,6 +450,7 @@ export const useCustomFilter = <TData>({
             filter,
             graphQLQueryObject[jointCondition] as GraphQLQueryFilter,
             metaType,
+            localization,
           );
         } else {
           assignValueToQueryObject(jointCondition, true);
@@ -480,6 +482,7 @@ export const useCustomFilter = <TData>({
             row.currentState,
             newFilterRowsState,
             metaType,
+            localization,
           );
         }
       }
