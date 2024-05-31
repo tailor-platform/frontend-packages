@@ -399,7 +399,10 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         ) : selectedColumnObject?.meta?.type === "boolean" ? (
           <Select.Root
             className={classes.root}
-            items={["true", "false"]}
+            items={[
+              localization.filter.columnBoolean.true,
+              localization.filter.columnBoolean.false,
+            ]}
             positioning={{ sameWidth: true }}
             closeOnSelect
             width={180}
@@ -428,10 +431,10 @@ export const FilterRow = <TData extends Record<string, unknown>>(
                   <Select.Item
                     className={classes.item}
                     key={"selectInput" + 0}
-                    item={"true"}
+                    item={localization.filter.columnBoolean.true}
                   >
                     <Select.ItemText className={classes.itemText}>
-                      {"true"}
+                      {localization.filter.columnBoolean.true}
                     </Select.ItemText>
                     <Select.ItemIndicator className={classes.itemIndicator}>
                       <CheckIcon />
@@ -440,10 +443,10 @@ export const FilterRow = <TData extends Record<string, unknown>>(
                   <Select.Item
                     className={classes.item}
                     key={"selectInput" + 1}
-                    item={"false"}
+                    item={localization.filter.columnBoolean.false}
                   >
                     <Select.ItemText className={classes.itemText}>
-                      {"false"}
+                      {localization.filter.columnBoolean.false}
                     </Select.ItemText>
                     <Select.ItemIndicator className={classes.itemIndicator}>
                       <CheckIcon />

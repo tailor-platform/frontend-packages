@@ -7,7 +7,7 @@ import {
   CSSProperties,
 } from "react";
 import dayjs from "dayjs";
-import type { GraphQLQueryFilter } from "..";
+import type { GraphQLQueryFilter, Localization } from "..";
 import type { Column, MetaType } from "../types";
 import { jointConditions } from "./filter";
 import { FilterRowState, JointCondition } from "./types";
@@ -20,6 +20,7 @@ export type FilterRowData = {
 type UseCustomFilterProps<TData> = {
   columns: Array<Column<TData>>;
   onChange: (currentState: GraphQLQueryFilter) => void;
+  localization: Localization;
   systemFilter?: GraphQLQueryFilter;
   defaultFilter?: GraphQLQueryFilter;
 };
@@ -27,6 +28,7 @@ type UseCustomFilterProps<TData> = {
 export const useCustomFilter = <TData>({
   columns,
   onChange,
+  localization,
   systemFilter,
   defaultFilter,
 }: UseCustomFilterProps<TData>) => {
@@ -199,6 +201,7 @@ export const useCustomFilter = <TData>({
       filter: FilterRowState,
       graphQLQueryObject: GraphQLQueryFilter,
       metaType: MetaType | undefined,
+      localization: Localization,
     ) => {
       const { column, condition, value, jointCondition } = filter;
 
@@ -233,7 +236,7 @@ export const useCustomFilter = <TData>({
           case "boolean":
             graphQLQueryObject[key] = generateGraphQLQueryObject(
               isExitJointCondition,
-              value.toLowerCase() === "true",
+              value.toLowerCase() === localization.filter.columnBoolean.true,
             );
             break;
           case "dateTime": {
@@ -270,6 +273,7 @@ export const useCustomFilter = <TData>({
             filter,
             graphQLQueryObject[jointCondition] as GraphQLQueryFilter,
             metaType,
+            localization,
           );
         } else {
           assignValueToQueryObject(jointCondition, true);
@@ -297,6 +301,7 @@ export const useCustomFilter = <TData>({
               row.currentState,
               newGraphQLQueryFilter,
               metaType,
+              localization,
             );
           }
         }
@@ -311,7 +316,7 @@ export const useCustomFilter = <TData>({
 
       return result;
     },
-    [addToGraphQLQueryFilterRecursively, systemFilter, columns],
+    [systemFilter, columns, addToGraphQLQueryFilterRecursively, localization],
   );
 
   const [prevFilter, setPrevFilter] = useState<GraphQLQueryFilter>({});

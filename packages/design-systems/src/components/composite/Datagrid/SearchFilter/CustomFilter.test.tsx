@@ -223,18 +223,18 @@ describe(
       await user.click(selectConditionButton);
 
       const equalConditionOption = within(selectConditionOptions).getByText(
-        "に等しい",
+        "等しい",
       );
       expect(equalConditionOption).toBeVisible();
       expect(
-        within(selectConditionOptions).getByText("に等しくない"),
+        within(selectConditionOptions).getByText("等しくない"),
       ).toBeVisible();
-      expect(within(selectConditionOptions).queryByText("を含む")).toBeNull();
+      expect(within(selectConditionOptions).queryByText("含む")).toBeNull();
 
       await user.click(equalConditionOption);
 
       expect(equalConditionOption).not.toBeVisible();
-      expect(selectCondition).toHaveTextContent("に等しい");
+      expect(selectCondition).toHaveTextContent("等しい");
 
       //Select value
       const selectValue = screen.getByTestId("select-input-value");
@@ -304,18 +304,18 @@ describe(
       await user.click(selectConditionButton);
 
       const equalConditionOption = within(selectConditionOptions).getByText(
-        "に等しい",
+        "等しい",
       );
       expect(equalConditionOption).toBeVisible();
-      expect(within(selectConditionOptions).getByText("を含む")).toBeVisible();
+      expect(within(selectConditionOptions).getByText("含む")).toBeVisible();
       expect(
-        within(selectConditionOptions).queryByText("に等しくない"),
+        within(selectConditionOptions).queryByText("等しくない"),
       ).toBeNull();
 
       await user.click(equalConditionOption);
 
       expect(equalConditionOption).not.toBeVisible();
-      expect(selectCondition).toHaveTextContent("に等しい");
+      expect(selectCondition).toHaveTextContent("等しい");
 
       // Input value
       const inputValue = screen.getByTestId("select-input-value");
@@ -371,7 +371,7 @@ describe(
       await user.click(selectConditionButton);
 
       const equalConditionOption = within(selectConditionOptions).getByText(
-        "に等しい",
+        "等しい",
       );
       expect(equalConditionOption).toBeVisible();
       expect(
@@ -383,12 +383,12 @@ describe(
       expect(within(selectConditionOptions).getByText("以上")).toBeVisible();
       expect(within(selectConditionOptions).getByText("以下")).toBeVisible();
 
-      expect(within(selectConditionOptions).queryByText("を含む")).toBeNull();
+      expect(within(selectConditionOptions).queryByText("含む")).toBeNull();
 
       await user.click(equalConditionOption);
 
       expect(equalConditionOption).not.toBeVisible();
-      expect(selectCondition).toHaveTextContent("に等しい");
+      expect(selectCondition).toHaveTextContent("等しい");
 
       // Input value
       const inputValue = await screen.findByTestId("select-input-value");
@@ -441,9 +441,7 @@ describe(
         "以下",
       );
       expect(lteConditionOption).toBeVisible();
-      expect(
-        within(selectConditionOptions).getByText("に等しい"),
-      ).toBeVisible();
+      expect(within(selectConditionOptions).getByText("等しい")).toBeVisible();
       expect(
         within(selectConditionOptions).getByText("より大きい"),
       ).toBeVisible();
@@ -452,7 +450,7 @@ describe(
       ).toBeVisible();
       expect(within(selectConditionOptions).getByText("以上")).toBeVisible();
 
-      expect(within(selectConditionOptions).queryByText("を含む")).toBeNull();
+      expect(within(selectConditionOptions).queryByText("含む")).toBeNull();
 
       await user.click(lteConditionOption);
 
@@ -518,39 +516,39 @@ describe(
       await user.click(selectConditionButton);
 
       const eqConditionOption = within(selectConditionOptions).getByText(
-        "に等しい",
+        "等しい",
       );
       expect(eqConditionOption).toBeVisible();
 
       expect(
-        within(selectConditionOptions).getByText("に等しくない"),
+        within(selectConditionOptions).getByText("等しくない"),
       ).toBeVisible();
-      expect(screen.queryByText("を含む")).toBeNull();
+      expect(screen.queryByText("含む")).toBeNull();
       expect(screen.queryByText("より大きい")).toBeNull();
       expect(screen.queryByText("より小さい")).toBeNull();
       expect(screen.queryByText("以上")).toBeNull();
       expect(screen.queryByText("以下")).toBeNull();
 
-      expect(screen.queryByText("を含む")).toBeNull();
+      expect(screen.queryByText("含む")).toBeNull();
 
       await user.click(eqConditionOption);
 
       expect(eqConditionOption).not.toBeVisible();
-      expect(selectCondition).toHaveTextContent("に等しい");
+      expect(selectCondition).toHaveTextContent("等しい");
 
       //Select value
       const selectValue = screen.getByTestId("select-input-value");
       const selectValueButton = within(selectValue).getByRole("button");
       await user.click(selectValueButton);
 
-      const trueOption = screen.getByRole("option", { name: "true" });
+      const trueOption = screen.getByRole("option", { name: "はい" });
       expect(trueOption).toBeVisible();
-      expect(screen.getByRole("option", { name: "false" })).toBeVisible();
+      expect(screen.getByRole("option", { name: "いいえ" })).toBeVisible();
 
       await user.click(trueOption);
 
       expect(trueOption).not.toBeVisible();
-      expect(selectValue).toHaveTextContent("true");
+      expect(selectValue).toHaveTextContent("はい");
 
       //Check filters
       await waitFor(() => {
@@ -573,7 +571,7 @@ describe(
       //Select column
       await selectColumn(screen, user, 0, "Status");
       //Select condition
-      await selectCondition(screen, user, 0, "に等しい");
+      await selectCondition(screen, user, 0, "等しい");
       //Select value
       await selectValue(screen, user, 0, "pending");
 
@@ -617,7 +615,7 @@ describe(
       //Select column
       await selectColumn(screen, user, 1, "Status");
       //Select condition
-      await selectCondition(screen, user, 1, "に等しい");
+      await selectCondition(screen, user, 1, "等しい");
       //Select value
       await selectValue(screen, user, 1, "pending");
 
@@ -690,9 +688,7 @@ describe(
         "以下",
       );
       expect(lteConditionOption).toBeVisible();
-      expect(
-        within(selectConditionOptions).getByText("に等しい"),
-      ).toBeVisible();
+      expect(within(selectConditionOptions).getByText("等しい")).toBeVisible();
       expect(
         within(selectConditionOptions).getByText("より大きい"),
       ).toBeVisible();
@@ -701,7 +697,7 @@ describe(
       ).toBeVisible();
       expect(within(selectConditionOptions).getByText("以上")).toBeVisible();
 
-      expect(within(selectConditionOptions).queryByText("を含む")).toBeNull();
+      expect(within(selectConditionOptions).queryByText("含む")).toBeNull();
 
       await user.click(lteConditionOption);
 

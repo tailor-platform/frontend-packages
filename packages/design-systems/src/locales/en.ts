@@ -40,6 +40,10 @@ export const LOCALIZATION_EN: Localization = {
         lessThanOrEqual: "Less Than Or Equal",
       },
     },
+    columnBoolean: {
+      true: "true",
+      false: "false",
+    },
     valueLabel: "Value",
     valuePlaceholder: "Input Value",
     valuePlaceholderEnum: "Select Value",
