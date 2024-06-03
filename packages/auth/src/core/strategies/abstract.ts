@@ -143,7 +143,7 @@ export const minitailorParamsError = () =>
 export const minitailorTokenError = (code: number) =>
   new CallbackError(
     "minitailor-token-error",
-    `Failed to obtain token status=${code}`,
+    `failed to obtain token (status=${code})`,
   );
 
 /** @deprecated for backward compatibility use **Error */
