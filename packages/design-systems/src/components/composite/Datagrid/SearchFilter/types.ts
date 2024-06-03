@@ -10,7 +10,7 @@ export type ValueChangeDetails<T extends CollectionItem = CollectionItem> = {
 
 export type FilterRowState = {
   column: string;
-  value: string | boolean | number;
+  value: string | boolean | number | string[] | number[];
   condition: string;
   jointCondition?: string;
   isChangeable: boolean;

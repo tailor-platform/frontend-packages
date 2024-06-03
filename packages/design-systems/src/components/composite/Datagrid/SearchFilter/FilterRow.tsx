@@ -1,9 +1,10 @@
-import { useCallback, useMemo } from "react";
-import { CheckIcon, ChevronDown, X } from "lucide-react";
+import { useCallback, useMemo, useState } from "react";
+import { CheckIcon, ChevronDown, X, XIcon } from "lucide-react";
 import { Select as AS, CollectionItem } from "@ark-ui/react/select";
 import { styled } from "@tailor-platform/styled-system/jsx";
-import { select } from "@tailor-platform/styled-system/recipes";
+import { select, tagsInput } from "@tailor-platform/styled-system/recipes";
 import { ColumnMeta } from "@tanstack/table-core";
+import { TagsInput } from "@ark-ui/react";
 import type { Column } from "../types";
 import { Box } from "../../../patterns/Box";
 import { Flex } from "../../../patterns/Flex";
@@ -18,6 +19,7 @@ import type {
   JointCondition,
   ValueChangeDetails,
 } from "./types";
+import { Button } from "@components/Button";
 
 const Select = {
   Root: styled(AS.Root),
@@ -95,15 +97,19 @@ export const FilterRow = <TData extends Record<string, unknown>>(
   );
 
   const onChangeValue = useCallback(
-    (value: string[] | string) => {
+    (value: string[] | string | number[]) => {
+      const newValue =
+        selectedColumnObject?.meta?.type === "enum" ||
+        selectedColumnObject?.meta?.type === "boolean"
+          ? value[0]
+          : currentFilter.condition === "in"
+            ? value
+            : (value as string);
       const nextFilter = {
         ...currentFilter,
-        value:
-          selectedColumnObject?.meta?.type === "enum" ||
-          selectedColumnObject?.meta?.type === "boolean"
-            ? value[0]
-            : (value as string),
+        value: newValue,
       };
+      console.log("onChangeValue", nextFilter);
       onChange(nextFilter);
     },
     [onChange, currentFilter, selectedColumnObject],
@@ -171,7 +177,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
   const isFirstRow = useMemo(() => index === 0, [index]);
 
   return (
-    <Flex gridGap={2} marginTop={isFirstRow ? 0 : 4}>
+    <Flex gridGap={2} marginTop={isFirstRow ? 0 : 4} position="relative">
       <IconButton
         variant="tertiary"
         size="md"
@@ -179,9 +185,9 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         aria-label="Delete filter"
         icon={<X />}
         onClick={onDelete}
-        alignSelf={"center"}
         visibility={isFirstRow ? "hidden" : "visible"}
         data-testid="delete-filter-row"
+        style={{ position: "relative", top: 25 }}
       />
       <Select.Root
         className={classes.root}
@@ -349,7 +355,13 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         <Text fontWeight="bold" marginBottom={"4px"} color="fg.default">
           {localization.filter.valueLabel}
         </Text>
-        {renderValueInput === "IN" && <>TEST</>}
+        {renderValueInput === "IN" && (
+          <TagInput
+            inputValuePlaceHolder={inputValuePlaceHolder}
+            inputType={inputType}
+            onChangeValue={onChangeValue}
+          />
+        )}
         {renderValueInput === "ENUM" && (
           <EnumSelect
             currentFilter={currentFilter}
@@ -388,6 +400,84 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         )}
       </Box>
     </Flex>
+  );
+};
+
+type TagInputProps = {
+  inputValuePlaceHolder: string;
+  defaultValue?: string[];
+  inputType: string;
+  onChangeValue: (value: string[]) => void;
+};
+
+const TagInput = ({
+  inputValuePlaceHolder,
+  defaultValue,
+  inputType,
+  onChangeValue,
+}: TagInputProps) => {
+  const classes = tagsInput();
+  const [values, setValues] = useState<string[]>(defaultValue || []);
+
+  return (
+    <>
+      <TagsInput.Root
+        className={classes.root}
+        defaultValue={defaultValue}
+        style={{ width: 180 }}
+      >
+        <>
+          <TagsInput.Control className={classes.control}>
+            {values.map((value, index) => (
+              <TagsInput.Item
+                className={classes.item}
+                key={index}
+                index={index}
+                value={value}
+              >
+                <TagsInput.ItemText>{value}</TagsInput.ItemText>
+                <TagsInput.ItemDeleteTrigger asChild>
+                  <IconButton
+                    aria-label="close"
+                    variant="link"
+                    size="xs"
+                    onClick={() => {
+                      setValues((prev) => prev.filter((v) => v !== value));
+                    }}
+                  >
+                    <XIcon />
+                  </IconButton>
+                </TagsInput.ItemDeleteTrigger>
+                <TagsInput.ItemInput className={classes.itemInput} />
+              </TagsInput.Item>
+            ))}
+            <TagsInput.Input
+              className={classes.input}
+              placeholder={inputValuePlaceHolder}
+              type={inputType}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  setValues((prev) => [...prev, e.currentTarget.value]);
+                  e.currentTarget.value = "";
+                  onChangeValue(values);
+                }
+              }}
+            />
+            <TagsInput.ClearTrigger
+              asChild
+              onClick={() => {
+                setValues([]);
+              }}
+            >
+              <Button variant="secondary" size="sm">
+                Clear
+              </Button>
+            </TagsInput.ClearTrigger>
+          </TagsInput.Control>
+        </>
+      </TagsInput.Root>
+    </>
   );
 };
 
