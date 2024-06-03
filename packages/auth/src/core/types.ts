@@ -27,3 +27,5 @@ export type UserInfo = {
   family_name: string;
   email: string;
 };
+
+export const NoSessionError = new Error("No session available");
