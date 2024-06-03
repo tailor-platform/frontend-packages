@@ -131,10 +131,7 @@ export const oidcParamsError = () =>
     "code and redirectURI should be filled",
   );
 export const samlParamsError = () =>
-  new CallbackError(
-    "saml-invalid-params",
-    "SAMLResponse and RelayState should be filled",
-  );
+  new CallbackError("saml-invalid-params", "SAMLResponse should be filled");
 export const minitailorParamsError = () =>
   new CallbackError(
     "minitailor-invalid-params",
