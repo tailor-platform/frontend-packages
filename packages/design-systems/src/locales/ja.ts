@@ -38,6 +38,7 @@ export const LOCALIZATION_JA: Localization = {
         lessThan: "より小さい",
         greaterThanOrEqual: "以上",
         lessThanOrEqual: "以下",
+        in: "に含まれる",
       },
     },
     columnBoolean: {

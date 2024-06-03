@@ -38,6 +38,7 @@ export const LOCALIZATION_EN: Localization = {
         lessThan: "Less Than",
         greaterThanOrEqual: "Greater Than Or Equal",
         lessThanOrEqual: "Less Than Or Equal",
+        in: "In",
       },
     },
     columnBoolean: {

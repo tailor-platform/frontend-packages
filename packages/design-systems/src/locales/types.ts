@@ -24,6 +24,7 @@ export interface Localization {
         lessThan: string;
         greaterThanOrEqual: string;
         lessThanOrEqual: string;
+        in: string;
       };
     };
     columnBoolean: {
