@@ -1,10 +1,10 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo } from "react";
 import { CheckIcon, ChevronDown, X, XIcon } from "lucide-react";
 import { Select as AS, CollectionItem } from "@ark-ui/react/select";
 import { styled } from "@tailor-platform/styled-system/jsx";
 import { select, tagsInput } from "@tailor-platform/styled-system/recipes";
 import { ColumnMeta } from "@tanstack/table-core";
-import { TagsInput } from "@ark-ui/react";
+import { TagsInput as BaseTagsInput } from "@ark-ui/react";
 import type { Column } from "../types";
 import { Box } from "../../../patterns/Box";
 import { Flex } from "../../../patterns/Flex";
@@ -96,22 +96,32 @@ export const FilterRow = <TData extends Record<string, unknown>>(
     [onChange, currentFilter],
   );
 
-  const onChangeValue = useCallback(
-    (value: string[] | string | number[]) => {
-      const newValue =
+  const valueConverter = useCallback(
+    (value: string[] | string) => {
+      if (
         selectedColumnObject?.meta?.type === "enum" ||
         selectedColumnObject?.meta?.type === "boolean"
-          ? value[0]
-          : currentFilter.condition === "in"
-            ? value
-            : (value as string);
+      ) {
+        return value[0];
+      }
+      if (currentFilter.condition === "in") {
+        return value;
+      }
+
+      return value as string;
+    },
+    [currentFilter.condition, selectedColumnObject?.meta?.type],
+  );
+
+  const onChangeValue = useCallback(
+    (value: string[] | string) => {
       const nextFilter = {
         ...currentFilter,
-        value: newValue,
+        value: valueConverter(value),
       };
       onChange(nextFilter);
     },
-    [onChange, currentFilter, selectedColumnObject],
+    [valueConverter, currentFilter, onChange],
   );
 
   const onChangeJointCondition = useCallback(
@@ -355,7 +365,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
           {localization.filter.valueLabel}
         </Text>
         {renderValueInput === "IN" && (
-          <TagInput
+          <TagsInput
             inputValuePlaceHolder={inputValuePlaceHolder}
             inputType={inputType}
             onChangeValue={onChangeValue}
@@ -409,73 +419,58 @@ type TagInputProps = {
   onChangeValue: (value: string[]) => void;
 };
 
-const TagInput = ({
+const TagsInput = ({
   inputValuePlaceHolder,
   defaultValue,
   inputType,
   onChangeValue,
 }: TagInputProps) => {
   const classes = tagsInput();
-  const [values, setValues] = useState<string[]>(defaultValue || []);
 
   return (
     <>
-      <TagsInput.Root
+      <BaseTagsInput.Root
         className={classes.root}
         defaultValue={defaultValue}
         style={{ width: 180 }}
+        data-testid="tags-input-value"
+        onValueChange={(e) => {
+          onChangeValue(e.value);
+        }}
       >
-        <>
-          <TagsInput.Control className={classes.control}>
-            {values.map((value, index) => (
-              <TagsInput.Item
-                className={classes.item}
-                key={index}
-                index={index}
-                value={value}
-              >
-                <TagsInput.ItemText>{value}</TagsInput.ItemText>
-                <TagsInput.ItemDeleteTrigger asChild>
-                  <IconButton
-                    aria-label="close"
-                    variant="link"
-                    size="xs"
-                    onClick={() => {
-                      setValues((prev) => prev.filter((v) => v !== value));
-                    }}
-                  >
-                    <XIcon />
-                  </IconButton>
-                </TagsInput.ItemDeleteTrigger>
-                <TagsInput.ItemInput className={classes.itemInput} />
-              </TagsInput.Item>
-            ))}
-            <TagsInput.Input
-              className={classes.input}
-              placeholder={inputValuePlaceHolder}
-              type={inputType}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  e.preventDefault();
-                  setValues((prev) => [...prev, e.currentTarget.value]);
-                  e.currentTarget.value = "";
-                  onChangeValue(values);
-                }
-              }}
-            />
-            <TagsInput.ClearTrigger
-              asChild
-              onClick={() => {
-                setValues([]);
-              }}
-            >
-              <Button variant="secondary" size="sm">
-                Clear
-              </Button>
-            </TagsInput.ClearTrigger>
-          </TagsInput.Control>
-        </>
-      </TagsInput.Root>
+        {({ value }) => (
+          <>
+            <BaseTagsInput.Control className={classes.control}>
+              {value.map((value, index) => (
+                <BaseTagsInput.Item
+                  className={classes.item}
+                  key={index}
+                  index={index}
+                  value={value}
+                >
+                  <BaseTagsInput.ItemText>{value}</BaseTagsInput.ItemText>
+                  <BaseTagsInput.ItemDeleteTrigger asChild>
+                    <IconButton aria-label="close" variant="link" size="xs">
+                      <XIcon />
+                    </IconButton>
+                  </BaseTagsInput.ItemDeleteTrigger>
+                  <BaseTagsInput.ItemInput className={classes.itemInput} />
+                </BaseTagsInput.Item>
+              ))}
+              <BaseTagsInput.Input
+                className={classes.input}
+                placeholder={inputValuePlaceHolder}
+                type={inputType}
+              />
+              <BaseTagsInput.ClearTrigger asChild>
+                <Button variant="secondary" size="sm">
+                  Clear
+                </Button>
+              </BaseTagsInput.ClearTrigger>
+            </BaseTagsInput.Control>
+          </>
+        )}
+      </BaseTagsInput.Root>
     </>
   );
 };
