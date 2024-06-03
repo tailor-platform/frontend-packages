@@ -122,7 +122,7 @@ export class CallbackError extends Error {
     readonly message: string,
   ) {
     super(message);
-    this.name = this.constructor.name;
+    this.name = "CallbackError";
   }
 }
 
