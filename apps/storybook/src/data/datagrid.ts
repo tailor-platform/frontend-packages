@@ -68,7 +68,7 @@ export const DATA: Payment[] = [
     email: "m@example.com",
     createdAt: "2023-11-14",
     isCreditCard: true,
-    updatedAt: "2023-11-14 12:00:00",
+    updatedAt: "2023-11-12 12:00:00",
   },
   {
     id: "a6b2c3d4",
@@ -77,7 +77,7 @@ export const DATA: Payment[] = [
     email: "john@example.com",
     createdAt: "2023-11-13",
     isCreditCard: false,
-    updatedAt: "2023-11-13 12:00:00",
+    updatedAt: "2023-11-12 12:00:00",
   },
   {
     id: "f8e7d6c5",
@@ -95,7 +95,7 @@ export const DATA: Payment[] = [
     email: "fail@example.com",
     createdAt: "2023-11-11",
     isCreditCard: true,
-    updatedAt: "2023-11-11 12:00:00",
+    updatedAt: "2023-11-12 12:00:00",
   },
   {
     id: "12345678",
@@ -104,7 +104,7 @@ export const DATA: Payment[] = [
     email: "example1@example.com",
     createdAt: "2023-11-10",
     isCreditCard: true,
-    updatedAt: "2023-11-10 12:00:00",
+    updatedAt: "2023-11-12 12:00:00",
   },
   {
     id: "23456789",
@@ -113,7 +113,7 @@ export const DATA: Payment[] = [
     email: "example2@example.com",
     createdAt: "2023-11-09",
     isCreditCard: true,
-    updatedAt: "2023-11-09 12:00:00",
+    updatedAt: "2023-11-12 12:00:00",
   },
   {
     id: "34567890",
@@ -122,7 +122,7 @@ export const DATA: Payment[] = [
     email: "example3@example.com",
     createdAt: "2023-11-08",
     isCreditCard: false,
-    updatedAt: "2023-11-08 12:00:00",
+    updatedAt: "2023-11-12 12:00:00",
   },
   {
     id: "718ed52f",
@@ -131,7 +131,7 @@ export const DATA: Payment[] = [
     email: "m@example.com",
     createdAt: "2023-11-14",
     isCreditCard: true,
-    updatedAt: "2023-11-14 12:00:00",
+    updatedAt: "2023-11-15",
   },
   {
     id: "a6b1c3d4",
@@ -140,7 +140,7 @@ export const DATA: Payment[] = [
     email: "john@example.com",
     createdAt: "2023-11-13",
     isCreditCard: false,
-    updatedAt: "2023-11-13 12:00:00",
+    updatedAt: "2023-11-12 12:00:00",
   },
   {
     id: "f8e7d6c1",
@@ -158,7 +158,7 @@ export const DATA: Payment[] = [
     email: "fail@example.com",
     createdAt: "2023-11-11",
     isCreditCard: true,
-    updatedAt: "2023-11-11 12:00:00",
+    updatedAt: "2023-11-12 12:00:00",
   },
   {
     id: "42345678",
@@ -167,7 +167,7 @@ export const DATA: Payment[] = [
     email: "example1@example.com",
     createdAt: "2023-11-10",
     isCreditCard: true,
-    updatedAt: "2023-11-10 12:00:00",
+    updatedAt: "2023-11-12 12:00:00",
   },
   {
     id: "53456789",
@@ -176,7 +176,7 @@ export const DATA: Payment[] = [
     email: "example2@example.com",
     createdAt: "2023-11-09",
     isCreditCard: true,
-    updatedAt: "2023-11-09 12:00:00",
+    updatedAt: "2023-11-12 12:00:00",
   },
   {
     id: "64567890",
@@ -185,15 +185,6 @@ export const DATA: Payment[] = [
     email: "example3@example.com",
     createdAt: "2023-11-08",
     isCreditCard: false,
-    updatedAt: "2023-11-08 12:00:00",
-  },
-  {
-    id: "8269362",
-    amount: 500,
-    status: "success",
-    email: "example3@example.com",
-    createdAt: "2023-11-08",
-    isCreditCard: false,
-    updatedAt: "2024-05-10 12:00:00",
+    updatedAt: "2023-11-12 12:00:00",
   },
 ];

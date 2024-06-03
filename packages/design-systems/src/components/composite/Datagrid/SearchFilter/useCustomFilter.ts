@@ -12,21 +12,9 @@ import type { Column, MetaType } from "../types";
 import { jointConditions } from "./filter";
 import { FilterRowState, JointCondition } from "./types";
 
-export type FilterRowData<TData> = {
-  columns: Array<Column<TData>>;
+export type FilterRowData = {
   index: number; //Row number
-  localization: Localization;
-  isFirstRow: boolean;
-  jointConditions: JointCondition[];
   currentState: FilterRowState;
-};
-
-const usePrevious = (value: GraphQLQueryFilter) => {
-  const ref = useRef(value);
-  useEffect(() => {
-    ref.current = value;
-  }, [value]);
-  return ref.current;
 };
 
 type UseCustomFilterProps<TData> = {
@@ -47,53 +35,6 @@ export const useCustomFilter = <TData>({
   const filterRef = useRef<HTMLDivElement>(null);
   const filterButtonRef = useRef<HTMLButtonElement>(null);
 
-  const combineGlaphQLQueryFilter = useCallback(
-    ({
-      systemFilter,
-      defaultFilter,
-    }: {
-      systemFilter?: GraphQLQueryFilter;
-      defaultFilter?: GraphQLQueryFilter;
-    }): GraphQLQueryFilter => {
-      if (systemFilter && defaultFilter) {
-        const combineGlaphQLQueryFilterRecursively = (
-          systemFilter: GraphQLQueryFilter,
-          defaultFilter: GraphQLQueryFilter,
-        ): GraphQLQueryFilter => {
-          const keys = Object.keys(systemFilter);
-          const newFilter: GraphQLQueryFilter = { ...systemFilter };
-          keys.forEach((key) => {
-            if (key === "and" || key === "or") {
-              newFilter[key] = combineGlaphQLQueryFilterRecursively(
-                systemFilter[key] as GraphQLQueryFilter,
-                defaultFilter,
-              );
-            } else {
-              newFilter["and"] = defaultFilter;
-            }
-          });
-          return newFilter;
-        };
-        const newQuery = combineGlaphQLQueryFilterRecursively(
-          systemFilter,
-          defaultFilter,
-        );
-        return newQuery;
-      } else {
-        return systemFilter || defaultFilter || {};
-      }
-    },
-    [],
-  );
-
-  const initialFilter = useMemo(
-    () => combineGlaphQLQueryFilter({ systemFilter, defaultFilter }),
-    [combineGlaphQLQueryFilter, systemFilter, defaultFilter],
-  );
-
-  const [filterRowsState, setFilterRowsState] = useState<GraphQLQueryFilter>(
-    initialFilter || {},
-  );
   const [selectedJointCondition, setSelectedJointCondition] = useState<
     string | undefined
   >(undefined);
@@ -116,38 +57,24 @@ export const useCustomFilter = <TData>({
   }, [selectedJointCondition]);
 
   const newEmptyRow = useCallback(
-    (props: {
-      index: number;
-      isFirstRow: boolean;
-      existSystemFilter: boolean;
-    }): FilterRowData<TData> => ({
-      columns: columns,
+    (props: { index: number; isChangeable: boolean }): FilterRowData => ({
       index: props.index,
-      localization: localization,
-      isFirstRow: props.isFirstRow,
-      jointConditions: activeJointConditions,
       currentState: {
         column: "",
         condition: "",
         value: "",
-        jointCondition: props.existSystemFilter ? "and" : "",
-        isSystem: false,
-        isChangeable: props.existSystemFilter ? false : true,
+        jointCondition: selectedJointCondition,
+        isChangeable: props.isChangeable,
       },
     }),
-    [localization, columns, activeJointConditions],
+    [selectedJointCondition],
   );
 
   const convertQueryToFilterRows = useCallback(
-    (
-      filter: GraphQLQueryFilter,
-      isSystem: boolean,
-      filterRowIndex: number,
-    ): FilterRowData<TData>[] => {
-      const filterRows: FilterRowData<TData>[] = [];
+    (filter: GraphQLQueryFilter, filterRowIndex: number): FilterRowData[] => {
+      const filterRows: FilterRowData[] = [];
       const convertQueryToFilterRowsRecursively = (
         filter: GraphQLQueryFilter,
-        jointCondition: string | undefined,
         index: number,
       ) => {
         const keys = Object.keys(filter);
@@ -156,90 +83,50 @@ export const useCustomFilter = <TData>({
             const jointConditionValue = filter[key];
             convertQueryToFilterRowsRecursively(
               jointConditionValue as GraphQLQueryFilter,
-              key,
               index + 1,
             );
           } else {
             const column = key;
             const condition = Object.keys(filter[key])[0];
             const value: string = filter[key][condition] as string;
-            const isFirstRow = index === filterRowIndex;
             const currentState: FilterRowState = {
               column: column,
               condition: condition,
               value: value,
-              jointCondition: jointCondition,
-              isSystem: isSystem,
+              jointCondition: "and",
               isChangeable: false,
             };
             filterRows.push({
-              columns: columns,
               index: index,
-              localization: localization,
-              isFirstRow: isFirstRow,
-              jointConditions: activeJointConditions,
               currentState: currentState,
             });
           }
         });
       };
-      convertQueryToFilterRowsRecursively(
-        filter,
-        filterRowIndex === 0 ? undefined : "and",
-        filterRowIndex,
-      );
+      convertQueryToFilterRowsRecursively(filter, filterRowIndex);
       return filterRows;
     },
-    [localization, columns, activeJointConditions],
+    [],
   );
 
-  const systemFilterRows: FilterRowData<TData>[] = useMemo(() => {
-    const filterRows: FilterRowData<TData>[] = [];
-    if (systemFilter) {
-      filterRows.push(...convertQueryToFilterRows(systemFilter, true, 0));
-    }
-    filterRows.push(
-      newEmptyRow({
-        index: filterRows.length,
-        isFirstRow: true,
-        existSystemFilter: !!systemFilter,
-      }),
-    );
-    return filterRows;
-  }, [systemFilter, newEmptyRow, convertQueryToFilterRows]);
-
-  const initialFilterRows: FilterRowData<TData>[] = useMemo(() => {
-    const filterRows: FilterRowData<TData>[] = [];
-    if (systemFilter) {
-      filterRows.push(...convertQueryToFilterRows(systemFilter, true, 0));
-    }
+  const initialFilterRows: FilterRowData[] = useMemo(() => {
+    const filterRows: FilterRowData[] = [];
     if (defaultFilter) {
       filterRows.push(
-        ...convertQueryToFilterRows(defaultFilter, false, filterRows.length),
+        ...convertQueryToFilterRows(defaultFilter, filterRows.length),
       );
     }
     filterRows.push(
       newEmptyRow({
         index: filterRows.length,
-        isFirstRow: !defaultFilter,
-        existSystemFilter: !!systemFilter,
+        isChangeable: true, // At this point, the user has not specified jointCondition, so it can be changed
       }),
     );
     return filterRows;
-  }, [systemFilter, defaultFilter, newEmptyRow, convertQueryToFilterRows]);
-
-  /**
-   * In cases where there is no default filter, start with 1 filter row initially .
-   * This will be incremented when user clicks on "Add new filter" button.
-   * This will be used to generate unique index for each filter row.
-   * We cant use filterRows.length as it will grow and shrink based on user actions and might not produce the unique keys.
-   */
-  const [numberOfFilterRows, setNumberOfFilterRows] = useState(
-    initialFilterRows.length,
-  );
+  }, [defaultFilter, newEmptyRow, convertQueryToFilterRows]);
 
   const [filterRows, setFilterRows] =
-    useState<FilterRowData<TData>[]>(initialFilterRows);
+    useState<FilterRowData[]>(initialFilterRows);
 
   /**
    * This will delete the filter row from filterRows.
@@ -260,103 +147,39 @@ export const useCustomFilter = <TData>({
    */
   const resetFilterHandler = useCallback(() => {
     setFilterRows(initialFilterRows);
-    setFilterRowsState(initialFilter || {});
     setSelectedJointCondition(undefined);
-    setNumberOfFilterRows(initialFilterRows.length);
-  }, [initialFilter, initialFilterRows]);
+  }, [initialFilterRows]);
 
   /**
    * This will reset the filterRows data state.
    */
   const clearFilterHandler = useCallback(() => {
-    setFilterRows(systemFilterRows);
-    setFilterRowsState(systemFilter || {});
+    setFilterRows([]);
     setSelectedJointCondition(undefined);
-    setNumberOfFilterRows(systemFilterRows.length);
-  }, [systemFilter, systemFilterRows]);
+  }, []);
 
   /**
    * This will add new item to filterRows data state.
    */
-  const addNewFilterRowHandler = useCallback(
-    (newRowIndex: number) => {
-      setFilterRows((oldState) => {
-        const newState = [...oldState];
-        newState.push(
-          newEmptyRow({
-            index: newRowIndex,
-            isFirstRow: false,
-            existSystemFilter: !!systemFilter,
-          }),
-        );
-        return newState;
-      });
-    },
-    [newEmptyRow, systemFilter],
-  );
-
-  /**
-   * This will convert the FilterRowState object from the UI to GraphQLQueryFilter and add it to the GraphQLQueryFilter.
-   */
-  const filterChangedHandler = useCallback(
-    (index: number) => (currentFilter: FilterRowState) => {
-      if (currentFilter.jointCondition) {
-        setSelectedJointCondition(currentFilter.jointCondition);
-      }
-      setFilterRows((oldState) => {
-        const newState = [...oldState];
-        const row = newState.find((row) => row.index === index);
-        if (row) {
-          row.currentState = currentFilter;
-        }
-        return newState;
-      });
-    },
-    [],
-  );
-
-  /**
-   * This will update the joint conditions of all FilterRows when the joint condition changes.
-   * Phase1: User can only select only all "and" or only all "or".
-   */
-  useEffect(() => {
-    if (!activeJointConditions) {
-      return;
-    }
+  const addNewFilterRowHandler = useCallback(() => {
     setFilterRows((oldState) => {
       const newState = [...oldState];
-      return newState.map((row) => {
-        row.jointConditions = activeJointConditions;
-        return row;
-      });
+      newState.push(
+        newEmptyRow({
+          index: oldState.length,
+          isChangeable: selectedJointCondition ? false : true,
+        }),
+      );
+      return newState;
     });
-  }, [activeJointConditions]);
-
-  const prevFilter = usePrevious(filterRowsState);
-
-  /**
-   * This will bubble up the GraphQLQueryFilter to the parent component.
-   */
-  useEffect(() => {
-    const filterChange = () => {
-      if (filterRowsState !== prevFilter.current) {
-        onChange(filterRowsState);
-      }
-    };
-    filterChange();
-    // We have to run this function only when filterRowState changes, but this way of writing will cause an error due to lint rules, so we excluded it here.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filterRowsState]);
+  }, [newEmptyRow, selectedJointCondition]);
 
   /**
    *
    *  This will recursively add the filter to GraphQLQueryFilter to create objects like this:
    *
     {
-        "status": {
-            "eq": "pending"
-        },
-        "or": {
+        "and": {
             "status": {
                 "eq": "processing"
             },
@@ -456,7 +279,6 @@ export const useCustomFilter = <TData>({
           assignValueToQueryObject(jointCondition, true);
         }
       } else {
-        //First row will not have joint condition
         assignValueToQueryObject(column, false);
       }
     },
@@ -464,32 +286,72 @@ export const useCustomFilter = <TData>({
   );
 
   /**
-   * This will update the GraphQLQueryFilter when filterRows data state changes.
+   * This will convert the FilterRowState object from the UI to GraphQLQueryFilter and add it to the GraphQLQueryFilter.
+   */
+  const generateGraphQLQueryFilter = useCallback(
+    (currentFilterRows: FilterRowData[]) => {
+      const newGraphQLQueryFilter: GraphQLQueryFilter = {};
+      currentFilterRows.forEach((row) => {
+        if (row.currentState) {
+          const { column, condition, value } = row.currentState;
+          const metaType = columns.find((c) => c.accessorKey === column)?.meta
+            ?.type;
+          const isExistCurrentState: boolean =
+            (!!column && !!condition && !!value) ||
+            (typeof value === "boolean" && value === false);
+          if (isExistCurrentState) {
+            addToGraphQLQueryFilterRecursively(
+              row.currentState,
+              newGraphQLQueryFilter,
+              metaType,
+              localization,
+            );
+          }
+        }
+      });
+
+      const result = {
+        and: {
+          ...systemFilter,
+          ...newGraphQLQueryFilter,
+        },
+      };
+
+      return result;
+    },
+    [systemFilter, columns, addToGraphQLQueryFilterRecursively, localization],
+  );
+
+  const [prevFilter, setPrevFilter] = useState<GraphQLQueryFilter>({});
+
+  /**
+   * This will bubble up the GraphQLQueryFilter to the parent component.
    */
   useEffect(() => {
-    //Create GraphQLQueryFilter from filterRows
-    const newFilterRowsState: GraphQLQueryFilter = {};
-    filterRows.forEach((row) => {
-      if (row.currentState) {
-        const { column, condition, value } = row.currentState;
-        const metaType = columns.find((c) => c.accessorKey === column)?.meta
-          ?.type;
-        const isExistCurrentState: boolean =
-          (!!column && !!condition && !!value) ||
-          (typeof value === "boolean" && value === false);
-        if (isExistCurrentState) {
-          addToGraphQLQueryFilterRecursively(
-            row.currentState,
-            newFilterRowsState,
-            metaType,
-            localization,
-          );
-        }
-      }
-    });
-    setFilterRowsState(newFilterRowsState);
+    const filter = generateGraphQLQueryFilter(filterRows);
+    if (JSON.stringify(prevFilter) !== JSON.stringify(filter)) {
+      onChange(filter);
+      setPrevFilter(filter);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [addToGraphQLQueryFilterRecursively, filterRows]);
+  }, [filterRows]);
+
+  const filterChangedHandler = useCallback(
+    (index: number) => (currentFilter: FilterRowState) => {
+      if (currentFilter.jointCondition) {
+        setSelectedJointCondition(currentFilter.jointCondition);
+      }
+      setFilterRows((oldState) => {
+        const newState = [...oldState];
+        const row = newState.find((row) => row.index === index);
+        if (row) {
+          row.currentState = currentFilter;
+        }
+        return newState;
+      });
+    },
+    [],
+  );
 
   const getBoxPosition = (): CSSProperties => {
     const box = filterButtonRef.current?.getBoundingClientRect();
@@ -515,9 +377,10 @@ export const useCustomFilter = <TData>({
     addNewFilterRowHandler,
     filterChangedHandler,
     getBoxPosition,
-    numberOfFilterRows,
-    setNumberOfFilterRows,
     addToGraphQLQueryFilterRecursively, // For testing purpose
     convertQueryToFilterRows, // For testing purpose
+    generateGraphQLQueryFilter, // For testing purpose
+    initialFilterRows, // For testing purpose
+    setPrevFilter, // For testing purpose
   };
 };

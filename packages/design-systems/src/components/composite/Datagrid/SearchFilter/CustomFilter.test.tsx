@@ -149,7 +149,7 @@ describe(
       ).toBeVisible();
 
       //Check filters
-      expect(currentFilters).toEqual({});
+      expect(currentFilters).toEqual({ and: {} });
     });
 
     it("Renders the component correctly when locale is set as Japanese", () => {
@@ -180,7 +180,7 @@ describe(
       ).toBeVisible();
 
       //Check filters
-      expect(currentFilters).toEqual({});
+      expect(currentFilters).toEqual({ and: {} });
     });
 
     it("Renders ENUM type correctly", async () => {
@@ -259,7 +259,7 @@ describe(
       //Check filters
       await waitFor(() => {
         //Wait for the useEffect to update the filters
-        expect(currentFilters).toEqual({ status: { eq: "pending" } });
+        expect(currentFilters).toEqual({ and: { status: { eq: "pending" } } });
       });
     });
 
@@ -325,7 +325,9 @@ describe(
       expect(inputValue).toHaveValue("test@test.com");
 
       // Check filters
-      expect(currentFilters).toEqual({ email: { eq: "test@test.com" } });
+      expect(currentFilters).toEqual({
+        and: { email: { eq: "test@test.com" } },
+      });
     });
 
     it("Renders number type correctly", async () => {
@@ -395,7 +397,7 @@ describe(
       expect(inputValue).toHaveValue(800);
 
       // Check filters
-      expect(currentFilters).toEqual({ amount: { eq: 800 } });
+      expect(currentFilters).toEqual({ and: { amount: { eq: 800 } } });
     });
 
     it("Renders Date type correctly", async () => {
@@ -465,7 +467,11 @@ describe(
       await waitFor(() => {
         //Wait for the useEffect to update the filters
         expect(currentFilters).toEqual(
-          { createdAt: { lte: "2023-11-14" } }, //Returned date is in 2023-11-14 format
+          {
+            and: {
+              createdAt: { lte: "2023-11-14" },
+            },
+          }, //Returned date is in 2023-11-14 format
         );
       });
     });
@@ -547,7 +553,7 @@ describe(
       //Check filters
       await waitFor(() => {
         //Wait for the useEffect to update the filters
-        expect(currentFilters).toEqual({ isCreditCard: { eq: true } });
+        expect(currentFilters).toEqual({ and: { isCreditCard: { eq: true } } });
       });
     });
 
@@ -708,9 +714,100 @@ describe(
       await waitFor(() => {
         //Wait for the useEffect to update the filters
         expect(currentFilters).toEqual(
-          { updatedAt: { lte: "2023-11-14T14:00:00.000Z" } }, //Returned dateTime is in toISOString
+          {
+            and: {
+              updatedAt: { lte: "2023-11-14T14:00:00.000Z" },
+            },
+          }, //Returned dateTime is in toISOString
         );
       });
+    });
+
+    it("when systemFilter and undefined aren't provided, first row doesn't show Joint Condition", async () => {
+      render(
+        <CustomFilter
+          columns={columns}
+          onChange={() => void 0}
+          localization={LOCALIZATION_JA}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
+          enableColumnFilters={true}
+          defaultFilter={undefined}
+          systemFilter={undefined}
+        />,
+      );
+
+      // wait UI to update
+      setTimeout(() => {
+        expect(screen.queryByTestId("select-joint-condition")).toHaveStyle({
+          visibility: "hidden",
+        });
+      }, 5000);
+    });
+
+    it("when systemFilter isn't provided, first row doesn't show Joint Condition", async () => {
+      render(
+        <CustomFilter
+          columns={columns}
+          onChange={() => void 0}
+          localization={LOCALIZATION_JA}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
+          enableColumnFilters={true}
+          defaultFilter={{ amount: { gt: 200 } }}
+          systemFilter={undefined}
+        />,
+      );
+
+      // wait UI to update
+      setTimeout(() => {
+        const elements = screen.getAllByTestId("select-joint-condition");
+        elements.forEach((element, i) => {
+          // first row doesn't show Joint Condition
+          // other rows show Joint Condition
+          if (i === 0) {
+            expect(element).toHaveStyle({
+              visibility: "hidden",
+            });
+          } else {
+            expect(element).toHaveStyle({
+              visibility: "visible",
+            });
+          }
+        });
+      }, 5000);
+    });
+
+    it("when defaultFilter isn't provided, first row doesn't show Joint Condition", async () => {
+      render(
+        <CustomFilter
+          columns={columns}
+          onChange={() => void 0}
+          localization={LOCALIZATION_JA}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
+          enableColumnFilters={true}
+          defaultFilter={undefined}
+          systemFilter={{ amount: { gt: 200 } }}
+        />,
+      );
+
+      setTimeout(() => {
+        const elements = screen.getAllByTestId("select-joint-condition");
+        elements.forEach((element, i) => {
+          // first row doesn't show Joint Condition
+          // other rows show Joint Condition
+          if (i === 0) {
+            expect(element).toHaveStyle({
+              visibility: "hidden",
+            });
+          } else {
+            expect(element).toHaveStyle({
+              visibility: "visible",
+            });
+          }
+        });
+      }, 5000);
     });
   },
 

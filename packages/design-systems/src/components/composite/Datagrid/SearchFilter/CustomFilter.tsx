@@ -45,8 +45,6 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
     addNewFilterRowHandler,
     filterChangedHandler,
     getBoxPosition,
-    numberOfFilterRows,
-    setNumberOfFilterRows,
   } = useCustomFilter({
     columns,
     onChange,
@@ -119,9 +117,6 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
           alignItems={"flex-end"}
         >
           {filterRows.map((row, i) => {
-            if (row.currentState.isSystem === true) {
-              return null;
-            }
             return (
               <FilterRow
                 key={"filterRow" + i}
@@ -129,7 +124,7 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
                 columns={columns}
                 jointConditions={activeJointConditions}
                 onDelete={deleteFilterRowHandler(row.index)}
-                isFirstRow={row.isFirstRow}
+                index={i}
                 onChange={filterChangedHandler(row.index)}
                 localization={localization}
               />
@@ -140,8 +135,7 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
           backgroundColor="primary.default"
           marginTop={4}
           onClick={() => {
-            addNewFilterRowHandler(numberOfFilterRows);
-            setNumberOfFilterRows((prev) => prev + 1);
+            addNewFilterRowHandler();
           }}
         >
           {localization.filter.addNewFilterLabel}

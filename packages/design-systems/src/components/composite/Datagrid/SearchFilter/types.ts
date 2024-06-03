@@ -13,7 +13,6 @@ export type FilterRowState = {
   value: string | boolean | number;
   condition: string;
   jointCondition?: string;
-  isSystem: boolean;
   isChangeable: boolean;
 };
 
