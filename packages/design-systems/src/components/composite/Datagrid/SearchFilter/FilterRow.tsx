@@ -41,7 +41,7 @@ type FilterRowProps<TData> = {
   meta?: ColumnMeta<TData, unknown>;
   onChange: (currentState: FilterRowState) => void;
   localization: Localization;
-  isFirstRow: boolean;
+  index: number;
   jointConditions: JointCondition[];
   currentFilter: FilterRowState;
 };
@@ -56,7 +56,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
     onDelete,
     onChange,
     localization,
-    isFirstRow,
+    index,
     jointConditions,
     currentFilter,
   } = props;
@@ -167,6 +167,9 @@ export const FilterRow = <TData extends Record<string, unknown>>(
     }
     return "OTHER";
   }, [currentFilter.condition, selectedColumnObject?.meta?.type]);
+
+  const isFirstRow = useMemo(() => index === 0, [index]);
+
   return (
     <Flex gridGap={2} marginTop={isFirstRow ? 0 : 4}>
       <IconButton

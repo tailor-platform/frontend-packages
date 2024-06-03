@@ -1,9 +1,8 @@
 import { renderHook, act, waitFor } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+import { columns } from "../utils/test";
 import { LOCALIZATION_JA } from "../../../../locales/ja";
-import { Payment, columns } from "../utils/test";
 import { FilterRowData, useCustomFilter } from "./useCustomFilter";
-import { jointConditions } from "./filter";
 import { FilterRowState, GraphQLQueryFilter } from "./types";
 
 describe("useCustomFilter", () => {
@@ -14,9 +13,9 @@ describe("useCustomFilter", () => {
         onChange: () => {
           return;
         },
-        localization: LOCALIZATION_JA,
         systemFilter: { status: { eq: "pending" } },
         defaultFilter: undefined,
+        localization: LOCALIZATION_JA,
       }),
     );
 
@@ -24,36 +23,16 @@ describe("useCustomFilter", () => {
       result.current.resetFilterHandler();
     });
 
-    const expectedValue: FilterRowData<Payment>[] = [
+    const expectedValue: FilterRowData[] = [
       {
         index: 0,
-        isFirstRow: true,
-        jointConditions: jointConditions,
-        columns: columns,
-        currentState: {
-          column: "status",
-          value: "pending",
-          condition: "eq",
-          jointCondition: undefined,
-          isSystem: true,
-          isChangeable: false,
-        },
-        localization: LOCALIZATION_JA,
-      },
-      {
-        index: 1,
-        isFirstRow: true,
-        jointConditions: jointConditions,
-        columns: columns,
         currentState: {
           column: "",
           value: "",
           condition: "",
-          jointCondition: "and",
-          isSystem: false,
-          isChangeable: false,
+          jointCondition: undefined,
+          isChangeable: true,
         },
-        localization: LOCALIZATION_JA,
       },
     ];
     expect(result.current.filterRows).toStrictEqual(expectedValue);
@@ -66,9 +45,9 @@ describe("useCustomFilter", () => {
         onChange: () => {
           return;
         },
-        localization: LOCALIZATION_JA,
         systemFilter: undefined,
         defaultFilter: undefined,
+        localization: LOCALIZATION_JA,
       }),
     );
 
@@ -76,21 +55,16 @@ describe("useCustomFilter", () => {
       result.current.resetFilterHandler();
     });
 
-    const expectedValue: FilterRowData<Payment>[] = [
+    const expectedValue: FilterRowData[] = [
       {
         index: 0,
-        isFirstRow: true,
-        jointConditions: jointConditions,
-        columns: columns,
         currentState: {
           column: "",
           value: "",
           condition: "",
-          jointCondition: "",
-          isSystem: false,
+          jointCondition: undefined,
           isChangeable: true,
         },
-        localization: LOCALIZATION_JA,
       },
     ];
     expect(result.current.filterRows).toStrictEqual(expectedValue);
@@ -103,9 +77,9 @@ describe("useCustomFilter", () => {
         onChange: () => {
           return;
         },
-        localization: LOCALIZATION_JA,
         systemFilter: undefined,
         defaultFilter: { status: { eq: "pending" } },
+        localization: LOCALIZATION_JA,
       }),
     );
 
@@ -113,36 +87,26 @@ describe("useCustomFilter", () => {
       result.current.resetFilterHandler();
     });
 
-    const expectedValue: FilterRowData<Payment>[] = [
+    const expectedValue: FilterRowData[] = [
       {
         index: 0,
-        isFirstRow: true,
-        jointConditions: jointConditions,
-        columns: columns,
         currentState: {
           column: "status",
           value: "pending",
           condition: "eq",
-          jointCondition: undefined,
-          isSystem: false,
+          jointCondition: "and",
           isChangeable: false,
         },
-        localization: LOCALIZATION_JA,
       },
       {
         index: 1,
-        isFirstRow: false,
-        jointConditions: jointConditions,
-        columns: columns,
         currentState: {
           column: "",
           value: "",
           condition: "",
-          jointCondition: "",
-          isSystem: false,
+          jointCondition: undefined,
           isChangeable: true,
         },
-        localization: LOCALIZATION_JA,
       },
     ];
     expect(result.current.filterRows).toStrictEqual(expectedValue);
@@ -155,9 +119,9 @@ describe("useCustomFilter", () => {
         onChange: () => {
           return;
         },
-        localization: LOCALIZATION_JA,
         systemFilter: { status: { eq: "pending" } },
         defaultFilter: { amount: { eq: 200 } },
+        localization: LOCALIZATION_JA,
       }),
     );
 
@@ -165,51 +129,26 @@ describe("useCustomFilter", () => {
       result.current.resetFilterHandler();
     });
 
-    const expectedValue: FilterRowData<Payment>[] = [
+    const expectedValue: FilterRowData[] = [
       {
         index: 0,
-        isFirstRow: true,
-        jointConditions: jointConditions,
-        columns: columns,
-        currentState: {
-          column: "status",
-          value: "pending",
-          condition: "eq",
-          jointCondition: undefined,
-          isSystem: true,
-          isChangeable: false,
-        },
-        localization: LOCALIZATION_JA,
-      },
-      {
-        index: 1,
-        isFirstRow: true,
-        jointConditions: jointConditions,
-        columns: columns,
         currentState: {
           column: "amount",
           value: 200,
           condition: "eq",
           jointCondition: "and",
-          isSystem: false,
           isChangeable: false,
         },
-        localization: LOCALIZATION_JA,
       },
       {
-        index: 2,
-        isFirstRow: false,
-        jointConditions: jointConditions,
-        columns: columns,
+        index: 1,
         currentState: {
           column: "",
           value: "",
           condition: "",
-          jointCondition: "and",
-          isSystem: false,
-          isChangeable: false,
+          jointCondition: undefined,
+          isChangeable: true,
         },
-        localization: LOCALIZATION_JA,
       },
     ];
     expect(result.current.filterRows).toStrictEqual(expectedValue);
@@ -222,9 +161,9 @@ describe("useCustomFilter", () => {
         onChange: () => {
           return;
         },
-        localization: LOCALIZATION_JA,
         systemFilter: { status: { eq: "pending" } },
         defaultFilter: { amount: { eq: 200 } },
+        localization: LOCALIZATION_JA,
       }),
     );
 
@@ -232,92 +171,30 @@ describe("useCustomFilter", () => {
       result.current.deleteFilterRowHandler(1);
     });
 
-    const expectedValue: FilterRowData<Payment>[] = [
+    const expectedValue: FilterRowData[] = [
       {
         index: 0,
-        isFirstRow: true,
-        jointConditions: jointConditions,
-        columns: columns,
-        currentState: {
-          column: "status",
-          value: "pending",
-          condition: "eq",
-          jointCondition: undefined,
-          isSystem: true,
-          isChangeable: false,
-        },
-        localization: LOCALIZATION_JA,
-      },
-      {
-        index: 1,
-        isFirstRow: true,
-        jointConditions: jointConditions,
-        columns: columns,
         currentState: {
           column: "amount",
           value: 200,
           condition: "eq",
           jointCondition: "and",
-          isSystem: false,
           isChangeable: false,
         },
-        localization: LOCALIZATION_JA,
       },
       {
-        index: 2,
-        isFirstRow: false,
-        jointConditions: jointConditions,
-        columns: columns,
+        index: 1,
         currentState: {
           column: "",
           value: "",
           condition: "",
-          jointCondition: "and",
-          isSystem: false,
-          isChangeable: false,
+          jointCondition: undefined,
+          isChangeable: true,
         },
-        localization: LOCALIZATION_JA,
       },
     ];
     await waitFor(() => {
       expect(result.current.filterRows).toStrictEqual(expectedValue);
-    });
-  });
-
-  it("addToGraphQLQueryFilterRecursively work as expected", async () => {
-    const { result } = renderHook(() =>
-      useCustomFilter({
-        columns,
-        onChange: () => {
-          return;
-        },
-        localization: LOCALIZATION_JA,
-        systemFilter: { status: { eq: "pending" } },
-        defaultFilter: { amount: { eq: 200 } },
-      }),
-    );
-    const graphQLQueryObject: GraphQLQueryFilter = {};
-    const filter: FilterRowState = {
-      column: "amount",
-      value: 200,
-      condition: "eq",
-      isSystem: false,
-      isChangeable: false,
-    };
-
-    act(() => {
-      result.current.addToGraphQLQueryFilterRecursively(
-        filter,
-        graphQLQueryObject,
-        "number",
-        LOCALIZATION_JA,
-      );
-    });
-
-    await waitFor(() => {
-      expect(graphQLQueryObject).toStrictEqual({
-        amount: { eq: 200 },
-      });
     });
   });
 
@@ -328,9 +205,9 @@ describe("useCustomFilter", () => {
         onChange: () => {
           return;
         },
-        localization: LOCALIZATION_JA,
         systemFilter: { status: { eq: "pending" } },
         defaultFilter: { amount: { eq: 200 } },
+        localization: LOCALIZATION_JA,
       }),
     );
     const graphQLQueryObject: GraphQLQueryFilter = {};
@@ -338,7 +215,6 @@ describe("useCustomFilter", () => {
       column: "amount",
       value: 200,
       condition: "eq",
-      isSystem: false,
       isChangeable: false,
       jointCondition: "or",
     };
@@ -368,9 +244,9 @@ describe("useCustomFilter", () => {
         onChange: () => {
           return;
         },
-        localization: LOCALIZATION_JA,
         systemFilter: { status: { eq: "pending" } },
         defaultFilter: { amount: { eq: 200 } },
+        localization: LOCALIZATION_JA,
       }),
     );
     const graphQLQueryObject: GraphQLQueryFilter = {
@@ -382,7 +258,6 @@ describe("useCustomFilter", () => {
       column: "amount",
       value: 200,
       condition: "eq",
-      isSystem: false,
       isChangeable: false,
       jointCondition: "or",
     };
@@ -408,315 +283,330 @@ describe("useCustomFilter", () => {
     });
   });
 
-  it("convertQueryToFilterRows work as expected with jointConditionValue", () => {
+  it("addToGraphQLQueryFilterRecursively work as expected with no systemFilter and defaultFilter", async () => {
     const { result } = renderHook(() =>
       useCustomFilter({
         columns,
         onChange: () => {
           return;
         },
+        systemFilter: undefined,
+        defaultFilter: undefined,
         localization: LOCALIZATION_JA,
-        systemFilter: { status: { eq: "pending" } },
-        defaultFilter: { amount: { eq: 200 } },
       }),
     );
 
-    const filter: GraphQLQueryFilter = {
-      or: {
+    const filter: FilterRowState = {
+      column: "amount",
+      value: 200,
+      condition: "eq",
+      isChangeable: false,
+    };
+
+    act(() => {
+      result.current.filterChangedHandler(0)(filter);
+    });
+
+    const expectedValue = {
+      and: {
+        amount: {
+          eq: 200,
+        },
+      },
+    };
+
+    await waitFor(() => {
+      expect(
+        result.current.generateGraphQLQueryFilter(result.current.filterRows),
+      ).toStrictEqual(expectedValue);
+    });
+  });
+
+  it("generateGraphQLQueryFilter woks correctly with systemFilter and defaultFilter", async () => {
+    const systemFilter = { status: { eq: "pending" } };
+    const defaultFilter = { amount: { eq: 200 } };
+
+    const { result } = renderHook(() =>
+      useCustomFilter({
+        columns,
+        onChange: () => {
+          return;
+        },
+        systemFilter: systemFilter,
+        defaultFilter: defaultFilter,
+        localization: LOCALIZATION_JA,
+      }),
+    );
+
+    act(() => {
+      // It Represents a change made by the user
+      result.current.filterChangedHandler(1)({
+        column: "status",
+        value: "success",
+        condition: "eq",
+        jointCondition: "and",
+        isChangeable: false,
+      });
+      result.current.addNewFilterRowHandler();
+      result.current.filterChangedHandler(2)({
+        column: "email",
+        value: "test@test.com",
+        condition: "eq",
+        jointCondition: "and",
+        isChangeable: false,
+      });
+      result.current.addNewFilterRowHandler();
+      result.current.filterChangedHandler(3)({
+        column: "isCreditCard",
+        value: true,
+        condition: "eq",
+        jointCondition: "and",
+        isChangeable: false,
+      });
+    });
+
+    const expectedValue = {
+      and: {
+        status: {
+          eq: "pending",
+        },
+        and: {
+          amount: {
+            eq: 200,
+          },
+          and: {
+            status: {
+              eq: "success",
+            },
+            and: {
+              email: {
+                eq: "test@test.com",
+              },
+              and: {
+                isCreditCard: {
+                  eq: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    };
+
+    act(() => {
+      expect(
+        result.current.generateGraphQLQueryFilter(result.current.filterRows),
+      ).toStrictEqual(expectedValue);
+    });
+  });
+
+  it("generateGraphQLQueryFilter woks correctly with systemFilter", async () => {
+    const systemFilter = { status: { eq: "pending" } };
+
+    const { result } = renderHook(() =>
+      useCustomFilter({
+        columns,
+        onChange: () => {
+          return;
+        },
+        systemFilter: systemFilter,
+        defaultFilter: undefined,
+        localization: LOCALIZATION_JA,
+      }),
+    );
+
+    const expectedValue = {
+      and: {
         status: { eq: "pending" },
       },
     };
-    const expectedValue: FilterRowData<Payment>[] = [
+
+    act(() => {
+      expect(
+        result.current.generateGraphQLQueryFilter(result.current.filterRows),
+      ).toStrictEqual(expectedValue);
+    });
+  });
+
+  it("generateGraphQLQueryFilter woks correctly with defaultFilter", async () => {
+    const defaultFilter = { amount: { eq: 200 } };
+
+    const { result } = renderHook(() =>
+      useCustomFilter({
+        columns,
+        onChange: () => {
+          return;
+        },
+        systemFilter: undefined,
+        defaultFilter: defaultFilter,
+        localization: LOCALIZATION_JA,
+      }),
+    );
+
+    const expectedValue = {
+      and: {
+        and: {
+          amount: {
+            eq: 200,
+          },
+        },
+      },
+    };
+    act(() => {
+      expect(
+        result.current.generateGraphQLQueryFilter(result.current.filterRows),
+      ).toStrictEqual(expectedValue);
+    });
+  });
+
+  it("useEffect not called when prevFilter is same", async () => {
+    const systemFilter = { status: { eq: "pending" } };
+    const defaultFilter = { amount: { eq: 200 } };
+
+    const onChangeMock = vi.fn();
+    const { result } = renderHook(() =>
+      useCustomFilter({
+        columns,
+        onChange: onChangeMock,
+        systemFilter: systemFilter,
+        defaultFilter: defaultFilter,
+        localization: LOCALIZATION_JA,
+      }),
+    );
+
+    // incompletely add filter
+    act(() => {
+      result.current.filterChangedHandler(2)({
+        column: "",
+        value: "",
+        condition: "eq",
+        jointCondition: "and",
+        isChangeable: false,
+      });
+    });
+
+    // first render call.
+    await waitFor(() => {
+      expect(onChangeMock).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  it("initialFilterRows works correctly when providing systemFilter", async () => {
+    const systemFilter = { status: { eq: "pending" } };
+
+    const { result } = renderHook(() =>
+      useCustomFilter({
+        columns,
+        onChange: () => {
+          return;
+        },
+        systemFilter: systemFilter,
+        defaultFilter: undefined,
+        localization: LOCALIZATION_JA,
+      }),
+    );
+
+    const expectedValue: FilterRowData[] = [
       {
-        index: 1,
-        isFirstRow: false,
-        jointConditions: jointConditions,
-        columns: columns,
+        index: 0,
+        currentState: {
+          column: "",
+          value: "",
+          condition: "",
+          jointCondition: undefined,
+          isChangeable: true,
+        },
+      },
+    ];
+
+    act(() => {
+      expect(result.current.filterRows).toStrictEqual(expectedValue);
+    });
+  });
+
+  it("initialFilterRows works correctly when providing defaultFilter", async () => {
+    const defaultFilter = { status: { eq: "pending" } };
+
+    const { result } = renderHook(() =>
+      useCustomFilter({
+        columns,
+        onChange: () => {
+          return;
+        },
+        defaultFilter: defaultFilter,
+        localization: LOCALIZATION_JA,
+      }),
+    );
+
+    const expectedValue: FilterRowData[] = [
+      {
+        index: 0,
         currentState: {
           column: "status",
           value: "pending",
           condition: "eq",
-          jointCondition: "or",
-          isSystem: true,
+          jointCondition: "and",
           isChangeable: false,
         },
-        localization: LOCALIZATION_JA,
+      },
+      {
+        index: 1,
+        currentState: {
+          column: "",
+          value: "",
+          condition: "",
+          jointCondition: undefined,
+          isChangeable: true,
+        },
       },
     ];
+
     act(() => {
-      expect(
-        result.current.convertQueryToFilterRows(filter, true, 0),
-      ).toStrictEqual(expectedValue);
+      expect(result.current.filterRows).toStrictEqual(expectedValue);
     });
   });
 
-  it("convertQueryToFilterRows work as expected without jointConditionValue", () => {
+  it("initialFilterRows works correctly when providing defaultFilter and systemFilter", async () => {
+    const defaultFilter = { amount: { gt: 200 } };
+    const systemFilter = { status: { eq: "pending" } };
+
     const { result } = renderHook(() =>
       useCustomFilter({
         columns,
         onChange: () => {
           return;
         },
+        systemFilter: systemFilter,
+        defaultFilter: defaultFilter,
         localization: LOCALIZATION_JA,
-        systemFilter: { status: { eq: "pending" } },
-        defaultFilter: { amount: { eq: 200 } },
       }),
     );
 
-    const filter: GraphQLQueryFilter = {
-      amount: { eq: 200 },
-    };
-    const expectedValue: FilterRowData<Payment>[] = [
+    const expectedValue: FilterRowData[] = [
       {
         index: 0,
-        isFirstRow: true,
-        jointConditions: jointConditions,
-        columns: columns,
         currentState: {
           column: "amount",
           value: 200,
-          condition: "eq",
-          jointCondition: undefined,
-          isSystem: false,
+          condition: "gt",
+          jointCondition: "and",
           isChangeable: false,
         },
-        localization: LOCALIZATION_JA,
+      },
+      {
+        index: 1,
+        currentState: {
+          column: "",
+          value: "",
+          condition: "",
+          jointCondition: undefined,
+          isChangeable: true,
+        },
       },
     ];
-    act(() => {
-      expect(
-        result.current.convertQueryToFilterRows(filter, false, 0),
-      ).toStrictEqual(expectedValue);
-    });
-  });
-
-  it("Multiple filter types woks correctly (type AND)", async () => {
-    const { result } = renderHook(() =>
-      useCustomFilter({
-        columns,
-        onChange: () => {
-          return;
-        },
-        localization: LOCALIZATION_JA,
-        systemFilter: { status: { eq: "pending" } },
-        defaultFilter: { amount: { eq: 200 } },
-      }),
-    );
-    const graphQLQueryObject: GraphQLQueryFilter = {};
-    const filter: FilterRowState = {
-      column: "isCreditCard",
-      value: true,
-      condition: "eq",
-      isSystem: false,
-      isChangeable: false,
-    };
-
-    const filter2: FilterRowState = {
-      column: "status",
-      value: "success",
-      condition: "eq",
-      isSystem: false,
-      isChangeable: false,
-      jointCondition: "and",
-    };
-
-    const filter3: FilterRowState = {
-      column: "createdAt",
-      value: "2023-11-14",
-      condition: "lte",
-      isSystem: false,
-      isChangeable: false,
-      jointCondition: "and",
-    };
-
-    const filter4: FilterRowState = {
-      column: "email",
-      value: "test@test.com",
-      condition: "eq",
-      isSystem: false,
-      isChangeable: false,
-      jointCondition: "and",
-    };
-
-    const filter5: FilterRowState = {
-      column: "amount",
-      value: 800,
-      condition: "gte",
-      isSystem: false,
-      isChangeable: false,
-      jointCondition: "and",
-    };
 
     act(() => {
-      result.current.addToGraphQLQueryFilterRecursively(
-        filter,
-        graphQLQueryObject,
-        "boolean",
-        LOCALIZATION_JA,
-      );
-      result.current.addToGraphQLQueryFilterRecursively(
-        filter,
-        graphQLQueryObject,
-        "boolean",
-        LOCALIZATION_JA,
-      );
-      result.current.addToGraphQLQueryFilterRecursively(
-        filter2,
-        graphQLQueryObject,
-        "string",
-        LOCALIZATION_JA,
-      );
-      result.current.addToGraphQLQueryFilterRecursively(
-        filter3,
-        graphQLQueryObject,
-        "string",
-        LOCALIZATION_JA,
-      );
-      result.current.addToGraphQLQueryFilterRecursively(
-        filter4,
-        graphQLQueryObject,
-        "string",
-        LOCALIZATION_JA,
-      );
-      result.current.addToGraphQLQueryFilterRecursively(
-        filter5,
-        graphQLQueryObject,
-        "number",
-        LOCALIZATION_JA,
-      );
-    });
-
-    await waitFor(() => {
-      expect(graphQLQueryObject).toEqual({
-        isCreditCard: { eq: true },
-        and: {
-          status: { eq: "success" },
-          and: {
-            createdAt: { lte: "2023-11-14" },
-            and: {
-              email: { eq: "test@test.com" },
-              and: {
-                amount: { gte: 800 },
-              },
-            },
-          },
-        },
-      });
-    });
-  });
-
-  it("Multiple filter types woks correctly (type OR)", async () => {
-    const { result } = renderHook(() =>
-      useCustomFilter({
-        columns,
-        onChange: () => {
-          return;
-        },
-        localization: LOCALIZATION_JA,
-        systemFilter: { status: { eq: "pending" } },
-        defaultFilter: { amount: { eq: 200 } },
-      }),
-    );
-    const graphQLQueryObject: GraphQLQueryFilter = {};
-    const filter: FilterRowState = {
-      column: "isCreditCard",
-      value: true,
-      condition: "eq",
-      isSystem: false,
-      isChangeable: false,
-    };
-
-    const filter2: FilterRowState = {
-      column: "status",
-      value: "success",
-      condition: "eq",
-      isSystem: false,
-      isChangeable: false,
-      jointCondition: "or",
-    };
-
-    const filter3: FilterRowState = {
-      column: "createdAt",
-      value: "2023-11-14",
-      condition: "lte",
-      isSystem: false,
-      isChangeable: false,
-      jointCondition: "or",
-    };
-
-    const filter4: FilterRowState = {
-      column: "email",
-      value: "test@test.com",
-      condition: "eq",
-      isSystem: false,
-      isChangeable: false,
-      jointCondition: "or",
-    };
-
-    const filter5: FilterRowState = {
-      column: "amount",
-      value: 800,
-      condition: "gte",
-      isSystem: false,
-      isChangeable: false,
-      jointCondition: "or",
-    };
-
-    act(() => {
-      result.current.addToGraphQLQueryFilterRecursively(
-        filter,
-        graphQLQueryObject,
-        "boolean",
-        LOCALIZATION_JA,
-      );
-      result.current.addToGraphQLQueryFilterRecursively(
-        filter,
-        graphQLQueryObject,
-        "boolean",
-        LOCALIZATION_JA,
-      );
-      result.current.addToGraphQLQueryFilterRecursively(
-        filter2,
-        graphQLQueryObject,
-        "string",
-        LOCALIZATION_JA,
-      );
-      result.current.addToGraphQLQueryFilterRecursively(
-        filter3,
-        graphQLQueryObject,
-        "string",
-        LOCALIZATION_JA,
-      );
-      result.current.addToGraphQLQueryFilterRecursively(
-        filter4,
-        graphQLQueryObject,
-        "string",
-        LOCALIZATION_JA,
-      );
-      result.current.addToGraphQLQueryFilterRecursively(
-        filter5,
-        graphQLQueryObject,
-        "number",
-        LOCALIZATION_JA,
-      );
-    });
-
-    await waitFor(() => {
-      expect(graphQLQueryObject).toEqual({
-        isCreditCard: { eq: true },
-        or: {
-          status: { eq: "success" },
-          or: {
-            createdAt: { lte: "2023-11-14" },
-            or: {
-              email: { eq: "test@test.com" },
-              or: {
-                amount: { gte: 800 },
-              },
-            },
-          },
-        },
-      });
+      expect(result.current.filterRows).toStrictEqual(expectedValue);
     });
   });
 });
