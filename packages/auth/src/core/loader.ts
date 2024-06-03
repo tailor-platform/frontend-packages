@@ -1,6 +1,7 @@
 import { internalClientSessionPath } from "@core/path";
 import { Config } from "@core/config";
-import { NoSessionError, SessionResult, UserInfo } from "@core/types";
+import { SessionResult, UserInfo } from "@core/types";
+import { NoSessionError } from "@core/errors";
 
 // SuspenseLoader is a class that abstracts out the logic of loading a resource from a remote server,
 // and caches the result for React Suspense support in client components.
