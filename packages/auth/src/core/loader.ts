@@ -54,6 +54,10 @@ export const internalUserinfoLoader = new SuspenseLoader<UserInfo>(
   async (config) => {
     const resp = await fetchSession(config);
     const session = (await resp.json()) as unknown as SessionResult;
+    if (session.token === "" || session.token === null) {
+      throw new Error("No session token available");
+    }
+
     return await fetch(config.apiUrl(config.userInfoPath()), {
       headers: {
         Authorization: `Bearer ${session.token}`,
