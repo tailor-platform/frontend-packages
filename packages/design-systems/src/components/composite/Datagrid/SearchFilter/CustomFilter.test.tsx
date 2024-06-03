@@ -809,6 +809,61 @@ describe(
         });
       }, 5000);
     });
+
+    it("when user click IN condition, show up TagsInput", async () => {
+      let currentFilters: GraphQLQueryFilter = {};
+
+      const systemFilter: GraphQLQueryFilter = {
+        updatedAt: { eq: "2024-05-10 12:00:00" },
+      };
+      const defaultQuery: GraphQLQueryFilter = {
+        status: { eq: "pending" },
+      };
+      render(
+        <CustomFilter
+          columns={columns}
+          onChange={(currentState: GraphQLQueryFilter) => {
+            currentFilters = currentState;
+          }}
+          localization={LOCALIZATION_JA}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
+          enableColumnFilters={true}
+          defaultFilter={defaultQuery}
+          systemFilter={systemFilter}
+        />,
+      );
+
+      const user = userEvent.setup();
+
+      // Open filter
+      await user.click(await screen.findByTestId("datagrid-filter-button"));
+
+      //Select joint condition
+      await selectJointCondition(screen, user, 1, "AND");
+      //Select column
+      await selectColumn(screen, user, 1, "Amount");
+      //Select condition
+      await selectCondition(screen, user, 1, "に含まれる");
+
+      const inputValue = screen.getByTestId("tags-input-value");
+
+      expect(inputValue).toBeVisible();
+
+      await user.click(inputValue);
+      await user.type(inputValue, "200");
+      await user.keyboard("{Enter}");
+
+      //Check filters
+      await waitFor(() => {
+        //Wait for the useEffect to update the filters
+        expect(currentFilters).toEqual({
+          and: {
+            updatedAt: { eq: "2023-11-14T14:00:00.000Z" },
+          },
+        });
+      });
+    });
   },
 
   { timeout: 10000 },
