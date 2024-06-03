@@ -109,7 +109,6 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         ...currentFilter,
         value: newValue,
       };
-      console.log("onChangeValue", nextFilter);
       onChange(nextFilter);
     },
     [onChange, currentFilter, selectedColumnObject],
