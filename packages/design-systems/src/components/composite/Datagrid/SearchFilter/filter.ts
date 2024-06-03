@@ -76,14 +76,7 @@ export const getLocalizedFilterConditions = (
     {
       label: localization.filter.condition.operatorLabel.in,
       value: GraphQLFilterOperator.IN,
-      applicableTypeTypes: [
-        "string",
-        "enum",
-        "time",
-        "dateTime",
-        "date",
-        "number",
-      ],
+      applicableTypeTypes: ["string", "enum", "number"],
       disabled: false,
     },
   ];
