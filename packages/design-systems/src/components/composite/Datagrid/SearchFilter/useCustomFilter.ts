@@ -207,7 +207,7 @@ export const useCustomFilter = <TData>({
 
       const generateGraphQLQueryObject = (
         isExitJointCondition: boolean,
-        value: string | boolean | number,
+        value: string | boolean | number | string[] | number[],
       ) => {
         if (isExitJointCondition) {
           return {
@@ -234,12 +234,18 @@ export const useCustomFilter = <TData>({
         }
         switch (metaType) {
           case "boolean":
+            if (Array.isArray(value)) {
+              break;
+            }
             graphQLQueryObject[key] = generateGraphQLQueryObject(
               isExitJointCondition,
               value.toLowerCase() === localization.filter.columnBoolean.true,
             );
             break;
           case "dateTime": {
+            if (Array.isArray(value)) {
+              break;
+            }
             const date = dayjs(value);
             if (!date.isValid()) {
               throw new Error("Invalid date format.");
@@ -251,6 +257,13 @@ export const useCustomFilter = <TData>({
             break;
           }
           case "number":
+            if (Array.isArray(value)) {
+              graphQLQueryObject[key] = generateGraphQLQueryObject(
+                isExitJointCondition,
+                value.map(Number),
+              );
+              break;
+            }
             graphQLQueryObject[key] = generateGraphQLQueryObject(
               isExitJointCondition,
               Number(value),
