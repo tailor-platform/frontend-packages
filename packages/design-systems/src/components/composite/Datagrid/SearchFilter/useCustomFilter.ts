@@ -119,7 +119,7 @@ export const useCustomFilter = <TData>({
     filterRows.push(
       newEmptyRow({
         index: filterRows.length,
-        isChangeable: true, // この時点でユーザーはjointConditionを指定していないので、変更可能
+        isChangeable: true, // At this point, the user has not specified jointCondition, so it can be changed
       }),
     );
     return filterRows;
@@ -285,6 +285,9 @@ export const useCustomFilter = <TData>({
     [],
   );
 
+  /**
+   * This will convert the FilterRowState object from the UI to GraphQLQueryFilter and add it to the GraphQLQueryFilter.
+   */
   const generateGraphQLQueryFilter = useCallback(
     (currentFilterRows: FilterRowData[]) => {
       const newGraphQLQueryFilter: GraphQLQueryFilter = {};
@@ -333,9 +336,6 @@ export const useCustomFilter = <TData>({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterRows]);
 
-  /**
-   * This will convert the FilterRowState object from the UI to GraphQLQueryFilter and add it to the GraphQLQueryFilter.
-   */
   const filterChangedHandler = useCallback(
     (index: number) => (currentFilter: FilterRowState) => {
       if (currentFilter.jointCondition) {
