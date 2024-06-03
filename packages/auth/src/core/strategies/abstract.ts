@@ -118,10 +118,11 @@ export type AbstractStrategy<
 
 export class CallbackError extends Error {
   constructor(
-    readonly name: string,
+    readonly code: string,
     readonly message: string,
   ) {
     super(message);
+    this.name = this.constructor.name;
   }
 }
 

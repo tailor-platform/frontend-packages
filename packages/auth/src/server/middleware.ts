@@ -132,7 +132,7 @@ export const middlewareRouter = async (
 export const createErrorRedirection = (config: Config, e: unknown) => {
   const redirectPath = config.unauthorizedPath();
   const queryParams = new URLSearchParams({
-    name: extractErrorName(e),
+    code: extractErrorCode(e),
   });
 
   // Direction always uses 301 to make it GET request to the destination page
@@ -142,9 +142,9 @@ export const createErrorRedirection = (config: Config, e: unknown) => {
   );
 };
 
-const extractErrorName = (e: unknown) => {
+const extractErrorCode = (e: unknown) => {
   if (e instanceof CallbackError) {
-    return e.name;
+    return e.code;
   } else {
     return "unknown-error";
   }
