@@ -409,7 +409,13 @@ export const FilterRow = <TData extends Record<string, unknown>>(
             onValueChange={(e: ValueChangeDetails<CollectionItem>) =>
               onChangeValue(e.value)
             }
-            value={[currentFilter.value.toString()]}
+            value={[
+              currentFilter.value.toString() === "true" ||
+              currentFilter.value.toString() ===
+                localization.filter.columnBoolean.true
+                ? localization.filter.columnBoolean.true
+                : localization.filter.columnBoolean.false,
+            ]}
             data-testid="select-input-value"
           >
             <Select.Control className={classes.control}>
