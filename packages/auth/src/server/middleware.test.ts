@@ -101,7 +101,7 @@ describe("error redirection", () => {
 
       expect(redirection.status).toBe(301);
       expect(redirection.headers.get("location")).toBe(
-        "http://localhost:3000/unauthorized?name=unknown-error",
+        "http://localhost:3000/unauthorized?code=unknown-error",
       );
     });
 
@@ -115,7 +115,7 @@ describe("error redirection", () => {
 
       expect(redirection.status).toBe(301);
       expect(redirection.headers.get("location")).toBe(
-        "http://localhost:3000/unauthorized?name=test-callback-error",
+        "http://localhost:3000/unauthorized?code=test-callback-error",
       );
     });
   });
