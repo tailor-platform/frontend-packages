@@ -19,7 +19,7 @@ export type FilterRowData = {
 
 type UseCustomFilterProps<TData> = {
   columns: Array<Column<TData>>;
-  onChange: (currentState: GraphQLQueryFilter) => void;
+  onChange: (currentState: GraphQLQueryFilter | undefined) => void;
   localization: Localization;
   systemFilter?: GraphQLQueryFilter;
   defaultFilter?: GraphQLQueryFilter;
@@ -323,6 +323,10 @@ export const useCustomFilter = <TData>({
         }
       });
 
+      if (!systemFilter && Object.keys(newGraphQLQueryFilter).length === 0) {
+        return undefined;
+      }
+
       const result = {
         and: {
           ...systemFilter,
@@ -344,7 +348,7 @@ export const useCustomFilter = <TData>({
     const filter = generateGraphQLQueryFilter(filterRows);
     if (JSON.stringify(prevFilter) !== JSON.stringify(filter)) {
       onChange(filter);
-      setPrevFilter(filter);
+      setPrevFilter(filter ?? {});
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterRows]);

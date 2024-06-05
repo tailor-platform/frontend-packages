@@ -22,7 +22,7 @@ export interface DataGridInstance<
   manualPagination?: boolean;
   enableColumnFilters?: boolean;
   enableHiding?: boolean;
-  onFilterChange?: (filters: GraphQLQueryFilter) => void;
+  onFilterChange?: (filters: GraphQLQueryFilter | undefined) => void;
   systemFilter?: GraphQLQueryFilter;
   defaultFilter?: GraphQLQueryFilter;
   localization?: Localization;
@@ -42,7 +42,7 @@ export type UseDataGridProps<TData extends Record<string, unknown>> = {
   systemFilter?: GraphQLQueryFilter;
   defaultFilter?: GraphQLQueryFilter;
   enableHiding?: boolean;
-  onFilterChange?: (filters: GraphQLQueryFilter) => void;
+  onFilterChange?: (filters: GraphQLQueryFilter | undefined) => void;
   pagination?: PaginationState;
   totalCount?: number;
   onPageChange?: (details: PageChangeDetails) => void;

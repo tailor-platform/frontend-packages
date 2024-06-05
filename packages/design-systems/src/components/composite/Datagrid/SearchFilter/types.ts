@@ -49,7 +49,7 @@ export interface CustomFilterInstance {
 
 export type CustomFilterProps<TData> = {
   columns: Array<Column<TData>>;
-  onChange: (currentState: GraphQLQueryFilter) => void;
+  onChange: (currentState: GraphQLQueryFilter | undefined) => void;
   localization: Localization;
   systemFilter?: GraphQLQueryFilter;
   defaultFilter?: GraphQLQueryFilter;
