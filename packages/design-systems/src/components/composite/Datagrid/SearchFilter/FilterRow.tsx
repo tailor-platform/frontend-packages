@@ -164,7 +164,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
     return selectedColumnObject?.meta?.type || "text";
   }, [selectedColumnObject?.meta?.type]);
 
-  const renderValueInput: JSX.Element = useMemo(() => {
+  const renderValueInput = () => {
     // render pattern
     if (currentFilter.condition === "in") {
       return (
@@ -214,15 +214,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         </Box>
       );
     }
-  }, [
-    currentFilter,
-    enumList,
-    inputType,
-    inputValuePlaceHolder,
-    localization,
-    onChangeValue,
-    selectedColumnObject,
-  ]);
+  };
 
   const isFirstRow = useMemo(() => index === 0, [index]);
 
@@ -405,7 +397,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         <Text fontWeight="bold" marginBottom={"4px"} color="fg.default">
           {localization.filter.valueLabel}
         </Text>
-        {renderValueInput}
+        {renderValueInput()}
       </Box>
     </Flex>
   );
