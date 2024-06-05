@@ -48,8 +48,6 @@ type FilterRowProps<TData> = {
   currentFilter: FilterRowState;
 };
 
-type ValueInputType = "IN" | "ENUM" | "BOOLEAN" | "OTHER";
-
 export const FilterRow = <TData extends Record<string, unknown>>(
   props: FilterRowProps<TData>,
 ) => {
@@ -169,19 +167,65 @@ export const FilterRow = <TData extends Record<string, unknown>>(
     return selectedColumnObject?.meta?.type || "text";
   }, [selectedColumnObject?.meta?.type]);
 
-  const renderValueInput: ValueInputType = useMemo(() => {
+  const renderValueInput: JSX.Element = useMemo(() => {
     // render pattern
     if (currentFilter.condition === "in") {
-      return "IN";
+      return (
+        <TagsInput
+          inputValuePlaceHolder={inputValuePlaceHolder}
+          inputType={inputType}
+          onChangeValue={onChangeValue}
+        />
+      );
+    } else if (selectedColumnObject?.meta?.type === "enum") {
+      return (
+        <EnumSelect
+          currentFilter={currentFilter}
+          selectedColumnObject={selectedColumnObject}
+          inputValuePlaceHolder={inputValuePlaceHolder}
+          enumList={enumList}
+          onChangeValue={onChangeValue}
+        />
+      );
+    } else if (selectedColumnObject?.meta?.type === "boolean") {
+      return (
+        <BooleanSelect
+          currentFilter={currentFilter}
+          inputValuePlaceHolder={inputValuePlaceHolder}
+          onChangeValue={onChangeValue}
+          localization={localization}
+        />
+      );
+    } else {
+      return (
+        <Box>
+          <Input
+            id="filterByValue"
+            data-testid="select-input-value"
+            size="md"
+            width={180}
+            borderRadius={"4px"}
+            variant="outline"
+            placeholder={inputValuePlaceHolder}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              onChangeValue(e.target.value);
+            }}
+            value={[currentFilter.value.toString()]}
+            type={inputType} //This input element is used for date, dateTime, number and text type (for enum and boolean, we use select element above instead)
+            maxLength={50}
+          />
+        </Box>
+      );
     }
-    if (selectedColumnObject?.meta?.type === "enum") {
-      return "ENUM";
-    }
-    if (selectedColumnObject?.meta?.type === "boolean") {
-      return "BOOLEAN";
-    }
-    return "OTHER";
-  }, [currentFilter.condition, selectedColumnObject?.meta?.type]);
+  }, [
+    currentFilter,
+    enumList,
+    inputType,
+    inputValuePlaceHolder,
+    localization,
+    onChangeValue,
+    selectedColumnObject,
+  ]);
 
   const isFirstRow = useMemo(() => index === 0, [index]);
 
@@ -364,49 +408,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         <Text fontWeight="bold" marginBottom={"4px"} color="fg.default">
           {localization.filter.valueLabel}
         </Text>
-        {renderValueInput === "IN" && (
-          <TagsInput
-            inputValuePlaceHolder={inputValuePlaceHolder}
-            inputType={inputType}
-            onChangeValue={onChangeValue}
-          />
-        )}
-        {renderValueInput === "ENUM" && (
-          <EnumSelect
-            currentFilter={currentFilter}
-            selectedColumnObject={selectedColumnObject}
-            inputValuePlaceHolder={inputValuePlaceHolder}
-            enumList={enumList}
-            onChangeValue={onChangeValue}
-          />
-        )}
-        {renderValueInput === "BOOLEAN" && (
-          <BooleanSelect
-            currentFilter={currentFilter}
-            inputValuePlaceHolder={inputValuePlaceHolder}
-            onChangeValue={onChangeValue}
-            localization={localization}
-          />
-        )}
-        {renderValueInput === "OTHER" && (
-          <Box>
-            <Input
-              id="filterByValue"
-              data-testid="select-input-value"
-              size="md"
-              width={180}
-              borderRadius={"4px"}
-              variant="outline"
-              placeholder={inputValuePlaceHolder}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                onChangeValue(e.target.value);
-              }}
-              value={[currentFilter.value.toString()]}
-              type={inputType} //This input element is used for date, dateTime, number and text type (for enum and boolean, we use select element above instead)
-              maxLength={50}
-            />
-          </Box>
-        )}
+        {renderValueInput}
       </Box>
     </Flex>
   );
@@ -469,6 +471,7 @@ const TagsInput = ({
                 placeholder={inputValuePlaceHolder}
                 type={inputType}
                 data-testid="tags-input-value"
+                style={{ width: 160 }}
               />
               <BaseTagsInput.ClearTrigger asChild data-testid="clear-tags">
                 <Button variant="secondary" size="sm">
