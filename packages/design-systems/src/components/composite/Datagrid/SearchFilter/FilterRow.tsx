@@ -1,9 +1,10 @@
 import { useCallback, useMemo } from "react";
-import { CheckIcon, ChevronDown, X } from "lucide-react";
+import { CheckIcon, ChevronDown, X, XIcon } from "lucide-react";
 import { Select as AS, CollectionItem } from "@ark-ui/react/select";
 import { styled } from "@tailor-platform/styled-system/jsx";
-import { select } from "@tailor-platform/styled-system/recipes";
+import { select, tagsInput } from "@tailor-platform/styled-system/recipes";
 import { ColumnMeta } from "@tanstack/table-core";
+import { TagsInput as BaseTagsInput } from "@ark-ui/react";
 import type { Column } from "../types";
 import { Box } from "../../../patterns/Box";
 import { Flex } from "../../../patterns/Flex";
@@ -18,6 +19,7 @@ import type {
   JointCondition,
   ValueChangeDetails,
 } from "./types";
+import { Button } from "@components/Button";
 
 const Select = {
   Root: styled(AS.Root),
@@ -92,19 +94,29 @@ export const FilterRow = <TData extends Record<string, unknown>>(
     [onChange, currentFilter],
   );
 
+  const valueConverter = useCallback(
+    (value: string[] | string) => {
+      if (
+        selectedColumnObject?.meta?.type === "enum" ||
+        selectedColumnObject?.meta?.type === "boolean"
+      ) {
+        return value[0];
+      }
+
+      return value;
+    },
+    [selectedColumnObject?.meta?.type],
+  );
+
   const onChangeValue = useCallback(
     (value: string[] | string) => {
       const nextFilter = {
         ...currentFilter,
-        value:
-          selectedColumnObject?.meta?.type === "enum" ||
-          selectedColumnObject?.meta?.type === "boolean"
-            ? value[0]
-            : (value as string),
+        value: valueConverter(value),
       };
       onChange(nextFilter);
     },
-    [onChange, currentFilter, selectedColumnObject],
+    [valueConverter, currentFilter, onChange],
   );
 
   const onChangeJointCondition = useCallback(
@@ -152,10 +164,62 @@ export const FilterRow = <TData extends Record<string, unknown>>(
     return selectedColumnObject?.meta?.type || "text";
   }, [selectedColumnObject?.meta?.type]);
 
+  const renderValueInput = () => {
+    // render pattern
+    if (currentFilter.condition === "in") {
+      return (
+        <TagsInput
+          inputValuePlaceHolder={inputValuePlaceHolder}
+          inputType={inputType}
+          onChangeValue={onChangeValue}
+        />
+      );
+    } else if (selectedColumnObject?.meta?.type === "enum") {
+      return (
+        <EnumSelect
+          currentFilter={currentFilter}
+          selectedColumnObject={selectedColumnObject}
+          inputValuePlaceHolder={inputValuePlaceHolder}
+          enumList={enumList}
+          onChangeValue={onChangeValue}
+        />
+      );
+    } else if (selectedColumnObject?.meta?.type === "boolean") {
+      return (
+        <BooleanSelect
+          currentFilter={currentFilter}
+          inputValuePlaceHolder={inputValuePlaceHolder}
+          onChangeValue={onChangeValue}
+          localization={localization}
+        />
+      );
+    } else {
+      return (
+        <Box>
+          <Input
+            id="filterByValue"
+            data-testid="select-input-value"
+            size="md"
+            width={180}
+            borderRadius={"4px"}
+            variant="outline"
+            placeholder={inputValuePlaceHolder}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              onChangeValue(e.target.value);
+            }}
+            value={[currentFilter.value.toString()]}
+            type={inputType} //This input element is used for date, dateTime, number and text type (for enum and boolean, we use select element above instead)
+            maxLength={50}
+          />
+        </Box>
+      );
+    }
+  };
+
   const isFirstRow = useMemo(() => index === 0, [index]);
 
   return (
-    <Flex gridGap={2} marginTop={isFirstRow ? 0 : 4}>
+    <Flex gridGap={2} marginTop={isFirstRow ? 0 : 4} position="relative">
       <IconButton
         variant="tertiary"
         size="md"
@@ -163,9 +227,9 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         aria-label="Delete filter"
         icon={<X />}
         onClick={onDelete}
-        alignSelf={"center"}
         visibility={isFirstRow ? "hidden" : "visible"}
         data-testid="delete-filter-row"
+        style={{ position: "relative", top: 25 }}
       />
       <Select.Root
         className={classes.root}
@@ -333,155 +397,238 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         <Text fontWeight="bold" marginBottom={"4px"} color="fg.default">
           {localization.filter.valueLabel}
         </Text>
-        {selectedColumnObject?.meta?.type === "enum" ? (
-          <Select.Root
-            className={classes.root}
-            items={enumList}
-            positioning={{ sameWidth: true }}
-            closeOnSelect
-            width={180}
-            value={[currentFilter.value.toString()]}
-            onValueChange={(e: ValueChangeDetails<CollectionItem>) =>
-              onChangeValue(e.value)
-            }
-            data-testid="select-input-value"
-          >
-            <Select.Control className={classes.control}>
-              <Select.Trigger className={classes.trigger}>
-                <Select.ValueText
-                  className={classes.valueText}
-                  color="fg.subtle"
-                  placeholder={inputValuePlaceHolder}
-                  asChild
-                >
-                  <span>
-                    {currentFilter.value !== ""
-                      ? selectedColumnObject?.meta?.enumType?.[
-                          currentFilter.value.toString()
-                        ]
-                      : inputValuePlaceHolder}
-                  </span>
-                </Select.ValueText>
-                <ChevronDown />
-              </Select.Trigger>
-            </Select.Control>
-            <Select.Positioner className={classes.positioner}>
-              <Select.Content
-                className={classes.content}
-                data-testid="select-input-value-options"
-              >
-                <Select.ItemGroup
-                  className={classes.itemGroup}
-                  id="filterByValue"
-                >
-                  {enumList.map((item) => {
-                    const enumValue =
-                      selectedColumnObject?.meta?.enumType?.[item];
-                    return (
-                      <Select.Item
-                        className={classes.item}
-                        key={item}
-                        item={item}
-                      >
-                        <Select.ItemText className={classes.itemText}>
-                          {enumValue}
-                        </Select.ItemText>
-                        <Select.ItemIndicator className={classes.itemIndicator}>
-                          <CheckIcon />
-                        </Select.ItemIndicator>
-                      </Select.Item>
-                    );
-                  })}
-                </Select.ItemGroup>
-              </Select.Content>
-            </Select.Positioner>
-          </Select.Root>
-        ) : selectedColumnObject?.meta?.type === "boolean" ? (
-          <Select.Root
-            className={classes.root}
-            items={[
-              localization.filter.columnBoolean.true,
-              localization.filter.columnBoolean.false,
-            ]}
-            positioning={{ sameWidth: true }}
-            closeOnSelect
-            width={180}
-            onValueChange={(e: ValueChangeDetails<CollectionItem>) =>
-              onChangeValue(e.value)
-            }
-            value={[
-              currentFilter.value.toString() === "true" ||
-              currentFilter.value.toString() ===
-                localization.filter.columnBoolean.true
-                ? localization.filter.columnBoolean.true
-                : localization.filter.columnBoolean.false,
-            ]}
-            data-testid="select-input-value"
-          >
-            <Select.Control className={classes.control}>
-              <Select.Trigger className={classes.trigger}>
-                <Select.ValueText
-                  className={classes.valueText}
-                  color="fg.subtle"
-                  placeholder={inputValuePlaceHolder}
-                />
-                <ChevronDown />
-              </Select.Trigger>
-            </Select.Control>
-            <Select.Positioner className={classes.positioner}>
-              <Select.Content className={classes.content}>
-                <Select.ItemGroup
-                  className={classes.itemGroup}
-                  id="filterByValue"
-                >
-                  <Select.Item
-                    className={classes.item}
-                    key={"selectInput" + 0}
-                    item={localization.filter.columnBoolean.true}
-                  >
-                    <Select.ItemText className={classes.itemText}>
-                      {localization.filter.columnBoolean.true}
-                    </Select.ItemText>
-                    <Select.ItemIndicator className={classes.itemIndicator}>
-                      <CheckIcon />
-                    </Select.ItemIndicator>
-                  </Select.Item>
-                  <Select.Item
-                    className={classes.item}
-                    key={"selectInput" + 1}
-                    item={localization.filter.columnBoolean.false}
-                  >
-                    <Select.ItemText className={classes.itemText}>
-                      {localization.filter.columnBoolean.false}
-                    </Select.ItemText>
-                    <Select.ItemIndicator className={classes.itemIndicator}>
-                      <CheckIcon />
-                    </Select.ItemIndicator>
-                  </Select.Item>
-                </Select.ItemGroup>
-              </Select.Content>
-            </Select.Positioner>
-          </Select.Root>
-        ) : (
-          <Box>
-            <Input
-              id="filterByValue"
-              data-testid="select-input-value"
-              size="md"
-              width={180}
-              borderRadius={"4px"}
-              variant="outline"
-              placeholder={inputValuePlaceHolder}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                onChangeValue(e.target.value);
-              }}
-              value={[currentFilter.value.toString()]}
-              type={inputType} //This input element is used for date, dateTime, number and text type (for enum and boolean, we use select element above instead)
-              maxLength={50}
-            />
-          </Box>
-        )}
+        {renderValueInput()}
       </Box>
     </Flex>
+  );
+};
+
+type TagInputProps = {
+  inputValuePlaceHolder: string;
+  defaultValue?: string[];
+  inputType: string;
+  onChangeValue: (value: string[]) => void;
+};
+
+const TagsInput = ({
+  inputValuePlaceHolder,
+  defaultValue,
+  inputType,
+  onChangeValue,
+}: TagInputProps) => {
+  const classes = tagsInput();
+
+  return (
+    <>
+      <BaseTagsInput.Root
+        className={classes.root}
+        defaultValue={defaultValue}
+        style={{ width: 180 }}
+        onValueChange={(e) => {
+          onChangeValue(e.value);
+        }}
+      >
+        {({ value, setValue }) => (
+          <>
+            <BaseTagsInput.Control className={classes.control}>
+              {value.map((v, index) => (
+                <BaseTagsInput.Item
+                  className={classes.item}
+                  key={index}
+                  index={index}
+                  value={v}
+                >
+                  <BaseTagsInput.ItemText>{v}</BaseTagsInput.ItemText>
+                  <BaseTagsInput.ItemDeleteTrigger
+                    asChild
+                    onClick={() => {
+                      const newValue = value.filter((item) => item !== v);
+                      setValue(newValue);
+                      onChangeValue(newValue);
+                    }}
+                    data-testid={`delete-tag-${index}`}
+                  >
+                    <IconButton aria-label="close" variant="link" size="xs">
+                      <XIcon />
+                    </IconButton>
+                  </BaseTagsInput.ItemDeleteTrigger>
+                  <BaseTagsInput.ItemInput className={classes.itemInput} />
+                </BaseTagsInput.Item>
+              ))}
+              <BaseTagsInput.Input
+                className={classes.input}
+                placeholder={inputValuePlaceHolder}
+                type={inputType}
+                data-testid="tags-input-value"
+                style={{ width: 160 }}
+              />
+              <BaseTagsInput.ClearTrigger asChild data-testid="clear-tags">
+                <Button variant="secondary" size="sm">
+                  Clear
+                </Button>
+              </BaseTagsInput.ClearTrigger>
+            </BaseTagsInput.Control>
+          </>
+        )}
+      </BaseTagsInput.Root>
+    </>
+  );
+};
+
+type EnumSelectProps<TData> = {
+  currentFilter: FilterRowState;
+  selectedColumnObject: Column<TData> | undefined;
+  inputValuePlaceHolder: string;
+  enumList: string[];
+  onChangeValue: (value: string[]) => void;
+};
+const EnumSelect = <TData extends Record<string, unknown>>({
+  enumList,
+  currentFilter,
+  onChangeValue,
+  inputValuePlaceHolder,
+  selectedColumnObject,
+}: EnumSelectProps<TData>) => {
+  const classes = select();
+
+  return (
+    <>
+      <Select.Root
+        className={classes.root}
+        items={enumList}
+        positioning={{ sameWidth: true }}
+        closeOnSelect
+        width={180}
+        value={[currentFilter.value.toString()]}
+        onValueChange={(e: ValueChangeDetails<CollectionItem>) =>
+          onChangeValue(e.value)
+        }
+        data-testid="select-input-value"
+      >
+        <Select.Control className={classes.control}>
+          <Select.Trigger className={classes.trigger}>
+            <Select.ValueText
+              className={classes.valueText}
+              color="fg.subtle"
+              placeholder={inputValuePlaceHolder}
+              asChild
+            >
+              <span>
+                {currentFilter.value !== ""
+                  ? selectedColumnObject?.meta?.enumType?.[
+                      currentFilter.value.toString()
+                    ]
+                  : inputValuePlaceHolder}
+              </span>
+            </Select.ValueText>
+            <ChevronDown />
+          </Select.Trigger>
+        </Select.Control>
+        <Select.Positioner className={classes.positioner}>
+          <Select.Content
+            className={classes.content}
+            data-testid="select-input-value-options"
+          >
+            <Select.ItemGroup className={classes.itemGroup} id="filterByValue">
+              {enumList.map((item) => {
+                const enumValue = selectedColumnObject?.meta?.enumType?.[item];
+                return (
+                  <Select.Item className={classes.item} key={item} item={item}>
+                    <Select.ItemText className={classes.itemText}>
+                      {enumValue}
+                    </Select.ItemText>
+                    <Select.ItemIndicator className={classes.itemIndicator}>
+                      <CheckIcon />
+                    </Select.ItemIndicator>
+                  </Select.Item>
+                );
+              })}
+            </Select.ItemGroup>
+          </Select.Content>
+        </Select.Positioner>
+      </Select.Root>
+    </>
+  );
+};
+
+type BooleanSelectProps = {
+  currentFilter: FilterRowState;
+  onChangeValue: (value: string[]) => void;
+  inputValuePlaceHolder: string;
+  localization: Localization;
+};
+const BooleanSelect = ({
+  currentFilter,
+  onChangeValue,
+  inputValuePlaceHolder,
+  localization,
+}: BooleanSelectProps) => {
+  const classes = select();
+
+  return (
+    <>
+      <Select.Root
+        className={classes.root}
+        items={[
+          localization.filter.columnBoolean.true,
+          localization.filter.columnBoolean.false,
+        ]}
+        positioning={{ sameWidth: true }}
+        closeOnSelect
+        width={180}
+        onValueChange={(e: ValueChangeDetails<CollectionItem>) =>
+          onChangeValue(e.value)
+        }
+        value={[
+          currentFilter.value.toString() === "true" ||
+          currentFilter.value.toString() ===
+            localization.filter.columnBoolean.true
+            ? localization.filter.columnBoolean.true
+            : localization.filter.columnBoolean.false,
+        ]}
+        data-testid="select-input-value"
+      >
+        <Select.Control className={classes.control}>
+          <Select.Trigger className={classes.trigger}>
+            <Select.ValueText
+              className={classes.valueText}
+              color="fg.subtle"
+              placeholder={inputValuePlaceHolder}
+            />
+            <ChevronDown />
+          </Select.Trigger>
+        </Select.Control>
+        <Select.Positioner className={classes.positioner}>
+          <Select.Content className={classes.content}>
+            <Select.ItemGroup className={classes.itemGroup} id="filterByValue">
+              <Select.Item
+                className={classes.item}
+                key={"selectInput" + 0}
+                item={localization.filter.columnBoolean.true}
+              >
+                <Select.ItemText className={classes.itemText}>
+                  {localization.filter.columnBoolean.true}
+                </Select.ItemText>
+                <Select.ItemIndicator className={classes.itemIndicator}>
+                  <CheckIcon />
+                </Select.ItemIndicator>
+              </Select.Item>
+              <Select.Item
+                className={classes.item}
+                key={"selectInput" + 1}
+                item={localization.filter.columnBoolean.false}
+              >
+                <Select.ItemText className={classes.itemText}>
+                  {localization.filter.columnBoolean.false}
+                </Select.ItemText>
+                <Select.ItemIndicator className={classes.itemIndicator}>
+                  <CheckIcon />
+                </Select.ItemIndicator>
+              </Select.Item>
+            </Select.ItemGroup>
+          </Select.Content>
+        </Select.Positioner>
+      </Select.Root>
+    </>
   );
 };
