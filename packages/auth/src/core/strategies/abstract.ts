@@ -118,10 +118,11 @@ export type AbstractStrategy<
 
 export class CallbackError extends Error {
   constructor(
-    readonly name: string,
+    readonly code: string,
     readonly message: string,
   ) {
     super(message);
+    this.name = "CallbackError";
   }
 }
 
@@ -131,10 +132,7 @@ export const oidcParamsError = () =>
     "code and redirectURI should be filled",
   );
 export const samlParamsError = () =>
-  new CallbackError(
-    "saml-invalid-params",
-    "SAMLResponse and RelayState should be filled",
-  );
+  new CallbackError("saml-invalid-params", "SAMLResponse should be filled");
 export const minitailorParamsError = () =>
   new CallbackError(
     "minitailor-invalid-params",
@@ -143,7 +141,7 @@ export const minitailorParamsError = () =>
 export const minitailorTokenError = (code: number) =>
   new CallbackError(
     "minitailor-token-error",
-    `Failed to obtain token status=${code}`,
+    `failed to obtain token (status=${code})`,
   );
 
 /** @deprecated for backward compatibility use **Error */

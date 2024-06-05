@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { middlewareRouter } from "./middleware";
+import { createErrorRedirection, middlewareRouter } from "./middleware";
 import { mockAuthConfig } from "@tests/mocks";
 import { buildRequestWithParams } from "@tests/helper";
+import { CallbackError } from "@core/strategies/abstract";
 
 describe("middleware", () => {
   const testingError = new Error("this is testing error");
@@ -87,6 +88,35 @@ describe("middleware", () => {
       ).not.toThrowError();
       expect(mockFallback).toHaveBeenCalled();
       expect(mockHandler).not.toHaveBeenCalled();
+    });
+  });
+});
+
+describe("error redirection", () => {
+  describe("createErrorRedirection", () => {
+    it("creates a redirection with unknown error", () => {
+      const error = new Error("test error");
+      const config = mockAuthConfig;
+      const redirection = createErrorRedirection(config, error);
+
+      expect(redirection.status).toBe(301);
+      expect(redirection.headers.get("location")).toBe(
+        "http://localhost:3000/unauthorized?code=unknown-error",
+      );
+    });
+
+    it("creates a redirection with specific callback error", () => {
+      const error = new CallbackError(
+        "test-callback-error",
+        "this is an testing callback error",
+      );
+      const config = mockAuthConfig;
+      const redirection = createErrorRedirection(config, error);
+
+      expect(redirection.status).toBe(301);
+      expect(redirection.headers.get("location")).toBe(
+        "http://localhost:3000/unauthorized?code=test-callback-error",
+      );
     });
   });
 });

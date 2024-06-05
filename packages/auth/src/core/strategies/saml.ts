@@ -27,8 +27,10 @@ export class SAMLStrategy implements AbstractStrategy<Options> {
   async callback(config: Config, request: Request) {
     const formData = await request.formData();
     const samlResponse = formData.get("SAMLResponse");
-    const readyState = formData.get("RelayState");
-    if (!samlResponse || !readyState) {
+    const relayState = formData.get("RelayState");
+
+    // RelayState will be optional in IDP initiated SAML flow
+    if (!samlResponse) {
       throw samlParamsError();
     }
 
@@ -40,7 +42,7 @@ export class SAMLStrategy implements AbstractStrategy<Options> {
 
     return {
       payload,
-      redirectUri: readyState ?? "/",
+      redirectUri: relayState ?? "/",
     } as CallbackResult;
   }
 }

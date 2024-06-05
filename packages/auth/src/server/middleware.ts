@@ -13,6 +13,7 @@ import {
   internalUnauthorizedPath,
   internalLogoutPath,
 } from "@core/path";
+import { CallbackError } from "@core/strategies/abstract";
 
 export type MiddlewareHandlerOptions = {
   /**
@@ -103,7 +104,7 @@ export const middlewareRouter = async (
   routes: Record<string, RouteHandler>,
   fallback?: () => Promise<void>,
 ) => {
-  const { request, options } = params;
+  const { request, config, options } = params;
 
   try {
     const routeKey = Object.keys(routes).find((route) =>
@@ -123,7 +124,28 @@ export const middlewareRouter = async (
   } catch (e: unknown) {
     if (e instanceof Error && options?.onError) {
       await options.onError(e);
-      return NextResponse.next();
     }
+    return createErrorRedirection(config, e);
+  }
+};
+
+export const createErrorRedirection = (config: Config, e: unknown) => {
+  const redirectPath = config.unauthorizedPath();
+  const queryParams = new URLSearchParams({
+    code: extractErrorCode(e),
+  });
+
+  // Direction always uses 301 to make it GET request to the destination page
+  return NextResponse.redirect(
+    config.appUrl(redirectPath) + "?" + queryParams.toString(),
+    301,
+  );
+};
+
+const extractErrorCode = (e: unknown) => {
+  if (e instanceof CallbackError) {
+    return e.code;
+  } else {
+    return "unknown-error";
   }
 };
