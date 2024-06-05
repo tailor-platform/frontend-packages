@@ -149,7 +149,7 @@ describe(
       ).toBeVisible();
 
       //Check filters
-      expect(currentFilters).toEqual({ and: {} });
+      expect(currentFilters).toEqual(undefined);
     });
 
     it("Renders the component correctly when locale is set as Japanese", () => {
@@ -180,7 +180,7 @@ describe(
       ).toBeVisible();
 
       //Check filters
-      expect(currentFilters).toEqual({ and: {} });
+      expect(currentFilters).toEqual(undefined);
     });
 
     it("Renders ENUM type correctly", async () => {

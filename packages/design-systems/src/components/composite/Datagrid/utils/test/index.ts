@@ -206,10 +206,14 @@ export const originData: Payment[] = [
 ];
 
 export const setFilterChange = (
-  filter: GraphQLQueryFilter,
+  filter: GraphQLQueryFilter | undefined,
   data: Payment[],
   setData: React.Dispatch<React.SetStateAction<Payment[]>>,
 ) => {
+  if (!filter) {
+    setData(data);
+    return;
+  }
   const topLevelAnd = filter.and;
   const customFilterValue = topLevelAnd?.and as { [key: string]: string };
   // topLevelAndからandを除外したものがsystemFilterValue

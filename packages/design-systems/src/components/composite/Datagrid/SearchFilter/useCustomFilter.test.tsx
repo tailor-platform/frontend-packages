@@ -609,4 +609,22 @@ describe("useCustomFilter", () => {
       expect(result.current.filterRows).toStrictEqual(expectedValue);
     });
   });
+
+  it("If defaultFilter and systemFilter are not provided, hooks return undefined currentState", async () => {
+    let currentFilter: GraphQLQueryFilter | undefined = undefined;
+
+    renderHook(() =>
+      useCustomFilter({
+        columns,
+        onChange: (filter) => {
+          currentFilter = filter;
+        },
+        localization: LOCALIZATION_JA,
+      }),
+    );
+
+    act(() => {
+      expect(currentFilter).toStrictEqual(undefined);
+    });
+  });
 });
