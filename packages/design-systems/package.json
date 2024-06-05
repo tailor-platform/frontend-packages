@@ -1,6 +1,6 @@
 {
   "name": "@tailor-platform/design-systems",
-  "version": "0.31.0",
+  "version": "0.31.1-preview.1",
   "private": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
