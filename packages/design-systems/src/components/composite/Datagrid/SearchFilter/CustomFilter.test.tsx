@@ -122,11 +122,11 @@ describe(
   "<CustomFilter />",
   () => {
     it("Renders the component correctly when locale is set as English", () => {
-      let currentFilters: GraphQLQueryFilter = {};
+      let currentFilters: GraphQLQueryFilter | undefined = undefined;
       render(
         <CustomFilter
           columns={columns}
-          onChange={(currentState: GraphQLQueryFilter) => {
+          onChange={(currentState: GraphQLQueryFilter | undefined) => {
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_EN}
@@ -153,11 +153,11 @@ describe(
     });
 
     it("Renders the component correctly when locale is set as Japanese", () => {
-      let currentFilters: GraphQLQueryFilter = {};
+      let currentFilters: GraphQLQueryFilter | undefined = undefined;
       render(
         <CustomFilter
           columns={columns}
-          onChange={(currentState: GraphQLQueryFilter) => {
+          onChange={(currentState: GraphQLQueryFilter | undefined) => {
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
@@ -184,11 +184,11 @@ describe(
     });
 
     it("Renders ENUM type correctly", async () => {
-      let currentFilters: GraphQLQueryFilter = {};
+      let currentFilters: GraphQLQueryFilter | undefined = undefined;
       render(
         <CustomFilter
           columns={columns}
-          onChange={(currentState: GraphQLQueryFilter) => {
+          onChange={(currentState: GraphQLQueryFilter | undefined) => {
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
@@ -264,12 +264,12 @@ describe(
     });
 
     it("Renders string type correctly", async () => {
-      let currentFilters: GraphQLQueryFilter = {};
+      let currentFilters: GraphQLQueryFilter | undefined = undefined;
 
       render(
         <CustomFilter
           columns={columns}
-          onChange={(currentState: GraphQLQueryFilter) => {
+          onChange={(currentState: GraphQLQueryFilter | undefined) => {
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
@@ -331,12 +331,12 @@ describe(
     });
 
     it("Renders number type correctly", async () => {
-      let currentFilters: GraphQLQueryFilter = {};
+      let currentFilters: GraphQLQueryFilter | undefined = undefined;
 
       render(
         <CustomFilter
           columns={columns}
-          onChange={(currentState: GraphQLQueryFilter) => {
+          onChange={(currentState: GraphQLQueryFilter | undefined) => {
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
@@ -401,12 +401,12 @@ describe(
     });
 
     it("Renders Date type correctly", async () => {
-      let currentFilters: GraphQLQueryFilter = {};
+      let currentFilters: GraphQLQueryFilter | undefined = undefined;
 
       render(
         <CustomFilter
           columns={columns}
-          onChange={(currentState: GraphQLQueryFilter) => {
+          onChange={(currentState: GraphQLQueryFilter | undefined) => {
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
@@ -477,12 +477,12 @@ describe(
     });
 
     it("Renders Boolean type correctly", async () => {
-      let currentFilters: GraphQLQueryFilter = {};
+      let currentFilters: GraphQLQueryFilter | undefined = undefined;
 
       render(
         <CustomFilter
           columns={columns}
-          onChange={(currentState: GraphQLQueryFilter) => {
+          onChange={(currentState: GraphQLQueryFilter | undefined) => {
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
@@ -648,12 +648,12 @@ describe(
     });
 
     it("dateTime filter convert correctly toISOString", async () => {
-      let currentFilters: GraphQLQueryFilter = {};
+      let currentFilters: GraphQLQueryFilter | undefined = undefined;
 
       render(
         <CustomFilter
           columns={columns}
-          onChange={(currentState: GraphQLQueryFilter) => {
+          onChange={(currentState: GraphQLQueryFilter | undefined) => {
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
@@ -811,7 +811,7 @@ describe(
     });
 
     it("when user click IN condition, show up TagsInput", async () => {
-      let currentFilters: GraphQLQueryFilter = {};
+      let currentFilters: GraphQLQueryFilter | undefined = undefined;
 
       const systemFilter: GraphQLQueryFilter = {
         updatedAt: { eq: "2024-05-10 12:00:00" },
@@ -822,7 +822,7 @@ describe(
       render(
         <CustomFilter
           columns={columns}
-          onChange={(currentState: GraphQLQueryFilter) => {
+          onChange={(currentState: GraphQLQueryFilter | undefined) => {
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
@@ -884,7 +884,7 @@ describe(
     });
 
     it("when user click IN condition, show up TagsInput and delete button work correctly", async () => {
-      let currentFilters: GraphQLQueryFilter = {};
+      let currentFilters: GraphQLQueryFilter | undefined = undefined;
 
       const systemFilter: GraphQLQueryFilter = {
         updatedAt: { eq: "2024-05-10 12:00:00" },
@@ -895,7 +895,7 @@ describe(
       render(
         <CustomFilter
           columns={columns}
-          onChange={(currentState: GraphQLQueryFilter) => {
+          onChange={(currentState: GraphQLQueryFilter | undefined) => {
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
@@ -953,7 +953,7 @@ describe(
     });
 
     it("when user click IN condition, show up TagsInput and clear button work correctly", async () => {
-      let currentFilters: GraphQLQueryFilter = {};
+      let currentFilters: GraphQLQueryFilter | undefined = undefined;
 
       const systemFilter: GraphQLQueryFilter = {
         updatedAt: { eq: "2024-05-10 12:00:00" },
@@ -964,7 +964,7 @@ describe(
       render(
         <CustomFilter
           columns={columns}
-          onChange={(currentState: GraphQLQueryFilter) => {
+          onChange={(currentState: GraphQLQueryFilter | undefined) => {
             currentFilters = currentState;
           }}
           localization={LOCALIZATION_JA}
