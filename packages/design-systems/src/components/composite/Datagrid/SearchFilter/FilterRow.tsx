@@ -100,7 +100,6 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         selectedColumnObject?.meta?.type === "enum" ||
         selectedColumnObject?.meta?.type === "boolean"
       ) {
-        console.log("value", value);
         return value[0];
       }
 
