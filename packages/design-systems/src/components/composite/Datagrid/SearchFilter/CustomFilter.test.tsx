@@ -859,7 +859,25 @@ describe(
         //Wait for the useEffect to update the filters
         expect(currentFilters).toEqual({
           and: {
-            updatedAt: { eq: "2023-11-14T14:00:00.000Z" },
+            updatedAt: { eq: "2024-05-10 12:00:00" },
+            and: { status: { eq: "pending" }, and: { amount: { in: [200] } } },
+          },
+        });
+      });
+
+      await user.click(inputValue);
+      await user.type(inputValue, "220");
+      await user.keyboard("{Enter}");
+
+      await waitFor(() => {
+        //Wait for the useEffect to update the filters
+        expect(currentFilters).toEqual({
+          and: {
+            updatedAt: { eq: "2024-05-10 12:00:00" },
+            and: {
+              status: { eq: "pending" },
+              and: { amount: { in: [200, 220] } },
+            },
           },
         });
       });

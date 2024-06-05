@@ -433,7 +433,6 @@ const TagsInput = ({
         className={classes.root}
         defaultValue={defaultValue}
         style={{ width: 180 }}
-        data-testid="tags-input-value"
         onValueChange={(e) => {
           onChangeValue(e.value);
         }}
@@ -461,6 +460,7 @@ const TagsInput = ({
                 className={classes.input}
                 placeholder={inputValuePlaceHolder}
                 type={inputType}
+                data-testid="tags-input-value"
               />
               <BaseTagsInput.ClearTrigger asChild>
                 <Button variant="secondary" size="sm">
