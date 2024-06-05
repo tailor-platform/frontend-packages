@@ -437,18 +437,26 @@ const TagsInput = ({
           onChangeValue(e.value);
         }}
       >
-        {({ value }) => (
+        {({ value, setValue }) => (
           <>
             <BaseTagsInput.Control className={classes.control}>
-              {value.map((value, index) => (
+              {value.map((v, index) => (
                 <BaseTagsInput.Item
                   className={classes.item}
                   key={index}
                   index={index}
-                  value={value}
+                  value={v}
                 >
-                  <BaseTagsInput.ItemText>{value}</BaseTagsInput.ItemText>
-                  <BaseTagsInput.ItemDeleteTrigger asChild>
+                  <BaseTagsInput.ItemText>{v}</BaseTagsInput.ItemText>
+                  <BaseTagsInput.ItemDeleteTrigger
+                    asChild
+                    onClick={() => {
+                      const newValue = value.filter((item) => item !== v);
+                      setValue(newValue);
+                      onChangeValue(newValue);
+                    }}
+                    data-testid={`delete-tag-${index}`}
+                  >
                     <IconButton aria-label="close" variant="link" size="xs">
                       <XIcon />
                     </IconButton>
@@ -462,7 +470,7 @@ const TagsInput = ({
                 type={inputType}
                 data-testid="tags-input-value"
               />
-              <BaseTagsInput.ClearTrigger asChild>
+              <BaseTagsInput.ClearTrigger asChild data-testid="clear-tags">
                 <Button variant="secondary" size="sm">
                   Clear
                 </Button>

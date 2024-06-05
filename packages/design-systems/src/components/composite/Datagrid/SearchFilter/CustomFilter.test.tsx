@@ -882,6 +882,133 @@ describe(
         });
       });
     });
+
+    it("when user click IN condition, show up TagsInput and delete button work correctly", async () => {
+      let currentFilters: GraphQLQueryFilter = {};
+
+      const systemFilter: GraphQLQueryFilter = {
+        updatedAt: { eq: "2024-05-10 12:00:00" },
+      };
+      const defaultQuery: GraphQLQueryFilter = {
+        status: { eq: "pending" },
+      };
+      render(
+        <CustomFilter
+          columns={columns}
+          onChange={(currentState: GraphQLQueryFilter) => {
+            currentFilters = currentState;
+          }}
+          localization={LOCALIZATION_JA}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
+          enableColumnFilters={true}
+          defaultFilter={defaultQuery}
+          systemFilter={systemFilter}
+        />,
+      );
+
+      const user = userEvent.setup();
+
+      // Open filter
+      await user.click(await screen.findByTestId("datagrid-filter-button"));
+
+      //Select joint condition
+      await selectJointCondition(screen, user, 1, "AND");
+      //Select column
+      await selectColumn(screen, user, 1, "Amount");
+      //Select condition
+      await selectCondition(screen, user, 1, "に含まれる");
+
+      const inputValue = screen.getByTestId("tags-input-value");
+
+      expect(inputValue).toBeVisible();
+
+      await user.click(inputValue);
+      await user.type(inputValue, "200");
+      await user.keyboard("{Enter}");
+
+      //Check filters
+      await waitFor(() => {
+        //Wait for the useEffect to update the filters
+        expect(currentFilters).toEqual({
+          and: {
+            updatedAt: { eq: "2024-05-10 12:00:00" },
+            and: { status: { eq: "pending" }, and: { amount: { in: [200] } } },
+          },
+        });
+      });
+
+      const deleteButton = screen.getByTestId("delete-tag-0");
+      await user.click(deleteButton);
+
+      await waitFor(() => {
+        //Wait for the useEffect to update the filters
+        expect(currentFilters).toEqual({
+          and: {
+            updatedAt: { eq: "2024-05-10 12:00:00" },
+            and: { status: { eq: "pending" }, and: { amount: { in: [] } } },
+          },
+        });
+      });
+    });
+
+    it("when user click IN condition, show up TagsInput and clear button work correctly", async () => {
+      let currentFilters: GraphQLQueryFilter = {};
+
+      const systemFilter: GraphQLQueryFilter = {
+        updatedAt: { eq: "2024-05-10 12:00:00" },
+      };
+      const defaultQuery: GraphQLQueryFilter = {
+        status: { eq: "pending" },
+      };
+      render(
+        <CustomFilter
+          columns={columns}
+          onChange={(currentState: GraphQLQueryFilter) => {
+            currentFilters = currentState;
+          }}
+          localization={LOCALIZATION_JA}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
+          enableColumnFilters={true}
+          defaultFilter={defaultQuery}
+          systemFilter={systemFilter}
+        />,
+      );
+
+      const user = userEvent.setup();
+
+      // Open filter
+      await user.click(await screen.findByTestId("datagrid-filter-button"));
+
+      //Select joint condition
+      await selectJointCondition(screen, user, 1, "AND");
+      //Select column
+      await selectColumn(screen, user, 1, "Amount");
+      //Select condition
+      await selectCondition(screen, user, 1, "に含まれる");
+
+      const inputValue = screen.getByTestId("tags-input-value");
+
+      expect(inputValue).toBeVisible();
+
+      await user.click(inputValue);
+      await user.type(inputValue, "200");
+      await user.keyboard("{Enter}");
+
+      const deleteButton = screen.getByTestId("clear-tags");
+      await user.click(deleteButton);
+
+      await waitFor(() => {
+        //Wait for the useEffect to update the filters
+        expect(currentFilters).toEqual({
+          and: {
+            updatedAt: { eq: "2024-05-10 12:00:00" },
+            and: { status: { eq: "pending" }, and: { amount: { in: [] } } },
+          },
+        });
+      });
+    });
   },
 
   { timeout: 10000 },
