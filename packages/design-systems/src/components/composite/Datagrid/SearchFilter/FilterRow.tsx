@@ -100,15 +100,13 @@ export const FilterRow = <TData extends Record<string, unknown>>(
         selectedColumnObject?.meta?.type === "enum" ||
         selectedColumnObject?.meta?.type === "boolean"
       ) {
+        console.log("value", value);
         return value[0];
       }
-      if (currentFilter.condition === "in") {
-        return value;
-      }
 
-      return value as string;
+      return value;
     },
-    [currentFilter.condition, selectedColumnObject?.meta?.type],
+    [selectedColumnObject?.meta?.type],
   );
 
   const onChangeValue = useCallback(
