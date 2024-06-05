@@ -241,6 +241,9 @@ importers:
       vitest:
         specifier: ^1.6.0
         version: 1.6.0(@types/node@18.19.2)(jsdom@24.0.0)
+      vitest-fail-on-console:
+        specifier: ^0.7.0
+        version: 0.7.0(vite@5.1.4)(vitest@1.6.0)
 
   packages/db-test:
     dependencies:
