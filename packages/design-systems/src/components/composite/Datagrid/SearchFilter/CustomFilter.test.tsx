@@ -1011,6 +1011,161 @@ describe(
         });
       });
     });
+    it("after setting an input type filter, when changing the column, the input value is empty", async () => {
+      let currentFilters: GraphQLQueryFilter | undefined = undefined;
+
+      render(
+        <CustomFilter
+          columns={columns}
+          onChange={(currentState: GraphQLQueryFilter | undefined) => {
+            currentFilters = currentState;
+          }}
+          localization={LOCALIZATION_JA}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
+          enableColumnFilters={true}
+        />,
+      );
+
+      const user = userEvent.setup();
+
+      // Open filter
+      await user.click(await screen.findByTestId("datagrid-filter-button"));
+
+      // Select column
+      const selectColumn = screen.getByTestId("select-column");
+      const selectColumnOptions = screen.getByTestId("select-column-options");
+      const selectColumnButton = within(selectColumn).getByRole("button");
+      await user.click(selectColumnButton);
+
+      const emailOption = within(selectColumnOptions).getByText("Email");
+      expect(emailOption).toBeVisible();
+
+      await user.click(emailOption);
+
+      expect(emailOption).not.toBeVisible();
+      expect(selectColumn).toHaveTextContent("Email");
+
+      // Select condition
+      const selectCondition = screen.getByTestId("select-condition");
+      const selectConditionOptions = screen.getByTestId(
+        "select-condition-options",
+      );
+      const selectConditionButton = within(selectCondition).getByRole("button");
+      await user.click(selectConditionButton);
+
+      const equalConditionOption = within(selectConditionOptions).getByText(
+        "等しい",
+      );
+      expect(equalConditionOption).toBeVisible();
+      expect(within(selectConditionOptions).getByText("含む")).toBeVisible();
+      expect(
+        within(selectConditionOptions).queryByText("等しくない"),
+      ).toBeNull();
+
+      await user.click(equalConditionOption);
+
+      expect(equalConditionOption).not.toBeVisible();
+      expect(selectCondition).toHaveTextContent("等しい");
+
+      const inputValue = screen.getByTestId("select-input-value");
+      await user.click(inputValue);
+      await user.type(inputValue, "test@test.com");
+      await user.click(equalConditionOption);
+
+      await waitFor(() => {
+        //Wait for the useEffect to update the filters
+        expect(currentFilters).toEqual({
+          and: {
+            email: { eq: "test@test.com" },
+          },
+        });
+      });
+
+      await user.click(selectColumnButton);
+
+      const amountOption = within(selectColumnOptions).getByText("Amount");
+      expect(amountOption).toBeVisible();
+
+      await user.click(amountOption);
+
+      await waitFor(() => {
+        //Wait for the useEffect to update the filters
+        expect(currentFilters).toEqual(undefined);
+      });
+    });
+    it("When the default filter for input type is set, when changing the column, the input value is empty", async () => {
+      let currentFilters: GraphQLQueryFilter | undefined = undefined;
+      const defaultQuery: GraphQLQueryFilter = {
+        email: { eq: "test@test.com" },
+      };
+
+      render(
+        <CustomFilter
+          columns={columns}
+          onChange={(currentState: GraphQLQueryFilter | undefined) => {
+            currentFilters = currentState;
+          }}
+          localization={LOCALIZATION_JA}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
+          enableColumnFilters={true}
+          defaultFilter={defaultQuery}
+        />,
+      );
+
+      const user = userEvent.setup();
+
+      // Open filter
+      await user.click(await screen.findByTestId("datagrid-filter-button"));
+
+      // Select column
+      const selectColumn = screen.getAllByTestId("select-column")[0];
+      const selectColumnOptions = screen.getAllByTestId("select-column-options")[0];
+      const selectColumnButton = within(selectColumn).getByRole("button");
+      await user.click(selectColumnButton);
+      const amountOption = within(selectColumnOptions).getByText("Amount");
+      expect(amountOption).toBeVisible();
+
+      await user.click(amountOption);
+      await waitFor(() => {
+        //Wait for the useEffect to update the filters
+        expect(currentFilters).toEqual(undefined);
+      });
+    });
+    it("When the default filter for input type is set, when clear filter, the input value is empty", async () => {
+      let currentFilters: GraphQLQueryFilter | undefined = undefined;
+      const defaultQuery: GraphQLQueryFilter = {
+        email: { eq: "test@test.com" },
+      };
+
+      render(
+        <CustomFilter
+          columns={columns}
+          onChange={(currentState: GraphQLQueryFilter | undefined) => {
+            currentFilters = currentState;
+          }}
+          localization={LOCALIZATION_JA}
+          customFilterOpen={true}
+          setCustomFilterOpen={() => void 0}
+          enableColumnFilters={true}
+          defaultFilter={defaultQuery}
+        />,
+      );
+
+      const user = userEvent.setup();
+
+      // Open filter
+      await user.click(await screen.findByTestId("datagrid-filter-button"));
+
+      // Clear filter
+      await user.click(screen.getByTestId("reset-clear-button"));
+
+      await waitFor(() => {
+        //Wait for the useEffect to update the filters
+        expect(currentFilters).toEqual(undefined);
+      });
+    });
   },
 
   { timeout: 10000 },
