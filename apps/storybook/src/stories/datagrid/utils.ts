@@ -5,7 +5,7 @@ import {
 import { Payment } from "../../types/datagrid";
 
 export const setFilterChange = (
-  filter: GraphQLQueryFilter,
+  filter: GraphQLQueryFilter | undefined,
   data: Payment[],
   setData: React.Dispatch<React.SetStateAction<Payment[]>>,
 ) => {

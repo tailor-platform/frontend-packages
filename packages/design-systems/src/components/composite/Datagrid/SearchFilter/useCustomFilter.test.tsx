@@ -154,6 +154,70 @@ describe("useCustomFilter", () => {
     expect(result.current.filterRows).toStrictEqual(expectedValue);
   });
 
+  it("clearFilterHandler work as expected with defaultFilter", () => {
+    const { result } = renderHook(() =>
+      useCustomFilter({
+        columns,
+        onChange: () => {
+          return;
+        },
+        systemFilter: undefined,
+        defaultFilter: { status: { eq: "pending" } },
+        localization: LOCALIZATION_JA,
+      }),
+    );
+
+    act(() => {
+      result.current.clearFilterHandler();
+    });
+
+    const expectedValue: FilterRowData[] = [
+      {
+        index: 0,
+        currentState: {
+          column: "",
+          value: "",
+          condition: "",
+          jointCondition: undefined,
+          isChangeable: true,
+        },
+      },
+    ];
+    expect(result.current.filterRows).toStrictEqual(expectedValue);
+  });
+
+  it("clearFilterHandler work as expected with defaultFilter and systemFilter", () => {
+    const { result } = renderHook(() =>
+      useCustomFilter({
+        columns,
+        onChange: () => {
+          return;
+        },
+        systemFilter: { status: { eq: "pending" } },
+        defaultFilter: { amount: { eq: 200 } },
+        localization: LOCALIZATION_JA,
+      }),
+    );
+
+    act(() => {
+      result.current.clearFilterHandler();
+    });
+
+    const expectedValue: FilterRowData[] = [
+      {
+        index: 0,
+        currentState: {
+          column: "",
+          value: "",
+          condition: "",
+          jointCondition: undefined,
+          isChangeable: true,
+        },
+      },
+    ];
+    expect(result.current.filterRows).toStrictEqual(expectedValue);
+  });
+
   it("deleteFilterRowHandler work as expected", async () => {
     const { result } = renderHook(() =>
       useCustomFilter({

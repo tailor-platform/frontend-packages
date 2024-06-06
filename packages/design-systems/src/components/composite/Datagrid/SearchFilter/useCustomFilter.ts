@@ -109,13 +109,14 @@ export const useCustomFilter = <TData>({
     [],
   );
 
-  const initialFilterRows: FilterRowData[] = useMemo(() => {
+  const initialFilterRows = useCallback((): FilterRowData[] => {
     const filterRows: FilterRowData[] = [];
     if (defaultFilter) {
       filterRows.push(
         ...convertQueryToFilterRows(defaultFilter, filterRows.length),
       );
     }
+
     filterRows.push(
       newEmptyRow({
         index: filterRows.length,
@@ -123,10 +124,10 @@ export const useCustomFilter = <TData>({
       }),
     );
     return filterRows;
-  }, [defaultFilter, newEmptyRow, convertQueryToFilterRows]);
+  }, [convertQueryToFilterRows, defaultFilter, newEmptyRow]);
 
   const [filterRows, setFilterRows] =
-    useState<FilterRowData[]>(initialFilterRows);
+    useState<FilterRowData[]>(initialFilterRows());
 
   /**
    * This will delete the filter row from filterRows.
@@ -154,9 +155,9 @@ export const useCustomFilter = <TData>({
    * This will reset the filterRows data state.
    */
   const clearFilterHandler = useCallback(() => {
-    setFilterRows([]);
+    setFilterRows([newEmptyRow({ index: 0, isChangeable: true })]);
     setSelectedJointCondition(undefined);
-  }, []);
+  }, [newEmptyRow]);
 
   /**
    * This will add new item to filterRows data state.
