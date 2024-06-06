@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { CheckIcon, ChevronDown, X, XIcon } from "lucide-react";
 import { Select as AS, CollectionItem } from "@ark-ui/react/select";
 import { styled } from "@tailor-platform/styled-system/jsx";
@@ -62,6 +62,14 @@ export const FilterRow = <TData extends Record<string, unknown>>(
   } = props;
 
   const classes = select();
+
+  const [value, setValue] = useState<string[]>([
+    currentFilter.value.toString(),
+  ]);
+
+  useEffect(() => {
+    setValue([currentFilter.value.toString()]);
+  }, [currentFilter.value]);
 
   const DATE_INPUT_PLACEHOLDER = "YYYY-MM-DD";
   const filterConditions = getLocalizedFilterConditions(localization);
@@ -204,10 +212,13 @@ export const FilterRow = <TData extends Record<string, unknown>>(
             borderRadius={"4px"}
             variant="outline"
             placeholder={inputValuePlaceHolder}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {
               onChangeValue(e.target.value);
             }}
-            value={[currentFilter.value.toString()]}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setValue([e.target.value]);
+            }}
+            value={value}
             type={inputType} //This input element is used for date, dateTime, number and text type (for enum and boolean, we use select element above instead)
             maxLength={50}
           />

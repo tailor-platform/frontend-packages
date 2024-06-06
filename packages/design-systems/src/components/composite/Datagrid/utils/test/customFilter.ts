@@ -113,6 +113,9 @@ export const inputValue = async (
   const inputValue = screen.getAllByTestId("select-input-value")[valueIndex];
   await user.click(inputValue);
   await user.type(inputValue, value);
+  // trigger onBlur event
+  const selectCondition = screen.getAllByTestId("select-condition")[valueIndex];
+  await user.click(selectCondition);
 };
 
 /**

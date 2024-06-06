@@ -1,11 +1,5 @@
 import { useState } from "react";
-import {
-  fireEvent,
-  render,
-  screen,
-  within,
-  waitFor,
-} from "@testing-library/react";
+import { render, screen, within, waitFor } from "@testing-library/react";
 import { ColumnDef } from "@tanstack/react-table";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
@@ -321,6 +315,8 @@ describe(
       const inputValue = screen.getByTestId("select-input-value");
       await user.click(inputValue);
       await user.type(inputValue, "test@test.com");
+      // trigger onBlur event
+      await user.click(equalConditionOption);
 
       expect(inputValue).toHaveValue("test@test.com");
 
@@ -392,7 +388,9 @@ describe(
 
       // Input value
       const inputValue = await screen.findByTestId("select-input-value");
-      fireEvent.change(inputValue, { target: { value: "800" } });
+      await user.type(inputValue, "800");
+      // trigger onBlur event
+      await user.click(equalConditionOption);
 
       expect(inputValue).toHaveValue(800);
 
@@ -461,6 +459,8 @@ describe(
       const inputValue = screen.getByTestId("select-input-value");
       await user.click(inputValue);
       await user.type(inputValue, "2023-11-14");
+      // trigger onBlur event
+      await user.click(selectConditionButton);
       expect(inputValue).toHaveValue("2023-11-14");
 
       //Check filters
@@ -708,6 +708,8 @@ describe(
       const inputValue = screen.getByTestId("select-input-value");
       await user.click(inputValue);
       await user.type(inputValue, "2023-11-14 23:00");
+      // trigger onBlur event
+      await user.click(lteConditionOption);
       expect(inputValue).toHaveValue("2023-11-14T23:00");
 
       //Check filters
