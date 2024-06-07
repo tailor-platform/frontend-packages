@@ -1121,7 +1121,9 @@ describe(
 
       // Select column
       const selectColumn = screen.getAllByTestId("select-column")[0];
-      const selectColumnOptions = screen.getAllByTestId("select-column-options")[0];
+      const selectColumnOptions = screen.getAllByTestId(
+        "select-column-options",
+      )[0];
       const selectColumnButton = within(selectColumn).getByRole("button");
       await user.click(selectColumnButton);
       const amountOption = within(selectColumnOptions).getByText("Amount");
