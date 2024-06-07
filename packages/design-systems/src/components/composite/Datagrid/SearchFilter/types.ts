@@ -32,7 +32,9 @@ export type JointCondition = {
 };
 
 export type GraphQLQueryFilter = {
-  [fieldName: string]: [{ [operator: string]: unknown }];
+  [fieldName: string]:
+    | { [operator: string]: unknown }
+    | [{ [operator: string]: unknown }];
 };
 
 export interface CustomFilterTableState {

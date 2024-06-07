@@ -73,34 +73,27 @@ export const useCustomFilter = <TData>({
   const convertQueryToFilterRows = useCallback(
     (filter: GraphQLQueryFilter, filterRowIndex: number): FilterRowData[] => {
       const filterRows: FilterRowData[] = [];
-      const convertQueryToFilterRowsRecursively = (
-        filter: GraphQLQueryFilter,
-        index: number,
-      ) => {
-        const keys = Object.keys(filter);
-        keys.forEach((key) => {
-          if (key === "and" || key === "or") {
-            const jointConditionValue = filter[key];
-            convertQueryToFilterRowsRecursively(jointConditionValue, index + 1);
-          } else {
-            const column = key;
-            const condition = Object.keys(filter[key])[0];
-            const value: string = filter[key][condition] as string;
-            const currentState: FilterRowState = {
-              column: column,
-              condition: condition,
-              value: value,
-              jointCondition: undefined,
-              isChangeable: false,
-            };
-            filterRows.push({
-              index: index,
-              currentState: currentState,
-            });
-          }
+      const keys = Object.keys(filter);
+      keys.forEach((key) => {
+        const column = key;
+        const condition = Object.keys(filter[key])[0];
+        const filterRow = filter[key];
+        if (Array.isArray(filterRow)) {
+          return;
+        }
+        const value: string = filterRow[condition] as string;
+        const currentState: FilterRowState = {
+          column: column,
+          condition: condition,
+          value: value,
+          jointCondition: undefined,
+          isChangeable: true,
+        };
+        filterRows.push({
+          index: filterRowIndex,
+          currentState: currentState,
         });
-      };
-      convertQueryToFilterRowsRecursively(filter, filterRowIndex);
+      });
       return filterRows;
     },
     [],
@@ -249,8 +242,10 @@ export const useCustomFilter = <TData>({
       };
 
       if (jointCondition) {
-        if (graphQLQueryObject[jointCondition]) {
-          graphQLQueryObject[jointCondition].push(
+        const filterRow = graphQLQueryObject[jointCondition];
+
+        if (filterRow && Array.isArray(filterRow)) {
+          filterRow.push(
             generateGraphQLQueryObject(valueCoveter(metaType, value)),
           );
         } else {
