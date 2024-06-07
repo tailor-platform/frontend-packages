@@ -81,10 +81,7 @@ export const useCustomFilter = <TData>({
         keys.forEach((key) => {
           if (key === "and" || key === "or") {
             const jointConditionValue = filter[key];
-            convertQueryToFilterRowsRecursively(
-              jointConditionValue as GraphQLQueryFilter,
-              index + 1,
-            );
+            convertQueryToFilterRowsRecursively(jointConditionValue, index + 1);
           } else {
             const column = key;
             const condition = Object.keys(filter[key])[0];
@@ -93,7 +90,7 @@ export const useCustomFilter = <TData>({
               column: column,
               condition: condition,
               value: value,
-              jointCondition: "and",
+              jointCondition: undefined,
               isChangeable: false,
             };
             filterRows.push({
@@ -184,20 +181,18 @@ export const useCustomFilter = <TData>({
             "status": {
                 "eq": "processing"
             },
-            "or": {
-                "status": {
-                    "eq": "success"
-                },
-                "or": {
-                    "status": {
-                        "eq": "failed"
-                    }
-                }
-            }
+            "or": [
+               "status": {
+                 "eq": "success"
+               },
+               "status": {
+                 "eq": "failed"
+               }
+            ]
         }
       }
   */
-  const addToGraphQLQueryFilterRecursively = useCallback(
+  const convertQueryFilter = useCallback(
     (
       filter: FilterRowState,
       graphQLQueryObject: GraphQLQueryFilter,
@@ -207,93 +202,62 @@ export const useCustomFilter = <TData>({
       const { column, condition, value, jointCondition } = filter;
 
       const generateGraphQLQueryObject = (
-        isExitJointCondition: boolean,
         value: string | boolean | number | string[] | number[],
       ) => {
-        if (isExitJointCondition) {
-          return {
-            [column]: {
-              [condition]: value,
-            },
-          };
-        }
         return {
-          [condition]: value,
+          [column]: {
+            [condition]: value,
+          },
         };
       };
 
-      const assignValueToQueryObject = (
-        key: string,
-        isExitJointCondition: boolean,
+      const valueCoveter = (
+        metaType: MetaType | undefined,
+        value: string | boolean | number | string[] | number[],
       ) => {
         if (typeof value === "boolean" || typeof value === "number") {
-          graphQLQueryObject[key] = generateGraphQLQueryObject(
-            isExitJointCondition,
-            value,
-          );
-          return;
+          return value;
         }
+
+        if (Array.isArray(value)) {
+          if (typeof value[0] === "number") {
+            return value.map((v) => Number(v));
+          }
+          return value;
+        }
+
         switch (metaType) {
           case "boolean":
-            if (Array.isArray(value)) {
-              break;
-            }
-            graphQLQueryObject[key] = generateGraphQLQueryObject(
-              isExitJointCondition,
-              value.toLowerCase() === localization.filter.columnBoolean.true,
+            return (
+              value.toLowerCase() === localization.filter.columnBoolean.true
             );
-            break;
           case "dateTime": {
-            if (Array.isArray(value)) {
-              break;
-            }
             const date = dayjs(value);
             if (!date.isValid()) {
               throw new Error("Invalid date format.");
             }
-            graphQLQueryObject[key] = generateGraphQLQueryObject(
-              isExitJointCondition,
-              new Date(value).toISOString(),
-            );
-            break;
+            return new Date(value).toISOString();
           }
           case "number":
-            if (Array.isArray(value)) {
-              graphQLQueryObject[key] = generateGraphQLQueryObject(
-                isExitJointCondition,
-                value.map(Number),
-              );
-              break;
-            }
-            graphQLQueryObject[key] = generateGraphQLQueryObject(
-              isExitJointCondition,
-              Number(value),
-            );
-            break;
+            return Number(value);
+
           case "enum":
           case "string":
           default:
-            graphQLQueryObject[key] = generateGraphQLQueryObject(
-              isExitJointCondition,
-              value,
-            );
-            break;
+            return value;
         }
       };
 
       if (jointCondition) {
         if (graphQLQueryObject[jointCondition]) {
-          addToGraphQLQueryFilterRecursively(
-            filter,
-            graphQLQueryObject[jointCondition] as GraphQLQueryFilter,
-            metaType,
-            localization,
+          graphQLQueryObject[jointCondition].push(
+            generateGraphQLQueryObject(valueCoveter(metaType, value)),
           );
         } else {
-          assignValueToQueryObject(jointCondition, true);
+          graphQLQueryObject[jointCondition] = [
+            generateGraphQLQueryObject(valueCoveter(metaType, value)),
+          ];
         }
-      } else {
-        assignValueToQueryObject(column, false);
       }
     },
     [],
@@ -314,7 +278,7 @@ export const useCustomFilter = <TData>({
             (!!column && !!condition && !!value) ||
             (typeof value === "boolean" && value === false);
           if (isExistCurrentState) {
-            addToGraphQLQueryFilterRecursively(
+            convertQueryFilter(
               row.currentState,
               newGraphQLQueryFilter,
               metaType,
@@ -334,7 +298,7 @@ export const useCustomFilter = <TData>({
         },
       };
     },
-    [systemFilter, columns, addToGraphQLQueryFilterRecursively, localization],
+    [systemFilter, columns, convertQueryFilter, localization],
   );
 
   const [prevFilter, setPrevFilter] = useState<GraphQLQueryFilter>({});
@@ -355,6 +319,15 @@ export const useCustomFilter = <TData>({
     (index: number) => (currentFilter: FilterRowState) => {
       if (currentFilter.jointCondition) {
         setSelectedJointCondition(currentFilter.jointCondition);
+        // 一度jointConditionを変更したら、ほかの行のjointConditionも変更する
+        setFilterRows((oldState) => {
+          const newState = [...oldState];
+          newState.map((row) => {
+            row.currentState.jointCondition = currentFilter.jointCondition;
+            return row;
+          });
+          return newState;
+        });
       }
       setFilterRows((oldState) => {
         const newState = [...oldState];
@@ -392,7 +365,7 @@ export const useCustomFilter = <TData>({
     addNewFilterRowHandler,
     filterChangedHandler,
     getBoxPosition,
-    addToGraphQLQueryFilterRecursively, // For testing purpose
+    convertQueryFilter, // For testing purpose
     convertQueryToFilterRows, // For testing purpose
     generateGraphQLQueryFilter, // For testing purpose
     initialFilterRows, // For testing purpose
