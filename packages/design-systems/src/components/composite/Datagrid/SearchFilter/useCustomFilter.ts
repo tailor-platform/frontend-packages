@@ -10,7 +10,7 @@ import dayjs from "dayjs";
 import type { GraphQLQueryFilter, Localization } from "..";
 import type { Column, MetaType } from "../types";
 import { jointConditions } from "./filter";
-import { FilterRowState, JointCondition } from "./types";
+import { FilterRowState, JointCondition, QueryLow } from "./types";
 
 export type FilterRowData = {
   index: number; //Row number
@@ -21,8 +21,8 @@ type UseCustomFilterProps<TData> = {
   columns: Array<Column<TData>>;
   onChange: (currentState: GraphQLQueryFilter | undefined) => void;
   localization: Localization;
-  systemFilter?: GraphQLQueryFilter;
-  defaultFilter?: GraphQLQueryFilter;
+  systemFilter?: QueryLow;
+  defaultFilter?: QueryLow;
 };
 
 export const useCustomFilter = <TData>({
@@ -71,13 +71,22 @@ export const useCustomFilter = <TData>({
   );
 
   const convertQueryToFilterRows = useCallback(
-    (filter: GraphQLQueryFilter, filterRowIndex: number): FilterRowData[] => {
+    (filter: QueryLow, filterRowIndex: number): FilterRowData[] => {
       const filterRows = Object.entries(filter).flatMap(
         ([column, filterRow]) => {
           if (Array.isArray(filterRow)) {
             return [];
           }
-          const [condition, value] = Object.entries(filterRow)[0];
+          const [condition, value] = Object.entries(
+            filterRow as {
+              [condition: string]:
+                | string
+                | number
+                | boolean
+                | string[]
+                | number[];
+            },
+          )[0];
           const currentState: FilterRowState = {
             column,
             condition,
@@ -164,6 +173,46 @@ export const useCustomFilter = <TData>({
     });
   }, [newEmptyRow, selectedJointCondition]);
 
+  const valueCoveter = useCallback(
+    (
+      metaType: MetaType | undefined,
+      value: string | boolean | number | string[] | number[],
+    ) => {
+      if (typeof value === "boolean" || typeof value === "number") {
+        return value;
+      }
+
+      if (Array.isArray(value)) {
+        if (typeof value[0] === "string" && metaType === "number") {
+          return value.map((v) => Number(v));
+        }
+        return value;
+      }
+
+      switch (metaType) {
+        case "boolean":
+          return value.toLowerCase() === localization.filter.columnBoolean.true;
+        case "dateTime": {
+          const date = dayjs(value);
+          if (!date.isValid()) {
+            throw new Error("Invalid date format.");
+          }
+          return new Date(value).toISOString();
+        }
+        case "number":
+          if (Array.isArray(value)) {
+            return value.map((v) => Number(v));
+          }
+          return Number(value);
+        case "enum":
+        case "string":
+        default:
+          return value;
+      }
+    },
+    [localization.filter.columnBoolean.true],
+  );
+
   /**
    *
    *  This will recursively add the filter to GraphQLQueryFilter to create objects like this:
@@ -187,9 +236,8 @@ export const useCustomFilter = <TData>({
   const convertQueryFilter = useCallback(
     (
       filter: FilterRowState,
-      graphQLQueryObject: GraphQLQueryFilter,
+      graphQLQueryObject: QueryLow,
       metaType: MetaType | undefined,
-      localization: Localization,
     ) => {
       const { column, condition, value, jointCondition } = filter;
 
@@ -201,45 +249,6 @@ export const useCustomFilter = <TData>({
             [condition]: value,
           },
         };
-      };
-
-      const valueCoveter = (
-        metaType: MetaType | undefined,
-        value: string | boolean | number | string[] | number[],
-      ) => {
-        if (typeof value === "boolean" || typeof value === "number") {
-          return value;
-        }
-
-        if (Array.isArray(value)) {
-          if (typeof value[0] === "string" && metaType === "number") {
-            return value.map((v) => Number(v));
-          }
-          return value;
-        }
-
-        switch (metaType) {
-          case "boolean":
-            return (
-              value.toLowerCase() === localization.filter.columnBoolean.true
-            );
-          case "dateTime": {
-            const date = dayjs(value);
-            if (!date.isValid()) {
-              throw new Error("Invalid date format.");
-            }
-            return new Date(value).toISOString();
-          }
-          case "number":
-            if (Array.isArray(value)) {
-              return value.map((v) => Number(v));
-            }
-            return Number(value);
-          case "enum":
-          case "string":
-          default:
-            return value;
-        }
       };
 
       if (jointCondition) {
@@ -260,7 +269,7 @@ export const useCustomFilter = <TData>({
         };
       }
     },
-    [],
+    [valueCoveter],
   );
 
   /**
@@ -268,7 +277,7 @@ export const useCustomFilter = <TData>({
    */
   const generateGraphQLQueryFilter = useCallback(
     (currentFilterRows: FilterRowData[]) => {
-      const newGraphQLQueryFilter: GraphQLQueryFilter = {};
+      const newGraphQLQueryFilter: QueryLow = {};
       currentFilterRows.forEach((row) => {
         if (row.currentState) {
           const { column, condition, value } = row.currentState;
@@ -282,7 +291,6 @@ export const useCustomFilter = <TData>({
               row.currentState,
               newGraphQLQueryFilter,
               metaType,
-              localization,
             );
           }
         }
@@ -298,19 +306,22 @@ export const useCustomFilter = <TData>({
         },
       };
     },
-    [systemFilter, columns, convertQueryFilter, localization],
+    [systemFilter, columns, convertQueryFilter],
   );
 
-  const [prevFilter, setPrevFilter] = useState<GraphQLQueryFilter>({});
+  const [prevFilter, setPrevFilter] = useState<GraphQLQueryFilter | undefined>(
+    {},
+  );
 
   /**
    * This will bubble up the GraphQLQueryFilter to the parent component.
    */
   useEffect(() => {
     const filter = generateGraphQLQueryFilter(filterRows);
+
     if (JSON.stringify(prevFilter) !== JSON.stringify(filter)) {
       onChange(filter);
-      setPrevFilter(filter ?? {});
+      setPrevFilter(filter);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterRows]);

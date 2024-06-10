@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from "vitest";
 import { columns } from "../utils/test";
 import { LOCALIZATION_JA } from "../../../../locales/ja";
 import { FilterRowData, useCustomFilter } from "./useCustomFilter";
-import { FilterRowState, GraphQLQueryFilter } from "./types";
+import { FilterRowState, GraphQLQueryFilter, QueryLow } from "./types";
 
 describe("useCustomFilter", () => {
   it("resetFilterHandler work as expected with systemFilter", () => {
@@ -274,7 +274,7 @@ describe("useCustomFilter", () => {
         localization: LOCALIZATION_JA,
       }),
     );
-    const graphQLQueryObject: GraphQLQueryFilter = {};
+    const graphQLQueryObject: QueryLow = {};
     const filter: FilterRowState = {
       column: "amount",
       value: 200,
@@ -284,12 +284,7 @@ describe("useCustomFilter", () => {
     };
 
     act(() => {
-      result.current.convertQueryFilter(
-        filter,
-        graphQLQueryObject,
-        "number",
-        LOCALIZATION_JA,
-      );
+      result.current.convertQueryFilter(filter, graphQLQueryObject, "number");
     });
 
     await waitFor(() => {
@@ -317,7 +312,7 @@ describe("useCustomFilter", () => {
         localization: LOCALIZATION_JA,
       }),
     );
-    const graphQLQueryObject: GraphQLQueryFilter = {};
+    const graphQLQueryObject: QueryLow = {};
     const filter: FilterRowState = {
       column: "amount",
       value: 200,
@@ -327,12 +322,7 @@ describe("useCustomFilter", () => {
     };
 
     act(() => {
-      result.current.convertQueryFilter(
-        filter,
-        graphQLQueryObject,
-        "number",
-        LOCALIZATION_JA,
-      );
+      result.current.convertQueryFilter(filter, graphQLQueryObject, "number");
     });
 
     await waitFor(() => {

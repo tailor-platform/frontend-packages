@@ -23,7 +23,7 @@ import {
 } from "../utils/test";
 import { DataGrid } from "../Datagrid";
 import { CustomFilter } from "./CustomFilter";
-import type { GraphQLQueryFilter } from "./types";
+import type { GraphQLQueryFilter, QueryLow } from "./types";
 
 /* eslint-disable-next-line @typescript-eslint/no-empty-function */
 window.HTMLElement.prototype.scrollTo = function () {}; //(https://github.com/jsdom/jsdom/issues/1695)
@@ -815,10 +815,10 @@ describe(
     it("when user click IN condition, show up TagsInput", async () => {
       let currentFilters: GraphQLQueryFilter | undefined = undefined;
 
-      const systemFilter: GraphQLQueryFilter = {
+      const systemFilter: QueryLow = {
         updatedAt: { eq: "2024-05-10 12:00:00" },
       };
-      const defaultQuery: GraphQLQueryFilter = {
+      const defaultQuery: QueryLow = {
         status: { eq: "pending" },
       };
       render(
@@ -890,10 +890,10 @@ describe(
     it("when user click IN condition, show up TagsInput and delete button work correctly", async () => {
       let currentFilters: GraphQLQueryFilter | undefined = undefined;
 
-      const systemFilter: GraphQLQueryFilter = {
+      const systemFilter: QueryLow = {
         updatedAt: { eq: "2024-05-10 12:00:00" },
       };
-      const defaultQuery: GraphQLQueryFilter = {
+      const defaultQuery: QueryLow = {
         status: { eq: "pending" },
       };
       render(
@@ -959,10 +959,10 @@ describe(
     it("when user click IN condition, show up TagsInput and clear button work correctly", async () => {
       let currentFilters: GraphQLQueryFilter | undefined = undefined;
 
-      const systemFilter: GraphQLQueryFilter = {
+      const systemFilter: QueryLow = {
         updatedAt: { eq: "2024-05-10 12:00:00" },
       };
-      const defaultQuery: GraphQLQueryFilter = {
+      const defaultQuery: QueryLow = {
         status: { eq: "pending" },
       };
       render(
@@ -1111,7 +1111,7 @@ describe(
     });
     it("When the default filter for input type is set, when changing the column, the input value is empty", async () => {
       let currentFilters: GraphQLQueryFilter | undefined = undefined;
-      const defaultQuery: GraphQLQueryFilter = {
+      const defaultQuery: QueryLow = {
         email: { eq: "test@test.com" },
       };
 
@@ -1152,7 +1152,7 @@ describe(
     });
     it("When the default filter for input type is set, when clear filter, the input value is empty", async () => {
       let currentFilters: GraphQLQueryFilter | undefined = undefined;
-      const defaultQuery: GraphQLQueryFilter = {
+      const defaultQuery: QueryLow = {
         email: { eq: "test@test.com" },
       };
 

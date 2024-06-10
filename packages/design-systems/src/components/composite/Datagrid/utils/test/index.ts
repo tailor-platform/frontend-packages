@@ -215,11 +215,8 @@ export const setFilterChange = (
     return;
   }
   const topLevelAnd = filter.and;
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const customFilterValue = topLevelAnd?.and as Array<{
-    [key: string]: string;
-  }>;
+
+  const customFilterValue = topLevelAnd["and"];
   // topLevelAndからandを除外したものがsystemFilterValue
   const systemFilterValue = { ...topLevelAnd, and: undefined };
 
@@ -228,7 +225,11 @@ export const setFilterChange = (
   if (customFilterValue && isSystemFilterExist) {
     const eqValue = systemFilterValue as unknown as { status: { eq: string } };
 
-    if (eqValue.status && customFilterValue.length > 0) {
+    if (
+      eqValue.status &&
+      Array.isArray(customFilterValue) &&
+      customFilterValue.length > 0
+    ) {
       const gtValue = (
         customFilterValue[0] as unknown as { amount: { gt: string } }
       ).amount.gt;
@@ -288,7 +289,7 @@ export const setFilterChange = (
     }
     return;
   }
-  if (customFilterValue.length > 0) {
+  if (Array.isArray(customFilterValue) && customFilterValue.length > 0) {
     const gtValue = (
       customFilterValue[0] as unknown as { amount: { gt: string } }
     ).amount.gt;

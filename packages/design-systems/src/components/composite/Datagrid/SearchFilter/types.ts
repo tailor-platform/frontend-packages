@@ -31,10 +31,22 @@ export type JointCondition = {
   disabled: boolean;
 };
 
+export type QueryLow =
+  | {
+      [column: string]: {
+        [condition: string]: string | number | boolean | string[] | number[];
+      };
+    }
+  | {
+      [joinCondition: string]: Array<{
+        [column: string]: {
+          [condition: string]: string | number | boolean | string[] | number[];
+        };
+      }>;
+    };
+
 export type GraphQLQueryFilter = {
-  [fieldName: string]:
-    | { [operator: string]: unknown }
-    | [{ [operator: string]: unknown }];
+  [and: string]: QueryLow;
 };
 
 export interface CustomFilterTableState {
@@ -53,8 +65,8 @@ export type CustomFilterProps<TData> = {
   columns: Array<Column<TData>>;
   onChange: (currentState: GraphQLQueryFilter | undefined) => void;
   localization: Localization;
-  systemFilter?: GraphQLQueryFilter;
-  defaultFilter?: GraphQLQueryFilter;
+  systemFilter?: QueryLow;
+  defaultFilter?: QueryLow;
   customFilterOpen: boolean;
   setCustomFilterOpen: (updater: Updater<boolean>) => void;
   enableColumnFilters?: boolean;
