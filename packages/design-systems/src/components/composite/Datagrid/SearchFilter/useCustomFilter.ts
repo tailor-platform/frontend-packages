@@ -72,28 +72,27 @@ export const useCustomFilter = <TData>({
 
   const convertQueryToFilterRows = useCallback(
     (filter: GraphQLQueryFilter, filterRowIndex: number): FilterRowData[] => {
-      const filterRows: FilterRowData[] = [];
-      const keys = Object.keys(filter);
-      keys.forEach((key) => {
-        const column = key;
-        const condition = Object.keys(filter[key])[0];
-        const filterRow = filter[key];
-        if (Array.isArray(filterRow)) {
-          return;
-        }
-        const value: string = filterRow[condition] as string;
-        const currentState: FilterRowState = {
-          column: column,
-          condition: condition,
-          value: value,
-          jointCondition: undefined,
-          isChangeable: true,
-        };
-        filterRows.push({
-          index: filterRowIndex,
-          currentState: currentState,
-        });
-      });
+      const filterRows = Object.entries(filter).flatMap(
+        ([column, filterRow]) => {
+          if (Array.isArray(filterRow)) {
+            return [];
+          }
+          const [condition, value] = Object.entries(filterRow)[0];
+          const currentState: FilterRowState = {
+            column,
+            condition,
+            value: value as string,
+            jointCondition: undefined,
+            isChangeable: true,
+          };
+          return [
+            {
+              index: filterRowIndex,
+              currentState,
+            },
+          ];
+        },
+      );
       return filterRows;
     },
     [],
