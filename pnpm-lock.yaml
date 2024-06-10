@@ -236,7 +236,7 @@ importers:
         specifier: ^1.6.0
         version: 1.6.0(@types/node@18.19.2)(jsdom@24.0.0)(lightningcss@1.23.0)
 
-  packages/db-test:
+  packages/api-test-library:
     dependencies:
       '@apollo/client':
         specifier: ^3.10.4

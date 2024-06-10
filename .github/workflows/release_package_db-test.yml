@@ -1,23 +1,23 @@
-name: release @tailor-platform/db-test
+name: release @tailor-platform/api-test-library
 
 on:
   push:
     branches:
       - main
     paths:
-      - packages/db-test/package.json
+      - packages/api-test-library/package.json
 
 jobs:
   check-existing-release:
     uses: ./.github/workflows/check_existing_release.yml
     with:
-      package_name: db-test
+      package_name: api-test-library
   make-release-if-needed:
     needs: check-existing-release
     if: ${{ needs.check-existing-release.outputs.tag_exists == 'false' }}
     uses: ./.github/workflows/make_github_release.yml
     with:
-      package_name: db-test
+      package_name: api-test-library
       tag: ${{ needs.check-existing-release.outputs.tag }}
   publish-npm-package:
     needs:
@@ -26,4 +26,4 @@ jobs:
     uses: ./.github/workflows/publish_npm_package.yml
     secrets: inherit
     with:
-      package_name: db-test
+      package_name: api-test-library

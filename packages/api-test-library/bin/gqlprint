@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 ":" //# comment; exec /usr/bin/env node --input-type=module - "$@" < "$0"
 
-import QueryHelper from './node_modules/@tailor-platform/db-test/src/queryHelper.mjs';
-import TestContext from './node_modules/@tailor-platform/db-test/src/testContext.mjs';
-import TailorHelper from './node_modules/@tailor-platform/db-test/src/tailorHelper.mjs';
+import QueryHelper from './node_modules/@tailor-platform/api-test-library/src/queryHelper.mjs';
+import TestContext from './node_modules/@tailor-platform/api-test-library/src/testContext.mjs';
+import TailorHelper from './node_modules/@tailor-platform/api-test-library/src/tailorHelper.mjs';
 import pluralize from 'pluralize';
 import { join, resolve } from 'path';
 import { promises as fs } from 'fs';

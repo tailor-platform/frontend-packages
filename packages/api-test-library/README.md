@@ -1,4 +1,4 @@
-# DB TEST
+# API Test Library
 
 This is a simple library to test graphql workflows and pipelines.
 As a side feature, also generates graphql queries automatically and saves them to a folder.
@@ -39,7 +39,7 @@ Runs tailor tests. To do this it follows these steps:
 
 ## Setup
 
-1. Import the db-test module in your project
+1. Import the api-test-library module in your project
 2. Start a minitailor instance of any template
 3. Create the following folder structure:
 
@@ -125,7 +125,7 @@ NOTES
 ### Understanding context.env
 
 ```javascript
-import { context } from "@tailor-platform/db-test";
+import { context } from "@tailor-platform/api-test-library";
 
 test("this is a demo test", async () => {
   // All json files in the data folder is loaded to the context.env object
@@ -156,7 +156,7 @@ test("this is a demo test", async () => {
 ### Creating, updating, fetching and deleting
 
 ```javascript
-import { context } from "@tailor-platform/db-test";
+import { context } from "@tailor-platform/api-test-library";
 
 test("this is a demo test", async () => {
   const contact = context.env.Contact.contact1;
@@ -209,7 +209,7 @@ test("this is a demo test", async () => {
 ### Running pipelines
 
 ```javascript
-import { context } from "@tailor-platform/db-test";
+import { context } from "@tailor-platform/api-test-library";
 
 test("this is a demo test", async () => {
   // To run pipelines use the runPipeline method
