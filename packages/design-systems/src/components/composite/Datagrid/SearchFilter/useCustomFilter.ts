@@ -77,16 +77,7 @@ export const useCustomFilter = <TData>({
           if (Array.isArray(filterRow)) {
             return [];
           }
-          const [condition, value] = Object.entries(
-            filterRow as {
-              [condition: string]:
-                | string
-                | number
-                | boolean
-                | string[]
-                | number[];
-            },
-          )[0];
+          const [condition, value] = Object.entries(filterRow as QueryLow)[0];
           const currentState: FilterRowState = {
             column,
             condition,
