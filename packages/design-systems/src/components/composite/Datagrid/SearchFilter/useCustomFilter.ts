@@ -213,7 +213,7 @@ export const useCustomFilter = <TData>({
         }
 
         if (Array.isArray(value)) {
-          if (typeof value[0] === "number") {
+          if (typeof value[0] === "string" && metaType === "number") {
             return value.map((v) => Number(v));
           }
           return value;
@@ -232,8 +232,10 @@ export const useCustomFilter = <TData>({
             return new Date(value).toISOString();
           }
           case "number":
+            if (Array.isArray(value)) {
+              return value.map((v) => Number(v));
+            }
             return Number(value);
-
           case "enum":
           case "string":
           default:
@@ -253,6 +255,10 @@ export const useCustomFilter = <TData>({
             generateGraphQLQueryObject(valueCoveter(metaType, value)),
           ];
         }
+      } else {
+        graphQLQueryObject[column] = {
+          [condition]: valueCoveter(metaType, value),
+        };
       }
     },
     [],

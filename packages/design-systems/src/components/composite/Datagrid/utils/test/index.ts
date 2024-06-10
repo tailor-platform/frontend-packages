@@ -215,7 +215,11 @@ export const setFilterChange = (
     return;
   }
   const topLevelAnd = filter.and;
-  const customFilterValue = topLevelAnd?.and as { [key: string]: string };
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  const customFilterValue = topLevelAnd?.and as Array<{
+    [key: string]: string;
+  }>;
   // topLevelAndからandを除外したものがsystemFilterValue
   const systemFilterValue = { ...topLevelAnd, and: undefined };
 
@@ -224,9 +228,9 @@ export const setFilterChange = (
   if (customFilterValue && isSystemFilterExist) {
     const eqValue = systemFilterValue as unknown as { status: { eq: string } };
 
-    if (eqValue.status && customFilterValue.amount) {
+    if (eqValue.status && customFilterValue.length > 0) {
       const gtValue = (
-        customFilterValue as unknown as { amount: { gt: string } }
+        customFilterValue[0] as unknown as { amount: { gt: string } }
       ).amount.gt;
       setData(
         data.filter(
@@ -241,9 +245,11 @@ export const setFilterChange = (
 
   if (isSystemFilterExist) {
     const eqValue = systemFilterValue as unknown as { status: { eq: string } };
-    setData(data.filter((item) => item.status === eqValue.status.eq));
+    if (eqValue.status) {
+      setData(data.filter((item) => item.status === eqValue.status.eq));
+    }
 
-    if (topLevelAnd.amount) {
+    if (topLevelAnd && Array.isArray(topLevelAnd)) {
       const gtValue = (topLevelAnd as unknown as { amount: { gt: string } })
         .amount.gt;
       const eqValue = (
@@ -254,16 +260,42 @@ export const setFilterChange = (
           (item) => item.status === eqValue && item.amount > Number(gtValue),
         ),
       );
+    } else {
+      if (topLevelAnd.amount) {
+        const gtValue = (topLevelAnd as unknown as { amount: { gt: string } })
+          .amount.gt;
+
+        if ("status" in systemFilterValue) {
+          const eqValue = (
+            systemFilterValue as unknown as { status: { eq: string } }
+          ).status.eq;
+          setData(
+            data.filter(
+              (item) =>
+                item.status === eqValue && item.amount > Number(gtValue),
+            ),
+          );
+          return;
+        }
+        setData(data.filter((item) => item.amount > Number(gtValue)));
+        return;
+      }
+      const eqValue = (
+        systemFilterValue as unknown as { status: { eq: string } }
+      ).status.eq;
+
+      setData(data.filter((item) => item.status === eqValue));
     }
     return;
   }
-  if (customFilterValue) {
-    const gtValue = (customFilterValue as unknown as { amount: { gt: string } })
-      .amount.gt;
+  if (customFilterValue.length > 0) {
+    const gtValue = (
+      customFilterValue[0] as unknown as { amount: { gt: string } }
+    ).amount.gt;
     setData(data.filter((item) => item.amount > Number(gtValue)));
-    if (customFilterValue.and) {
+    if (customFilterValue.length > 1) {
       const eqValue = (
-        customFilterValue.and as unknown as { status: { eq: string } }
+        customFilterValue[1] as unknown as { status: { eq: string } }
       ).status.eq;
       setData(
         data.filter(
@@ -274,7 +306,6 @@ export const setFilterChange = (
     return;
   }
 };
-
 export const setSortChange = (
   data: Payment[],
   sorting: Order<Payment> | undefined,

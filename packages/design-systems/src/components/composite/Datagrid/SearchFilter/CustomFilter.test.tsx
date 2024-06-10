@@ -862,7 +862,7 @@ describe(
         expect(currentFilters).toEqual({
           and: {
             updatedAt: { eq: "2024-05-10 12:00:00" },
-            and: { status: { eq: "pending" }, and: { amount: { in: [200] } } },
+            and: [{ status: { eq: "pending" } }, { amount: { in: [200] } }],
           },
         });
       });
@@ -876,10 +876,12 @@ describe(
         expect(currentFilters).toEqual({
           and: {
             updatedAt: { eq: "2024-05-10 12:00:00" },
-            and: {
-              status: { eq: "pending" },
-              and: { amount: { in: [200, 220] } },
-            },
+            and: [
+              {
+                status: { eq: "pending" },
+              },
+              { amount: { in: [200, 220] } },
+            ],
           },
         });
       });
@@ -935,7 +937,7 @@ describe(
         expect(currentFilters).toEqual({
           and: {
             updatedAt: { eq: "2024-05-10 12:00:00" },
-            and: { status: { eq: "pending" }, and: { amount: { in: [200] } } },
+            and: [{ status: { eq: "pending" } }, { amount: { in: [200] } }],
           },
         });
       });
@@ -948,7 +950,7 @@ describe(
         expect(currentFilters).toEqual({
           and: {
             updatedAt: { eq: "2024-05-10 12:00:00" },
-            and: { status: { eq: "pending" }, and: { amount: { in: [] } } },
+            and: [{ status: { eq: "pending" } }, { amount: { in: [] } }],
           },
         });
       });
@@ -1005,8 +1007,21 @@ describe(
         //Wait for the useEffect to update the filters
         expect(currentFilters).toEqual({
           and: {
-            updatedAt: { eq: "2024-05-10 12:00:00" },
-            and: { status: { eq: "pending" }, and: { amount: { in: [] } } },
+            updatedAt: {
+              eq: "2024-05-10 12:00:00",
+            },
+            and: [
+              {
+                status: {
+                  eq: "pending",
+                },
+              },
+              {
+                amount: {
+                  in: [],
+                },
+              },
+            ],
           },
         });
       });
