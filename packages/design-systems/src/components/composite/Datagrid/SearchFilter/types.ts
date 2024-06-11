@@ -31,17 +31,16 @@ export type JointCondition = {
   disabled: boolean;
 };
 
+type QueryRowValue = {
+  [condition: string]: string | number | boolean | string[] | number[];
+};
 export type QueryRow =
   | {
-      [column: string]: {
-        [condition: string]: string | number | boolean | string[] | number[];
-      };
+      [column: string]: QueryRowValue;
     }
   | {
       [joinCondition: string]: Array<{
-        [column: string]: {
-          [condition: string]: string | number | boolean | string[] | number[];
-        };
+        [column: string]: QueryRowValue;
       }>;
     };
 
