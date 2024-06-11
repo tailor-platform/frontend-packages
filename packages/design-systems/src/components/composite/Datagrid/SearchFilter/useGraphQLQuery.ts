@@ -152,7 +152,6 @@ export const useGraphQLQuery = <TData>(props: UseGraphQLQueryProps<TData>) => {
 
   return {
     generateFilter,
-    convertQueryFilter, // For testing purpose
   };
 };
 
