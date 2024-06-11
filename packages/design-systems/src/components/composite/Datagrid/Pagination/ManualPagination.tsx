@@ -75,11 +75,7 @@ export const ManualPagination = <TData extends Record<string, unknown>>({
                 data-testid="select-page-size-options"
               >
                 {pageSizeOptions.map((item, i) => (
-                  <Select.Item
-                    className={classes.item}
-                    key={i}
-                    item={item}
-                  >
+                  <Select.Item className={classes.item} key={i} item={item}>
                     <Select.ItemText className={classes.itemText}>
                       {item}
                     </Select.ItemText>

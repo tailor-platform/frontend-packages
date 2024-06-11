@@ -24,11 +24,7 @@ export const PinInput = (props: PinInputProps) => {
     >
       <ArkPinInput.Control className={classes.control}>
         {[...(Array(digits) as number[])].map((_, i) => (
-          <ArkPinInput.Input
-            key={i}
-            index={i}
-            className={classes.input}
-          />
+          <ArkPinInput.Input key={i} index={i} className={classes.input} />
         ))}
       </ArkPinInput.Control>
     </ArkPinInput.Root>

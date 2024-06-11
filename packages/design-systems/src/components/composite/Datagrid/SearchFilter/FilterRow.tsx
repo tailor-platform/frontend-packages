@@ -387,11 +387,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
           >
             <Select.ItemGroup className={classes.itemGroup} id="condition">
               {filteredFilterConditions.map((item, i) => (
-                <Select.Item
-                  className={classes.item}
-                  key={i}
-                  item={item}
-                >
+                <Select.Item className={classes.item} key={i} item={item}>
                   <Select.ItemText className={classes.itemText}>
                     {item.label}
                   </Select.ItemText>

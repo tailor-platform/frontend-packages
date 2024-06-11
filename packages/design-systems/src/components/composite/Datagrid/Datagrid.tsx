@@ -214,10 +214,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
         <Table className={datagridClasses.table} overflow={"visible"}>
           <TableHeader className={datagridClasses.tableHeader}>
             {table.getHeaderGroups().map((headerGroup, i) => (
-              <TableRow
-                className={datagridClasses.tableRow}
-                key={i}
-              >
+              <TableRow className={datagridClasses.tableRow} key={i}>
                 {headerGroup.headers.map((header, i) => (
                   <TableHead
                     key={i}
