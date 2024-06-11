@@ -324,18 +324,15 @@ export const useCustomFilter = <TData>({
         }
       });
 
-      if (!systemFilter && Object.keys(newGraphQLQueryFilter).length === 0) {
+      if (isEmpty(systemFilter) && isEmpty(newGraphQLQueryFilter)) {
         return undefined;
       }
-
-      const result = {
+      return {
         and: {
           ...systemFilter,
           ...newGraphQLQueryFilter,
         },
       };
-
-      return result;
     },
     [systemFilter, columns, addToGraphQLQueryFilterRecursively, localization],
   );
@@ -401,4 +398,9 @@ export const useCustomFilter = <TData>({
     initialFilterRows, // For testing purpose
     setPrevFilter, // For testing purpose
   };
+};
+
+const isEmpty = (obj: object | undefined): boolean => {
+  if (obj === undefined) return true;
+  return Object.keys(obj).length === 0;
 };
