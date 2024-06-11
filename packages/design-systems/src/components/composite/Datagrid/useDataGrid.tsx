@@ -8,14 +8,13 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { Checkbox } from "../../Checkbox";
-import { type DataGridInstance, type UseDataGridProps } from "./types";
+import { type UseDataGridProps } from "./types";
 import { DensityFeature } from "./Density/Density";
 import { ExportFeature, defaultExportOptions } from "./Export/Export";
 import { HideShowFeature } from "./ColumnFeature/HideShow";
 import { CustomFilterFeature } from "./SearchFilter/CustomFilter";
 
-type RowLike = { id: string };
-
+export type RowLike = { id: string };
 export const useDataGrid = <TData extends RowLike>({
   data,
   columns,
@@ -41,7 +40,7 @@ export const useDataGrid = <TData extends RowLike>({
   exportOptions = defaultExportOptions,
   enableSorting = false,
   onSortChange,
-}: UseDataGridProps<TData>): DataGridInstance<TData> => {
+}: UseDataGridProps<TData>) => {
   const { pageIndex = 0, pageSize = 50 } = pagination || {};
   const [columnPinningState, setColumnPinningState] =
     useState<ColumnPinningState>({
