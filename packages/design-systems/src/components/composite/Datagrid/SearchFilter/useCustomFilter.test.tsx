@@ -523,6 +523,48 @@ describe("useCustomFilter", () => {
     });
   });
 
+  it("generateGraphQLQueryFilter works correctly with no filter", async () => {
+    const { result } = renderHook(() =>
+      useCustomFilter({
+        columns,
+        onChange: () => {
+          return;
+        },
+        systemFilter: undefined,
+        defaultFilter: undefined,
+        localization: LOCALIZATION_JA,
+      }),
+    );
+
+    const expectedValue = undefined;
+    act(() => {
+      expect(
+        result.current.generateGraphQLQueryFilter(result.current.filterRows),
+      ).toStrictEqual(expectedValue);
+    });
+  });
+
+  it("generateGraphQLQueryFilter works correctly with systemFilter which is empty object", async () => {
+    const { result } = renderHook(() =>
+      useCustomFilter({
+        columns,
+        onChange: () => {
+          return;
+        },
+        systemFilter: {},
+        defaultFilter: undefined,
+        localization: LOCALIZATION_JA,
+      }),
+    );
+
+    const expectedValue = undefined;
+    act(() => {
+      expect(
+        result.current.generateGraphQLQueryFilter(result.current.filterRows),
+      ).toStrictEqual(expectedValue);
+    });
+  });
+
   it("useEffect not called when prevFilter is same", async () => {
     const systemFilter = { status: { eq: "pending" } };
     const defaultFilter = { amount: { eq: 200 } };
