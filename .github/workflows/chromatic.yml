@@ -25,10 +25,6 @@ jobs:
         with:
           scope: storybook
 
-      - name: Prepare css for storybook
-        run: pnpm run panda
-        working-directory: ./apps/storybook
-
       - name: Publish storybook to chromatic
         id: chromatic
         uses: chromaui/action@v11
