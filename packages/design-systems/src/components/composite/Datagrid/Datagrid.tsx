@@ -218,9 +218,9 @@ export const DataGrid = <TData extends Record<string, unknown>>(
                 className={datagridClasses.tableRow}
                 key={headerGroup.id}
               >
-                {headerGroup.headers.map((header) => (
+                {headerGroup.headers.map((header, i) => (
                   <TableHead
-                    key={header.id}
+                    key={header.id + i}
                     header={header as Header<Record<string, unknown>, unknown>}
                     table={table}
                     columnPiningStyles={getCommonPinningStyles(
