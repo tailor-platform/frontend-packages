@@ -4,70 +4,130 @@ import { convertQueryFilter, generateGraphQLFilter } from "./graphQLQuery";
 import { FilterRowState, QueryRow } from "./types";
 import { LOCALIZATION_JA } from "@locales";
 
-describe("useGraphQLQuery", () => {
-  describe("convertQueryFilter", () => {
-    it("works as expected with initial graphQLQueryObject", async () => {
-      const queryObject: QueryRow = {};
-      const filter: FilterRowState = {
-        column: "amount",
-        value: 200,
-        condition: "eq",
-        isChangeable: false,
-        jointCondition: "or",
-      };
+describe("convertQueryFilter", () => {
+  it("works as expected with initial filter", async () => {
+    const queryObject: QueryRow = {};
+    const filter: FilterRowState = {
+      column: "amount",
+      value: "200",
+      condition: "eq",
+      isChangeable: false,
+      jointCondition: "or",
+    };
 
-      convertQueryFilter(LOCALIZATION_JA, filter, queryObject, "number");
-      expect(queryObject).toStrictEqual({
-        or: [
-          {
-            amount: {
-              eq: 200,
-            },
+    convertQueryFilter(LOCALIZATION_JA, filter, queryObject, "number");
+    expect(queryObject).toStrictEqual({
+      or: [
+        {
+          amount: {
+            eq: 200,
           },
-        ],
-      });
+        },
+      ],
     });
   });
 
-  describe("generateFilter", () => {
-    it("works correctly with systemFilter", async () => {
-      const systemFilter = { status: { eq: "pending" } };
-      const expectedValue = {
-        and: {
-          status: { eq: "pending" },
+  it("works as expected with initial GQL query object", () => {
+    const queryObject: QueryRow = {
+      name: {
+        eq: "test-name",
+      },
+    };
+    const filter: FilterRowState = {
+      column: "amount",
+      value: "200",
+      condition: "eq",
+      isChangeable: false,
+    };
+
+    convertQueryFilter(LOCALIZATION_JA, filter, queryObject, "number");
+    expect(queryObject).toStrictEqual({
+      amount: {
+        eq: 200,
+      },
+      name: {
+        eq: "test-name",
+      },
+    });
+  });
+
+  it("works as expected with initial GQL query object (with a joint condition)", () => {
+    const queryObject: QueryRow = {
+      and: [
+        {
+          hasJob: {
+            eq: "true",
+          },
+          name: {
+            eq: "test-name",
+          },
         },
-      };
+      ],
+    };
+    const filter: FilterRowState = {
+      column: "amount",
+      value: "200",
+      condition: "eq",
+      isChangeable: false,
+    };
 
-      expect(
-        generateGraphQLFilter({
-          currentFilterRows: [],
-          columns,
-          systemFilter: systemFilter,
-          localization: LOCALIZATION_JA,
-        }),
-      ).toStrictEqual(expectedValue);
+    convertQueryFilter(LOCALIZATION_JA, filter, queryObject, "number");
+    expect(queryObject).toStrictEqual({
+      amount: {
+        eq: 200,
+      },
+      and: [
+        {
+          hasJob: {
+            eq: "true",
+          },
+          name: {
+            eq: "test-name",
+          },
+        },
+      ],
     });
+  });
+});
 
-    it("works correctly with no filter", async () => {
-      expect(
-        generateGraphQLFilter({
-          currentFilterRows: [],
-          columns,
-          systemFilter: undefined,
-          localization: LOCALIZATION_JA,
-        }),
-      ).toStrictEqual(undefined);
-    });
+describe("generateFilter", () => {
+  it("works correctly with systemFilter", async () => {
+    const systemFilter = { status: { eq: "pending" } };
+    const expectedValue = {
+      and: {
+        status: { eq: "pending" },
+      },
+    };
 
-    it("works correctly with systemFilter which is empty object", async () => {
-      expect(
-        generateGraphQLFilter({
-          currentFilterRows: [],
-          columns,
-          systemFilter: {},
-          localization: LOCALIZATION_JA,
-        }),
-      ).toStrictEqual(undefined);
-    });
+    expect(
+      generateGraphQLFilter({
+        currentFilterRows: [],
+        columns,
+        systemFilter: systemFilter,
+        localization: LOCALIZATION_JA,
+      }),
+    ).toStrictEqual(expectedValue);
+  });
+
+  it("works correctly with no filter", async () => {
+    expect(
+      generateGraphQLFilter({
+        currentFilterRows: [],
+        columns,
+        systemFilter: undefined,
+        localization: LOCALIZATION_JA,
+      }),
+    ).toStrictEqual(undefined);
+  });
+
+  it("works correctly with systemFilter which is empty object", async () => {
+    expect(
+      generateGraphQLFilter({
+        currentFilterRows: [],
+        columns,
+        systemFilter: {},
+        localization: LOCALIZATION_JA,
+      }),
+    ).toStrictEqual(undefined);
   });
 });
