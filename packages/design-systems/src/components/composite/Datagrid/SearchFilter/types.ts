@@ -31,8 +31,8 @@ export type JointCondition = {
   disabled: boolean;
 };
 
-type QueryRowValue = string | number | boolean | string[] | number[];
-type QueryRowColumn = {
+export type QueryRowValue = string | number | boolean | string[] | number[];
+export type QueryRowColumn = {
   [column: string]: {
     [condition: string]: QueryRowValue;
   };
