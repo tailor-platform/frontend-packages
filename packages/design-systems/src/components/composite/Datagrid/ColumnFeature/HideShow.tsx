@@ -87,10 +87,10 @@ export const HideShow = <TData extends Record<string, unknown>>(
           gap="4"
           className={scrollBar()}
         >
-          {columns.map((column) => {
+          {columns.map((column, i) => {
             return (
               <Checkbox
-                key={column.id}
+                key={column.id + i}
                 checked={column.getIsVisible()}
                 onCheckedChange={(e: { checked: boolean }) =>
                   column.getToggleVisibilityHandler()({
