@@ -1026,6 +1026,7 @@ describe(
         });
       });
     });
+
     it("after setting an input type filter, when changing the column, the input value is empty", async () => {
       let currentFilters: GraphQLQueryFilter | undefined = undefined;
 
@@ -1109,6 +1110,7 @@ describe(
         expect(currentFilters).toEqual(undefined);
       });
     });
+
     it("When the default filter for input type is set, when changing the column, the input value is empty", async () => {
       let currentFilters: GraphQLQueryFilter | undefined = undefined;
       const defaultQuery: QueryRow = {
@@ -1150,6 +1152,7 @@ describe(
         expect(currentFilters).toEqual(undefined);
       });
     });
+
     it("When the default filter for input type is set, when clear filter, the input value is empty", async () => {
       let currentFilters: GraphQLQueryFilter | undefined = undefined;
       const defaultQuery: QueryRow = {
