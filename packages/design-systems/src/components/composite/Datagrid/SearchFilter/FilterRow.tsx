@@ -278,10 +278,10 @@ export const FilterRow = <TData extends Record<string, unknown>>(
               id="jointConditions"
               data-testid="select-joint-condition-options"
             >
-              {jointConditions.map((item) => (
+              {jointConditions.map((item, i) => (
                 <Select.Item
                   className={classes.item}
-                  key={item.value}
+                  key={item.value + i}
                   item={item}
                   data-testid={`joint-condition-${item.value}`}
                 >
