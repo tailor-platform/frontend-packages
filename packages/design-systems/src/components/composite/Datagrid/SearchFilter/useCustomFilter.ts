@@ -6,11 +6,11 @@ import {
   useRef,
   CSSProperties,
 } from "react";
-import dayjs from "dayjs";
 import type { GraphQLQueryFilter, Localization } from "..";
-import type { Column, MetaType } from "../types";
+import type { Column } from "../types";
 import { jointConditions } from "./filter";
 import { FilterRowState, JointCondition, QueryRow } from "./types";
+import { useGraphQLQuery } from "./useGraphQLQuery";
 
 export type FilterRowData = {
   index: number; //Row number
@@ -34,10 +34,15 @@ export const useCustomFilter = <TData>({
 }: UseCustomFilterProps<TData>) => {
   const filterRef = useRef<HTMLDivElement>(null);
   const filterButtonRef = useRef<HTMLButtonElement>(null);
-
   const [selectedJointCondition, setSelectedJointCondition] = useState<
     string | undefined
   >(undefined);
+  const { generateFilter } = useGraphQLQuery({
+    columns,
+    localization,
+    systemFilter,
+  });
+
   /*
    * This will disable the joint conditions which are not selected in the first row.
    * For example, if user selects "and" in the first row, then "or" will be disabled in the second row and onwards.
@@ -169,142 +174,6 @@ export const useCustomFilter = <TData>({
     });
   }, [newEmptyRow, selectedJointCondition]);
 
-  const valueConverter = useCallback(
-    (
-      metaType: MetaType | undefined,
-      value: string | boolean | number | string[] | number[],
-    ) => {
-      if (typeof value === "boolean" || typeof value === "number") {
-        return value;
-      }
-
-      if (Array.isArray(value)) {
-        if (typeof value[0] === "string" && metaType === "number") {
-          return value.map((v) => Number(v));
-        }
-        return value;
-      }
-
-      switch (metaType) {
-        case "boolean":
-          return value.toLowerCase() === localization.filter.columnBoolean.true;
-        case "dateTime": {
-          const date = dayjs(value);
-          if (!date.isValid()) {
-            throw new Error("Invalid date format.");
-          }
-          return new Date(value).toISOString();
-        }
-        case "number":
-          if (Array.isArray(value)) {
-            return value.map((v) => Number(v));
-          }
-          return Number(value);
-        case "enum":
-        case "string":
-        default:
-          return value;
-      }
-    },
-    [localization.filter.columnBoolean.true],
-  );
-
-  /**
-   *
-   *  This will recursively add the filter to GraphQLQueryFilter to create objects like this:
-   *
-    {
-        "and": {
-            "status": {
-                "eq": "processing"
-            },
-            "or": [
-               "status": {
-                 "eq": "success"
-               },
-               "status": {
-                 "eq": "failed"
-               }
-            ]
-        }
-      }
-  */
-  const convertQueryFilter = useCallback(
-    (
-      filter: FilterRowState,
-      graphQLQueryObject: QueryRow,
-      metaType: MetaType | undefined,
-    ) => {
-      const { column, condition, value, jointCondition } = filter;
-
-      const generateGraphQLQueryObject = (
-        value: string | boolean | number | string[] | number[],
-      ) => {
-        return {
-          [column]: {
-            [condition]: value,
-          },
-        };
-      };
-
-      if (jointCondition) {
-        const filterRow = graphQLQueryObject[jointCondition];
-
-        if (filterRow && Array.isArray(filterRow)) {
-          filterRow.push(
-            generateGraphQLQueryObject(valueConverter(metaType, value)),
-          );
-        } else {
-          graphQLQueryObject[jointCondition] = [
-            generateGraphQLQueryObject(valueConverter(metaType, value)),
-          ];
-        }
-      } else {
-        graphQLQueryObject[column] = {
-          [condition]: valueConverter(metaType, value),
-        };
-      }
-    },
-    [valueConverter],
-  );
-
-  /**
-   * This will convert the FilterRowState object from the UI to GraphQLQueryFilter and add it to the GraphQLQueryFilter.
-   */
-  const generateGraphQLQueryFilter = useCallback(
-    (currentFilterRows: FilterRowData[]) => {
-      const newGraphQLQueryFilter: QueryRow = {};
-      currentFilterRows.forEach((row) => {
-        if (row.currentState) {
-          const { column, condition, value } = row.currentState;
-          const metaType = columns.find((c) => c.accessorKey === column)?.meta
-            ?.type;
-          const isExistCurrentState: boolean =
-            (!!column && !!condition && !!value) ||
-            (typeof value === "boolean" && value === false);
-          if (isExistCurrentState) {
-            convertQueryFilter(
-              row.currentState,
-              newGraphQLQueryFilter,
-              metaType,
-            );
-          }
-        }
-      });
-
-      if (isEmpty(systemFilter) && isEmpty(newGraphQLQueryFilter)) {
-        return undefined;
-      }
-      return {
-        and: {
-          ...systemFilter,
-          ...newGraphQLQueryFilter,
-        },
-      };
-    },
-    [systemFilter, columns, convertQueryFilter],
-  );
-
   const [prevFilter, setPrevFilter] = useState<GraphQLQueryFilter | undefined>(
     {},
   );
@@ -313,7 +182,7 @@ export const useCustomFilter = <TData>({
    * This will bubble up the GraphQLQueryFilter to the parent component.
    */
   useEffect(() => {
-    const filter = generateGraphQLQueryFilter(filterRows);
+    const filter = generateFilter(filterRows);
 
     if (JSON.stringify(prevFilter) !== JSON.stringify(filter)) {
       onChange(filter);
@@ -372,15 +241,7 @@ export const useCustomFilter = <TData>({
     addNewFilterRowHandler,
     filterChangedHandler,
     getBoxPosition,
-    convertQueryFilter, // For testing purpose
-    convertQueryToFilterRows, // For testing purpose
-    generateGraphQLQueryFilter, // For testing purpose
-    initialFilterRows, // For testing purpose
+    generateGraphQLQueryFilter: generateFilter, // For testing purpose
     setPrevFilter, // For testing purpose
   };
-};
-
-const isEmpty = (obj: object | undefined): boolean => {
-  if (obj === undefined) return true;
-  return Object.keys(obj).length === 0;
 };

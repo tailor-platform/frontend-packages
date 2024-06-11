@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from "vitest";
 import { columns } from "../utils/test";
 import { LOCALIZATION_JA } from "../../../../locales/ja";
 import { FilterRowData, useCustomFilter } from "./useCustomFilter";
-import { FilterRowState, GraphQLQueryFilter, QueryRow } from "./types";
+import { FilterRowState, GraphQLQueryFilter } from "./types";
 
 describe("useCustomFilter", () => {
   it("resetFilterHandler work as expected with systemFilter", () => {
@@ -262,82 +262,6 @@ describe("useCustomFilter", () => {
     });
   });
 
-  it("addToGraphQLQueryFilterRecursively work as expected with jointCondition", async () => {
-    const { result } = renderHook(() =>
-      useCustomFilter({
-        columns,
-        onChange: () => {
-          return;
-        },
-        systemFilter: { status: { eq: "pending" } },
-        defaultFilter: { amount: { eq: 200 } },
-        localization: LOCALIZATION_JA,
-      }),
-    );
-    const graphQLQueryObject: QueryRow = {};
-    const filter: FilterRowState = {
-      column: "amount",
-      value: 200,
-      condition: "eq",
-      isChangeable: false,
-      jointCondition: "or",
-    };
-
-    act(() => {
-      result.current.convertQueryFilter(filter, graphQLQueryObject, "number");
-    });
-
-    await waitFor(() => {
-      expect(graphQLQueryObject).toStrictEqual({
-        or: [
-          {
-            amount: {
-              eq: 200,
-            },
-          },
-        ],
-      });
-    });
-  });
-
-  it("convertQueryFilter work as expected with initial graphQLQueryObject", async () => {
-    const { result } = renderHook(() =>
-      useCustomFilter({
-        columns,
-        onChange: () => {
-          return;
-        },
-        systemFilter: { status: { eq: "pending" } },
-        defaultFilter: { amount: { eq: 200 } },
-        localization: LOCALIZATION_JA,
-      }),
-    );
-    const graphQLQueryObject: QueryRow = {};
-    const filter: FilterRowState = {
-      column: "amount",
-      value: 200,
-      condition: "eq",
-      isChangeable: false,
-      jointCondition: "or",
-    };
-
-    act(() => {
-      result.current.convertQueryFilter(filter, graphQLQueryObject, "number");
-    });
-
-    await waitFor(() => {
-      expect(graphQLQueryObject).toStrictEqual({
-        or: [
-          {
-            amount: {
-              eq: 200,
-            },
-          },
-        ],
-      });
-    });
-  });
-
   it("generateGraphQLQueryFilter work as expected with no systemFilter and defaultFilter", async () => {
     const { result } = renderHook(() =>
       useCustomFilter({
@@ -457,34 +381,6 @@ describe("useCustomFilter", () => {
     });
   });
 
-  it("generateGraphQLQueryFilter woks correctly with systemFilter", async () => {
-    const systemFilter = { status: { eq: "pending" } };
-
-    const { result } = renderHook(() =>
-      useCustomFilter({
-        columns,
-        onChange: () => {
-          return;
-        },
-        systemFilter: systemFilter,
-        defaultFilter: undefined,
-        localization: LOCALIZATION_JA,
-      }),
-    );
-
-    const expectedValue = {
-      and: {
-        status: { eq: "pending" },
-      },
-    };
-
-    act(() => {
-      expect(
-        result.current.generateGraphQLQueryFilter(result.current.filterRows),
-      ).toStrictEqual(expectedValue);
-    });
-  });
-
   it("generateGraphQLQueryFilter woks correctly with defaultFilter", async () => {
     const defaultFilter = { amount: { eq: 200 } };
 
@@ -527,48 +423,6 @@ describe("useCustomFilter", () => {
         ],
       },
     };
-    act(() => {
-      expect(
-        result.current.generateGraphQLQueryFilter(result.current.filterRows),
-      ).toStrictEqual(expectedValue);
-    });
-  });
-
-  it("generateGraphQLQueryFilter works correctly with no filter", async () => {
-    const { result } = renderHook(() =>
-      useCustomFilter({
-        columns,
-        onChange: () => {
-          return;
-        },
-        systemFilter: undefined,
-        defaultFilter: undefined,
-        localization: LOCALIZATION_JA,
-      }),
-    );
-
-    const expectedValue = undefined;
-    act(() => {
-      expect(
-        result.current.generateGraphQLQueryFilter(result.current.filterRows),
-      ).toStrictEqual(expectedValue);
-    });
-  });
-
-  it("generateGraphQLQueryFilter works correctly with systemFilter which is empty object", async () => {
-    const { result } = renderHook(() =>
-      useCustomFilter({
-        columns,
-        onChange: () => {
-          return;
-        },
-        systemFilter: {},
-        defaultFilter: undefined,
-        localization: LOCALIZATION_JA,
-      }),
-    );
-
-    const expectedValue = undefined;
     act(() => {
       expect(
         result.current.generateGraphQLQueryFilter(result.current.filterRows),
