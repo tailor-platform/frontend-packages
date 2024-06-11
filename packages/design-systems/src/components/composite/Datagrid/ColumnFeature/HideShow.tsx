@@ -90,7 +90,7 @@ export const HideShow = <TData extends Record<string, unknown>>(
           {columns.map((column, i) => {
             return (
               <Checkbox
-                key={column.id + i}
+                key={i}
                 checked={column.getIsVisible()}
                 onCheckedChange={(e: { checked: boolean }) =>
                   column.getToggleVisibilityHandler()({

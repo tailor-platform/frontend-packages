@@ -278,10 +278,10 @@ export const FilterRow = <TData extends Record<string, unknown>>(
               id="jointConditions"
               data-testid="select-joint-condition-options"
             >
-              {jointConditions.map((item) => (
+              {jointConditions.map((item, i) => (
                 <Select.Item
                   className={classes.item}
-                  key={item.value}
+                  key={i}
                   item={item}
                   data-testid={`joint-condition-${item.value}`}
                 >
@@ -335,7 +335,7 @@ export const FilterRow = <TData extends Record<string, unknown>>(
               {columns.map((item, i) => (
                 <Select.Item
                   className={classes.item}
-                  key={item.value + i}
+                  key={i}
                   item={item}
                   data-testid={`filter-column-${item.value}`}
                 >
@@ -386,10 +386,10 @@ export const FilterRow = <TData extends Record<string, unknown>>(
             data-testid="select-condition-options"
           >
             <Select.ItemGroup className={classes.itemGroup} id="condition">
-              {filteredFilterConditions.map((item) => (
+              {filteredFilterConditions.map((item, i) => (
                 <Select.Item
                   className={classes.item}
-                  key={item.value}
+                  key={i}
                   item={item}
                 >
                   <Select.ItemText className={classes.itemText}>
@@ -541,10 +541,10 @@ const EnumSelect = <TData extends Record<string, unknown>>({
             data-testid="select-input-value-options"
           >
             <Select.ItemGroup className={classes.itemGroup} id="filterByValue">
-              {enumList.map((item) => {
+              {enumList.map((item, i) => {
                 const enumValue = selectedColumnObject?.meta?.enumType?.[item];
                 return (
-                  <Select.Item className={classes.item} key={item} item={item}>
+                  <Select.Item className={classes.item} key={i} item={item}>
                     <Select.ItemText className={classes.itemText}>
                       {enumValue}
                     </Select.ItemText>
