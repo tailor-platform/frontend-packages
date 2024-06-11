@@ -72,28 +72,33 @@ export const useCustomFilter = <TData>({
 
   const convertQueryToFilterRows = useCallback(
     (filter: QueryRow, filterRowIndex: number): FilterRowData[] => {
-      const filterRows = Object.entries(filter).flatMap(
-        ([column, filterRow]) => {
-          if (Array.isArray(filterRow)) {
-            return [];
-          }
-          const [condition, value] = Object.entries(filterRow as QueryRow)[0];
-          const currentState: FilterRowState = {
-            column,
-            condition,
-            value: value as string,
-            jointCondition: undefined,
-            isChangeable: true,
-          };
-          return [
-            {
-              index: filterRowIndex,
-              currentState,
+      return Object.keys(filter).flatMap((key) => {
+        const filterValue = filter[key];
+        if (Array.isArray(filterValue)) {
+          return [];
+        }
+
+        // All the filter should have the exact one pair of condition and value
+        // So if there is no or are more than one pair, we will ignore the rest.
+        const conditions = Object.keys(filterValue);
+        const values = Object.values(filterValue);
+        if (conditions.length === 0 || values.length === 0) {
+          return [];
+        }
+
+        return [
+          {
+            index: filterRowIndex,
+            currentState: {
+              column: key,
+              condition: conditions[0],
+              value: values[0],
+              jointCondition: undefined,
+              isChangeable: true,
             },
-          ];
-        },
-      );
-      return filterRows;
+          },
+        ];
+      });
     },
     [],
   );
