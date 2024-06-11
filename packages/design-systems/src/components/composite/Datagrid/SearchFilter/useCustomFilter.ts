@@ -169,7 +169,7 @@ export const useCustomFilter = <TData>({
     });
   }, [newEmptyRow, selectedJointCondition]);
 
-  const valueCoveter = useCallback(
+  const valueConverter = useCallback(
     (
       metaType: MetaType | undefined,
       value: string | boolean | number | string[] | number[],
@@ -252,20 +252,20 @@ export const useCustomFilter = <TData>({
 
         if (filterRow && Array.isArray(filterRow)) {
           filterRow.push(
-            generateGraphQLQueryObject(valueCoveter(metaType, value)),
+            generateGraphQLQueryObject(valueConverter(metaType, value)),
           );
         } else {
           graphQLQueryObject[jointCondition] = [
-            generateGraphQLQueryObject(valueCoveter(metaType, value)),
+            generateGraphQLQueryObject(valueConverter(metaType, value)),
           ];
         }
       } else {
         graphQLQueryObject[column] = {
-          [condition]: valueCoveter(metaType, value),
+          [condition]: valueConverter(metaType, value),
         };
       }
     },
-    [valueCoveter],
+    [valueConverter],
   );
 
   /**
