@@ -10,7 +10,7 @@ import type { GraphQLQueryFilter, Localization } from "..";
 import type { Column } from "../types";
 import { jointConditions } from "./filter";
 import { FilterRowState, JointCondition, QueryRow } from "./types";
-import { useGraphQLQuery } from "./useGraphQLQuery";
+import { generateGraphQLFilter } from "./graphQLQuery";
 
 export type FilterRowData = {
   index: number; //Row number
@@ -37,11 +37,6 @@ export const useCustomFilter = <TData>({
   const [selectedJointCondition, setSelectedJointCondition] = useState<
     string | undefined
   >(undefined);
-  const { generateFilter } = useGraphQLQuery({
-    columns,
-    localization,
-    systemFilter,
-  });
 
   /*
    * This will disable the joint conditions which are not selected in the first row.
@@ -196,7 +191,12 @@ export const useCustomFilter = <TData>({
    * This will bubble up the GraphQLQueryFilter to the parent component.
    */
   useEffect(() => {
-    const filter = generateFilter(filterRows);
+    const filter = generateGraphQLFilter({
+      currentFilterRows: filterRows,
+      columns,
+      systemFilter,
+      localization,
+    });
 
     if (JSON.stringify(prevFilter) !== JSON.stringify(filter)) {
       onChange(filter);
@@ -255,7 +255,6 @@ export const useCustomFilter = <TData>({
     addNewFilterRowHandler,
     filterChangedHandler,
     getBoxPosition,
-    generateGraphQLQueryFilter: generateFilter, // For testing purpose
     setPrevFilter, // For testing purpose
   };
 };

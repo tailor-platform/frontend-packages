@@ -4,6 +4,7 @@ import { columns } from "../utils/test";
 import { LOCALIZATION_JA } from "../../../../locales/ja";
 import { FilterRowData, useCustomFilter } from "./useCustomFilter";
 import { FilterRowState, GraphQLQueryFilter, QueryRow } from "./types";
+import { generateGraphQLFilter } from "./graphQLQuery";
 
 describe("useCustomFilter", () => {
   describe("resetFilterHandler", () => {
@@ -255,11 +256,14 @@ describe("useCustomFilter", () => {
         },
       };
 
-      await waitFor(() => {
-        expect(
-          result.current.generateGraphQLQueryFilter(result.current.filterRows),
-        ).toStrictEqual(expectedValue);
-      });
+      expect(
+        generateGraphQLFilter({
+          currentFilterRows: result.current.filterRows,
+          columns,
+          systemFilter: undefined,
+          localization: LOCALIZATION_JA,
+        }),
+      ).toStrictEqual(expectedValue);
     });
 
     it("works correctly with systemFilter and defaultFilter", async () => {
@@ -335,11 +339,14 @@ describe("useCustomFilter", () => {
         },
       };
 
-      act(() => {
-        expect(
-          result.current.generateGraphQLQueryFilter(result.current.filterRows),
-        ).toStrictEqual(expectedValue);
-      });
+      expect(
+        generateGraphQLFilter({
+          currentFilterRows: result.current.filterRows,
+          columns,
+          systemFilter: systemFilter,
+          localization: LOCALIZATION_JA,
+        }),
+      ).toStrictEqual(expectedValue);
     });
 
     it("works correctly with defaultFilter (and)", async () => {
@@ -494,11 +501,15 @@ describe("useCustomFilter", () => {
           ],
         },
       };
-      act(() => {
-        expect(
-          result.current.generateGraphQLQueryFilter(result.current.filterRows),
-        ).toStrictEqual(expectedValue);
-      });
+
+      expect(
+        generateGraphQLFilter({
+          currentFilterRows: result.current.filterRows,
+          columns,
+          systemFilter: undefined,
+          localization: LOCALIZATION_JA,
+        }),
+      ).toStrictEqual(expectedValue);
     });
   });
 
