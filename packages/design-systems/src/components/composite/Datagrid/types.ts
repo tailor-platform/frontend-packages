@@ -5,64 +5,75 @@ import type {
   OnChangeFn,
   PaginationState,
   RowSelectionState,
+  Table,
 } from "@tanstack/react-table";
-import type { Table, Updater } from "@tanstack/table-core/build/lib/types";
+import type { Updater } from "@tanstack/table-core/build/lib/types";
 import type { Localization } from "../../../locales/types";
 import type { ExportState } from "./Export/types";
-import type { GraphQLQueryFilter } from "./SearchFilter/types";
+import type { GraphQLQueryFilter, QueryRow } from "./SearchFilter/types";
 import type { PageChangeDetails } from "./Pagination/ManualPagination";
 
-export interface DataGridInstance<
-  TData extends Record<string, unknown> = Record<string, unknown>,
-> extends Table<TData> {
-  handlePageChange?: (details: PageChangeDetails) => void;
-  totalCount?: number;
-  pageSize?: number;
-  enablePagination?: boolean;
-  manualPagination?: boolean;
-  enableColumnFilters?: boolean;
-  enableHiding?: boolean;
-  onFilterChange?: (filters: GraphQLQueryFilter | undefined) => void;
-  systemFilter?: GraphQLQueryFilter;
-  defaultFilter?: GraphQLQueryFilter;
+type CommonDatagridProps<TData extends Record<string, unknown>> = {
   localization?: Localization;
   columns: ColumnDef<TData>[];
-  pageSizeOptions?: number[];
-  enableDensity?: boolean;
-  enableSorting?: boolean;
-  onSortChange?: (sorting: Order<TData> | undefined) => void;
-}
 
-export type UseDataGridProps<TData extends Record<string, unknown>> = {
-  data: TData[];
-  columns: ColumnDef<TData>[];
-  enablePagination?: boolean;
-  manualPagination?: boolean;
+  // Filter
   enableColumnFilters?: boolean;
-  systemFilter?: GraphQLQueryFilter;
-  defaultFilter?: GraphQLQueryFilter;
-  enableHiding?: boolean;
+  systemFilter?: QueryRow;
+  defaultFilter?: QueryRow;
   onFilterChange?: (filters: GraphQLQueryFilter | undefined) => void;
-  pagination?: PaginationState;
-  totalCount?: number;
-  onPageChange?: (details: PageChangeDetails) => void;
-  localization?: Localization;
-  columnVisibility?: { [key: string]: boolean };
-  onColumnVisibilityChange?: React.Dispatch<
-    React.SetStateAction<{ [key: string]: boolean }>
-  >;
-  enableRowSelection?: boolean;
-  rowSelection?: RowSelectionState;
-  onRowSelectionChange?: OnChangeFn<RowSelectionState>;
-  enablePinning?: boolean;
-  columnPinning?: ColumnPinningState;
-  setColumnPinning?: (updater: Updater<ColumnPinningState>) => void;
-  pageSizeOptions?: number[];
+
+  // Column hiding
+  enableHiding?: boolean;
+
+  // Denstiy
   enableDensity?: boolean;
-  exportOptions?: ExportState<TData>;
+
+  // Sorting
   enableSorting?: boolean;
   onSortChange?: (sorting: Order<TData> | undefined) => void;
+
+  // Pagination
+  totalCount?: number;
+  enablePagination?: boolean;
+  manualPagination?: boolean;
+  pageSizeOptions?: number[];
 };
+
+export type DataGridInstance<
+  TData extends Record<string, unknown> = Record<string, unknown>,
+> = Table<TData> &
+  CommonDatagridProps<TData> & {
+    handlePageChange?: (details: PageChangeDetails) => void;
+  };
+
+export type UseDataGridProps<TData extends Record<string, unknown>> =
+  CommonDatagridProps<TData> & {
+    data: TData[];
+
+    // Column visibility
+    columnVisibility?: { [key: string]: boolean };
+    onColumnVisibilityChange?: React.Dispatch<
+      React.SetStateAction<{ [key: string]: boolean }>
+    >;
+
+    // Row selection
+    enableRowSelection?: boolean;
+    rowSelection?: RowSelectionState;
+    onRowSelectionChange?: OnChangeFn<RowSelectionState>;
+
+    // Column pinning
+    enablePinning?: boolean;
+    columnPinning?: ColumnPinningState;
+    setColumnPinning?: (updater: Updater<ColumnPinningState>) => void;
+
+    // Pagination
+    pagination?: PaginationState;
+    onPageChange?: (details: PageChangeDetails) => void;
+
+    // Export
+    exportOptions?: ExportState<TData>;
+  };
 
 export type MetaType =
   | "enum"

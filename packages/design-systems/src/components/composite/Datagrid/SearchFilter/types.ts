@@ -10,7 +10,7 @@ export type ValueChangeDetails<T extends CollectionItem = CollectionItem> = {
 
 export type FilterRowState = {
   column: string;
-  value: string | boolean | number | string[];
+  value: QueryRowValue;
   condition: string;
   jointCondition?: string;
   isChangeable: boolean;
@@ -31,8 +31,20 @@ export type JointCondition = {
   disabled: boolean;
 };
 
+export type QueryRowValue = string | number | boolean | string[] | number[];
+export type QueryRowColumn = {
+  [column: string]: {
+    [condition: string]: QueryRowValue;
+  };
+};
+export type QueryRow =
+  | QueryRowColumn
+  | {
+      [jointCondition: string]: Array<QueryRowColumn>;
+    };
+
 export type GraphQLQueryFilter = {
-  [fieldName: string]: { [operator: string]: unknown } | GraphQLQueryFilter;
+  [and: string]: QueryRow;
 };
 
 export interface CustomFilterTableState {
@@ -51,8 +63,8 @@ export type CustomFilterProps<TData> = {
   columns: Array<Column<TData>>;
   onChange: (currentState: GraphQLQueryFilter | undefined) => void;
   localization: Localization;
-  systemFilter?: GraphQLQueryFilter;
-  defaultFilter?: GraphQLQueryFilter;
+  systemFilter?: QueryRow;
+  defaultFilter?: QueryRow;
   customFilterOpen: boolean;
   setCustomFilterOpen: (updater: Updater<boolean>) => void;
   enableColumnFilters?: boolean;

@@ -6,11 +6,11 @@ import {
   useRef,
   CSSProperties,
 } from "react";
-import dayjs from "dayjs";
 import type { GraphQLQueryFilter, Localization } from "..";
-import type { Column, MetaType } from "../types";
+import type { Column } from "../types";
 import { jointConditions } from "./filter";
-import { FilterRowState, JointCondition } from "./types";
+import { FilterRowState, JointCondition, QueryRow } from "./types";
+import { useGraphQLQuery } from "./useGraphQLQuery";
 
 export type FilterRowData = {
   index: number; //Row number
@@ -21,8 +21,8 @@ type UseCustomFilterProps<TData> = {
   columns: Array<Column<TData>>;
   onChange: (currentState: GraphQLQueryFilter | undefined) => void;
   localization: Localization;
-  systemFilter?: GraphQLQueryFilter;
-  defaultFilter?: GraphQLQueryFilter;
+  systemFilter?: QueryRow;
+  defaultFilter?: QueryRow;
 };
 
 export const useCustomFilter = <TData>({
@@ -34,10 +34,15 @@ export const useCustomFilter = <TData>({
 }: UseCustomFilterProps<TData>) => {
   const filterRef = useRef<HTMLDivElement>(null);
   const filterButtonRef = useRef<HTMLButtonElement>(null);
-
   const [selectedJointCondition, setSelectedJointCondition] = useState<
     string | undefined
   >(undefined);
+  const { generateFilter } = useGraphQLQuery({
+    columns,
+    localization,
+    systemFilter,
+  });
+
   /*
    * This will disable the joint conditions which are not selected in the first row.
    * For example, if user selects "and" in the first row, then "or" will be disabled in the second row and onwards.
@@ -71,40 +76,48 @@ export const useCustomFilter = <TData>({
   );
 
   const convertQueryToFilterRows = useCallback(
-    (filter: GraphQLQueryFilter, filterRowIndex: number): FilterRowData[] => {
-      const filterRows: FilterRowData[] = [];
-      const convertQueryToFilterRowsRecursively = (
-        filter: GraphQLQueryFilter,
-        index: number,
-      ) => {
-        const keys = Object.keys(filter);
-        keys.forEach((key) => {
+    (
+      filter: QueryRow,
+      filterRowIndex: number,
+      jointCondition?: string,
+    ): FilterRowData[] => {
+      return Object.keys(filter).flatMap((key) => {
+        const filterValue = filter[key];
+        if (Array.isArray(filterValue)) {
           if (key === "and" || key === "or") {
-            const jointConditionValue = filter[key];
-            convertQueryToFilterRowsRecursively(
-              jointConditionValue as GraphQLQueryFilter,
-              index + 1,
-            );
-          } else {
-            const column = key;
-            const condition = Object.keys(filter[key])[0];
-            const value: string = filter[key][condition] as string;
-            const currentState: FilterRowState = {
-              column: column,
-              condition: condition,
-              value: value,
-              jointCondition: "and",
-              isChangeable: false,
-            };
-            filterRows.push({
-              index: index,
-              currentState: currentState,
+            return filterValue.flatMap((value, index) => {
+              return convertQueryToFilterRows(
+                value,
+                filterRowIndex + index,
+                key,
+              );
             });
+          } else {
+            return [];
           }
-        });
-      };
-      convertQueryToFilterRowsRecursively(filter, filterRowIndex);
-      return filterRows;
+        }
+
+        // All the filter should have the exact one pair of condition and value
+        // So if there is no or are more than one pair, we will ignore the rest.
+        const conditions = Object.keys(filterValue);
+        const values = Object.values(filterValue);
+        if (conditions.length === 0 || values.length === 0) {
+          return [];
+        }
+
+        return [
+          {
+            index: filterRowIndex,
+            currentState: {
+              column: key,
+              condition: conditions[0],
+              value: values[0],
+              jointCondition,
+              isChangeable: true,
+            },
+          },
+        ];
+      });
     },
     [],
   );
@@ -175,178 +188,19 @@ export const useCustomFilter = <TData>({
     });
   }, [newEmptyRow, selectedJointCondition]);
 
-  /**
-   *
-   *  This will recursively add the filter to GraphQLQueryFilter to create objects like this:
-   *
-    {
-        "and": {
-            "status": {
-                "eq": "processing"
-            },
-            "or": {
-                "status": {
-                    "eq": "success"
-                },
-                "or": {
-                    "status": {
-                        "eq": "failed"
-                    }
-                }
-            }
-        }
-      }
-  */
-  const addToGraphQLQueryFilterRecursively = useCallback(
-    (
-      filter: FilterRowState,
-      graphQLQueryObject: GraphQLQueryFilter,
-      metaType: MetaType | undefined,
-      localization: Localization,
-    ) => {
-      const { column, condition, value, jointCondition } = filter;
-
-      const generateGraphQLQueryObject = (
-        isExitJointCondition: boolean,
-        value: string | boolean | number | string[] | number[],
-      ) => {
-        if (isExitJointCondition) {
-          return {
-            [column]: {
-              [condition]: value,
-            },
-          };
-        }
-        return {
-          [condition]: value,
-        };
-      };
-
-      const assignValueToQueryObject = (
-        key: string,
-        isExitJointCondition: boolean,
-      ) => {
-        if (typeof value === "boolean" || typeof value === "number") {
-          graphQLQueryObject[key] = generateGraphQLQueryObject(
-            isExitJointCondition,
-            value,
-          );
-          return;
-        }
-        switch (metaType) {
-          case "boolean":
-            if (Array.isArray(value)) {
-              break;
-            }
-            graphQLQueryObject[key] = generateGraphQLQueryObject(
-              isExitJointCondition,
-              value.toLowerCase() === localization.filter.columnBoolean.true,
-            );
-            break;
-          case "dateTime": {
-            if (Array.isArray(value)) {
-              break;
-            }
-            const date = dayjs(value);
-            if (!date.isValid()) {
-              throw new Error("Invalid date format.");
-            }
-            graphQLQueryObject[key] = generateGraphQLQueryObject(
-              isExitJointCondition,
-              new Date(value).toISOString(),
-            );
-            break;
-          }
-          case "number":
-            if (Array.isArray(value)) {
-              graphQLQueryObject[key] = generateGraphQLQueryObject(
-                isExitJointCondition,
-                value.map(Number),
-              );
-              break;
-            }
-            graphQLQueryObject[key] = generateGraphQLQueryObject(
-              isExitJointCondition,
-              Number(value),
-            );
-            break;
-          case "enum":
-          case "string":
-          default:
-            graphQLQueryObject[key] = generateGraphQLQueryObject(
-              isExitJointCondition,
-              value,
-            );
-            break;
-        }
-      };
-
-      if (jointCondition) {
-        if (graphQLQueryObject[jointCondition]) {
-          addToGraphQLQueryFilterRecursively(
-            filter,
-            graphQLQueryObject[jointCondition] as GraphQLQueryFilter,
-            metaType,
-            localization,
-          );
-        } else {
-          assignValueToQueryObject(jointCondition, true);
-        }
-      } else {
-        assignValueToQueryObject(column, false);
-      }
-    },
-    [],
+  const [prevFilter, setPrevFilter] = useState<GraphQLQueryFilter | undefined>(
+    {},
   );
-
-  /**
-   * This will convert the FilterRowState object from the UI to GraphQLQueryFilter and add it to the GraphQLQueryFilter.
-   */
-  const generateGraphQLQueryFilter = useCallback(
-    (currentFilterRows: FilterRowData[]) => {
-      const newGraphQLQueryFilter: GraphQLQueryFilter = {};
-      currentFilterRows.forEach((row) => {
-        if (row.currentState) {
-          const { column, condition, value } = row.currentState;
-          const metaType = columns.find((c) => c.accessorKey === column)?.meta
-            ?.type;
-          const isExistCurrentState: boolean =
-            (!!column && !!condition && !!value) ||
-            (typeof value === "boolean" && value === false);
-          if (isExistCurrentState) {
-            addToGraphQLQueryFilterRecursively(
-              row.currentState,
-              newGraphQLQueryFilter,
-              metaType,
-              localization,
-            );
-          }
-        }
-      });
-
-      if (isEmpty(systemFilter) && isEmpty(newGraphQLQueryFilter)) {
-        return undefined;
-      }
-      return {
-        and: {
-          ...systemFilter,
-          ...newGraphQLQueryFilter,
-        },
-      };
-    },
-    [systemFilter, columns, addToGraphQLQueryFilterRecursively, localization],
-  );
-
-  const [prevFilter, setPrevFilter] = useState<GraphQLQueryFilter>({});
 
   /**
    * This will bubble up the GraphQLQueryFilter to the parent component.
    */
   useEffect(() => {
-    const filter = generateGraphQLQueryFilter(filterRows);
+    const filter = generateFilter(filterRows);
+
     if (JSON.stringify(prevFilter) !== JSON.stringify(filter)) {
       onChange(filter);
-      setPrevFilter(filter ?? {});
+      setPrevFilter(filter);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterRows]);
@@ -355,6 +209,15 @@ export const useCustomFilter = <TData>({
     (index: number) => (currentFilter: FilterRowState) => {
       if (currentFilter.jointCondition) {
         setSelectedJointCondition(currentFilter.jointCondition);
+        // 一度jointConditionを変更したら、ほかの行のjointConditionも変更する
+        setFilterRows((oldState) => {
+          const newState = [...oldState];
+          newState.map((row) => {
+            row.currentState.jointCondition = currentFilter.jointCondition;
+            return row;
+          });
+          return newState;
+        });
       }
       setFilterRows((oldState) => {
         const newState = [...oldState];
@@ -392,15 +255,7 @@ export const useCustomFilter = <TData>({
     addNewFilterRowHandler,
     filterChangedHandler,
     getBoxPosition,
-    addToGraphQLQueryFilterRecursively, // For testing purpose
-    convertQueryToFilterRows, // For testing purpose
-    generateGraphQLQueryFilter, // For testing purpose
-    initialFilterRows, // For testing purpose
+    generateGraphQLQueryFilter: generateFilter, // For testing purpose
     setPrevFilter, // For testing purpose
   };
-};
-
-const isEmpty = (obj: object | undefined): boolean => {
-  if (obj === undefined) return true;
-  return Object.keys(obj).length === 0;
 };

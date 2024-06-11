@@ -23,7 +23,7 @@ import {
 } from "../utils/test";
 import { DataGrid } from "../Datagrid";
 import { CustomFilter } from "./CustomFilter";
-import type { GraphQLQueryFilter } from "./types";
+import type { GraphQLQueryFilter, QueryRow } from "./types";
 
 /* eslint-disable-next-line @typescript-eslint/no-empty-function */
 window.HTMLElement.prototype.scrollTo = function () {}; //(https://github.com/jsdom/jsdom/issues/1695)
@@ -815,10 +815,10 @@ describe(
     it("when user click IN condition, show up TagsInput", async () => {
       let currentFilters: GraphQLQueryFilter | undefined = undefined;
 
-      const systemFilter: GraphQLQueryFilter = {
+      const systemFilter: QueryRow = {
         updatedAt: { eq: "2024-05-10 12:00:00" },
       };
-      const defaultQuery: GraphQLQueryFilter = {
+      const defaultQuery: QueryRow = {
         status: { eq: "pending" },
       };
       render(
@@ -862,7 +862,7 @@ describe(
         expect(currentFilters).toEqual({
           and: {
             updatedAt: { eq: "2024-05-10 12:00:00" },
-            and: { status: { eq: "pending" }, and: { amount: { in: [200] } } },
+            and: [{ status: { eq: "pending" } }, { amount: { in: [200] } }],
           },
         });
       });
@@ -876,10 +876,12 @@ describe(
         expect(currentFilters).toEqual({
           and: {
             updatedAt: { eq: "2024-05-10 12:00:00" },
-            and: {
-              status: { eq: "pending" },
-              and: { amount: { in: [200, 220] } },
-            },
+            and: [
+              {
+                status: { eq: "pending" },
+              },
+              { amount: { in: [200, 220] } },
+            ],
           },
         });
       });
@@ -888,10 +890,10 @@ describe(
     it("when user click IN condition, show up TagsInput and delete button work correctly", async () => {
       let currentFilters: GraphQLQueryFilter | undefined = undefined;
 
-      const systemFilter: GraphQLQueryFilter = {
+      const systemFilter: QueryRow = {
         updatedAt: { eq: "2024-05-10 12:00:00" },
       };
-      const defaultQuery: GraphQLQueryFilter = {
+      const defaultQuery: QueryRow = {
         status: { eq: "pending" },
       };
       render(
@@ -935,7 +937,7 @@ describe(
         expect(currentFilters).toEqual({
           and: {
             updatedAt: { eq: "2024-05-10 12:00:00" },
-            and: { status: { eq: "pending" }, and: { amount: { in: [200] } } },
+            and: [{ status: { eq: "pending" } }, { amount: { in: [200] } }],
           },
         });
       });
@@ -948,7 +950,7 @@ describe(
         expect(currentFilters).toEqual({
           and: {
             updatedAt: { eq: "2024-05-10 12:00:00" },
-            and: { status: { eq: "pending" }, and: { amount: { in: [] } } },
+            and: [{ status: { eq: "pending" } }, { amount: { in: [] } }],
           },
         });
       });
@@ -957,10 +959,10 @@ describe(
     it("when user click IN condition, show up TagsInput and clear button work correctly", async () => {
       let currentFilters: GraphQLQueryFilter | undefined = undefined;
 
-      const systemFilter: GraphQLQueryFilter = {
+      const systemFilter: QueryRow = {
         updatedAt: { eq: "2024-05-10 12:00:00" },
       };
-      const defaultQuery: GraphQLQueryFilter = {
+      const defaultQuery: QueryRow = {
         status: { eq: "pending" },
       };
       render(
@@ -1005,12 +1007,26 @@ describe(
         //Wait for the useEffect to update the filters
         expect(currentFilters).toEqual({
           and: {
-            updatedAt: { eq: "2024-05-10 12:00:00" },
-            and: { status: { eq: "pending" }, and: { amount: { in: [] } } },
+            updatedAt: {
+              eq: "2024-05-10 12:00:00",
+            },
+            and: [
+              {
+                status: {
+                  eq: "pending",
+                },
+              },
+              {
+                amount: {
+                  in: [],
+                },
+              },
+            ],
           },
         });
       });
     });
+
     it("after setting an input type filter, when changing the column, the input value is empty", async () => {
       let currentFilters: GraphQLQueryFilter | undefined = undefined;
 
@@ -1094,9 +1110,10 @@ describe(
         expect(currentFilters).toEqual(undefined);
       });
     });
+
     it("When the default filter for input type is set, when changing the column, the input value is empty", async () => {
       let currentFilters: GraphQLQueryFilter | undefined = undefined;
-      const defaultQuery: GraphQLQueryFilter = {
+      const defaultQuery: QueryRow = {
         email: { eq: "test@test.com" },
       };
 
@@ -1135,9 +1152,10 @@ describe(
         expect(currentFilters).toEqual(undefined);
       });
     });
+
     it("When the default filter for input type is set, when clear filter, the input value is empty", async () => {
       let currentFilters: GraphQLQueryFilter | undefined = undefined;
-      const defaultQuery: GraphQLQueryFilter = {
+      const defaultQuery: QueryRow = {
         email: { eq: "test@test.com" },
       };
 
