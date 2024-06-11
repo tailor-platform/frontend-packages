@@ -575,7 +575,7 @@ describe("useCustomFilter", () => {
     });
   });
 
-  it("If defaultFilter and systemFilter are not provided, hooks return undefined currentState", async () => {
+  it("if defaultFilter and systemFilter are not provided, hooks return undefined currentState", async () => {
     let currentFilter: GraphQLQueryFilter | undefined = undefined;
 
     renderHook(() =>
