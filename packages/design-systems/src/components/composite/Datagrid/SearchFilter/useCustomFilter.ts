@@ -10,7 +10,7 @@ import dayjs from "dayjs";
 import type { GraphQLQueryFilter, Localization } from "..";
 import type { Column, MetaType } from "../types";
 import { jointConditions } from "./filter";
-import { FilterRowState, JointCondition, QueryLow } from "./types";
+import { FilterRowState, JointCondition, QueryRow } from "./types";
 
 export type FilterRowData = {
   index: number; //Row number
@@ -21,8 +21,8 @@ type UseCustomFilterProps<TData> = {
   columns: Array<Column<TData>>;
   onChange: (currentState: GraphQLQueryFilter | undefined) => void;
   localization: Localization;
-  systemFilter?: QueryLow;
-  defaultFilter?: QueryLow;
+  systemFilter?: QueryRow;
+  defaultFilter?: QueryRow;
 };
 
 export const useCustomFilter = <TData>({
@@ -71,13 +71,13 @@ export const useCustomFilter = <TData>({
   );
 
   const convertQueryToFilterRows = useCallback(
-    (filter: QueryLow, filterRowIndex: number): FilterRowData[] => {
+    (filter: QueryRow, filterRowIndex: number): FilterRowData[] => {
       const filterRows = Object.entries(filter).flatMap(
         ([column, filterRow]) => {
           if (Array.isArray(filterRow)) {
             return [];
           }
-          const [condition, value] = Object.entries(filterRow as QueryLow)[0];
+          const [condition, value] = Object.entries(filterRow as QueryRow)[0];
           const currentState: FilterRowState = {
             column,
             condition,
@@ -227,7 +227,7 @@ export const useCustomFilter = <TData>({
   const convertQueryFilter = useCallback(
     (
       filter: FilterRowState,
-      graphQLQueryObject: QueryLow,
+      graphQLQueryObject: QueryRow,
       metaType: MetaType | undefined,
     ) => {
       const { column, condition, value, jointCondition } = filter;
@@ -268,7 +268,7 @@ export const useCustomFilter = <TData>({
    */
   const generateGraphQLQueryFilter = useCallback(
     (currentFilterRows: FilterRowData[]) => {
-      const newGraphQLQueryFilter: QueryLow = {};
+      const newGraphQLQueryFilter: QueryRow = {};
       currentFilterRows.forEach((row) => {
         if (row.currentState) {
           const { column, condition, value } = row.currentState;

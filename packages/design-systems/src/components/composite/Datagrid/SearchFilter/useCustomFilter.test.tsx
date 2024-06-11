@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from "vitest";
 import { columns } from "../utils/test";
 import { LOCALIZATION_JA } from "../../../../locales/ja";
 import { FilterRowData, useCustomFilter } from "./useCustomFilter";
-import { FilterRowState, GraphQLQueryFilter, QueryLow } from "./types";
+import { FilterRowState, GraphQLQueryFilter, QueryRow } from "./types";
 
 describe("useCustomFilter", () => {
   it("resetFilterHandler work as expected with systemFilter", () => {
@@ -274,7 +274,7 @@ describe("useCustomFilter", () => {
         localization: LOCALIZATION_JA,
       }),
     );
-    const graphQLQueryObject: QueryLow = {};
+    const graphQLQueryObject: QueryRow = {};
     const filter: FilterRowState = {
       column: "amount",
       value: 200,
@@ -312,7 +312,7 @@ describe("useCustomFilter", () => {
         localization: LOCALIZATION_JA,
       }),
     );
-    const graphQLQueryObject: QueryLow = {};
+    const graphQLQueryObject: QueryRow = {};
     const filter: FilterRowState = {
       column: "amount",
       value: 200,

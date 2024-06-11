@@ -31,7 +31,7 @@ export type JointCondition = {
   disabled: boolean;
 };
 
-export type QueryLow =
+export type QueryRow =
   | {
       [column: string]: {
         [condition: string]: string | number | boolean | string[] | number[];
@@ -46,7 +46,7 @@ export type QueryLow =
     };
 
 export type GraphQLQueryFilter = {
-  [and: string]: QueryLow;
+  [and: string]: QueryRow;
 };
 
 export interface CustomFilterTableState {
@@ -65,8 +65,8 @@ export type CustomFilterProps<TData> = {
   columns: Array<Column<TData>>;
   onChange: (currentState: GraphQLQueryFilter | undefined) => void;
   localization: Localization;
-  systemFilter?: QueryLow;
-  defaultFilter?: QueryLow;
+  systemFilter?: QueryRow;
+  defaultFilter?: QueryRow;
   customFilterOpen: boolean;
   setCustomFilterOpen: (updater: Updater<boolean>) => void;
   enableColumnFilters?: boolean;
