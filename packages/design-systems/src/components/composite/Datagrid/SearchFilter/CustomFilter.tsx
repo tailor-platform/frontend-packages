@@ -119,7 +119,7 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
           {filterRows.map((row, i) => {
             return (
               <FilterRow
-                key={"filterRow" + i}
+                key={i}
                 currentFilter={row.currentState}
                 columns={columns}
                 jointConditions={activeJointConditions}

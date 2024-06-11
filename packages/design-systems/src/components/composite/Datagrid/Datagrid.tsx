@@ -213,14 +213,11 @@ export const DataGrid = <TData extends Record<string, unknown>>(
       <styled.div className={datagridClasses.wrapper}>
         <Table className={datagridClasses.table} overflow={"visible"}>
           <TableHeader className={datagridClasses.tableHeader}>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow
-                className={datagridClasses.tableRow}
-                key={headerGroup.id}
-              >
-                {headerGroup.headers.map((header) => (
+            {table.getHeaderGroups().map((headerGroup, i) => (
+              <TableRow className={datagridClasses.tableRow} key={i}>
+                {headerGroup.headers.map((header, i) => (
                   <TableHead
-                    key={header.id}
+                    key={i}
                     header={header as Header<Record<string, unknown>, unknown>}
                     table={table}
                     columnPiningStyles={getCommonPinningStyles(
@@ -238,14 +235,14 @@ export const DataGrid = <TData extends Record<string, unknown>>(
           </TableHeader>
           <TableBody className={datagridClasses.tableBody}>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
+              table.getRowModel().rows.map((row, i) => (
                 <TableRow
                   className={datagridClasses.tableRow}
-                  key={row.id}
+                  key={i}
                   data-state={row.getIsSelected() && "selected"}
                   data-testid={`datagrid-row`}
                 >
-                  {row.getVisibleCells().map((cell) => {
+                  {row.getVisibleCells().map((cell, i) => {
                     if (
                       cell.column.columnDef.meta &&
                       cell.column.columnDef.meta.type === "enum"
@@ -256,7 +253,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
                       ] as ReactNode;
                       return (
                         <TableCell
-                          key={cell.id}
+                          key={i}
                           className={tableDataClasses}
                           style={{
                             ...getCommonPinningStyles(cell.column),
@@ -275,7 +272,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
                     }
                     return (
                       <TableCell
-                        key={cell.id}
+                        key={i}
                         className={tableDataClasses}
                         style={{
                           ...getCommonPinningStyles(cell.column),

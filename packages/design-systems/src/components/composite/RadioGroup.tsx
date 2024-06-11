@@ -35,10 +35,10 @@ export const RadioGroup = (props: RadioGroupProps) => {
       }
       {...rest}
     >
-      {options.map((option) => (
+      {options.map((option, i) => (
         <ArkRadioGroup.Item
           className={classes.item}
-          key={"radio" + option.value}
+          key={i}
           value={option.value}
           disabled={option.disabled}
         >

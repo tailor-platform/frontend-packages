@@ -74,12 +74,8 @@ export const ManualPagination = <TData extends Record<string, unknown>>({
                 id="jointConditions"
                 data-testid="select-page-size-options"
               >
-                {pageSizeOptions.map((item) => (
-                  <Select.Item
-                    className={classes.item}
-                    key={"pageSize" + item}
-                    item={item}
-                  >
+                {pageSizeOptions.map((item, i) => (
+                  <Select.Item className={classes.item} key={i} item={item}>
                     <Select.ItemText className={classes.itemText}>
                       {item}
                     </Select.ItemText>
@@ -144,11 +140,11 @@ export const ManualPagination = <TData extends Record<string, unknown>>({
         >
           <ChevronLeftIcon />
         </IconButton>
-        {pages.map((page, index) => {
+        {pages.map((page, i) => {
           if (page.type === "page") {
             return (
               <Button
-                key={"pageIndex" + index}
+                key={i}
                 variant={pageIndex === page.index ? "primary" : "secondary"}
                 aria-label="Number Page"
                 onClick={() => {
@@ -161,7 +157,7 @@ export const ManualPagination = <TData extends Record<string, unknown>>({
             );
           } else {
             return (
-              <Text key={"pageIndex" + index} pb={4}>
+              <Text key={i} pb={4}>
                 …
               </Text>
             );
