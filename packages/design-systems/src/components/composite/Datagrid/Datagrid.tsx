@@ -245,7 +245,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
                   data-state={row.getIsSelected() && "selected"}
                   data-testid={`datagrid-row`}
                 >
-                  {row.getVisibleCells().map((cell) => {
+                  {row.getVisibleCells().map((cell, i) => {
                     if (
                       cell.column.columnDef.meta &&
                       cell.column.columnDef.meta.type === "enum"
@@ -256,7 +256,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
                       ] as ReactNode;
                       return (
                         <TableCell
-                          key={cell.id}
+                          key={cell.id + i}
                           className={tableDataClasses}
                           style={{
                             ...getCommonPinningStyles(cell.column),
@@ -275,7 +275,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
                     }
                     return (
                       <TableCell
-                        key={cell.id}
+                        key={cell.id + i}
                         className={tableDataClasses}
                         style={{
                           ...getCommonPinningStyles(cell.column),
