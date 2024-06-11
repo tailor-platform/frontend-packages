@@ -14,7 +14,7 @@ export {
   type UseDataGridProps,
   type Localization,
   type GraphQLQueryFilter,
-  type QueryLow,
+  type QueryRow,
   type Order,
   useDataGrid,
 } from "@components/composite/Datagrid";

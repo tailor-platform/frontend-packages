@@ -76,11 +76,25 @@ export const useCustomFilter = <TData>({
   );
 
   const convertQueryToFilterRows = useCallback(
-    (filter: QueryRow, filterRowIndex: number): FilterRowData[] => {
+    (
+      filter: QueryRow,
+      filterRowIndex: number,
+      jointCondition?: string,
+    ): FilterRowData[] => {
       return Object.keys(filter).flatMap((key) => {
         const filterValue = filter[key];
         if (Array.isArray(filterValue)) {
-          return [];
+          if (key === "and" || key === "or") {
+            return filterValue.flatMap((value, index) => {
+              return convertQueryToFilterRows(
+                value,
+                filterRowIndex + index,
+                key,
+              );
+            });
+          } else {
+            return [];
+          }
         }
 
         // All the filter should have the exact one pair of condition and value
@@ -98,7 +112,7 @@ export const useCustomFilter = <TData>({
               column: key,
               condition: conditions[0],
               value: values[0],
-              jointCondition: undefined,
+              jointCondition,
               isChangeable: true,
             },
           },
