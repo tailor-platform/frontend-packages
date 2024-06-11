@@ -172,6 +172,36 @@ importers:
         specifier: ^3.22.4
         version: 3.22.4
 
+  packages/api-test-library:
+    dependencies:
+      '@apollo/client':
+        specifier: ^3.10.4
+        version: 3.10.4(@types/react@18.2.47)(graphql@16.8.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@tailor-platform/dev-cli':
+        specifier: ^0.2.2
+        version: 0.2.2(commander@11.1.0)
+      graphql:
+        specifier: ^16.8.1
+        version: 16.8.1
+      jest:
+        specifier: ^29.7.0
+        version: 29.7.0(@types/node@20.11.30)(ts-node@10.9.2(@types/node@20.11.30)(typescript@5.3.3))
+      minimist:
+        specifier: ^1.2.8
+        version: 1.2.8
+      pluralize:
+        specifier: ^8.0.0
+        version: 8.0.0
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+      uuidv7:
+        specifier: ^1.0.0
+        version: 1.0.0
+
   packages/auth:
     dependencies:
       '@apollo/client':
@@ -235,36 +265,6 @@ importers:
       vitest:
         specifier: ^1.6.0
         version: 1.6.0(@types/node@18.19.2)(jsdom@24.0.0)(lightningcss@1.23.0)
-
-  packages/db-test:
-    dependencies:
-      '@apollo/client':
-        specifier: ^3.10.4
-        version: 3.10.4(@types/react@18.2.47)(graphql@16.8.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@tailor-platform/dev-cli':
-        specifier: ^0.1.0-preview.45
-        version: 0.1.0-preview.46(commander@11.1.0)
-      graphql:
-        specifier: ^16.8.1
-        version: 16.8.1
-      jest:
-        specifier: ^29.7.0
-        version: 29.7.0(@types/node@20.11.30)(ts-node@10.9.2(@types/node@20.11.30)(typescript@5.3.3))
-      minimist:
-        specifier: ^1.2.8
-        version: 1.2.8
-      pluralize:
-        specifier: ^8.0.0
-        version: 8.0.0
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.2.0(react@18.2.0)
-      uuidv7:
-        specifier: ^1.0.0
-        version: 1.0.0
 
   packages/design-systems:
     dependencies:
@@ -3668,8 +3668,8 @@ packages:
     resolution: {integrity: sha512-+PmQX0PiAYPMeVYe237LJAYvOMYW1j2rH5YROyS3b4CTVJum34HfRvKvAzozHAQG0TnHNdUfY9nCeUyRAs//cw==}
     engines: {node: '>=14.16'}
 
-  '@tailor-platform/dev-cli@0.1.0-preview.46':
-    resolution: {integrity: sha512-PkWKfMZSH8MCsqAx9PD2VG+sbWzzyMCeTxCMPo4BAKg7ggTP5GWcIn4VZUeMTSKZM1OpV8yqu8XfP7ponpidUQ==}
+  '@tailor-platform/dev-cli@0.2.2':
+    resolution: {integrity: sha512-SKUBRa0/AxWURlpko7jMdz9+WFnwtxj72qQC3l46ZVyzqKuZQVkd4FnB2mHb4NfzIYcW3NZAS9y8miCZdcnkwg==}
     hasBin: true
 
   '@tanstack/react-table@8.15.3':
@@ -14696,7 +14696,7 @@ snapshots:
     dependencies:
       defer-to-connect: 2.0.1
 
-  '@tailor-platform/dev-cli@0.1.0-preview.46(commander@11.1.0)':
+  '@tailor-platform/dev-cli@0.2.2(commander@11.1.0)':
     dependencies:
       '@commander-js/extra-typings': 11.1.0(commander@11.1.0)
       chalk: 5.3.0
