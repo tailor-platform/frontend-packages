@@ -1,7 +1,8 @@
 name: Chromatic Deployment
 
 on:
-  push:
+  pull_request:
+    types: [ opened, synchronize, reopened ]
     paths:
       - apps/storybook/**
       - packages/design-systems/**
@@ -25,7 +26,16 @@ jobs:
           scope: storybook
 
       - name: Publish storybook to chromatic
-        run: pnpm run chromatic
-        working-directory: ./apps/storybook
-        env:
-          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+        id: chromatic
+        uses: chromaui/action@v11
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          workingDir: apps/storybook
+          exitZeroOnChanges: true
+
+      - uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: chromatic-url
+          message: |
+            Storybook preview URL (for ${{ github.sha }}): <${{ steps.chromatic.outputs.storybookUrl }}>
+            <sub>Build URL: ${{ steps.chromatic.outputs.buildUrl }}</sub>
