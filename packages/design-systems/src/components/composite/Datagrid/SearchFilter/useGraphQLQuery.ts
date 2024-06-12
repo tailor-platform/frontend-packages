@@ -130,7 +130,7 @@ export const useGraphQLQuery = <TData>(props: UseGraphQLQueryProps<TData>) => {
     }
 
     return convertedSystemFilter;
-  }, [columns]);
+  }, [columns, systemFilter, valueConverter]);
   /**
    * This will convert the FilterRowState object from the UI to GraphQLQueryFilter and add it to the GraphQLQueryFilter.
    */
@@ -165,7 +165,7 @@ export const useGraphQLQuery = <TData>(props: UseGraphQLQueryProps<TData>) => {
         },
       };
     },
-    [systemFilter, columns, convertQueryFilter],
+    [systemFilter, columns, convertQueryFilter, convertedSystemFilter],
   );
 
   return {
