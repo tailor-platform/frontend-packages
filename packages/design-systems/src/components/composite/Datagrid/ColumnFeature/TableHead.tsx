@@ -1,4 +1,4 @@
-import { CSSProperties, DragEvent, useCallback, useState } from "react";
+import { DragEvent, useCallback, useState } from "react";
 import { Header, flexRender } from "@tanstack/react-table";
 import { css, cx } from "@tailor-platform/styled-system/css";
 import {
@@ -9,27 +9,21 @@ import {
 import { DataGridInstance } from "../types";
 import { TableHead as Root } from "../../../Table";
 import { SortingColumn } from "./Sorting";
-import { PinnedColumn } from "./PinnedColumn";
+import { PinnedColumn, getCommonPinningStyles } from "./PinnedColumn";
 import { Localization } from "@locales/types";
 
 type TableHeadProps<TData extends Record<string, unknown>> = {
   header: Header<Record<string, unknown>, unknown>;
   table: DataGridInstance<TData>;
-  columnPiningStyles: CSSProperties;
   size: DatagridVariantProps["size"];
   localization: Localization;
-  onDragStart: (event: DragEvent<HTMLTableCellElement>) => void;
-  onDrop: (event: DragEvent<HTMLTableCellElement>) => void;
 };
 
 export const TableHead = <TData extends Record<string, unknown>>({
   header,
   table,
-  columnPiningStyles,
   size,
   localization,
-  onDragStart,
-  onDrop,
 }: TableHeadProps<TData>) => {
   const datagridClasses = datagrid({ size });
   const densitySmClasses = densityRecipe({ size: "sm" });
@@ -37,6 +31,29 @@ export const TableHead = <TData extends Record<string, unknown>>({
   const densityLgClasses = densityRecipe({ size: "lg" });
   const { density } = table.getState();
   const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [columnBeingDragged, setColumnBeingDragged] = useState<
+    number | undefined
+  >();
+
+  const onDragStart = useCallback(
+    (event: DragEvent<HTMLTableCellElement>): void => {
+      setColumnBeingDragged(Number(event.currentTarget.dataset.columnIndex));
+    },
+    [],
+  );
+
+  const onDrop = useCallback(
+    (event: DragEvent<HTMLTableCellElement>): void => {
+      event.preventDefault();
+      if (columnBeingDragged === undefined) return;
+      const newPosition = Number(event.currentTarget.dataset.columnIndex);
+      const currentCols = table.getVisibleLeafColumns().map((c) => c.id);
+      const colToBeMoved = currentCols.splice(columnBeingDragged, 1);
+      currentCols.splice(newPosition, 0, colToBeMoved[0]);
+      table.setColumnOrder(currentCols);
+    },
+    [columnBeingDragged, table],
+  );
 
   const isDisplaySortIcon = useCallback(() => {
     return !!header.column.getIsSorted() || isHovered;
@@ -52,7 +69,7 @@ export const TableHead = <TData extends Record<string, unknown>>({
         density === "lg" && densityLgClasses,
       )}
       style={{
-        ...columnPiningStyles,
+        ...getCommonPinningStyles(header.column, true),
         height: density === "sm" ? "auto" : "initial",
       }}
       draggable={!table.getState().columnSizingInfo.isResizingColumn}
