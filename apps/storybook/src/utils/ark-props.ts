@@ -27,23 +27,23 @@ export const mapJsonToProps = (jsonProps: JsonProps): ArgTypes => {
 
   return Object.entries(jsonProps).reduce(
     (acc, [componentName, componentProps]) => {
-      const props = Object.entries(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        componentProps as Record<string, any>,
-      ).reduce((propsAcc, [key, prop]) => {
-        const namespacedKey = isSingleComponent
-          ? key
-          : `${componentName}: ${key}`;
-        return {
-          ...propsAcc,
-          [namespacedKey]: {
-            name: namespacedKey,
-            description: prop.description,
-            control: inferControl(prop.type),
-            type: { name: prop.type },
-          },
-        };
-      }, {} as ArgTypes);
+      const props = Object.entries(componentProps).reduce(
+        (propsAcc, [key, prop]) => {
+          const namespacedKey = isSingleComponent
+            ? key
+            : `${componentName}: ${key}`;
+          return {
+            ...propsAcc,
+            [namespacedKey]: {
+              name: namespacedKey,
+              description: prop.description,
+              control: inferControl(prop.type),
+              type: { name: prop.type },
+            },
+          } as ArgTypes;
+        },
+        {} as ArgTypes,
+      );
 
       return { ...acc, ...props };
     },

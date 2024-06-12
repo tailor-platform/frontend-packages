@@ -7,9 +7,8 @@ import {
   useDataGrid,
   QueryLow,
 } from "@tailor-platform/design-systems/client";
-
-import { COLUMNS as columns, DATA as originData } from "../../data/datagrid.ts";
 import { useState } from "react";
+import { COLUMNS as columns, DATA as originData } from "../../data/datagrid.ts";
 import { Payment } from "../../types/datagrid.ts";
 import { setFilterChange } from "./utils.ts";
 
@@ -35,7 +34,9 @@ export const DataGridWithFilterStory = ({
     onFilterChange: (filter) => {
       setFilterChange(filter, originData, setData);
     },
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     systemFilter: query,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     defaultFilter: defaultQuery,
   });
 

@@ -16,12 +16,11 @@ import {
 } from "@tailor-platform/design-systems/client";
 import { dialog } from "@tailor-platform/styled-system/recipes";
 import { Dialog, Portal } from "@ark-ui/react";
-
-import { COLUMNS as columns, DATA as originData } from "../../data/datagrid.ts";
 import { useState } from "react";
+import { XIcon } from "lucide-react";
+import { COLUMNS as columns, DATA as originData } from "../../data/datagrid.ts";
 import { Payment } from "../../types/datagrid.ts";
 import { setFilterChange } from "./utils.ts";
-import { XIcon } from "lucide-react";
 
 export type DataGridWithFilterStoryProps = {
   enableColumnFilters?: boolean;

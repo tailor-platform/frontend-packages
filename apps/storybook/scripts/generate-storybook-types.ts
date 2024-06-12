@@ -39,8 +39,8 @@ const generateStorybookTypes = async () => {
       finalContent,
     );
   } catch (err) {
-    console.log(`Unable to scan directory: ${err}`);
+    console.log("Unable to scan directory:", err);
   }
 };
 
-generateStorybookTypes();
+generateStorybookTypes().then(() => console.log("completed!")).catch(console.error);

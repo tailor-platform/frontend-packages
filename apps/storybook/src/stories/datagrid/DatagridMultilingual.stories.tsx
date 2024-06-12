@@ -5,7 +5,6 @@ import {
   DataGridMultilingualStory,
   DataGridMultilingualStoryProps,
 } from "./DataGridMultilingualStory.tsx";
-
 import dataGridMultilingualStorySource from "./DataGridMultilingualStory.tsx?raw";
 
 const meta: Meta<DataGridMultilingualStoryProps> = {

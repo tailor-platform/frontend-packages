@@ -2,7 +2,6 @@
 
 import { Form } from "@tailor-platform/design-systems/client";
 import type { Meta, StoryObj } from "@storybook/react";
-
 import { FormStory } from "./FormStory.tsx";
 import formStorySource from "./FormStory.tsx?raw";
 

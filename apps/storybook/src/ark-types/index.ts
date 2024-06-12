@@ -1,5 +1,4 @@
 import { mapJsonToProps } from "../utils/ark-props";
-
 import accordion_types from "./accordion.types.json";
 import avatar_types from "./avatar.types.json";
 import carousel_types from "./carousel.types.json";

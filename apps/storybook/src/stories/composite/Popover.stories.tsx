@@ -11,11 +11,9 @@ import {
   PopoverTrigger,
 } from "@ark-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
-
 import { Button, Input } from "@tailor-platform/design-systems";
 import { Box, Stack } from "@tailor-platform/styled-system/jsx";
 import { popover } from "@tailor-platform/styled-system/recipes";
-
 import { popoverTypes } from "../../ark-types";
 
 type WithDisplayName<T> = T & { displayName?: string };
