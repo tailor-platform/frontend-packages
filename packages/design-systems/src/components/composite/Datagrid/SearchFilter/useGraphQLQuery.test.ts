@@ -168,4 +168,43 @@ describe("useGraphQLQuery", () => {
       expect(result.current.generateFilter([])).toStrictEqual(expectedValue);
     });
   });
+
+  it("convertedSystemFilter works correctly with systemFilter", async () => {
+    const systemFilter = {
+      updatedAt: { eq: "2024-05-10 12:00:00" },
+      status: { eq: "pending" },
+      amount: { eq: 200 },
+    };
+    const { result } = renderHook(() =>
+      useGraphQLQuery({
+        columns,
+        systemFilter: systemFilter,
+        localization: LOCALIZATION_JA,
+      }),
+    );
+
+    const expectedValue = {
+      updatedAt: { eq: "2024-05-10T03:00:00.000Z" },
+      status: { eq: "pending" },
+      amount: { eq: 200 },
+    };
+
+    act(() => {
+      expect(result.current.convertedSystemFilter).toStrictEqual(expectedValue);
+    });
+  });
+
+  it("convertedSystemFilter works correctly with no systemFilter", async () => {
+    const { result } = renderHook(() =>
+      useGraphQLQuery({
+        columns,
+        systemFilter: undefined,
+        localization: LOCALIZATION_JA,
+      }),
+    );
+
+    act(() => {
+      expect(result.current.convertedSystemFilter).toBe(undefined);
+    });
+  });
 });

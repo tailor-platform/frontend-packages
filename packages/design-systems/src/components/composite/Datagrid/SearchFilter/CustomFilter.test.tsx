@@ -861,7 +861,7 @@ describe(
         //Wait for the useEffect to update the filters
         expect(currentFilters).toEqual({
           and: {
-            updatedAt: { eq: "2024-05-10 12:00:00" },
+            updatedAt: { eq: "2024-05-10T03:00:00.000Z" },
             and: [{ status: { eq: "pending" } }, { amount: { in: [200] } }],
           },
         });
@@ -875,7 +875,7 @@ describe(
         //Wait for the useEffect to update the filters
         expect(currentFilters).toEqual({
           and: {
-            updatedAt: { eq: "2024-05-10 12:00:00" },
+            updatedAt: { eq: "2024-05-10T03:00:00.000Z" },
             and: [
               {
                 status: { eq: "pending" },
@@ -936,7 +936,7 @@ describe(
         //Wait for the useEffect to update the filters
         expect(currentFilters).toEqual({
           and: {
-            updatedAt: { eq: "2024-05-10 12:00:00" },
+            updatedAt: { eq: "2024-05-10T03:00:00.000Z" },
             and: [{ status: { eq: "pending" } }, { amount: { in: [200] } }],
           },
         });
@@ -949,7 +949,7 @@ describe(
         //Wait for the useEffect to update the filters
         expect(currentFilters).toEqual({
           and: {
-            updatedAt: { eq: "2024-05-10 12:00:00" },
+            updatedAt: { eq: "2024-05-10T03:00:00.000Z" },
             and: [{ status: { eq: "pending" } }, { amount: { in: [] } }],
           },
         });
@@ -1008,7 +1008,7 @@ describe(
         expect(currentFilters).toEqual({
           and: {
             updatedAt: {
-              eq: "2024-05-10 12:00:00",
+              eq: "2024-05-10T03:00:00.000Z",
             },
             and: [
               {
