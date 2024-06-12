@@ -125,6 +125,8 @@ export const useGraphQLQuery = <TData>(props: UseGraphQLQueryProps<TData>) => {
           [condition]: valueConverter(metaType, value),
         };
       });
+    } else {
+      return undefined;
     }
 
     return convertedSystemFilter;
