@@ -1,6 +1,6 @@
-import { Cell, Header, flexRender } from "@tanstack/react-table";
+import { Cell, flexRender } from "@tanstack/react-table";
 import { cx } from "@tailor-platform/styled-system/css";
-import { useCallback, useEffect, useState, ReactNode } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   datagrid,
   density as densityRecipe,
@@ -171,7 +171,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
                 {headerGroup.headers.map((header, i) => (
                   <TableHead
                     key={i}
-                    header={header as Header<Record<string, unknown>, unknown>}
+                    header={header}
                     table={table}
                     size={size}
                     localization={localization}

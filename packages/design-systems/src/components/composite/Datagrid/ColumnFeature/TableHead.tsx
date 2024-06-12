@@ -13,7 +13,7 @@ import { PinnedColumn, getCommonPinningStyles } from "./PinnedColumn";
 import { Localization } from "@locales/types";
 
 type TableHeadProps<TData extends Record<string, unknown>> = {
-  header: Header<Record<string, unknown>, unknown>;
+  header: Header<TData, unknown>;
   table: DataGridInstance<TData>;
   size: DatagridVariantProps["size"];
   localization: Localization;
