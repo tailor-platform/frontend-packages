@@ -119,7 +119,12 @@ export const useGraphQLQuery = <TData>(props: UseGraphQLQueryProps<TData>) => {
       Object.keys(systemFilter).flatMap((key) => {
         const filterValue = systemFilter[key];
         const condition = Object.keys(filterValue)[0];
-        const value = Object.values(filterValue)[0];
+        const value = Object.values(filterValue)[0] as
+          | string
+          | boolean
+          | number
+          | string[]
+          | number[];
         const metaType = columns.find((c) => c.accessorKey === key)?.meta?.type;
         convertedSystemFilter[key] = {
           [condition]: valueConverter(metaType, value),
