@@ -12,6 +12,30 @@ type PinnedColumnProps<TData extends Record<string, unknown>> = {
   localization: Localization;
 };
 
+export const getCommonPinningStyles = <TData extends Record<string, unknown>>(
+  column: Column<TData>,
+  isHeader?: boolean,
+): CSSProperties => {
+  const isPinned = column.getIsPinned();
+  const isLastLeftPinnedColumn =
+    isPinned === "left" && column.getIsLastColumn("left");
+  const isFirstRightPinnedColumn =
+    isPinned === "right" && column.getIsFirstColumn("right");
+
+  return {
+    boxShadow: isLastLeftPinnedColumn
+      ? "-4px 0 4px -4px gray inset"
+      : isFirstRightPinnedColumn
+        ? "4px 0 4px -4px gray inset"
+        : undefined,
+    left: isPinned === "left" ? `${column.getStart("left")}px` : undefined,
+    right: isPinned === "right" ? `${column.getAfter("right")}px` : undefined,
+    position: isHeader || isPinned ? "sticky" : "relative",
+    opacity: isPinned ? 0.95 : 1,
+    zIndex: isPinned ? 1 : 0,
+  };
+};
+
 export const PinnedColumn = <TData extends Record<string, unknown>>({
   column,
   localization,
