@@ -1,5 +1,5 @@
-import type { Column, Updater } from "@tanstack/table-core";
-import type { Localization } from "..";
+import type { Updater } from "@tanstack/table-core";
+import { CommonToolButtonProps } from "../SearchFilter/types";
 
 export interface HideShowTableState {
   hideShowOpen: boolean;
@@ -13,12 +13,5 @@ export interface HideShowInstance {
   setHideShowOpen: (updater: Updater<boolean>) => void;
 }
 
-export type HideShowProps<TData extends Record<string, unknown>> = {
-  allColumnsHandler: () => (event: unknown) => void;
-  columns: Array<Column<TData>>;
-  localization: Localization;
-  hideShowOpen: boolean;
-  setHideShowOpen: (updater: Updater<boolean>) => void;
-  size?: "sm" | "md" | "lg" | "xl" | "2xl" | "xs";
-  variant?: "primary" | "secondary" | "link" | "tertiary";
-};
+export type HideShowProps<TData extends Record<string, unknown>> =
+  CommonToolButtonProps<TData>;

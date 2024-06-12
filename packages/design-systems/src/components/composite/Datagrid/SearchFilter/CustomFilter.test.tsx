@@ -5,7 +5,6 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import { DataGridInstance, UseDataGridProps } from "../types";
 import { LOCALIZATION_JA } from "../../../../locales/ja";
-import { LOCALIZATION_EN } from "../../../../locales/en";
 import {
   inputValue,
   selectColumn,
@@ -24,6 +23,7 @@ import {
 import { DataGrid } from "../Datagrid";
 import { CustomFilter } from "./CustomFilter";
 import type { GraphQLQueryFilter, QueryRow } from "./types";
+import { LOCALIZATION_EN } from "@locales";
 
 /* eslint-disable-next-line @typescript-eslint/no-empty-function */
 window.HTMLElement.prototype.scrollTo = function () {}; //(https://github.com/jsdom/jsdom/issues/1695)
@@ -68,8 +68,12 @@ const columnDefs: ColumnDef<Payment>[] = [
   },
 ];
 
+type UseDataGridWithFilterProps = {
+  customizeDatagrid?: Partial<UseDataGridProps<Payment>>;
+  onFilterChange?: (filters: GraphQLQueryFilter | undefined) => void;
+};
 const useDataGridWithFilter = (
-  customizeDatagrid?: Partial<UseDataGridProps<Payment>>,
+  props?: UseDataGridWithFilterProps,
 ): DataGridInstance<Payment> => {
   const [data, setData] = useState<Payment[]>(originData);
   const table = useDataGrid({
@@ -78,9 +82,10 @@ const useDataGridWithFilter = (
     enableColumnFilters: true,
     onFilterChange: (filter) => {
       setFilterChange(filter, originData, setData);
+      props?.onFilterChange?.(filter);
     },
     localization: LOCALIZATION_JA,
-    ...customizeDatagrid,
+    ...props?.customizeDatagrid,
   });
   return table;
 };
@@ -92,24 +97,36 @@ const DataGridWithFilter = () => {
 
 const DataGridWithFilterWithSystemFilter = () => {
   const table = useDataGridWithFilter({
-    systemFilter: { status: { eq: "pending" } },
+    customizeDatagrid: {
+      systemFilter: { status: { eq: "pending" } },
+    },
   });
   return <DataGrid table={table} />;
 };
 
 const DataGridWithFilterWithDefaultFilter = () => {
   const table = useDataGridWithFilter({
-    defaultFilter: { amount: { gt: 200 } },
+    customizeDatagrid: {
+      defaultFilter: { amount: { gt: 200 } },
+    },
   });
   return <DataGrid table={table} />;
 };
 
 const DataGridWithFilterWithSystemAndDefaultFilter = () => {
   const table = useDataGridWithFilter({
-    systemFilter: { status: { eq: "pending" } },
-    defaultFilter: { amount: { gt: 200 } },
+    customizeDatagrid: {
+      systemFilter: { status: { eq: "pending" } },
+      defaultFilter: { amount: { gt: 200 } },
+    },
   });
   return <DataGrid table={table} />;
+};
+
+const CustomFilterComponent = (props?: UseDataGridWithFilterProps) => {
+  const table = useDataGridWithFilter(props);
+
+  return <CustomFilter table={table} columns={columns} />;
 };
 
 describe(
@@ -117,18 +134,18 @@ describe(
   () => {
     it("Renders the component correctly when locale is set as English", () => {
       let currentFilters: GraphQLQueryFilter | undefined = undefined;
+
       render(
-        <CustomFilter
-          columns={columns}
-          onChange={(currentState: GraphQLQueryFilter | undefined) => {
-            currentFilters = currentState;
+        <CustomFilterComponent
+          onFilterChange={(filter) => {
+            currentFilters = filter;
           }}
-          localization={LOCALIZATION_EN}
-          customFilterOpen={true}
-          setCustomFilterOpen={() => void 0}
-          enableColumnFilters={true}
+          customizeDatagrid={{
+            localization: LOCALIZATION_EN,
+          }}
         />,
       );
+
       expect(screen.getByText("Reset Filter")).toBeVisible();
       expect(screen.getByText("Column")).toBeVisible();
       expect(screen.getByText("Select Column")).toBeVisible();
@@ -148,18 +165,15 @@ describe(
 
     it("Renders the component correctly when locale is set as Japanese", () => {
       let currentFilters: GraphQLQueryFilter | undefined = undefined;
+
       render(
-        <CustomFilter
-          columns={columns}
-          onChange={(currentState: GraphQLQueryFilter | undefined) => {
-            currentFilters = currentState;
+        <CustomFilterComponent
+          onFilterChange={(filter) => {
+            currentFilters = filter;
           }}
-          localization={LOCALIZATION_JA}
-          customFilterOpen={true}
-          setCustomFilterOpen={() => void 0}
-          enableColumnFilters={true}
         />,
       );
+
       expect(screen.getByText("追加したフィルタを削除")).toBeVisible();
       expect(screen.getByText("列")).toBeVisible();
       expect(screen.getByText("列を選択")).toBeVisible();
@@ -179,16 +193,12 @@ describe(
 
     it("Renders ENUM type correctly", async () => {
       let currentFilters: GraphQLQueryFilter | undefined = undefined;
+
       render(
-        <CustomFilter
-          columns={columns}
-          onChange={(currentState: GraphQLQueryFilter | undefined) => {
-            currentFilters = currentState;
+        <CustomFilterComponent
+          onFilterChange={(filter) => {
+            currentFilters = filter;
           }}
-          localization={LOCALIZATION_JA}
-          customFilterOpen={true}
-          setCustomFilterOpen={() => void 0}
-          enableColumnFilters={true}
         />,
       );
 
@@ -261,15 +271,10 @@ describe(
       let currentFilters: GraphQLQueryFilter | undefined = undefined;
 
       render(
-        <CustomFilter
-          columns={columns}
-          onChange={(currentState: GraphQLQueryFilter | undefined) => {
-            currentFilters = currentState;
+        <CustomFilterComponent
+          onFilterChange={(filter) => {
+            currentFilters = filter;
           }}
-          localization={LOCALIZATION_JA}
-          customFilterOpen={true}
-          setCustomFilterOpen={() => void 0}
-          enableColumnFilters={true}
         />,
       );
 
@@ -330,15 +335,10 @@ describe(
       let currentFilters: GraphQLQueryFilter | undefined = undefined;
 
       render(
-        <CustomFilter
-          columns={columns}
-          onChange={(currentState: GraphQLQueryFilter | undefined) => {
-            currentFilters = currentState;
+        <CustomFilterComponent
+          onFilterChange={(filter) => {
+            currentFilters = filter;
           }}
-          localization={LOCALIZATION_JA}
-          customFilterOpen={true}
-          setCustomFilterOpen={() => void 0}
-          enableColumnFilters={true}
         />,
       );
 
@@ -402,15 +402,10 @@ describe(
       let currentFilters: GraphQLQueryFilter | undefined = undefined;
 
       render(
-        <CustomFilter
-          columns={columns}
-          onChange={(currentState: GraphQLQueryFilter | undefined) => {
-            currentFilters = currentState;
+        <CustomFilterComponent
+          onFilterChange={(filter) => {
+            currentFilters = filter;
           }}
-          localization={LOCALIZATION_JA}
-          customFilterOpen={true}
-          setCustomFilterOpen={() => void 0}
-          enableColumnFilters={true}
         />,
       );
 
@@ -480,15 +475,10 @@ describe(
       let currentFilters: GraphQLQueryFilter | undefined = undefined;
 
       render(
-        <CustomFilter
-          columns={columns}
-          onChange={(currentState: GraphQLQueryFilter | undefined) => {
-            currentFilters = currentState;
+        <CustomFilterComponent
+          onFilterChange={(filter) => {
+            currentFilters = filter;
           }}
-          localization={LOCALIZATION_JA}
-          customFilterOpen={true}
-          setCustomFilterOpen={() => void 0}
-          enableColumnFilters={true}
         />,
       );
 
@@ -651,15 +641,10 @@ describe(
       let currentFilters: GraphQLQueryFilter | undefined = undefined;
 
       render(
-        <CustomFilter
-          columns={columns}
-          onChange={(currentState: GraphQLQueryFilter | undefined) => {
-            currentFilters = currentState;
+        <CustomFilterComponent
+          onFilterChange={(filter) => {
+            currentFilters = filter;
           }}
-          localization={LOCALIZATION_JA}
-          customFilterOpen={true}
-          setCustomFilterOpen={() => void 0}
-          enableColumnFilters={true}
         />,
       );
 
@@ -726,18 +711,7 @@ describe(
     });
 
     it("when systemFilter and undefined aren't provided, first row doesn't show Joint Condition", async () => {
-      render(
-        <CustomFilter
-          columns={columns}
-          onChange={() => void 0}
-          localization={LOCALIZATION_JA}
-          customFilterOpen={true}
-          setCustomFilterOpen={() => void 0}
-          enableColumnFilters={true}
-          defaultFilter={undefined}
-          systemFilter={undefined}
-        />,
-      );
+      render(<CustomFilterComponent />);
 
       // wait UI to update
       setTimeout(() => {
@@ -749,15 +723,8 @@ describe(
 
     it("when systemFilter isn't provided, first row doesn't show Joint Condition", async () => {
       render(
-        <CustomFilter
-          columns={columns}
-          onChange={() => void 0}
-          localization={LOCALIZATION_JA}
-          customFilterOpen={true}
-          setCustomFilterOpen={() => void 0}
-          enableColumnFilters={true}
-          defaultFilter={{ amount: { gt: 200 } }}
-          systemFilter={undefined}
+        <CustomFilterComponent
+          customizeDatagrid={{ defaultFilter: { amount: { gt: 200 } } }}
         />,
       );
 
@@ -782,15 +749,8 @@ describe(
 
     it("when defaultFilter isn't provided, first row doesn't show Joint Condition", async () => {
       render(
-        <CustomFilter
-          columns={columns}
-          onChange={() => void 0}
-          localization={LOCALIZATION_JA}
-          customFilterOpen={true}
-          setCustomFilterOpen={() => void 0}
-          enableColumnFilters={true}
-          defaultFilter={undefined}
-          systemFilter={{ amount: { gt: 200 } }}
+        <CustomFilterComponent
+          customizeDatagrid={{ systemFilter: { amount: { gt: 200 } } }}
         />,
       );
 
@@ -821,18 +781,16 @@ describe(
       const defaultQuery: QueryRow = {
         status: { eq: "pending" },
       };
+
       render(
-        <CustomFilter
-          columns={columns}
-          onChange={(currentState: GraphQLQueryFilter | undefined) => {
-            currentFilters = currentState;
+        <CustomFilterComponent
+          onFilterChange={(filter) => {
+            currentFilters = filter;
           }}
-          localization={LOCALIZATION_JA}
-          customFilterOpen={true}
-          setCustomFilterOpen={() => void 0}
-          enableColumnFilters={true}
-          defaultFilter={defaultQuery}
-          systemFilter={systemFilter}
+          customizeDatagrid={{
+            defaultFilter: defaultQuery,
+            systemFilter: systemFilter,
+          }}
         />,
       );
 
@@ -896,18 +854,16 @@ describe(
       const defaultQuery: QueryRow = {
         status: { eq: "pending" },
       };
+
       render(
-        <CustomFilter
-          columns={columns}
-          onChange={(currentState: GraphQLQueryFilter | undefined) => {
-            currentFilters = currentState;
+        <CustomFilterComponent
+          onFilterChange={(filter) => {
+            currentFilters = filter;
           }}
-          localization={LOCALIZATION_JA}
-          customFilterOpen={true}
-          setCustomFilterOpen={() => void 0}
-          enableColumnFilters={true}
-          defaultFilter={defaultQuery}
-          systemFilter={systemFilter}
+          customizeDatagrid={{
+            defaultFilter: defaultQuery,
+            systemFilter: systemFilter,
+          }}
         />,
       );
 
@@ -965,18 +921,16 @@ describe(
       const defaultQuery: QueryRow = {
         status: { eq: "pending" },
       };
+
       render(
-        <CustomFilter
-          columns={columns}
-          onChange={(currentState: GraphQLQueryFilter | undefined) => {
-            currentFilters = currentState;
+        <CustomFilterComponent
+          onFilterChange={(filter) => {
+            currentFilters = filter;
           }}
-          localization={LOCALIZATION_JA}
-          customFilterOpen={true}
-          setCustomFilterOpen={() => void 0}
-          enableColumnFilters={true}
-          defaultFilter={defaultQuery}
-          systemFilter={systemFilter}
+          customizeDatagrid={{
+            defaultFilter: defaultQuery,
+            systemFilter: systemFilter,
+          }}
         />,
       );
 
@@ -1031,15 +985,10 @@ describe(
       let currentFilters: GraphQLQueryFilter | undefined = undefined;
 
       render(
-        <CustomFilter
-          columns={columns}
-          onChange={(currentState: GraphQLQueryFilter | undefined) => {
-            currentFilters = currentState;
+        <CustomFilterComponent
+          onFilterChange={(filter) => {
+            currentFilters = filter;
           }}
-          localization={LOCALIZATION_JA}
-          customFilterOpen={true}
-          setCustomFilterOpen={() => void 0}
-          enableColumnFilters={true}
         />,
       );
 
@@ -1118,16 +1067,13 @@ describe(
       };
 
       render(
-        <CustomFilter
-          columns={columns}
-          onChange={(currentState: GraphQLQueryFilter | undefined) => {
-            currentFilters = currentState;
+        <CustomFilterComponent
+          onFilterChange={(filter) => {
+            currentFilters = filter;
           }}
-          localization={LOCALIZATION_JA}
-          customFilterOpen={true}
-          setCustomFilterOpen={() => void 0}
-          enableColumnFilters={true}
-          defaultFilter={defaultQuery}
+          customizeDatagrid={{
+            defaultFilter: defaultQuery,
+          }}
         />,
       );
 
@@ -1160,16 +1106,13 @@ describe(
       };
 
       render(
-        <CustomFilter
-          columns={columns}
-          onChange={(currentState: GraphQLQueryFilter | undefined) => {
-            currentFilters = currentState;
+        <CustomFilterComponent
+          onFilterChange={(filter) => {
+            currentFilters = filter;
           }}
-          localization={LOCALIZATION_JA}
-          customFilterOpen={true}
-          setCustomFilterOpen={() => void 0}
-          enableColumnFilters={true}
-          defaultFilter={defaultQuery}
+          customizeDatagrid={{
+            defaultFilter: defaultQuery,
+          }}
         />,
       );
 

@@ -19,21 +19,24 @@ import type {
 } from "./types";
 import { HStack } from "@components/patterns/HStack";
 import { Text } from "@components/Text";
+import { LOCALIZATION_EN } from "@locales";
 
 export const HideShow = <TData extends Record<string, unknown>>(
   props: HideShowProps<TData>,
 ) => {
-  const {
-    allColumnsHandler,
-    columns,
-    localization,
-    hideShowOpen,
-    setHideShowOpen,
-    size = "md",
-    variant = "secondary",
-  } = props;
+  const allColumnsHandler = props.table.getToggleAllColumnsVisibilityHandler;
+  const columns = props.table.getAllLeafColumns();
+  const setHideShowOpen = props.table.setHideShowOpen;
+  const { hideShowOpen } = props.table.getState();
+  const localization = props.table.localization || LOCALIZATION_EN;
+  const { size = "md", variant = "secondary" } = props;
   const hideShowRef = useRef<HTMLDivElement>(null);
   const hideShowButtonRef = useRef<HTMLButtonElement>(null);
+
+  if (!props.table.enableHiding) {
+    return null;
+  }
+
   return (
     <>
       <HStack>
@@ -121,7 +124,7 @@ export const HideShowFeature: TableFeature = {
   getDefaultOptions: (): HideShowOptions => {
     return {
       enableHideShow: true,
-    } as HideShowOptions;
+    };
   },
 
   createTable: <TData extends RowData>(table: Table<TData>): void => {

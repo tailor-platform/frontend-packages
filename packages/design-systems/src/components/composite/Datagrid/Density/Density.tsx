@@ -23,16 +23,16 @@ import { Box } from "@components/patterns/Box";
 import { HStack } from "@components/patterns/HStack";
 import { Button } from "@components/Button";
 import { Text } from "@components/Text";
+import { LOCALIZATION_EN } from "@locales";
 
-export const Density = (props: DensityProps) => {
-  const {
-    setDensity,
-    localization,
-    densityOpen,
-    setDensityOpen,
-    size = "md",
-    variant = "secondary",
-  } = props;
+export const Density = <TData extends Record<string, unknown>>(
+  props: DensityProps<TData>,
+) => {
+  const localization = props.table.localization || LOCALIZATION_EN;
+  const { size = "md", variant = "secondary" } = props;
+  const { densityOpen } = props.table.getState();
+  const setDensityOpen = props.table.setDensityOpen;
+  const setDensity = props.table.setDensity;
 
   const densityRef = useRef<HTMLDivElement>(null);
   const densityButtonRef = useRef<HTMLButtonElement>(null);
@@ -50,6 +50,11 @@ export const Density = (props: DensityProps) => {
       value: "lg",
     },
   ];
+
+  if (!props.table.enableDensity) {
+    return null;
+  }
+
   return (
     <>
       <HStack>

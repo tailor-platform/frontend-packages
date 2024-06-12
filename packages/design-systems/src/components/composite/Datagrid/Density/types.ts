@@ -1,5 +1,5 @@
 import type { OnChangeFn, Updater } from "@tanstack/table-core";
-import type { Localization } from "..";
+import { CommonToolButtonProps } from "../SearchFilter/types";
 
 export type DensityState = "sm" | "md" | "lg";
 export interface DensityTableState {
@@ -17,11 +17,5 @@ export interface DensityInstance {
   setDensityOpen: (updater: Updater<boolean>) => void;
 }
 
-export type DensityProps = {
-  setDensity: (updater: Updater<DensityState>) => void;
-  localization: Localization;
-  densityOpen: boolean;
-  setDensityOpen: (updater: Updater<boolean>) => void;
-  size?: "sm" | "md" | "lg" | "xl" | "2xl" | "xs";
-  variant?: "primary" | "secondary" | "link" | "tertiary";
-};
+export type DensityProps<TData extends Record<string, unknown>> =
+  CommonToolButtonProps<TData>;

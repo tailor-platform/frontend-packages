@@ -1,7 +1,6 @@
 import type { Updater } from "@tanstack/table-core";
 import type { CollectionItem } from "@ark-ui/react";
-import type { Localization } from "..";
-import type { Column } from "../types";
+import type { Column, DataGridInstance } from "../types";
 
 export type ValueChangeDetails<T extends CollectionItem = CollectionItem> = {
   value: string[];
@@ -59,15 +58,13 @@ export interface CustomFilterInstance {
   setCustomFilterOpen: (updater: Updater<boolean>) => void;
 }
 
-export type CustomFilterProps<TData> = {
-  columns: Array<Column<TData>>;
-  onChange: (currentState: GraphQLQueryFilter | undefined) => void;
-  localization: Localization;
-  systemFilter?: QueryRow;
-  defaultFilter?: QueryRow;
-  customFilterOpen: boolean;
-  setCustomFilterOpen: (updater: Updater<boolean>) => void;
-  enableColumnFilters?: boolean;
+export type CustomFilterProps<TData extends Record<string, unknown>> =
+  CommonToolButtonProps<TData> & {
+    columns: Array<Column<TData>>;
+  };
+
+export type CommonToolButtonProps<TData extends Record<string, unknown>> = {
+  table: DataGridInstance<TData>;
   size?: "sm" | "md" | "lg" | "xl" | "2xl" | "xs";
   variant?: "primary" | "secondary" | "link" | "tertiary";
 };
