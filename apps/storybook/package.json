@@ -43,7 +43,7 @@
     "@storybook/testing-library": "^0.2.2",
     "@storybook/theming": "^8.0.0",
     "@tailor-platform/design-systems": "workspace:*",
-    "@tailor-platform/dev-config": "workspace:*",
+    "@tailor-platform/dev-config": "^0.7.0",
     "@types/react": "^18.2.34",
     "@types/react-dom": "^18.2.14",
     "@typescript-eslint/eslint-plugin": "^6.9.1",
