@@ -20,7 +20,7 @@ const compat = new FlatCompat({
 module.exports = [
   {
     ignores: [
-      "**/.eslintrc.js",
+      "**/eslint.config.cjs",
       "**/package.json",
       "**/tsconfig.json",
       "**/tsconfig.tsbuildinfo",
