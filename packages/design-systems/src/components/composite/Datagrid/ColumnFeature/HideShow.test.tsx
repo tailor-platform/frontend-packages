@@ -101,7 +101,7 @@ const HideShowTest = () => {
     columnVisibility,
     onColumnVisibilityChange: setColumnVisibility,
   });
-  return <HideShow table={table} localization={LOCALIZATION_EN} />;
+  return <HideShow table={table} />;
 };
 
 const DataGridWithHideShow = () => {
