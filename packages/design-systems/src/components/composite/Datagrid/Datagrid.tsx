@@ -1,18 +1,6 @@
-import {
-  Cell,
-  Column as ColumnTanstak,
-  Header,
-  flexRender,
-} from "@tanstack/react-table";
+import { Cell, flexRender } from "@tanstack/react-table";
 import { cx } from "@tailor-platform/styled-system/css";
-import {
-  CSSProperties,
-  DragEvent,
-  useCallback,
-  useEffect,
-  useState,
-  ReactNode,
-} from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   datagrid,
   density as densityRecipe,
@@ -36,6 +24,7 @@ import { Export } from "./Export/Export";
 import { ManualPagination, Pagination } from "./Pagination";
 import { Column, type DataGridInstance } from "./types";
 import { TableHead } from "./ColumnFeature/TableHead";
+import { getCommonPinningStyles } from "./ColumnFeature/PinnedColumn";
 
 type DataGridProps<TData extends Record<string, unknown>> = {
   table: DataGridInstance<TData>;
@@ -80,54 +69,6 @@ export const DataGrid = <TData extends Record<string, unknown>>(
     density === "lg" && densityLgClasses,
   );
 
-  const [columnBeingDragged, setColumnBeingDragged] = useState<
-    number | undefined
-  >();
-
-  const onDragStart = useCallback(
-    (event: DragEvent<HTMLTableCellElement>): void => {
-      setColumnBeingDragged(Number(event.currentTarget.dataset.columnIndex));
-    },
-    [],
-  );
-
-  const onDrop = useCallback(
-    (event: DragEvent<HTMLTableCellElement>): void => {
-      event.preventDefault();
-      if (columnBeingDragged === undefined) return;
-      const newPosition = Number(event.currentTarget.dataset.columnIndex);
-      const currentCols = table.getVisibleLeafColumns().map((c) => c.id);
-      const colToBeMoved = currentCols.splice(columnBeingDragged, 1);
-      currentCols.splice(newPosition, 0, colToBeMoved[0]);
-      table.setColumnOrder(currentCols); // <------------------------here you save the column ordering state
-    },
-    [columnBeingDragged, table],
-  );
-
-  const getCommonPinningStyles = (
-    column: ColumnTanstak<TData>,
-    isHeader?: boolean,
-  ): CSSProperties => {
-    const isPinned = column.getIsPinned();
-    const isLastLeftPinnedColumn =
-      isPinned === "left" && column.getIsLastColumn("left");
-    const isFirstRightPinnedColumn =
-      isPinned === "right" && column.getIsFirstColumn("right");
-
-    return {
-      boxShadow: isLastLeftPinnedColumn
-        ? "-4px 0 4px -4px gray inset"
-        : isFirstRightPinnedColumn
-          ? "4px 0 4px -4px gray inset"
-          : undefined,
-      left: isPinned === "left" ? `${column.getStart("left")}px` : undefined,
-      right: isPinned === "right" ? `${column.getAfter("right")}px` : undefined,
-      position: isHeader || isPinned ? "sticky" : "relative",
-      opacity: isPinned ? 0.95 : 1,
-      zIndex: isPinned ? 1 : 0,
-    };
-  };
-
   useEffect(() => {
     //Get header titles from table columns
     const cusotmFilterFields: Column<TData>[] = table.columns.flatMap(
@@ -159,6 +100,18 @@ export const DataGrid = <TData extends Record<string, unknown>>(
         ? cell.column.getSize() + 48
         : cell.column.getSize() + 28;
   };
+
+  const renderCell = useCallback((cell: Cell<TData, string>) => {
+    if (
+      cell.column.columnDef.meta &&
+      cell.column.columnDef.meta.type === "enum"
+    ) {
+      const enumValues = cell.column.columnDef.meta.enumType;
+      return enumValues?.[cell.getValue()];
+    } else {
+      return flexRender(cell.column.columnDef.cell, cell.getContext());
+    }
+  }, []);
 
   return (
     <Stack gap={4} position={"relative"}>
@@ -218,16 +171,10 @@ export const DataGrid = <TData extends Record<string, unknown>>(
                 {headerGroup.headers.map((header, i) => (
                   <TableHead
                     key={i}
-                    header={header as Header<Record<string, unknown>, unknown>}
+                    header={header}
                     table={table}
-                    columnPiningStyles={getCommonPinningStyles(
-                      header.column,
-                      true,
-                    )}
                     size={size}
                     localization={localization}
-                    onDragStart={onDragStart}
-                    onDrop={onDrop}
                   />
                 ))}
               </TableRow>
@@ -242,56 +189,24 @@ export const DataGrid = <TData extends Record<string, unknown>>(
                   data-state={row.getIsSelected() && "selected"}
                   data-testid={`datagrid-row`}
                 >
-                  {row.getVisibleCells().map((cell, i) => {
-                    if (
-                      cell.column.columnDef.meta &&
-                      cell.column.columnDef.meta.type === "enum"
-                    ) {
-                      const enumValues = cell.column.columnDef.meta.enumType;
-                      const enumValue = enumValues?.[
-                        cell.getValue() as string
-                      ] as ReactNode;
-                      return (
-                        <TableCell
-                          key={i}
-                          className={tableDataClasses}
-                          style={{
-                            ...getCommonPinningStyles(cell.column),
-                          }}
-                        >
-                          <span
-                            className={datagridClasses.tableDataText}
-                            style={{
-                              width: calcColumnWidth(cell),
-                            }}
-                          >
-                            {enumValue}
-                          </span>
-                        </TableCell>
-                      );
-                    }
-                    return (
-                      <TableCell
-                        key={i}
-                        className={tableDataClasses}
+                  {row.getVisibleCells().map((cell, i) => (
+                    <TableCell
+                      key={i}
+                      className={tableDataClasses}
+                      style={{
+                        ...getCommonPinningStyles(cell.column),
+                      }}
+                    >
+                      <span
+                        className={datagridClasses.tableDataText}
                         style={{
-                          ...getCommonPinningStyles(cell.column),
+                          width: calcColumnWidth(cell),
                         }}
                       >
-                        <span
-                          className={datagridClasses.tableDataText}
-                          style={{
-                            width: calcColumnWidth(cell),
-                          }}
-                        >
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext(),
-                          )}
-                        </span>
-                      </TableCell>
-                    );
-                  })}
+                        {renderCell(cell)}
+                      </span>
+                    </TableCell>
+                  ))}
                 </TableRow>
               ))
             ) : (
