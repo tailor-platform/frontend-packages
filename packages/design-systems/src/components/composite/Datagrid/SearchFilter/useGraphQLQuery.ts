@@ -114,8 +114,11 @@ export const useGraphQLQuery = <TData>(props: UseGraphQLQueryProps<TData>) => {
   );
 
   const convertedSystemFilter = useMemo(() => {
-    const convertedSystemFilter: QueryRow = {};
-    if (systemFilter) {
+    if (!systemFilter) {
+      return undefined;
+    }
+    const generateConvertedSystemFilter = () => {
+      const convertedSystemFilter: QueryRow = {};
       Object.keys(systemFilter).flatMap((key) => {
         const filterValue = systemFilter[key];
         const keys = Object.keys(filterValue);
@@ -128,15 +131,12 @@ export const useGraphQLQuery = <TData>(props: UseGraphQLQueryProps<TData>) => {
           convertedSystemFilter[key] = {
             [condition]: valueConverter(metaType, value),
           };
-        } else {
-          return undefined;
         }
       });
-    } else {
-      return undefined;
-    }
+      return convertedSystemFilter;
+    };
 
-    return convertedSystemFilter;
+    return generateConvertedSystemFilter();
   }, [columns, systemFilter, valueConverter]);
   /**
    * This will convert the FilterRowState object from the UI to GraphQLQueryFilter and add it to the GraphQLQueryFilter.
