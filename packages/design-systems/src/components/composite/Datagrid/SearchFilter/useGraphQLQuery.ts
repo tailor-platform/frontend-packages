@@ -2,7 +2,7 @@ import { useCallback, useMemo } from "react";
 import dayjs from "dayjs";
 import { Column, MetaType } from "../types";
 import { Localization } from "..";
-import { FilterRowState, QueryRow } from "./types";
+import { FilterRowState, QueryRow, QueryRowValue } from "./types";
 import { FilterRowData } from "./useCustomFilter";
 
 type UseGraphQLQueryProps<TData> = {
@@ -118,17 +118,19 @@ export const useGraphQLQuery = <TData>(props: UseGraphQLQueryProps<TData>) => {
     if (systemFilter) {
       Object.keys(systemFilter).flatMap((key) => {
         const filterValue = systemFilter[key];
-        const condition = Object.keys(filterValue)[0];
-        const value = Object.values(filterValue)[0] as
-          | string
-          | boolean
-          | number
-          | string[]
-          | number[];
-        const metaType = columns.find((c) => c.accessorKey === key)?.meta?.type;
-        convertedSystemFilter[key] = {
-          [condition]: valueConverter(metaType, value),
-        };
+        const keys = Object.keys(filterValue);
+        const values = Object.values(filterValue);
+        if (keys.length > 0 && values.length > 0) {
+          const condition = keys[0];
+          const value = values[0] as QueryRowValue;
+          const metaType = columns.find((c) => c.accessorKey === key)?.meta
+            ?.type;
+          convertedSystemFilter[key] = {
+            [condition]: valueConverter(metaType, value),
+          };
+        } else {
+          return undefined;
+        }
       });
     } else {
       return undefined;
