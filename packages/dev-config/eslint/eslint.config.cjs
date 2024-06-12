@@ -1,12 +1,13 @@
-import typescriptEslint from "@typescript-eslint/eslint-plugin";
-import testingLibrary from "eslint-plugin-testing-library";
-import todoComment from "eslint-plugin-todo-comment";
-import preferArrowFunctions from "eslint-plugin-prefer-arrow-functions";
-import vitest from "eslint-plugin-vitest";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import js from "@eslint/js";
-import { FlatCompat } from "@eslint/eslintrc";
+const typescriptEslint = require("@typescript-eslint/eslint-plugin");
+const testingLibrary = require("eslint-plugin-testing-library");
+const todoComment = require("eslint-plugin-todo-comment");
+const preferArrowFunctions = require("eslint-plugin-prefer-arrow-functions");
+const vitest = require("eslint-plugin-vitest");
+const path = require("node:path");
+const { fileURLToPath } = require("node:url");
+const js = require("@eslint/js");
+const { FlatCompat } = require("@eslint/eslintrc");
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -16,7 +17,7 @@ const compat = new FlatCompat({
   allConfig: js.configs.all,
 });
 
-export default [
+module.exports = [
   {
     ignores: [
       "**/.eslintrc.js",
