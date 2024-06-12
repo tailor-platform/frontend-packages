@@ -23,13 +23,7 @@ describe("filterQuery", () => {
     },
   ] as const;
 
-  type S = {
-    name: string;
-    age: number;
-    hasJob: boolean;
-  };
-
-  const { query } = newQueryBuilder<S>({
+  const { query } = newQueryBuilder({
     columns: mockColumns,
   });
 
@@ -38,6 +32,7 @@ describe("filterQuery", () => {
       // add extra spaces to test the trimming
       name: filterOp.string.eq("John  "),
       hasJob: filterOp.boolean.eq(true),
+      // name: "hoge",
     }).and([
       query({
         age: filterOp.number.gt(10),

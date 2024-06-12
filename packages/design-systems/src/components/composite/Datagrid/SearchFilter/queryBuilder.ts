@@ -58,65 +58,70 @@ class BooleanOp extends Op<
   }
 > {}
 
-type FilterDefinition<TData extends Record<string, unknown>> = Partial<{
-  [K in keyof TData]: TData[K] extends string
-    ? StringOp
-    : TData[K] extends number
-      ? NumberOp
-      : TData[K] extends boolean
-        ? BooleanOp
-        : never;
+// Extract column meta types from array of column definitions
+type ExtractColumnMetaType<
+  Columns extends ReadonlyArray<ColumnDef<Record<string, unknown>>>,
+> = {
+  [K in Columns[number] extends { accessorKey: infer U extends string }
+    ? U
+    : never]: Columns[number] extends { accessorKey: infer U extends string }
+    ? U extends K
+      ? Columns[number]["meta"] extends { type: string }
+        ? Columns[number]["meta"]["type"]
+        : never
+      : never
+    : never;
+};
+
+type FilterOp<MetaTypes extends Record<string, unknown>> = Partial<{
+  [K in keyof MetaTypes]: MetaTypes[K] extends "number"
+    ? NumberOp
+    : MetaTypes[K] extends "boolean"
+      ? BooleanOp
+      : StringOp;
 }>;
 
-class FilterQuery<TData extends Record<string, unknown>> {
-  // Branded as filter query
+type JointCondition<
+  Columns extends ReadonlyArray<ColumnDef<Record<string, unknown>>>,
+> = {
+  mode: "and" | "or";
+  queries: Array<ConjunctiveFilterQuery<Columns>>;
+};
+
+class BuildableFilterQuery<
+  Columns extends ReadonlyArray<ColumnDef<Record<string, unknown>>>,
+> {
+  // Branded as terminal filter query
   private brand!: "filterQuery";
 
-  private jointCondition?: {
-    mode: "and" | "or";
-    queries: Array<FilterQuery<TData>>;
-  };
-
   constructor(
-    private readonly props: {
-      columns: ReadonlyArray<ColumnDef<TData>>;
-      filter: FilterDefinition<TData>;
+    protected readonly props: {
+      columns: Columns;
+      filter: FilterOp<ExtractColumnMetaType<Columns>>;
+      jointCondition?: JointCondition<Columns>;
     },
   ) {}
 
-  and(query: Array<FilterQuery<TData>>) {
-    this.jointCondition = {
-      mode: "and",
-      queries: query,
-    };
-    return this;
-  }
-
-  or(query: Array<FilterQuery<TData>>) {
-    this.jointCondition = {
-      mode: "or",
-      queries: query,
-    };
-    return this;
-  }
-
   build(): Record<string, unknown> {
-    // const fields = this.props.filter.map((filter) => filter.build());
-
-    const fields = Object.keys(this.props.filter).reduce((acc, key) => {
-      const filter = this.props.filter[key];
+    const fields = Object.keys(this.props.filter).reduce<
+      FilterOp<ExtractColumnMetaType<Columns>>
+    >((acc, key) => {
+      // TypeScript cannot infer the type of types in complicated operation of reduce
+      const filter =
+        this.props.filter[key as keyof ExtractColumnMetaType<Columns>];
       return {
         ...acc,
         [key]: filter?.build(),
       };
     }, {});
 
+    const jointCondition = this.props.jointCondition;
     return Object.assign(
       fields,
-      this.jointCondition
+      jointCondition
         ? {
-            [this.jointCondition.mode]: this.jointCondition.queries.map(
-              (query) => query.build(),
+            [jointCondition.mode]: jointCondition.queries.map((query) =>
+              query.build(),
             ),
           }
         : {},
@@ -124,20 +129,55 @@ class FilterQuery<TData extends Record<string, unknown>> {
   }
 }
 
-type UseFilterQueryProps<TData extends Record<string, unknown>> = {
-  columns: ReadonlyArray<ColumnDef<TData>>;
+// ConjunctiveFilterQuery is a class that can be chained with and/or
+// conjunctive methods always return a new instance of BuildableFilterQuery to prohibit chaining conjunctive methods
+class ConjunctiveFilterQuery<
+  Columns extends ReadonlyArray<ColumnDef<Record<string, unknown>>>,
+> extends BuildableFilterQuery<Columns> {
+  and(query: Array<ConjunctiveFilterQuery<Columns>>) {
+    return new BuildableFilterQuery({
+      ...this.props,
+      jointCondition: {
+        mode: "and",
+        queries: query,
+      },
+    });
+  }
+
+  or(query: Array<ConjunctiveFilterQuery<Columns>>) {
+    return new BuildableFilterQuery({
+      ...this.props,
+      jointCondition: {
+        mode: "or",
+        queries: query,
+      },
+    });
+  }
+}
+
+type UseFilterQueryProps<
+  Columns extends ReadonlyArray<ColumnDef<Record<string, unknown>>>,
+> = {
+  columns: Columns;
 };
 
-export const newQueryBuilder = <TData extends Record<string, unknown>>(
-  props: UseFilterQueryProps<TData>,
+export const newQueryBuilder = <
+  Columns extends ReadonlyArray<ColumnDef<Record<string, unknown>>>,
+>(
+  props: UseFilterQueryProps<Columns>,
 ) => {
   const buildQuery = <
     // Prohibit empty object ({})
-    T extends Record<string, never> extends T ? never : FilterDefinition<TData>,
+    T extends Record<string, never> extends T
+      ? never
+      : FilterOp<ExtractColumnMetaType<Columns>>,
   >(
     filter: T,
   ) => {
-    return new FilterQuery<TData>({ columns: props.columns, filter });
+    return new ConjunctiveFilterQuery<Columns>({
+      columns: props.columns,
+      filter,
+    });
   };
 
   return {
