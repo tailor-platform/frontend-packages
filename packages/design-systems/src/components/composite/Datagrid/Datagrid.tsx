@@ -101,15 +101,15 @@ export const DataGrid = <TData extends Record<string, unknown>>(
         : cell.column.getSize() + 28;
   };
 
-  const renderCell = useCallback((cell: Cell<TData, unknown>) => {
+  const renderCell = useCallback((cell: Cell<TData, string>) => {
     if (
       cell.column.columnDef.meta &&
       cell.column.columnDef.meta.type === "enum"
     ) {
       const enumValues = cell.column.columnDef.meta.enumType;
-      return enumValues?.[cell.getValue() as string] as ReactNode;
+      return enumValues?.[cell.getValue()];
     } else {
-      flexRender(cell.column.columnDef.cell, cell.getContext());
+      return flexRender(cell.column.columnDef.cell, cell.getContext());
     }
   }, []);
 
