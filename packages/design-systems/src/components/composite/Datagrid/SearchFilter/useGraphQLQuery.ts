@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import dayjs from "dayjs";
 import { Column, MetaType } from "../types";
 import { Localization } from "..";
@@ -113,6 +113,22 @@ export const useGraphQLQuery = <TData>(props: UseGraphQLQueryProps<TData>) => {
     [valueConverter],
   );
 
+  const convertedSystemFilter = useMemo(() => {
+    const convertedSystemFilter: QueryRow = {};
+    if (systemFilter) {
+      Object.keys(systemFilter).flatMap((key) => {
+        const filterValue = systemFilter[key];
+        const condition = Object.keys(filterValue)[0];
+        const value = Object.values(filterValue)[0];
+        const metaType = columns.find((c) => c.accessorKey === key)?.meta?.type;
+        convertedSystemFilter[key] = {
+          [condition]: valueConverter(metaType, value),
+        };
+      });
+    }
+
+    return convertedSystemFilter;
+  }, [columns]);
   /**
    * This will convert the FilterRowState object from the UI to GraphQLQueryFilter and add it to the GraphQLQueryFilter.
    */
@@ -142,7 +158,7 @@ export const useGraphQLQuery = <TData>(props: UseGraphQLQueryProps<TData>) => {
       }
       return {
         and: {
-          ...systemFilter,
+          ...convertedSystemFilter,
           ...newGraphQLQueryFilter,
         },
       };
@@ -153,6 +169,7 @@ export const useGraphQLQuery = <TData>(props: UseGraphQLQueryProps<TData>) => {
   return {
     generateFilter,
     convertQueryFilter, // For testing purpose
+    convertedSystemFilter, // For testing purpose
   };
 };
 
