@@ -1,7 +1,6 @@
 "use client";
 
 import type { Meta, StoryObj } from "@storybook/react";
-
 import {
   DataGridManualPaginationStory,
   DataGridManualPaginationStoryProps,

@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
 import { Center, CenterProps } from "@tailor-platform/design-systems";
 
 Center.displayName = "Center";

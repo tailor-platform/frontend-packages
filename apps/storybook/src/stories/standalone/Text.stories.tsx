@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
 import { Text } from "@tailor-platform/design-systems";
 import { type HTMLStyledProps } from "@tailor-platform/styled-system/jsx";
 

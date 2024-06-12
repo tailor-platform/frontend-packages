@@ -1,6 +1,5 @@
 import { Menu, type MenuRootProps } from "@ark-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
-
 import { menuTypes } from "../../ark-types";
 import { MenuStory } from "./MenuStory.tsx";
 import menuStorySource from "./MenuStory.tsx?raw";

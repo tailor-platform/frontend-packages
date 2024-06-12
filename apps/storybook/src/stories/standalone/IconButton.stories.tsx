@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { AppleIcon } from "lucide-react";
-
 import { IconButton, IconButtonProps } from "@tailor-platform/design-systems";
 import { button } from "@tailor-platform/styled-system/recipes";
 

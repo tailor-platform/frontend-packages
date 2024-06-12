@@ -6,7 +6,6 @@ import {
   DataGridInstance,
   useDataGrid,
 } from "@tailor-platform/design-systems/client";
-
 import { COLUMNS as columns, DATA as data } from "../../data/datagrid.ts";
 
 export type DataGridSortingStoryProps = {
