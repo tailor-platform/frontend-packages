@@ -45,7 +45,6 @@ export const DataGrid = <TData extends Record<string, unknown>>(
   const [cusotmFilterFields, setCustomFilterFields] = useState<Column<TData>[]>(
     [],
   );
-  const localization = table.localization || LOCALIZATION_EN;
   const datagridClasses = datagrid({ size });
 
   useEffect(() => {
@@ -74,7 +73,6 @@ export const DataGrid = <TData extends Record<string, unknown>>(
 
   const commonToolButtonProps = {
     table,
-    localization,
     size: toolButtonSize,
     variant: toolButtonVariant,
   };
@@ -98,7 +96,6 @@ export const DataGrid = <TData extends Record<string, unknown>>(
                     header={header}
                     table={table}
                     size={size}
-                    localization={localization}
                   />
                 ))}
               </TableRow>
@@ -111,9 +108,9 @@ export const DataGrid = <TData extends Record<string, unknown>>(
       </styled.div>
       {table.enablePagination &&
         (table.manualPagination ? (
-          <ManualPagination table={table} localization={localization} />
+          <ManualPagination table={table} />
         ) : (
-          <Pagination table={table} localization={localization} />
+          <Pagination table={table} />
         ))}
     </Stack>
   );
