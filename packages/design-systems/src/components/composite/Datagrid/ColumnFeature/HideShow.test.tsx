@@ -4,7 +4,6 @@ import { ColumnDef } from "@tanstack/react-table";
 import { describe, expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { useDataGrid } from "../useDataGrid";
-import { LOCALIZATION_EN } from "../../../../locales/en";
 import { DataGrid } from "../Datagrid";
 import { HideShow } from "./HideShow";
 
