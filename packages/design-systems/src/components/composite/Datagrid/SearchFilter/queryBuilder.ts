@@ -1,36 +1,37 @@
 import { ColumnDef } from "@tanstack/table-core";
 
-class Op<const T, P extends { type: string; value: unknown }> {
-  private brand!: T;
+class Op<const B, T, P extends { type: string; value: T }> {
+  private brand!: B;
 
   constructor(private readonly props: P) {}
 
   build() {
     return {
-      [this.props.type]: this.props.value,
+      [this.props.type]: this.converter(this.props.value),
     };
+  }
+
+  protected converter(value: T) {
+    return value;
   }
 }
 
 class StringOp extends Op<
   "stringOp",
+  string,
   {
     value: string;
     type: "eq" | "ne" | "contains" | "regex";
   }
-> {}
-
-const buildStringOps = <T extends string>() => {
-  return {
-    eq: (value: T) => new StringOp({ value, type: "eq" }),
-    ne: (value: T) => new StringOp({ value, type: "ne" }),
-    contains: (value: T) => new StringOp({ value, type: "contains" }),
-    regex: (value: T) => new StringOp({ value, type: "regex" }),
-  };
-};
+> {
+  override converter(value: string) {
+    return value.trim();
+  }
+}
 
 class NumberOp extends Op<
   "numberOp",
+  number | number[] | { min: number; max: number },
   | {
       type: "eq" | "ne" | "gt" | "gte" | "lt" | "lte";
       value: number;
@@ -48,27 +49,23 @@ class NumberOp extends Op<
     }
 > {}
 
-const buildNumberOps = <T extends number>() => {
-  return {
-    eq: (value: T) => new NumberOp({ value, type: "eq" }),
-    ne: (value: T) => new NumberOp({ value, type: "ne" }),
-    in: (value: Array<T>) => new NumberOp({ value, type: "in" }),
-    nin: (value: Array<T>) => new NumberOp({ value, type: "nin" }),
-    gt: (value: T) => new NumberOp({ value, type: "gt" }),
-    gte: (value: T) => new NumberOp({ value, type: "gte" }),
-    lt: (value: T) => new NumberOp({ value, type: "lt" }),
-    lte: (value: T) => new NumberOp({ value, type: "lte" }),
-    between: (min: T, max: T) =>
-      new NumberOp({ value: { min, max }, type: "between" }),
-  };
-};
+class BooleanOp extends Op<
+  "booleanOp",
+  boolean,
+  {
+    type: "eq" | "ne";
+    value: boolean;
+  }
+> {}
 
 type FilterDefinition<TData extends Record<string, unknown>> = Partial<{
   [K in keyof TData]: TData[K] extends string
     ? StringOp
     : TData[K] extends number
       ? NumberOp
-      : never;
+      : TData[K] extends boolean
+        ? BooleanOp
+        : never;
 }>;
 
 class FilterQuery<TData extends Record<string, unknown>> {
@@ -146,8 +143,28 @@ export const newQueryBuilder = <TData extends Record<string, unknown>>(
   return {
     query: buildQuery,
     ops: {
-      string: buildStringOps<string>(),
-      number: buildNumberOps<number>(),
+      boolean: {
+        eq: (value: boolean) => new BooleanOp({ value, type: "eq" }),
+        ne: (value: boolean) => new BooleanOp({ value, type: "ne" }),
+      },
+      string: {
+        eq: (value: string) => new StringOp({ value, type: "eq" }),
+        ne: (value: string) => new StringOp({ value, type: "ne" }),
+        contains: (value: string) => new StringOp({ value, type: "contains" }),
+        regex: (value: string) => new StringOp({ value, type: "regex" }),
+      },
+      number: {
+        eq: (value: number) => new NumberOp({ value, type: "eq" }),
+        ne: (value: number) => new NumberOp({ value, type: "ne" }),
+        in: (value: Array<number>) => new NumberOp({ value, type: "in" }),
+        nin: (value: Array<number>) => new NumberOp({ value, type: "nin" }),
+        gt: (value: number) => new NumberOp({ value, type: "gt" }),
+        gte: (value: number) => new NumberOp({ value, type: "gte" }),
+        lt: (value: number) => new NumberOp({ value, type: "lt" }),
+        lte: (value: number) => new NumberOp({ value, type: "lte" }),
+        between: (min: number, max: number) =>
+          new NumberOp({ value: { min, max }, type: "between" }),
+      },
     },
   };
 };
