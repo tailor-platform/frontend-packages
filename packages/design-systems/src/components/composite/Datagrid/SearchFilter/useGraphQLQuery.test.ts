@@ -6,7 +6,7 @@ import { QueryRow, FilterRowState } from "./types";
 import { LOCALIZATION_JA } from "@locales";
 
 describe("useGraphQLQuery", () => {
-  it("addToGraphQLQueryFilterRecursively work as expected with jointCondition", async () => {
+  it("convertQueryFilter work as expected with no jointCondition", async () => {
     const { result } = renderHook(() =>
       useGraphQLQuery({
         columns,
@@ -19,8 +19,8 @@ describe("useGraphQLQuery", () => {
       column: "amount",
       value: 200,
       condition: "eq",
-      isChangeable: false,
-      jointCondition: "or",
+      isChangeable: true,
+      jointCondition: undefined,
     };
 
     act(() => {
@@ -29,7 +29,37 @@ describe("useGraphQLQuery", () => {
 
     await waitFor(() => {
       expect(graphQLQueryObject).toStrictEqual({
-        or: [
+        amount: {
+          eq: 200,
+        },
+      });
+    });
+  });
+
+  it("convertQueryFilter work as expected with jointCondition", async () => {
+    const { result } = renderHook(() =>
+      useGraphQLQuery({
+        columns,
+        systemFilter: { status: { eq: "pending" } },
+        localization: LOCALIZATION_JA,
+      }),
+    );
+    const graphQLQueryObject: QueryRow = {};
+    const filter: FilterRowState = {
+      column: "amount",
+      value: 200,
+      condition: "eq",
+      isChangeable: true,
+      jointCondition: "and",
+    };
+
+    act(() => {
+      result.current.convertQueryFilter(filter, graphQLQueryObject, "number");
+    });
+
+    await waitFor(() => {
+      expect(graphQLQueryObject).toStrictEqual({
+        and: [
           {
             amount: {
               eq: 200,
@@ -40,7 +70,7 @@ describe("useGraphQLQuery", () => {
     });
   });
 
-  it("convertQueryFilter work as expected with initial graphQLQueryObject", async () => {
+  it("convertQueryFilter append filter to array", async () => {
     const { result } = renderHook(() =>
       useGraphQLQuery({
         columns,
@@ -48,13 +78,21 @@ describe("useGraphQLQuery", () => {
         localization: LOCALIZATION_JA,
       }),
     );
-    const graphQLQueryObject: QueryRow = {};
+    const graphQLQueryObject: QueryRow = {
+      and: [
+        {
+          status: {
+            eq: "pending",
+          },
+        },
+      ],
+    };
     const filter: FilterRowState = {
       column: "amount",
       value: 200,
       condition: "eq",
-      isChangeable: false,
-      jointCondition: "or",
+      isChangeable: true,
+      jointCondition: "and",
     };
 
     act(() => {
@@ -63,7 +101,12 @@ describe("useGraphQLQuery", () => {
 
     await waitFor(() => {
       expect(graphQLQueryObject).toStrictEqual({
-        or: [
+        and: [
+          {
+            status: {
+              eq: "pending",
+            },
+          },
           {
             amount: {
               eq: 200,
