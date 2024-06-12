@@ -142,29 +142,30 @@ export const newQueryBuilder = <TData extends Record<string, unknown>>(
 
   return {
     query: buildQuery,
-    ops: {
-      boolean: {
-        eq: (value: boolean) => new BooleanOp({ value, type: "eq" }),
-        ne: (value: boolean) => new BooleanOp({ value, type: "ne" }),
-      },
-      string: {
-        eq: (value: string) => new StringOp({ value, type: "eq" }),
-        ne: (value: string) => new StringOp({ value, type: "ne" }),
-        contains: (value: string) => new StringOp({ value, type: "contains" }),
-        regex: (value: string) => new StringOp({ value, type: "regex" }),
-      },
-      number: {
-        eq: (value: number) => new NumberOp({ value, type: "eq" }),
-        ne: (value: number) => new NumberOp({ value, type: "ne" }),
-        in: (value: Array<number>) => new NumberOp({ value, type: "in" }),
-        nin: (value: Array<number>) => new NumberOp({ value, type: "nin" }),
-        gt: (value: number) => new NumberOp({ value, type: "gt" }),
-        gte: (value: number) => new NumberOp({ value, type: "gte" }),
-        lt: (value: number) => new NumberOp({ value, type: "lt" }),
-        lte: (value: number) => new NumberOp({ value, type: "lte" }),
-        between: (min: number, max: number) =>
-          new NumberOp({ value: { min, max }, type: "between" }),
-      },
-    },
   };
+};
+
+export const filterOp = {
+  boolean: {
+    eq: (value: boolean) => new BooleanOp({ value, type: "eq" }),
+    ne: (value: boolean) => new BooleanOp({ value, type: "ne" }),
+  },
+  string: {
+    eq: (value: string) => new StringOp({ value, type: "eq" }),
+    ne: (value: string) => new StringOp({ value, type: "ne" }),
+    contains: (value: string) => new StringOp({ value, type: "contains" }),
+    regex: (value: string) => new StringOp({ value, type: "regex" }),
+  },
+  number: {
+    eq: (value: number) => new NumberOp({ value, type: "eq" }),
+    ne: (value: number) => new NumberOp({ value, type: "ne" }),
+    in: (value: Array<number>) => new NumberOp({ value, type: "in" }),
+    nin: (value: Array<number>) => new NumberOp({ value, type: "nin" }),
+    gt: (value: number) => new NumberOp({ value, type: "gt" }),
+    gte: (value: number) => new NumberOp({ value, type: "gte" }),
+    lt: (value: number) => new NumberOp({ value, type: "lt" }),
+    lte: (value: number) => new NumberOp({ value, type: "lte" }),
+    between: (min: number, max: number) =>
+      new NumberOp({ value: { min, max }, type: "between" }),
+  },
 };

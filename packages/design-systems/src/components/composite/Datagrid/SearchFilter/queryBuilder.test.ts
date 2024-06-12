@@ -1,5 +1,5 @@
 import { describe, test, expect } from "vitest";
-import { newQueryBuilder } from "./queryBuilder";
+import { filterOp, newQueryBuilder } from "./queryBuilder";
 
 describe("filterQuery", () => {
   const mockColumns = [
@@ -29,21 +29,21 @@ describe("filterQuery", () => {
     hasJob: boolean;
   };
 
-  const { query, ops } = newQueryBuilder<S>({
+  const { query } = newQueryBuilder<S>({
     columns: mockColumns,
   });
 
   test("should return the correct query", () => {
     const q = query({
       // add extra spaces to test the trimming
-      name: ops.string.eq("John  "),
-      hasJob: ops.boolean.eq(true),
+      name: filterOp.string.eq("John  "),
+      hasJob: filterOp.boolean.eq(true),
     }).and([
       query({
-        age: ops.number.gt(10),
+        age: filterOp.number.gt(10),
       }),
       query({
-        age: ops.number.lt(20),
+        age: filterOp.number.lt(20),
       }),
     ]);
 
