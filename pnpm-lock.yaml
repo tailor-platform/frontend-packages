@@ -209,7 +209,19 @@ importers:
         version: 3.9.5(@types/react@18.2.42)(graphql@16.8.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       next:
         specifier: ^v14
+<<<<<<< HEAD
         version: 14.1.0(@babel/core@7.23.7)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+||||||| parent of 4eccfde (chore(ds): use Exact type for type-safety)
+        version: 14.1.0(@babel/core@7.24.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+=======
+<<<<<<< HEAD
+        version: 14.1.0(@babel/core@7.24.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+||||||| parent of 3e0b086 (chore(ds): use Exact type for type-safety)
+        version: 14.1.0(@babel/core@7.23.7)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+=======
+        version: 14.1.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+>>>>>>> 3e0b086 (chore(ds): use Exact type for type-safety)
+>>>>>>> 4eccfde (chore(ds): use Exact type for type-safety)
     devDependencies:
       '@swc/core':
         specifier: ^1.4.12
@@ -344,6 +356,9 @@ importers:
       tsup:
         specifier: ^8.0.1
         version: 8.0.1(@swc/core@1.4.12(@swc/helpers@0.5.6))(postcss@8.4.35)(ts-node@10.9.2(@swc/core@1.4.12(@swc/helpers@0.5.6))(@types/node@18.19.2)(typescript@5.3.3))(typescript@5.3.3)
+      type-fest:
+        specifier: ^4.20.0
+        version: 4.20.0
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
@@ -9011,6 +9026,10 @@ packages:
 
   type-fest@4.13.1:
     resolution: {integrity: sha512-ASMgM+Vf2cLwDMt1KXSkMUDSYCxtckDJs8zsaVF/mYteIsiARKCVtyXtcK38mIKbLTctZP8v6GMqdNaeI3fo7g==}
+    engines: {node: '>=16'}
+
+  type-fest@4.20.0:
+    resolution: {integrity: sha512-MBh+PHUHHisjXf4tlx0CFWoMdjx8zCMLJHOjnV1prABYZFHqtFOyauCIK2/7w4oIfwkF8iNhLtnJEfVY2vn3iw==}
     engines: {node: '>=16'}
 
   type-is@1.6.18:
@@ -19513,7 +19532,19 @@ snapshots:
 
   neo-async@2.6.2: {}
 
+<<<<<<< HEAD
   next@14.1.0(@babel/core@7.23.7)(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+||||||| parent of 4eccfde (chore(ds): use Exact type for type-safety)
+  next@14.1.0(@babel/core@7.24.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+=======
+<<<<<<< HEAD
+  next@14.1.0(@babel/core@7.24.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+||||||| parent of 3e0b086 (chore(ds): use Exact type for type-safety)
+  next@14.1.0(@babel/core@7.23.7)(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+=======
+  next@14.1.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+>>>>>>> 3e0b086 (chore(ds): use Exact type for type-safety)
+>>>>>>> 4eccfde (chore(ds): use Exact type for type-safety)
     dependencies:
       '@next/env': 14.1.0
       '@swc/helpers': 0.5.2
@@ -19523,7 +19554,19 @@ snapshots:
       postcss: 8.4.31
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
+<<<<<<< HEAD
       styled-jsx: 5.1.1(@babel/core@7.23.7)(react@18.2.0)
+||||||| parent of 4eccfde (chore(ds): use Exact type for type-safety)
+      styled-jsx: 5.1.1(@babel/core@7.24.5)(react@18.2.0)
+=======
+<<<<<<< HEAD
+      styled-jsx: 5.1.1(@babel/core@7.24.5)(react@18.2.0)
+||||||| parent of 3e0b086 (chore(ds): use Exact type for type-safety)
+      styled-jsx: 5.1.1(@babel/core@7.23.7)(react@18.2.0)
+=======
+      styled-jsx: 5.1.1(react@18.2.0)
+>>>>>>> 3e0b086 (chore(ds): use Exact type for type-safety)
+>>>>>>> 4eccfde (chore(ds): use Exact type for type-safety)
     optionalDependencies:
       '@next/swc-darwin-arm64': 14.1.0
       '@next/swc-darwin-x64': 14.1.0
@@ -20899,12 +20942,36 @@ snapshots:
       '@tokenizer/token': 0.3.0
       peek-readable: 5.0.0
 
+<<<<<<< HEAD
   styled-jsx@5.1.1(@babel/core@7.23.7)(react@18.2.0):
+||||||| parent of 4eccfde (chore(ds): use Exact type for type-safety)
+  styled-jsx@5.1.1(@babel/core@7.24.5)(react@18.2.0):
+=======
+<<<<<<< HEAD
+  styled-jsx@5.1.1(@babel/core@7.24.5)(react@18.2.0):
+||||||| parent of 3e0b086 (chore(ds): use Exact type for type-safety)
+  styled-jsx@5.1.1(@babel/core@7.23.7)(react@18.2.0):
+=======
+  styled-jsx@5.1.1(react@18.2.0):
+>>>>>>> 3e0b086 (chore(ds): use Exact type for type-safety)
+>>>>>>> 4eccfde (chore(ds): use Exact type for type-safety)
     dependencies:
       client-only: 0.0.1
       react: 18.2.0
+<<<<<<< HEAD
+    optionalDependencies:
+<<<<<<< HEAD
+      '@babel/core': 7.23.7
+||||||| parent of 4eccfde (chore(ds): use Exact type for type-safety)
+      '@babel/core': 7.24.5
+=======
+      '@babel/core': 7.24.5
+||||||| parent of 3e0b086 (chore(ds): use Exact type for type-safety)
     optionalDependencies:
       '@babel/core': 7.23.7
+=======
+>>>>>>> 3e0b086 (chore(ds): use Exact type for type-safety)
+>>>>>>> 4eccfde (chore(ds): use Exact type for type-safety)
 
   sucrase@3.35.0:
     dependencies:
@@ -21384,6 +21451,8 @@ snapshots:
   type-fest@2.19.0: {}
 
   type-fest@4.13.1: {}
+
+  type-fest@4.20.0: {}
 
   type-is@1.6.18:
     dependencies:

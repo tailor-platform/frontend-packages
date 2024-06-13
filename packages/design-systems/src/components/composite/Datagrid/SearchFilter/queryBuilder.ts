@@ -1,4 +1,5 @@
 import { ColumnDef } from "@tanstack/table-core";
+import { Exact } from "type-fest";
 
 class Op<const B, T, P extends { type: string; value: T }> {
   private brand!: B;
@@ -83,13 +84,15 @@ type FilterOp<MetaTypes extends Record<string, unknown>> = Partial<{
 
 type JointCondition<
   Columns extends ReadonlyArray<ColumnDef<Record<string, unknown>>>,
+  F extends Exact<FilterOp<ExtractColumnMetaType<Columns>>, F>,
 > = {
   mode: "and" | "or";
-  queries: Array<ConjunctiveFilterQuery<Columns>>;
+  queries: Array<ConjunctiveFilterQuery<Columns, F>>;
 };
 
 class BuildableFilterQuery<
   Columns extends ReadonlyArray<ColumnDef<Record<string, unknown>>>,
+  F extends Exact<FilterOp<ExtractColumnMetaType<Columns>>, F>,
 > {
   // Branded as terminal filter query
   private brand!: "filterQuery";
@@ -97,21 +100,19 @@ class BuildableFilterQuery<
   constructor(
     protected readonly props: {
       columns: Columns;
-      filter: FilterOp<ExtractColumnMetaType<Columns>>;
-      jointCondition?: JointCondition<Columns>;
+      filter: F;
+      jointCondition?: JointCondition<Columns, F>;
     },
   ) {}
 
   build(): Record<string, unknown> {
-    const fields = Object.keys(this.props.filter).reduce<
-      FilterOp<ExtractColumnMetaType<Columns>>
-    >((acc, key) => {
-      // TypeScript cannot infer the type of types in complicated operation of reduce
-      const filter =
-        this.props.filter[key as keyof ExtractColumnMetaType<Columns>];
+    // TypeScript cannot infer the type of types in complicated operation of reduce
+    const keys = Object.keys(this.props.filter) as (keyof F)[];
+    const fields = keys.reduce((acc, key) => {
+      const filter = this.props.filter[key];
       return {
         ...acc,
-        [key]: filter?.build(),
+        [key]: filter instanceof Op ? filter.build() : undefined,
       };
     }, {});
 
@@ -133,23 +134,24 @@ class BuildableFilterQuery<
 // conjunctive methods always return a new instance of BuildableFilterQuery to prohibit chaining conjunctive methods
 class ConjunctiveFilterQuery<
   Columns extends ReadonlyArray<ColumnDef<Record<string, unknown>>>,
-> extends BuildableFilterQuery<Columns> {
-  and(query: Array<ConjunctiveFilterQuery<Columns>>) {
+  F extends Exact<FilterOp<ExtractColumnMetaType<Columns>>, F>,
+> extends BuildableFilterQuery<Columns, F> {
+  and(queries: Array<ConjunctiveFilterQuery<Columns, F>>) {
     return new BuildableFilterQuery({
       ...this.props,
       jointCondition: {
         mode: "and",
-        queries: query,
+        queries,
       },
     });
   }
 
-  or(query: Array<ConjunctiveFilterQuery<Columns>>) {
+  or(queries: Array<ConjunctiveFilterQuery<Columns, F>>) {
     return new BuildableFilterQuery({
       ...this.props,
       jointCondition: {
         mode: "or",
-        queries: query,
+        queries,
       },
     });
   }
@@ -170,11 +172,11 @@ export const newQueryBuilder = <
     // Prohibit empty object ({})
     T extends Record<string, never> extends T
       ? never
-      : FilterOp<ExtractColumnMetaType<Columns>>,
+      : Exact<FilterOp<ExtractColumnMetaType<Columns>>, T>,
   >(
     filter: T,
   ) => {
-    return new ConjunctiveFilterQuery<Columns>({
+    return new ConjunctiveFilterQuery<Columns, T>({
       columns: props.columns,
       filter,
     });

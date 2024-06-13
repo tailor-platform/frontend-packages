@@ -31,23 +31,18 @@ describe("filterQuery", () => {
     const q = query({
       // add extra spaces to test the trimming
       name: filterOp.string.eq("John  "),
-      hasJob: filterOp.boolean.eq(true),
-      // name: "hoge",
     }).and([
       query({
         age: filterOp.number.gt(10),
       }),
       query({
-        age: filterOp.number.lt(20),
+        hasJob: filterOp.boolean.eq(true),
       }),
     ]);
 
     expect(q.build()).toStrictEqual({
       name: {
         eq: "John",
-      },
-      hasJob: {
-        eq: true,
       },
       and: [
         {
@@ -56,8 +51,8 @@ describe("filterQuery", () => {
           },
         },
         {
-          age: {
-            lt: 20,
+          hasJob: {
+            eq: true,
           },
         },
       ],
