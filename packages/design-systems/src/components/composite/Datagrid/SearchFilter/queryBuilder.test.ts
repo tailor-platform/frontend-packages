@@ -33,10 +33,10 @@ describe("filterQuery", () => {
       name: filterOp.string.eq("John  "),
     }).and([
       query({
-        age: filterOp.number.gt(10),
+        hasJob: filterOp.boolean.eq(true),
       }),
       query({
-        hasJob: filterOp.boolean.eq(true),
+        age: filterOp.number.gt(10),
       }),
     ]);
 
