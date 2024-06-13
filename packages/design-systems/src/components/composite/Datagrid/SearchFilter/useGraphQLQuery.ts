@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import dayjs from "dayjs";
-import { Column, MetaType } from "../types";
-import { FilterRowState, QueryRow } from "./types";
+import { Column } from "../types";
+import { ApplicableType, FilterRowState, QueryRow } from "./types";
 import { FilterRowData } from "./useCustomFilter";
 
 type UseGraphQLQueryProps<TData> = {
@@ -14,7 +14,7 @@ export const useGraphQLQuery = <TData>(props: UseGraphQLQueryProps<TData>) => {
 
   const valueConverter = useCallback(
     (
-      metaType: MetaType | undefined,
+      metaType: ApplicableType | undefined,
       value: string | boolean | number | string[] | number[],
     ) => {
       if (typeof value === "boolean" || typeof value === "number") {
@@ -76,7 +76,7 @@ export const useGraphQLQuery = <TData>(props: UseGraphQLQueryProps<TData>) => {
     (
       filter: FilterRowState,
       graphQLQueryObject: QueryRow,
-      metaType: MetaType | undefined,
+      metaType: ApplicableType | undefined,
     ) => {
       const { column, condition, value, jointCondition } = filter;
 
