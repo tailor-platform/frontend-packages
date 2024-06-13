@@ -13,29 +13,32 @@
     "./typescript/design-systems": "./typescript/design-systems.json",
     "./typescript/nextjs": "./typescript/nextjs.json",
     "./typescript/react-library": "./typescript/react-library.json",
-    "./eslint": "./eslint/eslintrc.js",
+    "./eslint": "./eslint/eslint.config.cjs",
     "./prettier": "./prettier/index.js"
   },
   "repository": "https://github.com/tailor-platform/frontend-packages",
   "dependencies": {
+    "@eslint/compat": "^1.1.0",
     "@eslint/eslintrc": "^3.1.0",
     "@eslint/js": "^9.4.0",
+    "@next/eslint-plugin-next": "^14.2.4",
     "@pandacss/dev": "^0.29.1",
-    "@typescript-eslint/eslint-plugin": "^6.7.5",
-    "@typescript-eslint/parser": "^6.2.1",
-    "eslint": "^8.55.0",
-    "eslint-config-next": "^14.1.0",
+    "eslint": "^9.4.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-turbo": "^2.0.1",
+    "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-prefer-arrow-functions": "^3.2.4",
     "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-testing-library": "^6.2.0",
     "eslint-plugin-todo-comment": "^1.1.0",
-    "eslint-plugin-vitest": "^0.3.22",
-    "eslint-plugin-vitest-globals": "^1.4.0"
+    "eslint-plugin-vitest": "^0.5.4",
+    "eslint-plugin-vitest-globals": "^1.4.0",
+    "globals": "^15.4.0",
+    "typescript-eslint": "^7.13.0"
   },
   "peerDependencies": {
     "@pandacss/dev": "^0.29.1",
-    "eslint": "^8.55.0"
+    "eslint": "^9.4.0"
   }
 }

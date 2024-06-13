@@ -1,8 +1,8 @@
-import { describe, expect, it } from "vitest";
-import { createErrorRedirection, middlewareRouter } from "./middleware";
+import { describe, expect, it, vi } from "vitest";
 import { mockAuthConfig } from "@tests/mocks";
 import { buildRequestWithParams } from "@tests/helper";
 import { CallbackError } from "@core/strategies/abstract";
+import { createErrorRedirection, middlewareRouter } from "./middleware";
 
 describe("middleware", () => {
   const testingError = new Error("this is testing error");

@@ -1,4 +1,4 @@
-import { expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { SAMLStrategy } from "@core/strategies/saml";
 import { Config } from "@core";
 import { samlParamsError } from "@core/strategies/abstract";
