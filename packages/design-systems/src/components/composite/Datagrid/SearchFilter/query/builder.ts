@@ -52,7 +52,9 @@ type JointCondition<
   F extends Exact<FilterOp<ExtractColumnMetaType<Columns>>, F>,
 > = {
   mode: "and" | "or";
-  queries: Array<ConjunctiveFilterQuery<Columns, F>>;
+  queries: Array<
+    ConjunctiveFilterQuery<Columns, F> | BuildableFilterQuery<Columns, F>
+  >;
 };
 
 class BuildableFilterQuery<
@@ -69,6 +71,10 @@ class BuildableFilterQuery<
       jointCondition?: JointCondition<Columns, F>;
     },
   ) {}
+
+  protected queryType(): string {
+    return "builable";
+  }
 
   build(): Record<string, unknown> {
     // TypeScript cannot infer the type of keys through Object.keys
@@ -95,18 +101,23 @@ class BuildableFilterQuery<
   }
 }
 
+type ChainableQuery<
+  Columns extends ReadonlyArray<ColumnDef<Record<string, unknown>>>,
+> =
+  | ConjunctiveFilterQuery<Columns, FilterOp<ExtractColumnMetaType<Columns>>>
+  | BuildableFilterQuery<Columns, FilterOp<ExtractColumnMetaType<Columns>>>;
+
 // ConjunctiveFilterQuery is a class that can be chained with and/or
 // conjunctive methods always return a new instance of BuildableFilterQuery to prohibit chaining conjunctive methods
 class ConjunctiveFilterQuery<
   Columns extends ReadonlyArray<ColumnDef<Record<string, unknown>>>,
   F extends Exact<FilterOp<ExtractColumnMetaType<Columns>>, F>,
 > extends BuildableFilterQuery<Columns, F> {
-  and<
-    P extends ConjunctiveFilterQuery<
-      Columns,
-      FilterOp<ExtractColumnMetaType<Columns>>
-    >,
-  >(queries: Array<P>) {
+  protected override queryType(): string {
+    return "conjunctive";
+  }
+
+  and<P extends ChainableQuery<Columns>>(queries: Array<P>) {
     return new BuildableFilterQuery({
       ...this.props,
       jointCondition: {
@@ -116,12 +127,7 @@ class ConjunctiveFilterQuery<
     });
   }
 
-  or<
-    P extends ConjunctiveFilterQuery<
-      Columns,
-      FilterOp<ExtractColumnMetaType<Columns>>
-    >,
-  >(queries: Array<P>) {
+  or<P extends ChainableQuery<Columns>>(queries: Array<P>) {
     return new BuildableFilterQuery({
       ...this.props,
       jointCondition: {
