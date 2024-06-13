@@ -1,7 +1,7 @@
 import { describe, test, expect } from "vitest";
-import { newQueryBuilder } from "./builder";
+import { newFilterBuilder } from "./builder";
 
-describe("filterQuery", () => {
+describe("builder", () => {
   const mockColumns = [
     {
       accessorKey: "name",
@@ -58,39 +58,39 @@ describe("filterQuery", () => {
     },
   ] as const;
 
-  const { query, filterOp } = newQueryBuilder({
+  const { fields, filterOp } = newFilterBuilder({
     columns: mockColumns,
   });
 
-  test("should return the correct query", () => {
+  test("should return the correct filter", () => {
     expect(
       // Heads-up: some fields intentionally have extra spaces to test the trimming
-      query({
+      fields({
         name: filterOp.string.eq("John  "),
         age: filterOp.number.gt(10),
       })
         .and([
-          query({
+          fields({
             hasJob: filterOp.boolean.eq(true),
             groupID: filterOp.uuid.eq("b2c38958-feeb-4198-8b7b-14da2a67bce6"),
           }),
-          query({
+          fields({
             groupID: filterOp.uuid.in([
               "b2c38958-feeb-4198-8b7b-14da2a67bce6",
               "846359a6-64cc-4e0c-bc1e-651a9c21ae53",
             ]),
           }),
-          query({
+          fields({
             category: filterOp.enum.in(["   CATEGORY1", "CATEGORY2     "]),
             birthday: filterOp.date.eq("2021-01-01      "),
           }).or([
-            query({
+            fields({
               createdAt: filterOp.dateTime.eq("    2021-10-05T12:30:15Z"),
             }),
-            query({
+            fields({
               birthday: filterOp.date.between("2021-01-01", "2021-01-19"),
             }),
-            query({
+            fields({
               workingTime: filterOp.time.eq("12:30   "),
             }),
           ]),
@@ -156,7 +156,7 @@ describe("filterQuery", () => {
     describe("uuid", () => {
       test("single (eq)", () => {
         expect(() =>
-          query({
+          fields({
             groupID: filterOp.uuid.eq("this is invalid UUID"),
           }).build(),
         ).toThrowError("Invalid UUID format");
@@ -164,7 +164,7 @@ describe("filterQuery", () => {
 
       test("multiple (in)", () => {
         expect(() =>
-          query({
+          fields({
             groupID: filterOp.uuid.in(["this is invalid UUID"]),
           }).build(),
         ).toThrowError("Invalid UUID format");
@@ -174,7 +174,7 @@ describe("filterQuery", () => {
     describe("date", () => {
       test("single (eq)", () => {
         expect(() =>
-          query({
+          fields({
             birthday: filterOp.date.eq("this is invalid date"),
           }).build(),
         ).toThrowError("Invalid format (expected: YYYY-MM-DD)");
@@ -182,7 +182,7 @@ describe("filterQuery", () => {
 
       test("multiple (in)", () => {
         expect(() =>
-          query({
+          fields({
             birthday: filterOp.date.in(["this is invalid date"]),
           }).build(),
         ).toThrowError("Invalid format (expected: YYYY-MM-DD)");
@@ -192,14 +192,14 @@ describe("filterQuery", () => {
     describe("time", () => {
       test("single (eq)", () => {
         expect(() =>
-          query({
+          fields({
             workingTime: filterOp.time.eq("this is invalid time"),
           }).build(),
         ).toThrowError("Invalid format (expected: HH:mm)");
       });
       test("multiple (in)", () => {
         expect(() =>
-          query({
+          fields({
             workingTime: filterOp.time.in(["this is invalid time"]),
           }).build(),
         ).toThrowError("Invalid format (expected: HH:mm)");
@@ -209,14 +209,14 @@ describe("filterQuery", () => {
     describe("datetime", () => {
       test("single (eq)", () => {
         expect(() =>
-          query({
+          fields({
             createdAt: filterOp.dateTime.eq("this is invalid datetime"),
           }).build(),
         ).toThrowError("Invalid format (expected: -)");
       });
       test("multiple (in)", () => {
         expect(() =>
-          query({
+          fields({
             createdAt: filterOp.dateTime.in(["this is invalid datetime"]),
           }).build(),
         ).toThrowError("Invalid format (expected: -)");

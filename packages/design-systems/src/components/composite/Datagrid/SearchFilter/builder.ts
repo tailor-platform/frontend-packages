@@ -1,6 +1,6 @@
 import { ColumnDef } from "@tanstack/table-core";
 import { Exact } from "type-fest";
-import { ApplicableType } from "../types";
+import { ApplicableType } from "./types";
 import {
   NumberOp,
   BooleanOp,
@@ -66,17 +66,15 @@ type JointCondition<
   F extends Exact<FilterOp<ExtractColumnMetaType<Columns>>, F>,
 > = {
   mode: "and" | "or";
-  queries: Array<
-    ConjunctiveFilterQuery<Columns, F> | BuildableFilterQuery<Columns, F>
-  >;
+  filters: Array<ConjunctiveFilter<Columns, F> | BuildableFilter<Columns, F>>;
 };
 
-class BuildableFilterQuery<
+class BuildableFilter<
   Columns extends ReadonlyArray<ColumnDef<Record<string, unknown>>>,
   F extends Exact<FilterOp<ExtractColumnMetaType<Columns>>, F>,
 > {
-  // Branded as terminal filter query
-  private brand!: "filterQuery";
+  // Branded as terminal filter
+  private brand!: "filter";
 
   constructor(
     protected readonly props: {
@@ -102,8 +100,8 @@ class BuildableFilterQuery<
       fields,
       jointCondition
         ? {
-            [jointCondition.mode]: jointCondition.queries.map((query) =>
-              query.build(),
+            [jointCondition.mode]: jointCondition.filters.map((filter) =>
+              filter.build(),
             ),
           }
         : {},
@@ -111,53 +109,53 @@ class BuildableFilterQuery<
   }
 }
 
-type ChainableQuery<
+type ChainableFilter<
   Columns extends ReadonlyArray<ColumnDef<Record<string, unknown>>>,
 > =
-  | ConjunctiveFilterQuery<Columns, FilterOp<ExtractColumnMetaType<Columns>>>
-  | BuildableFilterQuery<Columns, FilterOp<ExtractColumnMetaType<Columns>>>;
+  | ConjunctiveFilter<Columns, FilterOp<ExtractColumnMetaType<Columns>>>
+  | BuildableFilter<Columns, FilterOp<ExtractColumnMetaType<Columns>>>;
 
 /**
- * ConjunctiveFilterQuery is a class that can be chained with and/or
- * conjunctive methods always return a new instance of BuildableFilterQuery to prohibit chaining conjunctive methods
+ * ConjunctiveFilter is a class that can be chained with and/or
+ * conjunctive methods always return a new instance of BuildableFilter to prohibit chaining conjunctive methods
  */
-class ConjunctiveFilterQuery<
+class ConjunctiveFilter<
   Columns extends ReadonlyArray<ColumnDef<Record<string, unknown>>>,
   F extends Exact<FilterOp<ExtractColumnMetaType<Columns>>, F>,
-> extends BuildableFilterQuery<Columns, F> {
-  and<P extends ChainableQuery<Columns>>(queries: Array<P>) {
-    return new BuildableFilterQuery({
+> extends BuildableFilter<Columns, F> {
+  and<P extends ChainableFilter<Columns>>(filters: Array<P>) {
+    return new BuildableFilter({
       ...this.props,
       jointCondition: {
         mode: "and",
-        queries,
+        filters,
       },
     });
   }
 
-  or<P extends ChainableQuery<Columns>>(queries: Array<P>) {
-    return new BuildableFilterQuery({
+  or<P extends ChainableFilter<Columns>>(filters: Array<P>) {
+    return new BuildableFilter({
       ...this.props,
       jointCondition: {
         mode: "or",
-        queries,
+        filters,
       },
     });
   }
 }
 
-type UseFilterQueryProps<
+type NewFilterBuilderProps<
   Columns extends ReadonlyArray<ColumnDef<Record<string, unknown>>>,
 > = {
   columns: Columns;
 };
 
-export const newQueryBuilder = <
+export const newFilterBuilder = <
   Columns extends ReadonlyArray<ColumnDef<Record<string, unknown>>>,
 >(
-  props: UseFilterQueryProps<Columns>,
+  props: NewFilterBuilderProps<Columns>,
 ) => {
-  const buildQuery = <
+  const buildFields = <
     // Prohibit empty object ({})
     F extends Record<string, never> extends F
       ? never
@@ -165,14 +163,14 @@ export const newQueryBuilder = <
   >(
     filter: F,
   ) => {
-    return new ConjunctiveFilterQuery<Columns, F>({
+    return new ConjunctiveFilter<Columns, F>({
       columns: props.columns,
       filter,
     });
   };
 
   return {
-    query: buildQuery,
+    fields: buildFields,
     filterOp: buildFilterOp(),
   };
 };
