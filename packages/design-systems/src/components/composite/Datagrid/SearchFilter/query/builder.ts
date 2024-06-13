@@ -12,7 +12,7 @@ import {
   TimeOp,
   DateOp,
   DateTimeOp,
-} from "./predicates";
+} from "./filterOps";
 
 /**
  * Utility type to extract column meta types from array of column definitions
