@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import { z } from "zod";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 
+// `customParseFormat` is plugin required to enable `HH:mm` format
 dayjs.extend(customParseFormat);
 
 export abstract class Op<const B, T, P extends { type: string; value: T }> {
