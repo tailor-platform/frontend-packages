@@ -106,7 +106,7 @@ class BuildableFilterQuery<
   ) {}
 
   build(): Record<string, unknown> {
-    // TypeScript cannot infer the type of types in complicated operation of reduce
+    // TypeScript cannot infer the type of keys through Object.keys
     const keys = Object.keys(this.props.filter) as (keyof F)[];
     const fields = keys.reduce((acc, key) => {
       const filter = this.props.filter[key];
