@@ -14,7 +14,21 @@ import {
   DateTimeOp,
 } from "./predicates";
 
-// Extract column meta types from array of column definitions
+/**
+ * Utility type to extract column meta types from array of column definitions
+ * that finally generates the object as the following structure:
+ *
+ * ```
+ * {
+ *   name: "string",
+ *   groupID: "uuid",
+ *   category: "enum"
+ * }
+ * ```
+ *
+ * The final structure is used to determine the type of filter operation
+ * that can be applied to each column through the `FilterOp` utility type.
+ */
 type ExtractColumnMetaType<
   Columns extends ReadonlyArray<ColumnDef<Record<string, unknown>>>,
 > = {
@@ -72,10 +86,6 @@ class BuildableFilterQuery<
     },
   ) {}
 
-  protected queryType(): string {
-    return "builable";
-  }
-
   build(): Record<string, unknown> {
     // TypeScript cannot infer the type of keys through Object.keys
     const keys = Object.keys(this.props.filter) as (keyof F)[];
@@ -107,16 +117,14 @@ type ChainableQuery<
   | ConjunctiveFilterQuery<Columns, FilterOp<ExtractColumnMetaType<Columns>>>
   | BuildableFilterQuery<Columns, FilterOp<ExtractColumnMetaType<Columns>>>;
 
-// ConjunctiveFilterQuery is a class that can be chained with and/or
-// conjunctive methods always return a new instance of BuildableFilterQuery to prohibit chaining conjunctive methods
+/**
+ * ConjunctiveFilterQuery is a class that can be chained with and/or
+ * conjunctive methods always return a new instance of BuildableFilterQuery to prohibit chaining conjunctive methods
+ */
 class ConjunctiveFilterQuery<
   Columns extends ReadonlyArray<ColumnDef<Record<string, unknown>>>,
   F extends Exact<FilterOp<ExtractColumnMetaType<Columns>>, F>,
 > extends BuildableFilterQuery<Columns, F> {
-  protected override queryType(): string {
-    return "conjunctive";
-  }
-
   and<P extends ChainableQuery<Columns>>(queries: Array<P>) {
     return new BuildableFilterQuery({
       ...this.props,
