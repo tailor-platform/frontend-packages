@@ -115,7 +115,7 @@ export class TimeOp extends Op<
 }
 
 export class DateTimeOp extends Op<
-  "datetimeOp",
+  "dateTimeOp",
   string | string[] | { min: string; max: string },
   | {
       type: "eq" | "ne" | "gt" | "gte" | "lt" | "lte";
@@ -222,7 +222,7 @@ export const buildFilterOp = () => {
       between: (min: string, max: string) =>
         new DateOp({ value: { min, max }, type: "between" }),
     },
-    datetime: {
+    dateTime: {
       eq: (value: string) => new DateTimeOp({ value, type: "eq" }),
       ne: (value: string) => new DateTimeOp({ value, type: "ne" }),
       gt: (value: string) => new DateTimeOp({ value, type: "gt" }),
