@@ -43,4 +43,6 @@ const generateStorybookTypes = async () => {
   }
 };
 
-generateStorybookTypes().then(() => console.log("completed!")).catch(console.error);
+generateStorybookTypes()
+  .then(() => console.log("completed!"))
+  .catch(console.error);
