@@ -1,5 +1,5 @@
 import { describe, test, expect } from "vitest";
-import { filterOp, newQueryBuilder } from "./queryBuilder";
+import { newQueryBuilder } from "./builder";
 
 describe("filterQuery", () => {
   const mockColumns = [
@@ -23,7 +23,7 @@ describe("filterQuery", () => {
     },
   ] as const;
 
-  const { query } = newQueryBuilder({
+  const { query, filterOp } = newQueryBuilder({
     columns: mockColumns,
   });
 
