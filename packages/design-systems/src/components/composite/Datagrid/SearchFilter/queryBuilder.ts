@@ -170,13 +170,13 @@ export const newQueryBuilder = <
 ) => {
   const buildQuery = <
     // Prohibit empty object ({})
-    T extends Record<string, never> extends T
+    F extends Record<string, never> extends F
       ? never
-      : Exact<FilterOp<ExtractColumnMetaType<Columns>>, T>,
+      : Exact<FilterOp<ExtractColumnMetaType<Columns>>, F>,
   >(
-    filter: T,
+    filter: F,
   ) => {
-    return new ConjunctiveFilterQuery<Columns, T>({
+    return new ConjunctiveFilterQuery<Columns, F>({
       columns: props.columns,
       filter,
     });
