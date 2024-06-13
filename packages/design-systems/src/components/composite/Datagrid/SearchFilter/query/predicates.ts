@@ -1,3 +1,9 @@
+import dayjs from "dayjs";
+import { z } from "zod";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+
+dayjs.extend(customParseFormat);
+
 export abstract class Op<const B, T, P extends { type: string; value: T }> {
   private brand!: B;
 
@@ -18,8 +24,8 @@ export class StringOp extends Op<
   "stringOp",
   string,
   {
-    value: string;
     type: "eq" | "ne" | "contains" | "regex";
+    value: string;
   }
 > {
   override converter(value: string) {
@@ -39,8 +45,22 @@ export class UUIDOp extends Op<
       value: string[];
     }
 > {
-  override converter(value: string) {
-    return value.trim();
+  override converter(value: string | string[]) {
+    const trimmedValues = Array.isArray(value)
+      ? value.map((v) => v.trim())
+      : value.trim();
+
+    try {
+      if (Array.isArray(trimmedValues)) {
+        z.array(z.string().uuid()).parse(trimmedValues);
+      } else {
+        z.string().uuid().parse(trimmedValues);
+      }
+
+      return trimmedValues;
+    } catch (e) {
+      throw new Error("Invalid UUID format");
+    }
   }
 }
 
@@ -56,8 +76,8 @@ export class EnumOp extends Op<
       value: string[];
     }
 > {
-  override converter(value: string) {
-    return value.trim();
+  override converter(value: string | string[]) {
+    return Array.isArray(value) ? value.map((v) => v.trim()) : value.trim();
   }
 }
 
@@ -109,8 +129,13 @@ export class TimeOp extends Op<
       };
     }
 > {
-  override converter(value: string) {
-    return value.trim();
+  override converter(value: string | string[] | { min: string; max: string }) {
+    return trimTemporalValues(
+      value,
+      parseWithDayJS({
+        format: "HH:mm",
+      }),
+    );
   }
 }
 
@@ -133,8 +158,13 @@ export class DateTimeOp extends Op<
       };
     }
 > {
-  override converter(value: string) {
-    return value.trim();
+  override converter(value: string | string[] | { min: string; max: string }) {
+    return trimTemporalValues(
+      value,
+      parseWithDayJS({
+        transform: (value) => new Date(value).toISOString(),
+      }),
+    );
   }
 }
 
@@ -157,10 +187,41 @@ export class DateOp extends Op<
       };
     }
 > {
-  override converter(value: string) {
-    return value.trim();
+  override converter(value: string | string[] | { min: string; max: string }) {
+    return trimTemporalValues(
+      value,
+      parseWithDayJS({
+        format: "YYYY-MM-DD",
+      }),
+    );
   }
 }
+
+const trimTemporalValues = (
+  value: string | string[] | { min: string; max: string },
+  transformer: (v: string) => string = (v) => v,
+) => {
+  if (Array.isArray(value)) {
+    return value.map((v) => transformer(v.trim()));
+  } else if (typeof value === "object") {
+    return {
+      min: transformer(value.min.trim()),
+      max: transformer(value.max.trim()),
+    };
+  } else {
+    return transformer(value.trim());
+  }
+};
+
+const parseWithDayJS =
+  (props: { format?: string; transform?: (value: string) => string }) =>
+  (value: string) => {
+    const date = dayjs(value, props.format, true);
+    if (!date.isValid()) {
+      throw new Error(`Invalid format (expected: ${props.format ?? "-"}) `);
+    }
+    return props.transform ? props.transform(value) : value;
+  };
 
 export const buildFilterOp = () => {
   return {
