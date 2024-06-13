@@ -1,6 +1,18 @@
 import { ColumnDef } from "@tanstack/table-core";
 import { Exact } from "type-fest";
-import { NumberOp, BooleanOp, StringOp, Op, buildFilterOp } from "./predicates";
+import { ApplicableType } from "../types";
+import {
+  NumberOp,
+  BooleanOp,
+  StringOp,
+  Op,
+  buildFilterOp,
+  UUIDOp,
+  EnumOp,
+  TimeOp,
+  DateOp,
+  DateTimeOp,
+} from "./predicates";
 
 // Extract column meta types from array of column definitions
 type ExtractColumnMetaType<
@@ -17,12 +29,22 @@ type ExtractColumnMetaType<
     : never;
 };
 
-type FilterOp<MetaTypes extends Record<string, unknown>> = Partial<{
-  [K in keyof MetaTypes]: MetaTypes[K] extends "number"
-    ? NumberOp
-    : MetaTypes[K] extends "boolean"
-      ? BooleanOp
-      : StringOp;
+type FilterOp<MetaTypes extends Record<string, ApplicableType>> = Partial<{
+  [K in keyof MetaTypes]: MetaTypes[K] extends "uuid"
+    ? UUIDOp
+    : MetaTypes[K] extends "enum"
+      ? EnumOp
+      : MetaTypes[K] extends "boolean"
+        ? BooleanOp
+        : MetaTypes[K] extends "number"
+          ? NumberOp
+          : MetaTypes[K] extends "time"
+            ? TimeOp
+            : MetaTypes[K] extends "date"
+              ? DateOp
+              : MetaTypes[K] extends "dateTime"
+                ? DateTimeOp
+                : StringOp;
 }>;
 
 type JointCondition<

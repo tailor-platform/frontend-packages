@@ -1,6 +1,9 @@
 import type { Updater } from "@tanstack/table-core";
 import type { CollectionItem } from "@ark-ui/react";
 import type { Column, DataGridInstance } from "../types";
+import type { Localization } from "..";
+import type { Column } from "../types";
+import { applicableTypes } from "./filter";
 
 export type ValueChangeDetails<T extends CollectionItem = CollectionItem> = {
   value: string[];
@@ -15,15 +18,7 @@ export type FilterRowState = {
   isChangeable: boolean;
 };
 
-export type ApplicableType =
-  | "string"
-  | "enum"
-  | "time"
-  | "dateTime"
-  | "date"
-  | "number"
-  | "boolean";
-
+export type ApplicableType = (typeof applicableTypes)[number];
 export type JointCondition = {
   label: string;
   value: string;
@@ -39,8 +34,8 @@ export type QueryRowColumn = {
 export type QueryRow =
   | QueryRowColumn
   | {
-      [jointCondition: string]: Array<QueryRowColumn>;
-    };
+    [jointCondition: string]: Array<QueryRowColumn>;
+  };
 
 export type GraphQLQueryFilter = {
   [and: string]: QueryRow;
