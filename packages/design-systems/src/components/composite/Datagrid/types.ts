@@ -75,14 +75,6 @@ export type UseDataGridProps<TData extends Record<string, unknown>> =
     exportOptions?: ExportState<TData>;
   };
 
-export type MetaType =
-  | "enum"
-  | "date"
-  | "number"
-  | "string"
-  | "boolean"
-  | "dateTime";
-
 export type Column<TData> = {
   label: string;
   value: string;
