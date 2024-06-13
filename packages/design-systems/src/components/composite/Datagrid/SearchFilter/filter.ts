@@ -20,6 +20,7 @@ type FilterCondition = {
 };
 
 export const applicableTypes = [
+  "uuid",
   "string",
   "enum",
   "time",
