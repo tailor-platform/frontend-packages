@@ -27,6 +27,40 @@ export class StringOp extends Op<
   }
 }
 
+export class UUIDOp extends Op<
+  "uuidOp",
+  string | string[],
+  | {
+      type: "eq" | "ne";
+      value: string;
+    }
+  | {
+      type: "in" | "nin";
+      value: string[];
+    }
+> {
+  override converter(value: string) {
+    return value.trim();
+  }
+}
+
+export class EnumOp extends Op<
+  "enumOp",
+  string | string[],
+  | {
+      type: "eq" | "ne";
+      value: string;
+    }
+  | {
+      type: "in" | "nin";
+      value: string[];
+    }
+> {
+  override converter(value: string) {
+    return value.trim();
+  }
+}
+
 export class NumberOp extends Op<
   "numberOp",
   number | number[] | { min: number; max: number },
@@ -74,7 +108,11 @@ export class TimeOp extends Op<
         max: string;
       };
     }
-> {}
+> {
+  override converter(value: string) {
+    return value.trim();
+  }
+}
 
 export class DateTimeOp extends Op<
   "datetimeOp",
@@ -94,7 +132,11 @@ export class DateTimeOp extends Op<
         max: string;
       };
     }
-> {}
+> {
+  override converter(value: string) {
+    return value.trim();
+  }
+}
 
 export class DateOp extends Op<
   "dateOp",
@@ -114,20 +156,11 @@ export class DateOp extends Op<
         max: string;
       };
     }
-> {}
-
-export class UUIDOp extends Op<
-  "uuidOp",
-  string | string[],
-  | {
-      type: "eq" | "ne";
-      value: string;
-    }
-  | {
-      type: "in" | "nin";
-      value: string[];
-    }
-> {}
+> {
+  override converter(value: string) {
+    return value.trim();
+  }
+}
 
 export const buildFilterOp = () => {
   return {
@@ -136,6 +169,12 @@ export const buildFilterOp = () => {
       ne: (value: string) => new UUIDOp({ value, type: "ne" }),
       in: (value: string[]) => new UUIDOp({ value, type: "in" }),
       nin: (value: string[]) => new UUIDOp({ value, type: "nin" }),
+    },
+    enum: {
+      eq: (value: string) => new EnumOp({ value, type: "eq" }),
+      ne: (value: string) => new EnumOp({ value, type: "ne" }),
+      in: (value: string[]) => new EnumOp({ value, type: "in" }),
+      nin: (value: string[]) => new EnumOp({ value, type: "nin" }),
     },
     boolean: {
       eq: (value: boolean) => new BooleanOp({ value, type: "eq" }),
