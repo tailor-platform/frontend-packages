@@ -1,8 +1,20 @@
 import { describe, test, expect } from "vitest";
 import { newFilterBuilder } from "./builder";
+import { ColumnDef } from "@tanstack/table-core";
+
+type Schema = {
+  name: string;
+  age: number;
+  hasJob: boolean;
+  groupID: string;
+  category: "CATEGORY1" | "CATEGORY2" | "CATEGORY3";
+  birthday: string;
+  createdAt: string;
+  workingTime: string;
+};
 
 describe("builder", () => {
-  const mockColumns = [
+  const mockColumns: ColumnDef<Schema>[] = [
     {
       accessorKey: "name",
       meta: {
