@@ -1,4 +1,12 @@
-import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import { renderHook, waitFor, render, screen } from "@testing-library/react";
 import { Suspense } from "react";
 import { http, HttpResponse } from "msw";
