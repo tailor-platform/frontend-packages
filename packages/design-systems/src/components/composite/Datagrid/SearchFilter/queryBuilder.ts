@@ -136,7 +136,12 @@ class ConjunctiveFilterQuery<
   Columns extends ReadonlyArray<ColumnDef<Record<string, unknown>>>,
   F extends Exact<FilterOp<ExtractColumnMetaType<Columns>>, F>,
 > extends BuildableFilterQuery<Columns, F> {
-  and(queries: Array<ConjunctiveFilterQuery<Columns, F>>) {
+  and<
+    P extends ConjunctiveFilterQuery<
+      Columns,
+      FilterOp<ExtractColumnMetaType<Columns>>
+    >,
+  >(queries: Array<P>) {
     return new BuildableFilterQuery({
       ...this.props,
       jointCondition: {
@@ -146,7 +151,12 @@ class ConjunctiveFilterQuery<
     });
   }
 
-  or(queries: Array<ConjunctiveFilterQuery<Columns, F>>) {
+  or<
+    P extends ConjunctiveFilterQuery<
+      Columns,
+      FilterOp<ExtractColumnMetaType<Columns>>
+    >,
+  >(queries: Array<P>) {
     return new BuildableFilterQuery({
       ...this.props,
       jointCondition: {

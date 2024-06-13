@@ -46,13 +46,13 @@ describe("filterQuery", () => {
       },
       and: [
         {
-          age: {
-            gt: 10,
+          hasJob: {
+            eq: true,
           },
         },
         {
-          hasJob: {
-            eq: true,
+          age: {
+            gt: 10,
           },
         },
       ],
