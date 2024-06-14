@@ -198,7 +198,16 @@ export const FilterRow = <TData extends Record<string, unknown>>(
           currentFilter={currentFilter}
           inputValuePlaceHolder={inputValuePlaceHolder}
           onChangeValue={onChangeValue}
-          localization={localization}
+          items={[
+            {
+              label: localization.filter.columnBoolean.true,
+              value: "true",
+            },
+            {
+              label: localization.filter.columnBoolean.false,
+              value: "false",
+            },
+          ]}
         />
       );
     } else {
@@ -562,13 +571,13 @@ type BooleanSelectProps = {
   currentFilter: FilterRowState;
   onChangeValue: (value: string[]) => void;
   inputValuePlaceHolder: string;
-  localization: Localization;
+  items: { label: string; value: string }[];
 };
 const BooleanSelect = ({
   currentFilter,
   onChangeValue,
   inputValuePlaceHolder,
-  localization,
+  items,
 }: BooleanSelectProps) => {
   const classes = select();
 
@@ -576,23 +585,14 @@ const BooleanSelect = ({
     <>
       <Select.Root
         className={classes.root}
-        items={[
-          localization.filter.columnBoolean.true,
-          localization.filter.columnBoolean.false,
-        ]}
+        items={items}
         positioning={{ sameWidth: true }}
         closeOnSelect
         width={180}
         onValueChange={(e: ValueChangeDetails<CollectionItem>) =>
           onChangeValue(e.value)
         }
-        value={[
-          currentFilter.value.toString() === "true" ||
-          currentFilter.value.toString() ===
-            localization.filter.columnBoolean.true
-            ? localization.filter.columnBoolean.true
-            : localization.filter.columnBoolean.false,
-        ]}
+        value={[currentFilter.value.toString()]}
         data-testid="select-input-value"
       >
         <Select.Control className={classes.control}>
@@ -608,30 +608,18 @@ const BooleanSelect = ({
         <Select.Positioner className={classes.positioner}>
           <Select.Content className={classes.content}>
             <Select.ItemGroup className={classes.itemGroup} id="filterByValue">
-              <Select.Item
-                className={classes.item}
-                key={"selectInput" + 0}
-                item={localization.filter.columnBoolean.true}
-              >
-                <Select.ItemText className={classes.itemText}>
-                  {localization.filter.columnBoolean.true}
-                </Select.ItemText>
-                <Select.ItemIndicator className={classes.itemIndicator}>
-                  <CheckIcon />
-                </Select.ItemIndicator>
-              </Select.Item>
-              <Select.Item
-                className={classes.item}
-                key={"selectInput" + 1}
-                item={localization.filter.columnBoolean.false}
-              >
-                <Select.ItemText className={classes.itemText}>
-                  {localization.filter.columnBoolean.false}
-                </Select.ItemText>
-                <Select.ItemIndicator className={classes.itemIndicator}>
-                  <CheckIcon />
-                </Select.ItemIndicator>
-              </Select.Item>
+              {items.map((item, i) => {
+                return (
+                  <Select.Item className={classes.item} key={i} item={item}>
+                    <Select.ItemText className={classes.itemText}>
+                      {item.label}
+                    </Select.ItemText>
+                    <Select.ItemIndicator className={classes.itemIndicator}>
+                      <CheckIcon />
+                    </Select.ItemIndicator>
+                  </Select.Item>
+                );
+              })}
             </Select.ItemGroup>
           </Select.Content>
         </Select.Positioner>
