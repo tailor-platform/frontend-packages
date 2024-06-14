@@ -55,8 +55,8 @@ export const DataGrid = <TData extends Record<string, unknown>>(
           return [
             {
               //This is temporary structure, we will change this logic in coming days as required
-              label: column.header as string,
-              value: column.header as string,
+              label: column.header,
+              value: column.header,
               accessorKey: column.accessorKey as string,
               disabled: false,
               meta: column.meta,
