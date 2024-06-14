@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint '**/*.{ts,tsx}' --ignore-pattern 'dist/*' --max-warnings=0",
+    "lint": "eslint --ignore-pattern 'dist/*' --max-warnings=0",
     "test": "vitest run --reporter verbose",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "type-check": "tsc --noEmit --incremental --pretty",
@@ -33,11 +33,11 @@
     "react-dom": "^18"
   },
   "devDependencies": {
-    "@tailor-platform/dev-config": "^0.7.0",
+    "@tailor-platform/dev-config": "workspace:*",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "eslint": "^8",
+    "eslint": "^9",
     "typescript": "^5",
     "@apollo/client": "~3.9",
     "next": "^v14"
