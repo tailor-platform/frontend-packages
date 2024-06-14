@@ -1,7 +1,6 @@
 import { renderHook, act, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import { columns } from "../utils/test";
-import { LOCALIZATION_JA } from "../../../../locales/ja";
 import { FilterRowData, useCustomFilter } from "./useCustomFilter";
 import { FilterRowState, GraphQLQueryFilter, QueryRow } from "./types";
 
@@ -16,7 +15,6 @@ describe("useCustomFilter", () => {
           },
           systemFilter: { status: { eq: "pending" } },
           defaultFilter: undefined,
-          localization: LOCALIZATION_JA,
         }),
       );
 
@@ -48,7 +46,6 @@ describe("useCustomFilter", () => {
           },
           systemFilter: undefined,
           defaultFilter: undefined,
-          localization: LOCALIZATION_JA,
         }),
       );
 
@@ -80,7 +77,6 @@ describe("useCustomFilter", () => {
           },
           systemFilter: undefined,
           defaultFilter: { status: { eq: "pending" } },
-          localization: LOCALIZATION_JA,
         }),
       );
 
@@ -122,7 +118,6 @@ describe("useCustomFilter", () => {
           },
           systemFilter: { status: { eq: "pending" } },
           defaultFilter: { amount: { eq: 200 } },
-          localization: LOCALIZATION_JA,
         }),
       );
 
@@ -166,7 +161,6 @@ describe("useCustomFilter", () => {
           },
           systemFilter: undefined,
           defaultFilter: { status: { eq: "pending" } },
-          localization: LOCALIZATION_JA,
         }),
       );
 
@@ -198,7 +192,6 @@ describe("useCustomFilter", () => {
           },
           systemFilter: { status: { eq: "pending" } },
           defaultFilter: { amount: { eq: 200 } },
-          localization: LOCALIZATION_JA,
         }),
       );
 
@@ -232,7 +225,6 @@ describe("useCustomFilter", () => {
           },
           systemFilter: undefined,
           defaultFilter: undefined,
-          localization: LOCALIZATION_JA,
         }),
       );
 
@@ -274,7 +266,6 @@ describe("useCustomFilter", () => {
           },
           systemFilter: systemFilter,
           defaultFilter: defaultFilter,
-          localization: LOCALIZATION_JA,
         }),
       );
 
@@ -355,7 +346,6 @@ describe("useCustomFilter", () => {
           },
           systemFilter: undefined,
           defaultFilter: defaultFilter,
-          localization: LOCALIZATION_JA,
         }),
       );
 
@@ -410,7 +400,6 @@ describe("useCustomFilter", () => {
           },
           systemFilter: undefined,
           defaultFilter: defaultFilter,
-          localization: LOCALIZATION_JA,
         }),
       );
 
@@ -463,7 +452,6 @@ describe("useCustomFilter", () => {
           },
           systemFilter: undefined,
           defaultFilter: defaultFilter,
-          localization: LOCALIZATION_JA,
         }),
       );
 
@@ -514,7 +502,6 @@ describe("useCustomFilter", () => {
           },
           systemFilter: systemFilter,
           defaultFilter: undefined,
-          localization: LOCALIZATION_JA,
         }),
       );
 
@@ -546,7 +533,6 @@ describe("useCustomFilter", () => {
             return;
           },
           defaultFilter: defaultFilter,
-          localization: LOCALIZATION_JA,
         }),
       );
 
@@ -590,7 +576,6 @@ describe("useCustomFilter", () => {
           },
           systemFilter: systemFilter,
           defaultFilter: defaultFilter,
-          localization: LOCALIZATION_JA,
         }),
       );
 
@@ -632,7 +617,6 @@ describe("useCustomFilter", () => {
         onChange: (filter) => {
           currentFilter = filter;
         },
-        localization: LOCALIZATION_JA,
       }),
     );
 
@@ -650,7 +634,6 @@ describe("useCustomFilter", () => {
         },
         systemFilter: { status: { eq: "pending" } },
         defaultFilter: { amount: { eq: 200 } },
-        localization: LOCALIZATION_JA,
       }),
     );
 
@@ -696,7 +679,6 @@ describe("useCustomFilter", () => {
         onChange: onChangeMock,
         systemFilter: systemFilter,
         defaultFilter: defaultFilter,
-        localization: LOCALIZATION_JA,
       }),
     );
 

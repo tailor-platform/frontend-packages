@@ -11,7 +11,6 @@ describe("useGraphQLQuery", () => {
       useGraphQLQuery({
         columns,
         systemFilter: { status: { eq: "pending" } },
-        localization: LOCALIZATION_JA,
       }),
     );
     const graphQLQueryObject: QueryRow = {};
@@ -45,7 +44,6 @@ describe("useGraphQLQuery", () => {
       useGraphQLQuery({
         columns,
         systemFilter: { status: { eq: "pending" } },
-        localization: LOCALIZATION_JA,
       }),
     );
     const graphQLQueryObject: QueryRow = {};
@@ -81,7 +79,6 @@ describe("useGraphQLQuery", () => {
       useGraphQLQuery({
         columns,
         systemFilter: systemFilter,
-        localization: LOCALIZATION_JA,
       }),
     );
 
@@ -101,7 +98,6 @@ describe("useGraphQLQuery", () => {
       useGraphQLQuery({
         columns,
         systemFilter: undefined,
-        localization: LOCALIZATION_JA,
       }),
     );
 
@@ -116,7 +112,6 @@ describe("useGraphQLQuery", () => {
       useGraphQLQuery({
         columns,
         systemFilter: {},
-        localization: LOCALIZATION_JA,
       }),
     );
 
