@@ -3,6 +3,7 @@ import { render, screen, within, waitFor } from "@testing-library/react";
 import { ColumnDef } from "@tanstack/react-table";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
+import { LOCALIZATION_EN } from "@locales";
 import { DataGridInstance, UseDataGridProps } from "../types";
 import { LOCALIZATION_JA } from "../../../../locales/ja";
 import {
@@ -23,7 +24,6 @@ import {
 import { DataGrid } from "../Datagrid";
 import { CustomFilter } from "./CustomFilter";
 import type { GraphQLQueryFilter, QueryRow } from "./types";
-import { LOCALIZATION_EN } from "@locales";
 
 /* eslint-disable-next-line @typescript-eslint/no-empty-function */
 window.HTMLElement.prototype.scrollTo = function () {}; //(https://github.com/jsdom/jsdom/issues/1695)

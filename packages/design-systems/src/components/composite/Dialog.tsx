@@ -79,7 +79,6 @@ export const Dialog = (props: DialogProps) => {
                 </Button>
               </Stack>
             </Stack>
-            {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
             <ArkDialog.CloseTrigger
               /* @ts-ignore */
               position="absolute"
