@@ -1,7 +1,6 @@
 import { useCallback } from "react";
 import dayjs from "dayjs";
 import { Column, MetaType } from "../types";
-import { Localization } from "..";
 import { FilterRowState, QueryRow } from "./types";
 import { FilterRowData } from "./useCustomFilter";
 
