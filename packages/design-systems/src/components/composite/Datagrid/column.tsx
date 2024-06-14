@@ -120,6 +120,40 @@ export const newColumnBuilder = <TData extends Record<string, unknown>>() => {
         options,
       };
     },
+
+    time: <Key extends keyof TData>(
+      key: Key,
+      header: string,
+      options?: ColumnOptions,
+    ) => {
+      const meta = {
+        type: "time",
+      } as const;
+
+      return {
+        key,
+        header,
+        meta,
+        options,
+      };
+    },
+
+    dateTime: <Key extends keyof TData>(
+      key: Key,
+      header: string,
+      options?: ColumnOptions,
+    ) => {
+      const meta = {
+        type: "dateTime",
+      } as const;
+
+      return {
+        key,
+        header,
+        meta,
+        options,
+      };
+    },
   } as const;
 };
 
