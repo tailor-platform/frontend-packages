@@ -6,7 +6,7 @@ import {
   useRef,
   CSSProperties,
 } from "react";
-import type { GraphQLQueryFilter, Localization } from "..";
+import type { GraphQLQueryFilter } from "..";
 import type { Column } from "../types";
 import { jointConditions } from "./filter";
 import { FilterRowState, JointCondition, QueryRow } from "./types";
