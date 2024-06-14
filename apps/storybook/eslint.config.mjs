@@ -33,11 +33,11 @@ export default tsEslint.config(
     },
     plugins: {
       "react-refresh": reactRefresh,
-      // "react-hooks": reactHooks,
+      "react-hooks": reactHooks,
       storybook: fixupPluginRules(storybook), // https://github.com/storybookjs/eslint-plugin-storybook/issues/135
     },
     rules: {
-      // ...reactHooks.configs.recommended.rules,
+      ...reactHooks.configs.recommended.rules,
       ...storybook.configs.recommended.rules,
       "react-refresh/only-export-components": [
         "warn",
