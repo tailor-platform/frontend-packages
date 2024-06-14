@@ -49,26 +49,23 @@ export const DataGrid = <TData extends Record<string, unknown>>(
 
   useEffect(() => {
     //Get header titles from table columns
-    const cusotmFilterFields: Column<TData>[] = table.columns.flatMap(
-      (column) => {
-        if ("accessorKey" in column && "meta" in column) {
-          return [
-            {
-              //This is temporary structure, we will change this logic in coming days as required
-              label: column.header,
-              value: column.header,
-              accessorKey: column.accessorKey as string,
-              disabled: false,
-              meta: column.meta,
-            },
-          ];
-        } else {
+    setCustomFilterFields(
+      table.columns.flatMap((column) => {
+        if (!("key" in column)) {
           return [];
         }
-      },
+        return [
+          {
+            //This is temporary structure, we will change this logic in coming days as required
+            label: column.header,
+            value: column.header,
+            accessorKey: column.key as string,
+            disabled: false,
+            meta: column.meta,
+          },
+        ];
+      }),
     );
-
-    setCustomFilterFields(cusotmFilterFields);
   }, [table]);
 
   const commonToolButtonProps = {
