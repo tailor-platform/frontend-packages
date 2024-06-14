@@ -11,13 +11,13 @@ import {
   ChevronDown,
   CheckIcon,
 } from "lucide-react";
+import { LOCALIZATION_EN } from "@locales";
 import { DataGridInstance } from "../types";
 import { Text } from "../../../Text";
 import { Button } from "../../../Button";
 import { IconButton } from "../../../IconButton";
 import type { ValueChangeDetails } from "../SearchFilter/types";
 import { Select, usePagination } from "./utils";
-import { LOCALIZATION_EN } from "@locales";
 
 export type PageChangeDetails = {
   page: number;
@@ -52,7 +52,7 @@ export const ManualPagination = <TData extends Record<string, unknown>>({
           positioning={{ sameWidth: true }}
           closeOnSelect
           onValueChange={(e: ValueChangeDetails<CollectionItem>) => {
-            const selectedPageSize = Number(e.items[0]) ?? 0;
+            const selectedPageSize = Number(e.items[0]) || 0;
             setPagination({ pageIndex: 0, pageSize: selectedPageSize });
             handlePageChange({ page: 0, pageSize: selectedPageSize });
           }}

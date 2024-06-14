@@ -8,13 +8,6 @@ import {
   makeStateUpdater,
 } from "@tanstack/react-table";
 import { RowsIcon } from "lucide-react";
-import { addEventOutside } from "../addEventOutside";
-import type {
-  DensityOptions,
-  DensityState,
-  DensityTableState,
-  DensityProps,
-} from "./types";
 import {
   RadioGroup,
   type RadioGroupOption,
@@ -24,6 +17,13 @@ import { HStack } from "@components/patterns/HStack";
 import { Button } from "@components/Button";
 import { Text } from "@components/Text";
 import { LOCALIZATION_EN } from "@locales";
+import { addEventOutside } from "../addEventOutside";
+import type {
+  DensityOptions,
+  DensityState,
+  DensityTableState,
+  DensityProps,
+} from "./types";
 
 export const Density = <TData extends Record<string, unknown>>(
   props: DensityProps<TData>,

@@ -7,13 +7,13 @@ import {
   TableFeature,
   makeStateUpdater,
 } from "@tanstack/react-table";
-import { addEventOutside } from "../addEventOutside";
-import type { ExportOptions, ExportProps, ExportTableState } from "./types";
 import { Box } from "@components/patterns/Box";
 import { HStack } from "@components/patterns/HStack";
 import { Button } from "@components/Button";
 import { Text } from "@components/Text";
 import { LOCALIZATION_EN } from "@locales";
+import { addEventOutside } from "../addEventOutside";
+import type { ExportOptions, ExportProps, ExportTableState } from "./types";
 
 export const Export = <TData extends Record<string, unknown>>(
   props: ExportProps<TData>,

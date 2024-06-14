@@ -1,9 +1,9 @@
 import { renderHook, act, waitFor } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
+import { LOCALIZATION_JA } from "@locales";
 import { columns } from "../utils/test";
 import { useGraphQLQuery } from "./useGraphQLQuery";
 import { QueryRow, FilterRowState } from "./types";
-import { LOCALIZATION_JA } from "@locales";
 
 describe("useGraphQLQuery", () => {
   it("addToGraphQLQueryFilterRecursively work as expected with jointCondition", async () => {
