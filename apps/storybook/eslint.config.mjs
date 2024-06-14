@@ -55,4 +55,11 @@ export default tsEslint.config(
       "@typescript-eslint/require-await": "off",
     },
   },
+  // workaround for error in implementation Story type's render. ref: https://github.com/storybookjs/storybook/issues/21115
+  {
+    files: ["**/*.stories.tsx"],
+    rules: {
+      "react-hooks/rules-of-hooks": "off"
+    },
+  },
 );
