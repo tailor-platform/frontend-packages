@@ -3,7 +3,6 @@ import { describe, expect, it } from "vitest";
 import { columns } from "../utils/test";
 import { useGraphQLQuery } from "./useGraphQLQuery";
 import { QueryRow, FilterRowState } from "./types";
-import { LOCALIZATION_JA } from "@locales";
 
 describe("useGraphQLQuery", () => {
   it("addToGraphQLQueryFilterRecursively work as expected with jointCondition", async () => {
@@ -11,7 +10,6 @@ describe("useGraphQLQuery", () => {
       useGraphQLQuery({
         columns,
         systemFilter: { status: { eq: "pending" } },
-        localization: LOCALIZATION_JA,
       }),
     );
     const graphQLQueryObject: QueryRow = {};
@@ -45,7 +43,6 @@ describe("useGraphQLQuery", () => {
       useGraphQLQuery({
         columns,
         systemFilter: { status: { eq: "pending" } },
-        localization: LOCALIZATION_JA,
       }),
     );
     const graphQLQueryObject: QueryRow = {};
@@ -81,7 +78,6 @@ describe("useGraphQLQuery", () => {
       useGraphQLQuery({
         columns,
         systemFilter: systemFilter,
-        localization: LOCALIZATION_JA,
       }),
     );
 
@@ -101,7 +97,6 @@ describe("useGraphQLQuery", () => {
       useGraphQLQuery({
         columns,
         systemFilter: undefined,
-        localization: LOCALIZATION_JA,
       }),
     );
 
@@ -116,7 +111,6 @@ describe("useGraphQLQuery", () => {
       useGraphQLQuery({
         columns,
         systemFilter: {},
-        localization: LOCALIZATION_JA,
       }),
     );
 

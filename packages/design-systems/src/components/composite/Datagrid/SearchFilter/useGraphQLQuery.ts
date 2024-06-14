@@ -1,18 +1,16 @@
 import { useCallback } from "react";
 import dayjs from "dayjs";
 import { Column, MetaType } from "../types";
-import { Localization } from "..";
 import { FilterRowState, QueryRow } from "./types";
 import { FilterRowData } from "./useCustomFilter";
 
 type UseGraphQLQueryProps<TData> = {
-  localization: Localization;
   systemFilter?: QueryRow;
   columns: Array<Column<TData>>;
 };
 
 export const useGraphQLQuery = <TData>(props: UseGraphQLQueryProps<TData>) => {
-  const { localization, systemFilter, columns } = props;
+  const { systemFilter, columns } = props;
 
   const valueConverter = useCallback(
     (
@@ -32,7 +30,7 @@ export const useGraphQLQuery = <TData>(props: UseGraphQLQueryProps<TData>) => {
 
       switch (metaType) {
         case "boolean":
-          return value.toLowerCase() === localization.filter.columnBoolean.true;
+          return value.toLowerCase() === "true";
         case "dateTime": {
           const date = dayjs(value);
           if (!date.isValid()) {
@@ -51,7 +49,7 @@ export const useGraphQLQuery = <TData>(props: UseGraphQLQueryProps<TData>) => {
           return value;
       }
     },
-    [localization.filter.columnBoolean.true],
+    [],
   );
 
   /**
