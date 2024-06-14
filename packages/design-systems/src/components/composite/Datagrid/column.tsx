@@ -252,17 +252,28 @@ export const buildColumns = <TData extends Record<string, unknown>>(
   const r = columns.map((column) => {
     const columnDef: ColumnDef<TData> =
       "key" in column
-        ? {
-            accessorKey: column.key,
-            header: column.header,
-            size: column.options?.size,
-            cell: column.options?.render ?? (({ cell }) => cell.getValue()),
-            meta: {
-              type: column.meta.type,
-              enumType:
-                column.meta.type === "enum" ? column.meta.enumType : undefined,
+        ? Object.assign(
+            {
+              accessorKey: column.key,
+              header: column.header,
+              size: column.options?.size,
+              meta: {
+                type: column.meta.type,
+                enumType:
+                  column.meta.type === "enum"
+                    ? column.meta.enumType
+                    : undefined,
+              },
             },
-          }
+
+            // Providing `undefined` to `cell` unexpectedly renders the cell as empty in the type of "boolean"
+            // so we need to omit the `cell` key if the custom renderer is not provided
+            column.options?.render
+              ? {
+                  cell: column.options?.render,
+                }
+              : {},
+          )
         : {
             id: column.id,
             header: column.header,
