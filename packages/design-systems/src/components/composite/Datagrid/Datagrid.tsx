@@ -51,7 +51,7 @@ export const DataGrid = <TData extends Record<string, unknown>>(
     //Get header titles from table columns
     const cusotmFilterFields: Column<TData>[] = table.columns.flatMap(
       (column) => {
-        if ("accessorKey" in column) {
+        if ("accessorKey" in column && "meta" in column) {
           return [
             {
               //This is temporary structure, we will change this logic in coming days as required
@@ -157,13 +157,15 @@ const TableRows = <TData extends Record<string, unknown>>(props: {
         : cell.column.getSize() + 28;
   };
 
-  const renderCell = (cell: Cell<TData, string>) => {
-    if (
-      cell.column.columnDef.meta &&
-      cell.column.columnDef.meta.type === "enum"
-    ) {
+  const renderCell = (cell: Cell<TData, unknown>) => {
+    if (cell.column.columnDef?.meta?.type === "enum") {
       const enumValues = cell.column.columnDef.meta.enumType;
-      return enumValues?.[cell.getValue()];
+      const value = cell.getValue();
+      if (typeof value === "string") {
+        return enumValues?.[value];
+      } else {
+        return flexRender(cell.column.columnDef.cell, cell.getContext());
+      }
     } else {
       return flexRender(cell.column.columnDef.cell, cell.getContext());
     }
