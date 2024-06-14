@@ -7,12 +7,12 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { Checkbox } from "../../Checkbox";
 import { type UseDataGridProps } from "./types";
 import { DensityFeature } from "./Density/Density";
 import { ExportFeature, defaultExportOptions } from "./Export/Export";
 import { HideShowFeature } from "./ColumnFeature/HideShow";
 import { CustomFilterFeature } from "./SearchFilter/CustomFilter";
+import { buildColumns } from "./column";
 
 export type RowLike = { id: string };
 export const useDataGrid = <TData extends RowLike>({
@@ -55,38 +55,8 @@ export const useDataGrid = <TData extends RowLike>({
       pageSize,
     },
   };
-  if (enableRowSelection) {
-    const selectableHeaderAlreadyExists =
-      columns.findIndex((column) => column.id === "select") !== -1;
-    !selectableHeaderAlreadyExists &&
-      columns.unshift({
-        id: "select",
-        header: ({ table }) => (
-          <Checkbox
-            checked={
-              table.getIsSomeRowsSelected()
-                ? "indeterminate"
-                : table.getIsAllRowsSelected()
-            }
-            onCheckedChange={(e: { checked: boolean }) =>
-              table.getToggleAllRowsSelectedHandler()({
-                target: { checked: e.checked },
-              })
-            }
-          />
-        ),
-        cell: ({ row }) => (
-          <Checkbox
-            checked={row.getIsSelected()}
-            disabled={!row.getCanSelect()}
-            onCheckedChange={(e: { checked: boolean }) =>
-              row.getToggleSelectedHandler()(e.checked)
-            }
-          />
-        ),
-        size: 54,
-      });
-  }
+
+  const reactTableColumns = buildColumns(columns, enableRowSelection);
   const { state, sortingConfigs } = manualPagination
     ? {
         state: {
@@ -119,7 +89,7 @@ export const useDataGrid = <TData extends RowLike>({
       ExportFeature,
     ],
     data,
-    columns,
+    columns: reactTableColumns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel:
       enablePagination && !manualPagination

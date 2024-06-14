@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { render, screen, within, waitFor } from "@testing-library/react";
-import { ColumnDef } from "@tanstack/react-table";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import { LOCALIZATION_EN } from "@locales";
@@ -22,6 +21,7 @@ import {
   setFilterChange,
 } from "../utils/test";
 import { DataGrid } from "../Datagrid";
+import { newColumnBuilder } from "../column";
 import { CustomFilter } from "./CustomFilter";
 import type { GraphQLQueryFilter, QueryRow } from "./types";
 
@@ -43,29 +43,11 @@ class MockResizeObserver {
 }
 global.ResizeObserver = MockResizeObserver;
 
-const columnDefs: ColumnDef<Payment>[] = [
-  {
-    accessorKey: "status",
-    header: "Status",
-    meta: {
-      type: "enum",
-      enumType: PaymentStatus,
-    },
-  },
-  {
-    accessorKey: "email",
-    header: "Email",
-    meta: {
-      type: "string",
-    },
-  },
-  {
-    accessorKey: "amount",
-    header: "Amount",
-    meta: {
-      type: "number",
-    },
-  },
+const columnBuilder = newColumnBuilder<Payment>();
+const columnDefs = [
+  columnBuilder.enum("status", "Status", PaymentStatus),
+  columnBuilder.string("email", "Email"),
+  columnBuilder.number("amount", "Amount"),
 ];
 
 type UseDataGridWithFilterProps = {

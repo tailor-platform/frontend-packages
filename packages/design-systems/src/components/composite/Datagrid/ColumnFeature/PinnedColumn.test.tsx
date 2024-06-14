@@ -1,10 +1,10 @@
 import { act, render, screen, waitFor, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
-import { ColumnDef } from "@tanstack/react-table";
 import { LOCALIZATION_EN } from "../../../../locales/en";
 import { useDataGrid } from "../useDataGrid";
 import { DataGrid } from "../Datagrid";
+import { newColumnBuilder } from "../column";
 import { PinnedColumn } from "./PinnedColumn";
 
 enum PaymentStatus {
@@ -21,29 +21,11 @@ type Payment = {
   email: string;
 };
 
-const columns: ColumnDef<Payment>[] = [
-  {
-    accessorKey: "status",
-    header: "Status",
-    meta: {
-      type: "enum",
-      enumType: PaymentStatus,
-    },
-  },
-  {
-    accessorKey: "email",
-    header: "Email",
-    meta: {
-      type: "string",
-    },
-  },
-  {
-    accessorKey: "amount",
-    header: "Amount",
-    meta: {
-      type: "number",
-    },
-  },
+const columnBuilder = newColumnBuilder<Payment>();
+const columns = [
+  columnBuilder.enum("status", "Status", PaymentStatus),
+  columnBuilder.string("email", "Email"),
+  columnBuilder.number("amount", "Amount"),
 ];
 
 const data: Payment[] = [

@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { act, render, screen, within } from "@testing-library/react";
-import { ColumnDef } from "@tanstack/react-table";
 import { describe, expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { Payment, originData, setSortChange } from "../utils/test";
 import { useDataGrid } from "../useDataGrid";
 import { DataGrid } from "../Datagrid";
 import { Order } from "../types";
+import { newColumnBuilder } from "../column";
 
 enum PaymentStatus {
   pending = "pending",
@@ -15,43 +15,13 @@ enum PaymentStatus {
   failed = "failed",
 }
 
-const columns: ColumnDef<Payment>[] = [
-  {
-    accessorKey: "status",
-    header: "Status",
-    meta: {
-      type: "enum",
-      enumType: PaymentStatus,
-    },
-  },
-  {
-    accessorKey: "email",
-    header: "Email",
-    meta: {
-      type: "string",
-    },
-  },
-  {
-    accessorKey: "amount",
-    header: "Amount",
-    meta: {
-      type: "number",
-    },
-  },
-  {
-    accessorKey: "createdAt",
-    header: "CreatedAt",
-    meta: {
-      type: "date",
-    },
-  },
-  {
-    accessorKey: "isCreditCard",
-    header: "CreditCardUsed",
-    meta: {
-      type: "boolean",
-    },
-  },
+const columnBuilder = newColumnBuilder<Payment>();
+const columns = [
+  columnBuilder.enum("status", "Status", PaymentStatus),
+  columnBuilder.string("email", "Email"),
+  columnBuilder.number("amount", "Amount"),
+  columnBuilder.date("createdAt", "CreatedAt"),
+  columnBuilder.boolean("isCreditCard", "CreditCardUsed"),
 ];
 const DataGridWithSorting = () => {
   const table = useDataGrid({

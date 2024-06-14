@@ -15,19 +15,7 @@ import {
 } from "./filterOps";
 
 /**
- * Utility type to extract column meta types from array of column definitions
- * that finally generates the object as the following structure:
- *
- * ```
- * {
- *   name: "string",
- *   groupID: "uuid",
- *   category: "enum"
- * }
- * ```
- *
- * The final structure is used to determine the type of filter operation
- * that can be applied to each column through the `FilterOp` utility type.
+ * @deprecated
  */
 type ExtractColumnMetaType<
   Columns extends ReadonlyArray<ColumnDef<Record<string, unknown>>>,
