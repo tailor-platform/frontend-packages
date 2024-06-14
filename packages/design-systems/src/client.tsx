@@ -17,6 +17,8 @@ export {
   type QueryRow,
   type Order,
   useDataGrid,
+  newColumnBuilder,
+  newFilterBuilder,
 } from "@components/composite/Datagrid";
 export {
   DatePicker,
