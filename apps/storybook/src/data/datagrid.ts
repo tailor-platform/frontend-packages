@@ -2,62 +2,17 @@
  * This file will contain the data used in datagrid story
  */
 
-import { ColumnDef } from "@tanstack/react-table";
 import { Payment, PaymentStatus } from "../types/datagrid";
+import { newColumnBuilder } from "@tailor-platform/design-systems/client";
 
-export const COLUMNS: ColumnDef<Payment>[] = [
-  {
-    accessorKey: "status",
-    header: "Status",
-    meta: {
-      type: "enum",
-      enumType: PaymentStatus,
-      //accessorKey is not provided at compile time inside ColumnDef https://github.com/TanStack/table/issues/4423
-      accessorKey: "status",
-    },
-  },
-  {
-    accessorKey: "email",
-    header: "Email",
-    meta: {
-      type: "string",
-      accessorKey: "email",
-    },
-  },
-  {
-    accessorKey: "amount",
-    header: "Amount",
-    meta: {
-      type: "number",
-      accessorKey: "amount",
-    },
-  },
-  {
-    accessorKey: "createdAt",
-    header: "CreatedAt",
-    size: 80,
-    meta: {
-      type: "date",
-      accessorKey: "createdAt",
-    },
-  },
-  {
-    accessorKey: "isCreditCard",
-    header: "CreditCardUsed",
-    meta: {
-      type: "boolean",
-      accessorKey: "isCreditCard",
-    },
-  },
-  {
-    accessorKey: "updatedAt",
-    header: "UpdatedAt",
-    size: 40,
-    meta: {
-      type: "dateTime",
-      accessorKey: "updatedAt",
-    },
-  },
+const columnBuilder = newColumnBuilder<Payment>();
+export const COLUMNS = [
+  columnBuilder.enum("status", "Status", PaymentStatus),
+  columnBuilder.string("email", "Email"),
+  columnBuilder.number("amount", "Amount"),
+  columnBuilder.date("createdAt", "CreatedAt"),
+  columnBuilder.boolean("isCreditCard", "CreditCardUsed"),
+  columnBuilder.dateTime("updatedAt", "UpdatedAt"),
 ];
 
 export const DATA: Payment[] = [
