@@ -53,7 +53,7 @@
   "devDependencies": {
     "@hookform/resolvers": "^3.3.2",
     "@swc/core": "^1.4.12",
-    "@tailor-platform/dev-config": "workspace:*",
+    "@tailor-platform/dev-config": "^0.7.0",
     "@tanstack/table-core": "^8.15.3",
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^15.0.7",

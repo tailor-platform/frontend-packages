@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@swc/core": "^1.4.12",
-    "@tailor-platform/dev-config": "workspace:*",
+    "@tailor-platform/dev-config": "^0.7.0",
     "@types/node": "^18.17.15",
     "eslint": "^8.56.0",
     "tsup": "^8.0.1",
