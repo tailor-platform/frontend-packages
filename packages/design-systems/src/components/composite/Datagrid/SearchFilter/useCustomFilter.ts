@@ -20,7 +20,6 @@ export type FilterRowData = {
 type UseCustomFilterProps<TData> = {
   columns: Array<Column<TData>>;
   onChange: (currentState: GraphQLQueryFilter | undefined) => void;
-  localization: Localization;
   systemFilter?: QueryRow;
   defaultFilter?: QueryRow;
 };
@@ -28,7 +27,6 @@ type UseCustomFilterProps<TData> = {
 export const useCustomFilter = <TData>({
   columns,
   onChange,
-  localization,
   systemFilter,
   defaultFilter,
 }: UseCustomFilterProps<TData>) => {
@@ -39,7 +37,6 @@ export const useCustomFilter = <TData>({
   >(undefined);
   const { generateFilter } = useGraphQLQuery({
     columns,
-    localization,
     systemFilter,
   });
 
