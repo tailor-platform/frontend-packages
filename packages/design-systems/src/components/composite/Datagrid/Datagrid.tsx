@@ -1,6 +1,6 @@
 import { Cell, flexRender } from "@tanstack/react-table";
 import { cx } from "@tailor-platform/styled-system/css";
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import {
   datagrid,
   density as densityRecipe,
@@ -22,7 +22,7 @@ import { CustomFilter } from "./SearchFilter/CustomFilter";
 import { Density } from "./Density/Density";
 import { Export } from "./Export/Export";
 import { ManualPagination, Pagination } from "./Pagination";
-import { Column, type DataGridInstance } from "./types";
+import { type DataGridInstance } from "./types";
 import { TableHead } from "./ColumnFeature/TableHead";
 import { getCommonPinningStyles } from "./ColumnFeature/PinnedColumn";
 
@@ -42,14 +42,11 @@ export const DataGrid = <TData extends Record<string, unknown>>(
     toolButtonSize,
     toolButtonVariant,
   } = props;
-  const [cusotmFilterFields, setCustomFilterFields] = useState<Column<TData>[]>(
-    [],
-  );
   const datagridClasses = datagrid({ size });
 
-  useEffect(() => {
-    //Get header titles from table columns
-    setCustomFilterFields(
+  //Get header titles from table columns
+  const cusotmFilterFields = useMemo(
+    () =>
       table.columns.flatMap((column) => {
         if (!("key" in column)) {
           return [];
@@ -65,8 +62,8 @@ export const DataGrid = <TData extends Record<string, unknown>>(
           },
         ];
       }),
-    );
-  }, [table]);
+    [table],
+  );
 
   const commonToolButtonProps = {
     table,
