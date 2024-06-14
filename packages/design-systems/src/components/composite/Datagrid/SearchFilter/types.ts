@@ -1,8 +1,6 @@
 import type { Updater } from "@tanstack/table-core";
 import type { CollectionItem } from "@ark-ui/react";
 import type { Column, DataGridInstance } from "../types";
-import type { Localization } from "..";
-import type { Column } from "../types";
 import { applicableTypes } from "./filter";
 
 export type ValueChangeDetails<T extends CollectionItem = CollectionItem> = {
@@ -34,8 +32,8 @@ export type QueryRowColumn = {
 export type QueryRow =
   | QueryRowColumn
   | {
-    [jointCondition: string]: Array<QueryRowColumn>;
-  };
+      [jointCondition: string]: Array<QueryRowColumn>;
+    };
 
 export type GraphQLQueryFilter = {
   [and: string]: QueryRow;
