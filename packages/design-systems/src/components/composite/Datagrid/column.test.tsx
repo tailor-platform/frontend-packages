@@ -10,6 +10,7 @@ type User = {
   name: string;
   age: number;
   category: string;
+  email: string;
 };
 
 const columnBuilder = newColumnBuilder<User>();
@@ -32,6 +33,11 @@ const columns = [
       size: 80,
     },
   ),
+  columnBuilder.string("email", "Email", {
+    render: (props) => {
+      return <div>Email: ${props.getValue() as string}</div>;
+    },
+  }),
   columnBuilder.custom("operation", "操作", {
     size: 60,
     render: () => {
@@ -70,7 +76,6 @@ describe("buildColumns", () => {
         accessorKey: "name",
         header: "名前",
         size: 120,
-        cell: undefined,
         meta: {
           type: "string",
           enumType: undefined,
@@ -80,7 +85,6 @@ describe("buildColumns", () => {
         accessorKey: "age",
         header: "年齢",
         size: 100,
-        cell: undefined,
         meta: {
           type: "number",
           enumType: undefined,
@@ -90,7 +94,6 @@ describe("buildColumns", () => {
         accessorKey: "category",
         header: "カテゴリ",
         size: 80,
-        cell: undefined,
         meta: {
           type: "enum",
           enumType: {
@@ -101,10 +104,21 @@ describe("buildColumns", () => {
         },
       },
       {
+        accessorKey: "email",
+        header: "Email",
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         cell: expect.any(Function),
-        header: "操作",
+        size: undefined,
+        meta: {
+          type: "string",
+          enumType: undefined,
+        },
+      },
+      {
         id: "operation",
+        header: "操作",
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        cell: expect.any(Function),
         size: 60,
       },
     ]);
