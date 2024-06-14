@@ -1,11 +1,5 @@
 import { NextMiddleware, NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { callbackHandler } from "./middleware/callback";
-import {
-  internalClientSessionHandler,
-  internalLogoutHandler,
-  internalUnauthroziedHandler,
-} from "./middleware/internal";
 import { Config } from "@core/config";
 import {
   internalCallbackPath,
@@ -14,6 +8,12 @@ import {
   internalLogoutPath,
 } from "@core/path";
 import { CallbackError } from "@core/strategies/abstract";
+import {
+  internalClientSessionHandler,
+  internalLogoutHandler,
+  internalUnauthroziedHandler,
+} from "./middleware/internal";
+import { callbackHandler } from "./middleware/callback";
 
 export type MiddlewareHandlerOptions = {
   /**

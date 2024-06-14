@@ -1,13 +1,21 @@
-import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import { renderHook, waitFor, render, screen } from "@testing-library/react";
 import { Suspense } from "react";
 import { http, HttpResponse } from "msw";
-import { useAuth, usePlatform, useSession } from "./hooks";
-import { TailorAuthProvider } from "./provider";
 import { buildMockServer, mockAuthConfig, mockSession } from "@tests/mocks";
 import { withMockReplace } from "@tests/helper";
 import { internalSessionLoader } from "@core/loader";
 import { internalClientSessionPath } from "@core/path";
+import { TailorAuthProvider } from "./provider";
+import { useAuth, usePlatform, useSession } from "./hooks";
 
 const mockProvider = (props: React.PropsWithChildren) => (
   <TailorAuthProvider config={mockAuthConfig}>

@@ -1,4 +1,4 @@
-import { expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { OIDCStrategy } from "@core/strategies/oidc";
 import { Config } from "@core";
 import { oidcParamsError } from "@core/strategies/abstract";

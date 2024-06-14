@@ -1,9 +1,9 @@
-import { expect } from "vitest";
+import { expect, describe, it } from "vitest";
+import { mockAuthConfig } from "@tests/mocks";
+import { AbstractStrategy } from "@core";
 import { defaultStrategy } from "./default";
 import { SAMLStrategy } from "./saml";
 import { OIDCStrategy } from "./oidc";
-import { mockAuthConfig } from "@tests/mocks";
-import { AbstractStrategy } from "@core";
 
 describe("redirection", () => {
   const buildMockedRedirectionURL = (strategy: string) =>

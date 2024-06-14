@@ -1,7 +1,14 @@
-import { beforeAll, afterAll, afterEach, describe, expect, it } from "vitest";
+import {
+  beforeAll,
+  afterAll,
+  afterEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import { NextResponse } from "next/server";
 import { HttpResponse, http } from "msw";
-import { callbackHandler } from "./callback";
 import {
   buildMockServer,
   mockAuthConfig,
@@ -12,6 +19,7 @@ import { Config } from "@core/config";
 import { buildRequestWithParams } from "@tests/helper";
 import { callbackByStrategy } from "@core/path";
 import { oidcParamsError, exchangeError } from "@core/strategies/abstract";
+import { callbackHandler } from "./callback";
 
 const mockServer = buildMockServer();
 beforeAll(() => mockServer.listen());
