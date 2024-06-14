@@ -234,10 +234,11 @@ export const useCustomFilter = <TData>({
     if (!box) {
       return {};
     }
+
     return {
       zIndex: 1500, // ark-ui modal has z-index of 1400. So, we need to set it higher than that.
       position: "fixed",
-      top: Math.ceil(box.bottom),
+      bottom: Math.ceil(box.bottom),
     };
   };
 
