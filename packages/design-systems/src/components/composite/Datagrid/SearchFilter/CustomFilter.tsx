@@ -12,28 +12,26 @@ import type {
   CustomFilterOptions,
   CustomFilterProps,
   CustomFilterTableState,
+  GraphQLQueryFilter,
 } from "./types";
 import { FilterRow } from "./FilterRow";
 import { useCustomFilter } from "./useCustomFilter";
 import { HStack } from "@components/patterns/HStack";
 import { Text } from "@components/Text";
+import { LOCALIZATION_EN } from "@locales";
 
 export const CustomFilter = <TData extends Record<string, unknown>>(
   props: CustomFilterProps<TData>,
 ) => {
-  const {
-    columns,
-    onChange,
-    localization,
-    systemFilter,
-    defaultFilter,
-    customFilterOpen,
-    setCustomFilterOpen,
-    enableColumnFilters,
-    size = "md",
-    variant = "secondary",
-  } = props;
-
+  const localization = props.table.localization || LOCALIZATION_EN;
+  const { columns, size = "md", variant = "secondary" } = props;
+  const onChange = (filters: GraphQLQueryFilter | undefined) => {
+    props.table.onFilterChange?.(filters);
+  };
+  const systemFilter = props.table.systemFilter;
+  const defaultFilter = props.table.defaultFilter;
+  const { customFilterOpen } = props.table.getState();
+  const setCustomFilterOpen = props.table.setCustomFilterOpen;
   const {
     filterRef,
     filterButtonRef,
@@ -53,7 +51,7 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
     defaultFilter,
   });
 
-  if (!enableColumnFilters) {
+  if (!props.table.enableColumnFilters) {
     return null;
   }
 

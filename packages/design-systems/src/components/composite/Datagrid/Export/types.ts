@@ -1,5 +1,5 @@
 import type { Updater } from "@tanstack/table-core";
-import type { Localization } from "..";
+import { CommonToolButtonProps } from "../SearchFilter/types";
 
 export type ExportState<TData extends Record<string, unknown>> = {
   enableCsvExport?: boolean;
@@ -21,12 +21,5 @@ export interface ExportInstance {
   exportCsv: () => void;
 }
 
-export type ExportProps<TData extends Record<string, unknown>> = {
-  exportOptions?: ExportState<TData>;
-  localization: Localization;
-  exportCsv: () => void;
-  exportOpen: boolean;
-  setExportOpen: (updater: Updater<boolean>) => void;
-  size?: "sm" | "md" | "lg" | "xl" | "2xl" | "xs";
-  variant?: "primary" | "secondary" | "link" | "tertiary";
-};
+export type ExportProps<TData extends Record<string, unknown>> =
+  CommonToolButtonProps<TData>;

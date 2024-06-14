@@ -17,7 +17,7 @@ import { Button } from "../../../Button";
 import { IconButton } from "../../../IconButton";
 import type { ValueChangeDetails } from "../SearchFilter/types";
 import { Select, usePagination } from "./utils";
-import type { Localization } from "@locales/types";
+import { LOCALIZATION_EN } from "@locales";
 
 export type PageChangeDetails = {
   page: number;
@@ -28,11 +28,10 @@ const classes = select();
 
 export const ManualPagination = <TData extends Record<string, unknown>>({
   table,
-  localization,
 }: {
   table: DataGridInstance<TData>;
-  localization: Localization;
 }) => {
+  const localization = table.localization || LOCALIZATION_EN;
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: table.initialState.pagination.pageSize,

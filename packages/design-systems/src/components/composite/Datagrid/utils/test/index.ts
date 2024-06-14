@@ -281,11 +281,22 @@ export const setFilterChange = (
         setData(data.filter((item) => item.amount > Number(gtValue)));
         return;
       }
-      const eqValue = (
-        systemFilterValue as unknown as { status: { eq: string } }
-      ).status.eq;
 
-      setData(data.filter((item) => item.status === eqValue));
+      if ("isCreditCard" in systemFilterValue) {
+        const eqValue = (
+          systemFilterValue as unknown as { isCreditCard: { eq: boolean } }
+        ).isCreditCard.eq;
+        setData(data.filter((item) => item.isCreditCard === eqValue));
+        return;
+      }
+      if ("status" in systemFilterValue) {
+        const eqValue = (
+          systemFilterValue as unknown as { status: { eq: string } }
+        ).status.eq;
+
+        setData(data.filter((item) => item.status === eqValue));
+        return;
+      }
     }
     return;
   }

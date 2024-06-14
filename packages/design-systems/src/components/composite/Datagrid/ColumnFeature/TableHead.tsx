@@ -10,21 +10,20 @@ import { DataGridInstance } from "../types";
 import { TableHead as Root } from "../../../Table";
 import { SortingColumn } from "./Sorting";
 import { PinnedColumn, getCommonPinningStyles } from "./PinnedColumn";
-import { Localization } from "@locales/types";
+import { LOCALIZATION_EN } from "@locales";
 
 type TableHeadProps<TData extends Record<string, unknown>> = {
   header: Header<TData, unknown>;
   table: DataGridInstance<TData>;
   size: DatagridVariantProps["size"];
-  localization: Localization;
 };
 
 export const TableHead = <TData extends Record<string, unknown>>({
   header,
   table,
   size,
-  localization,
 }: TableHeadProps<TData>) => {
+  const localization = table.localization || LOCALIZATION_EN;
   const datagridClasses = datagrid({ size });
   const densitySmClasses = densityRecipe({ size: "sm" });
   const densityMdClasses = densityRecipe({ size: "md" });

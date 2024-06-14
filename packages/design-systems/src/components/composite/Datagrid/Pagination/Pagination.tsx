@@ -16,17 +16,16 @@ import { Button } from "../../../Button";
 import { IconButton } from "../../../IconButton";
 import type { ValueChangeDetails } from "../SearchFilter/types";
 import { Select, usePagination } from "./utils";
-import type { Localization } from "@locales/types";
+import { LOCALIZATION_EN } from "@locales";
 
 const classes = select();
 
 export const Pagination = <TData extends Record<string, unknown>>({
   table,
-  localization,
 }: {
   table: DataGridInstance<TData>;
-  localization: Localization;
 }) => {
+  const localization = table.localization || LOCALIZATION_EN;
   const pageIndex = useMemo(
     () => table.getState().pagination.pageIndex,
     [table],

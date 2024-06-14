@@ -13,26 +13,23 @@ import { Box } from "@components/patterns/Box";
 import { HStack } from "@components/patterns/HStack";
 import { Button } from "@components/Button";
 import { Text } from "@components/Text";
+import { LOCALIZATION_EN } from "@locales";
 
-export const Export = <TData extends Record<string, string>>(
+export const Export = <TData extends Record<string, unknown>>(
   props: ExportProps<TData>,
 ) => {
-  const {
-    exportOptions,
-    localization,
-    exportCsv,
-    exportOpen,
-    setExportOpen,
-    size = "md",
-    variant = "secondary",
-  } = props;
-
+  const exportCsv = props.table.exportCsv;
+  const setExportOpen = props.table.setExportOpen;
+  const { exportOptions, exportOpen } = props.table.getState();
+  const localization = props.table.localization || LOCALIZATION_EN;
+  const { size = "md", variant = "secondary" } = props;
   const exportRef = useRef<HTMLDivElement>(null);
   const exportButtonRef = useRef<HTMLButtonElement>(null);
 
-  if (!exportOptions) {
+  if (!props.table.getEnableExport()) {
     return null;
   }
+
   return (
     <>
       <HStack>
