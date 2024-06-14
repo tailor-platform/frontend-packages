@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   ColumnPinningState,
   SortingState,
@@ -56,7 +56,10 @@ export const useDataGrid = <TData extends RowLike>({
     },
   };
 
-  const reactTableColumns = buildColumns(columns, enableRowSelection);
+  const reactTableColumns = useMemo(
+    () => buildColumns(columns, enableRowSelection),
+    [enableRowSelection, columns],
+  );
   const { state, sortingConfigs } = manualPagination
     ? {
         state: {
