@@ -1,64 +1,36 @@
 import { describe, test, expect } from "vitest";
+import { newColumnBuilder } from "../column";
 import { newFilterBuilder } from "./builder";
 
-describe("builder", () => {
-  const mockColumns = [
-    {
-      accessorKey: "name",
-      meta: {
-        type: "string",
-      },
-    },
-    {
-      accessorKey: "age",
-      meta: {
-        type: "number",
-      },
-    },
-    {
-      accessorKey: "hasJob",
-      meta: {
-        type: "boolean",
-      },
-    },
-    {
-      accessorKey: "groupID",
-      meta: {
-        type: "uuid",
-      },
-    },
-    {
-      accessorKey: "category",
-      meta: {
-        type: "enum",
-        enumType: {
-          CATEGORY1: "Category 1",
-          CATEGORY2: "Category 2",
-          CATEGORY3: "Category 3",
-        },
-      },
-    },
-    {
-      accessorKey: "birthday",
-      meta: {
-        type: "date",
-      },
-    },
-    {
-      accessorKey: "createdAt",
-      meta: {
-        type: "dateTime",
-      },
-    },
-    {
-      accessorKey: "workingTime",
-      meta: {
-        type: "time",
-      },
-    },
-  ] as const;
+type TestInfo = {
+  name: string;
+  age: number;
+  hasJob: boolean;
+  groupID: string;
+  category: string;
+  birthday: string;
+  createdAt: string;
+  workingTime: string;
+};
 
-  const { fields, filterOp } = newFilterBuilder({
+describe("builder", () => {
+  const columnBuilder = newColumnBuilder<TestInfo>();
+  const mockColumns = [
+    columnBuilder.string("name", "Name"),
+    columnBuilder.number("age", "Age"),
+    columnBuilder.boolean("hasJob", "HasJob?"),
+    columnBuilder.uuid("groupID", "GroupID"),
+    columnBuilder.enum("category", "Category", {
+      CATEGORY1: "Category 1",
+      CATEGORY2: "Category 2",
+      CATEGORY3: "Category 3",
+    }),
+    columnBuilder.date("birthday", "Birthday"),
+    columnBuilder.dateTime("createdAt", "Created At"),
+    columnBuilder.time("workingTime", "Working Time"),
+  ];
+
+  const { fields, filterOp } = newFilterBuilder<TestInfo, typeof mockColumns>({
     columns: mockColumns,
   });
 

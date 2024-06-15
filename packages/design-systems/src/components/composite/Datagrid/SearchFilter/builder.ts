@@ -1,5 +1,5 @@
-import { ColumnDef } from "@tanstack/table-core";
 import { Exact } from "type-fest";
+import { Columns, ExtractMetaType } from "../column";
 import { ApplicableType } from "./types";
 import {
   NumberOp,
@@ -13,23 +13,6 @@ import {
   DateOp,
   DateTimeOp,
 } from "./filterOps";
-
-/**
- * @deprecated
- */
-type ExtractColumnMetaType<
-  Columns extends ReadonlyArray<ColumnDef<Record<string, unknown>>>,
-> = {
-  [K in Columns[number] extends { accessorKey: infer U extends string }
-    ? U
-    : never]: Columns[number] extends { accessorKey: infer U extends string }
-    ? U extends K
-      ? Columns[number]["meta"] extends { type: string }
-        ? Columns[number]["meta"]["type"]
-        : never
-      : never
-    : never;
-};
 
 type FilterOp<MetaTypes extends Record<string, ApplicableType>> = Partial<{
   [K in keyof MetaTypes]: MetaTypes[K] extends "uuid"
@@ -50,25 +33,27 @@ type FilterOp<MetaTypes extends Record<string, ApplicableType>> = Partial<{
 }>;
 
 type JointCondition<
-  Columns extends ReadonlyArray<ColumnDef<Record<string, unknown>>>,
-  F extends Exact<FilterOp<ExtractColumnMetaType<Columns>>, F>,
+  TData extends Record<string, unknown>,
+  C extends Columns<TData>,
+  F extends Exact<FilterOp<ExtractMetaType<TData, C>>, F>,
 > = {
   mode: "and" | "or";
-  filters: Array<ConjunctiveFilter<Columns, F> | BuildableFilter<Columns, F>>;
+  filters: Array<ConjunctiveFilter<TData, C, F> | BuildableFilter<TData, C, F>>;
 };
 
 class BuildableFilter<
-  Columns extends ReadonlyArray<ColumnDef<Record<string, unknown>>>,
-  F extends Exact<FilterOp<ExtractColumnMetaType<Columns>>, F>,
+  TData extends Record<string, unknown>,
+  C extends Columns<TData>,
+  F extends Exact<FilterOp<ExtractMetaType<TData, C>>, F>,
 > {
   // Branded as terminal filter
   private brand!: "filter";
 
   constructor(
     protected readonly props: {
-      columns: Columns;
+      columns: C;
       filter: F;
-      jointCondition?: JointCondition<Columns, F>;
+      jointCondition?: JointCondition<TData, C, F>;
     },
   ) {}
 
@@ -98,20 +83,22 @@ class BuildableFilter<
 }
 
 type ChainableFilter<
-  Columns extends ReadonlyArray<ColumnDef<Record<string, unknown>>>,
+  TData extends Record<string, unknown>,
+  C extends Columns<TData>,
 > =
-  | ConjunctiveFilter<Columns, FilterOp<ExtractColumnMetaType<Columns>>>
-  | BuildableFilter<Columns, FilterOp<ExtractColumnMetaType<Columns>>>;
+  | ConjunctiveFilter<TData, C, FilterOp<ExtractMetaType<TData, C>>>
+  | BuildableFilter<TData, C, FilterOp<ExtractMetaType<TData, C>>>;
 
 /**
  * ConjunctiveFilter is a class that can be chained with and/or
  * conjunctive methods always return a new instance of BuildableFilter to prohibit chaining conjunctive methods
  */
 class ConjunctiveFilter<
-  Columns extends ReadonlyArray<ColumnDef<Record<string, unknown>>>,
-  F extends Exact<FilterOp<ExtractColumnMetaType<Columns>>, F>,
-> extends BuildableFilter<Columns, F> {
-  and<P extends ChainableFilter<Columns>>(filters: Array<P>) {
+  TData extends Record<string, unknown>,
+  C extends Columns<TData>,
+  F extends Exact<FilterOp<ExtractMetaType<TData, C>>, F>,
+> extends BuildableFilter<TData, C, F> {
+  and<P extends ChainableFilter<TData, C>>(filters: Array<P>) {
     return new BuildableFilter({
       ...this.props,
       jointCondition: {
@@ -121,7 +108,7 @@ class ConjunctiveFilter<
     });
   }
 
-  or<P extends ChainableFilter<Columns>>(filters: Array<P>) {
+  or<P extends ChainableFilter<TData, C>>(filters: Array<P>) {
     return new BuildableFilter({
       ...this.props,
       jointCondition: {
@@ -133,25 +120,27 @@ class ConjunctiveFilter<
 }
 
 type NewFilterBuilderProps<
-  Columns extends ReadonlyArray<ColumnDef<Record<string, unknown>>>,
+  TData extends Record<string, unknown>,
+  C extends Columns<TData>,
 > = {
-  columns: Columns;
+  columns: C;
 };
 
 export const newFilterBuilder = <
-  Columns extends ReadonlyArray<ColumnDef<Record<string, unknown>>>,
+  TData extends Record<string, unknown>,
+  C extends Columns<TData>,
 >(
-  props: NewFilterBuilderProps<Columns>,
+  props: NewFilterBuilderProps<TData, C>,
 ) => {
   const buildFields = <
     // Prohibit empty object ({})
     F extends Record<string, never> extends F
       ? never
-      : Exact<FilterOp<ExtractColumnMetaType<Columns>>, F>,
+      : Exact<FilterOp<ExtractMetaType<TData, C>>, F>,
   >(
     filter: F,
   ) => {
-    return new ConjunctiveFilter<Columns, F>({
+    return new ConjunctiveFilter<TData, C, F>({
       columns: props.columns,
       filter,
     });

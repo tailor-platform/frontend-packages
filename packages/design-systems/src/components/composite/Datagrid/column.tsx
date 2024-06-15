@@ -38,11 +38,11 @@ type IDColumn<TData extends Record<string, unknown>> = CommonColumn & {
   options: IDColumnOptions<TData>;
 };
 
-type Column<TData extends Record<string, unknown>> =
+export type Column<TData extends Record<string, unknown>> =
   | KeyedColumn<TData>
   | IDColumn<TData>;
 
-export type Columns<TData extends Record<string, unknown>> = Array<
+export type Columns<TData extends Record<string, unknown>> = ReadonlyArray<
   Column<TData>
 >;
 
@@ -55,6 +55,23 @@ export const newColumnBuilder = <TData extends Record<string, unknown>>() => {
     ) => {
       const meta = {
         type: "string",
+      } as const;
+
+      return {
+        key,
+        header,
+        meta,
+        options,
+      };
+    },
+
+    uuid: <Key extends keyof TData>(
+      key: Key,
+      header: string,
+      options?: KeyedColumnOptions<TData>,
+    ) => {
+      const meta = {
+        type: "uuid",
       } as const;
 
       return {
@@ -194,7 +211,7 @@ export const newColumnBuilder = <TData extends Record<string, unknown>>() => {
  * The final structure is used to determine the type of filter operation
  * that can be applied to each column through the `FilterOp` utility type in builder module.
  */
-export type ExtractTypes<
+export type ExtractMetaType<
   TData extends Record<string, unknown>,
   Columns extends ReadonlyArray<Column<TData>>,
 > = {
