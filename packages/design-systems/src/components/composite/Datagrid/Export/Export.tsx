@@ -14,6 +14,7 @@ import { HStack } from "@components/patterns/HStack";
 import { Button } from "@components/Button";
 import { Text } from "@components/Text";
 import { LOCALIZATION_EN } from "@locales";
+import { useGetBoxPosition } from "../useGetBoxPosition";
 
 export const Export = <TData extends Record<string, unknown>>(
   props: ExportProps<TData>,
@@ -25,6 +26,8 @@ export const Export = <TData extends Record<string, unknown>>(
   const { size = "md", variant = "secondary" } = props;
   const exportRef = useRef<HTMLDivElement>(null);
   const exportButtonRef = useRef<HTMLButtonElement>(null);
+
+  const getBoxPosition = useGetBoxPosition(exportButtonRef);
 
   if (!props.table.getEnableExport()) {
     return null;
@@ -58,12 +61,12 @@ export const Export = <TData extends Record<string, unknown>>(
         w={"xs"}
         borderRadius={"4px"}
         boxShadow="lg"
-        position={"absolute"}
-        top={"100px"}
         backgroundColor={"bg.default"}
-        zIndex={2}
         ref={exportRef}
         display={exportOpen ? "block" : "none"}
+        style={{
+          ...getBoxPosition(),
+        }}
       >
         {exportOptions?.enableCsvExport && (
           <Button

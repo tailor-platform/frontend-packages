@@ -19,6 +19,7 @@ import { useCustomFilter } from "./useCustomFilter";
 import { HStack } from "@components/patterns/HStack";
 import { Text } from "@components/Text";
 import { LOCALIZATION_EN } from "@locales";
+import { useGetBoxPosition } from "../useGetBoxPosition";
 
 export const CustomFilter = <TData extends Record<string, unknown>>(
   props: CustomFilterProps<TData>,
@@ -42,13 +43,14 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
     clearFilterHandler,
     addNewFilterRowHandler,
     filterChangedHandler,
-    getBoxPosition,
   } = useCustomFilter({
     columns,
     onChange,
     systemFilter,
     defaultFilter,
   });
+
+  const getBoxPosition = useGetBoxPosition(filterButtonRef);
 
   if (!props.table.enableColumnFilters) {
     return null;

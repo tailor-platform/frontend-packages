@@ -20,6 +20,7 @@ import type {
 import { HStack } from "@components/patterns/HStack";
 import { Text } from "@components/Text";
 import { LOCALIZATION_EN } from "@locales";
+import { useGetBoxPosition } from "../useGetBoxPosition";
 
 export const HideShow = <TData extends Record<string, unknown>>(
   props: HideShowProps<TData>,
@@ -32,6 +33,8 @@ export const HideShow = <TData extends Record<string, unknown>>(
   const { size = "md", variant = "secondary" } = props;
   const hideShowRef = useRef<HTMLDivElement>(null);
   const hideShowButtonRef = useRef<HTMLButtonElement>(null);
+
+  const getBoxPosition = useGetBoxPosition(hideShowButtonRef);
 
   if (!props.table.enableHiding) {
     return null;
@@ -64,12 +67,13 @@ export const HideShow = <TData extends Record<string, unknown>>(
         w="360px"
         borderRadius={"4px"}
         boxShadow="lg"
-        position={"absolute"}
-        top={"100px"}
         backgroundColor={"bg.default"}
         zIndex={2}
         ref={hideShowRef}
         display={hideShowOpen ? "block" : "none"}
+        style={{
+          ...getBoxPosition(),
+        }}
       >
         <Button
           variant="link"
