@@ -8,6 +8,7 @@ import { FilterIcon } from "lucide-react";
 import { addEventOutside } from "../addEventOutside";
 import { Box } from "../../../patterns/Box";
 import { Button } from "../../../Button";
+import { useGetBoxPosition } from "../useGetBoxPosition";
 import type {
   CustomFilterOptions,
   CustomFilterProps,
@@ -42,13 +43,14 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
     clearFilterHandler,
     addNewFilterRowHandler,
     filterChangedHandler,
-    getBoxPosition,
   } = useCustomFilter({
     columns,
     onChange,
     systemFilter,
     defaultFilter,
   });
+
+  const getBoxPosition = useGetBoxPosition(filterButtonRef);
 
   if (!props.table.enableColumnFilters) {
     return null;

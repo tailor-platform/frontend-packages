@@ -1,11 +1,4 @@
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-  useRef,
-  CSSProperties,
-} from "react";
+import { useCallback, useEffect, useMemo, useState, useRef } from "react";
 import type { GraphQLQueryFilter } from "..";
 import type { Column } from "../types";
 import { jointConditions } from "./filter";
@@ -228,19 +221,6 @@ export const useCustomFilter = <TData>({
     [],
   );
 
-  const getBoxPosition = (): CSSProperties => {
-    const box = filterButtonRef.current?.getBoundingClientRect();
-    if (!box) {
-      return {};
-    }
-
-    return {
-      zIndex: 1500, // ark-ui modal has z-index of 1400. So, we need to set it higher than that.
-      position: "absolute",
-      top: Math.ceil(box.bottom - box.top),
-    };
-  };
-
   return {
     filterRef,
     filterButtonRef,
@@ -251,7 +231,6 @@ export const useCustomFilter = <TData>({
     clearFilterHandler,
     addNewFilterRowHandler,
     filterChangedHandler,
-    getBoxPosition,
     generateGraphQLQueryFilter: generateFilter, // For testing purpose
     setPrevFilter, // For testing purpose
   };

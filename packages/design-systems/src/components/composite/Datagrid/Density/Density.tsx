@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-table";
 import { RowsIcon } from "lucide-react";
 import { addEventOutside } from "../addEventOutside";
+import { useGetBoxPosition } from "../useGetBoxPosition";
 import type {
   DensityOptions,
   DensityState,
@@ -51,6 +52,8 @@ export const Density = <TData extends Record<string, unknown>>(
     },
   ];
 
+  const getBoxPosition = useGetBoxPosition(densityButtonRef);
+
   if (!props.table.enableDensity) {
     return null;
   }
@@ -82,12 +85,12 @@ export const Density = <TData extends Record<string, unknown>>(
         w={"xs"}
         borderRadius={"4px"}
         boxShadow="lg"
-        position={"absolute"}
-        top={"100px"}
         backgroundColor={"bg.default"}
-        zIndex={2}
         ref={densityRef}
         display={densityOpen ? "block" : "none"}
+        style={{
+          ...getBoxPosition(),
+        }}
       >
         <RadioGroup
           options={options}

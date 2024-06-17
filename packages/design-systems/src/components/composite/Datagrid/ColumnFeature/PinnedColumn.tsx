@@ -5,6 +5,7 @@ import { css } from "@tailor-platform/styled-system/css";
 import { MoreVertical as MoreVerticalIcon } from "lucide-react";
 import { Button } from "../../../Button";
 import { addEventOutside } from "../addEventOutside";
+import { useGetBoxPosition } from "../useGetBoxPosition";
 import type { Localization } from "@locales/types";
 
 type PinnedColumnProps<TData extends Record<string, unknown>> = {
@@ -45,18 +46,7 @@ export const PinnedColumn = <TData extends Record<string, unknown>>({
   const modalRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
 
-  const getBoxPosition = (): CSSProperties => {
-    const box = buttonRef.current?.getBoundingClientRect();
-
-    if (!box) {
-      return {};
-    }
-    return {
-      position: "fixed",
-      top: Math.ceil(box.bottom),
-      left: Math.ceil(box.left - 100), // adjusted to display just below the MoreVerticalIcon
-    };
-  };
+  const getBoxPosition = useGetBoxPosition(buttonRef);
 
   return (
     <div>

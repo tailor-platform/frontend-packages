@@ -12,6 +12,7 @@ import { Checkbox } from "../../../Checkbox";
 import { Box } from "../../../patterns/Box";
 import { Flex } from "../../../patterns/Flex";
 import { addEventOutside } from "../addEventOutside";
+import { useGetBoxPosition } from "../useGetBoxPosition";
 import type {
   HideShowOptions,
   HideShowProps,
@@ -32,6 +33,8 @@ export const HideShow = <TData extends Record<string, unknown>>(
   const { size = "md", variant = "secondary" } = props;
   const hideShowRef = useRef<HTMLDivElement>(null);
   const hideShowButtonRef = useRef<HTMLButtonElement>(null);
+
+  const getBoxPosition = useGetBoxPosition(hideShowButtonRef);
 
   if (!props.table.enableHiding) {
     return null;
@@ -64,12 +67,13 @@ export const HideShow = <TData extends Record<string, unknown>>(
         w="360px"
         borderRadius={"4px"}
         boxShadow="lg"
-        position={"absolute"}
-        top={"100px"}
         backgroundColor={"bg.default"}
         zIndex={2}
         ref={hideShowRef}
         display={hideShowOpen ? "block" : "none"}
+        style={{
+          ...getBoxPosition(),
+        }}
       >
         <Button
           variant="link"
