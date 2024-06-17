@@ -20,6 +20,7 @@ import { useCustomFilter } from "./useCustomFilter";
 import { HStack } from "@components/patterns/HStack";
 import { Text } from "@components/Text";
 import { LOCALIZATION_EN } from "@locales";
+import { Badge } from "@components/Badge";
 
 export const CustomFilter = <TData extends Record<string, unknown>>(
   props: CustomFilterProps<TData>,
@@ -75,6 +76,18 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
           ref={filterButtonRef}
           data-testid="datagrid-filter-button"
         >
+          <Badge
+            variant="info"
+            style={{
+              zIndex: 2,
+              position: "absolute",
+              top: -6,
+              left: -4,
+            }}
+            data-testid="datagrid-filter-badge"
+          >
+            1
+          </Badge>
           <FilterIcon width={20} height={20} />
           <Text marginLeft={2}>{localization.filter.filterLabel}</Text>
         </Button>
