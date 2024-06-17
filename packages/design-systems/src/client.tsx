@@ -16,6 +16,7 @@ export {
   type GraphQLQueryFilter,
   type QueryRow,
   type Order,
+  type Columns,
   useDataGrid,
   newColumnBuilder,
   newFilterBuilder,
