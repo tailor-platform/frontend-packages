@@ -1,6 +1,5 @@
 import { Textarea, TextareaProps } from "@tailor-platform/design-systems";
 import type { Meta, StoryObj } from "@storybook/react";
-
 import { TextareaStory } from "./TextareaStory.tsx";
 import textareaStorySource from "./TextareaStory.tsx?raw";
 

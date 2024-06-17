@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
 import { Box, Stack, StackProps } from "@tailor-platform/design-systems";
 
 Stack.displayName = "Stack";

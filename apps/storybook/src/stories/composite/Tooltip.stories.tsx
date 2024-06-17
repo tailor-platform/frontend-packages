@@ -1,10 +1,8 @@
 import { Tooltip, type TooltipRootProps } from "@ark-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
-
 import { Text } from "@tailor-platform/design-systems";
 import { Box, styled } from "@tailor-platform/styled-system/jsx";
 import { tooltip } from "@tailor-platform/styled-system/recipes";
-
 import { toastTypes } from "../../ark-types";
 
 Tooltip.Arrow.displayName = "TooltipArrow";

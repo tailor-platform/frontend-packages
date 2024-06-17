@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
 import { Checkbox, CheckboxProps } from "@tailor-platform/design-systems";
-
 import { checkboxTypes } from "../../ark-types";
 
 const meta = {

@@ -1,7 +1,7 @@
 {
   "name": "@tailor-platform/dev-config",
   "description": "Common package that hosts the rules for ESLint, Prettier and TypeScript.",
-  "version": "1.0.0-alpha",
+  "version": "1.0.0-alpha.2",
   "private": false,
   "scripts": {
     "build": "exit 0",
@@ -29,7 +29,7 @@
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-prefer-arrow-functions": "^3.2.4",
     "eslint-plugin-react": "^7.33.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-hooks": "5.1.0-rc-dfd30974ab-20240613",
     "eslint-plugin-testing-library": "^6.2.0",
     "eslint-plugin-todo-comment": "^1.1.0",
     "eslint-plugin-vitest": "^0.5.4",

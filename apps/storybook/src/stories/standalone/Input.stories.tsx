@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
 import { Input, InputProps } from "@tailor-platform/design-systems";
 import { input } from "@tailor-platform/styled-system/recipes";
 

@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
 import { Divider, DividerProps } from "@tailor-platform/design-systems";
 import { css } from "@tailor-platform/styled-system/css";
 

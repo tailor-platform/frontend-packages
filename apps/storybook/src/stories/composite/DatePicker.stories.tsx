@@ -5,7 +5,6 @@ import {
   DatePicker,
   type DatePickerProps,
 } from "@tailor-platform/design-systems/client";
-
 import { datePickerTypes } from "../../ark-types";
 
 const meta = {
@@ -22,7 +21,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: function Comp() {
+  render: () => {
     const inputRef = useRef<HTMLInputElement>(null);
     return (
       <Flex h={400}>

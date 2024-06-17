@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
 import { button } from "@tailor-platform/styled-system/recipes";
 import { VStack } from "@tailor-platform/styled-system/jsx";
 import { Button, ButtonProps } from "@tailor-platform/design-systems";

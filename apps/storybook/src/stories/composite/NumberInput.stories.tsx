@@ -3,7 +3,6 @@ import {
   NumberInput,
   type NumberInputProps,
 } from "@tailor-platform/design-systems";
-
 import { numberInputTypes } from "../../ark-types";
 
 const meta = {

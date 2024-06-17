@@ -1,8 +1,6 @@
 import { Tabs, type TabsRootProps } from "@ark-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
-
 import { tabs } from "@tailor-platform/styled-system/recipes";
-
 import { tabsTypes } from "../../ark-types";
 
 Tabs.Indicator.displayName = "TabIndicator";
