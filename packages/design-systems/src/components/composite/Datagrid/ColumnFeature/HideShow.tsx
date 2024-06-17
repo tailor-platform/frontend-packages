@@ -12,6 +12,7 @@ import { Checkbox } from "../../../Checkbox";
 import { Box } from "../../../patterns/Box";
 import { Flex } from "../../../patterns/Flex";
 import { addEventOutside } from "../addEventOutside";
+import { useGetBoxPosition } from "../useGetBoxPosition";
 import type {
   HideShowOptions,
   HideShowProps,
@@ -20,7 +21,6 @@ import type {
 import { HStack } from "@components/patterns/HStack";
 import { Text } from "@components/Text";
 import { LOCALIZATION_EN } from "@locales";
-import { useGetBoxPosition } from "../useGetBoxPosition";
 
 export const HideShow = <TData extends Record<string, unknown>>(
   props: HideShowProps<TData>,

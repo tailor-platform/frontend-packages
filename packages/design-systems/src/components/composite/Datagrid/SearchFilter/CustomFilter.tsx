@@ -8,6 +8,7 @@ import { FilterIcon } from "lucide-react";
 import { addEventOutside } from "../addEventOutside";
 import { Box } from "../../../patterns/Box";
 import { Button } from "../../../Button";
+import { useGetBoxPosition } from "../useGetBoxPosition";
 import type {
   CustomFilterOptions,
   CustomFilterProps,
@@ -19,7 +20,6 @@ import { useCustomFilter } from "./useCustomFilter";
 import { HStack } from "@components/patterns/HStack";
 import { Text } from "@components/Text";
 import { LOCALIZATION_EN } from "@locales";
-import { useGetBoxPosition } from "../useGetBoxPosition";
 
 export const CustomFilter = <TData extends Record<string, unknown>>(
   props: CustomFilterProps<TData>,

@@ -1,11 +1,4 @@
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-  useRef,
-  CSSProperties,
-} from "react";
+import { useCallback, useEffect, useMemo, useState, useRef } from "react";
 import type { GraphQLQueryFilter } from "..";
 import type { Column } from "../types";
 import { jointConditions } from "./filter";
