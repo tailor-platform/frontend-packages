@@ -132,6 +132,11 @@ export const useCustomFilter = <TData>({
   const [filterRows, setFilterRows] =
     useState<FilterRowData[]>(initialFilterRows());
 
+  const onChangeHandler = useCallback((filterRows: FilterRowData[]) => {
+    const filter = generateFilter(filterRows);
+    onChange(filter);
+  }, []);
+
   /**
    * This will delete the filter row from filterRows.
    */
@@ -142,8 +147,7 @@ export const useCustomFilter = <TData>({
           return rowIndex !== row.index;
         });
       });
-      const filter = generateFilter(filterRows);
-      onChange(filter);
+      onChangeHandler(filterRows);
     },
     [],
   );
@@ -154,8 +158,7 @@ export const useCustomFilter = <TData>({
   const resetFilterHandler = useCallback(() => {
     setFilterRows(initialFilterRows);
     setSelectedJointCondition(undefined);
-    const filter = generateFilter(initialFilterRows());
-    onChange(filter);
+    onChangeHandler(initialFilterRows());
   }, [initialFilterRows]);
 
   /**
@@ -165,13 +168,11 @@ export const useCustomFilter = <TData>({
     const emptyRow = [newEmptyRow({ index: 0, isChangeable: true })];
     setFilterRows(emptyRow);
     setSelectedJointCondition(undefined);
-    const filter = generateFilter(emptyRow);
-    onChange(filter);
+    onChangeHandler(emptyRow);
   }, [newEmptyRow]);
 
   const applyFilterHandler = useCallback(() => {
-    const filter = generateFilter(filterRows);
-    onChange(filter);
+    onChangeHandler(filterRows);
   }, [filterRows, generateFilter, onChange]);
   /**
    * This will add new item to filterRows data state.
@@ -190,8 +191,7 @@ export const useCustomFilter = <TData>({
   }, [newEmptyRow, selectedJointCondition]);
 
   useEffect(() => {
-    const filter = generateFilter(filterRows);
-    onChange(filter);
+    onChangeHandler(filterRows);
   }, []);
 
   const filterChangedHandler = useCallback(
