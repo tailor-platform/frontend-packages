@@ -21,6 +21,7 @@ export const LOCALIZATION_JA: Localization = {
     filterLabel: "フィルタ",
     filterResetLabel: "追加したフィルタを削除",
     filterClearLabel: "全てのフィルタを削除",
+    filterApplyLabel: "フィルタの適用",
     addNewFilterLabel: "条件追加",
     jointConditionLabel: "合致条件",
     jointConditionPlaceholder: "合致条件を選択",

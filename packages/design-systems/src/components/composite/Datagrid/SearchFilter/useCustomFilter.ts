@@ -162,6 +162,10 @@ export const useCustomFilter = <TData>({
     setSelectedJointCondition(undefined);
   }, [newEmptyRow]);
 
+  const applyFilterHandler = useCallback(() => {
+    const filter = generateFilter(filterRows);
+    onChange(filter);
+  }, [filterRows, generateFilter, onChange]);
   /**
    * This will add new item to filterRows data state.
    */
@@ -178,22 +182,10 @@ export const useCustomFilter = <TData>({
     });
   }, [newEmptyRow, selectedJointCondition]);
 
-  const [prevFilter, setPrevFilter] = useState<GraphQLQueryFilter | undefined>(
-    {},
-  );
-
-  /**
-   * This will bubble up the GraphQLQueryFilter to the parent component.
-   */
   useEffect(() => {
     const filter = generateFilter(filterRows);
-
-    if (JSON.stringify(prevFilter) !== JSON.stringify(filter)) {
-      onChange(filter);
-      setPrevFilter(filter);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filterRows]);
+    onChange(filter);
+  }, []);
 
   const filterChangedHandler = useCallback(
     (index: number) => (currentFilter: FilterRowState) => {
@@ -232,6 +224,6 @@ export const useCustomFilter = <TData>({
     addNewFilterRowHandler,
     filterChangedHandler,
     generateGraphQLQueryFilter: generateFilter, // For testing purpose
-    setPrevFilter, // For testing purpose
+    applyFilterHandler,
   };
 };

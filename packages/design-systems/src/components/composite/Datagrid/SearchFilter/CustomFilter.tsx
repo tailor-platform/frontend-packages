@@ -4,6 +4,7 @@ import {
   TableFeature,
   makeStateUpdater,
 } from "@tanstack/react-table";
+import { css } from "@tailor-platform/styled-system/css";
 import { FilterIcon } from "lucide-react";
 import { addEventOutside } from "../addEventOutside";
 import { Box } from "../../../patterns/Box";
@@ -43,6 +44,7 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
     clearFilterHandler,
     addNewFilterRowHandler,
     filterChangedHandler,
+    applyFilterHandler,
   } = useCustomFilter({
     columns,
     onChange,
@@ -109,11 +111,23 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
             {localization.filter.filterClearLabel}
           </Button>
         )}
+        <Button
+          variant="primary"
+          size="sm"
+          onClick={applyFilterHandler}
+          data-testid={"filter-apply-button"}
+          style={{ float: "right", marginTop: "16px" }}
+        >
+          {localization.filter.filterApplyLabel}
+        </Button>
         <Box
           flex={1}
           display={"flex"}
           flexDirection={"column"}
           alignItems={"flex-end"}
+          style={{
+            marginTop: "24px",
+          }}
         >
           {filterRows.map((row, i) => {
             return (

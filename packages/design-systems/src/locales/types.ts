@@ -7,6 +7,7 @@ export interface Localization {
     filterLabel: string;
     filterResetLabel: string;
     filterClearLabel: string;
+    filterApplyLabel: string;
     addNewFilterLabel: string;
     jointConditionLabel: string;
     jointConditionPlaceholder: string;
