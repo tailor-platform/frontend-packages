@@ -200,7 +200,7 @@ export const newColumnBuilder = <TData extends Record<string, unknown>>() => {
       };
     },
 
-    dateTime: <Key extends keyof TData>(
+    dateTime: <Key extends NestedKeyOf<TData>>(
       key: Key,
       header: string,
       options?: KeyedColumnOptions<TData>,
