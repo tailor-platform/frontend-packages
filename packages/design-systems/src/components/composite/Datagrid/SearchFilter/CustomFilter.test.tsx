@@ -1129,6 +1129,51 @@ describe(
         expect(currentFilters).toEqual(undefined);
       });
     });
+
+    it("When defaultFilter is set, filterBadge show that numberOfSearchConditions is 1", async () => {
+      render(<DataGridWithFilterWithDefaultFilter />);
+      await waitFor(() => {
+        expect(screen.getByTestId("filter-badge")).toHaveTextContent("1");
+      });
+    });
+
+    it("When defaultFilter is not set, filterBadge is hidden", async () => {
+      render(<DataGridWithFilter />);
+      const filterBadge = screen.getByTestId("filter-badge");
+      await waitFor(() => {
+        expect(filterBadge).toHaveStyle({
+          visibility: "hidden",
+        });
+      });
+    });
+
+    it("filterBadge show numberOfSearchConditions correctly", async () => {
+      render(<DataGridWithFilterWithDefaultFilter />);
+
+      const user = userEvent.setup();
+
+      // Open filter
+      await user.click(await screen.findByTestId("datagrid-filter-button"));
+
+      //Select joint condition
+      await selectJointCondition(screen, user, 1, "AND");
+      //Select column
+      await selectColumn(screen, user, 1, "Status");
+      //Select condition
+      await selectCondition(screen, user, 1, "等しい");
+      //Select value
+      await selectValue(screen, user, 1, "pending");
+
+      await waitFor(() => {
+        expect(screen.getByTestId("filter-badge")).toHaveTextContent("2");
+      });
+
+      // Reset filter
+      await user.click(await screen.findByTestId("reset-filter-button"));
+      await waitFor(() => {
+        expect(screen.getByTestId("filter-badge")).toHaveTextContent("1");
+      });
+    });
   },
 
   { timeout: 10000 },

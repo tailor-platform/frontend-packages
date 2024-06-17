@@ -77,20 +77,19 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
           ref={filterButtonRef}
           data-testid="datagrid-filter-button"
         >
-          {numberOfSearchConditions === 0 ? null : (
-            <Badge
-              variant="info"
-              style={{
-                zIndex: 2,
-                position: "absolute",
-                top: -6,
-                left: -4,
-              }}
-              data-testid="datagrid-filter-badge"
-            >
-              {numberOfSearchConditions}
-            </Badge>
-          )}
+          <Badge
+            variant="info"
+            style={{
+              zIndex: 2,
+              position: "absolute",
+              top: -6,
+              left: -4,
+              visibility: numberOfSearchConditions !== 0 ? "visible" : "hidden",
+            }}
+            data-testid="filter-badge"
+          >
+            {numberOfSearchConditions}
+          </Badge>
           <FilterIcon width={20} height={20} />
           <Text marginLeft={2}>{localization.filter.filterLabel}</Text>
         </Button>
