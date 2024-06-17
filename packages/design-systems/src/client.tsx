@@ -17,6 +17,7 @@ export {
   type QueryRow,
   type Order,
   type Columns,
+  type ApplicableType,
   useDataGrid,
   newColumnBuilder,
   newFilterBuilder,
