@@ -44,6 +44,7 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
     clearFilterHandler,
     addNewFilterRowHandler,
     filterChangedHandler,
+    numberOfSearchConditions,
   } = useCustomFilter({
     columns,
     onChange,
@@ -76,18 +77,20 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
           ref={filterButtonRef}
           data-testid="datagrid-filter-button"
         >
-          <Badge
-            variant="info"
-            style={{
-              zIndex: 2,
-              position: "absolute",
-              top: -6,
-              left: -4,
-            }}
-            data-testid="datagrid-filter-badge"
-          >
-            1
-          </Badge>
+          {numberOfSearchConditions === 0 ? null : (
+            <Badge
+              variant="info"
+              style={{
+                zIndex: 2,
+                position: "absolute",
+                top: -6,
+                left: -4,
+              }}
+              data-testid="datagrid-filter-badge"
+            >
+              {numberOfSearchConditions}
+            </Badge>
+          )}
           <FilterIcon width={20} height={20} />
           <Text marginLeft={2}>{localization.filter.filterLabel}</Text>
         </Button>
