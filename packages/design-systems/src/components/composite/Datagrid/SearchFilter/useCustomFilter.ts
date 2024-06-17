@@ -142,6 +142,8 @@ export const useCustomFilter = <TData>({
           return rowIndex !== row.index;
         });
       });
+      const filter = generateFilter(filterRows);
+      onChange(filter);
     },
     [],
   );
@@ -152,14 +154,19 @@ export const useCustomFilter = <TData>({
   const resetFilterHandler = useCallback(() => {
     setFilterRows(initialFilterRows);
     setSelectedJointCondition(undefined);
+    const filter = generateFilter(initialFilterRows());
+    onChange(filter);
   }, [initialFilterRows]);
 
   /**
    * This will reset the filterRows data state.
    */
   const clearFilterHandler = useCallback(() => {
-    setFilterRows([newEmptyRow({ index: 0, isChangeable: true })]);
+    const emptyRow = [newEmptyRow({ index: 0, isChangeable: true })];
+    setFilterRows(emptyRow);
     setSelectedJointCondition(undefined);
+    const filter = generateFilter(emptyRow);
+    onChange(filter);
   }, [newEmptyRow]);
 
   const applyFilterHandler = useCallback(() => {
