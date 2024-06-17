@@ -32,13 +32,20 @@ type FilterOp<MetaTypes extends Record<string, ApplicableType>> = Partial<{
                 : StringOp;
 }>;
 
+type ChainableFilter<
+  TData extends Record<string, unknown>,
+  C extends Columns<TData>,
+> =
+  | ConjunctiveFilter<TData, C, FilterOp<ExtractMetaType<TData, C>>>
+  | BuildableFilter<TData, C, FilterOp<ExtractMetaType<TData, C>>>;
+
 type JointCondition<
   TData extends Record<string, unknown>,
   C extends Columns<TData>,
   F extends Exact<FilterOp<ExtractMetaType<TData, C>>, F>,
 > = {
   mode: "and" | "or";
-  filters: Array<ConjunctiveFilter<TData, C, F> | BuildableFilter<TData, C, F>>;
+  filters: Array<ChainableFilter<TData, C>>;
 };
 
 class BuildableFilter<
@@ -81,13 +88,6 @@ class BuildableFilter<
     );
   }
 }
-
-type ChainableFilter<
-  TData extends Record<string, unknown>,
-  C extends Columns<TData>,
-> =
-  | ConjunctiveFilter<TData, C, FilterOp<ExtractMetaType<TData, C>>>
-  | BuildableFilter<TData, C, FilterOp<ExtractMetaType<TData, C>>>;
 
 /**
  * ConjunctiveFilter is a class that can be chained with and/or
