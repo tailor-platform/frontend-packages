@@ -1,4 +1,3 @@
-import { User } from "lucide-react";
 import { describe, expect, test } from "vitest";
 import { screen, render } from "@testing-library/react";
 import { buildColumns, newColumnBuilder } from "./column";
@@ -8,9 +7,13 @@ import { DataGrid } from ".";
 type User = {
   id: string;
   name: string;
-  age: number;
+  age?: number | null;
   category: string;
   email: string;
+  address?: {
+    city: string;
+    country: string;
+  } | null;
 };
 
 const columnBuilder = newColumnBuilder<User>();
@@ -38,6 +41,7 @@ const columns = [
       return <div>Email: ${props.getValue() as string}</div>;
     },
   }),
+  columnBuilder.string("address.city", "City"),
   columnBuilder.custom("operation", "操作", {
     size: 60,
     render: () => {
@@ -108,6 +112,15 @@ describe("buildColumns", () => {
         header: "Email",
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         cell: expect.any(Function),
+        size: undefined,
+        meta: {
+          type: "string",
+          enumType: undefined,
+        },
+      },
+      {
+        accessorKey: "address.city",
+        header: "City",
         size: undefined,
         meta: {
           type: "string",

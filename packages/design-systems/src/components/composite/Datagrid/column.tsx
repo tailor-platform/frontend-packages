@@ -1,6 +1,37 @@
 import { CellContext, ColumnDef } from "@tanstack/table-core";
 import { Checkbox } from "../../Checkbox";
 
+type Maybe<T> = T | null | undefined;
+
+/**
+ * Utility type to extract nested keys from a nested object.
+ *
+ * For example, given the following type:
+ *
+ * ```
+ * type User = {
+ *   id: string;
+ *   name: string;
+ *   address?: {
+ *     city: string;
+ *   } | null;
+ * }
+ * ```
+ *
+ * The `NestedKeyOf<User>` will be:
+ * - `id`
+ * - `name`
+ * - `address`
+ * - `address.city`
+ */
+type NestedKeyOf<T extends Record<string, unknown>> = {
+  [K in keyof T & string]: T[K] extends Maybe<Record<string, unknown>>
+    ? T[K] extends Maybe<Record<string, unknown>>
+      ? `${K}.${NestedKeyOf<NonNullable<T[K]>>}`
+      : K
+    : K;
+}[keyof T & string];
+
 type ColumnMeta =
   | {
       type:
@@ -25,7 +56,7 @@ type CommonColumn = {
   header: string;
 };
 type KeyedColumn<TData extends Record<string, unknown>> = CommonColumn & {
-  key: keyof TData;
+  key: NestedKeyOf<TData>;
   meta: ColumnMeta;
   options?: KeyedColumnOptions<TData>;
 };
@@ -48,7 +79,7 @@ export type Columns<TData extends Record<string, unknown>> = ReadonlyArray<
 
 export const newColumnBuilder = <TData extends Record<string, unknown>>() => {
   return {
-    string: <Key extends keyof TData>(
+    string: <Key extends NestedKeyOf<TData>>(
       key: Key,
       header: string,
       options?: KeyedColumnOptions<TData>,
@@ -65,7 +96,7 @@ export const newColumnBuilder = <TData extends Record<string, unknown>>() => {
       };
     },
 
-    uuid: <Key extends keyof TData>(
+    uuid: <Key extends NestedKeyOf<TData>>(
       key: Key,
       header: string,
       options?: KeyedColumnOptions<TData>,
@@ -82,7 +113,7 @@ export const newColumnBuilder = <TData extends Record<string, unknown>>() => {
       };
     },
 
-    number: <Key extends keyof TData>(
+    number: <Key extends NestedKeyOf<TData>>(
       key: Key,
       header: string,
       options?: KeyedColumnOptions<TData>,
@@ -99,7 +130,7 @@ export const newColumnBuilder = <TData extends Record<string, unknown>>() => {
       };
     },
 
-    enum: <Key extends keyof TData>(
+    enum: <Key extends NestedKeyOf<TData>>(
       key: Key,
       header: string,
       values: Record<string, string>,
@@ -118,7 +149,7 @@ export const newColumnBuilder = <TData extends Record<string, unknown>>() => {
       };
     },
 
-    boolean: <Key extends keyof TData>(
+    boolean: <Key extends NestedKeyOf<TData>>(
       key: Key,
       header: string,
       options?: KeyedColumnOptions<TData>,
@@ -135,7 +166,7 @@ export const newColumnBuilder = <TData extends Record<string, unknown>>() => {
       };
     },
 
-    date: <Key extends keyof TData>(
+    date: <Key extends NestedKeyOf<TData>>(
       key: Key,
       header: string,
       options?: KeyedColumnOptions<TData>,
@@ -152,7 +183,7 @@ export const newColumnBuilder = <TData extends Record<string, unknown>>() => {
       };
     },
 
-    time: <Key extends keyof TData>(
+    time: <Key extends NestedKeyOf<TData>>(
       key: Key,
       header: string,
       options?: KeyedColumnOptions<TData>,
