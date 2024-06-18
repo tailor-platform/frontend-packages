@@ -210,18 +210,32 @@ importers:
       next:
         specifier: ^v14
 <<<<<<< HEAD
+<<<<<<< HEAD
         version: 14.1.0(@babel/core@7.23.7)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
 ||||||| parent of 4eccfde (chore(ds): use Exact type for type-safety)
         version: 14.1.0(@babel/core@7.24.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
 =======
 <<<<<<< HEAD
+||||||| parent of d7259e6 (chore(ds): fix lockfile)
+<<<<<<< HEAD
+=======
+>>>>>>> d7259e6 (chore(ds): fix lockfile)
         version: 14.1.0(@babel/core@7.24.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+<<<<<<< HEAD
 ||||||| parent of 3e0b086 (chore(ds): use Exact type for type-safety)
         version: 14.1.0(@babel/core@7.23.7)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
 =======
         version: 14.1.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
 >>>>>>> 3e0b086 (chore(ds): use Exact type for type-safety)
 >>>>>>> 4eccfde (chore(ds): use Exact type for type-safety)
+||||||| parent of d7259e6 (chore(ds): fix lockfile)
+||||||| parent of 3e0b086 (chore(ds): use Exact type for type-safety)
+        version: 14.1.0(@babel/core@7.23.7)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+=======
+        version: 14.1.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+>>>>>>> 3e0b086 (chore(ds): use Exact type for type-safety)
+=======
+>>>>>>> d7259e6 (chore(ds): fix lockfile)
     devDependencies:
       '@swc/core':
         specifier: ^1.4.12
@@ -19533,18 +19547,32 @@ snapshots:
   neo-async@2.6.2: {}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   next@14.1.0(@babel/core@7.23.7)(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
 ||||||| parent of 4eccfde (chore(ds): use Exact type for type-safety)
   next@14.1.0(@babel/core@7.24.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
 =======
 <<<<<<< HEAD
+||||||| parent of d7259e6 (chore(ds): fix lockfile)
+<<<<<<< HEAD
+=======
+>>>>>>> d7259e6 (chore(ds): fix lockfile)
   next@14.1.0(@babel/core@7.24.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+<<<<<<< HEAD
 ||||||| parent of 3e0b086 (chore(ds): use Exact type for type-safety)
   next@14.1.0(@babel/core@7.23.7)(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
 =======
   next@14.1.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
 >>>>>>> 3e0b086 (chore(ds): use Exact type for type-safety)
 >>>>>>> 4eccfde (chore(ds): use Exact type for type-safety)
+||||||| parent of d7259e6 (chore(ds): fix lockfile)
+||||||| parent of 3e0b086 (chore(ds): use Exact type for type-safety)
+  next@14.1.0(@babel/core@7.23.7)(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+=======
+  next@14.1.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+>>>>>>> 3e0b086 (chore(ds): use Exact type for type-safety)
+=======
+>>>>>>> d7259e6 (chore(ds): fix lockfile)
     dependencies:
       '@next/env': 14.1.0
       '@swc/helpers': 0.5.2
@@ -19555,18 +19583,32 @@ snapshots:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
 <<<<<<< HEAD
+<<<<<<< HEAD
       styled-jsx: 5.1.1(@babel/core@7.23.7)(react@18.2.0)
 ||||||| parent of 4eccfde (chore(ds): use Exact type for type-safety)
       styled-jsx: 5.1.1(@babel/core@7.24.5)(react@18.2.0)
 =======
 <<<<<<< HEAD
+||||||| parent of d7259e6 (chore(ds): fix lockfile)
+<<<<<<< HEAD
+=======
+>>>>>>> d7259e6 (chore(ds): fix lockfile)
       styled-jsx: 5.1.1(@babel/core@7.24.5)(react@18.2.0)
+<<<<<<< HEAD
 ||||||| parent of 3e0b086 (chore(ds): use Exact type for type-safety)
       styled-jsx: 5.1.1(@babel/core@7.23.7)(react@18.2.0)
 =======
       styled-jsx: 5.1.1(react@18.2.0)
 >>>>>>> 3e0b086 (chore(ds): use Exact type for type-safety)
 >>>>>>> 4eccfde (chore(ds): use Exact type for type-safety)
+||||||| parent of d7259e6 (chore(ds): fix lockfile)
+||||||| parent of 3e0b086 (chore(ds): use Exact type for type-safety)
+      styled-jsx: 5.1.1(@babel/core@7.23.7)(react@18.2.0)
+=======
+      styled-jsx: 5.1.1(react@18.2.0)
+>>>>>>> 3e0b086 (chore(ds): use Exact type for type-safety)
+=======
+>>>>>>> d7259e6 (chore(ds): fix lockfile)
     optionalDependencies:
       '@next/swc-darwin-arm64': 14.1.0
       '@next/swc-darwin-x64': 14.1.0
@@ -20943,22 +20985,35 @@ snapshots:
       peek-readable: 5.0.0
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   styled-jsx@5.1.1(@babel/core@7.23.7)(react@18.2.0):
 ||||||| parent of 4eccfde (chore(ds): use Exact type for type-safety)
   styled-jsx@5.1.1(@babel/core@7.24.5)(react@18.2.0):
 =======
 <<<<<<< HEAD
+||||||| parent of d7259e6 (chore(ds): fix lockfile)
+<<<<<<< HEAD
+=======
+>>>>>>> d7259e6 (chore(ds): fix lockfile)
   styled-jsx@5.1.1(@babel/core@7.24.5)(react@18.2.0):
+<<<<<<< HEAD
 ||||||| parent of 3e0b086 (chore(ds): use Exact type for type-safety)
   styled-jsx@5.1.1(@babel/core@7.23.7)(react@18.2.0):
 =======
   styled-jsx@5.1.1(react@18.2.0):
 >>>>>>> 3e0b086 (chore(ds): use Exact type for type-safety)
 >>>>>>> 4eccfde (chore(ds): use Exact type for type-safety)
+||||||| parent of d7259e6 (chore(ds): fix lockfile)
+||||||| parent of 3e0b086 (chore(ds): use Exact type for type-safety)
+  styled-jsx@5.1.1(@babel/core@7.23.7)(react@18.2.0):
+=======
+  styled-jsx@5.1.1(react@18.2.0):
+>>>>>>> 3e0b086 (chore(ds): use Exact type for type-safety)
+=======
+>>>>>>> d7259e6 (chore(ds): fix lockfile)
     dependencies:
       client-only: 0.0.1
       react: 18.2.0
-<<<<<<< HEAD
     optionalDependencies:
 <<<<<<< HEAD
       '@babel/core': 7.23.7
@@ -20966,12 +21021,21 @@ snapshots:
       '@babel/core': 7.24.5
 =======
       '@babel/core': 7.24.5
+<<<<<<< HEAD
 ||||||| parent of 3e0b086 (chore(ds): use Exact type for type-safety)
     optionalDependencies:
       '@babel/core': 7.23.7
 =======
 >>>>>>> 3e0b086 (chore(ds): use Exact type for type-safety)
 >>>>>>> 4eccfde (chore(ds): use Exact type for type-safety)
+||||||| parent of d7259e6 (chore(ds): fix lockfile)
+||||||| parent of 3e0b086 (chore(ds): use Exact type for type-safety)
+    optionalDependencies:
+      '@babel/core': 7.23.7
+=======
+>>>>>>> 3e0b086 (chore(ds): use Exact type for type-safety)
+=======
+>>>>>>> d7259e6 (chore(ds): fix lockfile)
 
   sucrase@3.35.0:
     dependencies:
