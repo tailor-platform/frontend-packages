@@ -20,9 +20,12 @@ const columnBuilder = newColumnBuilder<User>();
 const columns = [
   columnBuilder.string("name", "名前", {
     size: 120,
+    maxSize: 200,
   }),
   columnBuilder.number("age", "年齢", {
     size: 100,
+    maxSize: 150,
+    resizable: true,
   }),
   columnBuilder.enum(
     "category",
@@ -33,7 +36,7 @@ const columns = [
       CATEGORY3: "Category 3",
     },
     {
-      size: 80,
+      maxSize: 80,
     },
   ),
   columnBuilder.string("email", "Email", {
@@ -78,8 +81,10 @@ describe("buildColumns", () => {
     expect(buildColumns(columns)).toStrictEqual([
       {
         accessorKey: "name",
+        enableResizing: undefined,
         header: "名前",
         size: 120,
+        maxSize: 200,
         meta: {
           type: "string",
           enumType: undefined,
@@ -87,8 +92,10 @@ describe("buildColumns", () => {
       },
       {
         accessorKey: "age",
+        enableResizing: true,
         header: "年齢",
         size: 100,
+        maxSize: 150,
         meta: {
           type: "number",
           enumType: undefined,
@@ -96,8 +103,10 @@ describe("buildColumns", () => {
       },
       {
         accessorKey: "category",
+        enableResizing: undefined,
         header: "カテゴリ",
-        size: 80,
+        size: undefined,
+        maxSize: 80,
         meta: {
           type: "enum",
           enumType: {
@@ -113,6 +122,8 @@ describe("buildColumns", () => {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         cell: expect.any(Function),
         size: undefined,
+        maxSize: undefined,
+        enableResizing: undefined,
         meta: {
           type: "string",
           enumType: undefined,
@@ -122,6 +133,8 @@ describe("buildColumns", () => {
         accessorKey: "address.city",
         header: "City",
         size: undefined,
+        maxSize: undefined,
+        enableResizing: undefined,
         meta: {
           type: "string",
           enumType: undefined,
@@ -133,6 +146,8 @@ describe("buildColumns", () => {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         cell: expect.any(Function),
         size: 60,
+        maxSize: undefined,
+        enableResizing: undefined,
       },
     ]);
   });

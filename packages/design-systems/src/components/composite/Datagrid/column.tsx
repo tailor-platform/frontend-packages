@@ -56,7 +56,7 @@ type ColumnMeta =
 type CommonColumnOptions = {
   size?: number;
   maxSize?: number;
-  resizing?: boolean;
+  resizable?: boolean;
 };
 type CommonColumn = {
   header: string;
@@ -351,7 +351,7 @@ export const buildColumns = <TData extends Record<string, unknown>>(
       header: column.header,
       size: column.options?.size,
       maxSize: column.options?.maxSize,
-      enableResizing: column.options?.resizing,
+      enableResizing: column.options?.resizable,
       meta: {
         type: column.meta.type,
         enumType:
@@ -373,8 +373,8 @@ export const buildColumns = <TData extends Record<string, unknown>>(
       id: column.id,
       header: column.header,
       size: column.options?.size,
-      maxSize: column.options?.size,
-      enableResizing: column.options?.resizing,
+      maxSize: column.options?.maxSize,
+      enableResizing: column.options?.resizable,
       cell: column.options?.render,
     };
 
