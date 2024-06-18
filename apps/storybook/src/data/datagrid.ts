@@ -2,8 +2,8 @@
  * This file will contain the data used in datagrid story
  */
 
-import { Payment, PaymentStatus } from "../types/datagrid";
 import { newColumnBuilder } from "@tailor-platform/design-systems/client";
+import { Payment, PaymentStatus } from "../types/datagrid";
 
 const columnBuilder = newColumnBuilder<Payment>();
 export const COLUMNS = [
