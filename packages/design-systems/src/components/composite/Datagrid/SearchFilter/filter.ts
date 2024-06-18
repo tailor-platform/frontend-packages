@@ -1,5 +1,5 @@
-import type { ApplicableType, JointCondition } from "./types";
 import type { Localization } from "@locales/types";
+import type { ApplicableType, JointCondition } from "./types";
 
 const GraphQLFilterOperator = {
   EQUAL: "eq",

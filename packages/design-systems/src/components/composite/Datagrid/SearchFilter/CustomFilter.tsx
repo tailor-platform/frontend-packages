@@ -5,6 +5,9 @@ import {
   makeStateUpdater,
 } from "@tanstack/react-table";
 import { FilterIcon } from "lucide-react";
+import { HStack } from "@components/patterns/HStack";
+import { Text } from "@components/Text";
+import { LOCALIZATION_EN } from "@locales";
 import { addEventOutside } from "../addEventOutside";
 import { Box } from "../../../patterns/Box";
 import { Button } from "../../../Button";
@@ -17,9 +20,6 @@ import type {
 } from "./types";
 import { FilterRow } from "./FilterRow";
 import { useCustomFilter } from "./useCustomFilter";
-import { HStack } from "@components/patterns/HStack";
-import { Text } from "@components/Text";
-import { LOCALIZATION_EN } from "@locales";
 
 export const CustomFilter = <TData extends Record<string, unknown>>(
   props: CustomFilterProps<TData>,

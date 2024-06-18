@@ -6,11 +6,11 @@ import {
   density as densityRecipe,
   type DatagridVariantProps,
 } from "@tailor-platform/styled-system/recipes";
+import { LOCALIZATION_EN } from "@locales";
 import { DataGridInstance } from "../types";
 import { TableHead as Root } from "../../../Table";
 import { SortingColumn } from "./Sorting";
 import { PinnedColumn, getCommonPinningStyles } from "./PinnedColumn";
-import { LOCALIZATION_EN } from "@locales";
 
 type TableHeadProps<TData extends Record<string, unknown>> = {
   header: Header<TData, unknown>;
