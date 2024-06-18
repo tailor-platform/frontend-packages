@@ -1,4 +1,9 @@
-import { CellContext, ColumnDef } from "@tanstack/table-core";
+import {
+  AccessorColumnDef,
+  CellContext,
+  ColumnDef,
+  DisplayColumnDef,
+} from "@tanstack/table-core";
 import { Checkbox } from "../../Checkbox";
 
 type Maybe<T> = T | null | undefined;
@@ -48,25 +53,13 @@ type ColumnMeta =
       enumType?: Record<string, string>;
     };
 
-type KeyedColumnOptions<TData extends Record<string, unknown>> = {
+type CommonColumnOptions = {
   size?: number;
-  render?: (props: CellContext<TData, unknown>) => React.ReactNode;
+  maxSize?: number;
+  resizing?: boolean;
 };
 type CommonColumn = {
   header: string;
-};
-type KeyedColumn<TData extends Record<string, unknown>> = CommonColumn & {
-  key: NestedKeyOf<TData>;
-  meta: ColumnMeta;
-  options?: KeyedColumnOptions<TData>;
-};
-type IDColumnOptions<TData extends Record<string, unknown>> = {
-  size?: number;
-  render: (props: CellContext<TData, unknown>) => React.ReactNode;
-};
-type IDColumn<TData extends Record<string, unknown>> = CommonColumn & {
-  id: string;
-  options: IDColumnOptions<TData>;
 };
 
 export type Column<TData extends Record<string, unknown>> =
@@ -77,6 +70,56 @@ export type Columns<TData extends Record<string, unknown>> = ReadonlyArray<
   Column<TData>
 >;
 
+/**
+ * KeyedColumn is a column definition that has a key to access the data, even the nested one.
+ * This is finally converted into `AccessorColumnDef` in react-table
+ */
+type KeyedColumn<TData extends Record<string, unknown>> = CommonColumn & {
+  key: NestedKeyOf<TData>;
+  meta: ColumnMeta;
+  options?: KeyedColumnOptions<TData>;
+};
+type KeyedColumnOptions<TData extends Record<string, unknown>> =
+  CommonColumnOptions & {
+    render?: (props: CellContext<TData, unknown>) => React.ReactNode;
+  };
+
+/**
+ * IDColumn is a special column that does not have a key but an ID
+ * This is finally converted into `DisplayColumnDef` in react-table
+ */
+type IDColumn<TData extends Record<string, unknown>> = CommonColumn & {
+  id: string;
+  options: IDColumnOptions<TData>;
+};
+type IDColumnOptions<TData extends Record<string, unknown>> =
+  CommonColumnOptions & {
+    render: (props: CellContext<TData, unknown>) => React.ReactNode;
+  };
+
+/**
+ * newColumnBuilder is a factory function to create a column builder
+ * that provides a type-safe way to define columns for the datagrid.
+ *
+ * The following is an example of how to use the newColumnBuilder:
+ *
+ * ```
+ * type User = {
+ *   name: string;
+ *   age: number | null;
+ * };
+ *
+ * const columnBuilder = newColumnBuilder<User>();
+ * const columns = [
+ *   columnBuilder.string("name", "Name")
+ *   columnBuilder.number("age", "Age")
+ * ]
+ *
+ * const table = useDataGrid({
+ *   columns,
+ * });
+ * ```
+ */
 export const newColumnBuilder = <TData extends Record<string, unknown>>() => {
   return {
     string: <Key extends NestedKeyOf<TData>>(
@@ -261,6 +304,9 @@ export type ExtractMetaType<
     : never;
 };
 
+/**
+ * buildColumns is a utility function to convert the column definitions into the react-table column definitions.
+ */
 export const buildColumns = <TData extends Record<string, unknown>>(
   columns: ReadonlyArray<Column<TData>>,
   enableRowSelection = false,
@@ -297,40 +343,50 @@ export const buildColumns = <TData extends Record<string, unknown>>(
       ]
     : [];
 
-  const r = columns.map((column) => {
-    const columnDef: ColumnDef<TData> =
-      "key" in column
-        ? Object.assign(
-            {
-              accessorKey: column.key,
-              header: column.header,
-              size: column.options?.size,
-              meta: {
-                type: column.meta.type,
-                enumType:
-                  column.meta.type === "enum"
-                    ? column.meta.enumType
-                    : undefined,
-              },
-            },
+  const toReactTableAccessorColumnDef = <C extends KeyedColumn<TData>>(
+    column: C,
+  ) => {
+    const aColumn: AccessorColumnDef<TData> = {
+      accessorKey: column.key,
+      header: column.header,
+      size: column.options?.size,
+      maxSize: column.options?.maxSize,
+      enableResizing: column.options?.resizing,
+      meta: {
+        type: column.meta.type,
+        enumType:
+          column.meta.type === "enum" ? column.meta.enumType : undefined,
+      },
+    };
 
-            // Providing `undefined` to `cell` unexpectedly renders the cell as empty in the type of "boolean"
-            // so we need to omit the `cell` key if the custom renderer is not provided
-            column.options?.render
-              ? {
-                  cell: column.options?.render,
-                }
-              : {},
-          )
-        : {
-            id: column.id,
-            header: column.header,
-            size: column.options?.size,
-            cell: column.options?.render,
-          };
+    // Providing `undefined` to `cell` unexpectedly renders the cell as empty in the type of "boolean"
+    // so we need to omit the `cell` key if the custom renderer is not provided
+    if (column.options?.render) {
+      aColumn.cell = column.options?.render;
+    }
 
-    return columnDef;
-  });
+    return aColumn;
+  };
 
-  return [...checkboxColumn, ...r];
+  const toReactTableDisplayColumnDef = (column: IDColumn<TData>) => {
+    const dColumn: DisplayColumnDef<TData> = {
+      id: column.id,
+      header: column.header,
+      size: column.options?.size,
+      maxSize: column.options?.size,
+      enableResizing: column.options?.resizing,
+      cell: column.options?.render,
+    };
+
+    return dColumn;
+  };
+
+  return [
+    ...checkboxColumn,
+    ...columns.map((column) => {
+      return "key" in column
+        ? toReactTableAccessorColumnDef(column)
+        : toReactTableDisplayColumnDef(column);
+    }),
+  ];
 };
