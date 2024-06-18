@@ -15,9 +15,20 @@ const GraphQLFilterOperator = {
 type FilterCondition = {
   label: string;
   value: (typeof GraphQLFilterOperator)[keyof typeof GraphQLFilterOperator];
-  applicableTypeTypes: ApplicableType[];
+  applicableTypeTypes: readonly ApplicableType[];
   disabled: boolean;
 };
+
+export const applicableTypes = [
+  "uuid",
+  "string",
+  "enum",
+  "time",
+  "dateTime",
+  "date",
+  "number",
+  "boolean",
+] as const;
 
 export const getLocalizedFilterConditions = (
   localization: Localization,
@@ -26,15 +37,7 @@ export const getLocalizedFilterConditions = (
     {
       label: localization.filter.condition.operatorLabel.equal,
       value: GraphQLFilterOperator.EQUAL,
-      applicableTypeTypes: [
-        "string",
-        "enum",
-        "time",
-        "dateTime",
-        "date",
-        "number",
-        "boolean",
-      ],
+      applicableTypeTypes: applicableTypes,
       disabled: false,
     },
     {

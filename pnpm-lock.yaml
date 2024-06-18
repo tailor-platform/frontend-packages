@@ -341,6 +341,9 @@ importers:
       tsup:
         specifier: ^8.0.1
         version: 8.0.1(@swc/core@1.4.12(@swc/helpers@0.5.6))(postcss@8.4.35)(ts-node@10.9.2(@swc/core@1.4.12(@swc/helpers@0.5.6))(@types/node@18.19.2)(typescript@5.3.3))(typescript@5.3.3)
+      type-fest:
+        specifier: ^4.20.0
+        version: 4.20.1
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
@@ -8963,6 +8966,10 @@ packages:
     resolution: {integrity: sha512-ASMgM+Vf2cLwDMt1KXSkMUDSYCxtckDJs8zsaVF/mYteIsiARKCVtyXtcK38mIKbLTctZP8v6GMqdNaeI3fo7g==}
     engines: {node: '>=16'}
 
+  type-fest@4.20.1:
+    resolution: {integrity: sha512-R6wDsVsoS9xYOpy8vgeBlqpdOyzJ12HNfQhC/aAKWM3YoCV9TtunJzh/QpkMgeDhkoynDcw5f1y+qF9yc/HHyg==}
+    engines: {node: '>=16'}
+
   type-is@1.6.18:
     resolution: {integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==}
     engines: {node: '>= 0.6'}
@@ -17335,7 +17342,7 @@ snapshots:
       file-entry-cache: 8.0.0
       find-up: 5.0.0
       glob-parent: 6.0.2
-      ignore: 5.3.0
+      ignore: 5.3.1
       imurmurhash: 0.1.4
       is-glob: 4.0.3
       is-path-inside: 3.0.3
@@ -17840,7 +17847,7 @@ snapshots:
     dependencies:
       '@sindresorhus/merge-streams': 1.0.0
       fast-glob: 3.3.2
-      ignore: 5.3.0
+      ignore: 5.3.1
       path-type: 5.0.0
       slash: 5.1.0
       unicorn-magic: 0.1.0
@@ -21231,6 +21238,8 @@ snapshots:
   type-fest@2.19.0: {}
 
   type-fest@4.13.1: {}
+
+  type-fest@4.20.1: {}
 
   type-is@1.6.18:
     dependencies:

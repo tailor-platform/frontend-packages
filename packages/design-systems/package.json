@@ -1,6 +1,6 @@
 {
   "name": "@tailor-platform/design-systems",
-  "version": "0.31.7",
+  "version": "1.0.0",
   "private": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -67,6 +67,7 @@
     "postcss-cli": "^11.0.0",
     "react": "^18.2.0",
     "tsup": "^8.0.1",
+    "type-fest": "^4.20.0",
     "typescript": "^5.3.3",
     "vite-tsconfig-paths": "^4.3.2",
     "vitest": "^1.6.0",
