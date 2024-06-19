@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { z } from "zod";
-import customParseFormat from "dayjs/plugin/customParseFormat";
+import customParseFormat from "dayjs/plugin/customParseFormat.js";
 
 // `customParseFormat` is plugin required to enable `HH:mm` format
 dayjs.extend(customParseFormat);
