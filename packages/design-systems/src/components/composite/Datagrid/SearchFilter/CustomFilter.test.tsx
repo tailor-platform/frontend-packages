@@ -1205,6 +1205,37 @@ describe(
       await user.click(applyButton);
       expect(await screen.findByTestId("filter-badge")).toHaveTextContent("1");
     });
+
+    it("If don't click apply button and close modal, UI shows prev filterRow", async () => {
+      render(<CustomFilterComponent onFilterChange={() => {}} />);
+
+      const user = userEvent.setup();
+
+      // Open filter
+      await user.click(await screen.findByTestId("datagrid-filter-button"));
+
+      //Select column
+      await selectColumn(screen, user, 0, "Status");
+      //Select condition
+      await selectCondition(screen, user, 0, "等しい");
+      //Select value
+      await selectValue(screen, user, 0, "pending");
+
+      // Close modal
+      await user.click(screen.getByTestId("datagrid-filter-button"));
+
+      // Open filter
+      await user.click(await screen.findByTestId("datagrid-filter-button"));
+
+      // Check filterRow
+      const columnElement = screen.getByTestId("select-column");
+      const conditionElement = screen.getByTestId("select-condition");
+      const valueElement = screen.getByTestId("select-input-value");
+
+      expect(columnElement).not.toEqual("Status");
+      expect(conditionElement).not.toEqual("等しい");
+      expect(valueElement).not.toEqual("pending");
+    });
   },
 
   { timeout: 10000 },

@@ -46,6 +46,7 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
     filterChangedHandler,
     applyFilterHandler,
     numberOfSearchConditions,
+    changePrevFilterRows,
   } = useCustomFilter({
     columns,
     onChange,
@@ -70,10 +71,14 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
             setCustomFilterOpen(!customFilterOpen);
             addEventOutside(
               filterRef,
-              () => setCustomFilterOpen(false),
+              () => {
+                setCustomFilterOpen(false);
+                changePrevFilterRows();
+              },
               filterButtonRef,
               true,
             );
+            changePrevFilterRows();
           }}
           ref={filterButtonRef}
           data-testid="datagrid-filter-button"

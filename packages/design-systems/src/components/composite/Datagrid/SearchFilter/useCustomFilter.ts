@@ -134,6 +134,8 @@ export const useCustomFilter = <TData>({
   const [filterRows, setFilterRows] =
     useState<FilterRowData[]>(initialFilterRows());
 
+  const [prevFilterRows, setPrevFilterRows] = useState<FilterRowData[]>([]);
+
   const onChangeHandler = useCallback(
     (filterRows: FilterRowData[]) => {
       const filter = generateFilter(filterRows);
@@ -176,6 +178,7 @@ export const useCustomFilter = <TData>({
   const applyFilterHandler = useCallback(() => {
     onChangeHandler(filterRows);
     setNumberOfSearchConditions(calcNumberOfSearchConditions());
+    setPrevFilterRows(filterRows);
   }, [filterRows, onChangeHandler]);
   /**
    * This will add new item to filterRows data state.
@@ -196,6 +199,7 @@ export const useCustomFilter = <TData>({
   useEffect(() => {
     onChangeHandler(filterRows);
     setNumberOfSearchConditions(calcNumberOfSearchConditions());
+    setPrevFilterRows(initialFilterRows());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -249,6 +253,13 @@ export const useCustomFilter = <TData>({
     return count;
   }, [filterRows]);
 
+  const changePrevFilterRows = useCallback(() => {
+    if (JSON.stringify(filterRows) === JSON.stringify(prevFilterRows)) {
+      return;
+    }
+    setFilterRows(prevFilterRows);
+  }, [prevFilterRows, filterRows]);
+
   return {
     filterRef,
     filterButtonRef,
@@ -262,5 +273,6 @@ export const useCustomFilter = <TData>({
     generateGraphQLQueryFilter: generateFilter, // For testing purpose
     applyFilterHandler,
     numberOfSearchConditions,
+    changePrevFilterRows,
   };
 };
