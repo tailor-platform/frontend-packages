@@ -221,6 +221,30 @@ export const useCustomFilter = <TData>({
     [],
   );
 
+  const numberOfSearchConditions = useMemo(() => {
+    const isCurrentStateValid = (state: FilterRowData) => {
+      return (
+        state.currentState.column &&
+        state.currentState.condition &&
+        state.currentState.value
+      );
+    };
+    const count = filterRows.reduce((acc, row, index) => {
+      // First row does not have jointCondition
+      if (index === 0) {
+        if (isCurrentStateValid(row)) {
+          return acc + 1;
+        }
+        return acc;
+      }
+      if (isCurrentStateValid(row) && row.currentState.jointCondition) {
+        return acc + 1;
+      }
+      return acc;
+    }, 0);
+    return count;
+  }, [filterRows]);
+
   return {
     filterRef,
     filterButtonRef,
@@ -233,5 +257,6 @@ export const useCustomFilter = <TData>({
     filterChangedHandler,
     generateGraphQLQueryFilter: generateFilter, // For testing purpose
     setPrevFilter, // For testing purpose
+    numberOfSearchConditions,
   };
 };

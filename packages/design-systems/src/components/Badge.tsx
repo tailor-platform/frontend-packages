@@ -2,12 +2,16 @@ import {
   styled,
   type HTMLStyledProps,
 } from "@tailor-platform/styled-system/jsx";
-import { badge } from "@tailor-platform/styled-system/recipes";
+import {
+  badge,
+  type BadgeVariantProps,
+} from "@tailor-platform/styled-system/recipes";
 
-export type BadgeProps = HTMLStyledProps<"div">;
+export type BadgeProps = HTMLStyledProps<"div"> & BadgeVariantProps;
 
 export const Badge = (props: BadgeProps) => {
-  return <styled.div className={badge()} {...props} />;
+  const { variant, ...rest } = props;
+  return <styled.div className={badge({ variant })} {...rest} />;
 };
 
 Badge.displayName = "Badge";

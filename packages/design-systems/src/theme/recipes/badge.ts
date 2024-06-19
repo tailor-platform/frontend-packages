@@ -20,4 +20,17 @@ export const badge = defineRecipe({
     px: "1.5",
     py: "1",
   },
+  defaultVariants: {
+    variant: "error",
+  },
+  variants: {
+    variant: {
+      error: {
+        background: "red.500",
+      },
+      info: {
+        background: "blue.500",
+      },
+    },
+  },
 });
