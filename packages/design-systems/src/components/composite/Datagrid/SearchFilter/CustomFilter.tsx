@@ -4,7 +4,6 @@ import {
   TableFeature,
   makeStateUpdater,
 } from "@tanstack/react-table";
-import { css } from "@tailor-platform/styled-system/css";
 import { FilterIcon } from "lucide-react";
 import { HStack } from "@components/patterns/HStack";
 import { Text } from "@components/Text";
@@ -47,7 +46,6 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
     filterChangedHandler,
     applyFilterHandler,
     numberOfSearchConditions,
-
   } = useCustomFilter({
     columns,
     onChange,

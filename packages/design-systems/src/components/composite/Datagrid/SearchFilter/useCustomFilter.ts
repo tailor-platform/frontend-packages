@@ -132,10 +132,13 @@ export const useCustomFilter = <TData>({
   const [filterRows, setFilterRows] =
     useState<FilterRowData[]>(initialFilterRows());
 
-  const onChangeHandler = useCallback((filterRows: FilterRowData[]) => {
-    const filter = generateFilter(filterRows);
-    onChange(filter);
-  }, []);
+  const onChangeHandler = useCallback(
+    (filterRows: FilterRowData[]) => {
+      const filter = generateFilter(filterRows);
+      onChange(filter);
+    },
+    [generateFilter, onChange],
+  );
 
   /**
    * This will delete the filter row from filterRows.
@@ -170,7 +173,7 @@ export const useCustomFilter = <TData>({
 
   const applyFilterHandler = useCallback(() => {
     onChangeHandler(filterRows);
-  }, [filterRows, generateFilter, onChange]);
+  }, [filterRows, onChangeHandler]);
   /**
    * This will add new item to filterRows data state.
    */
@@ -189,6 +192,7 @@ export const useCustomFilter = <TData>({
 
   useEffect(() => {
     onChangeHandler(filterRows);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const filterChangedHandler = useCallback(
