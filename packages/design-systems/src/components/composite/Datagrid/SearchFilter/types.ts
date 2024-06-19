@@ -1,6 +1,7 @@
 import type { Updater } from "@tanstack/table-core";
 import type { CollectionItem } from "@ark-ui/react";
 import type { Column, DataGridInstance } from "../types";
+import { applicableTypes } from "./filter";
 
 export type ValueChangeDetails<T extends CollectionItem = CollectionItem> = {
   value: string[];
@@ -15,15 +16,7 @@ export type FilterRowState = {
   isChangeable: boolean;
 };
 
-export type ApplicableType =
-  | "string"
-  | "enum"
-  | "time"
-  | "dateTime"
-  | "date"
-  | "number"
-  | "boolean";
-
+export type ApplicableType = (typeof applicableTypes)[number];
 export type JointCondition = {
   label: string;
   value: string;

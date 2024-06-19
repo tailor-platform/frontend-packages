@@ -5,6 +5,7 @@ import { styled } from "@tailor-platform/styled-system/jsx";
 import { select, tagsInput } from "@tailor-platform/styled-system/recipes";
 import { ColumnMeta } from "@tanstack/table-core";
 import { TagsInput as BaseTagsInput } from "@ark-ui/react";
+import { Button } from "@components/Button";
 import type { Column } from "../types";
 import { Box } from "../../../patterns/Box";
 import { Flex } from "../../../patterns/Flex";
@@ -19,7 +20,6 @@ import type {
   JointCondition,
   ValueChangeDetails,
 } from "./types";
-import { Button } from "@components/Button";
 
 const Select = {
   Root: styled(AS.Root),

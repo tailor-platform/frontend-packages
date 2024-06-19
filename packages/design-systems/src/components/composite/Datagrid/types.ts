@@ -1,5 +1,4 @@
 import type {
-  ColumnDef,
   ColumnMeta,
   ColumnPinningState,
   OnChangeFn,
@@ -12,10 +11,11 @@ import type { Localization } from "../../../locales/types";
 import type { ExportState } from "./Export/types";
 import type { GraphQLQueryFilter, QueryRow } from "./SearchFilter/types";
 import type { PageChangeDetails } from "./Pagination/ManualPagination";
+import { Columns } from "./column";
 
 type CommonDatagridProps<TData extends Record<string, unknown>> = {
   localization?: Localization;
-  columns: ColumnDef<TData>[];
+  columns: Columns<TData>;
 
   // Filter
   enableColumnFilters?: boolean;
@@ -74,14 +74,6 @@ export type UseDataGridProps<TData extends Record<string, unknown>> =
     // Export
     exportOptions?: ExportState<TData>;
   };
-
-export type MetaType =
-  | "enum"
-  | "date"
-  | "number"
-  | "string"
-  | "boolean"
-  | "dateTime";
 
 export type Column<TData> = {
   label: string;

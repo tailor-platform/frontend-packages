@@ -6,6 +6,10 @@ import {
 } from "@tanstack/react-table";
 import { css } from "@tailor-platform/styled-system/css";
 import { FilterIcon } from "lucide-react";
+import { HStack } from "@components/patterns/HStack";
+import { Text } from "@components/Text";
+import { LOCALIZATION_EN } from "@locales";
+import { Badge } from "@components/Badge";
 import { addEventOutside } from "../addEventOutside";
 import { Box } from "../../../patterns/Box";
 import { Button } from "../../../Button";
@@ -18,9 +22,6 @@ import type {
 } from "./types";
 import { FilterRow } from "./FilterRow";
 import { useCustomFilter } from "./useCustomFilter";
-import { HStack } from "@components/patterns/HStack";
-import { Text } from "@components/Text";
-import { LOCALIZATION_EN } from "@locales";
 
 export const CustomFilter = <TData extends Record<string, unknown>>(
   props: CustomFilterProps<TData>,
@@ -45,6 +46,8 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
     addNewFilterRowHandler,
     filterChangedHandler,
     applyFilterHandler,
+    numberOfSearchConditions,
+
   } = useCustomFilter({
     columns,
     onChange,
@@ -77,6 +80,19 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
           ref={filterButtonRef}
           data-testid="datagrid-filter-button"
         >
+          <Badge
+            variant="info"
+            style={{
+              zIndex: 2,
+              position: "absolute",
+              top: -6,
+              left: -4,
+              visibility: numberOfSearchConditions !== 0 ? "visible" : "hidden",
+            }}
+            data-testid="filter-badge"
+          >
+            {numberOfSearchConditions}
+          </Badge>
           <FilterIcon width={20} height={20} />
           <Text marginLeft={2}>{localization.filter.filterLabel}</Text>
         </Button>

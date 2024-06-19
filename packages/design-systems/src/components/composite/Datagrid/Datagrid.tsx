@@ -1,6 +1,6 @@
 import { Cell, flexRender } from "@tanstack/react-table";
 import { cx } from "@tailor-platform/styled-system/css";
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import {
   datagrid,
   density as densityRecipe,
@@ -22,7 +22,7 @@ import { CustomFilter } from "./SearchFilter/CustomFilter";
 import { Density } from "./Density/Density";
 import { Export } from "./Export/Export";
 import { ManualPagination, Pagination } from "./Pagination";
-import { Column, type DataGridInstance } from "./types";
+import { type DataGridInstance } from "./types";
 import { TableHead } from "./ColumnFeature/TableHead";
 import { getCommonPinningStyles } from "./ColumnFeature/PinnedColumn";
 
@@ -42,34 +42,28 @@ export const DataGrid = <TData extends Record<string, unknown>>(
     toolButtonSize,
     toolButtonVariant,
   } = props;
-  const [cusotmFilterFields, setCustomFilterFields] = useState<Column<TData>[]>(
-    [],
-  );
   const datagridClasses = datagrid({ size });
 
-  useEffect(() => {
-    //Get header titles from table columns
-    const cusotmFilterFields: Column<TData>[] = table.columns.flatMap(
-      (column) => {
-        if ("accessorKey" in column) {
-          return [
-            {
-              //This is temporary structure, we will change this logic in coming days as required
-              label: column.header as string,
-              value: column.header as string,
-              accessorKey: column.accessorKey as string,
-              disabled: false,
-              meta: column.meta,
-            },
-          ];
-        } else {
+  //Get header titles from table columns
+  const cusotmFilterFields = useMemo(
+    () =>
+      table.columns.flatMap((column) => {
+        if (!("key" in column)) {
           return [];
         }
-      },
-    );
-
-    setCustomFilterFields(cusotmFilterFields);
-  }, [table]);
+        return [
+          {
+            //This is temporary structure, we will change this logic in coming days as required
+            label: column.header,
+            value: column.header,
+            accessorKey: column.key as string,
+            disabled: false,
+            meta: column.meta,
+          },
+        ];
+      }),
+    [table],
+  );
 
   const commonToolButtonProps = {
     table,
@@ -157,13 +151,15 @@ const TableRows = <TData extends Record<string, unknown>>(props: {
         : cell.column.getSize() + 28;
   };
 
-  const renderCell = (cell: Cell<TData, string>) => {
-    if (
-      cell.column.columnDef.meta &&
-      cell.column.columnDef.meta.type === "enum"
-    ) {
+  const renderCell = (cell: Cell<TData, unknown>) => {
+    if (cell.column.columnDef?.meta?.type === "enum") {
       const enumValues = cell.column.columnDef.meta.enumType;
-      return enumValues?.[cell.getValue()];
+      const value = cell.getValue();
+      if (typeof value === "string") {
+        return enumValues?.[value];
+      } else {
+        return flexRender(cell.column.columnDef.cell, cell.getContext());
+      }
     } else {
       return flexRender(cell.column.columnDef.cell, cell.getContext());
     }

@@ -1,9 +1,9 @@
 import "@tanstack/react-table";
-import type { MetaType } from "../Datagrid/types";
 import {
   CustomFilterTableState,
   CustomFilterOptions,
   CustomFilterInstance,
+  ApplicableType,
 } from "./SearchFilter/types";
 import type {
   DensityTableState,
@@ -23,7 +23,7 @@ import type {
 
 declare module "@tanstack/react-table" {
   interface ColumnMeta {
-    type: MetaType;
+    type: ApplicableType;
     enumType?: Record<string, string>;
   }
   interface TableState

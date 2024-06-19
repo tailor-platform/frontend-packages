@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { render, screen, within, waitFor } from "@testing-library/react";
-import { ColumnDef } from "@tanstack/react-table";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
+import { LOCALIZATION_EN } from "@locales";
 import { DataGridInstance, UseDataGridProps } from "../types";
 import { LOCALIZATION_JA } from "../../../../locales/ja";
 import {
@@ -21,9 +21,9 @@ import {
   setFilterChange,
 } from "../utils/test";
 import { DataGrid } from "../Datagrid";
+import { newColumnBuilder } from "../column";
 import { CustomFilter } from "./CustomFilter";
 import type { GraphQLQueryFilter, QueryRow } from "./types";
-import { LOCALIZATION_EN } from "@locales";
 
 /* eslint-disable-next-line @typescript-eslint/no-empty-function */
 window.HTMLElement.prototype.scrollTo = function () {}; //(https://github.com/jsdom/jsdom/issues/1695)
@@ -43,29 +43,11 @@ class MockResizeObserver {
 }
 global.ResizeObserver = MockResizeObserver;
 
-const columnDefs: ColumnDef<Payment>[] = [
-  {
-    accessorKey: "status",
-    header: "Status",
-    meta: {
-      type: "enum",
-      enumType: PaymentStatus,
-    },
-  },
-  {
-    accessorKey: "email",
-    header: "Email",
-    meta: {
-      type: "string",
-    },
-  },
-  {
-    accessorKey: "amount",
-    header: "Amount",
-    meta: {
-      type: "number",
-    },
-  },
+const columnBuilder = newColumnBuilder<Payment>();
+const columnDefs = [
+  columnBuilder.enum("status", "Status", PaymentStatus),
+  columnBuilder.string("email", "Email"),
+  columnBuilder.number("amount", "Amount"),
 ];
 
 type UseDataGridWithFilterProps = {
@@ -1179,6 +1161,44 @@ describe(
         //Wait for the useEffect to update the filters
         expect(currentFilters).toEqual(undefined);
       });
+    });
+
+    it("When defaultFilter is set, filterBadge show that numberOfSearchConditions is 1", async () => {
+      render(<DataGridWithFilterWithDefaultFilter />);
+      await waitFor(() => {
+        expect(screen.getByTestId("filter-badge")).toHaveTextContent("1");
+      });
+    });
+
+    it("When defaultFilter is not set, filterBadge is hidden", async () => {
+      render(<DataGridWithFilter />);
+      expect(await screen.findByTestId("filter-badge")).toHaveStyle({
+        visibility: "hidden",
+      });
+    });
+
+    it("filterBadge show numberOfSearchConditions correctly", async () => {
+      render(<DataGridWithFilterWithDefaultFilter />);
+
+      const user = userEvent.setup();
+
+      // Open filter
+      await user.click(await screen.findByTestId("datagrid-filter-button"));
+
+      //Select joint condition
+      await selectJointCondition(screen, user, 1, "AND");
+      //Select column
+      await selectColumn(screen, user, 1, "Status");
+      //Select condition
+      await selectCondition(screen, user, 1, "等しい");
+      //Select value
+      await selectValue(screen, user, 1, "pending");
+
+      expect(await screen.findByTestId("filter-badge")).toHaveTextContent("2");
+
+      // Reset filter
+      await user.click(await screen.findByTestId("reset-filter-button"));
+      expect(await screen.findByTestId("filter-badge")).toHaveTextContent("1");
     });
   },
 

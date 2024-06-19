@@ -93,9 +93,7 @@ describe("TestForm", () => {
       render(<TestForm />);
       const user = userEvent.setup();
       await user.click(screen.getByRole("button", { name: "Submit" }));
-      await waitFor(() => {
-        expect(screen.getByText("Username is required.")).not.toBeNull();
-      });
+      expect(await screen.findByText("Username is required.")).not.toBeNull();
     });
   });
 });

@@ -1,10 +1,10 @@
 import { act, render, screen, waitFor, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
-import { ColumnDef } from "@tanstack/react-table";
 import { LOCALIZATION_EN } from "../../../../locales/en";
 import { useDataGrid } from "../useDataGrid";
 import { DataGrid } from "../Datagrid";
+import { newColumnBuilder } from "../column";
 import { PinnedColumn } from "./PinnedColumn";
 
 enum PaymentStatus {
@@ -21,29 +21,11 @@ type Payment = {
   email: string;
 };
 
-const columns: ColumnDef<Payment>[] = [
-  {
-    accessorKey: "status",
-    header: "Status",
-    meta: {
-      type: "enum",
-      enumType: PaymentStatus,
-    },
-  },
-  {
-    accessorKey: "email",
-    header: "Email",
-    meta: {
-      type: "string",
-    },
-  },
-  {
-    accessorKey: "amount",
-    header: "Amount",
-    meta: {
-      type: "number",
-    },
-  },
+const columnBuilder = newColumnBuilder<Payment>();
+const columns = [
+  columnBuilder.enum("status", "Status", PaymentStatus),
+  columnBuilder.string("email", "Email"),
+  columnBuilder.number("amount", "Amount"),
 ];
 
 const data: Payment[] = [
@@ -167,8 +149,8 @@ describe("<PinnedColumn />", () => {
     expect(openPinnedColumnModal).toBeInTheDocument();
     await act(() => user.click(openPinnedColumnModal));
 
-    await waitFor(() => expect(screen.getByText("Pinned Right")).toBeVisible());
-    await waitFor(() => expect(screen.getByText("Pinned Left")).toBeVisible());
+    expect(await screen.findByText("Pinned Right")).toBeVisible();
+    expect(await screen.findByText("Pinned Left")).toBeVisible();
   });
 
   it("pinned the 'Status' column to right and pinned the 'Amount' column to left", async () => {
