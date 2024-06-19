@@ -2,7 +2,7 @@ import { renderHook, act, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import { columns } from "../utils/test";
 import { FilterRowData, useCustomFilter } from "./useCustomFilter";
-import { FilterRowState, RootQueryFilter, QueryRow } from "./types";
+import { FilterRowState, RootQueryFilter, QueryFilter } from "./types";
 
 describe("useCustomFilter", () => {
   describe("resetFilterHandler", () => {
@@ -334,7 +334,7 @@ describe("useCustomFilter", () => {
     });
 
     it("works correctly with defaultFilter (and)", async () => {
-      const defaultFilter: QueryRow = {
+      const defaultFilter: QueryFilter = {
         and: [{ amount: { eq: 200 } }, { name: { eq: "test-name" } }],
       };
 
@@ -388,7 +388,7 @@ describe("useCustomFilter", () => {
     });
 
     it("works correctly with defaultFilter (or)", async () => {
-      const defaultFilter: QueryRow = {
+      const defaultFilter: QueryFilter = {
         or: [{ amount: { eq: 200 } }, { name: { eq: "test-name" } }],
       };
 

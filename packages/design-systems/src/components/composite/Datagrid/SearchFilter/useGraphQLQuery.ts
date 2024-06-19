@@ -4,13 +4,13 @@ import { Column } from "../types";
 import {
   ApplicableType,
   FilterRowState,
-  QueryRow,
-  QueryRowValue,
+  QueryFilter,
+  FilterValue,
 } from "./types";
 import { FilterRowData } from "./useCustomFilter";
 
 type UseGraphQLQueryProps<TData> = {
-  systemFilter?: QueryRow;
+  systemFilter?: QueryFilter;
   columns: Array<Column<TData>>;
 };
 
@@ -18,7 +18,7 @@ export const useGraphQLQuery = <TData>(props: UseGraphQLQueryProps<TData>) => {
   const { systemFilter, columns } = props;
 
   const valueConverter = useCallback(
-    (metaType: ApplicableType | undefined, value: QueryRowValue) => {
+    (metaType: ApplicableType | undefined, value: FilterValue) => {
       if (
         value === null ||
         value === undefined ||
@@ -82,12 +82,12 @@ export const useGraphQLQuery = <TData>(props: UseGraphQLQueryProps<TData>) => {
   const convertQueryFilter = useCallback(
     (
       filter: FilterRowState,
-      graphQLQueryObject: QueryRow,
+      graphQLQueryObject: QueryFilter,
       metaType: ApplicableType | undefined,
     ) => {
       const { column, condition, value, jointCondition } = filter;
 
-      const generateGraphQLQueryObject = (value: QueryRowValue) => {
+      const generateGraphQLQueryObject = (value: FilterValue) => {
         return {
           [column]: {
             [condition]: value,
@@ -121,7 +121,7 @@ export const useGraphQLQuery = <TData>(props: UseGraphQLQueryProps<TData>) => {
    */
   const generateFilter = useCallback(
     (currentFilterRows: FilterRowData[]) => {
-      const newGraphQLQueryFilter: QueryRow = {};
+      const newGraphQLQueryFilter: QueryFilter = {};
       currentFilterRows.forEach((row) => {
         if (row.currentState) {
           const { column, condition, value } = row.currentState;

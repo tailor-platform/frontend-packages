@@ -23,7 +23,7 @@ import {
 import { DataGrid } from "../Datagrid";
 import { newColumnBuilder } from "../column";
 import { CustomFilter } from "./CustomFilter";
-import type { RootQueryFilter, QueryRow } from "./types";
+import type { RootQueryFilter, QueryFilter } from "./types";
 
 /* eslint-disable-next-line @typescript-eslint/no-empty-function */
 window.HTMLElement.prototype.scrollTo = function () {}; //(https://github.com/jsdom/jsdom/issues/1695)
@@ -757,10 +757,10 @@ describe(
     it("when user click IN condition, show up TagsInput", async () => {
       let currentFilters: RootQueryFilter | undefined = undefined;
 
-      const systemFilter: QueryRow = {
+      const systemFilter: QueryFilter = {
         updatedAt: { eq: "2024-05-10 12:00:00" },
       };
-      const defaultQuery: QueryRow = {
+      const defaultQuery: QueryFilter = {
         status: { eq: "pending" },
       };
 
@@ -830,10 +830,10 @@ describe(
     it("when user click IN condition, show up TagsInput and delete button work correctly", async () => {
       let currentFilters: RootQueryFilter | undefined = undefined;
 
-      const systemFilter: QueryRow = {
+      const systemFilter: QueryFilter = {
         updatedAt: { eq: "2024-05-10 12:00:00" },
       };
-      const defaultQuery: QueryRow = {
+      const defaultQuery: QueryFilter = {
         status: { eq: "pending" },
       };
 
@@ -897,10 +897,10 @@ describe(
     it("when user click IN condition, show up TagsInput and clear button work correctly", async () => {
       let currentFilters: RootQueryFilter | undefined = undefined;
 
-      const systemFilter: QueryRow = {
+      const systemFilter: QueryFilter = {
         updatedAt: { eq: "2024-05-10 12:00:00" },
       };
-      const defaultQuery: QueryRow = {
+      const defaultQuery: QueryFilter = {
         status: { eq: "pending" },
       };
 
@@ -1044,7 +1044,7 @@ describe(
 
     it("When the default filter for input type is set, when changing the column, the input value is empty", async () => {
       let currentFilters: RootQueryFilter | undefined = undefined;
-      const defaultQuery: QueryRow = {
+      const defaultQuery: QueryFilter = {
         email: { eq: "test@test.com" },
       };
 
@@ -1083,7 +1083,7 @@ describe(
 
     it("When the default filter for input type is set, when clear filter, the input value is empty", async () => {
       let currentFilters: RootQueryFilter | undefined = undefined;
-      const defaultQuery: QueryRow = {
+      const defaultQuery: QueryFilter = {
         email: { eq: "test@test.com" },
       };
 

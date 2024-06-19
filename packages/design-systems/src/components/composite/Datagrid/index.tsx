@@ -3,9 +3,9 @@ export { useDataGrid } from "./useDataGrid";
 export type { DataGridInstance, UseDataGridProps, Order } from "./types";
 export type {
   RootQueryFilter as GraphQLQueryFilter,
-  QueryRow,
-  QueryRowColumn,
-  QueryRowValue,
+  QueryFilter as QueryRow,
+  QueryFilterColumn as QueryRowColumn,
+  FilterValue as QueryRowValue,
   ApplicableType,
 } from "./SearchFilter/types";
 export type { Localization } from "../../../locales/types";

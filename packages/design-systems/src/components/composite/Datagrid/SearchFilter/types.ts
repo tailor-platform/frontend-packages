@@ -10,7 +10,7 @@ export type ValueChangeDetails<T extends CollectionItem = CollectionItem> = {
 
 export type FilterRowState = {
   column: string;
-  value: QueryRowValue;
+  value: FilterValue;
   condition: string;
   jointCondition?: string;
   isChangeable: boolean;
@@ -23,7 +23,7 @@ export type JointCondition = {
   disabled: boolean;
 };
 
-export type QueryRowValue =
+export type FilterValue =
   | string
   | number
   | boolean
@@ -31,21 +31,21 @@ export type QueryRowValue =
   | number[]
   | null
   | undefined;
-export type QueryRowColumn = {
+export type QueryFilterColumn = {
   [column: string]:
     | {
-        [condition: string]: QueryRowValue;
+        [condition: string]: FilterValue;
       }
     | undefined;
 };
-export type QueryRow =
-  | QueryRowColumn
+export type QueryFilter =
+  | QueryFilterColumn
   | {
-      [jointCondition: string]: Array<QueryRowColumn>;
+      [jointCondition: string]: Array<QueryFilterColumn>;
     };
 
 export type RootQueryFilter = {
-  [and: string]: QueryRow;
+  [and: string]: QueryFilter;
 };
 
 export interface CustomFilterTableState {

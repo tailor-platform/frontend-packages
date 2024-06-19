@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState, useRef } from "react";
 import type { GraphQLQueryFilter } from "..";
 import type { Column } from "../types";
 import { jointConditions } from "./filter";
-import { FilterRowState, JointCondition, QueryRow } from "./types";
+import { FilterRowState, JointCondition, QueryFilter } from "./types";
 import { useGraphQLQuery } from "./useGraphQLQuery";
 
 export type FilterRowData = {
@@ -13,8 +13,8 @@ export type FilterRowData = {
 type UseCustomFilterProps<TData> = {
   columns: Array<Column<TData>>;
   onChange: (currentState: GraphQLQueryFilter | undefined) => void;
-  systemFilter?: QueryRow;
-  defaultFilter?: QueryRow;
+  systemFilter?: QueryFilter;
+  defaultFilter?: QueryFilter;
 };
 
 export const useCustomFilter = <TData>({
@@ -67,7 +67,7 @@ export const useCustomFilter = <TData>({
 
   const convertQueryToFilterRows = useCallback(
     (
-      filter: QueryRow,
+      filter: QueryFilter,
       filterRowIndex: number,
       jointCondition?: string,
     ): FilterRowData[] => {
