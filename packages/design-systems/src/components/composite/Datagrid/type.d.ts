@@ -30,12 +30,12 @@ declare module "@tanstack/react-table" {
     extends CustomFilterTableState,
       HideShowTableState,
       DensityTableState,
-      ExportTableState<TData> {}
-  interface TableOptionsResolved<TData extends Record<string, unknown>>
+      ExportTableState {}
+  interface TableOptionsResolved
     extends CustomFilterOptions,
       HideShowOptions,
       DensityOptions,
-      ExportOptions<TData> {}
+      ExportOptions {}
   interface Table
     extends CustomFilterInstance,
       HideShowInstance,

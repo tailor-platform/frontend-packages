@@ -1,18 +1,18 @@
 import type { Updater } from "@tanstack/table-core";
 import { CommonToolButtonProps } from "../SearchFilter/types";
 
-export type ExportState<TData extends Record<string, unknown>> = {
+export type ExportState = {
   enableCsvExport?: boolean;
-  omit?: [keyof TData];
+  omit?: string[];
 };
 
-export interface ExportTableState<TData extends Record<string, unknown>> {
-  exportOptions: ExportState<TData>;
+export interface ExportTableState {
+  exportOptions: ExportState;
   exportOpen: boolean;
 }
 
-export interface ExportOptions<TData extends Record<string, unknown>> {
-  exportOptions: ExportState<TData>;
+export interface ExportOptions {
+  exportOptions: ExportState;
 }
 
 export interface ExportInstance {

@@ -72,7 +72,7 @@ export type UseDataGridProps<TData extends Record<string, unknown>> =
     onPageChange?: (details: PageChangeDetails) => void;
 
     // Export
-    exportOptions?: ExportState<TData>;
+    exportOptions?: ExportState;
   };
 
 export type Column<TData> = {
