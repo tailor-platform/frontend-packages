@@ -54,17 +54,21 @@ export const useCustomFilter = <TData>({
   }, [selectedJointCondition]);
 
   const newEmptyRow = useCallback(
-    (props: { index: number; isChangeable: boolean }): FilterRowData => ({
+    (props: {
+      index: number;
+      isChangeable: boolean;
+      jointCondition?: string;
+    }): FilterRowData => ({
       index: props.index,
       currentState: {
         column: "",
         condition: "",
         value: "",
-        jointCondition: selectedJointCondition,
+        jointCondition: props.jointCondition,
         isChangeable: props.isChangeable,
       },
     }),
-    [selectedJointCondition],
+    [],
   );
 
   const convertQueryToFilterRows = useCallback(
@@ -179,13 +183,15 @@ export const useCustomFilter = <TData>({
             return rowIndex !== row.index;
           })
           .map((row) => {
-            row.currentState.jointCondition = undefined;
+            // If the second row is deleted, then the jointCondition should be removed
+            if (rowIndex === 1) {
+              row.currentState.jointCondition = undefined;
+            }
             return row;
           });
+        console.log(newState);
         return newState;
       });
-      // 削除できる行には必ずjointConditionがあるので、削除したらselectedJointConditionをリセットする
-      setSelectedJointCondition(undefined);
     },
     [],
   );
@@ -218,10 +224,14 @@ export const useCustomFilter = <TData>({
   const addNewFilterRowHandler = useCallback(() => {
     setFilterRows((oldState) => {
       const newState = [...oldState];
+      const selectedJointCondition = oldState.find((state) => {
+        return state.currentState.jointCondition === "and" || "or";
+      })?.currentState.jointCondition;
       newState.push(
         newEmptyRow({
           index: oldState.length,
           isChangeable: selectedJointCondition ? false : true,
+          jointCondition: selectedJointCondition,
         }),
       );
       return newState;
