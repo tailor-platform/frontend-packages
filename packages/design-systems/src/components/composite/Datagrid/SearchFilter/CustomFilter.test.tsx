@@ -1194,10 +1194,15 @@ describe(
       //Select value
       await selectValue(screen, user, 1, "pending");
 
+      const applyButton = screen.getByTestId("filter-apply-button");
+      await user.click(applyButton);
+
       expect(await screen.findByTestId("filter-badge")).toHaveTextContent("2");
 
       // Reset filter
       await user.click(await screen.findByTestId("reset-filter-button"));
+
+      await user.click(applyButton);
       expect(await screen.findByTestId("filter-badge")).toHaveTextContent("1");
     });
   },

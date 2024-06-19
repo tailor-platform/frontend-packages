@@ -28,6 +28,8 @@ export const useCustomFilter = <TData>({
   const [selectedJointCondition, setSelectedJointCondition] = useState<
     string | undefined
   >(undefined);
+  const [numberOfSearchConditions, setNumberOfSearchConditions] =
+    useState<number>(0);
   const { generateFilter } = useGraphQLQuery({
     columns,
     systemFilter,
@@ -173,6 +175,7 @@ export const useCustomFilter = <TData>({
 
   const applyFilterHandler = useCallback(() => {
     onChangeHandler(filterRows);
+    setNumberOfSearchConditions(calcNumberOfSearchConditions());
   }, [filterRows, onChangeHandler]);
   /**
    * This will add new item to filterRows data state.
@@ -192,6 +195,7 @@ export const useCustomFilter = <TData>({
 
   useEffect(() => {
     onChangeHandler(filterRows);
+    setNumberOfSearchConditions(calcNumberOfSearchConditions());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -221,7 +225,7 @@ export const useCustomFilter = <TData>({
     [],
   );
 
-  const numberOfSearchConditions = useMemo(() => {
+  const calcNumberOfSearchConditions = useCallback(() => {
     const isCurrentStateValid = (state: FilterRowData) => {
       return (
         state.currentState.column &&
