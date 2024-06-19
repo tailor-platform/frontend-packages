@@ -73,6 +73,10 @@ export const useCustomFilter = <TData>({
     ): FilterRowData[] => {
       return Object.keys(filter).flatMap((key) => {
         const filterValue = filter[key];
+        if (filterValue === undefined || filterValue === null) {
+          return [];
+        }
+
         if (Array.isArray(filterValue)) {
           if (key === "and" || key === "or") {
             return filterValue.flatMap((value, index) => {

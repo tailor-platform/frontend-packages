@@ -32,9 +32,11 @@ export type QueryRowValue =
   | null
   | undefined;
 export type QueryRowColumn = {
-  [column: string]: {
-    [condition: string]: QueryRowValue;
-  };
+  [column: string]:
+    | {
+        [condition: string]: QueryRowValue;
+      }
+    | undefined;
 };
 export type QueryRow =
   | QueryRowColumn
