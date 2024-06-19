@@ -9,7 +9,10 @@ type User = {
   name: string;
   age?: number | null;
   category: string;
-  email: string;
+  email: {
+    primary: string;
+    secondary?: string;
+  };
   address?: {
     city: string;
     country: string;
@@ -39,12 +42,12 @@ const columns = [
       maxSize: 80,
     },
   ),
-  columnBuilder.string("email", "Email", {
+  columnBuilder.string("email.primary", "Email", {
     render: (props) => {
       return <div>Email: ${props.getValue() as string}</div>;
     },
   }),
-  columnBuilder.string("address.city", "City"),
+  columnBuilder.string("address?.city", "City"),
   columnBuilder.custom("operation", "操作", {
     size: 60,
     render: () => {
