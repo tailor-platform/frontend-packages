@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { z } from "zod";
+// ".js" extension is required to avoid error in vitest that only supports ESM
 import customParseFormat from "dayjs/plugin/customParseFormat.js";
 
 // `customParseFormat` is plugin required to enable `HH:mm` format
