@@ -635,6 +635,8 @@ describe(
       await user.click(await screen.findByTestId("reset-filter-button"));
       // Number of data displayed is 6 items
 
+      await user.click(applyButton);
+
       expect(await screen.findAllByTestId("datagrid-row")).toHaveLength(6);
     });
 
@@ -651,6 +653,9 @@ describe(
 
       // Clear filter
       await user.click(screen.getByTestId("reset-clear-button"));
+
+      const applyButton = screen.getByTestId("filter-apply-button");
+      await user.click(applyButton);
 
       // Number of data displayed is 4 items
       expect(await screen.findAllByTestId("datagrid-row")).toHaveLength(4);
@@ -1166,6 +1171,9 @@ describe(
 
       // Clear filter
       await user.click(screen.getByTestId("reset-clear-button"));
+
+      const applyButton = screen.getByTestId("filter-apply-button");
+      await user.click(applyButton);
 
       await waitFor(() => {
         //Wait for the useEffect to update the filters
