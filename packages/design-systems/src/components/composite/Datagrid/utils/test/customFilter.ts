@@ -1,4 +1,4 @@
-import { within, Screen, waitFor } from "@testing-library/react";
+import { within, Screen } from "@testing-library/react";
 import { UserEvent } from "@testing-library/user-event";
 
 /**
@@ -36,15 +36,14 @@ export const selectCondition = async (
 ) => {
   const selectCondition =
     screen.getAllByTestId("select-condition")[conditionIndex];
-  const selectConditionButton = within(selectCondition).getByRole("button");
-  await waitFor(() => user.click(selectConditionButton));
+  await user.click(await within(selectCondition).findByRole("button"));
   const selectConditionOptions = screen.getAllByTestId(
     "select-condition-options",
   )[conditionIndex];
   const eqConditionOption2 = within(selectConditionOptions).getByText(
     conditionName,
   );
-  await waitFor(() => user.click(eqConditionOption2));
+  await user.click(eqConditionOption2);
 };
 
 /**
@@ -72,7 +71,7 @@ export const selectJointCondition = async (
   const conditionOption = within(selectConditionOptions).getByText(
     jointConditionName,
   );
-  await waitFor(() => user.click(conditionOption));
+  await user.click(conditionOption);
 };
 
 /**
@@ -92,8 +91,7 @@ export const selectValue = async (
   const selectValue = screen.getAllByTestId("select-input-value")[valueIndex];
   const selectValueButton = within(selectValue).getByRole("button");
   await user.click(selectValueButton);
-  const successOption = screen.getByRole("option", { name: value });
-  await waitFor(() => user.click(successOption));
+  await user.click(await screen.findByRole("option", { name: value }));
 };
 
 /**

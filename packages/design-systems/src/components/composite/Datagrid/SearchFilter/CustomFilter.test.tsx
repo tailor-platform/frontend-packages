@@ -1121,11 +1121,8 @@ describe(
 
     it("When defaultFilter is not set, filterBadge is hidden", async () => {
       render(<DataGridWithFilter />);
-      const filterBadge = screen.getByTestId("filter-badge");
-      await waitFor(() => {
-        expect(filterBadge).toHaveStyle({
-          visibility: "hidden",
-        });
+      expect(await screen.findByTestId("filter-badge")).toHaveStyle({
+        visibility: "hidden",
       });
     });
 
@@ -1146,15 +1143,11 @@ describe(
       //Select value
       await selectValue(screen, user, 1, "pending");
 
-      await waitFor(() => {
-        expect(screen.getByTestId("filter-badge")).toHaveTextContent("2");
-      });
+      expect(await screen.findByTestId("filter-badge")).toHaveTextContent("2");
 
       // Reset filter
       await user.click(await screen.findByTestId("reset-filter-button"));
-      await waitFor(() => {
-        expect(screen.getByTestId("filter-badge")).toHaveTextContent("1");
-      });
+      expect(await screen.findByTestId("filter-badge")).toHaveTextContent("1");
     });
   },
 

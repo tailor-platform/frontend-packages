@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { useDataGrid } from "../useDataGrid";
@@ -117,10 +117,8 @@ describe("<HideShow />", () => {
     await user.click(screen.getByTestId("hide-show-Status"));
     await user.click(screen.getByTestId("datagrid-hide-show-button"));
 
-    await waitFor(() => {
-      expect(
-        screen.queryByTestId("datagrid-header-status"),
-      ).not.toBeInTheDocument();
-    });
+    expect(
+      screen.queryByTestId("datagrid-header-status"),
+    ).not.toBeInTheDocument();
   });
 });

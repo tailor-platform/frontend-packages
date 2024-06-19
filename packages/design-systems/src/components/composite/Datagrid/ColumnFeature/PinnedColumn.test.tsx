@@ -149,8 +149,8 @@ describe("<PinnedColumn />", () => {
     expect(openPinnedColumnModal).toBeInTheDocument();
     await act(() => user.click(openPinnedColumnModal));
 
-    await waitFor(() => expect(screen.getByText("Pinned Right")).toBeVisible());
-    await waitFor(() => expect(screen.getByText("Pinned Left")).toBeVisible());
+    expect(await screen.findByText("Pinned Right")).toBeVisible();
+    expect(await screen.findByText("Pinned Left")).toBeVisible();
   });
 
   it("pinned the 'Status' column to right and pinned the 'Amount' column to left", async () => {
