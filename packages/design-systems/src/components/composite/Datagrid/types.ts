@@ -9,7 +9,7 @@ import type {
 import type { Updater } from "@tanstack/table-core/build/lib/types";
 import type { Localization } from "../../../locales/types";
 import type { ExportState } from "./Export/types";
-import type { GraphQLQueryFilter, QueryRow } from "./SearchFilter/types";
+import type { RootQueryFilter, QueryRow } from "./SearchFilter/types";
 import type { PageChangeDetails } from "./Pagination/ManualPagination";
 import { Columns } from "./column";
 
@@ -21,7 +21,7 @@ type CommonDatagridProps<TData extends Record<string, unknown>> = {
   enableColumnFilters?: boolean;
   systemFilter?: QueryRow;
   defaultFilter?: QueryRow;
-  onFilterChange?: (filters: GraphQLQueryFilter | undefined) => void;
+  onFilterChange?: (filters: RootQueryFilter | undefined) => void;
 
   // Column hiding
   enableHiding?: boolean;

@@ -44,7 +44,7 @@ export type QueryRow =
       [jointCondition: string]: Array<QueryRowColumn>;
     };
 
-export type GraphQLQueryFilter = {
+export type RootQueryFilter = {
   [and: string]: QueryRow;
 };
 

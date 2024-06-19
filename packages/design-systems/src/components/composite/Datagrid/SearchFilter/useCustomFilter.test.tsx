@@ -2,7 +2,7 @@ import { renderHook, act, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import { columns } from "../utils/test";
 import { FilterRowData, useCustomFilter } from "./useCustomFilter";
-import { FilterRowState, GraphQLQueryFilter, QueryRow } from "./types";
+import { FilterRowState, RootQueryFilter, QueryRow } from "./types";
 
 describe("useCustomFilter", () => {
   describe("resetFilterHandler", () => {
@@ -609,7 +609,7 @@ describe("useCustomFilter", () => {
   });
 
   it("if defaultFilter and systemFilter are not provided, hooks return undefined currentState", async () => {
-    let currentFilter: GraphQLQueryFilter | undefined = undefined;
+    let currentFilter: RootQueryFilter | undefined = undefined;
 
     renderHook(() =>
       useCustomFilter({

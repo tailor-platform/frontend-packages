@@ -2,7 +2,7 @@ export { DataGrid } from "./Datagrid";
 export { useDataGrid } from "./useDataGrid";
 export type { DataGridInstance, UseDataGridProps, Order } from "./types";
 export type {
-  GraphQLQueryFilter,
+  RootQueryFilter as GraphQLQueryFilter,
   QueryRow,
   QueryRowColumn,
   QueryRowValue,
