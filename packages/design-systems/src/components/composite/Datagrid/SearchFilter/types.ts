@@ -29,7 +29,8 @@ export type QueryRowValue =
   | boolean
   | string[]
   | number[]
-  | null;
+  | null
+  | undefined;
 export type QueryRowColumn = {
   [column: string]: {
     [condition: string]: QueryRowValue;

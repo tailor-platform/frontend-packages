@@ -21,6 +21,7 @@ export const useGraphQLQuery = <TData>(props: UseGraphQLQueryProps<TData>) => {
     (metaType: ApplicableType | undefined, value: QueryRowValue) => {
       if (
         value === null ||
+        value === undefined ||
         typeof value === "boolean" ||
         typeof value === "number"
       ) {
