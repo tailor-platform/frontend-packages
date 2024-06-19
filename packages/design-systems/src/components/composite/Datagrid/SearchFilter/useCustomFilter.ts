@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState, useRef } from "react";
-import type { GraphQLQueryFilter } from "..";
+import type { RootQueryFilter } from "..";
 import type { Column } from "../types";
 import { jointConditions } from "./filter";
 import { FilterRowState, JointCondition, QueryFilter } from "./types";
@@ -12,7 +12,7 @@ export type FilterRowData = {
 
 type UseCustomFilterProps<TData> = {
   columns: Array<Column<TData>>;
-  onChange: (currentState: GraphQLQueryFilter | undefined) => void;
+  onChange: (currentState: RootQueryFilter | undefined) => void;
   systemFilter?: QueryFilter;
   defaultFilter?: QueryFilter;
 };
@@ -182,9 +182,7 @@ export const useCustomFilter = <TData>({
     });
   }, [newEmptyRow, selectedJointCondition]);
 
-  const [prevFilter, setPrevFilter] = useState<GraphQLQueryFilter | undefined>(
-    {},
-  );
+  const [prevFilter, setPrevFilter] = useState<RootQueryFilter | undefined>({});
 
   /**
    * This will bubble up the GraphQLQueryFilter to the parent component.
