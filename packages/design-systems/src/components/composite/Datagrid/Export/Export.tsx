@@ -96,18 +96,21 @@ export const defaultExportOptions = {
 };
 
 export const ExportFeature: TableFeature = {
-  getInitialState: (state: InitialTableState | undefined): ExportTableState => {
+  getInitialState: <TData extends Record<string, string>>(
+    state: InitialTableState | undefined,
+  ): ExportTableState<TData> => {
     return {
       exportOptions: defaultExportOptions,
       exportOpen: false,
       ...state,
-    } as ExportTableState;
+    };
   },
-
-  getDefaultOptions: (): ExportOptions => {
+  getDefaultOptions: <
+    TData extends Record<string, string>,
+  >(): ExportOptions<TData> => {
     return {
       exportOptions: defaultExportOptions,
-    } as ExportOptions;
+    } as ExportOptions<TData>;
   },
 
   createTable: <TData extends Record<string, unknown>>(
