@@ -23,7 +23,13 @@ export type JointCondition = {
   disabled: boolean;
 };
 
-export type QueryRowValue = string | number | boolean | string[] | number[];
+export type QueryRowValue =
+  | string
+  | number
+  | boolean
+  | string[]
+  | number[]
+  | null;
 export type QueryRowColumn = {
   [column: string]: {
     [condition: string]: QueryRowValue;

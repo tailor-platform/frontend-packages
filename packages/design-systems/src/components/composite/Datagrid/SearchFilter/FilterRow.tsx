@@ -63,12 +63,14 @@ export const FilterRow = <TData extends Record<string, unknown>>(
 
   const classes = select();
 
-  const [value, setValue] = useState<string[]>([
-    currentFilter.value.toString(),
-  ]);
+  const [value, setValue] = useState<string[]>(
+    currentFilter.value !== null ? [currentFilter.value.toString()] : [],
+  );
 
   useEffect(() => {
-    setValue([currentFilter.value.toString()]);
+    if (currentFilter.value !== null) {
+      setValue([currentFilter.value.toString()]);
+    }
   }, [currentFilter.value]);
 
   const DATE_INPUT_PLACEHOLDER = "YYYY-MM-DD";
@@ -505,8 +507,11 @@ const EnumSelect = <TData extends Record<string, unknown>>({
   inputValuePlaceHolder,
   selectedColumnObject,
 }: EnumSelectProps<TData>) => {
-  const classes = select();
+  if (currentFilter.value === null) {
+    return;
+  }
 
+  const classes = select();
   return (
     <>
       <Select.Root
@@ -579,8 +584,11 @@ const BooleanSelect = ({
   inputValuePlaceHolder,
   items,
 }: BooleanSelectProps) => {
-  const classes = select();
+  if (currentFilter.value === null) {
+    return;
+  }
 
+  const classes = select();
   return (
     <>
       <Select.Root
