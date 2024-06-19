@@ -1207,7 +1207,13 @@ describe(
     });
 
     it("If don't click apply button and close modal, UI shows prev filterRow", async () => {
-      render(<CustomFilterComponent onFilterChange={() => {}} />);
+      render(
+        <CustomFilterComponent
+          onFilterChange={() => {
+            return;
+          }}
+        />,
+      );
 
       const user = userEvent.setup();
 

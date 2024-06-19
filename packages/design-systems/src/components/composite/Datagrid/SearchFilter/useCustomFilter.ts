@@ -136,6 +136,30 @@ export const useCustomFilter = <TData>({
 
   const [prevFilterRows, setPrevFilterRows] = useState<FilterRowData[]>([]);
 
+  const calcNumberOfSearchConditions = useCallback(() => {
+    const isCurrentStateValid = (state: FilterRowData) => {
+      return (
+        state.currentState.column &&
+        state.currentState.condition &&
+        state.currentState.value
+      );
+    };
+    const count = filterRows.reduce((acc, row, index) => {
+      // First row does not have jointCondition
+      if (index === 0) {
+        if (isCurrentStateValid(row)) {
+          return acc + 1;
+        }
+        return acc;
+      }
+      if (isCurrentStateValid(row) && row.currentState.jointCondition) {
+        return acc + 1;
+      }
+      return acc;
+    }, 0);
+    return count;
+  }, [filterRows]);
+
   const onChangeHandler = useCallback(
     (filterRows: FilterRowData[]) => {
       const filter = generateFilter(filterRows);
@@ -179,7 +203,7 @@ export const useCustomFilter = <TData>({
     onChangeHandler(filterRows);
     setNumberOfSearchConditions(calcNumberOfSearchConditions());
     setPrevFilterRows(filterRows);
-  }, [filterRows, onChangeHandler]);
+  }, [filterRows, onChangeHandler, calcNumberOfSearchConditions]);
   /**
    * This will add new item to filterRows data state.
    */
@@ -228,30 +252,6 @@ export const useCustomFilter = <TData>({
     },
     [],
   );
-
-  const calcNumberOfSearchConditions = useCallback(() => {
-    const isCurrentStateValid = (state: FilterRowData) => {
-      return (
-        state.currentState.column &&
-        state.currentState.condition &&
-        state.currentState.value
-      );
-    };
-    const count = filterRows.reduce((acc, row, index) => {
-      // First row does not have jointCondition
-      if (index === 0) {
-        if (isCurrentStateValid(row)) {
-          return acc + 1;
-        }
-        return acc;
-      }
-      if (isCurrentStateValid(row) && row.currentState.jointCondition) {
-        return acc + 1;
-      }
-      return acc;
-    }, 0);
-    return count;
-  }, [filterRows]);
 
   const changePrevFilterRows = useCallback(() => {
     if (JSON.stringify(filterRows) === JSON.stringify(prevFilterRows)) {
