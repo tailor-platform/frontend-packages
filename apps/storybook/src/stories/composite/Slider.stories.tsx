@@ -1,9 +1,7 @@
 import { Slider, type SliderRootProps } from "@ark-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
-
 import { Box } from "@tailor-platform/styled-system/jsx";
 import { slider } from "@tailor-platform/styled-system/recipes";
-
 import { sliderTypes } from "../../ark-types";
 
 Slider.Root.displayName = "Slider";

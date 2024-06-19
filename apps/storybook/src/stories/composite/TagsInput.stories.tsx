@@ -1,7 +1,6 @@
 import { TagsInput, type TagsInputRootProps } from "@ark-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { X as XIcon } from "lucide-react";
-
 import { Button, IconButton } from "@tailor-platform/design-systems";
 import { tagsInput } from "@tailor-platform/styled-system/recipes";
 import { tagsInputTypes } from "../../ark-types";

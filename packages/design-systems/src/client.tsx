@@ -16,7 +16,11 @@ export {
   type GraphQLQueryFilter,
   type QueryRow,
   type Order,
+  type Columns,
+  type ApplicableType,
   useDataGrid,
+  newColumnBuilder,
+  newFilterBuilder,
 } from "@components/composite/Datagrid";
 export {
   DatePicker,

@@ -1,7 +1,6 @@
 import { Menu, Portal } from "@ark-ui/react";
 import { ChevronRight } from "lucide-react";
 import { useState } from "react";
-
 import { Button, Checkbox, Radio } from "@tailor-platform/design-systems";
 import { styled } from "@tailor-platform/styled-system/jsx";
 import { menu } from "@tailor-platform/styled-system/recipes";

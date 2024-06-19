@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
 import { Heading, HeadingProps } from "@tailor-platform/design-systems";
 
 const meta = {

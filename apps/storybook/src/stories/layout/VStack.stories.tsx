@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
 import { Box, VStack, VstackProps } from "@tailor-platform/design-systems";
 
 VStack.displayName = "VStack";

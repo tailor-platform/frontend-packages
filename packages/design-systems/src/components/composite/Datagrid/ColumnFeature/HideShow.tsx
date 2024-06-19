@@ -7,6 +7,9 @@ import {
 } from "@tanstack/react-table";
 import { ColumnsIcon } from "lucide-react";
 import { scrollBar } from "@tailor-platform/styled-system/recipes";
+import { HStack } from "@components/patterns/HStack";
+import { Text } from "@components/Text";
+import { LOCALIZATION_EN } from "@locales";
 import { Button } from "../../../Button";
 import { Checkbox } from "../../../Checkbox";
 import { Box } from "../../../patterns/Box";
@@ -18,9 +21,6 @@ import type {
   HideShowProps,
   HideShowTableState,
 } from "./types";
-import { HStack } from "@components/patterns/HStack";
-import { Text } from "@components/Text";
-import { LOCALIZATION_EN } from "@locales";
 
 export const HideShow = <TData extends Record<string, unknown>>(
   props: HideShowProps<TData>,

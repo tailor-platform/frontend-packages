@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
 import { Button, Dialog, DialogProps } from "@tailor-platform/design-systems";
-import { dialogTypes } from "../../ark-types";
 import { useState } from "react";
+import { dialogTypes } from "../../ark-types";
 
 const meta = {
   title: "Composite/Dialog",
@@ -18,7 +17,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: function Comp(props) {
+  render: (props) => {
     const [isOpen, setIsOpen] = useState(false);
     return (
       <>

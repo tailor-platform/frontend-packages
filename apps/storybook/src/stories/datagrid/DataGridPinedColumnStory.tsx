@@ -4,11 +4,13 @@ import { useState } from "react";
 import {
   DataGrid,
   DataGridInstance,
+  newColumnBuilder,
   useDataGrid,
 } from "@tailor-platform/design-systems/client";
 import { Button } from "@tailor-platform/design-systems";
 import { Box } from "@tailor-platform/styled-system/jsx";
 import { COLUMNS as columns, DATA as data } from "../../data/datagrid";
+import { Payment } from "../../types/datagrid";
 
 export type DataGridPinedColumnStoryProps = {
   enableColumnFilters?: boolean;
@@ -21,18 +23,15 @@ export const DataGridPinedColumnStory = ({
   enableRowSelection = true,
 }: DataGridPinedColumnStoryProps) => {
   const [rowSelection, setRowSelection] = useState({});
+  const columnBuilder = newColumnBuilder<Payment>();
   const table = useDataGrid({
     data,
     columns: [
       ...columns,
-      {
-        id: "operation",
-        header: "Ops",
-        cell: () => {
-          return <Button>Show</Button>;
-        },
+      columnBuilder.custom("operation", "Ops", {
         size: 100,
-      },
+        render: () => <Button>Show</Button>,
+      }),
     ],
     enableColumnFilters,
     enableRowSelection,

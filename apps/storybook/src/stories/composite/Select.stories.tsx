@@ -1,7 +1,6 @@
 import { Portal, Select } from "@ark-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { CheckIcon, ChevronsUpDownIcon } from "lucide-react";
-
 import { Box } from "@tailor-platform/styled-system/jsx";
 import { select } from "@tailor-platform/styled-system/recipes";
 import { selectTypes } from "../../ark-types";

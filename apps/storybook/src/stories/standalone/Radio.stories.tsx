@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
 import { Radio, RadioProps } from "@tailor-platform/design-systems";
 
 const meta = {

@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
 import { LabelField, LabelFieldProps } from "@tailor-platform/design-systems";
 
 const meta: Meta<LabelFieldProps> = {

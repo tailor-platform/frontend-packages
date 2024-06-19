@@ -49,7 +49,7 @@ const generateArkTypeFiles = async () => {
     if (!response.ok) {
       throw new Error(`Failed to fetch ${url}: ${response.statusText}`);
     }
-    const data = await response.json();
+    const data = (await response.json()) as Record<string, unknown>;
 
     fs.writeFileSync(
       path.join(dir, `${component}.types.json`),
@@ -60,4 +60,6 @@ const generateArkTypeFiles = async () => {
   return Promise.all(promises).catch(console.error);
 };
 
-generateArkTypeFiles();
+generateArkTypeFiles()
+  .then(() => console.log("completed!"))
+  .catch(console.error);

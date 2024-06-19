@@ -1,9 +1,8 @@
 import { SegmentGroup, type SegmentGroupRootProps } from "@ark-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
-
 import { segmentGroup } from "@tailor-platform/styled-system/recipes";
-import { segmentGroupTypes } from "../../ark-types";
 import { Stack } from "@tailor-platform/design-systems";
+import { segmentGroupTypes } from "../../ark-types";
 
 SegmentGroup.Root.displayName = "SegmentGroup";
 

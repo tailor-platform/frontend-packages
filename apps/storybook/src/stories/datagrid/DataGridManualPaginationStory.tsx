@@ -6,10 +6,9 @@ import {
   DataGridInstance,
   useDataGrid,
 } from "@tailor-platform/design-systems/client";
-
+import { useState } from "react";
 import { COLUMNS as columns, DATA as originData } from "../../data/datagrid.ts";
 import { Payment } from "../../types/datagrid.ts";
-import { useState } from "react";
 
 export type DataGridManualPaginationStoryProps = {
   pageSize: number;

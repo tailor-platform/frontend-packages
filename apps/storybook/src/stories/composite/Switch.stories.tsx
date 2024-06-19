@@ -1,8 +1,6 @@
 import { Switch, type SwitchRootProps } from "@ark-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
-
 import { switchRecipe } from "@tailor-platform/styled-system/recipes";
-
 import { switchTypes } from "../../ark-types";
 
 Switch.Root.displayName = "Switch";
