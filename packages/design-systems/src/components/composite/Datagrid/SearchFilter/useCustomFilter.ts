@@ -174,10 +174,18 @@ export const useCustomFilter = <TData>({
   const deleteFilterRowHandler = useCallback(
     (rowIndex: number) => () => {
       setFilterRows((state) => {
-        return state.filter((row) => {
-          return rowIndex !== row.index;
-        });
+        const newState = state
+          .filter((row) => {
+            return rowIndex !== row.index;
+          })
+          .map((row) => {
+            row.currentState.jointCondition = undefined;
+            return row;
+          });
+        return newState;
       });
+      // 削除できる行には必ずjointConditionがあるので、削除したらselectedJointConditionをリセットする
+      setSelectedJointCondition(undefined);
     },
     [],
   );
