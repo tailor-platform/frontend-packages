@@ -668,7 +668,7 @@ describe("useCustomFilter", () => {
     });
   });
 
-  it("useEffect not called when prevFilter is same", async () => {
+  it("useEffect is called once on first render", async () => {
     const systemFilter = { status: { eq: "pending" } };
     const defaultFilter = { amount: { eq: 200 } };
 
