@@ -2,6 +2,7 @@ export { DataGrid } from "./Datagrid";
 export { useDataGrid } from "./useDataGrid";
 export type { DataGridInstance, UseDataGridProps, Order } from "./types";
 export type {
+  RootQueryFilter,
   QueryFilter,
   QueryFilterColumn,
   FilterValue,

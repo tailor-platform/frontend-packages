@@ -12,6 +12,7 @@ export {
   type DataGridInstance,
   type UseDataGridProps,
   type Localization,
+  type RootQueryFilter,
   type QueryFilter,
   type Order,
   type Columns,
