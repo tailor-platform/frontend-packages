@@ -1,11 +1,8 @@
-import {
-  GraphQLQueryFilter,
-  Order,
-} from "@tailor-platform/design-systems/client";
+import { Order, RootQueryFilter } from "@tailor-platform/design-systems/client";
 import { Payment } from "../../types/datagrid";
 
 export const setFilterChange = (
-  filter: GraphQLQueryFilter | undefined,
+  filter: RootQueryFilter | undefined,
   data: Payment[],
   setData: React.Dispatch<React.SetStateAction<Payment[]>>,
 ) => {

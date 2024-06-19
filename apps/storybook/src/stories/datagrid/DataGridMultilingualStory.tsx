@@ -4,7 +4,6 @@ import { Box } from "@tailor-platform/design-systems";
 import {
   DataGrid,
   DataGridInstance,
-  GraphQLQueryFilter,
   useDataGrid,
 } from "@tailor-platform/design-systems/client";
 import { LOCALIZATION_JA } from "@tailor-platform/design-systems/locales/ja";
@@ -25,8 +24,10 @@ export const DataGridMultilingualStory = ({
   localization = "EN",
 }: DataGridMultilingualStoryProps) => {
   const [data, setData] = useState<Payment[]>(originData);
-  const [columnVisibility, setColumnVisibility] = useState({ status: false });
-  const defaultQuery: GraphQLQueryFilter = {
+  const [columnVisibility, setColumnVisibility] = useState<{
+    [key: string]: boolean;
+  }>({ status: false });
+  const defaultQuery = {
     amount: { gt: 200 },
   };
   const table = useDataGrid({

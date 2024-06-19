@@ -11,7 +11,6 @@ import {
 import {
   DataGrid,
   DataGridInstance,
-  GraphQLQueryFilter,
   useDataGrid,
 } from "@tailor-platform/design-systems/client";
 import { dialog } from "@tailor-platform/styled-system/recipes";
@@ -32,10 +31,10 @@ export const DataGridOnModalWithFilterStory = ({
 }: DataGridWithFilterStoryProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState<Payment[]>(originData);
-  const query: GraphQLQueryFilter = {
+  const query = {
     updatedAt: { eq: "2024-05-10 12:00:00" },
   };
-  const defaultQuery: GraphQLQueryFilter = {
+  const defaultQuery = {
     amount: { gt: 200 },
   };
   const table = useDataGrid({
