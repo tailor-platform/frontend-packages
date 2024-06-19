@@ -9,15 +9,14 @@ export { conditions } from "@/theme/conditions";
 export { Code, type CodeProps } from "@/components/Code";
 export { Form } from "@/components/Form";
 export {
-  DataGrid,
   type DataGridInstance,
   type UseDataGridProps,
   type Localization,
-  type GraphQLQueryFilter,
-  type QueryRow,
+  type QueryFilter,
   type Order,
   type Columns,
   type ApplicableType,
+  DataGrid,
   useDataGrid,
   newColumnBuilder,
   newFilterBuilder,
