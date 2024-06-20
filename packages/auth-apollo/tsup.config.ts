@@ -14,9 +14,7 @@ export default defineConfig({
   // explictly use CommonJS as build format here
   // because auth package depends on @apollo/client that has no ESM support
   format: ["cjs"],
-  entry: [
-    "src",
-  ],
+  entry: ["src"],
   clean: true,
   minify: true,
   dts: true,
