@@ -1,4 +1,4 @@
-import type { GraphQLQueryFilter } from "../../SearchFilter/types";
+import type { RootQueryFilter } from "../../SearchFilter/types";
 import { Column, Order } from "../../types";
 
 export enum PaymentStatus {
@@ -206,7 +206,7 @@ export const originData: Payment[] = [
 ];
 
 export const setFilterChange = (
-  filter: GraphQLQueryFilter | undefined,
+  filter: RootQueryFilter | undefined,
   data: Payment[],
   setData: React.Dispatch<React.SetStateAction<Payment[]>>,
 ) => {
