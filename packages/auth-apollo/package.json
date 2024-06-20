@@ -17,7 +17,7 @@
   "scripts": {
     "build": "tsup",
     "dev": "pnpm run build -- --watch",
-    "lint": "eslint '**/*.{ts,tsx}' --ignore-pattern 'dist/*' --max-warnings=0",
+    "lint": "eslint --ignore-pattern 'dist/*' --max-warnings=0",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "type-check": "tsc --noEmit --incremental --pretty",
     "publish:dev": "pnpm run build && yalc push --sig",
@@ -34,5 +34,8 @@
   "peerDependencies": {
     "@apollo/client": "~3.9"
   },
-  "prettier": "@tailor-platform/dev-config/prettier"
+  "prettier": "@tailor-platform/dev-config/prettier",
+  "dependencies": {
+    "@types/node": "18.16.16"
+  }
 }
