@@ -86,7 +86,7 @@ A set of functionss for server components ({@link server.getServerSession | getS
 
 ### Integration with apollo-client
 
-A custom ApolloLink is available. See {@link adapters/apollo.authenticatedHttpLink | authenticatedHttpLink} for more information.
+A custom ApolloLink is available. See [@tailor-platform/auth-apollo](https://tailor-platform.github.io/frontend-packages/modules/_tailor_platform_auth-apollo.html) for more information.
 
 ### Customization
 

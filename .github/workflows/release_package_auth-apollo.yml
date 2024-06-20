@@ -1,0 +1,29 @@
+name: release @tailor-platform/auth-apollo
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - packages/auth-apollo/package.json
+
+jobs:
+  check-existing-release:
+    uses: ./.github/workflows/check_existing_release.yml
+    with:
+      package_name: auth-apollo
+  make-release-if-needed:
+    needs: check-existing-release
+    if: ${{ needs.check-existing-release.outputs.tag_exists == 'false' }}
+    uses: ./.github/workflows/make_github_release.yml
+    with:
+      package_name: auth-apollo
+      tag: ${{ needs.check-existing-release.outputs.tag }}
+  publish-npm-package:
+    needs:
+      - check-existing-release
+      - make-release-if-needed
+    uses: ./.github/workflows/publish_npm_package.yml
+    secrets: inherit
+    with:
+      package_name: auth-apollo

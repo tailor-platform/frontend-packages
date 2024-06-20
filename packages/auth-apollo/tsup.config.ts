@@ -11,15 +11,15 @@ const devOpts =
     : {};
 
 export default defineConfig({
-  format: ["cjs", "esm"],
+  // explictly use CommonJS as build format here
+  // because auth package depends on @apollo/client that has no ESM support
+  format: ["cjs"],
   entry: [
-    "src/client/index.ts",
-    "src/server/index.ts",
-    "src/core/index.ts",
+    "src",
   ],
   clean: true,
   minify: true,
   dts: true,
-  external: ["react"],
+  external: ["@apollo/client"],
   ...devOpts,
 });

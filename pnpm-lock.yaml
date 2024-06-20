@@ -198,9 +198,6 @@ importers:
 
   packages/auth:
     dependencies:
-      '@apollo/client':
-        specifier: ~3.9
-        version: 3.9.5(@types/react@18.2.42)(graphql@16.8.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       next:
         specifier: ^v14
         version: 14.1.0(@babel/core@7.23.7)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -253,6 +250,28 @@ importers:
       vitest:
         specifier: ^1.6.0
         version: 1.6.0(@types/node@18.19.2)(jsdom@24.0.0)(lightningcss@1.23.0)
+
+  packages/auth-apollo:
+    dependencies:
+      '@apollo/client':
+        specifier: ~3.9
+        version: 3.9.5(@types/react@18.2.47)(graphql@16.8.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+    devDependencies:
+      '@tailor-platform/auth':
+        specifier: workspace:*
+        version: link:../auth
+      '@tailor-platform/dev-config':
+        specifier: workspace:*
+        version: link:../dev-config
+      eslint:
+        specifier: ^9.4.0
+        version: 9.4.0
+      tsup:
+        specifier: ^8.0.1
+        version: 8.0.1(@swc/core@1.4.12)(postcss@8.4.35)(ts-node@10.9.2(@swc/core@1.4.12)(@types/node@20.11.30)(typescript@5.3.3))(typescript@5.3.3)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.3.3
 
   packages/design-systems:
     dependencies:
@@ -9225,7 +9244,7 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react'
 
-  '@apollo/client@3.9.5(@types/react@18.2.42)(graphql@16.8.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
+  '@apollo/client@3.9.5(@types/react@18.2.47)(graphql@16.8.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
       '@graphql-typed-document-node/core': 3.2.0(graphql@16.8.1)
       '@wry/caches': 1.0.1
@@ -9236,7 +9255,7 @@ snapshots:
       hoist-non-react-statics: 3.3.2
       optimism: 0.18.0
       prop-types: 15.8.1
-      rehackt: 0.0.5(@types/react@18.2.42)(react@18.2.0)
+      rehackt: 0.0.5(@types/react@18.2.47)(react@18.2.0)
       response-iterator: 0.2.6
       symbol-observable: 4.0.0
       ts-invariant: 0.10.3
@@ -19079,9 +19098,9 @@ snapshots:
     dependencies:
       jsesc: 0.5.0
 
-  rehackt@0.0.5(@types/react@18.2.42)(react@18.2.0):
+  rehackt@0.0.5(@types/react@18.2.47)(react@18.2.0):
     optionalDependencies:
-      '@types/react': 18.2.42
+      '@types/react': 18.2.47
       react: 18.2.0
 
   rehackt@0.1.0(@types/react@18.2.47)(react@18.2.0):

@@ -1,0 +1,14 @@
+{
+  "extends": "@tailor-platform/dev-config/typescript/base",
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@*": ["./*"],
+    },
+    "lib": ["es2017", "dom"],
+    "target": "es5",
+    "moduleResolution": "Bundler",
+  },
+  "include": ["."],
+  "exclude": ["dist", "build", "node_modules"],
+}
