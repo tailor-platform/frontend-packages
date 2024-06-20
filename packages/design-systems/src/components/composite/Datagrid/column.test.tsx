@@ -120,7 +120,7 @@ describe("buildColumns", () => {
         },
       },
       {
-        accessorKey: "email",
+        accessorKey: "email.primary",
         header: "Email",
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         cell: expect.any(Function),
@@ -133,7 +133,7 @@ describe("buildColumns", () => {
         },
       },
       {
-        accessorKey: "address.city",
+        accessorKey: "address?.city",
         header: "City",
         size: undefined,
         maxSize: undefined,
