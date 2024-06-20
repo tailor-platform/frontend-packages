@@ -10,9 +10,6 @@ autolabeler:
   - label: 'Package: design-systems'
     files:
       - packages/design-systems/**
-  - label: 'Package: minitailorctl'
-    files:
-      - packages/minitailorctl/**
   - label: 'Package: monitoring'
     files:
       - packages/monitoring/**
