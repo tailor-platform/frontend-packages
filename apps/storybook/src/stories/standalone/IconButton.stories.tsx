@@ -1,7 +1,18 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { AppleIcon } from "lucide-react";
-import { IconButton, IconButtonProps } from "@tailor-platform/design-systems";
+import { IconButton  } from "@tailor-platform/design-systems";
 import { button } from "@tailor-platform/styled-system/recipes";
+import { ReactElement } from "react";
+import {
+  type HTMLStyledProps,
+} from "@tailor-platform/styled-system/jsx";
+import {
+  type ButtonVariantProps,
+} from "@tailor-platform/styled-system/recipes";
+
+export type IconButtonProps = React.PropsWithChildren &
+  HTMLStyledProps<"button"> &
+  ButtonVariantProps & { icon?: ReactElement; "aria-label": string };
 
 const meta = {
   title: "Standalone/IconButton",
@@ -17,11 +28,11 @@ const meta = {
         "secondary",
         "tertiary",
         "link",
-      ] as IconButtonProps["variant"],
+      ] as const,
       control: { type: "radio" },
     },
     size: {
-      options: ["xs", "sm", "md", "lg", "xl", "2xl"] as IconButtonProps["size"],
+      options: ["xs", "sm", "md", "lg", "xl", "2xl"] as const,
       control: { type: "radio" },
     },
   },
