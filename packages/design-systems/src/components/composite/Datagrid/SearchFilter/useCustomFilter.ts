@@ -189,7 +189,6 @@ export const useCustomFilter = <TData>({
             }
             return row;
           });
-        console.log(newState);
         return newState;
       });
     },
