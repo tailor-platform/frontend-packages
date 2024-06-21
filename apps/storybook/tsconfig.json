@@ -23,4 +23,5 @@
       "path": "./tsconfig.node.json",
     },
   ],
+  "exclude": ["dist", "build", "node_modules"]
 }
