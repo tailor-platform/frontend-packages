@@ -11,13 +11,13 @@ import {
   CheckIcon,
 } from "lucide-react";
 import { LOCALIZATION_EN } from "@locales";
+import { CollectionItem } from "@ark-ui/react/dist/types";
 import { DataGridInstance } from "../types";
 import { Text } from "../../../Text";
 import { Button } from "../../../Button";
 import { IconButton } from "../../../IconButton";
 import type { ValueChangeDetails } from "../SearchFilter/types";
 import { Select, usePagination } from "./utils";
-import { CollectionItem } from "@ark-ui/react/dist/types";
 
 export type PageChangeDetails = {
   page: number;

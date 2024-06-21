@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Accordion as ArkAccordion,
   type AccordionRootProps as ArkAccordionProps,
@@ -9,7 +10,6 @@ import {
 } from "@tailor-platform/styled-system/recipes";
 import { ChevronDown } from "lucide-react";
 import { Text } from "../Text";
-import { useState } from "react";
 
 export type AccordionItem = {
   text: string | React.ReactElement;
@@ -52,6 +52,7 @@ export const Accordion = (props: AccordionProps) => {
             <>
               <ArkAccordion.ItemTrigger
                 className={accordionClasses.itemTrigger}
+                onClick={() => setIsOpen(!isOpen)}
               >
                 {isString ? (
                   <Text w="full" textAlign="left">
