@@ -1,7 +1,7 @@
 import {
   Accordion as ArkAccordion,
   type AccordionRootProps as ArkAccordionProps,
-} from "@ark-ui/react/accordion";
+} from "@ark-ui/react";
 import { type HTMLStyledProps } from "@tailor-platform/styled-system/jsx";
 import {
   accordion,
@@ -9,6 +9,7 @@ import {
 } from "@tailor-platform/styled-system/recipes";
 import { ChevronDown } from "lucide-react";
 import { Text } from "../Text";
+import { useState } from "react";
 
 export type AccordionItem = {
   text: string | React.ReactElement;
@@ -25,6 +26,7 @@ export type AccordionProps = AccordionVariantProps &
   HTMLStyledProps<"div">;
 
 export const Accordion = (props: AccordionProps) => {
+  const [isOpen, setIsOpen] = useState(false);
   const { items, variant, ...rest } = props;
 
   const AccordionIcon = (props: { isOpen: boolean }) => {
@@ -47,27 +49,25 @@ export const Accordion = (props: AccordionProps) => {
             key={id}
             value={typeof item.text === "string" ? item.text : id.toString()}
           >
-            {({ isOpen }) => (
-              <>
-                <ArkAccordion.ItemTrigger
-                  className={accordionClasses.itemTrigger}
-                >
-                  {isString ? (
-                    <Text w="full" textAlign="left">
-                      {item.text}
-                    </Text>
-                  ) : (
-                    item.text
-                  )}
-                  <AccordionIcon isOpen={isOpen} />
-                </ArkAccordion.ItemTrigger>
-                <ArkAccordion.ItemContent
-                  className={accordionClasses.itemContent}
-                >
-                  {item.content}
-                </ArkAccordion.ItemContent>
-              </>
-            )}
+            <>
+              <ArkAccordion.ItemTrigger
+                className={accordionClasses.itemTrigger}
+              >
+                {isString ? (
+                  <Text w="full" textAlign="left">
+                    {item.text}
+                  </Text>
+                ) : (
+                  item.text
+                )}
+                <AccordionIcon isOpen={isOpen} />
+              </ArkAccordion.ItemTrigger>
+              <ArkAccordion.ItemContent
+                className={accordionClasses.itemContent}
+              >
+                {item.content}
+              </ArkAccordion.ItemContent>
+            </>
           </ArkAccordion.Item>
         );
       })}

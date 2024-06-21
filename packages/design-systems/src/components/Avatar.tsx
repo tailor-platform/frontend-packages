@@ -3,7 +3,7 @@ import {
   AvatarFallback,
   AvatarImage,
   AvatarRootProps as AvatarArkProps,
-} from "@ark-ui/react/avatar";
+} from "@ark-ui/react";
 import {
   avatar,
   AvatarVariantProps,

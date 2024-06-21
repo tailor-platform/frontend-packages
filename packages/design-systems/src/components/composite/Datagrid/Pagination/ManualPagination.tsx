@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { CollectionItem } from "@ark-ui/react/select";
 import { type PaginationState } from "@tanstack/react-table";
 import { select } from "@tailor-platform/styled-system/recipes";
 import { HStack } from "@tailor-platform/styled-system/jsx";
@@ -18,6 +17,7 @@ import { Button } from "../../../Button";
 import { IconButton } from "../../../IconButton";
 import type { ValueChangeDetails } from "../SearchFilter/types";
 import { Select, usePagination } from "./utils";
+import { CollectionItem } from "@ark-ui/react/dist/types";
 
 export type PageChangeDetails = {
   page: number;

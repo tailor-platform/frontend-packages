@@ -2,8 +2,8 @@ import { ReactNode } from "react";
 import {
   Dialog as ArkDialog,
   DialogRootProps as ArkDialogProps,
-} from "@ark-ui/react/dialog";
-import { Portal } from "@ark-ui/react/portal";
+} from "@ark-ui/react";
+import { Portal } from "@ark-ui/react";
 import {
   dialog,
   DialogVariantProps,

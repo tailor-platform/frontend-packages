@@ -1,7 +1,7 @@
 import type { Updater } from "@tanstack/table-core";
-import type { CollectionItem } from "@ark-ui/react";
 import type { Column, DataGridInstance } from "../types";
 import { applicableTypes } from "./filter";
+import { CollectionItem } from "@ark-ui/react/dist/types";
 
 export type ValueChangeDetails<T extends CollectionItem = CollectionItem> = {
   value: string[];

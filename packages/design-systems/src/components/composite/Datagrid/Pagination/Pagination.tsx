@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { CollectionItem } from "@ark-ui/react/select";
+import { CollectionItem } from "@ark-ui/react/dist/types";
 import { select } from "@tailor-platform/styled-system/recipes";
 import { HStack } from "@tailor-platform/styled-system/jsx";
 import {

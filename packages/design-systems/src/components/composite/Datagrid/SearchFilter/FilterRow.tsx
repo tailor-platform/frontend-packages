@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { CheckIcon, ChevronDown, X, XIcon } from "lucide-react";
-import { Select as AS, CollectionItem } from "@ark-ui/react/select";
+import { Select as AS } from "@ark-ui/react";
+import { CollectionItem } from "@ark-ui/react/dist/types";
 import { styled } from "@tailor-platform/styled-system/jsx";
 import { select, tagsInput } from "@tailor-platform/styled-system/recipes";
 import { ColumnMeta } from "@tanstack/table-core";
@@ -448,48 +449,50 @@ const TagsInput = ({
           onChangeValue(e.value);
         }}
       >
-        {({ value, setValue }) => (
-          <>
-            <BaseTagsInput.Control className={classes.control}>
-              {value.map((v, index) => (
-                <BaseTagsInput.Item
-                  className={classes.item}
-                  key={index}
-                  index={index}
-                  value={v}
-                >
-                  <BaseTagsInput.ItemText>{v}</BaseTagsInput.ItemText>
-                  <BaseTagsInput.ItemDeleteTrigger
-                    asChild
-                    onClick={() => {
-                      const newValue = value.filter((item) => item !== v);
-                      setValue(newValue);
-                      onChangeValue(newValue);
-                    }}
-                    data-testid={`delete-tag-${index}`}
+        <BaseTagsInput.Context>
+          {({ value, setValue }) => (
+            <>
+              <BaseTagsInput.Control className={classes.control}>
+                {value.map((v, index) => (
+                  <BaseTagsInput.Item
+                    className={classes.item}
+                    key={index}
+                    index={index}
+                    value={v}
                   >
-                    <IconButton aria-label="close" variant="link" size="xs">
-                      <XIcon />
-                    </IconButton>
-                  </BaseTagsInput.ItemDeleteTrigger>
-                  <BaseTagsInput.ItemInput className={classes.itemInput} />
-                </BaseTagsInput.Item>
-              ))}
-              <BaseTagsInput.Input
-                className={classes.input}
-                placeholder={inputValuePlaceHolder}
-                type={inputType}
-                data-testid="tags-input-value"
-                style={{ width: 160 }}
-              />
-              <BaseTagsInput.ClearTrigger asChild data-testid="clear-tags">
-                <Button variant="secondary" size="sm">
-                  Clear
-                </Button>
-              </BaseTagsInput.ClearTrigger>
-            </BaseTagsInput.Control>
-          </>
-        )}
+                    <BaseTagsInput.ItemText>{v}</BaseTagsInput.ItemText>
+                    <BaseTagsInput.ItemDeleteTrigger
+                      asChild
+                      onClick={() => {
+                        const newValue = value.filter((item) => item !== v);
+                        setValue(newValue);
+                        onChangeValue(newValue);
+                      }}
+                      data-testid={`delete-tag-${index}`}
+                    >
+                      <IconButton aria-label="close" variant="link" size="xs">
+                        <XIcon />
+                      </IconButton>
+                    </BaseTagsInput.ItemDeleteTrigger>
+                    <BaseTagsInput.ItemInput className={classes.itemInput} />
+                  </BaseTagsInput.Item>
+                ))}
+                <BaseTagsInput.Input
+                  className={classes.input}
+                  placeholder={inputValuePlaceHolder}
+                  type={inputType}
+                  data-testid="tags-input-value"
+                  style={{ width: 160 }}
+                />
+                <BaseTagsInput.ClearTrigger asChild data-testid="clear-tags">
+                  <Button variant="secondary" size="sm">
+                    Clear
+                  </Button>
+                </BaseTagsInput.ClearTrigger>
+              </BaseTagsInput.Control>
+            </>
+          )}
+        </BaseTagsInput.Context>
       </BaseTagsInput.Root>
     </>
   );
