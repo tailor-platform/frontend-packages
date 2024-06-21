@@ -7,6 +7,7 @@ import formStorySource from "./FormStory.tsx?raw";
 
 const meta = {
   title: "Composite/Form",
+  // @ts-ignore
   component: Form.Root as any,
   parameters: {
     layout: "centered",
