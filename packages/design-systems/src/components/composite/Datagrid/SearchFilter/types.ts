@@ -10,7 +10,7 @@ export type ValueChangeDetails<T extends CollectionItem = CollectionItem> = {
 
 export type FilterRowState = {
   column: string;
-  value: QueryRowValue;
+  value: FilterValue;
   condition: string;
   jointCondition?: string;
   isChangeable: boolean;
@@ -23,20 +23,29 @@ export type JointCondition = {
   disabled: boolean;
 };
 
-export type QueryRowValue = string | number | boolean | string[] | number[];
-export type QueryRowColumn = {
-  [column: string]: {
-    [condition: string]: QueryRowValue;
-  };
+export type FilterValue =
+  | string
+  | number
+  | boolean
+  | string[]
+  | number[]
+  | null
+  | undefined;
+export type QueryFilterColumn = {
+  [column: string]:
+    | {
+        [condition: string]: FilterValue;
+      }
+    | undefined;
 };
-export type QueryRow =
-  | QueryRowColumn
+export type QueryFilter =
+  | QueryFilterColumn
   | {
-      [jointCondition: string]: Array<QueryRowColumn>;
+      [jointCondition: string]: Array<QueryFilterColumn>;
     };
 
-export type GraphQLQueryFilter = {
-  [and: string]: QueryRow;
+export type RootQueryFilter = {
+  [and: string]: QueryFilter;
 };
 
 export interface CustomFilterTableState {

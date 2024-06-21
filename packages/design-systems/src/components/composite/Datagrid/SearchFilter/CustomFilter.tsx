@@ -17,7 +17,7 @@ import type {
   CustomFilterOptions,
   CustomFilterProps,
   CustomFilterTableState,
-  GraphQLQueryFilter,
+  RootQueryFilter,
 } from "./types";
 import { FilterRow } from "./FilterRow";
 import { useCustomFilter } from "./useCustomFilter";
@@ -27,7 +27,7 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
 ) => {
   const localization = props.table.localization || LOCALIZATION_EN;
   const { columns, size = "md", variant = "secondary" } = props;
-  const onChange = (filters: GraphQLQueryFilter | undefined) => {
+  const onChange = (filters: RootQueryFilter | undefined) => {
     props.table.onFilterChange?.(filters);
   };
   const systemFilter = props.table.systemFilter;

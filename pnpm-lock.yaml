@@ -469,40 +469,6 @@ importers:
         specifier: ^7.13.0
         version: 7.13.0(eslint@9.4.0)(typescript@5.3.3)
 
-  packages/minitailorctl:
-    dependencies:
-      '@commander-js/extra-typings':
-        specifier: ^11.1.0
-        version: 11.1.0(commander@11.1.0)
-      chalk:
-        specifier: ^5.3.0
-        version: 5.3.0
-      execa:
-        specifier: ^8.0.1
-        version: 8.0.1
-      yargs:
-        specifier: ^17.7.2
-        version: 17.7.2
-    devDependencies:
-      '@swc-node/register':
-        specifier: ^1.8.0
-        version: 1.8.0(@swc/core@1.4.12(@swc/helpers@0.5.6))(@swc/types@0.1.5)(typescript@5.3.3)
-      '@tailor-platform/dev-config':
-        specifier: workspace:*
-        version: link:../dev-config
-      '@types/node':
-        specifier: ^20.11.16
-        version: 20.11.16
-      eslint:
-        specifier: ^9.4.0
-        version: 9.4.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.0.1(@swc/core@1.4.12(@swc/helpers@0.5.6))(postcss@8.4.35)(ts-node@10.9.2(@swc/core@1.4.12(@swc/helpers@0.5.6))(@types/node@20.11.16)(typescript@5.3.3))(typescript@5.3.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.3.3
-
   packages/monitoring:
     dependencies:
       '@datadog/browser-core':
@@ -3499,22 +3465,6 @@ packages:
   '@storybook/types@8.0.0':
     resolution: {integrity: sha512-6nJipdgoAkVFk2JpRPCm9vb/Yuak2lmdZRv9qzl8cNRttlbOESVlzbmhgxCmWV0OYUaMeYge9L8NWhJ14LKbzw==}
 
-  '@swc-node/core@1.12.0':
-    resolution: {integrity: sha512-AYrEmPL2BT46wbikHwSMR5IK98SelBEYH+ycjalUxJ5xYjEupjF8Fd+NkadKoZAzf5zDtysFKd5R1PY4QBHIiw==}
-    engines: {node: '>= 10'}
-    peerDependencies:
-      '@swc/core': '>= 1.3'
-      '@swc/types': '>= 0.1'
-
-  '@swc-node/register@1.8.0':
-    resolution: {integrity: sha512-8K3589HoBSmVmrEVrtr4K5sWEithpGDzcFGic81OW0A9sZY38IV5EGRODQWCk0SBDyLhaF+pid120vJAtsHo1A==}
-    peerDependencies:
-      '@swc/core': '>= 1.3'
-      typescript: '>= 4.3'
-
-  '@swc-node/sourcemap-support@0.4.0':
-    resolution: {integrity: sha512-weuRmYTO+4yOtHtPZHXlPdA1dJJJp3QOoZAFZ6uZidu992F2X5v1fQdnb26xs1o3Ex/e2sYhRyY5R6NGNuoATQ==}
-
   '@swc/core-darwin-arm64@1.4.12':
     resolution: {integrity: sha512-BZUUq91LGJsLI2BQrhYL3yARkcdN4TS3YGNS6aRYUtyeWrGCTKHL90erF2BMU2rEwZLLkOC/U899R4o4oiSHfA==}
     engines: {node: '>=10'}
@@ -3892,9 +3842,6 @@ packages:
 
   '@types/node@18.19.6':
     resolution: {integrity: sha512-X36s5CXMrrJOs2lQCdDF68apW4Rfx9ixYMawlepwmE4Anezv/AV2LSpKD1Ub8DAc+urp5bk0BGZ6NtmBitfnsg==}
-
-  '@types/node@20.11.16':
-    resolution: {integrity: sha512-gKb0enTmRCzXSSUJDq6/sPcqrfCv2mkkG6Jt/clpn5eiCbKTY+SgZUxo+p8ZKMof5dCp9vHQUAB7wOUTod22wQ==}
 
   '@types/node@20.11.30':
     resolution: {integrity: sha512-dHM6ZxwlmuZaRmUPfv1p+KrdD1Dci04FbdEm/9wEMouFqxYoFl5aMkt0VMAUtYRQDyYvD41WJLukhq/ha3YuTw==}
@@ -14417,30 +14364,6 @@ snapshots:
       '@types/express': 4.17.21
       file-system-cache: 2.3.0
 
-  '@swc-node/core@1.12.0(@swc/core@1.4.12(@swc/helpers@0.5.6))(@swc/types@0.1.5)':
-    dependencies:
-      '@swc/core': 1.4.12(@swc/helpers@0.5.6)
-      '@swc/types': 0.1.5
-
-  '@swc-node/register@1.8.0(@swc/core@1.4.12(@swc/helpers@0.5.6))(@swc/types@0.1.5)(typescript@5.3.3)':
-    dependencies:
-      '@swc-node/core': 1.12.0(@swc/core@1.4.12(@swc/helpers@0.5.6))(@swc/types@0.1.5)
-      '@swc-node/sourcemap-support': 0.4.0
-      '@swc/core': 1.4.12(@swc/helpers@0.5.6)
-      colorette: 2.0.20
-      debug: 4.3.4(supports-color@5.5.0)
-      pirates: 4.0.6
-      tslib: 2.6.2
-      typescript: 5.3.3
-    transitivePeerDependencies:
-      - '@swc/types'
-      - supports-color
-
-  '@swc-node/sourcemap-support@0.4.0':
-    dependencies:
-      source-map-support: 0.5.21
-      tslib: 2.6.2
-
   '@swc/core-darwin-arm64@1.4.12':
     optional: true
 
@@ -14787,10 +14710,6 @@ snapshots:
       undici-types: 5.26.5
 
   '@types/node@18.19.6':
-    dependencies:
-      undici-types: 5.26.5
-
-  '@types/node@20.11.16':
     dependencies:
       undici-types: 5.26.5
 
@@ -19811,14 +19730,6 @@ snapshots:
       postcss: 8.4.35
       ts-node: 10.9.2(@swc/core@1.4.12(@swc/helpers@0.5.6))(@types/node@18.19.2)(typescript@5.3.3)
 
-  postcss-load-config@4.0.2(postcss@8.4.35)(ts-node@10.9.2(@swc/core@1.4.12(@swc/helpers@0.5.6))(@types/node@20.11.16)(typescript@5.3.3)):
-    dependencies:
-      lilconfig: 3.0.0
-      yaml: 2.3.4
-    optionalDependencies:
-      postcss: 8.4.35
-      ts-node: 10.9.2(@swc/core@1.4.12(@swc/helpers@0.5.6))(@types/node@20.11.16)(typescript@5.3.3)
-
   postcss-load-config@4.0.2(postcss@8.4.35)(ts-node@10.9.2(@swc/core@1.4.12)(@types/node@20.11.30)(typescript@5.3.3)):
     dependencies:
       lilconfig: 3.0.0
@@ -21036,27 +20947,6 @@ snapshots:
       '@swc/core': 1.4.12(@swc/helpers@0.5.6)
     optional: true
 
-  ts-node@10.9.2(@swc/core@1.4.12(@swc/helpers@0.5.6))(@types/node@20.11.16)(typescript@5.3.3):
-    dependencies:
-      '@cspotcode/source-map-support': 0.8.1
-      '@tsconfig/node10': 1.0.9
-      '@tsconfig/node12': 1.0.11
-      '@tsconfig/node14': 1.0.3
-      '@tsconfig/node16': 1.0.4
-      '@types/node': 20.11.16
-      acorn: 8.11.3
-      acorn-walk: 8.3.1
-      arg: 4.1.3
-      create-require: 1.1.1
-      diff: 4.0.2
-      make-error: 1.3.6
-      typescript: 5.3.3
-      v8-compile-cache-lib: 3.0.1
-      yn: 3.1.1
-    optionalDependencies:
-      '@swc/core': 1.4.12(@swc/helpers@0.5.6)
-    optional: true
-
   ts-node@10.9.2(@swc/core@1.4.12)(@types/node@20.11.30)(typescript@5.3.3):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
@@ -21119,30 +21009,6 @@ snapshots:
       globby: 11.1.0
       joycon: 3.1.1
       postcss-load-config: 4.0.2(postcss@8.4.35)(ts-node@10.9.2(@swc/core@1.4.12(@swc/helpers@0.5.6))(@types/node@18.19.2)(typescript@5.3.3))
-      resolve-from: 5.0.0
-      rollup: 4.12.0
-      source-map: 0.8.0-beta.0
-      sucrase: 3.35.0
-      tree-kill: 1.2.2
-    optionalDependencies:
-      '@swc/core': 1.4.12(@swc/helpers@0.5.6)
-      postcss: 8.4.35
-      typescript: 5.3.3
-    transitivePeerDependencies:
-      - supports-color
-      - ts-node
-
-  tsup@8.0.1(@swc/core@1.4.12(@swc/helpers@0.5.6))(postcss@8.4.35)(ts-node@10.9.2(@swc/core@1.4.12(@swc/helpers@0.5.6))(@types/node@20.11.16)(typescript@5.3.3))(typescript@5.3.3):
-    dependencies:
-      bundle-require: 4.0.2(esbuild@0.19.12)
-      cac: 6.7.14
-      chokidar: 3.6.0
-      debug: 4.3.4(supports-color@5.5.0)
-      esbuild: 0.19.12
-      execa: 5.1.1
-      globby: 11.1.0
-      joycon: 3.1.1
-      postcss-load-config: 4.0.2(postcss@8.4.35)(ts-node@10.9.2(@swc/core@1.4.12(@swc/helpers@0.5.6))(@types/node@20.11.16)(typescript@5.3.3))
       resolve-from: 5.0.0
       rollup: 4.12.0
       source-map: 0.8.0-beta.0

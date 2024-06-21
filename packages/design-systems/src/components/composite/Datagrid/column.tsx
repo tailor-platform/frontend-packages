@@ -20,6 +20,10 @@ type Maybe<T> = T | null | undefined;
  *   address?: {
  *     city: string;
  *   } | null;
+ *   email: {
+ *     primary: string;
+ *     secondary?: string;
+ *   }
  * }
  * ```
  *
@@ -27,13 +31,17 @@ type Maybe<T> = T | null | undefined;
  * - `id`
  * - `name`
  * - `address`
- * - `address.city`
+ * - `address?.city`
+ * - `email.primary`
+ * - `email.secondary`
  */
 type NestedKeyOf<T extends Record<string, unknown>> = {
   [K in keyof T & string]: T[K] extends Maybe<Record<string, unknown>>
-    ? T[K] extends Maybe<Record<string, unknown>>
-      ? `${K}.${NestedKeyOf<NonNullable<T[K]>>}`
-      : K
+    ? T[K] extends Record<string, unknown>
+      ? `${K}.${NestedKeyOf<T[K]>}`
+      : T[K] extends Maybe<Record<string, unknown>>
+        ? `${K}?.${NestedKeyOf<NonNullable<T[K]>>}`
+        : K
     : K;
 }[keyof T & string];
 

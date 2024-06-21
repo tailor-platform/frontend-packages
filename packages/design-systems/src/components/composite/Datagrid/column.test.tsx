@@ -9,7 +9,10 @@ type User = {
   name: string;
   age?: number | null;
   category: string;
-  email: string;
+  email: {
+    primary: string;
+    secondary?: string;
+  };
   address?: {
     city: string;
     country: string;
@@ -39,12 +42,12 @@ const columns = [
       maxSize: 80,
     },
   ),
-  columnBuilder.string("email", "Email", {
+  columnBuilder.string("email.primary", "Email", {
     render: (props) => {
       return <div>Email: ${props.getValue() as string}</div>;
     },
   }),
-  columnBuilder.string("address.city", "City"),
+  columnBuilder.string("address?.city", "City"),
   columnBuilder.custom("operation", "操作", {
     size: 60,
     render: () => {
@@ -117,7 +120,7 @@ describe("buildColumns", () => {
         },
       },
       {
-        accessorKey: "email",
+        accessorKey: "email.primary",
         header: "Email",
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         cell: expect.any(Function),
@@ -130,7 +133,7 @@ describe("buildColumns", () => {
         },
       },
       {
-        accessorKey: "address.city",
+        accessorKey: "address?.city",
         header: "City",
         size: undefined,
         maxSize: undefined,

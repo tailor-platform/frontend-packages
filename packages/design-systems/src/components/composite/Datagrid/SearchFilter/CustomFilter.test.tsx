@@ -23,7 +23,7 @@ import {
 import { DataGrid } from "../Datagrid";
 import { newColumnBuilder } from "../column";
 import { CustomFilter } from "./CustomFilter";
-import type { GraphQLQueryFilter, QueryRow } from "./types";
+import type { RootQueryFilter, QueryFilter } from "./types";
 
 /* eslint-disable-next-line @typescript-eslint/no-empty-function */
 window.HTMLElement.prototype.scrollTo = function () {}; //(https://github.com/jsdom/jsdom/issues/1695)
@@ -52,7 +52,7 @@ const columnDefs = [
 
 type UseDataGridWithFilterProps = {
   customizeDatagrid?: Partial<UseDataGridProps<Payment>>;
-  onFilterChange?: (filters: GraphQLQueryFilter | undefined) => void;
+  onFilterChange?: (filters: RootQueryFilter | undefined) => void;
 };
 const useDataGridWithFilter = (
   props?: UseDataGridWithFilterProps,
@@ -115,7 +115,7 @@ describe(
   "<CustomFilter />",
   () => {
     it("Renders the component correctly when locale is set as English", () => {
-      let currentFilters: GraphQLQueryFilter | undefined = undefined;
+      let currentFilters: RootQueryFilter | undefined = undefined;
 
       render(
         <CustomFilterComponent
@@ -146,7 +146,7 @@ describe(
     });
 
     it("Renders the component correctly when locale is set as Japanese", () => {
-      let currentFilters: GraphQLQueryFilter | undefined = undefined;
+      let currentFilters: RootQueryFilter | undefined = undefined;
 
       render(
         <CustomFilterComponent
@@ -174,7 +174,7 @@ describe(
     });
 
     it("Renders ENUM type correctly", async () => {
-      let currentFilters: GraphQLQueryFilter | undefined = undefined;
+      let currentFilters: RootQueryFilter | undefined = undefined;
 
       render(
         <CustomFilterComponent
@@ -253,7 +253,7 @@ describe(
     });
 
     it("Renders string type correctly", async () => {
-      let currentFilters: GraphQLQueryFilter | undefined = undefined;
+      let currentFilters: RootQueryFilter | undefined = undefined;
 
       render(
         <CustomFilterComponent
@@ -318,7 +318,7 @@ describe(
     });
 
     it("Renders number type correctly", async () => {
-      let currentFilters: GraphQLQueryFilter | undefined = undefined;
+      let currentFilters: RootQueryFilter | undefined = undefined;
 
       render(
         <CustomFilterComponent
@@ -386,7 +386,7 @@ describe(
     });
 
     it("Renders Date type correctly", async () => {
-      let currentFilters: GraphQLQueryFilter | undefined = undefined;
+      let currentFilters: RootQueryFilter | undefined = undefined;
 
       render(
         <CustomFilterComponent
@@ -461,7 +461,7 @@ describe(
     });
 
     it("Renders Boolean type correctly", async () => {
-      let currentFilters: GraphQLQueryFilter | undefined = undefined;
+      let currentFilters: RootQueryFilter | undefined = undefined;
 
       render(
         <CustomFilterComponent
@@ -644,7 +644,7 @@ describe(
     });
 
     it("dateTime filter convert correctly toISOString", async () => {
-      let currentFilters: GraphQLQueryFilter | undefined = undefined;
+      let currentFilters: RootQueryFilter | undefined = undefined;
 
       render(
         <CustomFilterComponent
@@ -781,12 +781,12 @@ describe(
     });
 
     it("when user click IN condition, show up TagsInput", async () => {
-      let currentFilters: GraphQLQueryFilter | undefined = undefined;
+      let currentFilters: RootQueryFilter | undefined = undefined;
 
-      const systemFilter: QueryRow = {
+      const systemFilter: QueryFilter = {
         updatedAt: { eq: "2024-05-10 12:00:00" },
       };
-      const defaultQuery: QueryRow = {
+      const defaultQuery: QueryFilter = {
         status: { eq: "pending" },
       };
 
@@ -859,12 +859,12 @@ describe(
     });
 
     it("when user click IN condition, show up TagsInput and delete button work correctly", async () => {
-      let currentFilters: GraphQLQueryFilter | undefined = undefined;
+      let currentFilters: RootQueryFilter | undefined = undefined;
 
-      const systemFilter: QueryRow = {
+      const systemFilter: QueryFilter = {
         updatedAt: { eq: "2024-05-10 12:00:00" },
       };
-      const defaultQuery: QueryRow = {
+      const defaultQuery: QueryFilter = {
         status: { eq: "pending" },
       };
 
@@ -931,12 +931,12 @@ describe(
     });
 
     it("when user click IN condition, show up TagsInput and clear button work correctly", async () => {
-      let currentFilters: GraphQLQueryFilter | undefined = undefined;
+      let currentFilters: RootQueryFilter | undefined = undefined;
 
-      const systemFilter: QueryRow = {
+      const systemFilter: QueryFilter = {
         updatedAt: { eq: "2024-05-10 12:00:00" },
       };
-      const defaultQuery: QueryRow = {
+      const defaultQuery: QueryFilter = {
         status: { eq: "pending" },
       };
 
@@ -1003,7 +1003,7 @@ describe(
     });
 
     it("after setting an input type filter, when changing the column, the input value is empty", async () => {
-      let currentFilters: GraphQLQueryFilter | undefined = undefined;
+      let currentFilters: RootQueryFilter | undefined = undefined;
 
       render(
         <CustomFilterComponent
@@ -1087,8 +1087,8 @@ describe(
     });
 
     it("When the default filter for input type is set, when changing the column, the input value is empty", async () => {
-      let currentFilters: GraphQLQueryFilter | undefined = undefined;
-      const defaultQuery: QueryRow = {
+      let currentFilters: RootQueryFilter | undefined = undefined;
+      const defaultQuery: QueryFilter = {
         email: { eq: "test@test.com" },
       };
 
@@ -1130,8 +1130,8 @@ describe(
     });
 
     it("When the default filter for input type is set, when clear filter, the input value is empty", async () => {
-      let currentFilters: GraphQLQueryFilter | undefined = undefined;
-      const defaultQuery: QueryRow = {
+      let currentFilters: RootQueryFilter | undefined = undefined;
+      const defaultQuery: QueryFilter = {
         email: { eq: "test@test.com" },
       };
 
