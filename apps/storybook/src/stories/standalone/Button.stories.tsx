@@ -5,8 +5,7 @@ import { Button, ButtonProps } from "@tailor-platform/design-systems";
 
 const meta: Meta<ButtonProps> = {
   title: "Standalone/Button",
-  // @ts-ignore
-  component: Button as any,
+  component: Button as Meta["component"],
   parameters: {
     layout: "centered",
   },
