@@ -239,9 +239,7 @@ export const useCustomFilter = <TData>({
       );
       return newState;
     });
-  }, [newEmptyRow, selectedJointCondition]);
-
-  const [prevFilter, setPrevFilter] = useState<RootQueryFilter | undefined>({});
+  }, [newEmptyRow]);
 
   /**
    * This will bubble up the GraphQLQueryFilter to the parent component.
