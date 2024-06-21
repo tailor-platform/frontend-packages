@@ -2,7 +2,7 @@
   "extends": "@tailor-platform/dev-config/typescript/base",
   "compilerOptions": {
     "lib": ["es2017","ES2018", "dom"],
-    "target": "es5",
+    "target": "ES2018",
     "types": ["vitest/globals"],
     "moduleResolution": "nodenext",
     "module": "NodeNext",
