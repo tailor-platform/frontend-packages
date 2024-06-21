@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { AppleIcon } from "lucide-react";
 import { IconButton  } from "@tailor-platform/design-systems";
 import { button } from "@tailor-platform/styled-system/recipes";
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import {
   type HTMLStyledProps,
 } from "@tailor-platform/styled-system/jsx";
