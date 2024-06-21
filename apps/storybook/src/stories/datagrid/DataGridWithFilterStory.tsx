@@ -5,7 +5,7 @@ import {
   DataGrid,
   DataGridInstance,
   useDataGrid,
-  QueryLow,
+  QueryFilter,
 } from "@tailor-platform/design-systems/client";
 import { useState } from "react";
 import { COLUMNS as columns, DATA as originData } from "../../data/datagrid.ts";
@@ -21,10 +21,10 @@ export const DataGridWithFilterStory = ({
   enableColumnFilters = false,
 }: DataGridWithFilterStoryProps) => {
   const [data, setData] = useState<Payment[]>(originData);
-  const query: QueryLow = {
+  const query: QueryFilter = {
     status: { eq: "pending" },
   };
-  const defaultQuery: QueryLow = {
+  const defaultQuery: QueryFilter = {
     amount: { gt: 200 },
   };
   const table = useDataGrid({
@@ -34,9 +34,7 @@ export const DataGridWithFilterStory = ({
     onFilterChange: (filter) => {
       setFilterChange(filter, originData, setData);
     },
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     systemFilter: query,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     defaultFilter: defaultQuery,
   });
 

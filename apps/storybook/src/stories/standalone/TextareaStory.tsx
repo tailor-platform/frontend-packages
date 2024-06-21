@@ -1,14 +1,10 @@
-import { Stack } from "@tailor-platform/styled-system/jsx";
-import {
-  Label,
-  Textarea,
-  type TextareaProps,
-} from "@tailor-platform/design-systems";
+import { Stack, HTMLStyledProps } from "@tailor-platform/styled-system/jsx";
+import { Label, Textarea } from "@tailor-platform/design-systems";
 
-export const TextareaStory = (props: TextareaProps) => {
+export const TextareaStory = (props: HTMLStyledProps<"textarea">) => {
   return (
     <Stack gap="1.5" width="lg">
-      <Label htmlFor="description">Description</Label>
+      <Label htmlContent="description">Description</Label>
       <Textarea id="description" rows={4} {...props} />
     </Stack>
   );

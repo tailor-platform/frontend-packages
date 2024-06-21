@@ -156,7 +156,8 @@
   "View": {
     "view": {
       "type": "DateView",
-      "isRequired": true
+      "isRequired": true,
+      "description": "The view of the calendar"
     },
     "asChild": {
       "type": "boolean",
@@ -186,7 +187,8 @@
     },
     "columns": {
       "type": "number",
-      "isRequired": false
+      "isRequired": false,
+      "description": "The number of columns to display."
     }
   },
   "Content": {
@@ -234,7 +236,8 @@
   "TableCell": {
     "value": {
       "type": "number | DateValue",
-      "isRequired": true
+      "isRequired": true,
+      "description": "The value of the cell."
     },
     "asChild": {
       "type": "boolean",
@@ -243,15 +246,18 @@
     },
     "columns": {
       "type": "number",
-      "isRequired": false
+      "isRequired": false,
+      "description": "The number of columns to display."
     },
     "disabled": {
       "type": "boolean",
-      "isRequired": false
+      "isRequired": false,
+      "description": "Whether the cell is disabled."
     },
     "visibleRange": {
       "type": "VisibleRange",
-      "isRequired": false
+      "isRequired": false,
+      "description": "The visible range of the cell."
     }
   },
   "TableHead": {

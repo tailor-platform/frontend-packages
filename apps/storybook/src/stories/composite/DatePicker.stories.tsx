@@ -6,16 +6,17 @@ import {
   type DatePickerProps,
 } from "@tailor-platform/design-systems/client";
 import { datePickerTypes } from "../../ark-types";
+import { ComponentType } from "react";
 
-const meta = {
+const meta: Meta<DatePickerProps> = {
   title: "Composite/DatePicker",
-  component: DatePicker,
+  component: DatePicker as ComponentType<DatePickerProps>,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
   argTypes: { ...datePickerTypes },
-} satisfies Meta<DatePickerProps>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;

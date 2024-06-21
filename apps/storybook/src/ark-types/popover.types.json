@@ -123,11 +123,13 @@
     },
     "onExitComplete": {
       "type": "() => void",
-      "isRequired": false
+      "isRequired": false,
+      "description": "Callback when the exit transition is complete."
     },
     "present": {
       "type": "boolean",
-      "isRequired": false
+      "isRequired": false,
+      "description": "Whether the content is present."
     },
     "unmountOnExit": {
       "type": "boolean",
