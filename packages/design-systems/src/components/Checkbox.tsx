@@ -7,34 +7,30 @@ import {
   Checkbox as BaseCheckbox,
   type CheckboxRootProps as ArkCheckboxProps,
 } from "@ark-ui/react";
-import { useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
 
 export type CheckboxProps = ArkCheckboxProps & {
   children?: ReactNode;
 };
 
 export const Checkbox = (props: CheckboxProps) => {
-  const [checked, setChecked] = useState<BaseCheckbox.CheckedState>(
-    props.defaultChecked || false,
-  );
-
   return (
-    <ArkCheckbox
-      className={checkbox()}
-      {...props}
-      onCheckedChange={(e) => setChecked(e.checked)}
-    >
-      <CheckboxControl>
-        {checked ? (
-          <BaseCheckbox.Indicator indeterminate>
-            <CheckIcon />
-          </BaseCheckbox.Indicator>
-        ) : (
-          <BaseCheckbox.Indicator indeterminate>
-            <MinusIcon />
-          </BaseCheckbox.Indicator>
+    <ArkCheckbox className={checkbox()} {...props}>
+      <BaseCheckbox.Context>
+        {(state) => (
+          <>
+            <CheckboxControl>
+              {state.checked && <CheckIcon />}
+              {state.indeterminate && <MinusIcon />}
+            </CheckboxControl>
+            {props.children && (
+              <CheckboxLabel>
+                <styled.span fontWeight="medium">{props.children}</styled.span>
+              </CheckboxLabel>
+            )}
+          </>
         )}
-      </CheckboxControl>
+      </BaseCheckbox.Context>
       {props.children && (
         <CheckboxLabel>
           <styled.span fontWeight="medium">{props.children}</styled.span>
