@@ -1,0 +1,42 @@
+{
+  "name": "@tailor-platform/auth-apollo",
+  "version": "0.1.0",
+  "private": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist/**"
+  ],
+  "repository": "https://github.com/tailor-platform/frontend-packages",
+  "scripts": {
+    "build": "tsup",
+    "dev": "pnpm run build -- --watch",
+    "lint": "eslint --ignore-pattern 'dist/*' --max-warnings=0",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "type-check": "tsc --noEmit --incremental --pretty",
+    "publish:dev": "pnpm run build && yalc push --sig",
+    "publish:dev:watch": "nodemon -e ts,tsx -w ./src -x 'rm -rf ./dist && pnpm run publish:dev'",
+    "release:preview": "NODE_ENV=production pnpm run build && pnpm publish --tag preview"
+  },
+  "devDependencies": {
+    "@tailor-platform/auth": "workspace:*",
+    "@tailor-platform/dev-config": "workspace:*",
+    "eslint": "^9.4.0",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3"
+  },
+  "peerDependencies": {
+    "@apollo/client": "~3.9",
+    "@tailor-platform/auth": "^1.0.0"
+  },
+  "prettier": "@tailor-platform/dev-config/prettier",
+  "dependencies": {
+    "@types/node": "18.16.16"
+  }
+}
