@@ -13,10 +13,8 @@ jobs:
       pull-requests: write
     steps:
       - name: Add labels
-        uses: release-drafter/release-drafter@65c5fb495d1e69aa8c08a3317bc44ff8aabe9772 # v5.24.0
+        uses: release-drafter/release-drafter@v6
         with:
-          # Auto labeler will be made a separate action, for now use release-drafter only for its auto labeler.
-          # See https://github.com/release-drafter/release-drafter/issues/1216#issuecomment-1235291851
           disable-releaser: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
