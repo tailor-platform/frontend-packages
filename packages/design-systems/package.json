@@ -84,8 +84,8 @@
     "react-hook-form": "^7.48.2"
   },
   "peerDependencies": {
-    "@ark-ui/anatomy": "3.3.0",
-    "@ark-ui/react": "3.3.0",
+    "@ark-ui/anatomy": "^3.3.0",
+    "@ark-ui/react": "^3.3.0",
     "@pandacss/dev": "^0.36.0",
     "lucide-react": "^0.294.0"
   },
