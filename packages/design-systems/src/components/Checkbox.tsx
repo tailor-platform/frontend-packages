@@ -16,27 +16,24 @@ export type CheckboxProps = ArkCheckboxProps & {
 export const Checkbox = (props: CheckboxProps) => {
   return (
     <ArkCheckbox className={checkbox()} {...props}>
-      <BaseCheckbox.Context>
-        {(state) => (
-          <>
-            <CheckboxControl>
-              {state.checked && <CheckIcon />}
-              {state.indeterminate && <MinusIcon />}
-            </CheckboxControl>
-            {props.children && (
-              <CheckboxLabel>
-                <styled.span fontWeight="medium">{props.children}</styled.span>
-              </CheckboxLabel>
-            )}
-          </>
+      <CheckboxControl>
+        {props.checked && (
+          <BaseCheckbox.Indicator>
+            <CheckIcon />
+          </BaseCheckbox.Indicator>
         )}
-      </BaseCheckbox.Context>
+        {props.checked === "indeterminate" && (
+          <BaseCheckbox.Indicator indeterminate>
+            <MinusIcon />
+          </BaseCheckbox.Indicator>
+        )}
+      </CheckboxControl>
       {props.children && (
         <CheckboxLabel>
           <styled.span fontWeight="medium">{props.children}</styled.span>
         </CheckboxLabel>
       )}
-      <BaseCheckbox.HiddenInput />
+      <BaseCheckbox.HiddenInput role="checkbox" />
     </ArkCheckbox>
   );
 };
