@@ -6,10 +6,10 @@
     "paths": {
       "baseUrl": ["."],
       "@*": ["./src/*"],
-      "styled-systems": ["./node_modules/@tailor-platform/styled-system"],
+      "styled-systems": ["./node_modules/@tailor-platform/styled-system"]
     },
-    "types": ["@testing-library/jest-dom"],
+    "types": ["@testing-library/jest-dom"]
   },
   "include": ["."],
-  "exclude": ["dist", "build", "node_modules"],
+  "exclude": ["dist", "build", "node_modules"]
 }
