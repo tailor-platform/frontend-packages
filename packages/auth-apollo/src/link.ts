@@ -1,10 +1,27 @@
 import { from, HttpLink, makeVar, ServerError } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { onError } from "@apollo/client/link/error";
-import { logoutInternal } from "@client/hooks";
-import { Config } from "@core/config";
-import { internalClientSessionPath } from "@core/path";
-import { SessionResult } from "@core/types";
+import { Config, SessionResult } from "@tailor-platform/auth/core";
+
+// Internal path to fetch token from client components
+// `useSession` hook fetches token from this endpoint by extracting it from cookies.
+const internalClientSessionPath = "/__auth/session";
+
+// Internal path to logout from client components
+// This function deletes the token from cookies and redirects to the login page.
+const internalLogoutPath = "/__auth/logout";
+
+/**
+ * Internal commonized procedure to logout the current user.
+ */
+const logoutInternal = (config: Config, redirectPath?: string) => {
+  const searchParams = new URLSearchParams({
+    redirect_path: redirectPath || config.loginPath(),
+  });
+  window.location.replace(
+    `${config.appUrl(internalLogoutPath)}?${searchParams.toString()}`,
+  );
+};
 
 /**
  * authenticatedHttpLink is a custom ApolloLink that automatically sets tokens in authorization header as a bearer token.
@@ -13,7 +30,7 @@ import { SessionResult } from "@core/types";
  * ```
  * "use client";
  * import { ApolloClient, InMemoryCache } from "@apollo/client";
- * import { authenticatedHttpLink } from "@tailor-platform/auth/adapters/apollo";
+ * import { authenticatedHttpLink } from "@tailor-platform/auth-apollo";
  * import { TailorAuthProvider } from "@tailor-platform/auth/client";
  * import dynamic from "next/dynamic";
  * import { config } from "@/libs/authConfig";

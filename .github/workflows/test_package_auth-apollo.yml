@@ -1,0 +1,17 @@
+name: auth-apollo package CI
+
+on:
+  push:
+    paths:
+      - packages/auth-apollo/**
+      - .github/workflows/test_package_auth.yml
+      - .github/actions/ci/action.yml
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/ci
+        with:
+          package: "@tailor-platform/auth-apollo"
