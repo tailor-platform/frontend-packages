@@ -40,6 +40,7 @@ export const Checkbox = (props: CheckboxProps) => {
           <styled.span fontWeight="medium">{props.children}</styled.span>
         </CheckboxLabel>
       )}
+      <BaseCheckbox.HiddenInput />
     </ArkCheckbox>
   );
 };
