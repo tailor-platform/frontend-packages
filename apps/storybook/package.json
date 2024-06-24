@@ -9,6 +9,7 @@
     "build-storybook": "storybook build",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "type-check": "tsc --noEmit --incremental --pretty",
     "panda": "panda codegen",
     "ark:types": "node --loader ts-node/esm/transpile-only ./scripts/generate-ark-types.ts",
     "storybook:types": "node --loader ts-node/esm/transpile-only ./scripts/generate-storybook-types.ts",

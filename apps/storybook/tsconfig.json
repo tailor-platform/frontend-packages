@@ -18,6 +18,7 @@
   },
   "extends": "./node_modules/@tailor-platform/dev-config/typescript/design-systems.json",
   "include": ["src"],
+  "exclude": ["dist", "build", "node_modules"],
   "references": [
     {
       "path": "./tsconfig.node.json",
