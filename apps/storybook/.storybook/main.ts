@@ -21,9 +21,6 @@ const config: StorybookConfig = {
     getAbsolutePath("@storybook/addon-essentials"),
     getAbsolutePath("@storybook/addon-onboarding"),
     getAbsolutePath("@storybook/addon-interactions"),
-    getAbsolutePath("@storybook/addon-controls"),
-    getAbsolutePath("@storybook/addon-docs"),
-    getAbsolutePath("storybook-version"),
     getAbsolutePath("@storybook/addon-mdx-gfm"),
     "@chromatic-com/storybook"
   ],
