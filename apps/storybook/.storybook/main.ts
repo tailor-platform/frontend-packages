@@ -1,5 +1,5 @@
 import type { StorybookConfig } from "@storybook/react-vite";
-import path from "path";
+import path, { dirname, join } from "path";
 import { loadConfigFromFile, mergeConfig } from "vite";
 
 type ConfigEnv = {
@@ -15,29 +15,24 @@ const configEnvBuild: ConfigEnv = {
 };
 
 const config: StorybookConfig = {
-  stories: [
-    "../src/**/*.stories.@(js|jsx|mjs|ts|tsx|mdx)",
-    "'../src/**/*.mdx',",
-  ],
+  stories: ["../src/**/*.@(mdx|stories.@(js|jsx|mjs|ts|tsx))", "'../src/**/*.mdx',"],
   addons: [
-    "@storybook/addon-links",
-    "@storybook/addon-essentials",
-    "@storybook/addon-onboarding",
-    "@storybook/addon-interactions",
-    "@storybook/addon-controls",
-    "@storybook/addon-docs",
-    "storybook-version",
+    getAbsolutePath("@storybook/addon-links"),
+    getAbsolutePath("@storybook/addon-essentials"),
+    getAbsolutePath("@storybook/addon-onboarding"),
+    getAbsolutePath("@storybook/addon-interactions"),
+    getAbsolutePath("@storybook/addon-controls"),
+    getAbsolutePath("@storybook/addon-docs"),
+    getAbsolutePath("storybook-version"),
+    getAbsolutePath("@storybook/addon-mdx-gfm"),
+    "@chromatic-com/storybook"
   ],
   framework: {
-    name: "@storybook/react-vite",
+    name: getAbsolutePath("@storybook/react-vite"),
     options: {},
   },
-  docs: {
-    autodocs: "tag",
-  },
-  core: {
-    builder: "@storybook/builder-vite",
-  },
+  docs: {},
+  core: {},
   typescript: {
     reactDocgen: "react-docgen-typescript",
     reactDocgenTypescriptOptions: {
@@ -60,3 +55,7 @@ const config: StorybookConfig = {
   },
 };
 export default config;
+
+function getAbsolutePath(value: string): any {
+  return dirname(require.resolve(join(value, "package.json")));
+}
