@@ -46,6 +46,7 @@
     "@tailor-platform/dev-config": "workspace:*",
     "@types/react": "^18.2.34",
     "@types/react-dom": "^18.2.14",
+    "@vitejs/plugin-react": "^4.2.1",
     "@vitejs/plugin-react-swc": "^3.4.1",
     "chromatic": "^10.9.6",
     "eslint": "^9.4.0",

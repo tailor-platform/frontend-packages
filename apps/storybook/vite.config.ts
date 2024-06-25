@@ -1,8 +1,10 @@
 import panda from "@pandacss/dev/postcss";
 import { defineConfig } from "vite";
 import * as path from "path";
+import react from "@vitejs/plugin-react";
 
 export default defineConfig({
+  plugins: process.env.CI ? [react()] : [],
   css: {
     postcss: {
       plugins: [
