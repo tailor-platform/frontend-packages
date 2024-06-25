@@ -31,6 +31,7 @@ jobs:
           node-version-file: 'package.json'
 
       - name: Check if the package is publishable
+        working-directory: ./packages/${{ inputs.package_name }}
         run: npx can-npm-publish --verbose
 
       - uses: ./.github/actions/install_and_build
