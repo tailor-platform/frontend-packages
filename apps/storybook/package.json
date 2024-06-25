@@ -61,6 +61,5 @@
     "vite": "^5.0.12",
     "zod": "^3.22.4"
   },
-  "packageManager": "pnpm@8.11.0",
   "prettier": "@tailor-platform/dev-config/prettier"
 }
