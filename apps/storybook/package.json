@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "prepare": "pnpm panda",
-    "dev": "pnpm panda && storybook dev -p 6006",
+    "dev": "pnpm panda && _STORYBOOK_DEV=true storybook dev -p 6006",
     "build-storybook": "storybook build",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
