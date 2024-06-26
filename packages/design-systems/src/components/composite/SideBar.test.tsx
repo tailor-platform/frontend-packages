@@ -1,8 +1,8 @@
-import { render, screen, waitFor } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
-import { SideBar, SideBarItem } from "./SideBar";
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import { useState } from "react";
 import userEvent from "@testing-library/user-event";
+import { SideBar, SideBarItem } from "./SideBar";
 
 type Props = {
   defaultExpanded?: string[];
