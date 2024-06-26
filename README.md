@@ -19,7 +19,7 @@ Storybook for the packages, visible at https://storybook.tailor.tech.
 
 ## Dependency Versioning Information
 
-Our project is aligned with [Vercel's recommendation to use Node.js 18](https://vercel.com/docs/concepts/functions/serverless-functions/runtimes/node-js). As a result, we are using the corresponding type definitions for Node.js 18 (@types/node) within our monorepo.
+Our project is aligned with [Vercel's default to use Node.js 20](https://vercel.com/docs/concepts/functions/serverless-functions/runtimes/node-js). As a result, we are using the corresponding type definitions for Node.js 20 (@types/node) within our monorepo. (Checked: 2024/6/22)
 
 ## How to Contribute
 

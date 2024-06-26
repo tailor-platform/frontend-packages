@@ -37,6 +37,6 @@
   },
   "prettier": "@tailor-platform/dev-config/prettier",
   "dependencies": {
-    "@types/node": "18.16.16"
+    "@types/node": "20.14.8"
   }
 }
