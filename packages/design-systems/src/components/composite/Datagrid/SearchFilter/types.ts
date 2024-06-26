@@ -1,5 +1,5 @@
 import type { Updater } from "@tanstack/table-core";
-import type { CollectionItem } from "@ark-ui/react";
+import { type CollectionItem } from "@ark-ui/react/dist/types";
 import type { Column, DataGridInstance } from "../types";
 import { applicableTypes } from "./filter";
 

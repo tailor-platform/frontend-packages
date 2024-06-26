@@ -1,22 +1,17 @@
-import { Textarea, TextareaProps } from "@tailor-platform/design-systems";
+import { Textarea } from "@tailor-platform/design-systems";
+import { HTMLStyledProps } from "@tailor-platform/styled-system/jsx";
 import type { Meta, StoryObj } from "@storybook/react";
 import { TextareaStory } from "./TextareaStory.tsx";
 import textareaStorySource from "./TextareaStory.tsx?raw";
 
-const meta = {
+const meta: Meta<HTMLStyledProps<"textarea">> = {
   title: "Standalone/Textarea",
   component: Textarea,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
-  argTypes: {
-    size: {
-      options: ["sm", "md", "lg", "xl"],
-      control: { type: "radio" },
-    },
-  },
-} satisfies Meta<TextareaProps>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;

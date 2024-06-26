@@ -74,6 +74,7 @@ export const HideShow = <TData extends Record<string, unknown>>(
         style={{
           ...getBoxPosition(),
         }}
+        data-testid="hide-show-modal"
       >
         <Button
           variant="link"

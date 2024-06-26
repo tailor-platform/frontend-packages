@@ -149,7 +149,8 @@
   "Thumb": {
     "index": {
       "type": "number",
-      "isRequired": true
+      "isRequired": true,
+      "description": "The index of the thumb"
     },
     "asChild": {
       "type": "boolean",
@@ -167,7 +168,8 @@
   "Marker": {
     "value": {
       "type": "number",
-      "isRequired": true
+      "isRequired": true,
+      "description": "The value of the marker"
     },
     "asChild": {
       "type": "boolean",

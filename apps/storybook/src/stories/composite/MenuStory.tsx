@@ -1,123 +1,51 @@
 import { Menu, Portal } from "@ark-ui/react";
 import { ChevronRight } from "lucide-react";
 import { useState } from "react";
-import { Button, Checkbox, Radio } from "@tailor-platform/design-systems";
+import { Button } from "@tailor-platform/design-systems";
 import { styled } from "@tailor-platform/styled-system/jsx";
 import { menu } from "@tailor-platform/styled-system/recipes";
 
 export const MenuStory = () => {
-  const [value, setValue] = useState<Record<string, string | string[]>>({
-    framework: "",
-    libraries: [],
-  });
+  const [value, setValue] = useState("React");
+  const [checked, setChecked] = useState(false);
+
   const classes = menu();
 
   return (
-    <Menu.Root
-      closeOnSelect={false}
-      value={value}
-      onValueChange={(data) => {
-        setValue((prev) => ({
-          ...prev,
-          [data.name]: data.value,
-        }));
-      }}
-    >
+    <Menu.Root closeOnSelect={false}>
       <Menu.Trigger asChild>
         <Button>Open menu</Button>
       </Menu.Trigger>
       <Portal>
         <Menu.Positioner className={classes.positioner}>
           <Menu.Content className={classes.content}>
-            <Menu.Item className={classes.item} id="new-tab">
+            <Menu.Item className={classes.item} id="new-tab" value="">
               New Tab...
             </Menu.Item>
-            <Menu.Item className={classes.item} id="new-win">
+            <Menu.Item className={classes.item} id="new-win" value="">
               New Window...
             </Menu.Item>
-            <Menu.ItemGroup className={classes.itemGroup} id="radio-group">
-              <Menu.ItemGroupLabel
-                className={classes.itemGroupLabel}
-                htmlFor="radio-group"
-              >
-                Radio Group
-              </Menu.ItemGroupLabel>
-              <Menu.OptionItem
-                className={classes.optionItem}
-                name="framework"
-                type="radio"
-                value="react"
-              >
-                {({ isChecked }) => (
-                  <Radio name="framework" defaultChecked={isChecked}>
-                    React
-                  </Radio>
-                )}
-              </Menu.OptionItem>
-              <Menu.OptionItem
-                className={classes.optionItem}
-                name="framework"
-                type="radio"
-                value="solid"
-              >
-                {({ isChecked }) => (
-                  <Radio name="framework" defaultChecked={isChecked}>
-                    Solid
-                  </Radio>
-                )}
-              </Menu.OptionItem>
-              <Menu.OptionItem
-                className={classes.optionItem}
-                name="framework"
-                type="radio"
-                value="vue"
-              >
-                {({ isChecked }) => (
-                  <Radio name="framework" defaultChecked={isChecked}>
-                    Vue
-                  </Radio>
-                )}
-              </Menu.OptionItem>
-            </Menu.ItemGroup>
+            <Menu.RadioItemGroup
+              value={value}
+              onValueChange={(e) => setValue(e.value)}
+            >
+              <Menu.ItemGroupLabel>JS Frameworks</Menu.ItemGroupLabel>
+              {["React", "Solid", "Vue"].map((framework) => (
+                <Menu.RadioItem key={framework} value={framework}>
+                  <Menu.ItemIndicator>✅</Menu.ItemIndicator>
+                  <Menu.ItemText>{framework}</Menu.ItemText>
+                </Menu.RadioItem>
+              ))}
+            </Menu.RadioItemGroup>
 
-            <Menu.ItemGroup className={classes.itemGroup} id="checkbox-group">
-              <Menu.ItemGroupLabel
-                className={classes.itemGroupLabel}
-                htmlFor="checkbox-group"
-              >
-                Checkbox Group
-              </Menu.ItemGroupLabel>
-              <Menu.OptionItem
-                className={classes.optionItem}
-                name="libraries"
-                type="checkbox"
-                value="react-1"
-              >
-                {({ isChecked }) => (
-                  <Checkbox checked={isChecked}>React</Checkbox>
-                )}
-              </Menu.OptionItem>
-              <Menu.OptionItem
-                className={classes.optionItem}
-                name="libraries"
-                type="checkbox"
-                value="solid-1"
-              >
-                {({ isChecked }) => (
-                  <Checkbox checked={isChecked}>Solid</Checkbox>
-                )}
-              </Menu.OptionItem>
-              <Menu.OptionItem
-                className={classes.optionItem}
-                name="libraries"
-                type="checkbox"
-                value="vue-1"
-              >
-                {({ isChecked }) => (
-                  <Checkbox checked={isChecked}>Vue</Checkbox>
-                )}
-              </Menu.OptionItem>
-            </Menu.ItemGroup>
+            <Menu.CheckboxItem
+              checked={checked}
+              onCheckedChange={setChecked}
+              value="checked"
+            >
+              <Menu.ItemIndicator>✅</Menu.ItemIndicator>
+              <Menu.ItemText>Check me</Menu.ItemText>
+            </Menu.CheckboxItem>
             <Menu.Separator className={classes.separator} />
             <Menu.Root
               closeOnSelect={false}
@@ -130,10 +58,18 @@ export const MenuStory = () => {
               <Portal>
                 <Menu.Positioner className={classes.positioner}>
                   <Menu.Content className={classes.content}>
-                    <Menu.Item className={classes.item} id="twitter">
+                    <Menu.Item
+                      className={classes.item}
+                      id="twitter"
+                      value="twitter"
+                    >
                       Twitter
                     </Menu.Item>
-                    <Menu.Item className={classes.item} id="message">
+                    <Menu.Item
+                      className={classes.item}
+                      id="message"
+                      value="message"
+                    >
                       Message
                     </Menu.Item>
                   </Menu.Content>

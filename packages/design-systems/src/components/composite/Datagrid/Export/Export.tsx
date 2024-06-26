@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { mkConfig, generateCsv, download } from "export-to-csv";
+import { AcceptedData } from "export-to-csv/output/lib/types";
 import { DownloadIcon } from "lucide-react";
 import {
   InitialTableState,
@@ -87,7 +88,7 @@ export const Export = <TData extends Record<string, unknown>>(
 Export.displayName = "Export";
 
 type VisibleColumnRow = {
-  [key: string]: unknown;
+  [key: string]: AcceptedData;
 };
 
 export const defaultExportOptions = {
@@ -141,9 +142,11 @@ export const ExportFeature: TableFeature = {
           if (omit?.includes(column.id)) return;
           const header = (column.columnDef?.header as string) || column.id;
           if ("accessorKey" in column.columnDef) {
-            visibleColumnRow[header] = original[column.columnDef.accessorKey];
+            visibleColumnRow[header] = original[
+              column.columnDef.accessorKey
+            ] as AcceptedData;
           } else {
-            visibleColumnRow[header] = original[column.id];
+            visibleColumnRow[header] = original[column.id] as AcceptedData;
           }
         });
         return visibleColumnRow;

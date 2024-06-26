@@ -78,7 +78,8 @@
   "Ellipsis": {
     "index": {
       "type": "number",
-      "isRequired": true
+      "isRequired": true,
+      "description": "The index of the ellipsis."
     },
     "asChild": {
       "type": "boolean",
@@ -96,11 +97,13 @@
   "PageTrigger": {
     "type": {
       "type": "'page'",
-      "isRequired": true
+      "isRequired": true,
+      "description": "The type of the trigger element"
     },
     "value": {
       "type": "number",
-      "isRequired": true
+      "isRequired": true,
+      "description": "The page number"
     },
     "asChild": {
       "type": "boolean",

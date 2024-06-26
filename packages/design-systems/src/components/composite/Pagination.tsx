@@ -17,41 +17,43 @@ export const Pagination = (props: PaginationProps) => {
   const classes = pagination();
   return (
     <ArkPagination.Root count={count} className={classes.root} {...rest}>
-      {({ pages }) => (
-        <>
-          <ArkPagination.PrevTrigger asChild>
-            <IconButton variant="tertiary" aria-label="Next Page">
-              <ChevronLeftIcon />
-            </IconButton>
-          </ArkPagination.PrevTrigger>
+      <ArkPagination.Context>
+        {({ pages }) => (
+          <>
+            <ArkPagination.PrevTrigger asChild>
+              <IconButton variant="tertiary" aria-label="Next Page">
+                <ChevronLeftIcon />
+              </IconButton>
+            </ArkPagination.PrevTrigger>
 
-          {pages.map((page, index) =>
-            page.type === "page" ? (
-              <ArkPagination.Item
-                className={classes.item}
-                key={index}
-                {...page}
-                asChild
-              >
-                <Button variant="secondary">{page.value}</Button>
-              </ArkPagination.Item>
-            ) : (
-              <ArkPagination.Ellipsis
-                className={classes.ellipsis}
-                key={index}
-                index={index}
-              >
-                &#8230;
-              </ArkPagination.Ellipsis>
-            ),
-          )}
-          <ArkPagination.NextTrigger asChild>
-            <IconButton variant="tertiary" aria-label="Next Page">
-              <ChevronRightIcon />
-            </IconButton>
-          </ArkPagination.NextTrigger>
-        </>
-      )}
+            {pages.map((page, index) =>
+              page.type === "page" ? (
+                <ArkPagination.Item
+                  className={classes.item}
+                  key={index}
+                  {...page}
+                  asChild
+                >
+                  <Button variant="secondary">{page.value}</Button>
+                </ArkPagination.Item>
+              ) : (
+                <ArkPagination.Ellipsis
+                  className={classes.ellipsis}
+                  key={index}
+                  index={index}
+                >
+                  &#8230;
+                </ArkPagination.Ellipsis>
+              ),
+            )}
+            <ArkPagination.NextTrigger asChild>
+              <IconButton variant="tertiary" aria-label="Next Page">
+                <ChevronRightIcon />
+              </IconButton>
+            </ArkPagination.NextTrigger>
+          </>
+        )}
+      </ArkPagination.Context>
     </ArkPagination.Root>
   );
 };

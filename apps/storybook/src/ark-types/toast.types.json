@@ -2,7 +2,8 @@
   "Root": {
     "toast": {
       "type": "Service",
-      "isRequired": true
+      "isRequired": true,
+      "description": "The toast service"
     },
     "asChild": {
       "type": "boolean",
@@ -13,7 +14,8 @@
   "Group": {
     "placement": {
       "type": "Placement",
-      "isRequired": true
+      "isRequired": true,
+      "description": "The placement of the toast group"
     },
     "asChild": {
       "type": "boolean",

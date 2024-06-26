@@ -3,9 +3,9 @@ import { button } from "@tailor-platform/styled-system/recipes";
 import { VStack } from "@tailor-platform/styled-system/jsx";
 import { Button, ButtonProps } from "@tailor-platform/design-systems";
 
-const meta = {
+const meta: Meta<ButtonProps> = {
   title: "Standalone/Button",
-  component: Button,
+  component: Button as Meta["component"],
   parameters: {
     layout: "centered",
   },
@@ -25,12 +25,12 @@ const meta = {
       control: { type: "radio" },
     },
   },
-} satisfies Meta<ButtonProps>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const Default: StoryObj<ButtonProps> = {
   args: button.raw({
     variant: "primary",
     size: "md",
