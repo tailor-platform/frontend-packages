@@ -49,8 +49,12 @@ export const Default: Story = {
     ],
     expandedValue: ["workflow", "orders"],
     selectedValue: ["workflow"],
-    onExpandedChange: () => {},
-    onSelectionChange: () => {},
+    onExpandedChange: (details: { expandedValue: string[] }) => {
+      console.log(details.expandedValue);
+    },
+    onSelectionChange: (details: { selectedValue: string[] }) => {
+      console.log(details.selectedValue);
+    },
   },
   render: (args) => {
     return <SideBar {...args} />;

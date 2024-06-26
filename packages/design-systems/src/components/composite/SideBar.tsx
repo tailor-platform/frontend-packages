@@ -49,9 +49,9 @@ export const SideBar = ({
         onSelectionChange={onSelectionChange}
       >
         <TreeView.Tree className={treeViewClasses.tree}>
-          {items.map((item) => {
+          {items.map((item, i) => {
             return (
-              <TreeView.Branch value={item.id}>
+              <TreeView.Branch value={item.id} key={i}>
                 <TreeView.BranchControl
                   className={treeViewClasses.branchControl}
                 >
@@ -73,9 +73,13 @@ export const SideBar = ({
                   </TreeView.BranchText>
                 </TreeView.BranchControl>
                 {item.children.map((child, j) => {
+                  if (!child.isShow) {
+                    return null;
+                  }
                   return (
                     <TreeView.BranchContent
                       className={treeViewClasses.branchContent}
+                      key={j}
                     >
                       <TreeView.Item
                         className={treeViewClasses.item}
