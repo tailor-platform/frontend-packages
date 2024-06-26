@@ -1,32 +1,41 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { SideBar, SideBarProps } from "@tailor-platform/design-systems";
+import {
+  SideBar,
+  SideBarProps,
+  SideBarItem,
+} from "@tailor-platform/design-systems";
+import { useState } from "react";
 
-const meta = {
+const meta: Meta<SideBarProps> = {
   title: "Composite/SideBar",
   component: SideBar,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
-} satisfies Meta<SideBarProps>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {
-    items: [
+  render: () => {
+    const [expanded, setExpanded] = useState<string[]>([]);
+    const [selected, setSelected] = useState<string[]>([]);
+    const items: SideBarItem[] = [
       {
         id: "workflow",
         label: "ワークフロー管理",
-        isOpen: false,
+        isOpen: expanded.includes("workflow"),
         children: [
           {
             id: "requestHistories",
+            isShow: true,
             link: <a href="#">申請履歴</a>,
           },
           {
             id: "requests",
+            isShow: true,
             link: <a href="#">承認管理</a>,
           },
         ],
@@ -34,29 +43,34 @@ export const Default: Story = {
       {
         id: "orders",
         label: "受発注",
-        isOpen: false,
+        isOpen: expanded.includes("orders"),
         children: [
           {
             id: "salesOrders-textile",
+            isShow: true,
             link: <a href="#">受注管理</a>,
           },
           {
             id: "purchaseOrders-textile",
+            isShow: true,
             link: <a href="#">発注管理</a>,
           },
         ],
       },
-    ],
-    expandedValue: ["workflow", "orders"],
-    selectedValue: ["workflow"],
-    onExpandedChange: (details: { expandedValue: string[] }) => {
-      console.log(details.expandedValue);
-    },
-    onSelectionChange: (details: { selectedValue: string[] }) => {
-      console.log(details.selectedValue);
-    },
-  },
-  render: (args) => {
-    return <SideBar {...args} />;
+    ];
+
+    return (
+      <SideBar
+        items={items}
+        expandedValue={expanded}
+        selectedValue={selected}
+        onExpandedChange={(details) => {
+          setExpanded(details.expandedValue);
+        }}
+        onSelectionChange={(details) => {
+          setSelected(details.selectedValue);
+        }}
+      />
+    );
   },
 };

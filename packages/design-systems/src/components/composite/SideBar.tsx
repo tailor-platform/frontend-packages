@@ -3,10 +3,10 @@ import { ChevronDown } from "lucide-react";
 import { Container } from "@components/patterns/Container";
 import { treeView } from "@tailor-platform/styled-system/recipes";
 
-export type SideBarItemChild = {
+type SideBarItemChild = {
   id: string;
   link: React.ReactNode;
-  isShow?: boolean;
+  isVisible?: boolean;
 };
 
 export type SideBarItem = {
@@ -73,7 +73,7 @@ export const SideBar = ({
                   </TreeView.BranchText>
                 </TreeView.BranchControl>
                 {item.children.map((child, j) => {
-                  if (!child.isShow) {
+                  if (!child.isVisible) {
                     return null;
                   }
                   return (
