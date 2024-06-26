@@ -7,6 +7,11 @@ on:
         type: string
         required: true
         description: the name of the package
+      tag:
+        type: string
+        required: false
+        description: The name of the tag to checkout.
+        default: ''
 
 permissions:
   contents: read
@@ -17,10 +22,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ inputs.tag }}
 
       - uses: actions/setup-node@v4
         with:
           node-version-file: 'package.json'
+
+      - name: Check if the package is publishable
+        working-directory: ./packages/${{ inputs.package_name }}
+        run: npx can-npm-publish --verbose
 
       - uses: ./.github/actions/install_and_build
         with:
