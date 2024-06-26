@@ -1,7 +1,7 @@
 name: release package manually
 
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
       package:
         type: string
