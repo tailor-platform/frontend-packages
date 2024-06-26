@@ -115,12 +115,24 @@ describe("<HideShow />", () => {
 
     // Because we need to click "Status" in "HideShow" instead of "Status" in the header.
     await user.click(screen.getByTestId("hide-show-Status"));
-    // Below is commented out because the test is not working as expected. Error is below:
-    // Error: TypeError: win.PointerEvent is not a constructor
-    // await user.click(screen.getByTestId("datagrid-hide-show-button"));
 
     expect(
       screen.queryByTestId("datagrid-header-status"),
     ).not.toBeInTheDocument();
+  });
+
+  it("toggle modal correctly", async () => {
+    render(<DataGridWithHideShow />);
+    const user = userEvent.setup();
+    await user.click(screen.getByTestId("datagrid-hide-show-button"));
+    expect(screen.getByTestId("hide-show-modal")).toBeVisible();
+    await user.click(screen.getByTestId("datagrid-hide-show-button"));
+
+    // wait UI to update
+    setTimeout(() => {
+      expect(screen.queryByTestId("hide-show-modal")).toHaveStyle({
+        visibility: "hidden",
+      });
+    }, 5000);
   });
 });
