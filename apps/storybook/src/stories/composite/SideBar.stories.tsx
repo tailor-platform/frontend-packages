@@ -30,12 +30,12 @@ export const Default: Story = {
         children: [
           {
             id: "requestHistories",
-            isShow: true,
+            isVisible: true,
             link: <a href="#">申請履歴</a>,
           },
           {
             id: "requests",
-            isShow: true,
+            isVisible: false,
             link: <a href="#">承認管理</a>,
           },
         ],
@@ -47,12 +47,12 @@ export const Default: Story = {
         children: [
           {
             id: "salesOrders-textile",
-            isShow: true,
+            isVisible: true,
             link: <a href="#">受注管理</a>,
           },
           {
             id: "purchaseOrders-textile",
-            isShow: true,
+            isVisible: false,
             link: <a href="#">発注管理</a>,
           },
         ],
