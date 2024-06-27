@@ -17,6 +17,7 @@ const meta = {
   },
   tags: ["autodocs"],
   argTypes: { ...hoverCardTypes },
+  args: { trigger: <></> }, // If args is defined here, a code appearance at the storybook web page becomes uncontrollable (and unreadable). So the "real" args is defeined in the Story component, and here is for only type check.
 } satisfies Meta<HoverCardProps>;
 
 export default meta;
