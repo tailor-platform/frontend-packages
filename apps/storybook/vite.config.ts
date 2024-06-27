@@ -4,6 +4,8 @@ import * as path from "path";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
+  // Enabling react plugin prevents us from running storybook on dev, but required on Chromatic build,
+  // So we put our own temporary environment variable (_STORYBOOK_DEV) to tell if it's dev or not to switch plugins.
   plugins: process.env._STORYBOOK_DEV ? [] : [react()],
   css: {
     postcss: {
