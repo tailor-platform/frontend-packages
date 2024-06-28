@@ -34,7 +34,7 @@
     "publish:dev:watch": "nodemon -e ts,tsx -w ./src -x 'rm -rf ./dist && pnpm run publish:dev'"
   },
   "dependencies": {
-    "date-fns": "^2.30.0"
+    "date-fns": "^3.6.0"
   },
   "devDependencies": {
     "@swc/core": "^1.4.12",
