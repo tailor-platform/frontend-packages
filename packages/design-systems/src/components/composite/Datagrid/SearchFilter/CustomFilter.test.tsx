@@ -1220,20 +1220,34 @@ describe(
       //Select value
       await selectValue(screen, user, 0, "pending");
 
+      // Apply filter
+      const applyButton = screen.getByTestId("filter-apply-button");
+      await user.click(applyButton);
+
       // Close modal
       await user.click(screen.getByTestId("datagrid-filter-button"));
 
       // Open filter
       await user.click(await screen.findByTestId("datagrid-filter-button"));
 
+      //Select column
+      await selectColumn(screen, user, 0, "Amount");
+      //Select condition
+      await selectCondition(screen, user, 0, "以下");
+      //Select value
+      await inputValue(screen, user, 0, "200");
+
+      // Close modal
+      await user.click(screen.getByTestId("datagrid-filter-button"));
+
       // Check filterRow
       const columnElement = screen.getByTestId("select-column");
       const conditionElement = screen.getByTestId("select-condition");
       const valueElement = screen.getByTestId("select-input-value");
 
-      expect(columnElement).not.toEqual("Status");
-      expect(conditionElement).not.toEqual("等しい");
-      expect(valueElement).not.toEqual("pending");
+      expect(columnElement).not.toEqual("Amount");
+      expect(conditionElement).not.toEqual("以下");
+      expect(valueElement).not.toEqual("200");
     });
   },
 
