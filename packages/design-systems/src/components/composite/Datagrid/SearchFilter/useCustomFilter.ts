@@ -154,13 +154,10 @@ export const useCustomFilter = <TData>({
     };
     const count = filterRows.reduce((acc, row, index) => {
       // First row does not have jointCondition
-      if (index === 0) {
-        if (isCurrentStateValid(row)) {
-          return acc + 1;
-        }
-        return acc;
-      }
-      if (isCurrentStateValid(row) && row.currentState.jointCondition) {
+      if (
+        index === 0 ||
+        (row.currentState.jointCondition && isCurrentStateValid(row))
+      ) {
         return acc + 1;
       }
       return acc;
@@ -227,9 +224,9 @@ export const useCustomFilter = <TData>({
   const addNewFilterRowHandler = useCallback(() => {
     setFilterRows((oldState) => {
       const newState = [...oldState];
-      const selectedJointCondition = oldState.find((state) => {
-        return state.currentState.jointCondition === "and" || "or";
-      })?.currentState.jointCondition;
+      const selectedJointCondition = oldState.find(
+        ({ currentState }) => currentState.jointCondition,
+      )?.currentState.jointCondition;
       newState.push(
         newEmptyRow({
           index: oldState.length,
