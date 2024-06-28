@@ -1,7 +1,7 @@
 import { TreeView } from "@ark-ui/react";
 import { ChevronDown } from "lucide-react";
 import { Container } from "@components/patterns/Container";
-import recipes from "@tailor-platform/styled-system/recipes";
+import { treeView } from "@tailor-platform/styled-system/recipes/tree-view";
 
 type SideBarItemChild = {
   id: string;
@@ -24,7 +24,7 @@ export type SideBarProps = {
   onSelectionChange: (details: { selectedValue: string[] }) => void;
 };
 
-const treeViewClasses = recipes.treeView();
+const treeViewClasses = treeView();
 
 export const SideBar = ({
   items,
