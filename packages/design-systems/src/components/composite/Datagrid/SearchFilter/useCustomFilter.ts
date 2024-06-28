@@ -155,7 +155,7 @@ export const useCustomFilter = <TData>({
     const count = filterRows.reduce((acc, row, index) => {
       // First row does not have jointCondition
       if (
-        index === 0 ||
+        (index === 0 && isCurrentStateValid(row)) ||
         (row.currentState.jointCondition && isCurrentStateValid(row))
       ) {
         return acc + 1;
