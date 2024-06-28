@@ -12,16 +12,11 @@ const meta: Meta<IconButtonProps> = {
   tags: ["autodocs"],
   argTypes: {
     variant: {
-      options: [
-        "primary",
-        "secondary",
-        "tertiary",
-        "link",
-      ] as IconButtonProps["variant"],
+      options: ["primary", "secondary", "tertiary", "link"],
       control: { type: "radio" },
     },
     size: {
-      options: ["xs", "sm", "md", "lg", "xl", "2xl"] as IconButtonProps["size"],
+      options: ["xs", "sm", "md", "lg", "xl", "2xl"],
       control: { type: "radio" },
     },
   },

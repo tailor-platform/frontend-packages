@@ -18,7 +18,7 @@ const meta: Meta<InputProps> = {
   tags: ["autodocs"],
   argTypes: {
     size: {
-      options: ["sm", "md", "lg", "xl", "2xl"] as InputProps["size"],
+      options: ["sm", "md", "lg", "xl", "2xl"],
       control: { type: "radio" },
     },
   },
