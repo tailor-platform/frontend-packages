@@ -9,7 +9,7 @@ import {
 import { Stack, styled } from "@tailor-platform/styled-system/jsx";
 import { hoverCardTypes } from "../../ark-types";
 
-const meta = {
+const meta: Meta<HoverCardProps> = {
   title: "Composite/HoverCard",
   component: HoverCard,
   parameters: {
@@ -17,11 +17,13 @@ const meta = {
   },
   tags: ["autodocs"],
   argTypes: { ...hoverCardTypes },
-} satisfies Meta<HoverCardProps>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+// If `args` property is defined in Default Story object, a code appearance at the storybook web page becomes uncontrollable (and unreadable).
+// So we defeined `args` (Trigger) as an argument of `render` property.
 export const Default: Story = {
   render: () => {
     const Trigger = (

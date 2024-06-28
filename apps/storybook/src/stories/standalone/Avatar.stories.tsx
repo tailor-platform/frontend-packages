@@ -12,7 +12,7 @@ const meta: Meta<AvatarProps> = {
   tags: ["autodocs"],
   argTypes: {
     size: {
-      options: ["sm", "md", "lg"] as AvatarProps["size"],
+      options: ["sm", "md", "lg"],
       control: { type: "radio" },
     },
     ...avatarTypes,

@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from "@storybook/react";
 import {
   Accordion,
   type AccordionProps,
-  type AccordionItem,
 } from "@tailor-platform/design-systems";
 
 const meta = {
@@ -18,8 +17,8 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: () => {
-    const items: AccordionItem[] = [
+  args: {
+    items: [
       {
         text: "What is React?",
         content: `Pudding donut gummies chupa chups oat cake marzipan biscuit
@@ -38,10 +37,8 @@ export const Default: Story = {
     tart. Dessert macaroon ice cream bonbon jelly. Jelly topping
     tiramisu halvah lollipop.`,
       },
-    ];
-
-    return (
-      <Accordion items={items} defaultValue={["What is React?"]} collapsible />
-    );
+    ],
+    defaultValue: ["What is React?"],
+    collapsible: true,
   },
 };
