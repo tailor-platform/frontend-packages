@@ -1,7 +1,7 @@
 import { TreeView } from "@ark-ui/react";
 import { ChevronDown } from "lucide-react";
 import { Container } from "@components/patterns/Container";
-import { treeView } from "@tailor-platform/styled-system/recipes/tree-view";
+import { treeView } from "@tailor-platform/styled-system/recipes";
 
 type SideBarItemChild = {
   id: string;
