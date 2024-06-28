@@ -7,7 +7,7 @@ import { tagsInputTypes } from "../../ark-types";
 
 TagsInput.Root.displayName = "TagsInput";
 
-const meta = {
+const meta: Meta<TagsInputRootProps> = {
   title: "Composite/TagInput",
   component: TagsInput.Root,
   parameters: {
@@ -15,7 +15,7 @@ const meta = {
   },
   tags: ["autodocs"],
   argTypes: { ...tagsInputTypes },
-} satisfies Meta<TagsInputRootProps>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -30,38 +30,40 @@ export const Default: Story = {
       defaultValue={["React", "Solid", "Vue"]}
       {...props}
     >
-      {(api) => (
-        <>
-          <TagsInput.Label className={classes.label}>
-            Frameworks
-          </TagsInput.Label>
-          <TagsInput.Control className={classes.control}>
-            {api.value.map((value, index) => (
-              <TagsInput.Item
-                className={classes.item}
-                key={index}
-                index={index}
-                value={value}
-              >
-                <TagsInput.ItemText>{value}</TagsInput.ItemText>
-                <TagsInput.ItemDeleteTrigger asChild>
-                  <IconButton aria-label="close" variant="link" size="xs">
-                    <XIcon />
-                  </IconButton>
-                </TagsInput.ItemDeleteTrigger>
-                <TagsInput.ItemInput className={classes.itemInput} />
-              </TagsInput.Item>
-            ))}
-            <TagsInput.Input
-              className={classes.input}
-              placeholder="Add Framework"
-            />
-          </TagsInput.Control>
-          <TagsInput.ClearTrigger asChild>
-            <Button variant="secondary">Clear</Button>
-          </TagsInput.ClearTrigger>
-        </>
-      )}
+      <TagsInput.Context>
+        {(api) => (
+          <>
+            <TagsInput.Label className={classes.label}>
+              Frameworks
+            </TagsInput.Label>
+            <TagsInput.Control className={classes.control}>
+              {api.value.map((value, index) => (
+                <TagsInput.Item
+                  className={classes.item}
+                  key={index}
+                  index={index}
+                  value={value}
+                >
+                  <TagsInput.ItemText>{value}</TagsInput.ItemText>
+                  <TagsInput.ItemDeleteTrigger asChild>
+                    <IconButton aria-label="close" variant="link" size="xs">
+                      <XIcon />
+                    </IconButton>
+                  </TagsInput.ItemDeleteTrigger>
+                  <TagsInput.ItemInput className={classes.itemInput} />
+                </TagsInput.Item>
+              ))}
+              <TagsInput.Input
+                className={classes.input}
+                placeholder="Add Framework"
+              />
+            </TagsInput.Control>
+            <TagsInput.ClearTrigger asChild>
+              <Button variant="secondary">Clear</Button>
+            </TagsInput.ClearTrigger>
+          </>
+        )}
+      </TagsInput.Context>
     </TagsInput.Root>
   ),
 };

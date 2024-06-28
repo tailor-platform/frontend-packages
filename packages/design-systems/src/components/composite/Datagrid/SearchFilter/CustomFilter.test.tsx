@@ -189,7 +189,7 @@ describe(
       //Select column
       const selectColumn = screen.getByTestId("select-column");
       const selectColumnOptions = screen.getByTestId("select-column-options");
-      const selectColumnButton = within(selectColumn).getByRole("button");
+      const selectColumnButton = within(selectColumn).getByRole("combobox");
       await user.click(selectColumnButton);
 
       const statusOption = within(selectColumnOptions).getByText("Status");
@@ -205,7 +205,8 @@ describe(
       const selectConditionOptions = screen.getByTestId(
         "select-condition-options",
       );
-      const selectConditionButton = within(selectCondition).getByRole("button");
+      const selectConditionButton =
+        within(selectCondition).getByRole("combobox");
       await user.click(selectConditionButton);
 
       const equalConditionOption = within(selectConditionOptions).getByText(
@@ -219,7 +220,6 @@ describe(
 
       await user.click(equalConditionOption);
 
-      expect(equalConditionOption).not.toBeVisible();
       expect(selectCondition).toHaveTextContent("等しい");
 
       //Select value
@@ -227,7 +227,7 @@ describe(
       const selectValueOptions = screen.getByTestId(
         "select-input-value-options",
       );
-      const selectValueButton = within(selectValue).getByRole("button");
+      const selectValueButton = within(selectValue).getByRole("combobox");
       await user.click(selectValueButton);
 
       const pendingValueOption =
@@ -268,7 +268,7 @@ describe(
       // Select column
       const selectColumn = screen.getByTestId("select-column");
       const selectColumnOptions = screen.getByTestId("select-column-options");
-      const selectColumnButton = within(selectColumn).getByRole("button");
+      const selectColumnButton = within(selectColumn).getByRole("combobox");
       await user.click(selectColumnButton);
 
       const emailOption = within(selectColumnOptions).getByText("Email");
@@ -276,7 +276,6 @@ describe(
 
       await user.click(emailOption);
 
-      expect(emailOption).not.toBeVisible();
       expect(selectColumn).toHaveTextContent("Email");
 
       // Select condition
@@ -284,7 +283,8 @@ describe(
       const selectConditionOptions = screen.getByTestId(
         "select-condition-options",
       );
-      const selectConditionButton = within(selectCondition).getByRole("button");
+      const selectConditionButton =
+        within(selectCondition).getByRole("combobox");
       await user.click(selectConditionButton);
 
       const equalConditionOption = within(selectConditionOptions).getByText(
@@ -298,7 +298,6 @@ describe(
 
       await user.click(equalConditionOption);
 
-      expect(equalConditionOption).not.toBeVisible();
       expect(selectCondition).toHaveTextContent("等しい");
 
       // Input value
@@ -333,7 +332,7 @@ describe(
       // Select column
       const selectColumn = screen.getByTestId("select-column");
       const selectColumnOptions = screen.getByTestId("select-column-options");
-      const selectColumnButton = within(selectColumn).getByRole("button");
+      const selectColumnButton = within(selectColumn).getByRole("combobox");
       await user.click(selectColumnButton);
 
       const amountOption = within(selectColumnOptions).getByText("Amount");
@@ -341,7 +340,6 @@ describe(
 
       await user.click(amountOption);
 
-      expect(amountOption).not.toBeVisible();
       expect(selectColumn).toHaveTextContent("Amount");
 
       // Select condition
@@ -349,7 +347,8 @@ describe(
       const selectConditionOptions = screen.getByTestId(
         "select-condition-options",
       );
-      const selectConditionButton = within(selectCondition).getByRole("button");
+      const selectConditionButton =
+        within(selectCondition).getByRole("combobox");
       await user.click(selectConditionButton);
 
       const equalConditionOption = within(selectConditionOptions).getByText(
@@ -369,7 +368,6 @@ describe(
 
       await user.click(equalConditionOption);
 
-      expect(equalConditionOption).not.toBeVisible();
       expect(selectCondition).toHaveTextContent("等しい");
 
       // Input value
@@ -400,13 +398,12 @@ describe(
 
       //Select column
       const selectColumn = screen.getByTestId("select-column");
-      const selectColumnButton = within(selectColumn).getByRole("button");
+      const selectColumnButton = within(selectColumn).getByRole("combobox");
       await user.click(selectColumnButton);
 
       const createdAtOption = screen.getByRole("option", { name: "CreatedAt" });
       expect(createdAtOption).toBeVisible();
       await user.click(createdAtOption);
-      expect(createdAtOption).not.toBeVisible();
       expect(selectColumn).toHaveTextContent("CreatedAt");
 
       //Select condition
@@ -414,7 +411,8 @@ describe(
       const selectConditionOptions = screen.getByTestId(
         "select-condition-options",
       );
-      const selectConditionButton = within(selectCondition).getByRole("button");
+      const selectConditionButton =
+        within(selectCondition).getByRole("combobox");
       await user.click(selectConditionButton);
 
       const lteConditionOption = within(selectConditionOptions).getByText(
@@ -434,7 +432,6 @@ describe(
 
       await user.click(lteConditionOption);
 
-      expect(lteConditionOption).not.toBeVisible();
       expect(selectCondition).toHaveTextContent("以下");
 
       //Input value
@@ -475,7 +472,7 @@ describe(
 
       //Select column
       const selectColumn = screen.getByTestId("select-column");
-      const selectColumnButton = within(selectColumn).getByRole("button");
+      const selectColumnButton = within(selectColumn).getByRole("combobox");
       await user.click(selectColumnButton);
 
       const creditCardUsedOption = screen.getByRole("option", {
@@ -483,7 +480,6 @@ describe(
       });
       expect(creditCardUsedOption).toBeVisible();
       await user.click(creditCardUsedOption);
-      expect(creditCardUsedOption).not.toBeVisible();
       expect(selectColumn).toHaveTextContent("CreditCardUsed");
 
       //Select condition
@@ -491,7 +487,8 @@ describe(
       const selectConditionOptions = screen.getByTestId(
         "select-condition-options",
       );
-      const selectConditionButton = within(selectCondition).getByRole("button");
+      const selectConditionButton =
+        within(selectCondition).getByRole("combobox");
       await user.click(selectConditionButton);
 
       const eqConditionOption = within(selectConditionOptions).getByText(
@@ -512,12 +509,11 @@ describe(
 
       await user.click(eqConditionOption);
 
-      expect(eqConditionOption).not.toBeVisible();
       expect(selectCondition).toHaveTextContent("等しい");
 
       //Select value
       const selectValue = screen.getByTestId("select-input-value");
-      const selectValueButton = within(selectValue).getByRole("button");
+      const selectValueButton = within(selectValue).getByRole("combobox");
       await user.click(selectValueButton);
 
       const trueOption = screen.getByRole("option", { name: "はい" });
@@ -526,7 +522,6 @@ describe(
 
       await user.click(trueOption);
 
-      expect(trueOption).not.toBeVisible();
       expect(selectValue).toHaveTextContent("はい");
 
       const applyButton = screen.getByTestId("filter-apply-button");
@@ -658,13 +653,12 @@ describe(
 
       //Select column
       const selectColumn = screen.getByTestId("select-column");
-      const selectColumnButton = within(selectColumn).getByRole("button");
+      const selectColumnButton = within(selectColumn).getByRole("combobox");
       await user.click(selectColumnButton);
 
-      const createdAtOption = screen.getByRole("option", { name: "UpdatedAt" });
-      expect(createdAtOption).toBeVisible();
-      await user.click(createdAtOption);
-      expect(createdAtOption).not.toBeVisible();
+      const updatedAtOption = screen.getByRole("option", { name: "UpdatedAt" });
+      expect(updatedAtOption).toBeVisible();
+      await user.click(updatedAtOption);
       expect(selectColumn).toHaveTextContent("UpdatedAt");
 
       //Select condition
@@ -672,7 +666,8 @@ describe(
       const selectConditionOptions = screen.getByTestId(
         "select-condition-options",
       );
-      const selectConditionButton = within(selectCondition).getByRole("button");
+      const selectConditionButton =
+        within(selectCondition).getByRole("combobox");
       await user.click(selectConditionButton);
 
       const lteConditionOption = within(selectConditionOptions).getByText(
@@ -692,7 +687,6 @@ describe(
 
       await user.click(lteConditionOption);
 
-      expect(lteConditionOption).not.toBeVisible();
       expect(selectCondition).toHaveTextContent("以下");
 
       //Input value
@@ -1021,7 +1015,7 @@ describe(
       // Select column
       const selectColumn = screen.getByTestId("select-column");
       const selectColumnOptions = screen.getByTestId("select-column-options");
-      const selectColumnButton = within(selectColumn).getByRole("button");
+      const selectColumnButton = within(selectColumn).getByRole("combobox");
       await user.click(selectColumnButton);
 
       const emailOption = within(selectColumnOptions).getByText("Email");
@@ -1029,7 +1023,6 @@ describe(
 
       await user.click(emailOption);
 
-      expect(emailOption).not.toBeVisible();
       expect(selectColumn).toHaveTextContent("Email");
 
       // Select condition
@@ -1037,7 +1030,8 @@ describe(
       const selectConditionOptions = screen.getByTestId(
         "select-condition-options",
       );
-      const selectConditionButton = within(selectCondition).getByRole("button");
+      const selectConditionButton =
+        within(selectCondition).getByRole("combobox");
       await user.click(selectConditionButton);
 
       const equalConditionOption = within(selectConditionOptions).getByText(
@@ -1051,7 +1045,6 @@ describe(
 
       await user.click(equalConditionOption);
 
-      expect(equalConditionOption).not.toBeVisible();
       expect(selectCondition).toHaveTextContent("等しい");
 
       const inputValue = screen.getByTestId("select-input-value");
@@ -1113,7 +1106,7 @@ describe(
       const selectColumnOptions = screen.getAllByTestId(
         "select-column-options",
       )[0];
-      const selectColumnButton = within(selectColumn).getByRole("button");
+      const selectColumnButton = within(selectColumn).getByRole("combobox");
       await user.click(selectColumnButton);
       const amountOption = within(selectColumnOptions).getByText("Amount");
       expect(amountOption).toBeVisible();

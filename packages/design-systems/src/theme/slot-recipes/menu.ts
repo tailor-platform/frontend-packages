@@ -51,14 +51,6 @@ export const menu = defineSlotRecipe({
       px: "2.5",
       py: "2",
     },
-    optionItem: {
-      ...baseItemStyle,
-      "& > *": {
-        flex: "1",
-        px: "2.5",
-        py: "2",
-      },
-    },
     triggerItem: {
       ...baseItemStyle,
       px: "2.5",

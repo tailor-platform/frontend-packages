@@ -71,7 +71,8 @@
   "Slide": {
     "index": {
       "type": "number",
-      "isRequired": true
+      "isRequired": true,
+      "description": "The index of the slide."
     },
     "asChild": {
       "type": "boolean",
@@ -96,7 +97,8 @@
   "Indicator": {
     "index": {
       "type": "number",
-      "isRequired": true
+      "isRequired": true,
+      "description": "The index of the indicator."
     },
     "asChild": {
       "type": "boolean",
@@ -105,7 +107,8 @@
     },
     "readOnly": {
       "type": "boolean",
-      "isRequired": false
+      "isRequired": false,
+      "description": "Whether the indicator is read-only."
     }
   },
   "SlideGroup": {

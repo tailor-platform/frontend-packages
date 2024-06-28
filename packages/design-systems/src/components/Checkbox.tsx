@@ -4,31 +4,39 @@ import {
   CheckboxRoot as ArkCheckbox,
   CheckboxControl,
   CheckboxLabel,
+  Checkbox as BaseCheckbox,
   type CheckboxRootProps as ArkCheckboxProps,
-} from "@ark-ui/react/checkbox";
-import type { ReactNode } from "react";
+} from "@ark-ui/react";
+import { type ReactNode } from "react";
 
 export type CheckboxProps = ArkCheckboxProps & {
   children?: ReactNode;
 };
 
-export const Checkbox = (props: CheckboxProps) => (
-  <ArkCheckbox className={checkbox()} {...props}>
-    {(state) => (
-      <>
-        <CheckboxControl>
-          {state.isChecked && <CheckIcon />}
-          {state.isIndeterminate && <MinusIcon />}
-        </CheckboxControl>
-        {props.children && (
-          <CheckboxLabel>
-            <styled.span fontWeight="medium">{props.children}</styled.span>
-          </CheckboxLabel>
+export const Checkbox = (props: CheckboxProps) => {
+  return (
+    <ArkCheckbox className={checkbox()} {...props}>
+      <CheckboxControl>
+        {props.checked && (
+          <BaseCheckbox.Indicator>
+            <CheckIcon />
+          </BaseCheckbox.Indicator>
         )}
-      </>
-    )}
-  </ArkCheckbox>
-);
+        {props.checked === "indeterminate" && (
+          <BaseCheckbox.Indicator indeterminate>
+            <MinusIcon />
+          </BaseCheckbox.Indicator>
+        )}
+      </CheckboxControl>
+      {props.children && (
+        <CheckboxLabel>
+          <styled.span fontWeight="medium">{props.children}</styled.span>
+        </CheckboxLabel>
+      )}
+      <BaseCheckbox.HiddenInput role="checkbox" />
+    </ArkCheckbox>
+  );
+};
 
 const CheckIcon = () => (
   <svg

@@ -15,7 +15,7 @@ export const selectColumn = async (
   columnName: string,
 ) => {
   const selectColumn = screen.getAllByTestId("select-column")[columnIndex];
-  const selectColumnButton = within(selectColumn).getByRole("button");
+  const selectColumnButton = within(selectColumn).getByRole("combobox");
   await user.click(selectColumnButton);
   const option = await screen.findByRole("option", { name: columnName });
   await user.click(option);
@@ -36,7 +36,7 @@ export const selectCondition = async (
 ) => {
   const selectCondition =
     screen.getAllByTestId("select-condition")[conditionIndex];
-  await user.click(await within(selectCondition).findByRole("button"));
+  await user.click(await within(selectCondition).findByRole("combobox"));
   const selectConditionOptions = screen.getAllByTestId(
     "select-condition-options",
   )[conditionIndex];
@@ -63,7 +63,7 @@ export const selectJointCondition = async (
     jointConditionIndex
   ];
   const selectJointConditionButton =
-    within(selectJointCondition).getByRole("button");
+    within(selectJointCondition).getByRole("combobox");
   await user.click(selectJointConditionButton);
   const selectConditionOptions = screen.getAllByTestId(
     "select-joint-condition-options",
@@ -89,7 +89,7 @@ export const selectValue = async (
   value: string,
 ) => {
   const selectValue = screen.getAllByTestId("select-input-value")[valueIndex];
-  const selectValueButton = within(selectValue).getByRole("button");
+  const selectValueButton = within(selectValue).getByRole("combobox");
   await user.click(selectValueButton);
   await user.click(await screen.findByRole("option", { name: value }));
 };

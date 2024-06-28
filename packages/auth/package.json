@@ -1,25 +1,21 @@
 {
   "name": "@tailor-platform/auth",
-  "version": "0.7.5",
+  "version": "1.0.0",
   "private": false,
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     "./core": {
       "types": "./dist/core/index.d.ts",
-      "default": "./dist/core/index.js"
+      "default": "./dist/core/index.mjs"
     },
     "./client": {
       "types": "./dist/client/index.d.ts",
-      "default": "./dist/client/index.js"
+      "default": "./dist/client/index.mjs"
     },
     "./server": {
       "types": "./dist/server/index.d.ts",
-      "default": "./dist/server/index.js"
-    },
-    "./adapters/apollo": {
-      "types": "./dist/adapters/apollo/index.d.ts",
-      "default": "./dist/adapters/apollo/index.js"
+      "default": "./dist/server/index.mjs"
     }
   },
   "files": [
@@ -41,7 +37,7 @@
     "@swc/core": "^1.4.12",
     "@tailor-platform/dev-config": "workspace:*",
     "@testing-library/react": "^15.0.7",
-    "@types/node": "^18.16.16",
+    "@types/node": "^20.14.8",
     "@types/react": "^18.2.42",
     "@types/react-dom": "^18.2.17",
     "@vitejs/plugin-react": "^4.2.1",
@@ -56,7 +52,6 @@
     "vitest": "^1.6.0"
   },
   "peerDependencies": {
-    "@apollo/client": "~3.9",
     "next": "^v14"
   },
   "prettier": "@tailor-platform/dev-config/prettier"

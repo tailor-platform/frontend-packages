@@ -18,7 +18,9 @@ export type DataGridColumnHideShowProps = {
 export const DataGridColumnHideShowStory = ({
   enableHiding = true,
 }: DataGridColumnHideShowProps) => {
-  const [columnVisibility, setColumnVisibility] = useState({ status: false });
+  const [columnVisibility, setColumnVisibility] = useState<{
+    [key: string]: boolean;
+  }>({ status: false });
   const table = useDataGrid({
     data,
     columns,

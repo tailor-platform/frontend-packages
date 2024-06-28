@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, ComponentType } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { Flex } from "@tailor-platform/styled-system/jsx";
 import {
@@ -7,15 +7,15 @@ import {
 } from "@tailor-platform/design-systems/client";
 import { datePickerTypes } from "../../ark-types";
 
-const meta = {
+const meta: Meta<DatePickerProps> = {
   title: "Composite/DatePicker",
-  component: DatePicker,
+  component: DatePicker as ComponentType<DatePickerProps>,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
   argTypes: { ...datePickerTypes },
-} satisfies Meta<DatePickerProps>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;

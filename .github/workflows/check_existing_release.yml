@@ -26,7 +26,7 @@ jobs:
       tag: "${{ inputs.package_name }}/${{ steps.extract-version.outputs.version }}"
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Read JSON file
         id: read-json
         run: | # read JSON file without having to handle escaping newlines etc.

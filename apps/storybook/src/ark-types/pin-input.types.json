@@ -120,7 +120,8 @@
   "Input": {
     "index": {
       "type": "number",
-      "isRequired": true
+      "isRequired": true,
+      "description": "The index of the input."
     },
     "asChild": {
       "type": "boolean",

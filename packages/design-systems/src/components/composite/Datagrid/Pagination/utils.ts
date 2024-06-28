@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Select as AS } from "@ark-ui/react/select";
+import { Select as AS } from "@ark-ui/react";
 import { styled } from "@tailor-platform/styled-system/jsx";
 import type { DataGridInstance } from "../types";
 

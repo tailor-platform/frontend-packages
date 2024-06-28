@@ -3,7 +3,7 @@ import { Button, Dialog, DialogProps } from "@tailor-platform/design-systems";
 import { useState } from "react";
 import { dialogTypes } from "../../ark-types";
 
-const meta = {
+const meta: Meta<DialogProps> = {
   title: "Composite/Dialog",
   component: Dialog,
   parameters: {
@@ -11,7 +11,7 @@ const meta = {
   },
   tags: ["autodocs"],
   argTypes: { ...dialogTypes },
-} satisfies Meta<DialogProps>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;

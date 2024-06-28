@@ -1,10 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Input, InputProps } from "@tailor-platform/design-systems";
-import { input } from "@tailor-platform/styled-system/recipes";
+import { HTMLStyledProps } from "@tailor-platform/styled-system/jsx";
+import {
+  input,
+  InputVariantProps,
+} from "@tailor-platform/styled-system/recipes";
+import { ComponentType } from "react";
 
-const meta = {
+const meta: Meta<InputProps> = {
   title: "Standalone/Input",
-  component: Input,
+  component: Input as
+    | ComponentType<Omit<HTMLStyledProps<"input">, "size"> & InputVariantProps>
+    | undefined,
   parameters: {
     layout: "centered",
   },
@@ -15,12 +22,13 @@ const meta = {
       control: { type: "radio" },
     },
   },
-} satisfies Meta<InputProps>;
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  args: input.raw({ size: "md", variant: "outline" }),
+export const Default: StoryObj<InputProps> = {
+  args: {
+    ...input.raw({ size: "md" }),
+  },
   render: (args) => <Input {...args} />,
 };

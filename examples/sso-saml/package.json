@@ -24,6 +24,7 @@
   "dependencies": {
     "@faker-js/faker": "^8.4.1",
     "@tailor-platform/auth": "workspace:*",
+    "@tailor-platform/auth-apollo": "workspace:*",
     "@tailor-platform/dev-cli": "workspace:*",
     "gql-query-builder": "^3.8.0",
     "graphql": "^16.8.1",
