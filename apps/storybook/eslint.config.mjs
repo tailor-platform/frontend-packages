@@ -13,6 +13,7 @@ export default tsEslint.config(
   {
     ignores: [
       "dist",
+      "storybook-static",
       ".storybook",
       "postcss.config.js",
       "eslint.config.mjs",
