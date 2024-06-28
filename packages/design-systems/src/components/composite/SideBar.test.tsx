@@ -8,10 +8,8 @@ type Props = {
   defaultExpanded?: string[];
 };
 
-const SideBarComponent = ({ defaultExpanded }: Props) => {
-  const [expanded, setExpanded] = useState<string[]>(defaultExpanded || []);
-  const [selected, setSelected] = useState<string[]>([]);
-  const items: SideBarItem[] = [
+const items = (expanded: string[]): SideBarItem[] => {
+  return [
     {
       id: "workflow",
       label: "ワークフロー管理",
@@ -47,9 +45,15 @@ const SideBarComponent = ({ defaultExpanded }: Props) => {
       ],
     },
   ];
+};
+
+const SideBarComponent = ({ defaultExpanded }: Props) => {
+  const [expanded, setExpanded] = useState<string[]>(defaultExpanded || []);
+  const [selected, setSelected] = useState<string[]>([]);
+
   return (
     <SideBar
-      items={items}
+      items={items(expanded)}
       expandedValue={expanded}
       selectedValue={selected}
       onExpandedChange={(details) => {

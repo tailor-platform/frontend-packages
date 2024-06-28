@@ -1,7 +1,7 @@
 import { TreeView } from "@ark-ui/react";
 import { ChevronDown } from "lucide-react";
 import { Container } from "@components/patterns/Container";
-import { treeView } from "@tailor-platform/styled-system/recipes";
+import recipes from "@tailor-platform/styled-system/recipes";
 
 type SideBarItemChild = {
   id: string;
@@ -23,6 +23,9 @@ export type SideBarProps = {
   onExpandedChange: (details: { expandedValue: string[] }) => void;
   onSelectionChange: (details: { selectedValue: string[] }) => void;
 };
+
+const treeViewClasses = recipes.treeView();
+
 export const SideBar = ({
   items,
   expandedValue,
@@ -30,8 +33,6 @@ export const SideBar = ({
   onExpandedChange,
   onSelectionChange,
 }: SideBarProps) => {
-  const treeViewClasses = treeView();
-
   return (
     <Container
       backgroundColor="#11323b"
@@ -59,7 +60,7 @@ export const SideBar = ({
                     {item.label}
                     <TreeView.BranchIndicator>
                       <ChevronDown
-                        height={16}
+                        size={16}
                         color="white"
                         style={{
                           transform: item.isOpen
