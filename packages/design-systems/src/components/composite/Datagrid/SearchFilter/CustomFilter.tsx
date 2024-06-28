@@ -21,6 +21,7 @@ import type {
 } from "./types";
 import { FilterRow } from "./FilterRow";
 import { useCustomFilter } from "./useCustomFilter";
+import { useCalcNumberOfSearchConditions } from "./useCalcNumberOfSearchConditions";
 
 export const CustomFilter = <TData extends Record<string, unknown>>(
   props: CustomFilterProps<TData>,
@@ -45,14 +46,17 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
     addNewFilterRowHandler,
     filterChangedHandler,
     applyFilterHandler,
-    numberOfSearchConditions,
     changePrevFilterRows,
+    confirmedFilterRows,
   } = useCustomFilter({
     columns,
     onChange,
     systemFilter,
     defaultFilter,
   });
+
+  const { numberOfSearchConditions } =
+    useCalcNumberOfSearchConditions(confirmedFilterRows);
 
   const getBoxPosition = useGetBoxPosition(filterButtonRef);
 
