@@ -3,24 +3,24 @@
     "paths": {
       "baseUrl": ["."],
       "@tailor-platform/styled-system/*": [
-        "./node_modules/@tailor-platform/styled-system/*",
+        "./node_modules/@tailor-platform/styled-system/*"
       ],
       "@tailor-platform/design-systems": [
-        "./node_modules/@tailor-platform/design-systems/dist",
+        "./node_modules/@tailor-platform/design-systems/dist"
       ],
       "@tailor-platform/design-systems/locales": [
-        "./node_modules/@tailor-platform/design-systems/dist/locales",
+        "./node_modules/@tailor-platform/design-systems/dist/locales"
       ],
       "@tailor-platform/design-systems/pandacss": [
-        "./node_modules/@tailor-platform/design-systems/dist/pandacss",
-      ],
-    },
+        "./node_modules/@tailor-platform/design-systems/dist/pandacss"
+      ]
+    }
   },
   "extends": "./node_modules/@tailor-platform/dev-config/typescript/design-systems.json",
   "include": ["src"],
   "references": [
     {
-      "path": "./tsconfig.node.json",
-    },
-  ],
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }

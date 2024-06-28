@@ -1,11 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Box, BoxProps } from "@tailor-platform/design-systems";
+import { ComponentType } from "react";
 
 Box.displayName = "Box";
 
 const meta = {
   title: "Layout/Box",
-  component: Box,
+  component: Box as ComponentType<BoxProps> | undefined,
   parameters: {
     layout: "centered",
   },

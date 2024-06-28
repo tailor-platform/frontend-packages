@@ -65,7 +65,8 @@
   "Item": {
     "value": {
       "type": "string",
-      "isRequired": true
+      "isRequired": true,
+      "description": "The value of the radio item."
     },
     "asChild": {
       "type": "boolean",
@@ -74,11 +75,13 @@
     },
     "disabled": {
       "type": "boolean",
-      "isRequired": false
+      "isRequired": false,
+      "description": "If `true`, the radio item will be disabled."
     },
     "invalid": {
       "type": "boolean",
-      "isRequired": false
+      "isRequired": false,
+      "description": "If `true`, the radio item will be invalid."
     }
   },
   "Label": {

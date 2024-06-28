@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { CollectionItem } from "@ark-ui/react/select";
 import { type PaginationState } from "@tanstack/react-table";
 import { select } from "@tailor-platform/styled-system/recipes";
 import { HStack } from "@tailor-platform/styled-system/jsx";
@@ -12,6 +11,7 @@ import {
   CheckIcon,
 } from "lucide-react";
 import { LOCALIZATION_EN } from "@locales";
+import { CollectionItem } from "@ark-ui/react/dist/types";
 import { DataGridInstance } from "../types";
 import { Text } from "../../../Text";
 import { Button } from "../../../Button";

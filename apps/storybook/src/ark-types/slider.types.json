@@ -163,7 +163,8 @@
   "Marker": {
     "value": {
       "type": "number",
-      "isRequired": true
+      "isRequired": true,
+      "description": "The value of the marker."
     },
     "asChild": {
       "type": "boolean",

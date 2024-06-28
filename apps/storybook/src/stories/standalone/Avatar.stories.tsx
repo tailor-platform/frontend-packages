@@ -3,7 +3,7 @@ import { Avatar, AvatarProps } from "@tailor-platform/design-systems";
 import { avatar } from "@tailor-platform/styled-system/recipes";
 import { avatarTypes } from "../../ark-types";
 
-const meta = {
+const meta: Meta<AvatarProps> = {
   title: "Standalone/Avatar",
   component: Avatar,
   parameters: {
@@ -17,7 +17,7 @@ const meta = {
     },
     ...avatarTypes,
   },
-} satisfies Meta<AvatarProps>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;

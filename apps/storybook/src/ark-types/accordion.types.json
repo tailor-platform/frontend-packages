@@ -72,7 +72,8 @@
   "Item": {
     "value": {
       "type": "string",
-      "isRequired": true
+      "isRequired": true,
+      "description": "The unique identifier of the accordion item."
     },
     "asChild": {
       "type": "boolean",
@@ -81,7 +82,8 @@
     },
     "disabled": {
       "type": "boolean",
-      "isRequired": false
+      "isRequired": false,
+      "description": "Whether the accordion item is disabled."
     }
   },
   "ItemContent": {
@@ -98,11 +100,13 @@
     },
     "onExitComplete": {
       "type": "() => void",
-      "isRequired": false
+      "isRequired": false,
+      "description": "Callback fired when the exit transition is completed."
     },
     "present": {
       "type": "boolean",
-      "isRequired": false
+      "isRequired": false,
+      "description": "Whether the content is present."
     },
     "unmountOnExit": {
       "type": "boolean",

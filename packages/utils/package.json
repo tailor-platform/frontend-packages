@@ -34,12 +34,12 @@
     "publish:dev:watch": "nodemon -e ts,tsx -w ./src -x 'rm -rf ./dist && pnpm run publish:dev'"
   },
   "dependencies": {
-    "date-fns": "^2.30.0"
+    "date-fns": "^3.6.0"
   },
   "devDependencies": {
     "@swc/core": "^1.4.12",
     "@tailor-platform/dev-config": "workspace:*",
-    "@types/node": "^18.16.16",
+    "@types/node": "^20.14.8",
     "eslint": "^9.4.0",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3",

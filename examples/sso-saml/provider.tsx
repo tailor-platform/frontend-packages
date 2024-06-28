@@ -4,7 +4,7 @@ import { config } from "./authConfig";
 import { ReactNode } from "react";
 import { ApolloClient, from, InMemoryCache } from "@apollo/client";
 import { removeTypenameFromVariables } from "@apollo/client/link/remove-typename";
-import { authenticatedHttpLink } from "@tailor-platform/auth/adapters/apollo";
+import { authenticatedHttpLink } from "@tailor-platform/auth-apollo";
 import dynamic from "next/dynamic";
 
 export const ApolloProvider = dynamic(

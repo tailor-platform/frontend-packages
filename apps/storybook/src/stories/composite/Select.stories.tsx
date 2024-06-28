@@ -5,7 +5,7 @@ import { Box } from "@tailor-platform/styled-system/jsx";
 import { select } from "@tailor-platform/styled-system/recipes";
 import { selectTypes } from "../../ark-types";
 
-const meta = {
+const meta: Meta<typeof Select.Root> = {
   title: "Composite/Select",
   component: Select.Root,
   parameters: {
@@ -13,7 +13,7 @@ const meta = {
   },
   tags: ["autodocs"],
   argTypes: { ...selectTypes },
-} as Meta<typeof Select.Root>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -57,10 +57,7 @@ export const Default: Story = {
             <Select.Positioner>
               <Select.Content className={classes.content}>
                 <Select.ItemGroup id="framework">
-                  <Select.ItemGroupLabel
-                    className={classes.itemGroupLabel}
-                    htmlFor="framework"
-                  >
+                  <Select.ItemGroupLabel className={classes.itemGroupLabel}>
                     Framework
                   </Select.ItemGroupLabel>
                   {items.map((item) => (

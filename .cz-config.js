@@ -17,6 +17,7 @@ module.exports = {
     { name: "ds" },
     { name: "monitoring" },
     { name: "auth" },
+    { name: "auth-apollo" },
     { name: "storybook" },
     { name: "utils" },
     { name: "mtctl" },

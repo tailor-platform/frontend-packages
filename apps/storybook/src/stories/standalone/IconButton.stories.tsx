@@ -3,7 +3,7 @@ import { AppleIcon } from "lucide-react";
 import { IconButton, IconButtonProps } from "@tailor-platform/design-systems";
 import { button } from "@tailor-platform/styled-system/recipes";
 
-const meta = {
+const meta: Meta<IconButtonProps> = {
   title: "Standalone/IconButton",
   component: IconButton,
   parameters: {
@@ -25,12 +25,11 @@ const meta = {
       control: { type: "radio" },
     },
   },
-} satisfies Meta<IconButtonProps>;
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const Default: StoryObj<IconButtonProps> = {
   args: {
     icon: <AppleIcon />,
     ...button.raw({

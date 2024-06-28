@@ -44,12 +44,20 @@ export const Default: Story = {
             </Flex>
           </MenuTrigger>
           <Portal>
-            <MenuPositioner className={menu()}>
+            <MenuPositioner className={menu().positioner}>
               <MenuContent>
-                <MenuItem id="profile" className={css({ color: "blue.600" })}>
+                <MenuItem
+                  id="profile"
+                  className={css({ color: "blue.600" })}
+                  value="profile"
+                >
                   profile
                 </MenuItem>
-                <MenuItem id="logout" className={css({ color: "red.600" })}>
+                <MenuItem
+                  id="logout"
+                  className={css({ color: "red.600" })}
+                  value="logout"
+                >
                   logout
                 </MenuItem>
               </MenuContent>
