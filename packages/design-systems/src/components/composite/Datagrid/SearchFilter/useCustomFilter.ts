@@ -199,7 +199,7 @@ export const useCustomFilter = <TData>({
   const applyFilterHandler = useCallback(() => {
     onChangeHandler(filterRows);
     setConfirmedFilterRows(filterRows);
-  }, [filterRows, onChangeHandler]);
+  }, [filterRows, onChangeHandler, setConfirmedFilterRows]);
   /**
    * This will add new item to filterRows data state.
    */
