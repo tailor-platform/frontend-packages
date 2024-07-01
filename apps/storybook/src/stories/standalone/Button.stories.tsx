@@ -12,16 +12,11 @@ const meta: Meta<ButtonProps> = {
   tags: ["autodocs"],
   argTypes: {
     variant: {
-      options: [
-        "primary",
-        "secondary",
-        "tertiary",
-        "link",
-      ] as ButtonProps["variant"],
+      options: ["primary", "secondary", "tertiary", "link"],
       control: { type: "radio" },
     },
     size: {
-      options: ["xs", "sm", "md", "lg", "xl", "2xl"] as ButtonProps["size"],
+      options: ["xs", "sm", "md", "lg", "xl", "2xl"],
       control: { type: "radio" },
     },
   },
