@@ -1,19 +1,26 @@
 import { TreeView } from "@ark-ui/react";
-import { ChevronDown } from "lucide-react";
 import { Container } from "@components/patterns/Container";
 import * as recipes from "@tailor-platform/styled-system/recipes";
-
-type SideBarItemChild = {
-  id: string;
-  link: React.ReactNode;
-  isVisible?: boolean;
-};
+import { ChevronDownIcon } from "lucide-react";
 
 export type SideBarItem = {
+  root: {
+    id: string;
+    label: string;
+    isOpen?: boolean;
+    link?: React.ReactNode;
+    isVisible?: boolean;
+  };
+  contents?: Array<ContentItem>;
+};
+
+export type ContentItem = {
   id: string;
-  label: string;
-  isOpen: boolean;
-  children: Array<SideBarItemChild>;
+  label?: string;
+  isOpen?: boolean;
+  link?: React.ReactNode;
+  isVisible?: boolean;
+  children?: Array<ContentItem>;
 };
 
 export type SideBarProps = {
@@ -33,6 +40,61 @@ export const SideBar = ({
   onExpandedChange,
   onSelectionChange,
 }: SideBarProps) => {
+  const renderBranchContent = (content: ContentItem, index: number) => {
+    if (!content.isVisible) {
+      return null;
+    }
+
+    if (content.children) {
+      return (
+        <TreeView.Branch
+          value={content.id}
+          key={index}
+          className={treeViewClasses.branch}
+        >
+          <TreeView.BranchControl className={treeViewClasses.branchControl}>
+            <TreeView.BranchText className={treeViewClasses.branchText}>
+              {content.label}
+              <ChevronIndicator isOpen={content.isOpen} />
+            </TreeView.BranchText>
+          </TreeView.BranchControl>
+          {content.children.map((subChild, subChildIndex) => (
+            <TreeView.BranchContent
+              className={treeViewClasses.branchContent}
+              key={subChildIndex}
+            >
+              <TreeView.Item
+                className={treeViewClasses.item}
+                key={subChildIndex}
+                value={subChild.id}
+              >
+                <TreeView.ItemIndicator
+                  className={treeViewClasses.itemIndicator}
+                />
+                <TreeView.ItemText className={treeViewClasses.itemText}>
+                  {subChild.link}
+                </TreeView.ItemText>
+              </TreeView.Item>
+            </TreeView.BranchContent>
+          ))}
+        </TreeView.Branch>
+      );
+    }
+
+    return (
+      <TreeView.Item
+        className={treeViewClasses.item}
+        key={index}
+        value={content.id}
+      >
+        <TreeView.ItemIndicator className={treeViewClasses.itemIndicator} />
+        <TreeView.ItemText className={treeViewClasses.itemText}>
+          {content.link}
+        </TreeView.ItemText>
+      </TreeView.Item>
+    );
+  };
+
   return (
     <Container
       backgroundColor="#11323b"
@@ -50,58 +112,40 @@ export const SideBar = ({
         onSelectionChange={onSelectionChange}
       >
         <TreeView.Tree className={treeViewClasses.tree}>
-          {items.map((item, i) => {
-            return (
-              <TreeView.Branch value={item.id} key={i}>
-                <TreeView.BranchControl
-                  className={treeViewClasses.branchControl}
-                >
-                  <TreeView.BranchText className={treeViewClasses.branchText}>
-                    {item.label}
-                    <TreeView.BranchIndicator>
-                      <ChevronDown
-                        size={16}
-                        color="white"
-                        style={{
-                          transform: item.isOpen
-                            ? "rotate(-180deg)"
-                            : undefined,
-                          transition: "transform 0.2s",
-                          transformOrigin: "center",
-                        }}
-                      />
-                    </TreeView.BranchIndicator>
-                  </TreeView.BranchText>
-                </TreeView.BranchControl>
-                {item.children.map((child, j) => {
-                  if (!child.isVisible) {
-                    return null;
-                  }
-                  return (
-                    <TreeView.BranchContent
-                      className={treeViewClasses.branchContent}
-                      key={j}
-                    >
-                      <TreeView.Item
-                        className={treeViewClasses.item}
-                        key={j}
-                        value={child.id}
-                      >
-                        <TreeView.ItemIndicator
-                          className={treeViewClasses.itemIndicator}
-                        />
-                        <TreeView.ItemText className={treeViewClasses.itemText}>
-                          {child.link}
-                        </TreeView.ItemText>
-                      </TreeView.Item>
-                    </TreeView.BranchContent>
-                  );
-                })}
-              </TreeView.Branch>
-            );
-          })}
+          {items.map((item, index) => (
+            <TreeView.Branch value={item.root.id} key={index}>
+              <TreeView.BranchControl className={treeViewClasses.branchControl}>
+                <TreeView.BranchText className={treeViewClasses.branchText}>
+                  {item.root.label}
+                  {!item.root.link && (
+                    <ChevronIndicator isOpen={item.root.isOpen} />
+                  )}
+                </TreeView.BranchText>
+              </TreeView.BranchControl>
+              <TreeView.BranchContent className={treeViewClasses.branchContent}>
+                {item.contents?.map(renderBranchContent)}
+              </TreeView.BranchContent>
+            </TreeView.Branch>
+          ))}
         </TreeView.Tree>
       </TreeView.Root>
     </Container>
   );
 };
+
+type ChevronIndicatorProps = {
+  isOpen?: boolean;
+};
+const ChevronIndicator = ({ isOpen }: ChevronIndicatorProps) => (
+  <TreeView.BranchIndicator>
+    <ChevronDownIcon
+      size={16}
+      color="white"
+      style={{
+        transform: isOpen ? "rotate(-180deg)" : undefined,
+        transition: "transform 0.2s",
+        transformOrigin: "center",
+      }}
+    />
+  </TreeView.BranchIndicator>
+);
