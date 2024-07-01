@@ -11,10 +11,12 @@ type Props = {
 const items = (expanded: string[]): SideBarItem[] => {
   return [
     {
-      id: "workflow",
-      label: "ワークフロー管理",
-      isOpen: expanded.includes("workflow"),
-      children: [
+      root: {
+        id: "workflow",
+        label: "ワークフロー管理",
+        isOpen: expanded.includes("workflow"),
+      },
+      contents: [
         {
           id: "requestHistories",
           isVisible: true,
@@ -28,19 +30,70 @@ const items = (expanded: string[]): SideBarItem[] => {
       ],
     },
     {
-      id: "orders",
-      label: "受発注",
-      isOpen: expanded.includes("orders"),
-      children: [
+      root: {
+        id: "layouts",
+        label: "割付管理",
+        link: <a href="#">割付管理</a>,
+        isVisible: true,
+      },
+    },
+    {
+      root: {
+        id: "closedContracts",
+        label: "成約管理",
+        link: <a href="#">成約管理</a>,
+        isVisible: true,
+      },
+    },
+    {
+      root: {
+        id: "orders",
+        label: "受発注",
+        isOpen: expanded.includes("orders"),
+      },
+      contents: [
         {
           id: "salesOrders-textile",
-          isVisible: true,
+          isVisible: false,
           link: <a href="#">受注管理</a>,
         },
         {
           id: "purchaseOrders-textile",
-          isVisible: true,
+          isVisible: false,
           link: <a href="#">発注管理</a>,
+        },
+        {
+          id: "priceAdjustments-textile",
+          isVisible: false,
+          link: <a href="#">帳簿訂正</a>,
+        },
+        {
+          id: "salesOrders-chemical",
+          isVisible: false,
+          link: <a href="#">受注管理</a>,
+        },
+        {
+          id: "orders-textile",
+          label: "繊維",
+          isOpen: expanded.includes("orders-textile"),
+          isVisible: true,
+          children: [
+            {
+              id: "salesOrders-textile",
+              isVisible: true,
+              link: <a href="#">受注管理</a>,
+            },
+            {
+              id: "purchaseOrders-textile",
+              isVisible: true,
+              link: <a href="#">発注管理</a>,
+            },
+            {
+              id: "priceAdjustments-textile",
+              isVisible: true,
+              link: <a href="#">帳簿訂正</a>,
+            },
+          ],
         },
       ],
     },

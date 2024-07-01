@@ -58,7 +58,10 @@ export const SideBar = ({
               <ChevronIndicator isOpen={content.isOpen} />
             </TreeView.BranchText>
           </TreeView.BranchControl>
-          {content.children.map((subChild, subChildIndex) => (
+          {content.children.map((subChild, subChildIndex) => {
+            if (!subChild.isVisible) {
+              return null;
+            }
             <TreeView.BranchContent
               className={treeViewClasses.branchContent}
               key={subChildIndex}
@@ -75,8 +78,8 @@ export const SideBar = ({
                   {subChild.link}
                 </TreeView.ItemText>
               </TreeView.Item>
-            </TreeView.BranchContent>
-          ))}
+            </TreeView.BranchContent>;
+          })}
         </TreeView.Branch>
       );
     }
