@@ -255,7 +255,7 @@ export const useCustomFilter = <TData>({
     [],
   );
 
-  const changePrevFilterRows = useCallback(() => {
+  const resetToPrevFilterRows = useCallback(() => {
     if (JSON.stringify(filterRows) === JSON.stringify(confirmedFilterRows)) {
       return;
     }
@@ -274,7 +274,7 @@ export const useCustomFilter = <TData>({
     filterChangedHandler,
     generateGraphQLQueryFilter: generateFilter, // For testing purpose
     applyFilterHandler,
-    changePrevFilterRows,
+    resetToPrevFilterRows,
     numberOfSearchConditions,
   };
 };
