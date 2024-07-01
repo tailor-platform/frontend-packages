@@ -1,8 +1,19 @@
+import { useState } from "react";
 import { FilterRowData } from "./useCustomFilter";
 
-export const useCalcNumberOfSearchConditions = (
-  confirmedFilterRows: FilterRowData[],
-) => {
+export const useConfirmedFilterRows = () => {
+  const [confirmedFilterRows, setConfirmedFilterRows] = useState<
+    FilterRowData[]
+  >([]);
+
+  return {
+    confirmedFilterRows,
+    setConfirmedFilterRows,
+    numberOfSearchConditions: getNumberOfSearchConditions(confirmedFilterRows),
+  };
+};
+
+const getNumberOfSearchConditions = (confirmedFilterRows: FilterRowData[]) => {
   const isCurrentStateValid = (state: FilterRowData) => {
     return (
       state.currentState.column &&
@@ -20,7 +31,6 @@ export const useCalcNumberOfSearchConditions = (
     }
     return acc;
   }, 0);
-  return {
-    numberOfSearchConditions: count,
-  };
+
+  return count;
 };

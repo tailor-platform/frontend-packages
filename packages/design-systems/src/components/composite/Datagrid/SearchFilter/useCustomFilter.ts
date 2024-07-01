@@ -4,6 +4,7 @@ import type { Column } from "../types";
 import { jointConditions } from "./filter";
 import { FilterRowState, JointCondition, QueryFilter } from "./types";
 import { useGraphQLQuery } from "./useGraphQLQuery";
+import { useConfirmedFilterRows } from "./useCalcNumberOfSearchConditions";
 
 export type FilterRowData = {
   index: number; //Row number
@@ -141,9 +142,11 @@ export const useCustomFilter = <TData>({
   const [filterRows, setFilterRows] =
     useState<FilterRowData[]>(initialFilterRows());
 
-  const [confirmedFilterRows, setConfirmedFilterRows] = useState<
-    FilterRowData[]
-  >([]);
+  const {
+    confirmedFilterRows,
+    setConfirmedFilterRows,
+    numberOfSearchConditions,
+  } = useConfirmedFilterRows();
 
   const onChangeHandler = useCallback(
     (filterRows: FilterRowData[]) => {
@@ -272,6 +275,6 @@ export const useCustomFilter = <TData>({
     generateGraphQLQueryFilter: generateFilter, // For testing purpose
     applyFilterHandler,
     changePrevFilterRows,
-    confirmedFilterRows,
+    numberOfSearchConditions,
   };
 };
