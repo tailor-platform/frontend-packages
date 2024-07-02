@@ -9,11 +9,16 @@
   ],
   "repository": "https://github.com/tailor-platform/frontend-packages",
   "scripts": {
-    "lint": "eslint '**/*.{ts,tsx}' --ignore-pattern 'dist/*' --max-warnings=0"
+    "build": "tsup",
+    "lint": "eslint '**/*.{ts,tsx}' --ignore-pattern 'dist/*' --max-warnings=0",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "type-check": "tsc --noEmit --incremental --pretty",
+    "release:preview": "NODE_ENV=production pnpm run build && pnpm publish --tag preview"
   },
   "devDependencies": {
     "@swc/core": "^1.4.12",
     "@tailor-platform/dev-config": "workspace:*",
+    "@types/node": "^20.14.9",
     "@types/react": "^18.2.42",
     "@types/react-dom": "^18.2.17",
     "eslint": "^9.4.0",
