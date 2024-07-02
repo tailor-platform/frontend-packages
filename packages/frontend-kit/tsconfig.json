@@ -1,0 +1,13 @@
+{
+  "extends": "@tailor-platform/dev-config/typescript/react-library",
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@*": ["./*"]
+    },
+    "lib": ["es2017", "dom"],
+    "target": "es5",
+  },
+  "include": ["."],
+  "exclude": ["dist", "build", "node_modules"]
+}
