@@ -26,5 +26,8 @@
     "tsup": "^8.0.1",
     "typescript": "^5.3.3"
   },
-  "prettier": "@tailor-platform/dev-config/prettier"
+  "prettier": "@tailor-platform/dev-config/prettier",
+  "dependencies": {
+    "urql": "^4.1.0"
+  }
 }
