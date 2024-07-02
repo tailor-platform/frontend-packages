@@ -44,7 +44,6 @@ By using the correct conventional commit prefixes, the [labeler](./.github/workf
 | ------------ | ---------------------------------------- |
 | (ds)         | @tailor-platform/design-systems          |
 | (dev-config) | @tailor-platform/dev-config              |
-| (monitoring) | @tailor-platform/monitoring              |
 | (auth)       | @tailor-platform/auth                    |
 | (storybook)  | apps/storybook                           |
 | (utils)      | @tailor-platform/utils                   |
