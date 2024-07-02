@@ -15,12 +15,10 @@ module.exports = {
   scopes: [
     { name: "dev-config" },
     { name: "ds" },
-    { name: "monitoring" },
     { name: "auth" },
     { name: "auth-apollo" },
     { name: "storybook" },
     { name: "utils" },
-    { name: "mtctl" },
     { name: "dev-cli" },
     { name: "api-test-library" },
   ],
