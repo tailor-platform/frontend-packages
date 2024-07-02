@@ -242,6 +242,9 @@ describe(
       expect(pendingValueOption).not.toBeVisible();
       expect(selectValue).toHaveTextContent("pending");
 
+      const applyButton = screen.getByTestId("filter-apply-button");
+      await user.click(applyButton);
+
       //Check filters
       await waitFor(() => {
         //Wait for the useEffect to update the filters
@@ -301,10 +304,11 @@ describe(
       const inputValue = screen.getByTestId("select-input-value");
       await user.click(inputValue);
       await user.type(inputValue, "test@test.com");
-      // trigger onBlur event
-      await user.click(equalConditionOption);
 
       expect(inputValue).toHaveValue("test@test.com");
+
+      const applyButton = screen.getByTestId("filter-apply-button");
+      await user.click(applyButton);
 
       // Check filters
       expect(currentFilters).toEqual({
@@ -369,10 +373,11 @@ describe(
       // Input value
       const inputValue = await screen.findByTestId("select-input-value");
       await user.type(inputValue, "800");
-      // trigger onBlur event
-      await user.click(equalConditionOption);
 
       expect(inputValue).toHaveValue(800);
+
+      const applyButton = screen.getByTestId("filter-apply-button");
+      await user.click(applyButton);
 
       // Check filters
       expect(currentFilters).toEqual({ and: { amount: { eq: 800 } } });
@@ -433,9 +438,11 @@ describe(
       const inputValue = screen.getByTestId("select-input-value");
       await user.click(inputValue);
       await user.type(inputValue, "2023-11-14");
-      // trigger onBlur event
-      await user.click(selectConditionButton);
+
       expect(inputValue).toHaveValue("2023-11-14");
+
+      const applyButton = screen.getByTestId("filter-apply-button");
+      await user.click(applyButton);
 
       //Check filters
       await waitFor(() => {
@@ -517,6 +524,9 @@ describe(
 
       expect(selectValue).toHaveTextContent("はい");
 
+      const applyButton = screen.getByTestId("filter-apply-button");
+      await user.click(applyButton);
+
       //Check filters
       await waitFor(() => {
         //Wait for the useEffect to update the filters
@@ -542,6 +552,9 @@ describe(
       //Select value
       await selectValue(screen, user, 0, "pending");
 
+      const applyButton = screen.getByTestId("filter-apply-button");
+      await user.click(applyButton);
+
       // Number of data displayed is 4 items
       expect(await screen.findAllByTestId("datagrid-row")).toHaveLength(4);
     });
@@ -561,6 +574,9 @@ describe(
       await selectCondition(screen, user, 0, "より大きい");
       //Select value
       await inputValue(screen, user, 0, "200");
+
+      const applyButton = screen.getByTestId("filter-apply-button");
+      await user.click(applyButton);
 
       // Number of data displayed is 2 items
       expect(await screen.findAllByTestId("datagrid-row")).toHaveLength(2);
@@ -586,12 +602,17 @@ describe(
       //Select value
       await selectValue(screen, user, 1, "pending");
 
+      const applyButton = screen.getByTestId("filter-apply-button");
+      await user.click(applyButton);
+
       // Number of data displayed is 2 items
       expect(await screen.findAllByTestId("datagrid-row")).toHaveLength(2);
 
       // Reset filter
       await user.click(await screen.findByTestId("reset-filter-button"));
       // Number of data displayed is 6 items
+
+      await user.click(applyButton);
 
       expect(await screen.findAllByTestId("datagrid-row")).toHaveLength(6);
     });
@@ -609,6 +630,9 @@ describe(
 
       // Clear filter
       await user.click(screen.getByTestId("reset-clear-button"));
+
+      const applyButton = screen.getByTestId("filter-apply-button");
+      await user.click(applyButton);
 
       // Number of data displayed is 4 items
       expect(await screen.findAllByTestId("datagrid-row")).toHaveLength(4);
@@ -669,9 +693,11 @@ describe(
       const inputValue = screen.getByTestId("select-input-value");
       await user.click(inputValue);
       await user.type(inputValue, "2023-11-14 23:00");
-      // trigger onBlur event
-      await user.click(lteConditionOption);
+
       expect(inputValue).toHaveValue("2023-11-14T23:00");
+
+      const applyButton = screen.getByTestId("filter-apply-button");
+      await user.click(applyButton);
 
       //Check filters
       await waitFor(() => {
@@ -790,6 +816,9 @@ describe(
       await user.type(inputValue, "200");
       await user.keyboard("{Enter}");
 
+      const applyButton = screen.getByTestId("filter-apply-button");
+      await user.click(applyButton);
+
       //Check filters
       await waitFor(() => {
         //Wait for the useEffect to update the filters
@@ -804,6 +833,8 @@ describe(
       await user.click(inputValue);
       await user.type(inputValue, "220");
       await user.keyboard("{Enter}");
+
+      await user.click(applyButton);
 
       await waitFor(() => {
         //Wait for the useEffect to update the filters
@@ -863,6 +894,9 @@ describe(
       await user.type(inputValue, "200");
       await user.keyboard("{Enter}");
 
+      const applyButton = screen.getByTestId("filter-apply-button");
+      await user.click(applyButton);
+
       //Check filters
       await waitFor(() => {
         //Wait for the useEffect to update the filters
@@ -876,6 +910,8 @@ describe(
 
       const deleteButton = screen.getByTestId("delete-tag-0");
       await user.click(deleteButton);
+
+      await user.click(applyButton);
 
       await waitFor(() => {
         //Wait for the useEffect to update the filters
@@ -932,6 +968,9 @@ describe(
 
       const deleteButton = screen.getByTestId("clear-tags");
       await user.click(deleteButton);
+
+      const applyButton = screen.getByTestId("filter-apply-button");
+      await user.click(applyButton);
 
       await waitFor(() => {
         //Wait for the useEffect to update the filters
@@ -1013,6 +1052,9 @@ describe(
       await user.type(inputValue, "test@test.com");
       await user.click(equalConditionOption);
 
+      const applyButton = screen.getByTestId("filter-apply-button");
+      await user.click(applyButton);
+
       await waitFor(() => {
         //Wait for the useEffect to update the filters
         expect(currentFilters).toEqual({
@@ -1028,6 +1070,8 @@ describe(
       expect(amountOption).toBeVisible();
 
       await user.click(amountOption);
+
+      await user.click(applyButton);
 
       await waitFor(() => {
         //Wait for the useEffect to update the filters
@@ -1068,6 +1112,10 @@ describe(
       expect(amountOption).toBeVisible();
 
       await user.click(amountOption);
+
+      const applyButton = screen.getByTestId("filter-apply-button");
+      await user.click(applyButton);
+
       await waitFor(() => {
         //Wait for the useEffect to update the filters
         expect(currentFilters).toEqual(undefined);
@@ -1098,6 +1146,9 @@ describe(
 
       // Clear filter
       await user.click(screen.getByTestId("reset-clear-button"));
+
+      const applyButton = screen.getByTestId("filter-apply-button");
+      await user.click(applyButton);
 
       await waitFor(() => {
         //Wait for the useEffect to update the filters
@@ -1136,11 +1187,67 @@ describe(
       //Select value
       await selectValue(screen, user, 1, "pending");
 
+      const applyButton = screen.getByTestId("filter-apply-button");
+      await user.click(applyButton);
+
       expect(await screen.findByTestId("filter-badge")).toHaveTextContent("2");
 
       // Reset filter
       await user.click(await screen.findByTestId("reset-filter-button"));
+
+      await user.click(applyButton);
       expect(await screen.findByTestId("filter-badge")).toHaveTextContent("1");
+    });
+
+    it("If don't click apply button and close modal, UI shows prev filterRow", async () => {
+      render(
+        <CustomFilterComponent
+          onFilterChange={() => {
+            return;
+          }}
+        />,
+      );
+
+      const user = userEvent.setup();
+
+      // Open filter
+      await user.click(await screen.findByTestId("datagrid-filter-button"));
+
+      //Select column
+      await selectColumn(screen, user, 0, "Status");
+      //Select condition
+      await selectCondition(screen, user, 0, "等しい");
+      //Select value
+      await selectValue(screen, user, 0, "pending");
+
+      // Apply filter
+      const applyButton = screen.getByTestId("filter-apply-button");
+      await user.click(applyButton);
+
+      // Close modal
+      await user.click(screen.getByTestId("datagrid-filter-button"));
+
+      // Open filter
+      await user.click(await screen.findByTestId("datagrid-filter-button"));
+
+      //Select column
+      await selectColumn(screen, user, 0, "Amount");
+      //Select condition
+      await selectCondition(screen, user, 0, "以下");
+      //Select value
+      await inputValue(screen, user, 0, "200");
+
+      // Close modal
+      await user.click(screen.getByTestId("datagrid-filter-button"));
+
+      // Check filterRow
+      const columnElement = screen.getByTestId("select-column");
+      const conditionElement = screen.getByTestId("select-condition");
+      const valueElement = screen.getByTestId("select-input-value");
+
+      expect(columnElement).not.toEqual("Amount");
+      expect(conditionElement).not.toEqual("以下");
+      expect(valueElement).not.toEqual("200");
     });
   },
 

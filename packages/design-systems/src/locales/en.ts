@@ -21,6 +21,7 @@ export const LOCALIZATION_EN: Localization = {
     filterLabel: "Filter",
     filterResetLabel: "Reset Filter",
     filterClearLabel: "Clear Filter",
+    filterApplyLabel: "Apply Filter",
     addNewFilterLabel: "Add Filter",
     jointConditionLabel: "Joint Condition",
     jointConditionPlaceholder: "Select Joint Condition",

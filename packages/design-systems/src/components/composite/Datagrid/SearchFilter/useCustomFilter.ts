@@ -4,6 +4,7 @@ import type { Column } from "../types";
 import { jointConditions } from "./filter";
 import { FilterRowState, JointCondition, QueryFilter } from "./types";
 import { useGraphQLQuery } from "./useGraphQLQuery";
+import { useConfirmedFilterRows } from "./useCalcNumberOfSearchConditions";
 
 export type FilterRowData = {
   index: number; //Row number
@@ -28,6 +29,7 @@ export const useCustomFilter = <TData>({
   const [selectedJointCondition, setSelectedJointCondition] = useState<
     string | undefined
   >(undefined);
+
   const { generateFilter } = useGraphQLQuery({
     columns,
     systemFilter,
@@ -52,17 +54,21 @@ export const useCustomFilter = <TData>({
   }, [selectedJointCondition]);
 
   const newEmptyRow = useCallback(
-    (props: { index: number; isChangeable: boolean }): FilterRowData => ({
+    (props: {
+      index: number;
+      isChangeable: boolean;
+      jointCondition?: string;
+    }): FilterRowData => ({
       index: props.index,
       currentState: {
         column: "",
         condition: "",
         value: "",
-        jointCondition: selectedJointCondition,
+        jointCondition: props.jointCondition,
         isChangeable: props.isChangeable,
       },
     }),
-    [selectedJointCondition],
+    [],
   );
 
   const convertQueryToFilterRows = useCallback(
@@ -136,15 +142,38 @@ export const useCustomFilter = <TData>({
   const [filterRows, setFilterRows] =
     useState<FilterRowData[]>(initialFilterRows());
 
+  const {
+    confirmedFilterRows,
+    setConfirmedFilterRows,
+    numberOfSearchConditions,
+  } = useConfirmedFilterRows();
+
+  const onChangeHandler = useCallback(
+    (filterRows: FilterRowData[]) => {
+      const filter = generateFilter(filterRows);
+      onChange(filter);
+    },
+    [generateFilter, onChange],
+  );
+
   /**
    * This will delete the filter row from filterRows.
    */
   const deleteFilterRowHandler = useCallback(
     (rowIndex: number) => () => {
       setFilterRows((state) => {
-        return state.filter((row) => {
-          return rowIndex !== row.index;
-        });
+        const newState = state
+          .filter((row) => {
+            return rowIndex !== row.index;
+          })
+          .map((row) => {
+            // If the second row is deleted, then the jointCondition should be removed
+            if (rowIndex === 1) {
+              row.currentState.jointCondition = undefined;
+            }
+            return row;
+          });
+        return newState;
       });
     },
     [],
@@ -162,40 +191,43 @@ export const useCustomFilter = <TData>({
    * This will reset the filterRows data state.
    */
   const clearFilterHandler = useCallback(() => {
-    setFilterRows([newEmptyRow({ index: 0, isChangeable: true })]);
+    const emptyRow = [newEmptyRow({ index: 0, isChangeable: true })];
+    setFilterRows(emptyRow);
     setSelectedJointCondition(undefined);
   }, [newEmptyRow]);
 
+  const applyFilterHandler = useCallback(() => {
+    onChangeHandler(filterRows);
+    setConfirmedFilterRows(filterRows);
+  }, [filterRows, onChangeHandler, setConfirmedFilterRows]);
   /**
    * This will add new item to filterRows data state.
    */
   const addNewFilterRowHandler = useCallback(() => {
     setFilterRows((oldState) => {
       const newState = [...oldState];
+      const selectedJointCondition = oldState.find(
+        ({ currentState }) => currentState.jointCondition,
+      )?.currentState.jointCondition;
       newState.push(
         newEmptyRow({
           index: oldState.length,
           isChangeable: selectedJointCondition ? false : true,
+          jointCondition: selectedJointCondition,
         }),
       );
       return newState;
     });
-  }, [newEmptyRow, selectedJointCondition]);
-
-  const [prevFilter, setPrevFilter] = useState<RootQueryFilter | undefined>({});
+  }, [newEmptyRow]);
 
   /**
    * This will bubble up the GraphQLQueryFilter to the parent component.
    */
   useEffect(() => {
-    const filter = generateFilter(filterRows);
-
-    if (JSON.stringify(prevFilter) !== JSON.stringify(filter)) {
-      onChange(filter);
-      setPrevFilter(filter);
-    }
+    onChangeHandler(filterRows);
+    setConfirmedFilterRows(initialFilterRows());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filterRows]);
+  }, []);
 
   const filterChangedHandler = useCallback(
     (index: number) => (currentFilter: FilterRowState) => {
@@ -223,29 +255,12 @@ export const useCustomFilter = <TData>({
     [],
   );
 
-  const numberOfSearchConditions = useMemo(() => {
-    const isCurrentStateValid = (state: FilterRowData) => {
-      return (
-        state.currentState.column &&
-        state.currentState.condition &&
-        state.currentState.value
-      );
-    };
-    const count = filterRows.reduce((acc, row, index) => {
-      // First row does not have jointCondition
-      if (index === 0) {
-        if (isCurrentStateValid(row)) {
-          return acc + 1;
-        }
-        return acc;
-      }
-      if (isCurrentStateValid(row) && row.currentState.jointCondition) {
-        return acc + 1;
-      }
-      return acc;
-    }, 0);
-    return count;
-  }, [filterRows]);
+  const resetToPrevFilterRows = useCallback(() => {
+    if (JSON.stringify(filterRows) === JSON.stringify(confirmedFilterRows)) {
+      return;
+    }
+    setFilterRows(confirmedFilterRows);
+  }, [confirmedFilterRows, filterRows]);
 
   return {
     filterRef,
@@ -258,7 +273,8 @@ export const useCustomFilter = <TData>({
     addNewFilterRowHandler,
     filterChangedHandler,
     generateGraphQLQueryFilter: generateFilter, // For testing purpose
-    setPrevFilter, // For testing purpose
+    applyFilterHandler,
+    resetToPrevFilterRows,
     numberOfSearchConditions,
   };
 };

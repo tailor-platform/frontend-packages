@@ -44,6 +44,8 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
     clearFilterHandler,
     addNewFilterRowHandler,
     filterChangedHandler,
+    applyFilterHandler,
+    resetToPrevFilterRows,
     numberOfSearchConditions,
   } = useCustomFilter({
     columns,
@@ -69,10 +71,14 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
             setCustomFilterOpen(!customFilterOpen);
             addEventOutside(
               filterRef,
-              () => setCustomFilterOpen(false),
+              () => {
+                setCustomFilterOpen(false);
+                resetToPrevFilterRows();
+              },
               filterButtonRef,
               true,
             );
+            resetToPrevFilterRows();
           }}
           ref={filterButtonRef}
           data-testid="datagrid-filter-button"
@@ -124,11 +130,23 @@ export const CustomFilter = <TData extends Record<string, unknown>>(
             {localization.filter.filterClearLabel}
           </Button>
         )}
+        <Button
+          variant="primary"
+          size="sm"
+          onClick={applyFilterHandler}
+          data-testid={"filter-apply-button"}
+          style={{ float: "right", marginTop: "16px" }}
+        >
+          {localization.filter.filterApplyLabel}
+        </Button>
         <Box
           flex={1}
           display={"flex"}
           flexDirection={"column"}
           alignItems={"flex-end"}
+          style={{
+            marginTop: "24px",
+          }}
         >
           {filterRows.map((row, i) => {
             return (
