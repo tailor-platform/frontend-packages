@@ -9,6 +9,9 @@ on:
       - .github/workflows/chromatic.yml
       - .github/actions/ci/action.yml
 
+permissions:
+  pull-requests: write
+
 jobs:
   publish-to-chromatic:
     runs-on: ubuntu-latest
