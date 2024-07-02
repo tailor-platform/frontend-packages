@@ -464,8 +464,8 @@ importers:
         specifier: ^2.29.1
         version: 2.29.1(eslint@9.4.0)
       eslint-plugin-prefer-arrow-functions:
-        specifier: ^3.2.4
-        version: 3.2.4(eslint@9.4.0)
+        specifier: ^3.3.2
+        version: 3.3.2(eslint@9.4.0)
       eslint-plugin-react:
         specifier: ^7.33.2
         version: 7.33.2(eslint@9.4.0)
@@ -5131,8 +5131,8 @@ packages:
       '@typescript-eslint/parser':
         optional: true
 
-  eslint-plugin-prefer-arrow-functions@3.2.4:
-    resolution: {integrity: sha512-HbPmlbO/iYQeVs2fuShNkGVJDfVfgSd84Vzxv+xlh+nIVoSsZvTj6yOqszw4mtG9JbiqMShVWqbVeoVsejE59w==}
+  eslint-plugin-prefer-arrow-functions@3.3.2:
+    resolution: {integrity: sha512-XRGsga9cK6pZ48IA2PM2PABBlWshRYhkofkQxcWzCM0YlDnal2hrQKsuz0FqtBHimJpgEXGgHUko3KrOayxlOQ==}
     peerDependencies:
       eslint: '>=5.0.0'
 
@@ -12453,7 +12453,7 @@ snapshots:
       get-npm-tarball-url: 2.1.0
       giget: 1.1.3
       globby: 14.0.1
-      jscodeshift: 0.15.1(@babel/preset-env@7.24.7(@babel/core@7.24.5))
+      jscodeshift: 0.15.1(@babel/preset-env@7.24.7(@babel/core@7.23.7))
       leven: 3.1.0
       ora: 5.4.1
       prettier: 3.3.2
@@ -12489,7 +12489,7 @@ snapshots:
       '@types/cross-spawn': 6.0.6
       cross-spawn: 7.0.3
       globby: 14.0.1
-      jscodeshift: 0.15.1(@babel/preset-env@7.24.7(@babel/core@7.24.5))
+      jscodeshift: 0.15.1(@babel/preset-env@7.24.7(@babel/core@7.23.7))
       lodash: 4.17.21
       prettier: 3.3.2
       recast: 0.23.6
@@ -16027,7 +16027,7 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-plugin-prefer-arrow-functions@3.2.4(eslint@9.4.0):
+  eslint-plugin-prefer-arrow-functions@3.3.2(eslint@9.4.0):
     dependencies:
       eslint: 9.4.0
 
@@ -17595,7 +17595,7 @@ snapshots:
     dependencies:
       argparse: 2.0.1
 
-  jscodeshift@0.15.1(@babel/preset-env@7.24.7(@babel/core@7.24.5)):
+  jscodeshift@0.15.1(@babel/preset-env@7.24.7(@babel/core@7.23.7)):
     dependencies:
       '@babel/core': 7.24.5
       '@babel/parser': 7.24.7
