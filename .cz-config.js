@@ -21,6 +21,7 @@ module.exports = {
     { name: "utils" },
     { name: "dev-cli" },
     { name: "api-test-library" },
+    { name: "frontend-kit" },
   ],
 
   usePreparedCommit: false,
