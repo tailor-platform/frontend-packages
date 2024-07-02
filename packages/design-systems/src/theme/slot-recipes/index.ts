@@ -19,6 +19,7 @@ import { tabs } from "./tabs";
 import { tagsInput } from "./tags-input";
 import { toast } from "./toast";
 import { tooltip } from "./tooltip";
+import { treeView } from "./treeView";
 
 export const slotRecipes = {
   accordion,
@@ -42,4 +43,5 @@ export const slotRecipes = {
   tagsInput,
   toast,
   tooltip,
+  treeView,
 };

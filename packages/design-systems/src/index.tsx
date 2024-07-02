@@ -80,3 +80,8 @@ export {
   type RadioGroupProps,
   type RadioGroupOption,
 } from "@/components/composite/RadioGroup";
+export {
+  SideBar,
+  type SideBarProps,
+  type SideBarItem,
+} from "@/components/composite/SideBar";
