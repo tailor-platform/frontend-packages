@@ -1,0 +1,25 @@
+{
+  "name": "@tailor-platform/frontend-kit",
+  "version": "0.1.0",
+  "private": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "repository": "https://github.com/tailor-platform/frontend-packages",
+  "scripts": {
+    "lint": "eslint '**/*.{ts,tsx}' --ignore-pattern 'dist/*' --max-warnings=0"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.4.12",
+    "@tailor-platform/dev-config": "workspace:*",
+    "@types/react": "^18.2.42",
+    "@types/react-dom": "^18.2.17",
+    "eslint": "^9.4.0",
+    "react": "^18.2.0",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3"
+  },
+  "prettier": "@tailor-platform/dev-config/prettier"
+}

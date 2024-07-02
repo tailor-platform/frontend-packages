@@ -491,6 +491,33 @@ importers:
         specifier: ^7.13.0
         version: 7.13.0(eslint@9.4.0)(typescript@5.3.3)
 
+  packages/frontend-kit:
+    devDependencies:
+      '@swc/core':
+        specifier: ^1.4.12
+        version: 1.4.12(@swc/helpers@0.5.6)
+      '@tailor-platform/dev-config':
+        specifier: workspace:*
+        version: link:../dev-config
+      '@types/react':
+        specifier: ^18.2.42
+        version: 18.2.47
+      '@types/react-dom':
+        specifier: ^18.2.17
+        version: 18.2.17
+      eslint:
+        specifier: ^9.4.0
+        version: 9.4.0
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      tsup:
+        specifier: ^8.0.1
+        version: 8.0.1(@swc/core@1.4.12(@swc/helpers@0.5.6))(postcss@8.4.35)(ts-node@10.9.2(@swc/core@1.4.12(@swc/helpers@0.5.6))(@types/node@20.14.8)(typescript@5.3.3))(typescript@5.3.3)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.3.3
+
   packages/utils:
     dependencies:
       date-fns:
@@ -2189,10 +2216,6 @@ packages:
 
   '@jridgewell/resolve-uri@3.1.1':
     resolution: {integrity: sha512-dSYZh7HhCDtCKm4QakX0xFpsRDqjjtZf/kjI/v3T3Nwt5r8/qz/M19F9ySyOqU94SXBmeG9ttTul+YnR4LOxFA==}
-    engines: {node: '>=6.0.0'}
-
-  '@jridgewell/set-array@1.1.2':
-    resolution: {integrity: sha512-xnkseuNADM0gt2bs+BvhO0p78Mk762YnZdsuzFV018NoG1Sj1SCQvpSqa7XUaTam5vAGasABV9qXASMKnFMwMw==}
     engines: {node: '>=6.0.0'}
 
   '@jridgewell/set-array@1.2.1':
@@ -11236,9 +11259,9 @@ snapshots:
 
   '@jridgewell/gen-mapping@0.3.3':
     dependencies:
-      '@jridgewell/set-array': 1.1.2
+      '@jridgewell/set-array': 1.2.1
       '@jridgewell/sourcemap-codec': 1.4.15
-      '@jridgewell/trace-mapping': 0.3.20
+      '@jridgewell/trace-mapping': 0.3.25
 
   '@jridgewell/gen-mapping@0.3.5':
     dependencies:
@@ -11247,8 +11270,6 @@ snapshots:
       '@jridgewell/trace-mapping': 0.3.25
 
   '@jridgewell/resolve-uri@3.1.1': {}
-
-  '@jridgewell/set-array@1.1.2': {}
 
   '@jridgewell/set-array@1.2.1': {}
 
@@ -16649,7 +16670,7 @@ snapshots:
       array-union: 2.1.0
       dir-glob: 3.0.1
       fast-glob: 3.3.2
-      ignore: 5.3.0
+      ignore: 5.3.1
       merge2: 1.4.1
       slash: 3.0.0
 
@@ -19830,7 +19851,7 @@ snapshots:
 
   sucrase@3.35.0:
     dependencies:
-      '@jridgewell/gen-mapping': 0.3.3
+      '@jridgewell/gen-mapping': 0.3.5
       commander: 4.1.1
       glob: 10.3.10
       lines-and-columns: 1.2.4
